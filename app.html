@@ -1,0 +1,1514 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerlach – Pripravenosť na krízové situácie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-bg: #f5f3ee;
+      --c-surface: #ffffff;
+      --c-border: #e2ddd5;
+      --c-text: #1a1714;
+      --c-muted: #6b6560;
+      --c-accent: #d4501a;
+      --c-accent-light: #fdf0eb;
+      --c-green: #2a7a4b;
+      --c-green-light: #eaf4ee;
+      --c-amber: #b45309;
+      --c-amber-light: #fef3c7;
+    }
+    * { box-sizing: border-box; }
+    body { font-family: 'Lexend', sans-serif; background: var(--c-bg); color: var(--c-text); font-size: 110%; }
+    h1, h2, h3, .font-display { font-family: 'Lexend', sans-serif; }
+
+    .login-screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--c-bg);
+      padding: 2rem;
+    }
+    .login-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: 1.5rem;
+      padding: 3rem 2.5rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .logo-mark {
+      width: 64px; height: 64px;
+      background: var(--c-accent);
+      border-radius: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.75rem;
+    }
+    .btn-google {
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      width: 100%;
+      padding: 0.875rem 1.5rem;
+      border: 1.5px solid var(--c-border);
+      border-radius: 0.875rem;
+      background: var(--c-surface);
+      color: var(--c-text);
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-google:hover { background: var(--c-bg); border-color: #c5c0b8; }
+    .btn-google svg { flex-shrink: 0; }
+
+    .app-header {
+      background: var(--c-surface);
+      border-bottom: 1px solid var(--c-border);
+      position: sticky; top: 0; z-index: 50;
+    }
+    .app-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      height: 60px;
+    }
+    .app-header-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .app-logo-sm {
+      width: 32px; height: 32px;
+      background: var(--c-accent);
+      border-radius: 0.5rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: white;
+    }
+
+    .card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    .progress-bar { height: 8px; border-radius: 999px; background: #ede9e3; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 999px; transition: width 0.5s ease; }
+
+    .cat-card {
+      background: var(--c-surface);
+      border: 2px solid var(--c-border);
+      border-radius: 1.25rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .cat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.11);
+    }
+    .cat-card.selected {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+      border-width: 3px;
+    }
+
+    .item-row {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: 0.875rem;
+      padding: 0.875rem 1rem;
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      transition: background 0.1s;
+    }
+    .item-row:hover { background: #faf9f7; }
+
+    .badge {
+      display: inline-flex; align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem; font-weight: 600;
+      border: 1px solid;
+    }
+    .badge-red { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+    .badge-amber { background: var(--c-amber-light); color: var(--c-amber); border-color: #fcd34d; }
+    .badge-gray { background: #f9fafb; color: #6b7280; border-color: #e5e7eb; }
+    .badge-green { background: var(--c-green-light); color: var(--c-green); border-color: #86efac; }
+
+    .btn-primary {
+      background: var(--c-text); color: white;
+      border: none; border-radius: 0.75rem;
+      padding: 0.625rem 1.125rem;
+      font-size: 0.875rem; font-weight: 500;
+      cursor: pointer; transition: background 0.15s;
+      font-family: 'Lexend', sans-serif;
+    }
+    .btn-primary:hover { background: #333; }
+    .btn-danger {
+      background: #fee2e2; color: #991b1b;
+      border: 1px solid #fecaca;
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8rem; font-weight: 500;
+      cursor: pointer; transition: background 0.15s;
+      font-family: 'Lexend', sans-serif;
+    }
+    .btn-danger:hover { background: #fecaca; }
+    .btn-ghost {
+      background: transparent; color: var(--c-muted);
+      border: 1px solid var(--c-border);
+      border-radius: 0.75rem;
+      padding: 0.5rem 0.875rem;
+      font-size: 0.8rem;
+      cursor: pointer; transition: all 0.15s;
+      font-family: 'Lexend', sans-serif;
+    }
+    .btn-ghost:hover { background: var(--c-bg); color: var(--c-text); }
+
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem; z-index: 100;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      width: 100%; max-width: 560px;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    input[type="text"], input[type="number"], input[type="date"], input[type="url"], select, textarea {
+      width: 100%;
+      background: white;
+      border: 1.5px solid var(--c-border);
+      border-radius: 0.75rem;
+      padding: 0.625rem 0.875rem;
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.9rem;
+      color: var(--c-text);
+      transition: border-color 0.15s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--c-accent); }
+
+    .limit-banner {
+      background: linear-gradient(135deg, #1a1714 0%, #2d2926 100%);
+      color: white;
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 700; font-size: 0.875rem;
+      overflow: hidden;
+    }
+    .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .sync-indicator {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-size: 0.75rem; color: var(--c-muted);
+    }
+    .sync-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #d1d5db;
+    }
+    .sync-dot.synced { background: var(--c-green); }
+    .sync-dot.syncing { background: #f59e0b; animation: pulse 1s infinite; }
+
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .water-card {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1.5px solid #bfdbfe;
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+
+    @media (max-width: 640px) {
+      .modal-box { border-radius: 1rem; }
+    }
+
+    /* ═══════════════════════════════════════════
+       MOBILNÁ RESPONZIVITA
+    ═══════════════════════════════════════════ */
+
+    /* Základné mobile úpravy */
+    @media (max-width: 640px) {
+
+      /* Header */
+      .app-header-inner {
+        padding: 0 1rem !important;
+        height: 52px !important;
+      }
+      .app-header-logo span {
+        font-size: 0.9375rem !important;
+      }
+
+      /* Hlavný obsah */
+      .app-main-padding {
+        padding: 1rem 0.75rem !important;
+      }
+
+      /* Profile + Overall - stack na mobile */
+      .top-row-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Kategórie - 2 stĺpce na mobile */
+      .categories-grid {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 0.5rem !important;
+      }
+
+      /* Plány - 1 stĺpec */
+      .plans-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Profil karta - 2x2 grid */
+      .profile-stats-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      /* Buttons v header detail */
+      .detail-header-row {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      /* Item riadky - tlačidlá menšie */
+      .item-row {
+        padding: 0.75rem 0.75rem !important;
+      }
+
+      /* Modal - full screen na mobile */
+      .modal-box {
+        border-radius: 1.25rem 1.25rem 0 0 !important;
+        max-height: 92vh !important;
+        margin-top: auto !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .modal-overlay {
+        align-items: flex-end !important;
+        padding: 0 !important;
+      }
+
+      /* Profil modal - 3 stĺpce -> 1 stĺpec */
+      .profile-3col {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Osoby - 2x2 na mobile */
+      .persons-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+
+      /* Dni sebestačnosti - stack */
+      .prepdays-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 0.625rem !important;
+      }
+      .prepdays-row input {
+        width: 100% !important;
+      }
+
+      /* Water card grid */
+      .water-info-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Cat card - menší padding */
+      .cat-card {
+        padding: 0.75rem !important;
+      }
+
+      /* Sync indicator - skryť text na mobile */
+      .sync-label-text {
+        display: none;
+      }
+
+      /* Celková pripravenosť - skryť kartu, zobraziť v headeri */
+      .overall-card-desktop {
+        display: none !important;
+      }
+      .top-row-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .mobile-overall-bar {
+        display: flex !important;
+      }
+
+      /* Header na mobile */
+      .app-header-inner {
+        padding: 0 1rem !important;
+        height: 52px !important;
+      }
+    }
+
+
+    @media (max-width: 640px) {
+      /* Item row tlačidlá - len ikony na mobile */
+      .item-btn-edit { font-size: 0.75rem !important; padding: 0.375rem 0.5rem !important; }
+      .item-btn-del { padding: 0.375rem 0.5rem !important; }
+
+      /* Profil karta - full width water box */
+      .profile-water-full { grid-column: 1 / -1 !important; }
+
+      /* Výstraha sekcia */
+      .alerts-header { flex-wrap: wrap; gap: 0.5rem; }
+
+      /* Nadpis Kategórie */
+      .cats-heading { font-size: 1.1rem !important; }
+
+      /* Overall % číslo menšie */
+      #overallPct { font-size: 1.6rem !important; }
+
+      /* Plán karty - zmenšiť padding */
+      .plan-card { padding: 0.875rem !important; }
+
+      /* Adjust app header for very small screens */
+      #btnLogout { display: none; }
+      .user-avatar { cursor: pointer; position: relative; }
+      .user-menu-mobile { display: block !important; }
+    }
+    /* Stredné obrazovky - tablet */
+    @media (min-width: 641px) and (max-width: 900px) {
+      .top-row-grid {
+        grid-template-columns: 1fr 1fr !important;
+      }
+      .categories-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+      .profile-3col {
+        grid-template-columns: 1fr 1fr !important;
+      }
+    }
+    
+    #userMenu.open { display: block !important; }
+    /* Zavrieť menu pri kliknutí mimo */
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="logo-mark" style="background:var(--c-accent);">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Slovenský dvojkríž -->
+        <rect x="16" y="4" width="4" height="28" rx="2" fill="white"/>
+        <rect x="8" y="12" width="20" height="4" rx="2" fill="white"/>
+        <rect x="10" y="20" width="16" height="4" rx="2" fill="white"/>
+      </svg>
+    </div>
+    <h1 style="font-size:1.75rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:-0.02em;">Gerlach</h1>
+    <p style="color:var(--c-muted); font-size:0.9rem; margin-bottom:2rem; line-height:1.6;">
+      Slovenský online sprievodca pripravenosťou<br>na krízové situácie.
+    </p>
+    <button class="btn-google" id="btnGoogleLogin">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Prihlásiť sa cez Google
+    </button>
+    <div id="loginError" style="margin-top:1rem; color:#991b1b; font-size:0.85rem; display:none;"></div>
+    <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
+      Prihlásením súhlasíš s ukladaním tvojich dát v zabezpečenej databáze.<br>
+      Každý používateľ vidí len svoje vlastné dáta.
+    </p>
+  </div>
+  <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted);">
+    Gerlach © 2025 – Zadarmo pre verejnosť
+  </p>
+</div>
+
+<!-- REGISTRATION CLOSED SCREEN -->
+<div id="closedScreen" style="display:none;" class="login-screen">
+  <div class="login-card">
+    <div class="logo-mark">🔒</div>
+    <h1 style="font-size:1.5rem; font-weight:800; margin-bottom:0.5rem;">Registrácia uzavretá</h1>
+    <p style="color:var(--c-muted); font-size:0.9rem; line-height:1.6;">
+      Momentálne sme dosiahli maximálny počet používateľov v beta verzii. Skús to znova neskôr.
+    </p>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="appScreen" style="display:none;">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-header-inner">
+    <div class="app-header-logo">
+      <div class="app-logo-sm">
+        <svg width="18" height="18" viewBox="0 0 36 36" fill="none">
+          <rect x="16" y="4" width="4" height="28" rx="1.5" fill="white"/>
+          <rect x="8" y="12" width="20" height="4" rx="1.5" fill="white"/>
+          <rect x="10" y="20" width="16" height="4" rx="1.5" fill="white"/>
+        </svg>
+      </div>
+      <span style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.01em;">Gerlach</span>
+    </div>
+    <div style="display:flex; align-items:center; gap:1rem;">
+      <span class="sync-indicator">
+        <span class="sync-dot" id="syncDot"></span>
+        <span id="syncLabel" class="sync-label-text">–</span>
+      </span>
+      <div style="display:flex; align-items:center; gap:0.5rem; position:relative;">
+        <div class="user-avatar" id="userAvatar" onclick="document.getElementById('userMenu').classList.toggle('open')" style="cursor:pointer;">?</div>
+        <button class="btn-ghost" id="btnLogout" style="padding:0.375rem 0.75rem;">Odhlásiť</button>
+        <!-- Mobile user menu -->
+        <div id="userMenu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:white; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.5rem; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:200;">
+          <div id="userMenuName" style="font-size:0.8rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
+          <button onclick="document.getElementById('userMenu').classList.remove('open'); document.getElementById('btnLogout').click();" style="width:100%; text-align:left; background:none; border:none; padding:0.5rem 0.75rem; font-size:0.875rem; cursor:pointer; border-radius:0.625rem; color:#dc2626; font-family:'Lexend',sans-serif; font-weight:500;">
+            🚪 Odhlásiť sa
+          </button>
+        </div>
+      </div>
+    </div>
+    </div><!-- end app-header-inner -->
+    <!-- Mobile celková pripravenosť - progress bar v headeri -->
+    <div class="mobile-overall-bar" style="display:none; padding:0 1rem 0.5rem; gap:0.625rem; align-items:center;">
+      <span style="font-size:0.72rem; color:var(--c-muted); white-space:nowrap; font-weight:500;">Pripravenosť</span>
+      <div class="progress-bar" style="flex:1; height:7px; margin:0;">
+        <div class="progress-fill" id="overallBarMobile" style="width:0%; transition:width 0.4s ease;"></div>
+      </div>
+      <span id="overallPctMobile" style="font-size:0.8rem; font-weight:700; white-space:nowrap;">0%</span>
+    </div>
+  </header>
+
+  <div class="app-main-padding" style="max-width:1100px; margin:0 auto; padding:1.5rem 1rem;">
+    <div style="display:grid; grid-template-columns:1fr; gap:1rem;">
+
+      <!-- Top row: Profile + Overall Score -->
+      <div class="top-row-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+
+        <!-- Profile Card -->
+        <div class="card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem;">
+            <h2 style="font-size:1.2rem; font-weight:700;">Profil domácnosti</h2>
+            <button class="btn-ghost" id="btnEditProfile" style="font-size:0.8rem;">Upraviť</button>
+          </div>
+          <div id="profileCard"></div>
+        </div>
+
+        <!-- Overall Score -->
+        <div class="card overall-card-desktop" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:0.25rem;">Celková pripravenosť</h2>
+            <p style="font-size:0.8rem; color:var(--c-muted);">Vážený priemer všetkých kategórií</p>
+          </div>
+          <div style="margin-top:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.5rem;">
+              <span id="overallRank" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem;">–</span>
+              <span id="overallPct" style="font-size:2rem; font-weight:800; font-family:'Lexend',sans-serif;">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="overallBar" style="width:0%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="card" id="alertsSection" style="display:none;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+          <h2 style="font-size:1rem; font-weight:700;">⚠️ Upozornenia</h2>
+          <select id="alertDays" style="width:auto; font-size:0.8rem; padding:0.3rem 0.6rem;">
+            <option value="7">7 dní</option>
+            <option value="14">14 dní</option>
+            <option value="30" selected>30 dní</option>
+            <option value="60">60 dní</option>
+          </select>
+        </div>
+        <div id="alertsBox"></div>
+      </div>
+
+      <!-- Categories Grid -->
+      <div>
+        <h2 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.275rem; margin-bottom:0.75rem;">Kategórie</h2>
+        <div id="categoriesGrid" class="categories-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.75rem;"></div>
+      </div>
+
+      <!-- Category Detail je teraz v modalnom okne -->
+
+      <!-- Plans -->
+      <div class="card">
+        <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:0.875rem;">📋 Núdzové plány</h2>
+        <div id="plansBox" class="plans-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.75rem;"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Profile -->
+<div class="modal-overlay" id="modalProfile">
+  <div class="modal-box" style="max-width:640px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+      <div>
+        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Charakteristika vašej domácnosti</h3>
+        <p style="font-size:0.8rem; color:var(--c-muted); margin:0.25rem 0 0;">Podľa týchto údajov vypočítame čo a koľko potrebujete.</p>
+      </div>
+      <button data-close="modalProfile" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
+    </div>
+
+    <form id="profileForm" style="display:grid; gap:1rem;">
+
+      <!-- Počet osôb -->
+      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+        <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">👨‍👩‍👧‍👦 Počet osôb v domácnosti <span style="font-size:0.68rem; font-weight:400; color:var(--c-muted);">(ovplyvňuje niektoré špecifické odporúčania)</span></div>
+        <div class="persons-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.625rem;">
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dospelí (13–64)</label>
+            <input name="adults" type="number" min="0" value="0"
+              onfocus="if(this.value==='0')this.value=''"
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Deti (1–12)</label>
+            <input name="kids" type="number" min="0" value="0"
+              onfocus="if(this.value==='0')this.value=''"
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dojčatá (0–1)</label>
+            <input name="infants" type="number" min="0" value="0"
+              onfocus="if(this.value==='0')this.value=''"
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Seniori (65+)</label>
+            <input name="seniors" type="number" min="0" value="0"
+              onfocus="if(this.value==='0')this.value=''"
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Počet dní sebestačnosti -->
+      <div class="prepdays-row" style="background:var(--c-bg); border-radius:1rem; padding:1rem; display:flex; align-items:center; gap:1rem;">
+        <div style="flex:1;">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">📅 Počet dní sebestačnosti</div>
+          <div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.2rem;">Minimum 3 dni. Pre väčší pocit istoty odporúčame 7 dní.</div>
+        </div>
+        <input name="prepDays" type="number" min="1" max="30" value="3"
+          onfocus="if(this.value==='3' && !this._touched)this.value=''"
+          onblur="if(this.value===''){this.value='3'} this._touched=true;"
+          style="width:80px; text-align:center; font-weight:600; font-size:0.9rem; flex-shrink:0;" />
+      </div>
+
+      <!-- Úroveň + Nákladovosť + Bývanie -->
+      <div class="profile-3col" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; align-items:start;">
+
+        <!-- Úroveň pripravenosti -->
+        <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🛡️ Úroveň zásob</div>
+          <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Určuje výsledný komfort v čase krízy.</div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="readiness" value="standard" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Odporúčaná</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Podľa príručiek</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="readiness" value="enhanced" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Zvýšená</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">+30% viac zásob</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Nákladovosť -->
+        <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">💰 Nákladovosť</div>
+          <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="budget" value="basic" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Úsporná</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Funkčné minimum</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="budget" value="mid" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Stredná</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Kvalita za rozumnú cenu</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="budget" value="premium" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Prémiová</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Bez kompromisov</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Typ bývania -->
+        <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🏠 Typ bývania</div>
+          <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Ovplyvňuje niektoré odporúčania.</div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="housing" value="flat" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Byt</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Panelák / bytovka</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="housing" value="rd" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Rodinný dom</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">Bez pivnice / garáže</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
+              <input type="radio" name="housing" value="rd_cellar" style="accent-color:var(--c-accent); flex-shrink:0;" />
+              <div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">RD + pivnica</div>
+                <div style="font-size:0.7rem; color:var(--c-muted);">S pivnicou / garážou</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; padding-top:0.25rem;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2.5rem; font-size:0.9375rem;">Uložiť profil</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Kategória Detail -->
+<div class="modal-overlay" id="modalCategory">
+  <div class="modal-box" style="max-width:680px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <div id="modalCatHeader" style="flex:1; min-width:0;"></div>
+      <button data-close="modalCategory" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+    </div>
+    <div id="categoryDetail" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+    <div style="display:flex; align-items:center; justify-content:space-between; padding-top:1rem; margin-top:0.5rem; border-top:1px solid var(--c-border);">
+      <span id="modalCatProgress" style="font-size:0.8rem; color:var(--c-muted);"></span>
+      <button class="btn-primary" id="btnAddItem" style="display:flex; align-items:center; gap:0.5rem;">
+        <span style="font-size:1.1rem; line-height:1;">+</span> Pridať položku
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Add Item -->
+<div class="modal-overlay" id="modalAddItem">
+  <div class="modal-box">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Pridať položku</h3>
+      <button data-close="modalAddItem" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
+    </div>
+    <form id="addItemForm" style="display:grid; gap:0.75rem;">
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <input name="name" type="text" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Množstvo</label>
+          <input name="qty" type="text" placeholder="napr. 5 ks" />
+        </div>
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
+          <input name="expiry" type="date" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Odkaz (URL)</label>
+        <input name="link" type="url" placeholder="https://..." />
+      </div>
+      <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Pridať</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, runTransaction }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  // ── Firebase config ──────────────────────────────────────────────
+  const firebaseConfig = {
+    apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
+    authDomain: "bez-paniky.firebaseapp.com",
+    projectId: "bez-paniky",
+    storageBucket: "bez-paniky.firebasestorage.app",
+    messagingSenderId: "539726693021",
+    appId: "1:539726693021:web:123de9d93568a285e54a74"
+  };
+
+  const MAX_USERS = 500; // Limit registrácií
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // ── App state ────────────────────────────────────────────────────
+  const CATEGORIES = [
+    { id: "food_water", name: "Jedlo a voda", emoji: "🥫", weight: 1.2 },
+    { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.8 },
+    { id: "medkit", name: "Lekárnička", emoji: "🩺", weight: 1.1 },
+    { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
+    { id: "gear", name: "Vybavenie", emoji: "🔦", weight: 1.0 },
+    { id: "docs", name: "Doklady", emoji: "📄", weight: 0.9 },
+    { id: "plans", name: "Núdzový plán", emoji: "📋", weight: 1.2 },
+  ];
+
+  const DEFAULT_ITEMS = {
+    food_water: [
+      { name: "Pitná voda", done: false, qty: "", expiry: "", link: "", isWaterItem: true, waterBottles: 0 },
+      { name: "Trvanlivé jedlo (min. 3 dni)", done: false, qty: "", expiry: "", link: "" },
+      { name: "Otvárač / varič / palivo", done: false, qty: "", expiry: "", link: "" },
+    ],
+    cash: [
+      { name: "Hotovosť na 3–7 dní", done: false, qty: "", expiry: "", link: "" },
+      { name: "Drobné mince", done: false, qty: "", expiry: "", link: "" },
+    ],
+    medkit: [
+      { name: "Lieky proti bolesti (Paralen, Ibuprofen)", done: false, qty: "", expiry: "", link: "" },
+      { name: "Obväzy, dezinfekcia, rukavice", done: false, qty: "", expiry: "", link: "" },
+      { name: "Lieky na predpis – záložná zásoba", done: false, qty: "", expiry: "", link: "" },
+    ],
+    hygiene: [
+      { name: "Toaletný papier / vlhčené utierky", done: false, qty: "", expiry: "", link: "" },
+      { name: "Mydlo / dezinfekcia rúk", done: false, qty: "", expiry: "", link: "" },
+    ],
+    gear: [
+      { name: "Baterka + záložné batérie", done: false, qty: "", expiry: "", link: "" },
+      { name: "Powerbanka (min. 10 000 mAh)", done: false, qty: "", expiry: "", link: "" },
+      { name: "Rádio na batérie", done: false, qty: "", expiry: "", link: "" },
+    ],
+    docs: [
+      { name: "Kópie dokladov (papier / USB)", done: false, qty: "", expiry: "", link: "" },
+      { name: "Zoznam kontaktov (offline)", done: false, qty: "", expiry: "", link: "" },
+    ],
+    plans: [
+      { name: "Miesto stretnutia – Plán A", done: false, qty: "", expiry: "", link: "" },
+      { name: "Záložné miesto – Plán B", done: false, qty: "", expiry: "", link: "" },
+      { name: "Evakuačná trasa – Plán C", done: false, qty: "", expiry: "", link: "" },
+    ],
+  };
+
+  // Funkcia na vytvorenie čistého state - vždy volať pri novom prihlásení
+  function freshState() {
+    return {
+      profile: null,
+      selectedCategoryId: "food_water",
+      alertDays: 30,
+      items: structuredClone(DEFAULT_ITEMS),
+      plans: {
+        A: { message: "Sme v poriadku. Ideme na miesto A: _____.", phones: "" },
+        B: { message: "Presúvame sa na miesto B: _____.", phones: "" },
+        C: { message: "Evakuácia. Ideme na miesto C: _____.", phones: "" },
+      }
+    };
+  }
+
+  let state = freshState();
+
+  let currentUser = null;
+  let saveTimeout = null;
+  let syncStatus = "idle"; // idle | syncing | synced
+
+  // ── Firestore helpers ────────────────────────────────────────────
+  function userDocRef(uid) { return doc(db, "users", uid, "data", "main"); }
+  function metaRef() { return doc(db, "meta", "stats"); }
+
+  async function loadUserData(uid) {
+    setSyncStatus("syncing");
+    try {
+      const snap = await getDoc(userDocRef(uid));
+      if (snap.exists()) {
+        const data = snap.data();
+        state = {
+          ...state,
+          ...data,
+          items: { ...structuredClone(DEFAULT_ITEMS), ...(data.items || {}) },
+          plans: { ...state.plans, ...(data.plans || {}) }
+        };
+        // Migrate: ensure link field
+        for (const cid of Object.keys(state.items)) {
+          state.items[cid] = state.items[cid].map(it => ({ link: "", waterBottles: 0, isWaterItem: false, ...it }));
+        }
+      }
+      setSyncStatus("synced");
+    } catch(e) {
+      console.error("Load error", e);
+      setSyncStatus("idle");
+    }
+  }
+
+  async function saveUserData() {
+    if (!currentUser) return;
+    setSyncStatus("syncing");
+    try {
+      await setDoc(userDocRef(currentUser.uid), state);
+      setSyncStatus("synced");
+    } catch(e) {
+      console.error("Save error", e);
+      setSyncStatus("idle");
+    }
+  }
+
+  function scheduleSave() {
+    clearTimeout(saveTimeout);
+    saveTimeout = setTimeout(saveUserData, 1200);
+  }
+
+  function setSyncStatus(s) {
+    syncStatus = s;
+    const dot = document.getElementById("syncDot");
+    const lbl = document.getElementById("syncLabel");
+    if (!dot || !lbl) return;
+    dot.className = "sync-dot" + (s === "synced" ? " synced" : s === "syncing" ? " syncing" : "");
+    lbl.textContent = s === "synced" ? "Uložené" : s === "syncing" ? "Ukladám…" : "";
+  }
+
+  // ── Registration limit ───────────────────────────────────────────
+  async function registerNewUser(uid) {
+    try {
+      const result = await runTransaction(db, async (tx) => {
+        const meta = await tx.get(metaRef());
+        const count = meta.exists() ? (meta.data().registeredUsers || 0) : 0;
+        if (count >= MAX_USERS) throw new Error("LIMIT_REACHED");
+        tx.set(metaRef(), { registeredUsers: count + 1 }, { merge: true });
+        tx.set(userDocRef(uid), freshState());
+        return true;
+      });
+      return result;
+    } catch(e) {
+      if (e.message === "LIMIT_REACHED") return false;
+      throw e;
+    }
+  }
+
+  // ── Auth ─────────────────────────────────────────────────────────
+  document.getElementById("btnGoogleLogin").onclick = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+    } catch(e) {
+      const err = document.getElementById("loginError");
+      err.style.display = "block";
+      err.textContent = "Prihlásenie zlyhalo. Skús znova.";
+    }
+  };
+
+  document.getElementById("btnLogout").onclick = () => signOut(auth);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      currentUser = null;
+      // Reset state pri odhlásení - žiadne dáta nezostanú v pamäti
+      state = freshState();
+      showScreen("login");
+      return;
+    }
+    currentUser = user;
+    // Vždy začneme s čistým state pred načítaním dát z Firestore
+    state = freshState();
+    // Check if user already has data
+    const snap = await getDoc(userDocRef(user.uid));
+    if (!snap.exists()) {
+      // New user – check limit
+      const ok = await registerNewUser(user.uid);
+      if (!ok) {
+        showScreen("closed");
+        await signOut(auth);
+        return;
+      }
+    } else {
+      await loadUserData(user.uid);
+    }
+
+    // Update avatar
+    const av = document.getElementById("userAvatar");
+    if (user.photoURL) {
+      av.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+    } else {
+      av.textContent = (user.displayName || user.email || "U")[0].toUpperCase();
+    }
+
+    showScreen("app");
+    renderAll();
+    if (!state.profile) openModal("modalProfile");
+  });
+
+  function showScreen(name) {
+    document.getElementById("loginScreen").style.display = name === "login" ? "flex" : "none";
+    document.getElementById("closedScreen").style.display = name === "closed" ? "flex" : "none";
+    document.getElementById("appScreen").style.display = name === "app" ? "block" : "none";
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────
+  function esc(s) {
+    return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function daysUntil(d) {
+    const ms = new Date(d + "T00:00:00") - new Date();
+    return Math.ceil(ms / 86400000);
+  }
+
+  function colorForPct(p) {
+    // Plynulý prechod: 0% = červená (hsl 0), 100% = zelená (hsl 120)
+    const h = Math.round((Math.min(100, Math.max(0, p)) / 100) * 120);
+    const s = 75;
+    const l = p < 15 ? 42 : p > 85 ? 36 : 38;
+    return `hsl(${h} ${s}% ${l}%)`;
+  }
+
+  function rankForPct(p) {
+    if (p < 25) return "Otrhanec";
+    if (p < 50) return "Učeň";
+    if (p < 75) return "Strážca";
+    if (p < 100) return "Bojovník";
+    return "Rytier";
+  }
+
+  function emojiForPct(p) {
+    if (p < 25) return "😟";
+    if (p < 50) return "😐";
+    if (p < 75) return "🙂";
+    if (p < 100) return "😄";
+    return "🛡️";
+  }
+
+  function calcWaterCompletion(item) {
+    if (!item.isWaterItem || !state.profile) return item.done ? 100 : 0;
+    const p = state.profile;
+    const d = p.prepDays || 3;
+    const coeff = p.readinessCoeff || 1.0;
+    const total = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d * coeff;
+    if (!total) return 0;
+    return Math.min(100, ((item.waterBottles||0)*1.5 / total) * 100);
+  }
+
+  function categoryScore(catId) {
+    const items = state.items[catId] || [];
+    if (!items.length) return 0;
+    return items.reduce((sum, it) => sum + (it.isWaterItem ? calcWaterCompletion(it) : it.done ? 100 : 0), 0) / items.length;
+  }
+
+  function overallScore() {
+    const { sum, w } = CATEGORIES.reduce((acc, c) => ({
+      sum: acc.sum + categoryScore(c.id) * c.weight,
+      w: acc.w + c.weight
+    }), { sum: 0, w: 0 });
+    return w ? sum / w : 0;
+  }
+
+  function isValidUrl(u) {
+    try { const url = new URL(u); return url.protocol === "https:" || url.protocol === "http:"; } catch { return false; }
+  }
+
+  // ── Modal helpers ────────────────────────────────────────────────
+  function openModal(id) { document.getElementById(id).classList.add("open"); }
+  function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+  document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => closeModal(b.dataset.close));
+
+  // ── Render ───────────────────────────────────────────────────────
+  function renderProfileCard() {
+    const box = document.getElementById("profileCard");
+    if (!state.profile) {
+      box.innerHTML = `<p style="color:var(--c-muted); font-size:0.875rem;">Profil ešte nie je nastavený.</p>
+        <button class="btn-primary" style="margin-top:0.75rem;" onclick="document.getElementById('btnEditProfile').click()">Nastaviť</button>`;
+      return;
+    }
+    const p = state.profile;
+    const d = p.prepDays || 3;
+    const coeff = p.readinessCoeff || 1.0;
+    const totalWater = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d * coeff;
+    const housingMap = { flat: "Byt", rd: "Rodinný dom", rd_cellar: "RD + pivnica" };
+    const readinessMap = { standard: "Odporúčaná", enhanced: "Zvýšená (+30%)" };
+    const budgetMap = { basic: "Úsporná", mid: "Stredná", premium: "Prémiová" };
+    const budgetColor = { basic: "#6b7280", mid: "#b45309", premium: "#7c3aed" };
+    box.innerHTML = `
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.8rem;">
+        <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem;">
+          <div style="color:var(--c-muted); font-size:0.7rem;">Osoby celkom</div>
+          <div style="font-weight:600;">${(p.adults||0)+(p.kids||0)+(p.infants||0)+(p.seniors||0)}</div>
+        </div>
+        <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem;">
+          <div style="color:var(--c-muted); font-size:0.7rem;">Príprava na</div>
+          <div style="font-weight:600;">${d} dní</div>
+        </div>
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.625rem; padding:0.5rem 0.625rem; grid-column:1/-1;">
+          <div style="color:#1e40af; font-size:0.7rem;">💧 Potreba vody${coeff > 1 ? ' (zvýšená)' : ''}</div>
+          <div style="font-weight:700; color:#1e3a8a;">${totalWater.toFixed(1)} L</div>
+        </div>
+        <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem;">
+          <div style="color:var(--c-muted); font-size:0.7rem;">🏠 Bývanie</div>
+          <div style="font-weight:600;">${housingMap[p.housing]||"–"}</div>
+        </div>
+        <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem;">
+          <div style="color:var(--c-muted); font-size:0.7rem;">🛡️ Úroveň</div>
+          <div style="font-weight:600;">${readinessMap[p.readiness]||"–"}</div>
+        </div>
+        <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem; grid-column:1/-1;">
+          <div style="color:var(--c-muted); font-size:0.7rem;">💰 Nákladovosť</div>
+          <div style="font-weight:600; color:${budgetColor[p.budget]||"#6b7280"};">${budgetMap[p.budget]||"–"}</div>
+        </div>
+      </div>`;
+  }
+
+  function renderOverall() {
+    const pct = overallScore();
+    const col = colorForPct(pct);
+    // Desktop
+    document.getElementById("overallPct").textContent = Math.round(pct) + "%";
+    document.getElementById("overallPct").style.color = col;
+    document.getElementById("overallRank").textContent = emojiForPct(pct) + " " + rankForPct(pct);
+    const bar = document.getElementById("overallBar");
+    bar.style.width = Math.min(100, pct) + "%";
+    bar.style.background = col;
+    // Mobile header bar
+    const mobBar = document.getElementById("overallBarMobile");
+    const mobPct = document.getElementById("overallPctMobile");
+    if (mobBar) { mobBar.style.width = Math.min(100, pct) + "%"; mobBar.style.background = col; }
+    if (mobPct) { mobPct.textContent = Math.round(pct) + "%"; mobPct.style.color = col; }
+  }
+
+  function renderCategories() {
+    const grid = document.getElementById("categoriesGrid");
+    grid.innerHTML = "";
+    for (const c of CATEGORIES) {
+      const pct = categoryScore(c.id);
+      const isSel = state.selectedCategoryId === c.id;
+      const col = colorForPct(pct);
+      // Dynamická farba karty podľa % - jemný tint pozadia a border
+      const hue = Math.round((Math.min(100, Math.max(0, pct)) / 100) * 120);
+      const cardBg = pct === 0 ? "var(--c-surface)" : `hsl(${hue} 60% 97%)`;
+      const cardBorder = isSel
+        ? `hsl(${hue} 65% ${pct === 0 ? 55 : 48}%)`
+        : pct === 0 ? "var(--c-border)" : `hsl(${hue} 50% 82%)`;
+      const cardShadow = isSel
+        ? `0 10px 28px hsl(${hue} 60% 40% / 0.18)`
+        : "0 1px 3px rgba(0,0,0,0.04)";
+
+      const card = document.createElement("div");
+      card.className = "cat-card" + (isSel ? " selected" : "");
+      card.style.cssText = `background:${cardBg}; border-color:${cardBorder}; box-shadow:${cardShadow};`;
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+          <div style="font-size:1.375rem;">${c.emoji}</div>
+          <span style="font-size:1.125rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
+        </div>
+        <div style="font-weight:700; font-size:0.9375rem; margin-bottom:0.2rem; color:var(--c-text);">${c.name}</div>
+        <div style="font-size:0.72rem; color:${pct === 0 ? 'var(--c-muted)' : col}; margin-bottom:0.625rem; font-weight:500;">splnené na ${Math.round(pct)}%</div>
+        <div class="progress-bar" style="height:6px;">
+          <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${col};"></div>
+        </div>`;
+      card.onclick = () => {
+        state.selectedCategoryId = c.id;
+        scheduleSave();
+        renderCategories(); // aktualizuj selected stav kariet
+        openCategoryModal(c);
+      };
+      grid.appendChild(card);
+    }
+  }
+
+  // Otvoriť modálne okno kategórie
+  function openCategoryModal(cat) {
+    renderCategoryDetail();
+    openModal("modalCategory");
+  }
+
+  function renderCategoryDetail() {
+    const catId = state.selectedCategoryId;
+    const cat = CATEGORIES.find(c => c.id === catId);
+    const items = state.items[catId] || [];
+    const pct = categoryScore(catId);
+    const detail = document.getElementById("categoryDetail");
+    detail.innerHTML = "";
+
+    // Aktualizuj modal header
+    const modalHeader = document.getElementById("modalCatHeader");
+    if (modalHeader) {
+      modalHeader.innerHTML = `
+        <div style="display:flex; align-items:center; gap:0.875rem;">
+          <div style="font-size:1.5rem;">${cat.emoji}</div>
+          <div>
+            <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
+            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>!i.isWaterItem ? i.done : calcWaterCompletion(i)>=100).length} / ${items.length} hotovo</div>
+          </div>
+          <div style="margin-left:auto; text-align:right; padding-right:0.5rem; line-height:1.1;">
+            <div style="font-size:0.72rem; color:var(--c-muted);">splnené na</div>
+            <div style="font-size:1.625rem; font-weight:800; color:${colorForPct(pct)}; letter-spacing:-0.03em;">${Math.round(pct)}%</div>
+          </div>
+        </div>
+        <div style="margin-top:0.75rem;">
+          <div class="progress-bar" style="height:6px;">
+            <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${colorForPct(pct)};"></div>
+          </div>
+        </div>`;
+    }
+
+    // Progress v footer
+    const modalProgress = document.getElementById("modalCatProgress");
+    if (modalProgress) {
+      modalProgress.textContent = `${items.filter(i=>!i.isWaterItem ? i.done : calcWaterCompletion(i)>=100).length} z ${items.length} položiek splnených`;
+    }
+
+    const list = document.createElement("div");
+    list.style.cssText = "display:flex; flex-direction:column; gap:0.5rem;";
+
+    if (!items.length) {
+      list.innerHTML = `<p style="color:var(--c-muted); font-size:0.875rem;">Zatiaľ žiadne položky.</p>`;
+    } else {
+      items.forEach((it, idx) => {
+        if (it.isWaterItem && state.profile) {
+          const p = state.profile;
+          const d = p.prepDays || 3;
+          const total = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d;
+          const current = (it.waterBottles||0) * 1.5;
+          const wpct = calcWaterCompletion(it);
+          const wCol = colorForPct(wpct);
+
+          // Výpočet na koľko dní/hodín vydrží aktuálna zásoba
+          const dailyNeed = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * (p.readinessCoeff||1.0);
+          const totalHours = dailyNeed > 0 ? (current / dailyNeed) * 24 : 0;
+          const durDays = Math.floor(totalHours / 24);
+          const durHours = Math.round(totalHours % 24);
+
+          let durText = "";
+          if (current === 0) {
+            durText = "Žiadna zásoba";
+          } else if (totalHours < 24) {
+            const h = Math.round(totalHours);
+            durText = h <= 0 ? "Menej ako hodinu" : h === 1 ? "1 hodinu" : h < 5 ? h + " hodiny" : h + " hodín";
+          } else {
+            const dayWord = durDays === 1 ? "deň" : durDays < 5 ? "dni" : "dní";
+            const hourPart = durHours > 0 ? (" a " + durHours + (durHours === 1 ? " hodinu" : durHours < 5 ? " hodiny" : " hodín")) : "";
+            durText = durDays + " " + dayWord + hourPart;
+          }
+          // Farba podľa % naplnenia - rovnaká logika ako všade inde
+          const durPct = Math.min(100, (totalHours / ((p.prepDays||3) * 24)) * 100);
+          const durHue = Math.round((Math.min(100, Math.max(0, durPct)) / 100) * 120);
+          const durColor = `hsl(${durHue} 70% 34%)`;
+          const durBg = `hsl(${durHue} 70% 96%)`;
+          const durBorder = `hsl(${durHue} 60% 80%)`;
+
+          const row = document.createElement("div");
+          row.className = "water-card";
+          row.innerHTML = `
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; gap:0.75rem;">
+              <div style="font-weight:700; font-size:1rem;">💧 ${esc(it.name)}</div>
+              <span style="font-size:0.95rem; font-weight:700; color:${wCol}; flex-shrink:0;">${Math.round(wpct)}%</span>
+            </div>
+
+            <div class="water-info-grid" style="display:grid; grid-template-columns:1fr auto; gap:0.625rem; margin-bottom:0.875rem; align-items:stretch;">
+              <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.75rem;">
+                <div style="font-size:0.7rem; color:#3b82f6; font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Zásoby</div>
+                <div style="font-size:0.9rem; font-weight:700; color:#1e3a8a;">${litreSklon(current)}</div>
+                <div style="font-size:0.72rem; color:#3b82f6;">z potrebných ${litreSklon(total)} na ${d} ${d===1?"deň":d<5?"dni":"dní"}</div>
+              </div>
+              <div style="background:${durBg}; border:1px solid ${durBorder}; border-radius:0.625rem; padding:0.625rem 0.875rem; min-width:0; white-space:nowrap;">
+                <div style="font-size:0.68rem; color:${durColor}; font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Vydrží vám na</div>
+                <div style="font-size:0.95rem; font-weight:800; color:${durColor}; line-height:1.2;">${durText}</div>
+                <div style="font-size:0.68rem; color:${durColor}; opacity:0.75; margin-top:0.2rem;">pri spotrebe ${dailyNeed.toFixed(1)} l/deň</div>
+              </div>
+            </div>
+
+            <div class="progress-bar" style="margin-bottom:0.875rem; height:10px;">
+              <div class="progress-fill" style="width:${Math.min(100,wpct)}%; background:${colorForPct(wpct)};"></div>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <label style="font-size:0.8rem; color:#1e40af; white-space:nowrap; font-weight:500;">Fľaše 1,5 l:</label>
+              <input type="number" min="0" value="${it.waterBottles||0}" id="wb_${idx}" style="width:80px;" />
+              <span style="font-size:0.8rem; color:#3b82f6;">${litreSklon(current)} celkom</span>
+            </div>`;
+          list.appendChild(row);
+          setTimeout(() => {
+            const inp = document.getElementById(`wb_${idx}`);
+            if (inp) inp.onchange = () => {
+              state.items[catId][idx].waterBottles = Number(inp.value)||0;
+              scheduleSave(); renderAll();
+            };
+          }, 0);
+          return;
+        }
+
+        const exp = it.expiry ? daysUntil(it.expiry) : null;
+        const expBadge = it.expiry
+          ? (exp < 0 ? `<span class="badge badge-red">EXPIROVANÉ</span>`
+            : exp <= state.alertDays ? `<span class="badge badge-amber">za ${exp} dní</span>`
+            : `<span class="badge badge-gray">za ${exp} dní</span>`)
+          : "";
+        const linkBtn = (it.link && isValidUrl(it.link))
+          ? `<a href="${esc(it.link)}" target="_blank" rel="noopener" class="btn-ghost" style="padding:0.375rem 0.625rem; text-decoration:none;">🔗</a>`
+          : "";
+
+        const row = document.createElement("div");
+        row.className = "item-row";
+        row.innerHTML = `
+          <input type="checkbox" style="margin-top:2px; width:16px; height:16px; accent-color:var(--c-green); flex-shrink:0;" ${it.done?"checked":""} data-toggle="${catId}:${idx}" />
+          <div style="flex:1; min-width:0;">
+            <div style="font-weight:500; font-size:0.875rem; ${it.done?"text-decoration:line-through; color:var(--c-muted)":""}">${esc(it.name)} ${expBadge}</div>
+            <div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">${it.qty||"—"}${it.expiry ? " • " + it.expiry : ""}</div>
+          </div>
+          <div style="display:flex; gap:0.375rem; flex-shrink:0;">
+            ${linkBtn}
+            <button class="btn-ghost item-btn-edit" style="padding:0.375rem 0.625rem; font-size:0.75rem;" data-edit="${catId}:${idx}">Upraviť</button>
+            <button class="btn-danger item-btn-del" style="padding:0.375rem 0.625rem;" data-del="${catId}:${idx}">✕</button>
+          </div>`;
+        list.appendChild(row);
+      });
+    }
+
+    detail.appendChild(list);
+
+    // Bind item actions
+    detail.querySelectorAll("[data-toggle]").forEach(el => {
+      el.onchange = () => {
+        const [cid, i] = el.dataset.toggle.split(":");
+        state.items[cid][+i].done = el.checked;
+        scheduleSave(); renderAll();
+      };
+    });
+    detail.querySelectorAll("[data-del]").forEach(el => {
+      el.onclick = () => {
+        const [cid, i] = el.dataset.del.split(":");
+        if (confirm("Odstrániť položku?")) { state.items[cid].splice(+i, 1); scheduleSave(); renderAll(); }
+      };
+    });
+    detail.querySelectorAll("[data-edit]").forEach(el => {
+      el.onclick = () => {
+        const [cid, i] = el.dataset.edit.split(":");
+        const item = state.items[cid][+i];
+        const name = prompt("Názov", item.name); if (name === null) return;
+        const qty = prompt("Množstvo", item.qty||"") ?? item.qty;
+        const expiry = prompt("Expirácia (YYYY-MM-DD)", item.expiry||"") ?? item.expiry;
+        const link = prompt("Odkaz (URL)", item.link||"") ?? item.link;
+        item.name = name.trim() || item.name;
+        item.qty = (qty||"").trim();
+        item.expiry = (expiry||"").trim();
+        item.link = (link||"").trim();
+        scheduleSave(); renderAll();
+      };
+    });
+  }
+
+  function renderPlans() {
+    const box = document.getElementById("plansBox");
+    box.innerHTML = "";
+    ["A","B","C"].forEach(letter => {
+      const plan = state.plans[letter];
+      const card = document.createElement("div");
+      card.style.cssText = "background:var(--c-bg); border:1px solid var(--c-border); border-radius:1rem; padding:1rem;";
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.625rem;">
+          <div style="font-weight:700; font-family:'Lexend',sans-serif;">Plán ${letter}</div>
+          <button class="btn-ghost" style="font-size:0.75rem; padding:0.3rem 0.6rem;" data-editplan="${letter}">Upraviť</button>
+        </div>
+        <div style="font-size:0.8rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.5;">
+          <div><strong>Kontakty:</strong> ${esc(plan.phones||"—")}</div>
+          <div><strong>Správa:</strong> ${esc(plan.message)}</div>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <button class="btn-primary" style="font-size:0.8rem; padding:0.5rem 0.875rem; background:var(--c-green);" data-sms="${letter}">📱 SMS</button>
+          <button class="btn-ghost" style="font-size:0.8rem; padding:0.5rem 0.875rem;" data-copy="${letter}">Kopírovať</button>
+        </div>`;
+      box.appendChild(card);
+    });
+
+    box.querySelectorAll("[data-editplan]").forEach(el => {
+      el.onclick = () => {
+        const l = el.dataset.editplan;
+        const phones = prompt("Telefónne čísla (čiarkou)", state.plans[l].phones||""); if (phones===null) return;
+        const msg = prompt("Text správy", state.plans[l].message||""); if (msg===null) return;
+        state.plans[l] = { phones: phones.trim(), message: msg.trim() };
+        scheduleSave(); renderPlans();
+      };
+    });
+    box.querySelectorAll("[data-copy]").forEach(el => {
+      el.onclick = async () => {
+        await navigator.clipboard.writeText(state.plans[el.dataset.copy].message||"");
+        alert("Skopírované!");
+      };
+    });
+    box.querySelectorAll("[data-sms]").forEach(el => {
+      el.onclick = () => {
+        const p = state.plans[el.dataset.sms];
+        const phones = p.phones.split(",").map(s=>s.trim()).filter(Boolean);
+        if (!phones.length) { alert("Najprv doplň telefónne čísla."); return; }
+        window.location.href = `sms:${phones.join(",")}?&body=${encodeURIComponent(p.message||"")}`;
+      };
+    });
+  }
+
+  function renderAlerts() {
+    const alertDays = state.alertDays || 30;
+    const alerts = [];
+    for (const c of CATEGORIES) {
+      (state.items[c.id]||[]).forEach((it, idx) => {
+        if (!it.expiry) return;
+        const d = daysUntil(it.expiry);
+        if (d <= alertDays) alerts.push({ ...it, catName: c.name, catId: c.id, idx, days: d });
+      });
+    }
+    alerts.sort((a,b) => a.days - b.days);
+    const section = document.getElementById("alertsSection");
+    const box = document.getElementById("alertsBox");
+    if (!alerts.length) { section.style.display = "none"; return; }
+    section.style.display = "block";
+    box.innerHTML = alerts.slice(0,6).map(a => `
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
+        <div>
+          <div style="font-weight:500; font-size:0.875rem;">${esc(a.name)}</div>
+          <div style="font-size:0.75rem; color:var(--c-muted);">${esc(a.catName)} • ${esc(a.expiry)}</div>
+        </div>
+        <span class="badge ${a.days < 0 ? 'badge-red' : 'badge-amber'}">${a.days < 0 ? 'EXPIROVANÉ' : 'za ' + a.days + ' dní'}</span>
+      </div>`).join("");
+  }
+
+
+  // Zobrazenie litrov - vždy len číslo + "l"
+  function litreSklon(val) {
+    const n = parseFloat(val);
+    return n.toFixed(1) + " l";
+  }
+
+  function renderAll() {
+    renderProfileCard();
+    renderOverall();
+    renderCategories();
+    // Aktualizuj detail kategórie len ak je modal otvorený
+    if (document.getElementById("modalCategory").classList.contains("open")) {
+      renderCategoryDetail();
+    }
+    renderPlans();
+    renderAlerts();
+  }
+
+  // ── Forms ────────────────────────────────────────────────────────
+  document.getElementById("btnEditProfile").onclick = () => {
+    const f = document.getElementById("profileForm");
+    if (state.profile) {
+      const p = state.profile;
+      // Číselné polia
+      ["adults","kids","infants","seniors","prepDays"].forEach(k => {
+        if (f.elements[k]) f.elements[k].value = p[k] ?? (k === "prepDays" ? 3 : 0);
+      });
+      // Radio polia
+      ["readiness","budget","housing"].forEach(k => {
+        const val = p[k];
+        if (val) {
+          const radio = f.querySelector(`input[name="${k}"][value="${val}"]`);
+          if (radio) radio.checked = true;
+        }
+      });
+    } else {
+      // Defaultné hodnoty pre nový profil
+      const defReadiness = f.querySelector('input[name="readiness"][value="standard"]');
+      if (defReadiness) defReadiness.checked = true;
+      const defBudget = f.querySelector('input[name="budget"][value="mid"]');
+      if (defBudget) defBudget.checked = true;
+      const defHousing = f.querySelector('input[name="housing"][value="flat"]');
+      if (defHousing) defHousing.checked = true;
+    }
+    openModal("modalProfile");
+  };
+
+  document.getElementById("profileForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+
+    // Koeficient pre zvýšenú pripravenosť
+    const readiness = String(fd.get("readiness") || "standard");
+    const readinessCoeff = readiness === "enhanced" ? 1.3 : 1.0;
+
+    state.profile = {
+      adults:   +fd.get("adults")   || 0,
+      kids:     +fd.get("kids")     || 0,
+      infants:  +fd.get("infants")  || 0,
+      seniors:  +fd.get("seniors")  || 0,
+      prepDays: +fd.get("prepDays") || 3,
+      housing:  String(fd.get("housing")  || "flat"),
+      readiness,
+      readinessCoeff,
+      budget:   String(fd.get("budget")   || "mid"),
+    };
+    closeModal("modalProfile");
+    scheduleSave(); renderAll();
+  };
+
+  document.getElementById("btnAddItem").onclick = () => openModal("modalAddItem");
+
+  document.getElementById("addItemForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const name = String(fd.get("name")||"").trim();
+    if (!name) return;
+    const cid = state.selectedCategoryId;
+    state.items[cid] = state.items[cid] || [];
+    state.items[cid].push({ name, qty: String(fd.get("qty")||"").trim(), expiry: String(fd.get("expiry")||"").trim(), link: String(fd.get("link")||"").trim(), done: false });
+    closeModal("modalAddItem");
+    e.target.reset();
+    scheduleSave(); renderAll();
+  };
+
+  document.getElementById("alertDays").onchange = (e) => {
+    state.alertDays = +e.target.value;
+    scheduleSave(); renderAlerts();
+  };
+
+  // Click outside modal to close
+  document.querySelectorAll(".modal-overlay").forEach(overlay => {
+    overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove("open"); };
+  });
+
+  // Zavrieť user menu pri kliknutí mimo
+  document.addEventListener("click", (e) => {
+    const menu = document.getElementById("userMenu");
+    const avatar = document.getElementById("userAvatar");
+    if (menu && !menu.contains(e.target) && e.target !== avatar) {
+      menu.classList.remove("open");
+    }
+  });
+
+</script>
+</body>
+</html>
