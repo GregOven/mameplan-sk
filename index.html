@@ -75,7 +75,7 @@
     /* HERO */
     .hero-outer{max-width:1140px;margin:0 auto;padding:0 1.5rem}
     .hero{min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;gap:3.5rem;align-items:center;padding:7rem 0 4rem}
-    .hero-badge{display:none;}
+    .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--cream);border:1px solid var(--border);border-radius:99px;padding:0.35rem 0.875rem;font-size:0.78rem;font-weight:500;color:var(--muted);margin-bottom:1.625rem}
     .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
     h1.hero-title{font-family:'Fraunces',serif;font-size:clamp(2.5rem,4.5vw,3.75rem);font-weight:900;line-height:1.0;letter-spacing:-0.03em;margin-bottom:1.125rem}
     h1.hero-title em{font-style:italic;color:var(--accent)}
@@ -84,11 +84,11 @@
     .cta-group{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.625rem}
     .btn-main{background:var(--accent);color:#fff;padding:0.9rem 2rem;border-radius:99px;font-weight:700;font-size:1rem;font-family:'Lexend',sans-serif;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(201,79,26,0.28);display:inline-flex;align-items:center;gap:0.5rem}
     .btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,79,26,0.38)}
-    .btn-ghost{display:none}
-    
-    .trust-row{display:none}
-    .trust-item{display:none}
-    .trust-sep{display:none}
+    .btn-ghost{color:var(--ink2);font-size:0.9375rem;font-weight:400;display:inline-flex;align-items:center;gap:0.375rem;padding:0.5rem 0;border-bottom:1px solid transparent;transition:border-color 0.2s}
+    .btn-ghost:hover{border-color:var(--ink2)}
+    .trust-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:0.375rem;font-size:0.8rem;color:var(--muted)}
+    .trust-sep{width:3px;height:3px;border-radius:50%;background:var(--border)}
 
     /* MOCKUP */
     .phone-wrap{position:relative;display:flex;justify-content:center}
@@ -278,7 +278,15 @@
       <div class="trust-sep"></div>
       <div class="trust-item">🔐 Dáta len vaše</div>
     </div>
-  </div>
+
+    <!-- Mini beta counter v hero -->
+    <div style="margin-top:1.375rem; display:inline-flex; align-items:center; gap:0.75rem; background:var(--cream); border:1px solid var(--border); border-radius:0.75rem; padding:0.625rem 1rem;">
+      <div style="display:flex; flex-direction:column; gap:0.25rem;">
+        <div style="font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);">Testovacia prevádzka</div>
+        <div style="display:flex; align-items:center; gap:0.625rem;">
+          <div style="width:120px; height:5px; background:var(--border); border-radius:99px; overflow:hidden;">
+            <div class="beta-bar-fill" style="height:100%; width:0%; border-radius:99px; transition:width 0.6s ease;"></div>
+          </div>
           <span style="font-size:0.8rem; font-weight:700; color:var(--ink); font-family:'Fraunces',serif;"><span class="beta-count">–</span>/200</span>
         </div>
       </div>
@@ -402,6 +410,13 @@
   </div>
 </div>
 
+<!-- BETA COUNTER BAR -->
+<div style="background:#1a1612; color:white; padding:0.875rem 1.5rem;">
+  <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; justify-content:center;">
+    <div style="display:flex; align-items:center; gap:0.625rem;">
+      <span style="font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Testovacia prevádzka</span>
+      <span style="background:rgba(201,79,26,0.3); color:#e8803a; font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:99px; letter-spacing:0.06em; text-transform:uppercase;">Beta</span>
+    </div>
     <div style="display:flex; align-items:center; gap:0.875rem; flex:1; max-width:400px; min-width:200px;">
       <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
         <div class="beta-bar-fill" style="height:100%; width:0%; border-radius:99px; background:#2a6b44; transition:width 0.6s ease;"></div>
@@ -558,11 +573,11 @@
       <div class="stats-grid r d2">
         <div class="stat-card">
           <div class="stat-num f">72h</div>
-          <div class="stat-label">odporúčaný čas sebestačnosti domácnosti podľa Civilnej ochrany SR</div>
+          <div class="stat-label">minimálna zásoba odporúčaná Civilnou ochranou SR</div>
         </div>
         <div class="stat-card c-green">
           <div class="stat-num f">7 dní</div>
-          <div class="stat-label">odporúčaná zásoba pre väčší pocit istoty domácnosti</div>
+          <div class="stat-label">odporúčanie WHO pre domácnosti</div>
         </div>
         <div class="stat-card c-accent">
           <div class="stat-num f">0 €</div>
@@ -570,7 +585,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-num f">🇸🇰</div>
-          <div class="stat-label">Slovenský projekt</div>
+          <div class="stat-label">Slovenský projekt pre slovenské rodiny</div>
         </div>
       </div>
     </div>
