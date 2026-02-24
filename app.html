@@ -508,6 +508,147 @@
     
     #userMenu.open { display: block !important; }
     /* Zavrieť menu pri kliknutí mimo */
+
+    /* ═══════════════════════════════════════════
+       DÔLEŽITÉ KONTAKTY & VAROVNÉ SIGNÁLY
+    ═══════════════════════════════════════════ */
+    .ec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 0.625rem;
+    }
+    .ec-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0.625rem;
+      border-radius: 1rem;
+      background: var(--c-surface);
+      border: 1.5px solid var(--c-border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      text-decoration: none;
+      color: var(--c-text);
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+    .ec-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+    }
+    .ec-card:active { transform: translateY(-1px); }
+    .ec-icon {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.375rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+    .ec-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.3;
+    }
+    .ec-card-number {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-top: 0.2rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Sirény - vizualizácia */
+    .siren-card {
+      background: var(--c-surface);
+      border: 1.5px solid var(--c-border);
+      border-radius: 1rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, border-color 0.2s;
+    }
+    .siren-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+      border-color: var(--c-accent);
+    }
+    .siren-wave {
+      height: 28px;
+      border-radius: 0.375rem;
+      overflow: hidden;
+      position: relative;
+      margin-top: 0.5rem;
+    }
+    .siren-wave-bar {
+      position: absolute;
+      bottom: 0;
+      width: 3px;
+      border-radius: 2px;
+      animation: sirenPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes sirenPulse {
+      0%, 100% { transform: scaleY(0.3); }
+      50% { transform: scaleY(1); }
+    }
+    .siren-wave-steady .siren-wave-bar {
+      animation: sirenSteady 2s ease-in-out infinite;
+    }
+    @keyframes sirenSteady {
+      0%, 100% { transform: scaleY(0.85); }
+      50% { transform: scaleY(1); }
+    }
+
+    /* Postupy pri MU */
+    .mu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+    }
+    .mu-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, border-color 0.15s;
+      background: var(--c-surface);
+      border: 1.5px solid var(--c-border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .mu-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      border-color: var(--c-accent);
+    }
+    .mu-card:active { transform: translateY(-1px); }
+    .mu-icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+    .mu-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 640px) {
+      .ec-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .ec-icon { width: 40px; height: 40px; font-size: 1.125rem; }
+      .ec-card { padding: 0.75rem 0.375rem; }
+      .ec-card-label { font-size: 0.65rem; }
+      .ec-card-number { font-size: 0.85rem; }
+      .mu-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+      .mu-icon { width: 44px; height: 44px; font-size: 1.25rem; }
+      .mu-card { padding: 0.75rem 0.375rem; }
+      .mu-card-label { font-size: 0.65rem; }
+    }
   </style>
 </head>
 <body>
@@ -661,6 +802,63 @@
           </div>
         </div>
         <div id="firstAidGrid" class="fa-grid"></div>
+      </div>
+
+      <!-- DÔLEŽITÉ KONTAKTY -->
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">📞 Dôležité kontakty</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky a kľúčové inštitúcie SR</p>
+          </div>
+        </div>
+
+        <!-- Tiesňové linky -->
+        <div style="margin-bottom:1rem;">
+          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Tiesňové linky</div>
+          <div class="ec-grid" id="emergencyLinesGrid"></div>
+        </div>
+
+        <!-- Inštitúcie -->
+        <div>
+          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Dôležité inštitúcie</div>
+          <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+        </div>
+      </div>
+
+      <!-- VAROVNÉ SIGNÁLY SIRÉN -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa príručky MV SR – každý signál má špecifický zvuk a význam</p>
+        </div>
+        <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;"></div>
+        <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
+          <strong style="color:var(--c-text);">💡 Tip:</strong> Skúška sirén prebieha pravidelne <strong>každý druhý piatok v mesiaci o 12:00</strong>. Skúšky sú vopred oznámené v médiách.
+        </div>
+      </div>
+
+      <!-- NÚDZOVÉ VYSIELANIE RÁDIA -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem núdzových informácií bez internetu</p>
+        </div>
+        <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
+          <strong>ℹ️ Dôležité:</strong> Počas krízy sledujte Slovenský rozhlas a Rádio Regina – sú hlavným kanálom pre varovné hlásenia a pokyny záchranných zložiek. Rádio na batérie je nevyhnutnou súčasťou krízovej výbavy.
+        </div>
+      </div>
+
+      <!-- POSTUPY PRI MIMORIADNYCH UDALOSTIACH -->
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">⚠️ Postupy pri mimoriadnych udalostiach</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa príručky MV SR „V prípade krízy alebo ozbrojeného konfliktu"</p>
+          </div>
+        </div>
+        <div id="emergencyProcGrid" class="mu-grid"></div>
       </div>
 
       <!-- Plans -->
@@ -872,6 +1070,34 @@
 
 <!-- Modal: Prvá pomoc detail -->
 <div class="modal-overlay" id="modalFirstAid">
+
+<!-- Modal: Postup pri MU detail -->
+<div class="modal-overlay" id="modalEmergencyProc">
+  <div class="modal-box" style="max-width:600px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
+        <div class="mu-icon" id="muModalIcon" style="flex-shrink:0;"></div>
+        <div>
+          <h3 id="muModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+          <p id="muModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+        </div>
+      </div>
+      <button data-close="modalEmergencyProc" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+    </div>
+    <div id="muModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+  </div>
+</div>
+
+<!-- Modal: Varovný signál detail -->
+<div class="modal-overlay" id="modalSiren">
+  <div class="modal-box" style="max-width:500px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <h3 id="sirenModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+      <button data-close="modalSiren" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+    </div>
+    <div id="sirenModalContent" style="max-height:65vh; overflow-y:auto;"></div>
+  </div>
+</div>
   <div class="modal-box" style="max-width:600px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
       <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
@@ -1795,11 +2021,560 @@
     openModal("modalFirstAid");
   }
 
+  // ══════════════════════════════════════════════════════════════════
+  // DÔLEŽITÉ KONTAKTY
+  // ══════════════════════════════════════════════════════════════════
+
+  const EMERGENCY_LINES = [
+    { number: "112", label: "Tiesňová linka", desc: "Všeobecná tiesňová linka v celej Európe (24/7). Možno zaslať aj SMS.", emoji: "🆘", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
+    { number: "150", label: "Hasiči", desc: "Hasičský a záchranný zbor SR.", emoji: "🚒", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
+    { number: "155", label: "Záchranka", desc: "Rýchla zdravotná pomoc.", emoji: "🚑", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
+    { number: "158", label: "Polícia", desc: "Policajný zbor SR.", emoji: "🚔", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
+    { number: "159", label: "Mestská polícia", desc: "Obecná / mestská polícia.", emoji: "👮", bg: "#f5f3ee", border: "#e2ddd5", color: "#6b6560" },
+    { number: "18 300", label: "Horská služba", desc: "Horská záchranná služba.", emoji: "⛰️", bg: "#eaf4ee", border: "#86efac", color: "#2a7a4b" },
+  ];
+
+  const INSTITUTIONS = [
+    { name: "Národné toxikologické informačné centrum", phone: "+421 2 5477 4166", phone2: "0911 166 066", desc: "24/7 nonstop – odborné rady pri otravách pre lekárov aj verejnosť.", emoji: "☠️" },
+    { name: "Slovenský hydrometeorologický ústav (SHMÚ)", url: "https://www.shmu.sk", desc: "Meteorologické a hydrologické výstrahy, predpovede počasia.", emoji: "🌦️" },
+    { name: "Ministerstvo vnútra SR – Civilná ochrana", url: "https://www.minv.sk", desc: "Aktuálne informácie o ochrane života a zdravia pri mimoriadnych udalostiach.", emoji: "🛡️" },
+    { name: "Úrad verejného zdravotníctva SR", phone: "+421 2 4928 4111", url: "https://www.uvzsr.sk", desc: "Epidemiologické ohrozenia, ochrana zdravia obyvateľstva.", emoji: "🏥" },
+    { name: "Slovenský Červený kríž", phone: "+421 2 5441 3868", url: "https://www.redcross.sk", desc: "Humanitárna pomoc, prvá pomoc, vyhľadávanie osôb.", emoji: "✚" },
+  ];
+
+  function renderEmergencyContacts() {
+    // Tiesňové linky
+    const linesGrid = document.getElementById("emergencyLinesGrid");
+    if (!linesGrid) return;
+    linesGrid.innerHTML = "";
+    EMERGENCY_LINES.forEach(line => {
+      const card = document.createElement("a");
+      card.href = `tel:${line.number.replace(/\s/g, "")}`;
+      card.className = "ec-card";
+      card.title = line.desc;
+      card.innerHTML = `
+        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border};">${line.emoji}</div>
+        <div class="ec-card-label">${line.label}</div>
+        <div class="ec-card-number" style="color:${line.color};">${line.number}</div>`;
+      linesGrid.appendChild(card);
+    });
+
+    // Inštitúcie
+    const instGrid = document.getElementById("institutionsGrid");
+    if (!instGrid) return;
+    instGrid.innerHTML = "";
+    INSTITUTIONS.forEach(inst => {
+      const row = document.createElement("div");
+      row.style.cssText = "display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem;";
+      let actions = "";
+      if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone}</a> `;
+      if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone2}</a> `;
+      if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">🔗 Web</a>`;
+      row.innerHTML = `
+        <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
+          <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
+        </div>`;
+      instGrid.appendChild(row);
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // VAROVNÉ SIGNÁLY SIRÉN
+  // ══════════════════════════════════════════════════════════════════
+
+  const SIRENS_DATA = [
+    {
+      id: "general",
+      title: "Všeobecné ohrozenie",
+      duration: "2 minúty",
+      type: "kolísavý tón",
+      color: "#dc2626",
+      bg: "#fef2f2",
+      border: "#fecaca",
+      wave: "oscillating",
+      meaning: "Signalizuje ohrozenie alebo vznik mimoriadnej udalosti, ako aj možnosť rozšírenia jej následkov.",
+      action: "Ihneď vyhľadajte úkryt v najbližšej budove. Zavrite a utesnite okná, dvere a ventilačné otvory. Sledujte vysielanie rozhlasu a televízie. Riaďte sa pokynmi záchranných zložiek.",
+      note: "Kolísavým tónom v trvaní 2 min sa počas vojnového stavu vyhlasuje aj ohrozenie v prípade možného vzdušného napadnutia."
+    },
+    {
+      id: "water",
+      title: "Ohrozenie vodou",
+      duration: "6 minút",
+      type: "stály tón",
+      color: "#1e40af",
+      bg: "#eff6ff",
+      border: "#bfdbfe",
+      wave: "steady",
+      meaning: "Signalizuje ohrozenie ničivými účinkami vody – povodne, pretrhnutie hrádze a pod.",
+      action: "Okamžite sa presuňte na vyššie položené miesto. Nevstupujte do zaplavených oblastí. Sledujte pokyny záchranných zložiek a miestnych úradov.",
+      note: null
+    },
+    {
+      id: "end",
+      title: "Koniec ohrozenia",
+      duration: "2 minúty",
+      type: "stály tón",
+      color: "#2a7a4b",
+      bg: "#eaf4ee",
+      border: "#86efac",
+      wave: "steady",
+      meaning: "Signalizuje koniec ohrozenia alebo koniec pôsobenia následkov mimoriadnej udalosti.",
+      action: "Sledujte doplnkovú hovorenú informáciu v médiách. Riaďte sa pokynmi kompetentných orgánov. Nevracajte sa do ohrozenej oblasti, kým to nebude povolené.",
+      note: "Tento signál sa vysiela bez opakovania a je doplnený hovorenou informáciou."
+    },
+    {
+      id: "test",
+      title: "Skúška sirén",
+      duration: "2 minúty",
+      type: "stály tón",
+      color: "#6b6560",
+      bg: "#f5f3ee",
+      border: "#e2ddd5",
+      wave: "steady",
+      meaning: "Pravidelné preskúšanie funkčnosti sirén. Nejedná sa o skutočné ohrozenie.",
+      action: "Žiadna akcia nie je potrebná. Skúšky sú vopred oznámené v médiách.",
+      note: "Skúška prebieha spravidla každý druhý piatok v mesiaci o 12:00."
+    }
+  ];
+
+  function renderSirens() {
+    const grid = document.getElementById("sirensGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    SIRENS_DATA.forEach(siren => {
+      const card = document.createElement("div");
+      card.className = "siren-card";
+      // Generuj wave bars
+      const barCount = 20;
+      let bars = "";
+      for (let i = 0; i < barCount; i++) {
+        const delay = siren.wave === "oscillating"
+          ? (Math.sin(i * 0.6) * 0.4 + 0.3).toFixed(2)
+          : (0.1 * (i % 3)).toFixed(2);
+        const height = siren.wave === "oscillating"
+          ? Math.round(40 + Math.sin(i * 0.8) * 35)
+          : Math.round(70 + Math.sin(i * 0.2) * 10);
+        bars += `<div class="siren-wave-bar" style="left:${(i / barCount) * 100}%; height:${height}%; background:${siren.color}; opacity:0.6; animation-delay:${delay}s;"></div>`;
+      }
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
+          <div>
+            <div style="font-weight:700; font-size:0.9rem; color:${siren.color};">${siren.title}</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">${siren.duration} – ${siren.type}</div>
+          </div>
+          <div style="background:${siren.bg}; border:1px solid ${siren.border}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.68rem; font-weight:700; color:${siren.color}; white-space:nowrap;">${siren.duration}</div>
+        </div>
+        <div class="siren-wave ${siren.wave === 'steady' ? 'siren-wave-steady' : ''}" style="background:${siren.bg}; border:1px solid ${siren.border};">${bars}</div>`;
+      card.onclick = () => openSirenModal(siren);
+      grid.appendChild(card);
+    });
+  }
+
+  function openSirenModal(siren) {
+    document.getElementById("sirenModalTitle").textContent = "🔔 " + siren.title;
+    let html = `
+      <div style="background:${siren.bg}; border:1.5px solid ${siren.border}; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
+          <div style="font-size:1.75rem; font-weight:800; color:${siren.color};">${siren.duration}</div>
+          <div>
+            <div style="font-weight:700; color:${siren.color}; font-size:0.9rem;">${siren.type.charAt(0).toUpperCase() + siren.type.slice(1)}</div>
+            <div style="font-size:0.75rem; color:var(--c-muted);">trvanie signálu</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">📖 Význam</div>
+        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.meaning}</div>
+      </div>
+
+      <div style="margin-bottom:1rem;">
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">✅ Čo robiť</div>
+        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.action}</div>
+      </div>`;
+
+    if (siren.note) {
+      html += `<div class="fa-info"><strong>ℹ️ Poznámka:</strong> ${siren.note}</div>`;
+    }
+
+    html += `<div class="fa-source"><strong>Zdroj:</strong> Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu" (2025)</div>`;
+
+    document.getElementById("sirenModalContent").innerHTML = html;
+    openModal("modalSiren");
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // NÚDZOVÉ VYSIELANIE RÁDIA
+  // ══════════════════════════════════════════════════════════════════
+
+  const RADIO_DATA = [
+    {
+      name: "Slovenský rozhlas – Rádio Slovensko",
+      desc: "Hlavný kanál pre núdzové hlásenia a pokyny záchranných zložiek pre celé Slovensko.",
+      emoji: "📡",
+      bg: "#fef2f2",
+      border: "#fecaca",
+      frequencies: [
+        { region: "Bratislava", fm: "96.6 MHz" },
+        { region: "Banská Bystrica", fm: "94.4 MHz" },
+        { region: "Košice", fm: "89.5 MHz" },
+        { region: "Žilina", fm: "104.8 MHz" },
+        { region: "Nitra", fm: "92.2 MHz" },
+        { region: "Prešov", fm: "100.3 MHz" },
+        { region: "Trenčín", fm: "92.7 MHz" },
+        { region: "Trnava", fm: "101.1 MHz" },
+      ]
+    },
+    {
+      name: "Rádio Regina",
+      desc: "Regionálne vysielanie s lokálnymi núdzovými informáciami a varovaniami.",
+      emoji: "🏔️",
+      bg: "#eff6ff",
+      border: "#bfdbfe",
+      frequencies: [
+        { region: "Západ (BA, TN, TT, NR)", fm: "99.3 MHz" },
+        { region: "Stred (BB, ZA)", fm: "100.3 MHz" },
+        { region: "Východ (KE, PO)", fm: "103.2 MHz" },
+      ]
+    },
+    {
+      name: "Rádio Patria",
+      desc: "Vysielanie v maďarskom jazyku – núdzové hlásenia pre južné Slovensko.",
+      emoji: "🌍",
+      bg: "#eaf4ee",
+      border: "#86efac",
+      frequencies: [
+        { region: "Bratislava", fm: "98.9 MHz" },
+        { region: "Komárno", fm: "96.2 MHz" },
+        { region: "Rim. Sobota", fm: "105.5 MHz" },
+      ]
+    }
+  ];
+
+  function renderRadio() {
+    const grid = document.getElementById("radioGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    RADIO_DATA.forEach(radio => {
+      const card = document.createElement("div");
+      card.style.cssText = `background:${radio.bg}; border:1.5px solid ${radio.border}; border-radius:1rem; padding:1rem;`;
+      let freqHtml = radio.frequencies.map(f =>
+        `<div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid ${radio.border};">
+          <span style="font-size:0.78rem; color:var(--c-muted);">${f.region}</span>
+          <span style="font-size:0.78rem; font-weight:700; color:var(--c-text);">${f.fm}</span>
+        </div>`
+      ).join("");
+      card.innerHTML = `
+        <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.625rem;">
+          <span style="font-size:1.25rem;">${radio.emoji}</span>
+          <div>
+            <div style="font-weight:700; font-size:0.875rem;">${radio.name}</div>
+            <div style="font-size:0.7rem; color:var(--c-muted); line-height:1.4; margin-top:0.1rem;">${radio.desc}</div>
+          </div>
+        </div>
+        <div>${freqHtml}</div>`;
+      grid.appendChild(card);
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  // POSTUPY PRI MIMORIADNYCH UDALOSTIACH
+  // ══════════════════════════════════════════════════════════════════
+
+  const EMERGENCY_PROC_DATA = [
+    {
+      id: "flood",
+      emoji: "🌊",
+      title: "Povodne",
+      subtitle: "Silné dažde, záplavy a stúpanie hladín",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { text: "<strong>Zatvorte všetky okná a dvere</strong> – zabráňte vniknutiu vody do obytných priestorov." },
+        { text: "<strong>Sledujte počasie a spravodajstvo</strong> – informácie z SHMÚ a médií sú kľúčové." },
+        { text: "<strong>Odstráňte nebezpečné látky</strong> – jedy, kyseliny a žieraviny, ktoré môžu reagovať s vodou." },
+        { text: "<strong>Vypnite elektrinu, vodu a plyn</strong> – predíďte úrazom a výbuchom." },
+        { text: "<strong>Pripravte si evakuačnú batožinu</strong> – doklady, lieky, voda, potraviny, oblečenie." },
+        { text: "<strong>Presuňte sa na vyvýšené miesto</strong> – v prípade časovej tiesne okamžite prerušte všetky aktivity." },
+        { text: "<strong>Nejazdite cez zaplavené cesty</strong> – ak neviete hĺbku vody. Rýchlo opustite auto, ktoré zalieva voda." },
+        { text: "<strong>Zavolajte 112</strong> z bezpečného miesta a počkajte na ďalšie inštrukcie." }
+      ],
+      warning: "Vyhnite sa cestovaniu cez rizikové oblasti. Uistite sa, že vaši blízki a susedia majú všetky informácie. Dbajte na vlastnú bezpečnosť.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "earthquake",
+      emoji: "🫨",
+      title: "Zemetrasenie",
+      subtitle: "Seizmická aktivita a otrasy",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>V budove zostaňte vo vnútri, mimo budovy zostaňte vonku</strong> – najviac úrazov sa stáva pri panických presunoch." },
+        { text: "<strong>Vyhľadajte vhodné miesto</strong> – postavte sa k opornému múru alebo pod rám dverí, nikdy nie k oknu." },
+        { text: "<strong>Ukryte sa pod stôl</strong> alebo pod najbližší odolný predmet." },
+        { text: "<strong>Nevstupujte do výťahu</strong> a na schodište." },
+        { text: "<strong>Vonku sa zdržiavajte ďalej</strong> od elektrického vedenia, stromov a pomníkov." },
+        { text: "<strong>Nepoužívajte otvorený oheň</strong> – hrozí výbuch plynu a následný požiar." },
+        { text: "<strong>V aute okamžite zastavte</strong> na otvorenom priestranstve a nevystupujte počas otrasov." }
+      ],
+      warning: "Zachovajte pokoj a rozvahu. Po otrasoch skontrolujte blízkych a susedov. V úzkych uliciach hľadajte ochranu pod najbližšou bránou.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "fire",
+      emoji: "🔥",
+      title: "Požiar",
+      subtitle: "Požiar v budove alebo okolí",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { text: "<strong>Ohláste požiar na číslo 150 alebo 112</strong> – z bezpečného miesta, bez zbytočného odkladu." },
+        { text: "<strong>Ak je to možné, požiar uhaste</strong> alebo spravte opatrenia na zamedzenie jeho šírenia." },
+        { text: "<strong>Uzavrite prívod plynu a elektriny.</strong>" },
+        { text: "<strong>Ihneď opustite ohrozený priestor</strong> – informujte osoby, ktoré môžu byť ohrozené." },
+        { text: "<strong>Poskytnite pomoc</strong> tým, ktorí ju potrebujú – ak tým neohrozíte seba." },
+        { text: "<strong>Uvoľnite prístupové cesty</strong> záchranným zložkám – minimálne 3 metre." }
+      ],
+      warning: "Na výzvu veliteľa zásahu poskytnite vecnú alebo osobnú pomoc. Nikdy sa nevracajte do horiacej budovy.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "blackout",
+      emoji: "🔌",
+      title: "Blackout",
+      subtitle: "Dlhodobý výpadok elektrickej energie",
+      iconBg: "#f5f3ee",
+      iconBorder: "#e2ddd5",
+      steps: [
+        { text: "<strong>Zásobte sa jedlom a nápojmi</strong> – minimálne na 14 dní. Na osobu min. 4 litre vody denne (2 l na pitie, 2 l na varenie a hygienu)." },
+        { text: "<strong>Pripravte si náhradné osvetlenie</strong> – LED svetlá, sviečky, baterky s náhradnými batériami, čelovka." },
+        { text: "<strong>Náhradné zariadenia na varenie</strong> – suchý lieh, plynový varič, gril. Manipulujte opatrne." },
+        { text: "<strong>Batériové rádio</strong> – s náhradnými batériami na príjem informácií. Nezabudnite aj na autorádio." },
+        { text: "<strong>Zabezpečte si hotovosť</strong> – odporúča sa dvojnásobok týždenných nákupov. Bankomaty nebudú fungovať." },
+        { text: "<strong>Pripravte si lekárničku</strong> a dôležité lieky." },
+        { text: "<strong>Hygienické potreby</strong> – toaletný papier, mydlo, čistiace prostriedky, vrecia na odpadky." }
+      ],
+      warning: "Najskôr spotrebujte potraviny z chladničky. Zbytočne neotvárajte mrazničku. Niektoré potraviny možno v zime skladovať vonku – chráňte ich pred zvieratami.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "chemical",
+      emoji: "🧪",
+      title: "Chemický únik",
+      subtitle: "Únik nebezpečných chemických látok",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Urýchlene opustite ohrozené miesto.</strong>" },
+        { text: "<strong>Ukryte sa v uzavretej miestnosti</strong> – vytvorte izolovaný uzavretý priestor." },
+        { text: "<strong>Vypnite ventiláciu a klimatizáciu.</strong>" },
+        { text: "<strong>Uhaste otvorený oheň</strong> a vypnite plynové spotrebiče." },
+        { text: "<strong>Chráňte si dýchacie cesty a oči</strong> – navlhčenou tkaninou, improvizovaným rúškom." },
+        { text: "<strong>Sledujte informácie</strong> na oficiálnych komunikačných kanáloch." },
+        { text: "<strong>Telefonujte len v súrnom prípade</strong> – nezaťažujte siete." },
+        { text: "<strong>Nikdy sa neukrývajte do pivníc</strong> a terénnych nerovností – chemické látky sú často ťažšie než vzduch." }
+      ],
+      warning: "Pripravte si evakuačnú batožinu. Nakŕmte domáce zvieratá a uzatvorte ich v prepravných boxoch. Čakajte na pokyny záchranných zložiek.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "radiation",
+      emoji: "☢️",
+      title: "Rádioaktívny únik",
+      subtitle: "Únik nebezpečných rádioaktívnych látok",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Na otvorenom priestranstve ihneď vyhľadajte najbližšiu budovu.</strong>" },
+        { text: "<strong>Ukryte sa</strong> – zdržiavajte sa v stredových miestnostiach na prízemí alebo v suteréne." },
+        { text: "<strong>Ak ste mohli prísť do styku s rádioaktívnymi látkami:</strong> odložte kontaminovaný odev do nepriedušného obalu, umyte si ruky, tvár, vlasy, vypláchnite oči a ústa, osprchujte sa a vymeňte bielizeň." },
+        { text: "<strong>Uzatvorte a utesnite okná, dvere</strong> – vypnite ventiláciu a utesnite ďalšie otvory." },
+        { text: "<strong>Zabezpečte potraviny a vodu</strong> pred kontamináciou pomocou vzduchotesne uzavretých nádob." },
+        { text: "<strong>Nepožívajte nechránené potraviny</strong>, ovocie a zeleninu z voľného priestranstva." },
+        { text: "<strong>Evakuáciu vykonajte</strong> až na základe pokynov záchranárov alebo oficiálneho vyhlásenia." }
+      ],
+      warning: "Sledujte informácie na oficiálnych komunikačných kanáloch. Pripravte si prostriedky improvizovanej ochrany a evakuačnú batožinu.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "landslide",
+      emoji: "⛰️",
+      title: "Zosuv pôdy",
+      subtitle: "Zosuvy pôdy a prívalové bahno",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Sledujte zmeny okolia</strong> – neobvyklé zvuky (praskajúce stromy, skaly), náhle zmeny hladiny tokov, viditeľné zmeny povrchu zeme." },
+        { text: "<strong>V budove sa zdržujte</strong> čo najďalej od možného ohrozenia, na vyššom poschodí. Schovajte sa pod pevný nábytok." },
+        { text: "<strong>Vonku sa presuňte</strong> mimo trasy zosuvu na najbližšie vyvýšené miesto." },
+        { text: "<strong>Ak nemôžete uniknúť</strong> – schovajte sa za skupinu väčších stromov alebo v najodolnejšej budove." },
+        { text: "<strong>Zavolajte 112</strong> z bezpečného miesta a počkajte na inštrukcie." }
+      ],
+      warning: "Najväčšie riziko zosuvu je pri prívalovom daždi, hlavne ak je zem nasiaknutá po dlhotrvajúcich dažďoch.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "storm",
+      emoji: "🌪️",
+      title: "Víchrica",
+      subtitle: "Víchrica a silný vietor",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { text: "<strong>Nevychádzajte z domu</strong> ak nemusíte." },
+        { text: "<strong>Nezdržiavajte sa na voľných plochách.</strong>" },
+        { text: "<strong>Zatvorte a zabezpečte okná a dvere.</strong>" },
+        { text: "<strong>Odložte z dvorov voľne položené predmety</strong> – môžu sa stať nebezpečnými projektilmi." },
+        { text: "<strong>Neparkujte pod stromami</strong> a pri chatrných budovách." },
+        { text: "<strong>Vyhnite sa pohybu v horách a parkoch.</strong>" }
+      ],
+      warning: "Zabezpečte domáce zvieratá. Nejazdite s ľahkými vozidlami po otvorených veterných plochách.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "terror",
+      emoji: "🚨",
+      title: "Teroristický útok",
+      subtitle: "Bombový útok alebo streľba",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { text: "<strong>Ak máte únikovú cestu – utečte.</strong> Zoberte si iba telefón, prepnite ho do tichého režimu." },
+        { text: "<strong>Varujte ostatných</strong> pred vstupom do nebezpečnej zóny." },
+        { text: "<strong>Ak nemôžete utiecť – schovajte sa.</strong> Zamknite dvere, kľúč ponechajte v zámku." },
+        { text: "<strong>Nezdržujte sa v blízkosti okien</strong> – schovajte sa za pevné veľké predmety." },
+        { text: "<strong>Pri bezprostrednom ohrození bojujte.</strong> Použite predmety v okolí – palica, kľúče, hasiaci prístroj." },
+        { text: "<strong>Volajte 158 alebo 112</strong> – inak zbytočne netelefonujte." },
+        { text: "<strong>Nezdieľajte záznamy na sociálnych sieťach</strong> – môžu byť zneužité." }
+      ],
+      warning: "Plňte pokyny vydané oprávnenými osobami. Ak neohrozíte seba, poskytnite pomoc tým, ktorí ju potrebujú. Sledujte informácie na oficiálnych kanáloch.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "heat",
+      emoji: "🌡️",
+      title: "Horúčavy",
+      subtitle: "Extrémne vysoké teploty",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Zdržiavajte sa v tieni</strong> – vyhýbajte sa priamemu slnku." },
+        { text: "<strong>Dodržiavajte pitný režim</strong> a ľahšie sa stravujte." },
+        { text: "<strong>Vhodne sa obliekajte</strong> – ľahké, vzdušné oblečenie svetlých farieb." },
+        { text: "<strong>Tieňte okná</strong> žalúziami alebo roletami – zabráňte prenikaniu slnečných lúčov." },
+        { text: "<strong>Osviežte sa vlažnou sprchou</strong> aspoň raz denne – pozor na príliš studenú vodu." },
+        { text: "<strong>Nenechávajte deti a zvieratá</strong> v zaparkovaných autách – nikdy, v žiadnom prípade." }
+      ],
+      warning: "Používajte krémy s UV ochranou. Zabezpečte dostatok tekutín pre zvieratá a úkryt pred slnkom.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "snow",
+      emoji: "❄️",
+      title: "Snehová kalamita",
+      subtitle: "Extrémne sneženie a nízke teploty",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { text: "<strong>Obmedzte automobilovú prepravu</strong> – hrozí uviaznutie vozidiel." },
+        { text: "<strong>Neblokujte odhrnuté cesty</strong> – záchranné zložky musia prejsť." },
+        { text: "<strong>Sledujte predpovede</strong> na stránke SHMÚ (shmu.sk)." },
+        { text: "<strong>Neparkujte pod stromami</strong> a pri chatrných budovách." },
+        { text: "<strong>Používajte viac vrstiev oblečenia</strong> – teplé ponožky, čiapku, šál, rukavice." },
+        { text: "<strong>Nezdržiavajte sa dlho na mraze</strong> – športové aktivity presuňte do interiéru." },
+        { text: "<strong>Zabezpečte domáce zvieratá</strong> pred mrazom." }
+      ],
+      warning: "Nedotýkajte sa namrznutých kovových predmetov holými rukami. V prípade premočenia majte po ruke rezervné oblečenie. Vrchné oblečenie by malo byť odolné voči vetru a dažďu.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "evacuation",
+      emoji: "🏃",
+      title: "Evakuácia",
+      subtitle: "Príprava a postup pri evakuácii",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Zoznámte sa s evakuačnými trasami</strong> vo vašej obci alebo meste vopred." },
+        { text: "<strong>Pripravte evakuačnú batožinu:</strong> doklady (fotky v mobile), peniaze, lieky, potraviny a voda na 2–3 dni, hygiena, baterka, prikrývka, náhradné oblečenie a obuv." },
+        { text: "<strong>Hmotnosť batožiny:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná." },
+        { text: "<strong>Zabezpečte domácnosť:</strong> vypnite plyn, vodu a elektrinu. Zamknite dvere a okná." },
+        { text: "<strong>Dodržiavajte pokyny</strong> polície, hasičov alebo kompetentných orgánov." },
+        { text: "<strong>Odíďte čo najrýchlejšie ale bezpečne</strong> – nepodceňujte situáciu. Používajte evakuačné trasy." },
+        { text: "<strong>Po príchode sa zaregistrujte</strong> u kompetentných úradov. Sledujte informácie o možnom návrate." }
+      ],
+      warning: "Pomôžte deťom, seniorom a osobám so zdravotným postihnutím. Informujte rodinu o pláne stretnutia pre prípad výpadku mobilných sietí.",
+      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    }
+  ];
+
+  function renderEmergencyProc() {
+    const grid = document.getElementById("emergencyProcGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    EMERGENCY_PROC_DATA.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "mu-card";
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", item.title + " – zobraziť postup");
+      card.innerHTML = `
+        <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder};">
+          ${item.emoji}
+        </div>
+        <div class="mu-card-label">${item.title}</div>`;
+      card.onclick = () => openEmergencyProcModal(item);
+      card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openEmergencyProcModal(item); }};
+      grid.appendChild(card);
+    });
+  }
+
+  function openEmergencyProcModal(item) {
+    const icon = document.getElementById("muModalIcon");
+    const title = document.getElementById("muModalTitle");
+    const subtitle = document.getElementById("muModalSubtitle");
+    const content = document.getElementById("muModalContent");
+
+    icon.style.background = item.iconBg;
+    icon.style.border = `1.5px solid ${item.iconBorder}`;
+    icon.textContent = item.emoji;
+    title.textContent = item.title;
+    subtitle.textContent = item.subtitle;
+
+    let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Hasiči: <a href="tel:150">150</a> &nbsp;|&nbsp; Polícia: <a href="tel:158">158</a></div>`;
+
+    html += `<div style="margin-bottom:0.5rem;">`;
+    item.steps.forEach((step, idx) => {
+      html += `<div class="fa-modal-step">
+        <div class="fa-step-num">${idx + 1}</div>
+        <div class="fa-step-text">${step.text}</div>
+      </div>`;
+    });
+    html += `</div>`;
+
+    if (item.warning) {
+      html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+    }
+
+    html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
+
+    content.innerHTML = html;
+    openModal("modalEmergencyProc");
+  }
+
   function renderAll() {
     renderProfileCard();
     renderOverall();
     renderCategories();
     renderFirstAid();
+    renderEmergencyContacts();
+    renderSirens();
+    renderRadio();
+    renderEmergencyProc();
     // Aktualizuj detail kategórie len ak je modal otvorený
     if (document.getElementById("modalCategory").classList.contains("open")) {
       renderCategoryDetail();
