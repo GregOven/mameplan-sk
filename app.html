@@ -1205,14 +1205,14 @@
   // ── EmailJS konfigurácia ─────────────────────────────────────────
   // POKYN: Zaregistruj sa na emailjs.com, vytvor service + template a vlož ID sem
   const EMAILJS_CONFIG = {
-    publicKey:   "YOUR_EMAILJS_PUBLIC_KEY",   // Account → API Keys
-    serviceId:   "YOUR_SERVICE_ID",           // Email Services → Service ID
+    publicKey:   "hylyqZjVu6HCO7F4P",   // Account → API Keys
+    serviceId:   "Yservice_h4jkdfs",           // Email Services → Service ID
     template_expiry:  "template_expiry_warn", // Template ID pre upozornenie na expiráciu
     template_shopping: "template_shopping_list" // Template ID pre nákupný zoznam
   };
   // Inicializuj EmailJS
   (function() {
-    if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
+    if (EMAILJS_CONFIG.publicKey !== "S9KjZEwsiiUC69fX-XqbK") {
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
   })();
@@ -2292,7 +2292,7 @@
     const emailCard = document.getElementById("emailNotifCard");
     const emailStatus = document.getElementById("emailNotifStatus");
     if (emailCard) {
-      const configured = EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY";
+      const configured = EMAILJS_CONFIG.publicKey !== "S9KjZEwsiiUC69fX-XqbK";
       emailCard.style.display = "block";
       if (emailStatus) {
         emailStatus.textContent = configured
@@ -3211,7 +3211,7 @@
   // Skontroluje či sa má poslať email (cooldown 24h)
   async function canSendEmail(type) {
     if (!currentUser) return false;
-    if (EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return false; // nekonfigurované
+    if (EMAILJS_CONFIG.publicKey === "hylyqZjVu6HCO7F4P") return false; // nekonfigurované
     try {
       const snap = await getDoc(doc(db, "users", currentUser.uid, "notifications", type));
       if (!snap.exists()) return true;
@@ -3306,7 +3306,7 @@
 
   // Hlavná funkcia – skontroluje expirácie a odošle emaily ak treba
   async function checkAndSendNotifications() {
-    if (!currentUser || EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return;
+    if (!currentUser || EMAILJS_CONFIG.publicKey === "hylyqZjVu6HCO7F4P") return;
 
     const expiringItems  = getExpiringItems(NOTIFY_EXPIRY_DAYS);
     const criticalItems  = getExpiringItems(NOTIFY_SHOPPING_DAYS);
@@ -3337,7 +3337,7 @@
       }
 
       // Obíde cooldown pre testovanie
-      if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
+      if (EMAILJS_CONFIG.publicKey !== "hylyqZjVu6HCO7F4P") {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.template_expiry, {
           to_email:   currentUser.email,
           to_name:    currentUser.displayName?.split(" ")[0] || "používateľ",
