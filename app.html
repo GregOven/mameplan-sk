@@ -351,20 +351,17 @@
       font-weight: 700;
     }
 
-    @media (max-width: 640px) {
-      .modal-box { border-radius: 1rem; }
-      .fa-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
-      .fa-icon { width: 44px; height: 44px; font-size: 1.25rem; }
-      .fa-card { padding: 0.75rem 0.375rem; }
-      .fa-card-label { font-size: 0.65rem; }
-    }
-
     /* ═══════════════════════════════════════════
        MOBILNÁ RESPONZIVITA
     ═══════════════════════════════════════════ */
 
-    /* Základné mobile úpravy */
     @media (max-width: 640px) {
+
+      /* Prvá pomoc */
+      .fa-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+      .fa-icon { width: 44px; height: 44px; font-size: 1.25rem; }
+      .fa-card { padding: 0.75rem 0.375rem; }
+      .fa-card-label { font-size: 0.65rem; }
 
       /* Header */
       .app-header-inner {
@@ -468,22 +465,10 @@
       .overall-card-desktop {
         display: none !important;
       }
-      .top-row-grid {
-        grid-template-columns: 1fr !important;
-      }
       .mobile-overall-bar {
         display: flex !important;
       }
 
-      /* Header na mobile */
-      .app-header-inner {
-        padding: 0 1rem !important;
-        height: 52px !important;
-      }
-    }
-
-
-    @media (max-width: 640px) {
       /* Item row tlačidlá - len ikony na mobile */
       .item-btn-edit { font-size: 0.75rem !important; padding: 0.375rem 0.5rem !important; }
       .item-btn-del { padding: 0.375rem 0.5rem !important; }
@@ -503,11 +488,9 @@
       /* Plán karty - zmenšiť padding */
       .plan-card { padding: 0.875rem !important; }
 
-      /* Adjust app header for very small screens */
-      /* Na mobile - skryť text, ponechať len ikonu v avatari menu */
+      /* Na mobile - skryť desktop logout, zobraziť mobile verziu */
       #btnLogout { display: none !important; }
       .user-avatar { cursor: pointer; }
-      /* Zobraziť logout priamo ako malé tlačidlo vedľa avatara */
       .mobile-logout-btn { display: flex !important; }
     }
     /* Stredné obrazovky - tablet */
@@ -557,7 +540,6 @@
     <p style="color:var(--c-muted); font-size:0.9rem; line-height:1.6;">
       Momentálne sme dosiahli maximálny počet používateľov v beta verzii. Skús to znova neskôr.
     </p>
-  </div>
 </div>
 
 <!-- MAIN APP -->
@@ -566,8 +548,7 @@
   <header class="app-header">
     <div class="app-header-inner">
       <span style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.01em;">Gerlach</span>
-    </div>
-    <div style="display:flex; align-items:center; gap:1rem;">
+      <div style="display:flex; align-items:center; gap:1rem;">
       <span class="sync-indicator">
         <span class="sync-dot" id="syncDot"></span>
         <span id="syncLabel" class="sync-label-text">–</span>
@@ -1130,7 +1111,11 @@
     // Update avatar
     const av = document.getElementById("userAvatar");
     if (user.photoURL) {
-      av.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+      const img = document.createElement("img");
+      img.src = user.photoURL;
+      img.alt = "avatar";
+      av.innerHTML = "";
+      av.appendChild(img);
     } else {
       av.textContent = (user.displayName || user.email || "U")[0].toUpperCase();
     }
@@ -2075,7 +2060,7 @@
         alert("EmailJS nie je nakonfigurovaný. Pozri komentáre v kóde.");
       }
     } catch(e) {
-      alert("Chyba pri odosielaní: " + e.text || e.message || e);
+      alert("Chyba pri odosielaní: " + (e.text || e.message || e));
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = "Testovací email"; }
     }
