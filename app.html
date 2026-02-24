@@ -241,8 +241,122 @@
       padding: 1.25rem;
     }
 
+    /* ═══════════════════════════════════════════
+       PRVÁ POMOC
+    ═══════════════════════════════════════════ */
+    .fa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+    }
+    .fa-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1rem 0.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.15s ease;
+      background: var(--c-surface);
+      border: 1.5px solid var(--c-border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .fa-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.10);
+      border-color: #d4501a;
+    }
+    .fa-card:active { transform: translateY(-1px); }
+    .fa-icon {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      flex-shrink: 0;
+    }
+    .fa-card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--c-text);
+      line-height: 1.3;
+    }
+    .fa-modal-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--c-border);
+    }
+    .fa-modal-step:last-child { border-bottom: none; }
+    .fa-step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--c-accent);
+      color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .fa-step-text {
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--c-text);
+    }
+    .fa-step-text strong { color: var(--c-accent); }
+    .fa-warning {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: #991b1b;
+      line-height: 1.5;
+      margin-top: 0.75rem;
+    }
+    .fa-info {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      color: #1e40af;
+      line-height: 1.5;
+      margin-top: 0.75rem;
+    }
+    .fa-source {
+      font-size: 0.68rem;
+      color: var(--c-muted);
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--c-border);
+      line-height: 1.5;
+    }
+    .fa-emergency-bar {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .fa-emergency-bar a {
+      color: white;
+      text-decoration: underline;
+      font-weight: 700;
+    }
+
     @media (max-width: 640px) {
       .modal-box { border-radius: 1rem; }
+      .fa-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+      .fa-icon { width: 44px; height: 44px; font-size: 1.25rem; }
+      .fa-card { padding: 0.75rem 0.375rem; }
+      .fa-card-label { font-size: 0.65rem; }
     }
 
     /* ═══════════════════════════════════════════
@@ -558,6 +672,21 @@
 
       <!-- Category Detail je teraz v modalnom okne -->
 
+      <!-- PRVÁ POMOC -->
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">🏥 Prvá pomoc</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa ERC Guidelines 2025 &amp; príručky MV SR</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">📞 112</a>
+            <a href="tel:155" style="display:inline-flex; align-items:center; gap:0.375rem; background:#1e40af; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">🚑 155</a>
+          </div>
+        </div>
+        <div id="firstAidGrid" class="fa-grid"></div>
+      </div>
+
       <!-- Plans -->
       <div class="card">
         <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:0.875rem;">📋 Núdzové plány</h2>
@@ -765,14 +894,31 @@
   </div>
 </div>
 
+<!-- Modal: Prvá pomoc detail -->
+<div class="modal-overlay" id="modalFirstAid">
+  <div class="modal-box" style="max-width:600px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
+        <div class="fa-icon" id="faModalIcon" style="flex-shrink:0;"></div>
+        <div>
+          <h3 id="faModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+          <p id="faModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+        </div>
+      </div>
+      <button data-close="modalFirstAid" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+    </div>
+    <div id="faModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+  </div>
+</div>
+
 <!-- EmailJS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
   // ── EmailJS konfigurácia ─────────────────────────────────────────
   // POKYN: Zaregistruj sa na emailjs.com, vytvor service + template a vlož ID sem
   const EMAILJS_CONFIG = {
-    publicKey:   "hylyqZjVu6HCO7F4P",   // Account → API Keys
-    serviceId:   "service_h4jkdfs",           // Email Services → Service ID
+    publicKey:   "YOUR_EMAILJS_PUBLIC_KEY",   // Account → API Keys
+    serviceId:   "YOUR_SERVICE_ID",           // Email Services → Service ID
     template_expiry:  "template_expiry_warn", // Template ID pre upozornenie na expiráciu
     template_shopping: "template_shopping_list" // Template ID pre nákupný zoznam
   };
@@ -1452,10 +1598,228 @@
     return n.toFixed(1) + " l";
   }
 
+  // ══════════════════════════════════════════════════════════════════
+  // PRVÁ POMOC – dáta podľa ERC Guidelines 2025 + príručka MV SR
+  // ══════════════════════════════════════════════════════════════════
+  const FIRST_AID_DATA = [
+    {
+      id: "cardiac_arrest",
+      emoji: "❤️",
+      title: "Zástava srdca",
+      subtitle: "KPR – Kardiopulmonálna resuscitácia",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { text: "<strong>Zistite stav osoby</strong> – zavolajte na ňu a jemne ňou potriaste za ramená. Ak nereaguje a nedýcha alebo dýcha abnormálne (lapavé, chrčivé dýchanie), ide o zástavu srdca." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – aktivujte záchranku ihneď. Ak je prítomný niekto ďalší, nechajte ho zavolať a vy začnite resuscitáciu." },
+        { text: "<strong>Začnite stlačovanie hrudníka</strong> – položte postihnutého na tvrdý podklad na chrbát. Kľaknite si k nemu zboku. Položte zápästie jednej ruky do stredu hrudníka (dolná polovica hrudnej kosti), druhú ruku položte na ňu. Stláčajte do hĺbky <strong>5–6 cm</strong> rýchlosťou <strong>100–120 stlačení za minútu</strong>. Po každom stlačení hrudník úplne uvoľnite." },
+        { text: "<strong>Dýchanie z úst do úst</strong> – po 30 stlačeniach zakloňte hlavu, zdvihnite bradu, zatlačte nos a 2× vdýchnite do úst (každý vdych cca 1 sekundu). Pokračujte v pomere <strong>30 stlačení : 2 vdychy</strong>." },
+        { text: "<strong>AED (defibrilátor)</strong> – ak je dostupný automatický externý defibrilátor, zapnite ho a nalepte elektródy na holý hrudník podľa obrázkov na elektródach. Riaďte sa hlasovými pokynmi prístroja. Počas analýzy a výboja sa osoby nedotýkajte." },
+        { text: "<strong>Neprestávajte</strong> – pokračujte v resuscitácii, kým nepríde záchranka, kým osoba nezačne normálne dýchať, alebo kým ste úplne vyčerpaní." }
+      ],
+      warning: "Ak si nie ste istí dýchaním, začnite resuscitáciu. Aj lapavé, chrčivé dýchanie (agonálne dýchanie) je známkou zástavy srdca. Ak nemôžete alebo nechcete dýchať z úst do úst, robte aspoň nepretržité stlačovanie hrudníka – aj to zachraňuje životy.",
+      info: "Tiesňové čísla SR: <strong>112</strong> (všeobecná tiesňová linka), <strong>155</strong> (záchranná zdravotná služba). Na linku 112 je možné zaslať aj SMS.",
+      source: "ERC Guidelines 2025 – Adult Basic Life Support (Olasveengen et al., Resuscitation 2025); Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu""
+    },
+    {
+      id: "bleeding",
+      emoji: "🩸",
+      title: "Silné krvácanie",
+      subtitle: "Život ohrozujúce vonkajšie krvácanie",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – pri masívnom krvácaní ihneď volajte záchranku." },
+        { text: "<strong>Priamy tlak na ranu</strong> – pritlačte na krvácajúcu ranu čistú tkaninu, obväz alebo priamo ruku (ideálne s rukavicami). Tlačte pevne a nepretržite." },
+        { text: "<strong>Ak tlak nestačí</strong> – vtlačte do rany hemostatický obväz alebo čistú tkaninu a pokračujte v pevnom tlaku na ňu." },
+        { text: "<strong>Priložte tlakový obväz</strong> – keď sa krvácanie zastaví, zabezpečte ranu tlakovým obväzom. Obväz neodstraňujte, ak sa presiaknú – pridajte ďalšiu vrstvu." },
+        { text: "<strong>Turniket pri krvácaní na končatine</strong> – ak priamy tlak nezastavuje masívne krvácanie z končatiny, priložte škrtidlo (turniket) čo najbližšie k rane medzi ranou a srdcom. Zaznačte čas priloženia. Turniket neuvoľňujte." },
+        { text: "<strong>Uložte postihnutého</strong> – položte ho na chrbát, udržujte v teple a čakajte na záchranku." }
+      ],
+      warning: "Nepoužívajte tlakové body (stlačenie tepny ďalej od rany) – podľa ERC 2025 nie sú účinné. Vždy priamo tlačte na ranu. Každú osobu po zastavení závažného krvácania musí vyšetriť lekár.",
+      info: null,
+      source: "ERC Guidelines 2025 – First Aid (Zideman et al., Resuscitation 2025); ILCOR CoSTR 2025 – Control of life-threatening bleeding"
+    },
+    {
+      id: "burns",
+      emoji: "🔥",
+      title: "Popáleniny",
+      subtitle: "Termické popáleniny a obareniny",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Zastavte pôsobenie tepla</strong> – odstráňte osobu od zdroja popálenia. Ak horí oblečenie: zastavte osobu, položte na zem a váľajte (stop–drop–roll)." },
+        { text: "<strong>Chlaďte tečúcou vodou</strong> – ihneď chlaďte popáleninu pod tečúcou vodou izbovej teploty (cca 15–25 °C) po dobu <strong>minimálne 20 minút</strong>. Začnite čo najskôr – chladenie je účinné aj do 3 hodín po popálení." },
+        { text: "<strong>Odstráňte oblečenie a šperky</strong> – opatrne ich zložte z popálenej oblasti, ak nie sú prilepené k rane. Šperky a prstene odstráňte kým opuch neznemožní ich stiahnutie." },
+        { text: "<strong>Zakryte ranu</strong> – po chladení voľne prikryte popáleninu čistou, nelepivou tkaninou alebo potravinárskou fóliou." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – pri veľkých, hlbokých popáleninách, popáleninách tváre/rúk/genitálií, pri detských popáleninách alebo ak si nie ste istí závažnosťou." }
+      ],
+      warning: "Na popáleninu NIKDY nedávajte ľad, maslo, zubnú pastu, olej ani iné domáce prostriedky. Nepoužívajte veľmi studenú vodu – hrozí podchladenie, najmä u detí. Neprepichujte pľuzgiere.",
+      info: null,
+      source: "ERC Guidelines 2025 – First Aid; ILCOR CoSTR 2025 – Active cooling of thermal burns (strong recommendation)"
+    },
+    {
+      id: "fractures",
+      emoji: "🦴",
+      title: "Zlomeniny",
+      subtitle: "Zlomeniny kostí a poranenia kĺbov",
+      iconBg: "#f5f3ee",
+      iconBorder: "#e2ddd5",
+      steps: [
+        { text: "<strong>Zabráňte ďalšiemu poraneniu</strong> – postihnutého zbytočne nehýbte. Ak hrozí nebezpečenstvo na mieste (požiar, doprava), premiestnite ho čo nejopatrnejšie." },
+        { text: "<strong>Znehybnite postihnutú oblasť</strong> – zaistite poranenú končatinu v polohe, v akej sa nachádza. Na dlahu použite akýkoľvek tvrdý predmet (doska, palica, zrolované noviny) alebo fixujte poranenú končatinu k telu." },
+        { text: "<strong>Priložte studený obklad</strong> – na opuchnuté miesto priložte studený obklad zabalený v tkanine na 15–20 minút. Priamo na kožu ľad nedávajte." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – vždy pri podozrení na zlomeninu, deformácii končatiny, neschopnosti pohybu alebo silnej bolesti." },
+        { text: "<strong>Pri otvorených zlomeninách</strong> – ak kosť prečnieva kožou, ranu voľne prikryte čistou tkaninou. S kosťou nemanipulujte a nesnažte sa ju vtlačiť späť." }
+      ],
+      warning: "Pri podozrení na poranenie chrbtice alebo krku nehýbte osobou, pokiaľ to nie je absolútne nevyhnutné (priame ohrozenie života). Počkajte na záchranárov. Ak musíte osobu presunúť, udržujte hlavu, krk a chrbát v jednej línii.",
+      info: null,
+      source: "ERC Guidelines 2025 – First Aid: Cervical spinal motion restriction; Všeobecné odporúčania pre prvú pomoc pri zlomeninách"
+    },
+    {
+      id: "shock",
+      emoji: "😰",
+      title: "Šok",
+      subtitle: "Obehový šok – zlyhanie krvného obehu",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Rozpoznajte príznaky</strong> – bledá, studená, spotená koža; zrýchlený pulz a dýchanie; zmätenosť alebo ospalosť; smäd; závraty." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – šok je život ohrozujúci stav, záchranku volajte ihneď." },
+        { text: "<strong>Uložte osobu na chrbát</strong> – položte postihnutého na rovný podklad. Ak nemá poranenie nôh, zdvihnite mu nohy do výšky 30–40 cm (podložte vankúšom, batohom, oblečením) – pomáha to udržať krvný obeh." },
+        { text: "<strong>Udržujte teplo</strong> – prikryte osobu dekou, kabátom alebo čímkoľvek, čo zabraní strate telesného tepla. Izolujte aj od studeného povrchu." },
+        { text: "<strong>Ošetrite príčinu</strong> – ak je príčinou krvácanie, zastavte ho (pozri sekciu Silné krvácanie). Ak má alergickú reakciu s opuchom, pomôžte s podaním adrenalínového autoinjektora, ak ho má." },
+        { text: "<strong>Nepodávajte jedlo ani pitie</strong> – osoba v šoku nesmie piť ani jesť (hrozí vdýchnutie). Ak je veľmi smädná, navlhčite jej pery." }
+      ],
+      warning: "Ak osoba stratí vedomie ale dýcha, uložte ju do stabilizovanej (bočnej) polohy. Ak prestane dýchať, okamžite začnite resuscitáciu (KPR).",
+      info: null,
+      source: "ERC Guidelines 2025 – First Aid: Shock management; ERC Guidelines 2025 – Special Circumstances"
+    },
+    {
+      id: "choking",
+      emoji: "😤",
+      title: "Dusenie",
+      subtitle: "Cudzie teleso v dýchacích cestách",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { text: "<strong>Rozpoznajte dusenie</strong> – osoba sa náhle nemôže rozprávať, kašlať ani dýchať. Často sa chytá za hrdlo (univerzálny znak dusenia). Ak môže kašlať, povzbudzujte ju, nech kašle." },
+        { text: "<strong>5 úderov medzi lopatky</strong> – postavte sa zboku za postihnutého. Jednou rukou podoprite hrudník a predkloňte ho. Druhou rukou udrite 5× medzi lopatky (pätou dlane). Každý úder má byť samostatný a dostatočne silný." },
+        { text: "<strong>5 stlačení brucha (Heimlichov manéver)</strong> – ak údery nepomôžu, postavte sa za osobu a objímte ju okolo brucha. Zatnite päsť a umiestnite ju medzi pupok a dolný okraj rebier. Druhú ruku položte na päsť. Prudko zatlačte dovnútra a nahor 5×." },
+        { text: "<strong>Striedajte</strong> – striedajte 5 úderov a 5 stlačení, kým sa cudzí predmet neuvoľní alebo osoba nestratí vedomie." },
+        { text: "<strong>Ak stratí vedomie</strong> – opatrne položte osobu na zem a ihneď zavolajte 155/112. Začnite resuscitáciu (KPR) – stlačovanie hrudníka môže pomôcť uvoľniť predmet. Pred každým pokusom o vdýchnutie skontrolujte ústa – ak vidíte predmet, vyberte ho." }
+      ],
+      warning: "U tehotných žien a obéznych osôb namiesto stlačení brucha použite stlačenia hrudníka (ruky umiestnite na strednú časť hrudnej kosti). U detí do 1 roka použite 5 úderov medzi lopatky a 5 stlačení hrudníka (nie brucha). Každý, kto bol ošetrený stlačeniami brucha, musí byť následne vyšetrený lekárom.",
+      info: null,
+      source: "ERC Guidelines 2025 – First Aid: Foreign body airway obstruction (FBAO); ERC Guidelines 2025 – Basic Life Support"
+    },
+    {
+      id: "hypothermia",
+      emoji: "🥶",
+      title: "Podchladenie",
+      subtitle: "Pokles telesnej teploty pod 35 °C",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { text: "<strong>Rozpoznajte príznaky</strong> – triaška, zmätenosť, ospalosť, ťažkopádna reč, stuhnuté svaly. Pri ťažkom podchladení triaška ustáva, vedomie sa stráca." },
+        { text: "<strong>Presuňte do tepla</strong> – premiestnite osobu z chladného prostredia do teplého miesta. Ak to nie je možné, chráňte ju pred vetrom, dažďom a chladom (prístrešok, izolácia od zeme)." },
+        { text: "<strong>Vyzlečte mokré oblečenie</strong> – opatrne vyzlečte mokré veci a nahraďte ich suchými. Osoba sa nesmie sama prezliekať (pohyb spôsobuje ďalšiu stratu tepla)." },
+        { text: "<strong>Zahrievajte postupne</strong> – zabaľte osobu do diek, spacáku, izotermickej fólie. Na hrudník a podpazušie môžete priložiť teplé (nie horúce!) obklady alebo fľaše s teplou vodou zabalené v tkanine." },
+        { text: "<strong>Teplé nápoje</strong> – ak je osoba pri vedomí a dokáže prehĺtať, podajte jej teplý sladký čaj. Nepodávajte alkohol – rozširuje cievy a zvyšuje straty tepla." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – pri ťažkom podchladení (zmätenosť, strata vedomia, ustávajúca triaška) vždy volajte záchranku." }
+      ],
+      warning: "S ťažko podchladenou osobou zaobchádzajte veľmi jemne – prudký pohyb alebo trenie končatín môže spôsobiť srdcové arytmie. Nezahrievajte náhle (napr. horúcou vodou). Ak osoba nedýcha, začnite resuscitáciu (KPR).",
+      info: "Príručka MV SR odporúča: používajte viac vrstiev oblečenia, teplé ponožky, čiapku, šál a rukavice. V prípade premočenia majte po ruke rezervné oblečenie.",
+      source: "ERC Guidelines 2025 – Special Circumstances: Hypothermia; Príručka MV SR – Nízke teploty"
+    },
+    {
+      id: "poisoning",
+      emoji: "☠️",
+      title: "Otrava",
+      subtitle: "Požitie, vdýchnutie alebo kontakt s jedom",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { text: "<strong>Zaistite bezpečnosť</strong> – uistite sa, že je miesto bezpečné pre vás. Pri otrave plynom alebo chemikáliou odveďte osobu na čerstvý vzduch. Sami nevstupujte do zamoreného priestoru bez ochrany." },
+        { text: "<strong>Zavolajte 155 alebo 112</strong> – ihneď volajte záchranku. Alebo zavolajte na <strong>Národné toxikologické informačné centrum: +421 2 5477 4166</strong> (funguje 24/7)." },
+        { text: "<strong>Zistite čo, koľko a kedy</strong> – ak je to možné, zistite akú látku osoba požila/vdýchla, koľko a kedy. Zachovajte obal, zvyšok látky alebo zvratky pre záchranárov." },
+        { text: "<strong>Nevyvolávajte zvracanie</strong> – pokiaľ to výslovne neodporučí lekár alebo operátor tiesňovej linky. Pri žieravých látkach (kyseliny, lúhy) by zvracanie spôsobilo ďalšie poškodenie." },
+        { text: "<strong>Ak je osoba v bezvedomí</strong> – ak dýcha, uložte ju do stabilizovanej (bočnej) polohy, aby sa nezadusila zvratkami. Ak nedýcha, začnite resuscitáciu (KPR)." },
+        { text: "<strong>Pri kontakte s chemikáliou na koži/v očiach</strong> – vyplachujte postihnuté miesto veľkým množstvom čistej tečúcej vody minimálne 15–20 minút." }
+      ],
+      warning: "Nepodávajte nič ústami (mlieko, uhlie, vodu) bez konzultácie s lekárom alebo toxikológom. Pri otrave nebezpečnými chemickými látkami – MV SR odporúča: chráňte si dýchacie cesty a oči, opustite ohrozený priestor, sledujte pokyny na oficiálnych kanáloch.",
+      info: "Národné toxikologické informačné centrum (NTIC): <strong><a href='tel:+421254774166' style='color:#1e40af;'>+421 2 5477 4166</a></strong> alebo <strong><a href='tel:+421911166066' style='color:#1e40af;'>0911 166 066</a></strong> (24/7, nonstop). Centrum poskytuje odborné rady pri otravách pre lekárov aj verejnosť.",
+      source: "ERC Guidelines 2025 – Special Circumstances: Toxic agents; Príručka MV SR – Únik nebezpečných chemických látok; NTIC pri DFNsP Bratislava"
+    }
+  ];
+
+  function renderFirstAid() {
+    const grid = document.getElementById("firstAidGrid");
+    if (!grid) return;
+    grid.innerHTML = "";
+    FIRST_AID_DATA.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "fa-card";
+      card.setAttribute("role", "button");
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("aria-label", item.title + " – zobraziť postup prvej pomoci");
+      card.innerHTML = `
+        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder};">
+          ${item.emoji}
+        </div>
+        <div class="fa-card-label">${item.title}</div>`;
+      card.onclick = () => openFirstAidModal(item);
+      card.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFirstAidModal(item); }};
+      grid.appendChild(card);
+    });
+  }
+
+  function openFirstAidModal(item) {
+    const icon = document.getElementById("faModalIcon");
+    const title = document.getElementById("faModalTitle");
+    const subtitle = document.getElementById("faModalSubtitle");
+    const content = document.getElementById("faModalContent");
+
+    icon.style.background = item.iconBg;
+    icon.style.border = `1.5px solid ${item.iconBorder}`;
+    icon.textContent = item.emoji;
+    title.textContent = item.title;
+    subtitle.textContent = item.subtitle;
+
+    let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Záchranka: <a href="tel:155">155</a></div>`;
+
+    // Steps
+    html += `<div style="margin-bottom:0.5rem;">`;
+    item.steps.forEach((step, idx) => {
+      html += `<div class="fa-modal-step">
+        <div class="fa-step-num">${idx + 1}</div>
+        <div class="fa-step-text">${step.text}</div>
+      </div>`;
+    });
+    html += `</div>`;
+
+    // Warning
+    if (item.warning) {
+      html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+    }
+
+    // Info
+    if (item.info) {
+      html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
+    }
+
+    // Source
+    html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
+
+    content.innerHTML = html;
+    openModal("modalFirstAid");
+  }
+
   function renderAll() {
     renderProfileCard();
     renderOverall();
     renderCategories();
+    renderFirstAid();
     // Aktualizuj detail kategórie len ak je modal otvorený
     if (document.getElementById("modalCategory").classList.contains("open")) {
       renderCategoryDetail();
