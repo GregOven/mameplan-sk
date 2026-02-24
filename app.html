@@ -863,8 +863,19 @@
 
       <!-- Plans -->
       <div class="card">
-        <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:0.875rem;">📋 Núdzové plány</h2>
-        <div id="plansBox" class="plans-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.75rem;"></div>
+        <div style="margin-bottom:1rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">📋 Rodinný krízový plán</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál, budete vedieť čo robiť.</p>
+        </div>
+
+        <!-- Miesto stretnutia -->
+        <div id="meetingPointBox"></div>
+
+        <!-- Scenáre -->
+        <div style="margin-top:1rem;">
+          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Krízové scenáre</div>
+          <div id="scenariosBox" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+        </div>
       </div>
 
     </div>
@@ -1097,6 +1108,81 @@
 </div>
 
 <!-- Modal: Prvá pomoc detail -->
+
+<!-- Modal: Miesto stretnutia -->
+<div class="modal-overlay" id="modalMeetingPoint">
+  <div class="modal-box" style="max-width:560px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <div>
+        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">📍 Miesto stretnutia</h3>
+        <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Kde sa stretnete, keď nebude signál ani internet?</p>
+      </div>
+      <button data-close="modalMeetingPoint" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
+    </div>
+    <form id="meetingPointForm" style="display:grid; gap:1rem;">
+      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.625rem;">Hlavné miesto</div>
+        <div style="display:grid; gap:0.625rem;">
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Názov miesta *</label>
+            <input name="mp_name" type="text" placeholder="napr. Hodiny na námestí, Kostol sv. Martina..." required />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Adresa / popis polohy</label>
+            <input name="mp_address" type="text" placeholder="napr. Hlavné námestie 1, pri fontáne" />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Poznámka</label>
+            <input name="mp_note" type="text" placeholder="napr. Vchod od parkoviska, pri lavičkách" />
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:1rem; padding:1rem;">
+        <div style="font-size:0.8rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">⏰ Časy stretávania</div>
+        <div style="font-size:0.72rem; color:#3b82f6; margin-bottom:0.625rem; line-height:1.5;">Kedy sa budete na mieste hľadať? Napr. každé 4 hodiny. Ak tam druhý nie je, príďte o ďalší interval.</div>
+        <div id="meetingTimesEditor" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;"></div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <input type="time" id="newMeetingTime" style="width:auto; font-size:0.85rem; padding:0.4rem 0.625rem;" />
+          <button type="button" id="btnAddMeetingTime" class="btn-ghost" style="font-size:0.78rem; padding:0.4rem 0.75rem; white-space:nowrap;">+ Pridať čas</button>
+        </div>
+      </div>
+
+      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">Záložné miesto</div>
+        <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.625rem;">Ak hlavné miesto nie je prístupné.</div>
+        <div style="display:grid; gap:0.625rem;">
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Názov záložného miesta</label>
+            <input name="mp_backup_name" type="text" placeholder="napr. Dom starej mamy, škola..." />
+          </div>
+          <div>
+            <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Adresa</label>
+            <input name="mp_backup_address" type="text" placeholder="" />
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Scenár -->
+<div class="modal-overlay" id="modalScenario">
+  <div class="modal-box" style="max-width:600px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <div>
+        <h3 id="scenarioModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+        <p id="scenarioModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;"></p>
+      </div>
+      <button data-close="modalScenario" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
+    </div>
+    <div id="scenarioModalContent"></div>
+  </div>
+</div>
 <div class="modal-overlay" id="modalFirstAid">
   <div class="modal-box" style="max-width:600px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
@@ -1164,7 +1250,6 @@
     { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
     { id: "gear", name: "Vybavenie", emoji: "🔦", weight: 1.0 },
     { id: "docs", name: "Doklady", emoji: "📄", weight: 0.9 },
-    { id: "plans", name: "Núdzový plán", emoji: "📋", weight: 1.2 },
   ];
 
   const DEFAULT_ITEMS = {
@@ -1195,11 +1280,6 @@
       { name: "Kópie dokladov (papier / USB)", done: false, qty: "", expiry: "", link: "" },
       { name: "Zoznam kontaktov (offline)", done: false, qty: "", expiry: "", link: "" },
     ],
-    plans: [
-      { name: "Miesto stretnutia – Plán A", done: false, qty: "", expiry: "", link: "" },
-      { name: "Záložné miesto – Plán B", done: false, qty: "", expiry: "", link: "" },
-      { name: "Evakuačná trasa – Plán C", done: false, qty: "", expiry: "", link: "" },
-    ],
   };
 
   // Funkcia na vytvorenie čistého state - vždy volať pri novom prihlásení
@@ -1210,9 +1290,35 @@
       alertDays: 30,
       items: structuredClone(DEFAULT_ITEMS),
       plans: {
-        A: { message: "Sme v poriadku. Ideme na miesto A: _____.", phones: "" },
-        B: { message: "Presúvame sa na miesto B: _____.", phones: "" },
-        C: { message: "Evakuácia. Ideme na miesto C: _____.", phones: "" },
+        meetingPoint: {
+          name: "",
+          address: "",
+          note: "",
+          times: ["08:00", "12:00", "16:00", "20:00"],
+          backup: { name: "", address: "" }
+        },
+        scenarios: {
+          home: {
+            steps: "1. Zostaňte pokojní a zistite čo sa deje\n2. Skontrolujte zásoby a vybavenie\n3. Sledujte rozhlas / informácie\n4. Ak treba evakuovať – zoberte batožinu a choďte na miesto stretnutia",
+            evacPlace: "",
+            note: ""
+          },
+          separated: {
+            tasks: [],
+            meetPlace: "",
+            meetTime: "",
+            note: ""
+          },
+          partial: {
+            whoHome: "",
+            whoWork: "",
+            homeSteps: "Rodič doma: pripraví batožinu a zásoby, zabezpečí deti a čaká na partnera alebo ide na miesto stretnutia.",
+            workSteps: "Rodič v práci: bezpečne opustí pracovisko a smeruje na miesto stretnutia alebo domov.",
+            meetPlace: "",
+            meetTime: "",
+            note: ""
+          }
+        }
       }
     };
   }
@@ -1233,11 +1339,28 @@
       const snap = await getDoc(userDocRef(uid));
       if (snap.exists()) {
         const data = snap.data();
+        // Deep merge plans structure (handle old A/B/C format migration)
+        const defaultPlans = freshState().plans;
+        let mergedPlans = defaultPlans;
+        if (data.plans) {
+          if (data.plans.meetingPoint) {
+            // New format – deep merge
+            mergedPlans = {
+              meetingPoint: { ...defaultPlans.meetingPoint, ...(data.plans.meetingPoint || {}), backup: { ...defaultPlans.meetingPoint.backup, ...((data.plans.meetingPoint||{}).backup || {}) } },
+              scenarios: {
+                home: { ...defaultPlans.scenarios.home, ...((data.plans.scenarios||{}).home || {}) },
+                separated: { ...defaultPlans.scenarios.separated, ...((data.plans.scenarios||{}).separated || {}), tasks: ((data.plans.scenarios||{}).separated||{}).tasks || [] },
+                partial: { ...defaultPlans.scenarios.partial, ...((data.plans.scenarios||{}).partial || {}) }
+              }
+            };
+          }
+          // else: old A/B/C format – just use defaults, old data ignored
+        }
         state = {
           ...state,
           ...data,
           items: { ...structuredClone(DEFAULT_ITEMS), ...(data.items || {}) },
-          plans: { ...state.plans, ...(data.plans || {}) }
+          plans: mergedPlans
         };
         // Migrate: ensure link field
         for (const cid of Object.keys(state.items)) {
@@ -1711,51 +1834,445 @@
   }
 
   function renderPlans() {
-    const box = document.getElementById("plansBox");
-    box.innerHTML = "";
-    ["A","B","C"].forEach(letter => {
-      const plan = state.plans[letter];
-      const card = document.createElement("div");
-      card.style.cssText = "background:var(--c-bg); border:1px solid var(--c-border); border-radius:1rem; padding:1rem;";
-      card.innerHTML = `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.625rem;">
-          <div style="font-weight:700; font-family:'Lexend',sans-serif;">Plán ${letter}</div>
-          <button class="btn-ghost" style="font-size:0.75rem; padding:0.3rem 0.6rem;" data-editplan="${letter}">Upraviť</button>
-        </div>
-        <div style="font-size:0.8rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.5;">
-          <div><strong>Kontakty:</strong> ${esc(plan.phones||"—")}</div>
-          <div><strong>Správa:</strong> ${esc(plan.message)}</div>
-        </div>
-        <div style="display:flex; gap:0.5rem;">
-          <button class="btn-primary" style="font-size:0.8rem; padding:0.5rem 0.875rem; background:var(--c-green);" data-sms="${letter}">📱 SMS</button>
-          <button class="btn-ghost" style="font-size:0.8rem; padding:0.5rem 0.875rem;" data-copy="${letter}">Kopírovať</button>
+    renderMeetingPoint();
+    renderScenarios();
+  }
+
+  // ── Miesto stretnutia ──────────────────────────────────────────
+  function renderMeetingPoint() {
+    const box = document.getElementById("meetingPointBox");
+    if (!box) return;
+    const mp = state.plans.meetingPoint;
+    const hasData = mp.name && mp.name.trim();
+    const hasTimes = mp.times && mp.times.length > 0;
+    const hasBackup = mp.backup && mp.backup.name && mp.backup.name.trim();
+
+    if (!hasData) {
+      box.innerHTML = `
+        <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onclick="openMeetingPointModal()" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;">📍</div>
+            <div style="flex:1;">
+              <div style="font-weight:700; font-size:0.95rem; color:#92400e;">Nastavte miesto stretnutia</div>
+              <div style="font-size:0.78rem; color:#a16207; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Dohodnite sa vopred s celou rodinou.</div>
+            </div>
+            <div style="font-size:1.25rem; color:#a16207; flex-shrink:0;">→</div>
+          </div>
         </div>`;
+      return;
+    }
+
+    let timesHtml = "";
+    if (hasTimes) {
+      timesHtml = `<div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.625rem;">` +
+        mp.times.sort().map(t => `<span style="background:#eff6ff; border:1px solid #bfdbfe; color:#1e40af; border-radius:0.5rem; padding:0.2rem 0.5rem; font-size:0.75rem; font-weight:700; font-family:'Lexend',sans-serif;">${t}</span>`).join("") +
+        `</div>`;
+    }
+
+    let backupHtml = "";
+    if (hasBackup) {
+      backupHtml = `
+        <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px dashed #bfdbfe;">
+          <div style="font-size:0.72rem; font-weight:600; color:#3b82f6; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">Záložné miesto</div>
+          <div style="font-weight:600; font-size:0.85rem;">${esc(mp.backup.name)}</div>
+          ${mp.backup.address ? `<div style="font-size:0.75rem; color:var(--c-muted);">${esc(mp.backup.address)}</div>` : ""}
+        </div>`;
+    }
+
+    box.innerHTML = `
+      <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #bfdbfe; border-radius:1rem; padding:1.25rem;">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:0.75rem;">
+          <div style="display:flex; align-items:flex-start; gap:0.75rem; flex:1; min-width:0;">
+            <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0; color:white;">📍</div>
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:0.68rem; font-weight:600; color:#3b82f6; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
+              <div style="font-weight:800; font-size:1.0625rem; color:var(--c-text); margin-top:0.125rem;">${esc(mp.name)}</div>
+              ${mp.address ? `<div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.125rem;">📌 ${esc(mp.address)}</div>` : ""}
+              ${mp.note ? `<div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
+              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#3b82f6; margin-bottom:0.25rem;">⏰ ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
+            </div>
+          </div>
+          <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.78rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
+        </div>
+        ${backupHtml}
+        <div style="background:rgba(255,255,255,0.6); border-radius:0.625rem; padding:0.625rem 0.75rem; margin-top:0.75rem; font-size:0.75rem; color:#1e40af; line-height:1.5;">
+          💡 <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval.
+        </div>
+      </div>`;
+  }
+
+  // ── Krízové scenáre ────────────────────────────────────────────
+  const SCENARIO_DEFS = [
+    {
+      id: "home",
+      emoji: "🏠",
+      title: "Celá rodina je doma",
+      subtitle: "Krízová situácia zastihne všetkých doma spolu",
+      color: "#2a7a4b",
+      bg: "#eaf4ee",
+      border: "#86efac"
+    },
+    {
+      id: "separated",
+      emoji: "🏫",
+      title: "Rodičia v práci, deti mimo",
+      subtitle: "Deti sú v škole / škôlke / krúžkoch – oddelení od rodičov",
+      color: "#b45309",
+      bg: "#fef3c7",
+      border: "#fcd34d"
+    },
+    {
+      id: "partial",
+      emoji: "👨‍👧",
+      title: "Jeden rodič doma, druhý v práci",
+      subtitle: "Jeden z partnerov je s deťmi, druhý inde",
+      color: "#1e40af",
+      bg: "#eff6ff",
+      border: "#bfdbfe"
+    }
+  ];
+
+  function renderScenarios() {
+    const box = document.getElementById("scenariosBox");
+    if (!box) return;
+    box.innerHTML = "";
+    SCENARIO_DEFS.forEach(def => {
+      const scenario = state.plans.scenarios[def.id];
+      const filled = isScenarioFilled(def.id, scenario);
+      const card = document.createElement("div");
+      card.style.cssText = `background:${def.bg}; border:1.5px solid ${def.border}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;`;
+      card.onmouseover = () => { card.style.transform = "translateY(-2px)"; card.style.boxShadow = "0 6px 18px rgba(0,0,0,0.08)"; };
+      card.onmouseout = () => { card.style.transform = ""; card.style.boxShadow = ""; };
+
+      let previewHtml = "";
+      if (filled) {
+        previewHtml = getScenarioPreview(def.id, scenario);
+      } else {
+        previewHtml = `<div style="font-size:0.78rem; color:${def.color}; opacity:0.7; margin-top:0.375rem;">Kliknutím nastavíte postup pre tento scenár →</div>`;
+      }
+
+      card.innerHTML = `
+        <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+          <div style="width:40px; height:40px; border-radius:50%; background:white; border:1.5px solid ${def.border}; display:flex; align-items:center; justify-content:center; font-size:1.125rem; flex-shrink:0;">${def.emoji}</div>
+          <div style="flex:1; min-width:0;">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
+              <div style="font-weight:700; font-size:0.9rem; color:${def.color};">${def.title}</div>
+              ${filled ? `<span style="background:white; border:1px solid ${def.border}; border-radius:999px; padding:0.1rem 0.4rem; font-size:0.625rem; font-weight:700; color:${def.color};">✓ HOTOVO</span>` : ""}
+            </div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">${def.subtitle}</div>
+            ${previewHtml}
+          </div>
+        </div>`;
+      card.onclick = () => openScenarioModal(def.id);
       box.appendChild(card);
     });
+  }
 
-    box.querySelectorAll("[data-editplan]").forEach(el => {
-      el.onclick = () => {
-        const l = el.dataset.editplan;
-        const phones = prompt("Telefónne čísla (čiarkou)", state.plans[l].phones||""); if (phones===null) return;
-        const msg = prompt("Text správy", state.plans[l].message||""); if (msg===null) return;
-        state.plans[l] = { phones: phones.trim(), message: msg.trim() };
+  function isScenarioFilled(id, s) {
+    if (id === "home") return !!(s.steps && s.steps.trim());
+    if (id === "separated") return (s.tasks && s.tasks.length > 0) || !!(s.meetPlace && s.meetPlace.trim());
+    if (id === "partial") return !!(s.whoHome && s.whoHome.trim()) || !!(s.whoWork && s.whoWork.trim());
+    return false;
+  }
+
+  function getScenarioPreview(id, s) {
+    if (id === "home") {
+      const lines = (s.steps||"").split("\n").filter(l => l.trim()).slice(0, 2);
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${lines.map(l => esc(l)).join("<br>")}</div>`;
+    }
+    if (id === "separated") {
+      const taskCount = (s.tasks||[]).length;
+      const taskPrev = (s.tasks||[]).slice(0, 2).map(t => `<strong>${esc(t.person||"?")}</strong> → vyzdvihne <strong>${esc(t.picksUp||"?")}</strong> z ${esc(t.from||"?")}`).join("; ");
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${taskCount > 0 ? taskPrev : ""}${s.meetPlace ? `<br>Stretnutie: <strong>${esc(s.meetPlace)}</strong>` : ""}${s.meetTime ? ` o <strong>${esc(s.meetTime)}</strong>` : ""}</div>`;
+    }
+    if (id === "partial") {
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${s.whoHome ? `Doma: <strong>${esc(s.whoHome)}</strong>` : ""}${s.whoWork ? ` | V práci: <strong>${esc(s.whoWork)}</strong>` : ""}</div>`;
+    }
+    return "";
+  }
+
+  // ── Meeting point modal ─────────────────────────────────────────
+  let tempMeetingTimes = [];
+
+  function openMeetingPointModal() {
+    const mp = state.plans.meetingPoint;
+    const f = document.getElementById("meetingPointForm");
+    f.elements["mp_name"].value = mp.name || "";
+    f.elements["mp_address"].value = mp.address || "";
+    f.elements["mp_note"].value = mp.note || "";
+    f.elements["mp_backup_name"].value = (mp.backup||{}).name || "";
+    f.elements["mp_backup_address"].value = (mp.backup||{}).address || "";
+    tempMeetingTimes = [...(mp.times || [])];
+    renderMeetingTimesEditor();
+    openModal("modalMeetingPoint");
+  }
+
+  function renderMeetingTimesEditor() {
+    const box = document.getElementById("meetingTimesEditor");
+    if (!box) return;
+    box.innerHTML = tempMeetingTimes.sort().map((t, i) => `
+      <span style="display:inline-flex; align-items:center; gap:0.25rem; background:white; border:1.5px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.375rem 0.25rem 0.5rem; font-size:0.8rem; font-weight:700; color:#1e40af; font-family:'Lexend',sans-serif;">
+        ${t}
+        <button type="button" onclick="removeMeetingTime(${i})" style="background:none; border:none; cursor:pointer; color:#93c5fd; font-size:1rem; line-height:1; padding:0 0.125rem;" title="Odstrániť">✕</button>
+      </span>
+    `).join("");
+  }
+
+  function removeMeetingTime(i) {
+    tempMeetingTimes.splice(i, 1);
+    renderMeetingTimesEditor();
+  }
+  // expose to onclick
+  window.removeMeetingTime = removeMeetingTime;
+  window.openMeetingPointModal = openMeetingPointModal;
+
+  document.getElementById("btnAddMeetingTime").onclick = () => {
+    const inp = document.getElementById("newMeetingTime");
+    if (inp.value && !tempMeetingTimes.includes(inp.value)) {
+      tempMeetingTimes.push(inp.value);
+      inp.value = "";
+      renderMeetingTimesEditor();
+    }
+  };
+
+  document.getElementById("meetingPointForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    state.plans.meetingPoint = {
+      name: String(fd.get("mp_name")||"").trim(),
+      address: String(fd.get("mp_address")||"").trim(),
+      note: String(fd.get("mp_note")||"").trim(),
+      times: [...tempMeetingTimes],
+      backup: {
+        name: String(fd.get("mp_backup_name")||"").trim(),
+        address: String(fd.get("mp_backup_address")||"").trim()
+      }
+    };
+    closeModal("modalMeetingPoint");
+    scheduleSave(); renderPlans();
+  };
+
+  // ── Scenario modals ─────────────────────────────────────────────
+  function openScenarioModal(scenarioId) {
+    const def = SCENARIO_DEFS.find(d => d.id === scenarioId);
+    const s = state.plans.scenarios[scenarioId];
+    document.getElementById("scenarioModalTitle").textContent = def.emoji + " " + def.title;
+    document.getElementById("scenarioModalSubtitle").textContent = def.subtitle;
+    const content = document.getElementById("scenarioModalContent");
+
+    if (scenarioId === "home") {
+      content.innerHTML = `
+        <form id="scenarioHomeForm" style="display:grid; gap:1rem;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+            <strong>Situácia:</strong> Celá rodina je doma keď nastane kríza. Čo robíte ako prvé?
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Postup krok za krokom</label>
+            <textarea name="steps" rows="6" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní a zistite čo sa deje&#10;2. Skontrolujte zásoby&#10;3. Sledujte rozhlas&#10;4. Ak treba evakuovať...">${esc(s.steps||"")}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kam evakuujete? (ak treba opustiť dom)</label>
+            <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. K starým rodičom, na chatu, na miesto stretnutia..." />
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="Čokoľvek dôležité pre tento scenár" />
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+          </div>
+        </form>`;
+      content.querySelector("#scenarioHomeForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        state.plans.scenarios.home = {
+          steps: String(fd.get("steps")||"").trim(),
+          evacPlace: String(fd.get("evacPlace")||"").trim(),
+          note: String(fd.get("note")||"").trim()
+        };
+        closeModal("modalScenario");
         scheduleSave(); renderPlans();
       };
-    });
-    box.querySelectorAll("[data-copy]").forEach(el => {
-      el.onclick = async () => {
-        await navigator.clipboard.writeText(state.plans[el.dataset.copy].message||"");
-        alert("Skopírované!");
+    }
+
+    else if (scenarioId === "separated") {
+      const tasks = s.tasks || [];
+      let tasksHtml = "";
+      tasks.forEach((t, i) => {
+        tasksHtml += `
+          <div class="sep-task-row" style="background:white; border:1.5px solid ${def.border}; border-radius:0.875rem; padding:0.875rem; position:relative;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+              <div style="font-weight:700; font-size:0.8rem; color:${def.color};">Úloha ${i+1}</div>
+              <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+              <div>
+                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Kto ide?</label>
+                <input name="task_person_${i}" type="text" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" />
+              </div>
+              <div>
+                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Vyzdvihne koho?</label>
+                <input name="task_picksUp_${i}" type="text" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" />
+              </div>
+              <div>
+                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Odkiaľ?</label>
+                <input name="task_from_${i}" type="text" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" />
+              </div>
+              <div>
+                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Poznámka</label>
+                <input name="task_note_${i}" type="text" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.85rem;" />
+              </div>
+            </div>
+          </div>`;
+      });
+
+      content.innerHTML = `
+        <form id="scenarioSepForm" style="display:grid; gap:1rem;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+            <strong>Situácia:</strong> Rodičia sú v práci, deti v škole/škôlke/krúžkoch. Kto ide pre koho?
+          </div>
+          <div>
+            <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.5rem;">Rozdelenie úloh</div>
+            <div id="sepTasksList" style="display:flex; flex-direction:column; gap:0.625rem;">${tasksHtml}</div>
+            <button type="button" id="btnAddSepTask" class="btn-ghost" style="margin-top:0.625rem; font-size:0.78rem; padding:0.5rem 1rem; width:100%; text-align:center;">+ Pridať úlohu (kto ide pre koho)</button>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kde sa všetci stretnete?</label>
+              <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
+            </div>
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">O koľkej najneskôr?</label>
+              <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, o 15:00..." />
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Ak sa nedá vyzdvihnúť do 1h, volať babku..." />
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+          </div>
+        </form>`;
+
+      let taskCount = tasks.length;
+      const addTaskBtn = content.querySelector("#btnAddSepTask");
+      const tasksList = content.querySelector("#sepTasksList");
+      addTaskBtn.onclick = () => {
+        const i = taskCount++;
+        const row = document.createElement("div");
+        row.className = "sep-task-row";
+        row.style.cssText = `background:white; border:1.5px solid ${def.border}; border-radius:0.875rem; padding:0.875rem; position:relative;`;
+        row.innerHTML = `
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
+            <div style="font-weight:700; font-size:0.8rem; color:${def.color};">Úloha ${i+1}</div>
+            <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Kto ide?</label><input name="task_person_${i}" type="text" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
+            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
+            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Odkiaľ?</label><input name="task_from_${i}" type="text" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
+            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Poznámka</label><input name="task_note_${i}" type="text" placeholder="" style="font-size:0.85rem;" /></div>
+          </div>`;
+        tasksList.appendChild(row);
+        bindRemoveButtons();
       };
-    });
-    box.querySelectorAll("[data-sms]").forEach(el => {
-      el.onclick = () => {
-        const p = state.plans[el.dataset.sms];
-        const phones = p.phones.split(",").map(s=>s.trim()).filter(Boolean);
-        if (!phones.length) { alert("Najprv doplň telefónne čísla."); return; }
-        window.location.href = `sms:${phones.join(",")}?&body=${encodeURIComponent(p.message||"")}`;
+
+      function bindRemoveButtons() {
+        content.querySelectorAll("[data-removetask]").forEach(b => {
+          b.onclick = () => { b.closest(".sep-task-row").remove(); };
+        });
+      }
+      bindRemoveButtons();
+
+      content.querySelector("#scenarioSepForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        const newTasks = [];
+        const rows = content.querySelectorAll(".sep-task-row");
+        rows.forEach(row => {
+          const inputs = row.querySelectorAll("input");
+          if (inputs.length >= 2) {
+            const task = {
+              person: (inputs[0]?.value||"").trim(),
+              picksUp: (inputs[1]?.value||"").trim(),
+              from: (inputs[2]?.value||"").trim(),
+              note: (inputs[3]?.value||"").trim()
+            };
+            if (task.person || task.picksUp) newTasks.push(task);
+          }
+        });
+        state.plans.scenarios.separated = {
+          tasks: newTasks,
+          meetPlace: String(fd.get("meetPlace")||"").trim(),
+          meetTime: String(fd.get("meetTime")||"").trim(),
+          note: String(fd.get("note")||"").trim()
+        };
+        closeModal("modalScenario");
+        scheduleSave(); renderPlans();
       };
-    });
+    }
+
+    else if (scenarioId === "partial") {
+      content.innerHTML = `
+        <form id="scenarioPartForm" style="display:grid; gap:1rem;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+            <strong>Situácia:</strong> Jeden z partnerov je doma s deťmi, druhý je v práci. Čo robí každý?
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto je doma?</label>
+              <input name="whoHome" type="text" value="${esc(s.whoHome||"")}" placeholder="napr. Mama, Mišo..." />
+            </div>
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto je v práci?</label>
+              <input name="whoWork" type="text" value="${esc(s.whoWork||"")}" placeholder="napr. Ocko, Katka..." />
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten doma?</label>
+            <textarea name="homeSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batožinu, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten v práci?</label>
+            <textarea name="workSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kde sa stretnete?</label>
+              <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
+            </div>
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">O koľkej najneskôr?</label>
+              <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, ASAP..." />
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kľúče od auta – v šuflíku v chodbe..." />
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+          </div>
+        </form>`;
+      content.querySelector("#scenarioPartForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        state.plans.scenarios.partial = {
+          whoHome: String(fd.get("whoHome")||"").trim(),
+          whoWork: String(fd.get("whoWork")||"").trim(),
+          homeSteps: String(fd.get("homeSteps")||"").trim(),
+          workSteps: String(fd.get("workSteps")||"").trim(),
+          meetPlace: String(fd.get("meetPlace")||"").trim(),
+          meetTime: String(fd.get("meetTime")||"").trim(),
+          note: String(fd.get("note")||"").trim()
+        };
+        closeModal("modalScenario");
+        scheduleSave(); renderPlans();
+      };
+    }
+
+    openModal("modalScenario");
   }
 
   function renderAlerts() {
