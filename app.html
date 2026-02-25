@@ -873,6 +873,18 @@
         <div id="emergencyProcGrid" class="mu-grid"></div>
       </div>
 
+      <!-- EVAKUAČNÉ BATOŽINY -->
+      <div class="card" id="evacBagsSection">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batožiny</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobná evakuačná batožina pre každého člena domácnosti</p>
+          </div>
+          <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">🔄 Pregenerovať</button>
+        </div>
+        <div id="evacBagsContainer"></div>
+      </div>
+
       <!-- Plans -->
       <div class="card">
         <div style="margin-bottom:1rem;">
@@ -1120,6 +1132,25 @@
 </div>
 
 <!-- Modal: Prvá pomoc detail -->
+
+<!-- Modal: Osobný kontakt -->
+
+<!-- Modal: Evakuačná batožina detail -->
+<div class="modal-overlay" id="modalEvacBag">
+  <div class="modal-box" style="max-width:560px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
+        <div id="evacBagModalIcon" style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;"></div>
+        <div>
+          <h3 id="evacBagModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+          <p id="evacBagModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+        </div>
+      </div>
+      <button data-close="modalEvacBag" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+    </div>
+    <div id="evacBagModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+  </div>
+</div>
 
 <!-- Modal: Osobný kontakt -->
 <div class="modal-overlay" id="modalPersonalContact">
@@ -1379,7 +1410,8 @@
           }
         }
       },
-      personalContacts: []
+      personalContacts: [],
+      evacuationBags: {}
     };
   }
 
@@ -1421,7 +1453,8 @@
           ...data,
           items: { ...structuredClone(DEFAULT_ITEMS), ...(data.items || {}) },
           plans: mergedPlans,
-          personalContacts: data.personalContacts || []
+          personalContacts: data.personalContacts || [],
+          evacuationBags: data.evacuationBags || {}
         };
         // Migrate: ensure link field
         for (const cid of Object.keys(state.items)) {
@@ -2832,6 +2865,334 @@
   };
 
   // ══════════════════════════════════════════════════════════════════
+  // EVAKUAČNÉ BATOŽINY
+  // ══════════════════════════════════════════════════════════════════
+
+  const EVAC_BAG_TYPES = {
+    adult:  { emoji: "🧑", label: "Dospelý", maxKg: 25, kcalDay: 2000, color: "#1e40af", bg: "#eff6ff", border: "#bfdbfe" },
+    kid:    { emoji: "🧒", label: "Dieťa",   maxKg: 15, kcalDay: 1500, color: "#b45309", bg: "#fef3c7", border: "#fcd34d" },
+    infant: { emoji: "👶", label: "Bábätko", maxKg: 5,  kcalDay: 800,  color: "#be185d", bg: "#fdf2f8", border: "#fbcfe8" },
+    senior: { emoji: "👴", label: "Senior",  maxKg: 20, kcalDay: 1800, color: "#2a7a4b", bg: "#eaf4ee", border: "#86efac" },
+  };
+
+  function getEvacBagItems(type) {
+    const t = EVAC_BAG_TYPES[type];
+    const kcal = t.kcalDay;
+    const items = [];
+
+    // ── Doklady & peniaze ──
+    items.push({ cat: "Doklady a peniaze", items: [
+      { name: "Občiansky preukaz / pas", note: "Originál alebo kópia" },
+      { name: "Kartička poistenca", note: "Zdravotná poisťovňa" },
+      { name: "Kópie dôležitých dokumentov", note: "Rodný list, zmluvy, poistky – ideálne aj foto v mobile" },
+      { name: "Kľúče", note: "Dom, auto, pivnica, kancelária" },
+      { name: "Hotovosť + platobné karty", note: "Drobné mince + bankovky, min. na 3 dni" },
+    ]});
+
+    // ── Zdravie ──
+    const healthItems = [
+      { name: "Lekárnička", note: "Obväzy, dezinfekcia, náplaste, rukavice" },
+      { name: "Pravidelne užívané lieky", note: "Zásoby na minimálne 7 dní" },
+      { name: "Dezinfekcia na ruky", note: "" },
+    ];
+    if (type !== "infant") {
+      healthItems.push({ name: "Okuliare / kontaktné šošovky", note: "Ak ich používate – náhradné!" });
+    }
+    if (type === "infant") {
+      healthItems.push({ name: "Plienky a vlhčené utierky", note: "Zásoba na min. 3 dni" });
+      healthItems.push({ name: "Dojčenská výživa / mlieko", note: "Práškové + fľaška s cumlíkom" });
+      healthItems.push({ name: "Cumlík a obľúbená hračka", note: "Na upokojenie" });
+    }
+    items.push({ cat: "Zdravie a hygiena", items: healthItems });
+
+    // ── Jedlo a voda ──
+    const foodItems = [
+      { name: "Balená pitná voda", note: "Min. 1,5 l na 24 hodín" },
+      { name: "Fľaša na filtrovanie vody", note: "Pre prípad kontaminovanej vody – zvýšená odolnosť" },
+      { name: `Trvanlivé jedlo na 24 h (${kcal} kcal)`, note: type === "infant" ? "Detská výživa v poháriku, kaša" : type === "kid" ? "Energetické tyčinky, orechy, sušené ovocie, konzervy" : "Energetické tyčinky, orechy, konzervy, sušené mäso, čokoláda" },
+    ];
+    if (type !== "infant") {
+      foodItems.push({ name: "Hrnček + miska + príbor", note: "Ľahké, plastové alebo titánové" });
+      foodItems.push({ name: "Multifunkčný nôž", note: "Vrátane otvárača na konzervy" });
+    }
+    items.push({ cat: "Jedlo a voda", items: foodItems });
+
+    // ── Oblečenie ──
+    const clothItems = [
+      { name: "Pevná obuv", note: "Nepremokavá, pohodlná – pripraviť k batožine" },
+      { name: "Pláštenka / nepremokavá bunda", note: "" },
+      { name: "Náhradné oblečenie", note: type === "infant" ? "2× body, čiapka, ponožky" : "Tričko, nohavice, mikina, čiapka" },
+      { name: "Spodné prádlo a ponožky", note: "Min. 2 sady" },
+    ];
+    items.push({ cat: "Oblečenie", items: clothItems });
+
+    // ── Spanie a teplo ──
+    const sleepItems = [
+      { name: "Spacák alebo teplá deka", note: "Kompaktný, ľahký" },
+    ];
+    if (type !== "infant") {
+      sleepItems.push({ name: "Karimatka", note: "Skladacia penová alebo nafukovacia" });
+    }
+    if (type === "infant") {
+      sleepItems.push({ name: "Zavinovačka / detská deka", note: "" });
+    }
+    items.push({ cat: "Spanie a teplo", items: sleepItems });
+
+    // ── Technika a komunikácia ──
+    const techItems = [];
+    if (type !== "infant") {
+      techItems.push({ name: "Mobilný telefón + nabíjačka", note: "S káblem" });
+      techItems.push({ name: "Nabitá power banka", note: "Min. 10 000 mAh, pravidelne dobíjať" });
+    }
+    if (type === "adult" || type === "senior") {
+      techItems.push({ name: "Rádio na batérie", note: "Na príjem núdzového vysielania" });
+    }
+    techItems.push({ name: "Baterka / čelovka", note: "S náhradnými batériami" });
+    if (type !== "infant") {
+      techItems.push({ name: "Papier a ceruzka", note: "Na poznámky, správy pre rodinu" });
+    }
+    if (techItems.length) items.push({ cat: "Technika a komunikácia", items: techItems });
+
+    // ── Rôzne ──
+    const miscItems = [
+      { name: "Uterák z mikrovlákna", note: "Skladací, rýchloschnúci" },
+    ];
+    if (type === "kid") {
+      miscItems.push({ name: "Hračka / plyšiak / hra", note: "Na upokojenie a rozptýlenie" });
+      miscItems.push({ name: "Kniha / omaľovánky + ceruzky", note: "" });
+    } else if (type === "adult" || type === "senior") {
+      miscItems.push({ name: "Kniha / spoločenská hra / karty", note: "Psychická pohoda je dôležitá" });
+      miscItems.push({ name: "Píšťalka", note: "Na privolanie pomoci" });
+      miscItems.push({ name: "Igelitové vrecká (3–5 ks)", note: "Na odpadky, mokré veci, improvizovaná ochrana" });
+      miscItems.push({ name: "Páska lepiaca (duct tape)", note: "Univerzálne použitie – opravy, utesňovanie" });
+      miscItems.push({ name: "Lano / šnúra (5 m)", note: "Paracord alebo podobné" });
+    }
+    items.push({ cat: "Rôzne", items: miscItems });
+
+    return items;
+  }
+
+  function generateEvacBags() {
+    const p = state.profile;
+    if (!p) return;
+    const bags = {};
+    let idx = 0;
+    for (let i = 0; i < (p.adults||0); i++) {
+      const id = "adult_" + i;
+      const existing = state.evacuationBags[id];
+      bags[id] = {
+        type: "adult",
+        label: (p.adults > 1) ? `Dospelý ${i + 1}` : "Dospelý",
+        checked: existing ? existing.checked : {}
+      };
+      idx++;
+    }
+    for (let i = 0; i < (p.kids||0); i++) {
+      const id = "kid_" + i;
+      const existing = state.evacuationBags[id];
+      bags[id] = {
+        type: "kid",
+        label: (p.kids > 1) ? `Dieťa ${i + 1}` : "Dieťa",
+        checked: existing ? existing.checked : {}
+      };
+    }
+    for (let i = 0; i < (p.infants||0); i++) {
+      const id = "infant_" + i;
+      const existing = state.evacuationBags[id];
+      bags[id] = {
+        type: "infant",
+        label: (p.infants > 1) ? `Bábätko ${i + 1}` : "Bábätko",
+        checked: existing ? existing.checked : {}
+      };
+    }
+    for (let i = 0; i < (p.seniors||0); i++) {
+      const id = "senior_" + i;
+      const existing = state.evacuationBags[id];
+      bags[id] = {
+        type: "senior",
+        label: (p.seniors > 1) ? `Senior ${i + 1}` : "Senior",
+        checked: existing ? existing.checked : {}
+      };
+    }
+    state.evacuationBags = bags;
+  }
+
+  function getBagProgress(bagId) {
+    const bag = state.evacuationBags[bagId];
+    if (!bag) return { done: 0, total: 0, pct: 0 };
+    const sections = getEvacBagItems(bag.type);
+    let total = 0, done = 0;
+    sections.forEach(sec => sec.items.forEach(item => {
+      total++;
+      if (bag.checked && bag.checked[item.name]) done++;
+    }));
+    return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+  }
+
+  function renderEvacBags() {
+    const container = document.getElementById("evacBagsContainer");
+    const regenBtn = document.getElementById("btnRegenBags");
+    if (!container) return;
+
+    if (!state.profile) {
+      container.innerHTML = `
+        <div style="background:var(--c-bg); border-radius:1rem; padding:1.25rem; text-align:center;">
+          <div style="font-size:2rem; margin-bottom:0.5rem;">🎒</div>
+          <div style="font-weight:600; font-size:0.9rem; margin-bottom:0.25rem;">Najprv vyplňte profil domácnosti</div>
+          <div style="font-size:0.78rem; color:var(--c-muted);">Batožiny sa vygenerujú podľa počtu a typu členov vašej rodiny.</div>
+        </div>`;
+      if (regenBtn) regenBtn.style.display = "none";
+      return;
+    }
+
+    // Auto-generate if empty or profile changed
+    const bagKeys = Object.keys(state.evacuationBags);
+    const expectedCount = (state.profile.adults||0) + (state.profile.kids||0) + (state.profile.infants||0) + (state.profile.seniors||0);
+    if (bagKeys.length === 0 || bagKeys.length !== expectedCount) {
+      generateEvacBags();
+      scheduleSave();
+    }
+    if (regenBtn) regenBtn.style.display = "inline-flex";
+
+    // BYOB info banner
+    let html = `
+      <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
+        <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+          <div style="font-size:1.375rem; flex-shrink:0; margin-top:0.125rem;">💡</div>
+          <div>
+            <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravenú evakuačnú batožinu?</div>
+            <div style="font-size:0.75rem; color:#a16207; line-height:1.6;">
+              Zásoby doma vás chránia pri kríze keď <strong>zostanete na mieste</strong> (výpadok prúdu, karanténa, snehová kalamita). 
+              Evakuačná batožina je pre opačný scenár — keď <strong>musíte rýchlo odísť</strong> (povodeň, požiar, chemický únik, vojenský konflikt). 
+              Máte max. <strong>15–30 minút</strong> na odchod. Ak je batožina pripravená, stačí ju zobrať a ísť. Každý člen rodiny by mal mať svoju vlastnú.
+            </div>
+            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; + 5 kg príručná batožina</div>
+          </div>
+        </div>
+      </div>`;
+
+    // Bag cards
+    html += `<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;">`;
+    Object.keys(state.evacuationBags).forEach(bagId => {
+      const bag = state.evacuationBags[bagId];
+      const t = EVAC_BAG_TYPES[bag.type];
+      const prog = getBagProgress(bagId);
+      const progressColor = prog.pct === 100 ? "#2a7a4b" : prog.pct > 50 ? "#b45309" : "#dc2626";
+
+      html += `
+        <div onclick="openEvacBagModal('${bagId}')" style="background:${t.bg}; border:1.5px solid ${t.border}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.75rem;">
+            <div style="width:40px; height:40px; border-radius:50%; background:white; border:1.5px solid ${t.border}; display:flex; align-items:center; justify-content:center; font-size:1.125rem; flex-shrink:0;">${t.emoji}</div>
+            <div>
+              <div style="font-weight:700; font-size:0.9rem; color:${t.color};">${esc(bag.label)}</div>
+              <div style="font-size:0.68rem; color:var(--c-muted);">max ${t.maxKg} kg &nbsp;·&nbsp; ${t.kcalDay} kcal/deň</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div class="progress-bar" style="flex:1; height:6px; margin:0;">
+              <div class="progress-fill" style="width:${prog.pct}%; background:${progressColor}; transition:width 0.4s ease;"></div>
+            </div>
+            <span style="font-size:0.75rem; font-weight:700; color:${progressColor}; white-space:nowrap;">${prog.done}/${prog.total}</span>
+          </div>
+          ${prog.pct === 100 ? `<div style="text-align:center; margin-top:0.5rem; font-size:0.72rem; font-weight:700; color:#2a7a4b;">✓ Kompletná</div>` : ""}
+        </div>`;
+    });
+    html += `</div>`;
+
+    container.innerHTML = html;
+  }
+
+  function openEvacBagModal(bagId) {
+    const bag = state.evacuationBags[bagId];
+    if (!bag) return;
+    const t = EVAC_BAG_TYPES[bag.type];
+    const sections = getEvacBagItems(bag.type);
+    const prog = getBagProgress(bagId);
+
+    const icon = document.getElementById("evacBagModalIcon");
+    icon.style.background = t.bg;
+    icon.style.border = `1.5px solid ${t.border}`;
+    icon.textContent = t.emoji;
+    document.getElementById("evacBagModalTitle").textContent = "🎒 " + bag.label;
+    document.getElementById("evacBagModalSubtitle").textContent = `Max ${t.maxKg} kg · ${t.kcalDay} kcal/deň · ${prog.done}/${prog.total} položiek`;
+
+    let html = `
+      <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:1rem;">
+        <div class="progress-bar" style="flex:1; height:8px; margin:0;">
+          <div class="progress-fill" style="width:${prog.pct}%; background:${prog.pct === 100 ? '#2a7a4b' : '#3b82f6'}; transition:width 0.3s;"></div>
+        </div>
+        <span style="font-size:0.9rem; font-weight:800; color:${prog.pct === 100 ? '#2a7a4b' : 'var(--c-text)'};">${prog.pct}%</span>
+      </div>`;
+
+    sections.forEach(sec => {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">${sec.cat}</div>`;
+      sec.items.forEach(item => {
+        const checked = bag.checked && bag.checked[item.name];
+        html += `
+          <div data-evacitem="${esc(item.name)}" data-evacbag="${bagId}" style="display:flex; align-items:flex-start; gap:0.625rem; padding:0.5rem 0.625rem; border-radius:0.625rem; cursor:pointer; transition:background 0.15s; ${checked ? 'opacity:0.6;' : ''}" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='transparent'">
+            <div style="width:22px; height:22px; border-radius:0.375rem; border:2px solid ${checked ? '#2a7a4b' : 'var(--c-border)'}; background:${checked ? '#2a7a4b' : 'white'}; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:0.0625rem; transition:all 0.15s;">
+              ${checked ? '<span style="color:white; font-size:0.75rem; font-weight:700;">✓</span>' : ''}
+            </div>
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:0.85rem; font-weight:600; ${checked ? 'text-decoration:line-through; color:var(--c-muted);' : 'color:var(--c-text);'}">${esc(item.name)}</div>
+              ${item.note ? `<div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.1rem; line-height:1.4;">${esc(item.note)}</div>` : ""}
+            </div>
+          </div>`;
+      });
+      html += `</div>`;
+    });
+
+    html += `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding-top:0.75rem; border-top:1px solid var(--c-border); margin-top:0.5rem;">
+        <button type="button" onclick="toggleAllEvacItems('${bagId}', true)" class="btn-ghost" style="font-size:0.72rem; padding:0.375rem 0.75rem;">✓ Označiť všetko</button>
+        <button type="button" onclick="toggleAllEvacItems('${bagId}', false)" class="btn-ghost" style="font-size:0.72rem; padding:0.375rem 0.75rem; color:#dc2626;">✕ Odznačiť všetko</button>
+      </div>`;
+
+    const content = document.getElementById("evacBagModalContent");
+    content.innerHTML = html;
+
+    // Bind item clicks
+    content.querySelectorAll("[data-evacitem]").forEach(el => {
+      el.onclick = () => {
+        const itemName = el.dataset.evacitem;
+        const bId = el.dataset.evacbag;
+        if (!state.evacuationBags[bId].checked) state.evacuationBags[bId].checked = {};
+        state.evacuationBags[bId].checked[itemName] = !state.evacuationBags[bId].checked[itemName];
+        scheduleSave();
+        // Re-render modal in place
+        openEvacBagModal(bId);
+        renderEvacBags();
+      };
+    });
+
+    openModal("modalEvacBag");
+  }
+  window.openEvacBagModal = openEvacBagModal;
+
+  function toggleAllEvacItems(bagId, val) {
+    const bag = state.evacuationBags[bagId];
+    if (!bag) return;
+    const sections = getEvacBagItems(bag.type);
+    if (!bag.checked) bag.checked = {};
+    sections.forEach(sec => sec.items.forEach(item => {
+      bag.checked[item.name] = val;
+    }));
+    scheduleSave();
+    openEvacBagModal(bagId);
+    renderEvacBags();
+  }
+  window.toggleAllEvacItems = toggleAllEvacItems;
+
+  document.getElementById("btnRegenBags").onclick = () => {
+    if (confirm("Pregenerovať batožiny podľa aktuálneho profilu? Zaškrtnuté položky sa zachovajú.")) {
+      generateEvacBags();
+      scheduleSave();
+      renderEvacBags();
+    }
+  };
+
+  // ══════════════════════════════════════════════════════════════════
   // VAROVNÉ SIGNÁLY SIRÉN
   // ══════════════════════════════════════════════════════════════════
 
@@ -3326,6 +3687,7 @@
     renderSirens();
     renderRadio();
     renderEmergencyProc();
+    renderEvacBags();
     // Aktualizuj detail kategórie len ak je modal otvorený
     if (document.getElementById("modalCategory").classList.contains("open")) {
       renderCategoryDetail();
