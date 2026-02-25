@@ -13,12 +13,8 @@
       --c-border: #e2ddd5;
       --c-text: #1a1714;
       --c-muted: #6b6560;
-      --c-accent: #0b4ea2;
-      --c-accent-light: #EDF1F8;
-      --c-brand-mid: #3A72B5;
-      --c-cta: #D42E2E;
-      --c-cta-hover: #B52525;
-      --c-cta-tint: #FDF0F0;
+      --c-accent: #d4501a;
+      --c-accent-light: #fdf0eb;
       --c-green: #2a7a4b;
       --c-green-light: #eaf4ee;
       --c-amber: #b45309;
@@ -152,8 +148,8 @@
     .btn-google svg { flex-shrink: 0; }
 
     .app-header {
-      background: var(--c-accent);
-      border-bottom: none;
+      background: var(--c-surface);
+      border-bottom: 1px solid var(--c-border);
       position: sticky; top: 0; z-index: 50;
     }
     .app-header-inner {
@@ -166,7 +162,7 @@
     .app-header-logo { display: flex; align-items: center; gap: 0.75rem; }
     .app-logo-sm {
       width: 32px; height: 32px;
-      background: rgba(255,255,255,0.15);
+      background: var(--c-accent);
       border-radius: 0.5rem;
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; color: white;
@@ -230,15 +226,14 @@
     .badge-green { background: var(--c-green-light); color: var(--c-green); border-color: #86efac; }
 
     .btn-primary {
-      background: var(--c-cta); color: white;
+      background: var(--c-text); color: white;
       border: none; border-radius: 0.75rem;
       padding: 0.625rem 1.125rem;
       font-size: 0.875rem; font-weight: 500;
-      cursor: pointer; transition: all 0.15s;
+      cursor: pointer; transition: background 0.15s;
       font-family: 'Lexend', sans-serif;
-      box-shadow: 0 2px 8px rgba(212,46,46,0.2);
     }
-    .btn-primary:hover { background: var(--c-cta-hover); box-shadow: 0 4px 12px rgba(212,46,46,0.3); }
+    .btn-primary:hover { background: #333; }
     .btn-danger {
       background: #fee2e2; color: #991b1b;
       border: 1px solid #fecaca;
@@ -259,8 +254,6 @@
       font-family: 'Lexend', sans-serif;
     }
     .btn-ghost:hover { background: var(--c-bg); color: var(--c-text); }
-    .app-header .btn-ghost { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); }
-    .app-header .btn-ghost:hover { background: rgba(255,255,255,0.15); color: white; }
 
     .modal-overlay {
       position: fixed; inset: 0;
@@ -304,23 +297,22 @@
     .user-avatar {
       width: 32px; height: 32px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.2);
+      background: var(--c-accent);
       display: flex; align-items: center; justify-content: center;
       color: white; font-weight: 700; font-size: 0.875rem;
       overflow: hidden;
-      border: 1.5px solid rgba(255,255,255,0.3);
     }
     .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .sync-indicator {
       display: inline-flex; align-items: center; gap: 0.375rem;
-      font-size: 0.75rem; color: rgba(255,255,255,0.7);
+      font-size: 0.75rem; color: var(--c-muted);
     }
     .sync-dot {
       width: 7px; height: 7px; border-radius: 50%;
-      background: rgba(255,255,255,0.35);
+      background: #d1d5db;
     }
-    .sync-dot.synced { background: #86efac; }
+    .sync-dot.synced { background: var(--c-green); }
     .sync-dot.syncing { background: #f59e0b; animation: pulse 1s infinite; }
 
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -356,7 +348,7 @@
     .fa-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.10);
-      border-color: var(--c-accent);
+      border-color: #d4501a;
     }
     .fa-card:active { transform: translateY(-1px); }
     .fa-icon {
@@ -600,7 +592,7 @@
     .tab-bar {
       display: flex;
       gap: 0.25rem;
-      padding: 0.5rem 1.5rem 0.625rem;
+      padding: 0 1.5rem 0.625rem;
       background: var(--c-surface);
       border-bottom: 1px solid var(--c-border);
     }
@@ -625,8 +617,8 @@
     }
     .tab-btn:hover { background: var(--c-bg); color: var(--c-text); }
     .tab-btn.active {
-      background: var(--c-accent); color: white;
-      box-shadow: 0 2px 8px rgba(11,78,162,0.25);
+      background: var(--c-text); color: white;
+      box-shadow: 0 2px 8px rgba(26,23,20,0.15);
     }
     .tab-btn .tab-emoji { font-size: 1rem; }
     .tab-pane { display: none; }
@@ -689,8 +681,8 @@
     }
     .onboarding-card h2 { font-size: 1.5rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; letter-spacing: -0.03em; }
     .onboarding-card p { color: #a16207; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
-    .onboarding-card .btn-primary { padding: 0.875rem 2rem; font-size: 1rem; background: var(--c-cta); box-shadow: 0 4px 16px rgba(212,46,46,0.25); }
-    .onboarding-card .btn-primary:hover { background: var(--c-cta-hover); }
+    .onboarding-card .btn-primary { padding: 0.875rem 2rem; font-size: 1rem; background: #92400e; }
+    .onboarding-card .btn-primary:hover { background: #78350f; }
 
     /* Procedure groups */
     .proc-group-heading {
@@ -912,7 +904,7 @@
   <!-- Header -->
   <header class="app-header">
     <div class="app-header-inner">
-      <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer; color:white;" id="headerLogo" title="Gerlach">Gerlach</span>
+      <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
       <div style="display:flex; align-items:center; gap:1rem;">
       <span class="sync-indicator">
         <span class="sync-dot" id="syncDot"></span>
@@ -921,7 +913,7 @@
       <div style="display:flex; align-items:center; gap:0.5rem; position:relative;">
         <div class="user-avatar" id="userAvatar" onclick="document.getElementById('userMenu').classList.toggle('open')" style="cursor:pointer;">?</div>
         <button class="btn-ghost" id="btnLogout" style="padding:0.375rem 0.75rem;">Odhlásiť</button>
-        <button class="mobile-logout-btn" onclick="document.getElementById('btnLogout').click();" style="display:none; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.25); border-radius:0.5rem; padding:0.375rem 0.75rem; font-size:0.875rem; cursor:pointer; color:rgba(255,255,255,0.85); font-family:'Lexend',sans-serif; align-items:center; gap:0.375rem; font-weight:500;">Odhlásiť</button>
+        <button class="mobile-logout-btn" onclick="document.getElementById('btnLogout').click();" style="display:none; background:none; border:1px solid var(--c-border); border-radius:0.5rem; padding:0.375rem 0.75rem; font-size:0.875rem; cursor:pointer; color:var(--c-muted); font-family:'Lexend',sans-serif; align-items:center; gap:0.375rem; font-weight:500;">Odhlásiť</button>
         <!-- Mobile user menu -->
         <div id="userMenu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:white; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.5rem; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:200;">
           <div id="userMenuName" style="font-size:0.8rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
