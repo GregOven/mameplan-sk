@@ -1,31 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="sk">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-
-  <!-- SEO: Title + Description -->
-  <title>Gerlach – Pripravenosť vašej rodiny na jednom mieste</title>
-  <meta name="description" content="Bezplatná slovenská aplikácia, ktorá vypočíta zásoby pre vašu rodinu, hlída expirácie a uloží núdzové plány. Vyskúšajte demo bez registrácie."/>
-
-  <!-- SEO: Canonical -->
-  <link rel="canonical" href="https://mameplan.sk/"/>
-
-  <!-- OpenGraph -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:url" content="https://mameplan.sk/"/>
-  <meta property="og:title" content="Gerlach – Vie vaša rodina, čo má doma pre prípad núdze?"/>
-  <meta property="og:description" content="Bezplatná SK appka: vypočíta zásoby, hlída expirácie, uloží núdzový plán. Vyskúšajte demo bez registrácie."/>
-  <meta property="og:locale" content="sk_SK"/>
-  <meta property="og:site_name" content="Gerlach"/>
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Gerlach – Pripravenosť rodiny na jednom mieste"/>
-  <meta name="twitter:description" content="Bezplatná SK appka: zásoby, expirácie, núdzový plán. Demo bez registrácie."/>
-
-  <!-- Schema.org: WebSite + SoftwareApplication -->
-  <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<!-- SEO: Title + Description -->
+<title>Gerlach – pripravenosť domácnosti na krízové situácie</title>
+<meta content="Bezplatná slovenská aplikácia, ktorá vypočíta zásoby pre vašu rodinu, hlída expirácie a uloží núdzové plány. Vyskúšajte demo bez registrácie." name="description"/>
+<!-- SEO: Canonical -->
+<link href="https://mameplan.sk/" rel="canonical"/>
+<!-- OpenGraph -->
+<meta content="website" property="og:type"/>
+<meta content="https://mameplan.sk/" property="og:url"/>
+<meta content="Gerlach – Vie vaša rodina, čo má doma pre prípad núdze?" property="og:title"/>
+<meta content="Bezplatná SK appka: vypočíta zásoby, hlída expirácie, uloží núdzový plán. Vyskúšajte demo bez registrácie." property="og:description"/>
+<meta content="sk_SK" property="og:locale"/>
+<meta content="Gerlach" property="og:site_name"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Gerlach – Pripravenosť rodiny na jednom mieste" name="twitter:title"/>
+<meta content="Bezplatná SK appka: zásoby, expirácie, núdzový plán. Demo bez registrácie." name="twitter:description"/>
+<!-- Schema.org: WebSite + SoftwareApplication -->
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -57,12 +53,10 @@
     ]
   }
   </script>
-
-  <!-- Predpoklad: favicon existuje v /favicon.ico -->
-  <link rel="icon" href="/favicon.ico" sizes="any"/>
-
-  <!-- Firebase: Live beta counter -->
-  <script type="module">
+<!-- Predpoklad: favicon existuje v /favicon.ico -->
+<link href="/favicon.ico" rel="icon" sizes="any"/>
+<!-- Firebase: Live beta counter -->
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
@@ -101,13 +95,11 @@
       });
     });
   </script>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-
-  <style>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
     /* ═══════════════════════════════════════════
        DESIGN TOKENS
        Zachovaná pôvodná farebnosť, vyčistená.
@@ -753,364 +745,344 @@
   </style>
 </head>
 <body>
-
 <!-- ════════════════════════════════════════════════════
      NAV
      UX: 2 akcie — demo (nízky záväzok) + spustiť (konverzia).
      Na mobile sa nav CTA schová, nahradí sticky bar.
 ════════════════════════════════════════════════════ -->
-<nav class="nav" id="mainNav" aria-label="Hlavná navigácia">
-  <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Gerlach – domov">Gerlach</a>
-    <div class="nav-actions">
-      <a href="./app.html?mode=demo" class="btn btn-ghost btn-sm" aria-label="Vyskúšať demo bez registrácie">Demo</a>
-      <a href="./app.html" class="btn btn-primary btn-sm js-when-open cta-open-btn" aria-label="Spustiť aplikáciu">Spustiť appku</a>
-    </div>
-  </div>
+<nav aria-label="Hlavná navigácia" class="nav" id="mainNav">
+<div class="nav-inner">
+<a aria-label="Gerlach – domov" class="nav-logo" href="/">Gerlach</a>
+<div class="nav-actions">
+<a aria-label="Vyskúšať demo bez registrácie" class="btn btn-ghost btn-sm" href="./app.html?mode=demo">Demo</a>
+<a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn" href="./app.html">Spustiť appku</a>
+</div>
+</div>
 </nav>
-
 <!-- ════════════════════════════════════════════════════
      HERO
      UX: Value proposition + dual CTA + beta slot counter.
      Ak je beta plná, CTA sa nahradí whitelist formom.
 ════════════════════════════════════════════════════ -->
 <div class="wrap">
-<section class="hero" aria-labelledby="hero-heading">
-  <div>
-    <div class="hero-overline rv">
-      <span class="hero-overline-dot" aria-hidden="true"></span>
+<section aria-labelledby="hero-heading" class="hero">
+<div>
+<div class="hero-overline rv">
+<span aria-hidden="true" class="hero-overline-dot"></span>
       🇸🇰 Slovenský projekt · Zadarmo
     </div>
-
-    <h1 id="hero-heading" class="rv rv-d1">
-      Vie vaša rodina, čo má<br>doma pre prípad <em>núdze?</em>
-    </h1>
-
-    <p class="hero-sub rv rv-d2">
+<h1 class="rv rv-d1" id="hero-heading">
+      Vie vaša rodina, čo má<br/>doma pre prípad <em>núdze?</em>
+</h1>
+<p class="hero-sub rv rv-d2">
       Gerlach <strong>vypočíta zásoby</strong> podľa veľkosti vašej rodiny,
       <strong>upozorní pred expiráciou</strong>, uloží <strong>núdzový plán</strong>,
       ponúkne prvú pomoc a postupy pre krízové situácie na jednom mieste.
       Zadarmo — lebo je dôležité, aby sme si pomáhali.
     </p>
-
-    <!-- CTA: Viditeľné keď beta NIE JE plná -->
-    <div class="hero-ctas rv rv-d2">
-      <a href="./app.html" class="btn btn-primary js-when-open cta-open-btn">
-        Spustiť Gerlach zadarmo →
-      </a>
-      <a href="./app.html?mode=demo" class="btn btn-secondary">
-        Vyskúšať demo ↗
-      </a>
-    </div>
-
-    <!-- Whitelist: Viditeľný keď beta JE plná -->
-    <div class="waitlist-inline js-when-full" id="heroWaitlist" role="form" aria-label="Prihlásenie na čakací zoznam">
-      <p style="font-size:0.9rem; font-weight:500; margin-bottom:0.25rem;">Beta je momentálne plná.</p>
-      <p style="font-size:0.82rem; color:var(--muted); font-weight:300; margin-bottom:0.625rem;">Nechajte nám email — ozveme sa, keď otvoríme ďalšie miesta.</p>
-      <div class="waitlist-row">
-        <input type="email" class="waitlist-input" placeholder="vas@email.sk" aria-label="Váš email" required/>
-        <button class="btn btn-primary btn-sm" type="button" onclick="submitWaitlist(this)">Chcem vedieť</button>
-      </div>
-      <p class="waitlist-micro">Žiadny spam. Len jedno oznámenie. Kedykoľvek sa odhlásite.</p>
-      <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
-    </div>
-
-    <!-- Demo stále funguje aj pri plnej beta -->
-    <div class="js-when-full" style="display:none; margin-top:0.75rem;">
-      <a href="./app.html?mode=demo" class="btn btn-secondary">
+<!-- CTA: Viditeľné keď beta NIE JE plná -->
+<div class="hero-ctas rv rv-d2">
+<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť Gerlach →</a>
+<a class="btn btn-secondary" href="./app.html?mode=demo">Vyskúšať demo ↗</a>
+</div>
+<!-- Whitelist: Viditeľný keď beta JE plná -->
+<div aria-label="Prihlásenie na čakací zoznam" class="waitlist-inline js-when-full" id="heroWaitlist" role="form">
+<p style="font-size:0.9rem; font-weight:500; margin-bottom:0.25rem;">Beta je aktuálne plná — ďakujeme za obrovský záujem.</p>
+<p style="font-size:0.82rem; color:var(--muted); font-weight:300; margin-bottom:0.625rem;">Nechajte nám email a pošleme vám pozvánku, keď otvoríme ďalšie miesta.</p>
+<div class="waitlist-row">
+<input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
+<button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Pošlite mi pozvánku</button>
+</div>
+<p class="waitlist-micro">Bez spamu. Ozveme sa len vtedy, keď sa uvoľnia miesta. Odhlásenie jedným klikom.</p>
+<div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
+</div>
+<!-- Demo stále funguje aj pri plnej beta -->
+<div class="js-when-full" style="display:none; margin-top:0.75rem;">
+<a class="btn btn-secondary" href="./app.html?mode=demo">
         Medzitým vyskúšajte demo ↗
       </a>
-    </div>
-
-    <!-- Beta badge -->
-    <div class="beta-badge rv rv-d3">
-      <div>
-        <div class="beta-badge-label">Beta</div>
-        <div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.2rem;">
-          <div class="beta-badge-bar"><div class="beta-badge-fill js-bar" style="width:0%;"></div></div>
-          <span class="beta-badge-num"><span class="js-count">–</span>/<span class="js-max">200</span></span>
-        </div>
-      </div>
-      <span class="beta-badge-free"><span class="js-free">–</span> voľných</span>
-    </div>
-  </div>
-
-  <!-- RIGHT: Phone mockup -->
-  <div class="phone-wrap rv rv-d2" aria-hidden="true">
-    <div class="phone-blob"></div>
-    <div class="float-card top">
-      <div class="float-label">Pitná voda</div>
-      <div class="float-val" style="color:var(--green);">6 dní</div>
-      <div class="float-sub">vydrží pri 5.5 l/deň</div>
-    </div>
-    <div class="float-card bot">
-      <div class="float-label">Pripravenosť</div>
-      <div class="float-val" style="color:var(--accent);">68%</div>
-      <div class="float-sub">Jedlo a voda ✓</div>
-    </div>
-    <div class="phone">
-      <div class="phone-screen">
-        <!-- Mockup header -->
-        <div style="background:#c94f1a; padding:0.5rem 0.75rem; display:flex; align-items:center; justify-content:space-between;">
-          <span style="font-family:'Fraunces',serif; font-weight:700; font-size:0.7rem; color:#fff;">Gerlach</span>
-          <span style="font-size:0.5rem; color:rgba(255,255,255,0.8);">● Uložené</span>
-        </div>
-        <div style="padding:0.6rem; background:#f5f0e8;">
-          <!-- Progress -->
-          <div style="background:#fff; border-radius:0.5rem; padding:0.5rem 0.6rem; margin-bottom:0.4rem; border:1px solid #e2dbd0; display:flex; align-items:center; gap:0.4rem;">
-            <span style="font-size:0.5rem; color:#6b6560; font-weight:500;">Pripravenosť</span>
-            <div style="flex:1; height:4px; background:#e2dbd0; border-radius:99px; overflow:hidden;">
-              <div style="width:68%; height:100%; background:linear-gradient(90deg,#c94f1a,#e8803a); border-radius:99px;"></div>
-            </div>
-            <span style="font-size:0.55rem; font-weight:700; color:#c94f1a;">68%</span>
-          </div>
-          <!-- Categories -->
-          <div style="font-size:0.48rem; font-weight:700; color:#3d3730; letter-spacing:0.06em; margin-bottom:0.3rem;">KATEGÓRIE</div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.3rem;">
-            <div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
-                <span style="font-size:0.7rem;">🥫</span>
-                <span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">74%</span>
-              </div>
-              <div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Jedlo a voda</div>
-              <div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:74%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
-            </div>
-            <div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
-                <span style="font-size:0.7rem;">💊</span>
-                <span style="font-size:0.5rem; font-weight:700; color:#b45309;">45%</span>
-              </div>
-              <div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Lekárnička</div>
-              <div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:45%; height:100%; background:#b45309; border-radius:99px;"></div></div>
-            </div>
-            <div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
-                <span style="font-size:0.7rem;">🪥</span>
-                <span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">60%</span>
-              </div>
-              <div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Hygiena</div>
-              <div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:60%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
-            </div>
-            <div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
-                <span style="font-size:0.7rem;">📋</span>
-                <span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">100%</span>
-              </div>
-              <div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Núdzový plán</div>
-              <div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:100%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+<!-- Beta badge -->
+<div class="beta-badge rv rv-d3">
+<div>
+<div class="beta-badge-label">Beta</div>
+<div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.2rem;">
+<div class="beta-badge-bar"><div class="beta-badge-fill js-bar" style="width:0%;"></div></div>
+<span class="beta-badge-num"><span class="js-count">–</span>/<span class="js-max">200</span></span>
+</div>
+</div>
+<span class="beta-badge-free"><span class="js-free">–</span> voľných</span>
+</div>
+</div>
+<!-- RIGHT: Phone mockup -->
+<div aria-hidden="true" class="phone-wrap rv rv-d2">
+<div class="phone-blob"></div>
+<div class="float-card top">
+<div class="float-label">Pitná voda</div>
+<div class="float-val" style="color:var(--green);">6 dní</div>
+<div class="float-sub">vydrží pri 5.5 l/deň</div>
+</div>
+<div class="float-card bot">
+<div class="float-label">Pripravenosť</div>
+<div class="float-val" style="color:var(--accent);">68%</div>
+<div class="float-sub">Jedlo a voda ✓</div>
+</div>
+<div class="phone">
+<div class="phone-screen">
+<!-- Mockup header -->
+<div style="background:#c94f1a; padding:0.5rem 0.75rem; display:flex; align-items:center; justify-content:space-between;">
+<span style="font-family:'Fraunces',serif; font-weight:700; font-size:0.7rem; color:#fff;">Gerlach</span>
+<span style="font-size:0.5rem; color:rgba(255,255,255,0.8);">● Uložené</span>
+</div>
+<div style="padding:0.6rem; background:#f5f0e8;">
+<!-- Progress -->
+<div style="background:#fff; border-radius:0.5rem; padding:0.5rem 0.6rem; margin-bottom:0.4rem; border:1px solid #e2dbd0; display:flex; align-items:center; gap:0.4rem;">
+<span style="font-size:0.5rem; color:#6b6560; font-weight:500;">Pripravenosť</span>
+<div style="flex:1; height:4px; background:#e2dbd0; border-radius:99px; overflow:hidden;">
+<div style="width:68%; height:100%; background:linear-gradient(90deg,#c94f1a,#e8803a); border-radius:99px;"></div>
+</div>
+<span style="font-size:0.55rem; font-weight:700; color:#c94f1a;">68%</span>
+</div>
+<!-- Categories -->
+<div style="font-size:0.48rem; font-weight:700; color:#3d3730; letter-spacing:0.06em; margin-bottom:0.3rem;">KATEGÓRIE</div>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:0.3rem;">
+<div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
+<div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
+<span style="font-size:0.7rem;">🥫</span>
+<span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">74%</span>
+</div>
+<div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Jedlo a voda</div>
+<div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:74%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
+</div>
+<div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
+<div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
+<span style="font-size:0.7rem;">💊</span>
+<span style="font-size:0.5rem; font-weight:700; color:#b45309;">45%</span>
+</div>
+<div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Lekárnička</div>
+<div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:45%; height:100%; background:#b45309; border-radius:99px;"></div></div>
+</div>
+<div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
+<div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
+<span style="font-size:0.7rem;">🪥</span>
+<span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">60%</span>
+</div>
+<div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Hygiena</div>
+<div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:60%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
+</div>
+<div style="background:#fff; border-radius:0.4rem; padding:0.4rem; border:1px solid #e2dbd0;">
+<div style="display:flex; justify-content:space-between; margin-bottom:0.15rem;">
+<span style="font-size:0.7rem;">📋</span>
+<span style="font-size:0.5rem; font-weight:700; color:#2a6b44;">100%</span>
+</div>
+<div style="font-size:0.48rem; font-weight:600; color:#1a1612; margin-bottom:0.2rem;">Núdzový plán</div>
+<div style="height:2px; background:#f0ebe3; border-radius:99px;"><div style="width:100%; height:100%; background:#2a6b44; border-radius:99px;"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
 </div>
-
 <!-- ════════════════════════════════════════════════════
      TRUST BAR
      UX: Sociálny dôkaz v jednom riadku. Krátko, konkrétne.
 ════════════════════════════════════════════════════ -->
-<div class="trust-bar" role="complementary" aria-label="Dôveryhodnosť">
-  <div class="trust-inner">
-    <div class="trust-item">✓ <strong>100% zadarmo</strong>, navždy</div>
-    <div class="trust-sep" aria-hidden="true"></div>
-    <div class="trust-item">🇸🇰 <strong>Slovenský</strong> projekt</div>
-    <div class="trust-sep" aria-hidden="true"></div>
-    <div class="trust-item">🔒 Prihlásenie cez <strong>Google</strong></div>
-  </div>
+<div aria-label="Dôveryhodnosť" class="trust-bar" role="complementary">
+<div class="trust-inner">
+<div class="trust-item">✓ <strong>100% zadarmo</strong>, navždy</div>
+<div aria-hidden="true" class="trust-sep"></div>
+<div class="trust-item">🇸🇰 <strong>Slovenský</strong> projekt</div>
+<div aria-hidden="true" class="trust-sep"></div>
+<div class="trust-item">🔒 Prihlásenie cez <strong>Google</strong></div>
 </div>
-
+</div>
 <!-- ════════════════════════════════════════════════════
      PREČO NA TOM ZÁLEŽÍ
      UX: 3 konkrétne scenáre z SK reality.
      Žiadne vágne tvrdenia — len fakty ktoré ľudia zažili.
 ════════════════════════════════════════════════════ -->
-<section class="section" id="preco" aria-labelledby="preco-title">
-  <div class="wrap">
-    <p class="sec-overline rv text-center">Prečo na tom záleží</p>
-    <h2 class="sec-title f rv rv-d1 text-center" id="preco-title">Prečo záleží na tom, či sme pripravení?</h2>
-    <p class="sec-sub sec-sub-center rv rv-d2">Nie je to paranoja — je to starostlivosť o rodinu. Rovnako ako máte poisťovňu či lekárničku pre krízové situácie — kvalitne pripravená a informovaná domácnosť môžu priniesť veľký pokoj a rozvahu v napätých časoch.</p>
-    <div class="why-grid">
-      <div class="why-card rv">
-        <div class="why-icon" aria-hidden="true">😷</div>
-        <div class="why-title">Prázdne regály</div>
-        <div class="why-text">Marec 2020 — rúška za 10 €, múka nedostupná. Kto mal zásobu na týždeň, nemusel nikam bežať.</div>
-      </div>
-      <div class="why-card rv rv-d1">
-        <div class="why-icon" aria-hidden="true">⚡</div>
-        <div class="why-title">Výpadky elektriny</div>
-        <div class="why-text">Niekoľkohodinové aj viacdenné. Bez svetla, bez sporáka. Teplé jedlo je vtedy komfort, nie samozrejmosť.</div>
-      </div>
-      <div class="why-card rv rv-d2">
-        <div class="why-icon" aria-hidden="true">🌊</div>
-        <div class="why-title">Záplavy a zemetrasenia</div>
-        <div class="why-text">Aj Slovensko nie je imúnne. Pripravená rodina = menej paniky, viac pomoci druhým.</div>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="preco-title" class="section" id="preco">
+<div class="wrap">
+<p class="sec-overline rv text-center">Prečo to má zmysel</p>
+<h2 class="sec-title f rv rv-d1 text-center" id="preco-title">Prečo záleží na tom, či sme pripravení?</h2>
+<p class="sec-sub sec-sub-center rv rv-d2">Nie je to paranoja — je to starostlivosť. Keď príde výpadok, povodeň alebo iná nepríjemná situácia, prvé hodiny rozhodujú. Pripravená domácnosť má pokojnejšiu hlavu, robí lepšie rozhodnutia a často vie pomôcť aj druhým.</p>
+<div class="why-grid">
+<div class="why-card rv">
+<div aria-hidden="true" class="why-icon">😷</div>
+<div class="why-title">Prázdne regály</div>
+<div class="why-text">Marec 2020 — rúška za 10 €, múka nedostupná. Kto mal zásobu na týždeň, nemusel nikam bežať.</div>
+</div>
+<div class="why-card rv rv-d1">
+<div aria-hidden="true" class="why-icon">⚡</div>
+<div class="why-title">Výpadky elektriny</div>
+<div class="why-text">Niekoľkohodinové aj viacdenné. Bez svetla, bez sporáka. Teplé jedlo je vtedy komfort, nie samozrejmosť.</div>
+</div>
+<div class="why-card rv rv-d2">
+<div aria-hidden="true" class="why-icon">🌊</div>
+<div class="why-title">Záplavy a zemetrasenia</div>
+<div class="why-text">Aj Slovensko nie je imúnne. Pripravená rodina = menej paniky, viac pomoci druhým.</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ════════════════════════════════════════════════════
      AKO TO FUNGUJE
      UX: 3 kroky (nie 4 — "buďte pokojní" nie je krok).
      Minimálny kognitívny load.
 ════════════════════════════════════════════════════ -->
-<section class="section" id="ako-to-funguje" style="background:var(--surface);" aria-labelledby="howto-title">
-  <div class="wrap">
-    <p class="sec-overline rv text-center">Ako to funguje</p>
-    <h2 class="sec-title f rv rv-d1 text-center" id="howto-title">Tri kroky. Dve minúty.</h2>
-    <div class="steps">
-      <div class="step rv">
-        <div class="step-num f" aria-hidden="true">1</div>
-        <div class="step-title">Prihláste sa</div>
-        <p class="step-text">Stačí Google účet. Žiadne nové heslo, žiadna registrácia navyše.</p>
-      </div>
-      <div class="step rv rv-d1">
-        <div class="step-num f" aria-hidden="true">2</div>
-        <div class="step-title">Zadefinujte vašu rodinu</div>
-        <p class="step-text">Počet osôb, počet dní sebestačnosti, typ bývania. Aplikácia prepočíta a pripraví všetko za vás.</p>
-      </div>
-      <div class="step rv rv-d2">
-        <div class="step-num f" aria-hidden="true">3</div>
-        <div class="step-title">Sledujte a dopĺňajte</div>
-        <p class="step-text">Zaznačujte, čo máte pripravené. Gerlach povie, čo chýba a čo čoskoro expiruje.</p>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="howto-title" class="section" id="ako-to-funguje" style="background:var(--surface);">
+<div class="wrap">
+<p class="sec-overline rv text-center">Ako to funguje</p>
+<h2 class="sec-title f rv rv-d1 text-center" id="howto-title">Tri kroky. Dve minúty.</h2>
+<div class="steps">
+<div class="step rv">
+<div aria-hidden="true" class="step-num f">1</div>
+<div class="step-title">Prihláste sa</div>
+<p class="step-text">Prihlásite sa cez Google. Bez nového hesla a bez zbytočných krokov.</p>
+</div>
+<div class="step rv rv-d1">
+<div aria-hidden="true" class="step-num f">2</div>
+<div class="step-title">Zadefinujte vašu rodinu</div>
+<p class="step-text">Nastavíte domácnosť (ľudia, dni sebestačnosti, bývanie). Gerlach vám prepočíta, čo potrebujete mať doma.</p>
+</div>
+<div class="step rv rv-d2">
+<div aria-hidden="true" class="step-num f">3</div>
+<div class="step-title">Sledujte a dopĺňajte</div>
+<p class="step-text">Dopĺňate postupne. Vidíte, čo chýba, čo je hotové a čo treba čoskoro spotrebovať alebo vymeniť.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ════════════════════════════════════════════════════
      ČO GERLACH ROBÍ
      UX: 5 kľúčových funkcií aplikácie.
 ════════════════════════════════════════════════════ -->
-<section class="section" aria-labelledby="features-title">
-  <div class="wrap">
-    <p class="sec-overline rv text-center">Čo Gerlach robí za vás</p>
-    <h2 class="sec-title f rv rv-d1 text-center" id="features-title">Päť vecí, ktoré stoja za to.</h2>
-    <p class="sec-sub sec-sub-center rv rv-d2">Gerlach automatizuje výpočty a odporúčania na základe oficiálnych príručiek SK a CZ vlád.</p>
-    <div class="feat-grid">
-      <div class="feat-card rv">
-        <div class="feat-icon" aria-hidden="true">💧</div>
-        <div class="feat-title">Výpočet zásob</div>
-        <p class="feat-text">Presné množstvo vody a jedla (Kcal) podľa odporúčaní Civilnej ochrany SR — pre vašu konkrétnu rodinu, na vami zvolený počet dní.</p>
-      </div>
-      <div class="feat-card rv rv-d1">
-        <div class="feat-icon" aria-hidden="true">⏱️</div>
-        <div class="feat-title">Stráženie expirácií</div>
-        <p class="feat-text">Lieky, potraviny, voda — aplikácia vás včas upozorní na blížiacu sa expiráciu. Lieky 180 dní vopred, jedlo a voda 30 dní vopred.</p>
-      </div>
-      <div class="feat-card rv rv-d2">
-        <div class="feat-icon" aria-hidden="true">📦</div>
-        <div class="feat-title">6 predefinovaných kategórií</div>
-        <p class="feat-text">Jedlo a voda, Peniaze, Hygiena, Lekárnička, Vybavenie, Dokumenty — všetky predvyplnené na základe odporúčaní SK a CZ príručiek, zohľadňujúce váš počet osôb a dní. Stačí už len odškrtávať a sledovať progres.</p>
-      </div>
-    </div>
-    <!-- Druhý riadok: 2 karty centrovane -->
-    <div class="feat-grid feat-grid-2">
-      <div class="feat-card rv">
-        <div class="feat-icon" aria-hidden="true">🩹</div>
-        <div class="feat-title">Prvá pomoc a krízové postupy</div>
-        <p class="feat-text">Prehľadne kategorizované informácie prvej pomoci a postupov v rámci najrôznejších krízových situácií — od živelných pohrôm po ozbrojený konflikt. Všetky informácie na jednom mieste.</p>
-      </div>
-      <div class="feat-card rv rv-d1">
-        <div class="feat-icon" aria-hidden="true">📞</div>
-        <div class="feat-title">Dôležité kontakty</div>
-        <p class="feat-text">Zoznam dôležitých verejných kontaktov, frekvencia oficiálneho núdzového vysielania aj osobné kontakty — všetko na jednom mieste.</p>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="features-title" class="section">
+<div class="wrap">
+<p class="sec-overline rv text-center">Čo Gerlach urobí za vás</p>
+<h2 class="sec-title f rv rv-d1 text-center" id="features-title">Päť vecí, ktoré stoja za to.</h2>
+<p class="sec-sub sec-sub-center rv rv-d2">Gerlach dáva dohromady výpočty a odporúčania z overených príručiek (Civilná ochrana a podobné zdroje) tak, aby ste ich mali konečne prakticky pre svoju domácnosť.</p>
+<div class="feat-grid">
+<div class="feat-card rv">
+<div aria-hidden="true" class="feat-icon">💧</div>
+<div class="feat-title">Zásoby na mieru</div>
+<p class="feat-text">Voda a jedlo vypočítané pre vašu domácnosť na zvolený počet dní. Jasne a bez hádania.</p>
+</div>
+<div class="feat-card rv rv-d1">
+<div aria-hidden="true" class="feat-icon">⏱️</div>
+<div class="feat-title">Expirácie pod kontrolou</div>
+<p class="feat-text">Lieky, potraviny aj voda. Gerlach vás upozorní vopred (lieky 180 dní, jedlo a voda 30 dní), aby ste nevyhadzovali a neostali prekvapení.</p>
+</div>
+<div class="feat-card rv rv-d2">
+<div aria-hidden="true" class="feat-icon">📦</div>
+<div class="feat-title">Checklist, ktorý dáva zmysel</div>
+<p class="feat-text">Jedlo a voda, peniaze, hygiena, lekárnička, vybavenie, dokumenty. Predvyplnené odporúčania + váš profil domácnosti. Vy len odškrtávate a vidíte progres.</p>
+</div>
+</div>
+<!-- Druhý riadok: 2 karty centrovane -->
+<div class="feat-grid feat-grid-2">
+<div class="feat-card rv">
+<div aria-hidden="true" class="feat-icon">🩹</div>
+<div class="feat-title">Prvá pomoc a postupy</div>
+<p class="feat-text">Rýchle, prehľadné postupy a prvá pomoc pre typické situácie (výpadky, povodne, nehody…). Keď ide o čas, nechcete hľadať po internete.</p>
+</div>
+<div class="feat-card rv rv-d1">
+<div aria-hidden="true" class="feat-icon">📞</div>
+<div class="feat-title">Kontakty a núdzové info</div>
+<p class="feat-text">Tiesňové linky, dôležité inštitúcie, núdzové vysielanie aj vaše rodinné kontakty — pripravené, keď ich potrebujete.</p>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ════════════════════════════════════════════════════
      DEMO vs PLNÁ VERZIA
      UX: Jasný kontrast medzi demo a plnou verziou.
      Demo = nízky záväzok na vyskúšanie.
      Plná = motivácia pre registráciu + live beta counter.
 ════════════════════════════════════════════════════ -->
-<section class="section" style="background:var(--surface);" id="demo" aria-labelledby="demo-title">
-  <div class="wrap">
-    <p class="sec-overline rv text-center">Vyskúšajte si to</p>
-    <h2 class="sec-title f rv rv-d1 text-center" id="demo-title">Demo bez registrácie. Kedykoľvek.</h2>
-    <p class="sec-sub sec-sub-center rv rv-d2">Chcete si to najprv pozrieť? Demo funguje okamžite — bez prihlásenia, bez emailu. Dáta sa po zatvorení prehliadača zmažú.</p>
-    <div class="compare rv rv-d2">
-      <div class="compare-card demo">
-        <span class="compare-badge">Demo</span>
-        <div class="compare-title f">Vyskúšajte si to</div>
-        <ul class="compare-list">
-          <li>Celá appka bez obmedzení</li>
-          <li>Bez registrácie a prihlásenia</li>
-          <li>Dáta sa po zatvorení prehliadača vymažú</li>
-          <li>Ideálne na prvý dojem</li>
-        </ul>
-        <a href="./app.html?mode=demo" class="btn btn-secondary" style="justify-content:center;">Spustiť demo →</a>
-      </div>
-      <div class="compare-card full">
-        <span class="compare-badge">Plná verzia</span>
-        <div class="compare-title f">Pre vašu rodinu</div>
-        <!-- Live beta counter -->
-        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; padding:0.5rem 0.75rem; background:rgba(255,255,255,0.08); border-radius:0.5rem; border:1px solid rgba(255,255,255,0.1);">
-          <span style="font-size:0.65rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Beta</span>
-          <div style="flex:1; height:4px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
-            <div class="js-bar" style="height:100%; border-radius:99px; background:var(--accent); transition:width 0.6s;"></div>
-          </div>
-          <span style="font-family:'Fraunces',serif; font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.8);"><span class="js-count">–</span>/<span class="js-max">200</span></span>
-        </div>
-        <ul class="compare-list">
-          <li>Dáta sa ukladajú do vášho konta</li>
-          <li>Upozornenia emailom o blížiacej sa expirácii liekov, potravín a vody</li>
-          <li>Záloha v cloude — prístup z každého zariadenia</li>
-          <li>Prihlásenie cez Google účet — okamžite používate</li>
-        </ul>
-        <a href="./app.html" class="btn btn-primary js-when-open cta-open-btn" style="justify-content:center;">Spustiť zadarmo →</a>
-        <!-- Ak beta plná -->
-        <div class="js-when-full" style="display:none; text-align:center;">
-          <p style="font-size:0.85rem; opacity:0.7; margin-bottom:0.5rem;">Beta je plná. Nechajte email nižšie.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="demo-title" class="section" id="demo" style="background:var(--surface);">
+<div class="wrap">
+<p class="sec-overline rv text-center">Vyskúšajte si to hneď</p>
+<h2 class="sec-title f rv rv-d1 text-center" id="demo-title">Demo bez registrácie. Kedykoľvek.</h2>
+<p class="sec-sub sec-sub-center rv rv-d2">Chcete si to najprv len „ohmatať“? Demo ide okamžite — bez prihlásenia, bez emailu. Po zatvorení prehliadača sa všetko zmaže.</p>
+<div class="compare rv rv-d2">
+<div class="compare-card demo">
+<span class="compare-badge">Demo</span>
+<div class="compare-title f">Vyskúšajte si to hneď</div>
+<ul class="compare-list">
+<li>Celé demo — bez obmedzení</li>
+<li>Bez registrácie a prihlásenia</li>
+<li>Po zatvorení prehliadača sa dáta zmažú</li>
+<li>Ideálne na prvé vyskúšanie</li>
+</ul>
+<a class="btn btn-secondary" href="./app.html?mode=demo" style="justify-content:center;">Vyskúšať demo →</a>
+</div>
+<div class="compare-card full">
+<span class="compare-badge">Plná verzia</span>
+<div class="compare-title f">Plná verzia (konto)</div>
+<!-- Live beta counter -->
+<div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; padding:0.5rem 0.75rem; background:rgba(255,255,255,0.08); border-radius:0.5rem; border:1px solid rgba(255,255,255,0.1);">
+<span style="font-size:0.65rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Beta</span>
+<div style="flex:1; height:4px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
+<div class="js-bar" style="height:100%; border-radius:99px; background:var(--accent); transition:width 0.6s;"></div>
+</div>
+<span style="font-family:'Fraunces',serif; font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.8);"><span class="js-count">–</span>/<span class="js-max">200</span></span>
+</div>
+<ul class="compare-list">
+<li>Dáta sa ukladajú do vášho konta</li>
+<li>Emailové upozornenia na blížiace sa expirácie (lieky, jedlo, voda)</li>
+<li>Prístup z každého zariadenia (cloud)</li>
+<li>Prihlásenie cez Google — hneď ste v tom</li>
+</ul>
+<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html" style="justify-content:center;">Spustiť appku →</a>
+<!-- Ak beta plná -->
+<div class="js-when-full" style="display:none; text-align:center;">
+<p style="font-size:0.85rem; opacity:0.7; margin-bottom:0.5rem;">Beta je plná. Nechajte email nižšie.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ════════════════════════════════════════════════════
      PRÍBEH
      UX: Krátky founder story. Buduje dôveru.
      Štatistiky namiesto dlhého textu.
 ════════════════════════════════════════════════════ -->
-<section class="section story-section" aria-labelledby="story-title">
-  <div class="wrap">
-    <div class="story-grid">
-      <div>
-        <p class="sec-overline rv">Príbeh</p>
-        <h2 class="sec-title f rv rv-d1" id="story-title">Vzniklo to pre<br><em style="color:var(--accent);font-style:italic;">moju rodinu.</em></h2>
-        <p class="story-text rv rv-d2">Som Miloš, otec rodiny. Potreboval som mať prehľad — či v prípade výpadku alebo záplav máme doma to najnutnejšie. Tabuľky nestačili. Potraviny, lieky aj voda exspirujú a nikto to nestrážil.</p>
-        <div class="story-quote rv rv-d3">
-          <p>„Keď sme pripravení, máme v kríze viac energie a empatie jeden voči druhému."</p>
-        </div>
-        <div class="author-row rv rv-d3">
-          <div class="author-av f" aria-hidden="true">M</div>
-          <div>
-            <div class="author-name">Miloš</div>
-            <div class="author-role">Zakladateľ Gerlachu · otec rodiny</div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="stats-row rv rv-d1">
-          <div class="stat-card">
-            <div class="stat-num f">72h</div>
-            <div class="stat-label">minimálna zásoba podľa Civilnej ochrany SR</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num f">0 €</div>
-            <div class="stat-label">stojí Gerlach — teraz aj v budúcnosti</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<section aria-labelledby="story-title" class="section story-section">
+<div class="wrap">
+<div class="story-grid">
+<div>
+<p class="sec-overline rv">Príbeh</p>
+<h2 class="sec-title f rv rv-d1" id="story-title">Vzniklo to pre<br/><em style="color:var(--accent);font-style:italic;">moju rodinu.</em></h2>
+<p class="story-text rv rv-d2">Som Miloš, otec rodiny. Chcel som mať jasno — či pri výpadku, záplavách alebo inom probléme máme doma to najnutnejšie. Tabuľky nestačili. Voda, jedlo aj lieky expirujú a v bežnom živote to nikto nemá čas strážiť.</p>
+<div class="story-quote rv rv-d3">
+<p>„Keď sme pripravení, v kríze máme viac pokoja, energie a empatie jeden voči druhému.“</p>
+</div>
+<div class="author-row rv rv-d3">
+<div aria-hidden="true" class="author-av f">M</div>
+<div>
+<div class="author-name">Miloš</div>
+<div class="author-role">Zakladateľ Gerlachu · otec rodiny</div>
+</div>
+</div>
+</div>
+<div>
+<div class="stats-row rv rv-d1">
+<div class="stat-card">
+<div class="stat-num f">72h</div>
+<div class="stat-label">minimálna zásoba podľa Civilnej ochrany SR</div>
+</div>
+<div class="stat-card">
+<div class="stat-num f">0 €</div>
+<div class="stat-label">stojí Gerlach — teraz aj v budúcnosti</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
 <!-- ════════════════════════════════════════════════════
      FINAL CTA / WAITLIST
      UX: Posledná konverzná šanca.
@@ -1118,65 +1090,58 @@
      Ak beta plná → whitelist email form.
      Demo tlačidlo vždy viditeľné.
 ════════════════════════════════════════════════════ -->
-<section class="section cta-section" aria-labelledby="cta-title">
-  <div class="wrap">
-    <div class="cta-inner">
-      <h2 class="rv" id="cta-title">Začnite dnes.<br><em>Trvá to dve minúty.</em></h2>
-      <p class="sec-sub rv rv-d1">Žiadna inštalácia. Len prehliadač a chuť postarať sa o svoju rodinu.</p>
-
-      <!-- Keď beta otvorená -->
-      <div class="rv rv-d2 js-when-open" style="display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
-        <a href="./app.html" class="btn btn-primary cta-open-btn">Spustiť Gerlach zadarmo →</a>
-        <a href="./app.html?mode=demo" class="btn btn-ghost" style="color:rgba(255,255,255,0.55);">alebo vyskúšajte demo ↗</a>
-      </div>
-
-      <!-- Keď beta plná -->
-      <div class="cta-waitlist js-when-full" role="form" aria-label="Čakací zoznam">
-        <p style="font-size:0.95rem; margin-bottom:0.75rem; color:rgba(255,255,255,0.75);">Beta je plná. Nechajte email — dáme vedieť.</p>
-        <div class="waitlist-row">
-          <input type="email" class="waitlist-input" placeholder="vas@email.sk" aria-label="Váš email" required/>
-          <button class="btn btn-primary btn-sm" type="button" onclick="submitWaitlist(this)">Zapísať</button>
-        </div>
-        <p class="waitlist-micro">Žiadny spam. Len jedno oznámenie. Kedykoľvek sa odhlásite.</p>
-        <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
-        <div style="margin-top:1rem;">
-          <a href="./app.html?mode=demo" class="btn btn-ghost" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo ↗</a>
-        </div>
-      </div>
-
-      <p class="cta-note rv rv-d3">Prihlásením súhlasíte s ukladaním dát v databáze projektu. Každý vidí len svoje vlastné dáta.</p>
-    </div>
-  </div>
+<section aria-labelledby="cta-title" class="section cta-section">
+<div class="wrap">
+<div class="cta-inner">
+<h2 class="rv" id="cta-title">Začnite dnes.<br/><em>Trvá to dve minúty.</em></h2>
+<p class="sec-sub rv rv-d1">Bez inštalácie. Otvoríte v prehliadači a hneď viete, čo doma chýba.</p>
+<!-- Keď beta otvorená -->
+<div class="rv rv-d2 js-when-open" style="display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
+<a class="btn btn-primary cta-open-btn" href="./app.html">Spustiť Gerlach →</a>
+<a class="btn btn-ghost" href="./app.html?mode=demo" style="color:rgba(255,255,255,0.55);">alebo vyskúšajte demo ↗</a>
+</div>
+<!-- Keď beta plná -->
+<div aria-label="Čakací zoznam" class="cta-waitlist js-when-full" role="form">
+<p style="font-size:0.95rem; margin-bottom:0.75rem; color:rgba(255,255,255,0.75);">Beta je plná. Nechajte email — dáme vedieť.</p>
+<div class="waitlist-row">
+<input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
+<button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Zapísať sa</button>
+</div>
+<p class="waitlist-micro">Bez spamu. Ozveme sa len vtedy, keď sa uvoľnia miesta. Odhlásenie jedným klikom.</p>
+<div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
+<div style="margin-top:1rem;">
+<a class="btn btn-ghost" href="./app.html?mode=demo" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo ↗</a>
+</div>
+</div>
+<p class="cta-note rv rv-d3">Pri prihlásení sa vaše dáta uložia do vášho konta. Každý používateľ vidí iba svoje vlastné údaje.</p>
+</div>
+</div>
 </section>
-
 <!-- SK trikolóra divider -->
-<div class="flag-line" aria-hidden="true"></div>
-
+<div aria-hidden="true" class="flag-line"></div>
 <!-- ════════════════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════════════════ -->
 <footer role="contentinfo">
-  <div class="footer-inner">
-    <span class="footer-text">Gerlach © 2025 — Projekt jedného Slováka pre všetkých</span>
-    <div class="footer-links">
-      <a href="./app.html" class="footer-link">Aplikácia</a>
-      <a href="/cdn-cgi/l/email-protection#f49c9198989bb4999599918498959ada879f" class="footer-link">Kontakt</a>
-    </div>
-  </div>
+<div class="footer-inner">
+<span class="footer-text">Gerlach © 2025 — Projekt jedného Slováka pre všetkých</span>
+<div class="footer-links">
+<a class="footer-link" href="./app.html">Aplikácia</a>
+<a class="footer-link" href="/cdn-cgi/l/email-protection#f49c9198989bb4999599918498959ada879f">Kontakt</a>
+</div>
+</div>
 </footer>
-
 <!-- ════════════════════════════════════════════════════
      STICKY MOBILE CTA
      UX: Na mobile nahrádza nav akcie.
      Dva tlačidlá: demo + spustiť.
 ════════════════════════════════════════════════════ -->
-<div class="sticky-bar" id="stickyBar" aria-label="Rýchle akcie">
-  <div class="sticky-bar-inner">
-    <a href="./app.html?mode=demo" class="btn btn-secondary">Demo</a>
-    <a href="./app.html" class="btn btn-primary js-when-open cta-open-btn">Spustiť appku →</a>
-  </div>
+<div aria-label="Rýchle akcie" class="sticky-bar" id="stickyBar">
+<div class="sticky-bar-inner">
+<a class="btn btn-secondary" href="./app.html?mode=demo">Demo</a>
+<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť appku →</a>
 </div>
-
+</div>
 <!-- ════════════════════════════════════════════════════
      SCRIPTS
 ════════════════════════════════════════════════════ -->
@@ -1241,6 +1206,5 @@
     }, 600);
   }
 </script>
-
 </body>
 </html>
