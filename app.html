@@ -826,6 +826,18 @@
         </div>
       </div>
 
+      <!-- OSOBNÉ KONTAKTY -->
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">👤 Moje dôležité kontakty</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobné kontakty na kľúčových ľudí a služby pre prípad krízy</p>
+          </div>
+          <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.78rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
+        </div>
+        <div id="personalContactsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
+      </div>
+
       <!-- VAROVNÉ SIGNÁLY SIRÉN -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
@@ -1109,6 +1121,53 @@
 
 <!-- Modal: Prvá pomoc detail -->
 
+<!-- Modal: Osobný kontakt -->
+<div class="modal-overlay" id="modalPersonalContact">
+  <div class="modal-box" style="max-width:500px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <div>
+        <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">👤 Nový kontakt</h3>
+        <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Uložte si dôležité číslo pre prípad núdze</p>
+      </div>
+      <button data-close="modalPersonalContact" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
+    </div>
+    <form id="personalContactForm" style="display:grid; gap:1rem;">
+      <input type="hidden" name="pc_editIndex" value="-1" />
+      <div>
+        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Typ kontaktu *</label>
+        <div id="pcCategoryPicker" style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-bottom:0.5rem;"></div>
+        <input name="pc_customType" type="text" id="pcCustomTypeInput" placeholder="Vlastný typ (napr. Susedka Mária)" style="display:none;" />
+      </div>
+      <div>
+        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Meno / Názov *</label>
+        <input name="pc_name" type="text" required placeholder="napr. MUDr. Kováč, Allianz, Matka..." />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
+        <div>
+          <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón *</label>
+          <input name="pc_phone" type="tel" required placeholder="+421..." />
+        </div>
+        <div>
+          <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón 2 (záložný)</label>
+          <input name="pc_phone2" type="tel" placeholder="" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Adresa</label>
+        <input name="pc_address" type="text" placeholder="napr. Hlavná 15, Bratislava" />
+      </div>
+      <div>
+        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+        <input name="pc_note" type="text" placeholder="napr. Ordinačné hodiny, číslo zmluvy..." />
+      </div>
+      <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" id="btnDeletePC" class="btn-ghost" style="padding:0.625rem 1.25rem; color:#dc2626; display:none;">Odstrániť</button>
+        <button type="submit" class="btn-primary" style="padding:0.625rem 2rem;">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Modal: Miesto stretnutia -->
 <div class="modal-overlay" id="modalMeetingPoint">
   <div class="modal-box" style="max-width:560px;">
@@ -1205,14 +1264,14 @@
   // ── EmailJS konfigurácia ─────────────────────────────────────────
   // POKYN: Zaregistruj sa na emailjs.com, vytvor service + template a vlož ID sem
   const EMAILJS_CONFIG = {
-    publicKey:   "hylyqZjVu6HCO7F4P",   // Account → API Keys
-    serviceId:   "Yservice_h4jkdfs",           // Email Services → Service ID
+    publicKey:   "YOUR_EMAILJS_PUBLIC_KEY",   // Account → API Keys
+    serviceId:   "YOUR_SERVICE_ID",           // Email Services → Service ID
     template_expiry:  "template_expiry_warn", // Template ID pre upozornenie na expiráciu
     template_shopping: "template_shopping_list" // Template ID pre nákupný zoznam
   };
   // Inicializuj EmailJS
   (function() {
-    if (EMAILJS_CONFIG.publicKey !== "S9KjZEwsiiUC69fX-XqbK") {
+    if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
       emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
     }
   })();
@@ -1319,7 +1378,8 @@
             note: ""
           }
         }
-      }
+      },
+      personalContacts: []
     };
   }
 
@@ -1360,7 +1420,8 @@
           ...state,
           ...data,
           items: { ...structuredClone(DEFAULT_ITEMS), ...(data.items || {}) },
-          plans: mergedPlans
+          plans: mergedPlans,
+          personalContacts: data.personalContacts || []
         };
         // Migrate: ensure link field
         for (const cid of Object.keys(state.items)) {
@@ -2292,7 +2353,7 @@
     const emailCard = document.getElementById("emailNotifCard");
     const emailStatus = document.getElementById("emailNotifStatus");
     if (emailCard) {
-      const configured = EMAILJS_CONFIG.publicKey !== "S9KjZEwsiiUC69fX-XqbK";
+      const configured = EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY";
       emailCard.style.display = "block";
       if (emailStatus) {
         emailStatus.textContent = configured
@@ -2597,6 +2658,178 @@
       instGrid.appendChild(row);
     });
   }
+
+  // ══════════════════════════════════════════════════════════════════
+  // OSOBNÉ DÔLEŽITÉ KONTAKTY
+  // ══════════════════════════════════════════════════════════════════
+
+  const PC_CATEGORIES = [
+    { id: "doctor",      emoji: "🩺", label: "Lekár",               placeholder: "MUDr. Kováč, praktický lekár" },
+    { id: "doctor_kid",  emoji: "👶", label: "Pediater",            placeholder: "MUDr. Nová, detská ambulancia" },
+    { id: "dentist",     emoji: "🦷", label: "Zubár",               placeholder: "MDDr. Horvát" },
+    { id: "pharmacy",    emoji: "💊", label: "Lekáreň",             placeholder: "Lekáreň pri nemocnici" },
+    { id: "lawyer",      emoji: "⚖️", label: "Právnik",             placeholder: "JUDr. Novák" },
+    { id: "bank",        emoji: "🏦", label: "Banka",               placeholder: "Slovenská sporiteľňa, pobočka..." },
+    { id: "ins_life",    emoji: "🛡️", label: "Životná poisťovňa",   placeholder: "Allianz – číslo zmluvy..." },
+    { id: "ins_car",     emoji: "🚗", label: "Autopoistenie",       placeholder: "Generali – PZP / havarijné" },
+    { id: "ins_home",    emoji: "🏠", label: "Poistenie bytu/domu", placeholder: "ČSOB Poisťovňa – domácnosť" },
+    { id: "electric",    emoji: "⚡", label: "Elektrikár",           placeholder: "Poruchová linka / súkromný" },
+    { id: "gas",         emoji: "🔥", label: "Plynár",              placeholder: "SPP poruchová linka" },
+    { id: "water",       emoji: "💧", label: "Vodár",               placeholder: "BVS poruchová linka" },
+    { id: "locksmith",   emoji: "🔑", label: "Zámočník",            placeholder: "Non-stop zámočnícka služba" },
+    { id: "vet",         emoji: "🐾", label: "Veterinár",           placeholder: "MVDr. Horváth, veterinárna klinika" },
+    { id: "neighbor",    emoji: "🏘️", label: "Sused / susedka",     placeholder: "Pán Horváth, 3. poschodie" },
+    { id: "family",      emoji: "👨‍👩‍👧", label: "Rodinný kontakt",    placeholder: "Babka, dedko, teta..." },
+    { id: "work",        emoji: "💼", label: "Práca / zamestnávateľ", placeholder: "HR oddelenie, šéf..." },
+    { id: "school",      emoji: "🎒", label: "Škola / škôlka",      placeholder: "ZŠ Partizánska, triedna učiteľka" },
+    { id: "embassy",     emoji: "🏛️", label: "Ambasáda / konzulát", placeholder: "Zastupiteľský úrad..." },
+    { id: "other",       emoji: "📝", label: "Iný kontakt",         placeholder: "" },
+  ];
+
+  let pcSelectedCategoryId = "";
+
+  function renderPersonalContacts() {
+    const grid = document.getElementById("personalContactsGrid");
+    if (!grid) return;
+    const contacts = state.personalContacts || [];
+
+    if (contacts.length === 0) {
+      grid.innerHTML = `
+        <div onclick="openPersonalContactModal(-1)" style="background:linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border:1.5px dashed #86efac; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <div style="width:44px; height:44px; border-radius:50%; background:#86efac; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0;">+</div>
+            <div>
+              <div style="font-weight:700; font-size:0.9rem; color:#166534;">Pridajte si dôležité kontakty</div>
+              <div style="font-size:0.75rem; color:#22c55e; line-height:1.5; margin-top:0.125rem;">Lekár, poisťovňa, elektrikár, zámočník a ďalšie — všetko na jednom mieste, offline prístupné.</div>
+            </div>
+          </div>
+        </div>`;
+      return;
+    }
+
+    // Group contacts by category
+    const grouped = {};
+    contacts.forEach((c, idx) => {
+      const catId = c.categoryId || "other";
+      if (!grouped[catId]) grouped[catId] = [];
+      grouped[catId].push({ ...c, _idx: idx });
+    });
+
+    let html = "";
+    // Sort groups by PC_CATEGORIES order
+    const catOrder = PC_CATEGORIES.map(c => c.id);
+    const sortedKeys = Object.keys(grouped).sort((a, b) => catOrder.indexOf(a) - catOrder.indexOf(b));
+
+    sortedKeys.forEach(catId => {
+      const cat = PC_CATEGORIES.find(c => c.id === catId) || { emoji: "📝", label: "Iný" };
+      const items = grouped[catId];
+      items.forEach(c => {
+        const phoneClean = (c.phone||"").replace(/\s/g, "");
+        const phone2Clean = (c.phone2||"").replace(/\s/g, "");
+        html += `
+          <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem; cursor:pointer; transition:background 0.15s;" onclick="openPersonalContactModal(${c._idx})" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='var(--c-bg)'">
+            <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${cat.emoji}</div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
+                <span style="font-weight:700; font-size:0.85rem; line-height:1.3;">${esc(c.name||"")}</span>
+                <span style="font-size:0.65rem; font-weight:600; color:var(--c-muted); background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.1rem 0.375rem;">${cat.label}${c.customType ? " – " + esc(c.customType) : ""}</span>
+              </div>
+              ${c.note ? `<div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.4;">${esc(c.note)}</div>` : ""}
+              <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;" onclick="event.stopPropagation()">
+                <a href="tel:${phoneClean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${esc(c.phone||"")}</a>
+                ${c.phone2 ? `<a href="tel:${phone2Clean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${esc(c.phone2)}</a>` : ""}
+                ${c.address ? `<span style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; font-family:'Lexend',sans-serif; white-space:nowrap;">📌 ${esc(c.address)}</span>` : ""}
+              </div>
+            </div>
+            <div style="color:var(--c-muted); font-size:0.8rem; flex-shrink:0; margin-top:0.25rem;">✏️</div>
+          </div>`;
+      });
+    });
+
+    grid.innerHTML = html;
+  }
+
+  // ── Personal contact modal ──────────────────────────────────────
+  function openPersonalContactModal(editIndex) {
+    const f = document.getElementById("personalContactForm");
+    const isEdit = editIndex >= 0 && editIndex < (state.personalContacts||[]).length;
+    const c = isEdit ? state.personalContacts[editIndex] : {};
+
+    document.getElementById("pcModalTitle").textContent = isEdit ? "✏️ Upraviť kontakt" : "👤 Nový kontakt";
+    f.elements["pc_editIndex"].value = editIndex;
+    f.elements["pc_name"].value = c.name || "";
+    f.elements["pc_phone"].value = c.phone || "";
+    f.elements["pc_phone2"].value = c.phone2 || "";
+    f.elements["pc_address"].value = c.address || "";
+    f.elements["pc_note"].value = c.note || "";
+    document.getElementById("pcCustomTypeInput").value = c.customType || "";
+    document.getElementById("pcCustomTypeInput").style.display = (c.categoryId === "other") ? "block" : "none";
+    document.getElementById("btnDeletePC").style.display = isEdit ? "inline-flex" : "none";
+
+    pcSelectedCategoryId = c.categoryId || "";
+    renderPCCategoryPicker();
+    openModal("modalPersonalContact");
+  }
+  window.openPersonalContactModal = openPersonalContactModal;
+
+  function renderPCCategoryPicker() {
+    const box = document.getElementById("pcCategoryPicker");
+    if (!box) return;
+    box.innerHTML = PC_CATEGORIES.map(cat => {
+      const sel = pcSelectedCategoryId === cat.id;
+      return `<button type="button" data-pccat="${cat.id}" style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.3rem 0.5rem; border-radius:0.5rem; font-size:0.72rem; font-weight:600; font-family:'Lexend',sans-serif; cursor:pointer; transition:all 0.15s; border:1.5px solid ${sel ? '#2a7a4b' : 'var(--c-border)'}; background:${sel ? '#eaf4ee' : 'var(--c-surface)'}; color:${sel ? '#2a7a4b' : 'var(--c-muted)'};" title="${cat.label}">${cat.emoji} ${cat.label}</button>`;
+    }).join("");
+    box.querySelectorAll("[data-pccat]").forEach(btn => {
+      btn.onclick = () => {
+        pcSelectedCategoryId = btn.dataset.pccat;
+        renderPCCategoryPicker();
+        const custom = document.getElementById("pcCustomTypeInput");
+        custom.style.display = pcSelectedCategoryId === "other" ? "block" : "none";
+        // Pre-fill name placeholder
+        const cat = PC_CATEGORIES.find(c => c.id === pcSelectedCategoryId);
+        if (cat && cat.placeholder) {
+          document.querySelector("[name='pc_name']").placeholder = cat.placeholder;
+        }
+      };
+    });
+  }
+
+  document.getElementById("btnAddPersonalContact").onclick = () => openPersonalContactModal(-1);
+
+  document.getElementById("personalContactForm").onsubmit = (e) => {
+    e.preventDefault();
+    if (!pcSelectedCategoryId) { alert("Vyberte typ kontaktu."); return; }
+    const fd = new FormData(e.target);
+    const idx = parseInt(fd.get("pc_editIndex"));
+    const contact = {
+      categoryId: pcSelectedCategoryId,
+      customType: pcSelectedCategoryId === "other" ? String(fd.get("pc_customType")||"").trim() : "",
+      name: String(fd.get("pc_name")||"").trim(),
+      phone: String(fd.get("pc_phone")||"").trim(),
+      phone2: String(fd.get("pc_phone2")||"").trim(),
+      address: String(fd.get("pc_address")||"").trim(),
+      note: String(fd.get("pc_note")||"").trim()
+    };
+    if (!state.personalContacts) state.personalContacts = [];
+    if (idx >= 0 && idx < state.personalContacts.length) {
+      state.personalContacts[idx] = contact;
+    } else {
+      state.personalContacts.push(contact);
+    }
+    closeModal("modalPersonalContact");
+    scheduleSave(); renderPersonalContacts();
+  };
+
+  document.getElementById("btnDeletePC").onclick = () => {
+    const idx = parseInt(document.getElementById("personalContactForm").elements["pc_editIndex"].value);
+    if (idx >= 0 && idx < (state.personalContacts||[]).length) {
+      if (confirm("Odstrániť tento kontakt?")) {
+        state.personalContacts.splice(idx, 1);
+        closeModal("modalPersonalContact");
+        scheduleSave(); renderPersonalContacts();
+      }
+    }
+  };
 
   // ══════════════════════════════════════════════════════════════════
   // VAROVNÉ SIGNÁLY SIRÉN
@@ -3089,6 +3322,7 @@
     renderCategories();
     renderFirstAid();
     renderEmergencyContacts();
+    renderPersonalContacts();
     renderSirens();
     renderRadio();
     renderEmergencyProc();
@@ -3211,7 +3445,7 @@
   // Skontroluje či sa má poslať email (cooldown 24h)
   async function canSendEmail(type) {
     if (!currentUser) return false;
-    if (EMAILJS_CONFIG.publicKey === "hylyqZjVu6HCO7F4P") return false; // nekonfigurované
+    if (EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return false; // nekonfigurované
     try {
       const snap = await getDoc(doc(db, "users", currentUser.uid, "notifications", type));
       if (!snap.exists()) return true;
@@ -3306,7 +3540,7 @@
 
   // Hlavná funkcia – skontroluje expirácie a odošle emaily ak treba
   async function checkAndSendNotifications() {
-    if (!currentUser || EMAILJS_CONFIG.publicKey === "hylyqZjVu6HCO7F4P") return;
+    if (!currentUser || EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return;
 
     const expiringItems  = getExpiringItems(NOTIFY_EXPIRY_DAYS);
     const criticalItems  = getExpiringItems(NOTIFY_SHOPPING_DAYS);
@@ -3337,7 +3571,7 @@
       }
 
       // Obíde cooldown pre testovanie
-      if (EMAILJS_CONFIG.publicKey !== "hylyqZjVu6HCO7F4P") {
+      if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
         await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.template_expiry, {
           to_email:   currentUser.email,
           to_name:    currentUser.displayName?.split(" ")[0] || "používateľ",
