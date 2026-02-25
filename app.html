@@ -727,9 +727,10 @@
         <!-- Profile Card -->
         <div class="card">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem;">
-            <h2 style="font-size:1.2rem; font-weight:700;">Profil domácnosti</h2>
+            <h2 style="font-size:1.2rem; font-weight:700;">Vaša domácnosť</h2>
             <button class="btn-ghost" id="btnEditProfile" style="font-size:0.8rem;">Upraviť</button>
           </div>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin:-0.5rem 0 0.75rem; line-height:1.4;">Podľa týchto údajov vypočítame, čo má pre vašu domácnosť zmysel pripraviť.</p>
           <div id="profileCard"></div>
         </div>
 
@@ -737,7 +738,7 @@
         <div class="card overall-card-desktop" style="display:flex; flex-direction:column; justify-content:space-between;">
           <div>
             <h2 style="font-size:1.2rem; font-weight:700; margin-bottom:0.25rem;">Celková pripravenosť</h2>
-            <p style="font-size:0.8rem; color:var(--c-muted);">Vážený priemer všetkých kategórií</p>
+            <p style="font-size:0.8rem; color:var(--c-muted);">Ako ste na tom s prípravou celkovo</p>
           </div>
           <div style="margin-top:1rem;">
             <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.5rem;">
@@ -754,44 +755,71 @@
       <!-- Alerts -->
       <!-- Email notifikácie nastavenia -->
       <div class="card" id="emailNotifCard" style="display:none;">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <div style="font-weight:700; font-size:1rem;">✉️ Emailové notifikácie</div>
-            <div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.25rem;" id="emailNotifStatus">Nekonfigurované</div>
+            <div style="font-weight:700; font-size:1rem;">✉️ Emailové pripomienky</div>
+            <div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.25rem;" id="emailNotifStatus"></div>
           </div>
-          <button id="btnTestEmail" onclick="sendTestNotification()" class="btn-ghost" style="font-size:0.8rem; padding:0.375rem 0.75rem; border:1px solid var(--c-border); border-radius:0.5rem;">
-            Testovací email
-          </button>
+          <div style="display:flex; gap:0.375rem;">
+            <button id="btnTestEmail" onclick="sendTestNotification()" class="btn-ghost" style="font-size:0.8rem; padding:0.375rem 0.75rem; border:1px solid var(--c-border); border-radius:0.5rem;">
+              Testovací email
+            </button>
+            <button id="btnEmailJSInfo" onclick="document.getElementById('modalEmailJSInfo').classList.add('open')" class="btn-ghost" style="font-size:0.7rem; padding:0.375rem 0.5rem; border:1px solid var(--c-border); border-radius:0.5rem; color:var(--c-muted);">⚙️</button>
+          </div>
         </div>
         <div style="font-size:0.85rem; color:var(--c-muted); line-height:1.6;">
-          Gerlach vám pošle email keď sa blíži expirácia zásob (lieky 6 mesiacov, potraviny 1 mesiac vopred – nastaviteľné) a nákupný zoznam toho čo treba doplniť (14 dní vopred). Email sa posiela max 1× za 24 hodín.
+          Pošleme vám upozornenie, keď sa blíži expirácia zásob alebo keď treba niečo doplniť. Aby ste na dôležité veci nemuseli myslieť stále.
+        </div>
+      </div>
+
+      <!-- Modal: EmailJS technická konfigurácia (len pre správcu) -->
+      <div class="modal-overlay" id="modalEmailJSInfo">
+        <div class="modal-box" style="max-width:420px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+            <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1rem;">⚙️ Technická poznámka pre správcu</h3>
+            <button data-close="modalEmailJSInfo" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
+          </div>
+          <div style="font-size:0.8rem; color:var(--c-muted); line-height:1.6;">
+            <p style="margin-bottom:0.5rem;">Emailové pripomienky využívajú službu <strong>EmailJS</strong>. Pre aktiváciu je potrebné nastaviť konfiguráciu:</p>
+            <div style="background:var(--c-bg); border-radius:0.5rem; padding:0.75rem; margin:0.5rem 0; font-family:monospace; font-size:0.72rem; line-height:1.5;">
+              publicKey: "S9KjZEwsiiUC69fX-XqbK"<br>
+              serviceId: "service_h4jkdfs"
+            </div>
+            <p style="margin-top:0.5rem;">Email sa odosiela max 1× za 24 hodín. Upozornenia na expiráciu podľa nastavení sledovania + nákupný zoznam (14 dní pred).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="expirySettingsCard">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;">
+          <h2 style="font-size:1rem; font-weight:700;">⏰ Sledovanie expirácie</h2>
+        </div>
+        <div style="font-size:0.75rem; color:var(--c-muted); margin-bottom:0.625rem; line-height:1.4;">Upozorníme vás na položky, ktorým sa blíži dátum spotreby.</div>
+        <div style="display:flex; flex-wrap:wrap; gap:0.625rem;">
+          <div style="display:flex; align-items:center; gap:0.375rem; background:#fef2f2; border:1px solid #fecaca; border-radius:0.625rem; padding:0.375rem 0.625rem;">
+            <span style="font-size:0.75rem; font-weight:600; color:#dc2626;">🩺 Lieky</span>
+            <select id="alertDaysMeds" style="width:auto; font-size:0.75rem; padding:0.2rem 0.4rem; border-radius:0.375rem; border:1px solid #fecaca; background:white; color:#dc2626; font-weight:600;">
+              <option value="270">9 mesiacov</option>
+              <option value="180" selected>6 mesiacov</option>
+              <option value="90">3 mesiace</option>
+              <option value="30">1 mesiac</option>
+            </select>
+          </div>
+          <div style="display:flex; align-items:center; gap:0.375rem; background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.625rem; padding:0.375rem 0.625rem;">
+            <span style="font-size:0.75rem; font-weight:600; color:#1e40af;">🥫 Potraviny a voda</span>
+            <select id="alertDaysFood" style="width:auto; font-size:0.75rem; padding:0.2rem 0.4rem; border-radius:0.375rem; border:1px solid #bfdbfe; background:white; color:#1e40af; font-weight:600;">
+              <option value="270">9 mesiacov</option>
+              <option value="180">6 mesiacov</option>
+              <option value="90">3 mesiace</option>
+              <option value="30" selected>1 mesiac</option>
+            </select>
+          </div>
         </div>
       </div>
 
       <div class="card" id="alertsSection" style="display:none;">
-        <div style="margin-bottom:0.75rem;">
-          <h2 style="font-size:1rem; font-weight:700; margin-bottom:0.625rem;">⚠️ Upozornenia na expiráciu</h2>
-          <div style="display:flex; flex-wrap:wrap; gap:0.625rem;">
-            <div style="display:flex; align-items:center; gap:0.375rem; background:#fef2f2; border:1px solid #fecaca; border-radius:0.625rem; padding:0.375rem 0.625rem;">
-              <span style="font-size:0.75rem; font-weight:600; color:#dc2626;">🩺 Lieky</span>
-              <select id="alertDaysMeds" style="width:auto; font-size:0.75rem; padding:0.2rem 0.4rem; border-radius:0.375rem; border:1px solid #fecaca; background:white; color:#dc2626; font-weight:600;">
-                <option value="270">9 mesiacov</option>
-                <option value="180" selected>6 mesiacov</option>
-                <option value="90">3 mesiace</option>
-                <option value="30">1 mesiac</option>
-              </select>
-            </div>
-            <div style="display:flex; align-items:center; gap:0.375rem; background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.625rem; padding:0.375rem 0.625rem;">
-              <span style="font-size:0.75rem; font-weight:600; color:#1e40af;">🥫 Potraviny a voda</span>
-              <select id="alertDaysFood" style="width:auto; font-size:0.75rem; padding:0.2rem 0.4rem; border-radius:0.375rem; border:1px solid #bfdbfe; background:white; color:#1e40af; font-weight:600;">
-                <option value="270">9 mesiacov</option>
-                <option value="180">6 mesiacov</option>
-                <option value="90">3 mesiace</option>
-                <option value="30" selected>1 mesiac</option>
-              </select>
-            </div>
-          </div>
-        </div>
+        <h2 style="font-size:1rem; font-weight:700; margin-bottom:0.25rem;">⚠️ Upozornenia</h2>
+        <p style="font-size:0.75rem; color:var(--c-muted); margin-bottom:0.75rem;">Čo sa blíži a oplatí sa riešiť teraz</p>
         <div id="alertsBox"></div>
       </div>
 
@@ -808,7 +836,7 @@
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
             <h2 style="font-size:1.2rem; font-weight:700;">🏥 Prvá pomoc</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa ERC Guidelines 2025 &amp; príručky MV SR</p>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Základné postupy prvej pomoci, keď ide o minúty</p>
           </div>
           <div style="display:flex; gap:0.5rem; align-items:center;">
             <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">📞 112</a>
@@ -844,8 +872,8 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">👤 Moje dôležité kontakty</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobné kontakty na kľúčových ľudí a služby pre prípad krízy</p>
+            <h2 style="font-size:1.2rem; font-weight:700;">👤 Rodinné dôležité kontakty</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Ľudia, na ktorých sa viete spoľahnúť</p>
           </div>
           <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.78rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
         </div>
@@ -856,11 +884,11 @@
       <div class="card">
         <div style="margin-bottom:0.875rem;">
           <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa príručky MV SR – každý signál má špecifický zvuk a význam</p>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Čo znamenajú jednotlivé signály a ako ich rozoznať</p>
         </div>
         <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;"></div>
         <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
-          <strong style="color:var(--c-text);">💡 Tip:</strong> Skúška sirén prebieha pravidelne <strong>každý druhý piatok v mesiaci o 12:00</strong>. Skúšky sú vopred oznámené v médiách.
+          <strong style="color:var(--c-text);">💡 Tip:</strong> Skúška sirén prebieha spravidla <strong>každý druhý piatok v mesiaci o 12:00</strong>. Skúšky sú vopred oznámené v médiách.
         </div>
       </div>
 
@@ -868,11 +896,11 @@
       <div class="card">
         <div style="margin-bottom:0.875rem;">
           <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem núdzových informácií bez internetu</p>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie, cez ktoré si viete nájsť dôležité informácie aj bez internetu</p>
         </div>
         <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
         <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
-          <strong>ℹ️ Dôležité:</strong> Počas krízy sledujte Slovenský rozhlas a Rádio Regina – sú hlavným kanálom pre varovné hlásenia a pokyny záchranných zložiek. Rádio na batérie je nevyhnutnou súčasťou krízovej výbavy.
+          <strong>ℹ️ Dôležité:</strong> Počas krízy sledujte Slovenský rozhlas a Rádio Regina. Rádio na batérie patrí medzi najdôležitejšiu výbavu domácnosti.
         </div>
       </div>
 
@@ -881,7 +909,7 @@
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
             <h2 style="font-size:1.2rem; font-weight:700;">⚠️ Postupy pri mimoriadnych udalostiach</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Podľa príručky MV SR „V prípade krízy alebo ozbrojeného konfliktu"</p>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Prehľadné odporúčania, čo robiť krok po kroku</p>
           </div>
         </div>
         <div id="emergencyProcGrid" class="mu-grid"></div>
@@ -891,8 +919,8 @@
       <div class="card" id="evacBagsSection">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batožiny</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobná evakuačná batožina pre každého člena domácnosti</p>
+            <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batohy</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti</p>
           </div>
           <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">🔄 Pregenerovať</button>
         </div>
@@ -925,8 +953,8 @@
   <div class="modal-box" style="max-width:640px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
       <div>
-        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Charakteristika vašej domácnosti</h3>
-        <p style="font-size:0.8rem; color:var(--c-muted); margin:0.25rem 0 0;">Podľa týchto údajov vypočítame čo a koľko potrebujete.</p>
+        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Vaša domácnosť</h3>
+        <p style="font-size:0.8rem; color:var(--c-muted); margin:0.25rem 0 0;">Podľa týchto údajov vypočítame, čo má pre vašu domácnosť zmysel pripraviť.</p>
       </div>
       <button data-close="modalProfile" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
@@ -1160,7 +1188,7 @@
 
 <!-- Modal: Osobný kontakt -->
 
-<!-- Modal: Evakuačná batožina detail -->
+<!-- Modal: Evakuačný batoh detail -->
 <div class="modal-overlay" id="modalEvacBag">
   <div class="modal-box" style="max-width:560px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
@@ -1320,8 +1348,8 @@
   // ── EmailJS konfigurácia ─────────────────────────────────────────
   // POKYN: Zaregistruj sa na emailjs.com, vytvor service + template a vlož ID sem
   const EMAILJS_CONFIG = {
-    publicKey:   "YOUR_EMAILJS_PUBLIC_KEY",   // Account → API Keys
-    serviceId:   "YOUR_SERVICE_ID",           // Email Services → Service ID
+    publicKey:   "S9KjZEwsiiUC69fX-XqbK",     // Account → API Keys
+    serviceId:   "service_h4jkdfs",             // Email Services → Service ID
     template_expiry:  "template_expiry_warn", // Template ID pre upozornenie na expiráciu
     template_shopping: "template_shopping_list" // Template ID pre nákupný zoznam
   };
@@ -1423,13 +1451,13 @@
       // ── Zdravotné dokumenty ──
       { name: "Karta pacienta – scan + papierová", done: false, qty: "", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
       { name: "Lekárske správy (deti / chronickí pacienti)", done: false, qty: "Papier + Cloud + USB", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
-      { name: "Alergie / lieky / kontakty – 1× A4 v lekárničke", done: false, qty: "Papier v lekárničke + batožine", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
+      { name: "Alergie / lieky / kontakty – 1× A4 v lekárničke", done: false, qty: "Papier v lekárničke + batohu", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
       { name: "Darcu krvi / transplantácie / dôležité med. info", done: false, qty: "Papier + scan", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
       // ── Krízové dokumenty ──
       { name: "Plnomocenstvo – NOTÁRSKY OVERENÉ", done: false, qty: "Na správu majetku, bankové úkony, poistky", expiry: "", link: "", docGroup: "Krízové dokumenty" },
       { name: "Závet / dedičstvo – originál u notára", done: false, qty: "Kópia pre rodinu. Scan neodporúčaný ako dôkaz!", expiry: "", link: "", docGroup: "Krízové dokumenty" },
       { name: "Zoznam kontaktov offline – papier 1–2 strany", done: false, qty: "Lekár, právnik, banka, poisťovne, hasiči, elektrikár...", expiry: "", link: "", docGroup: "Krízové dokumenty" },
-      { name: "USB kľúč s dokumentmi – pripravený v batožine", done: false, qty: "Šifrovaný! + záloha na Cloud", expiry: "", link: "", docGroup: "Krízové dokumenty" },
+      { name: "USB kľúč s dokumentmi – pripravený v batohu", done: false, qty: "Šifrovaný! + záloha na Cloud", expiry: "", link: "", docGroup: "Krízové dokumenty" },
     ],
   };
 
@@ -1594,7 +1622,7 @@
         },
         scenarios: {
           home: {
-            steps: "1. Zostaňte pokojní a zistite čo sa deje\n2. Skontrolujte zásoby a vybavenie\n3. Sledujte rozhlas / informácie\n4. Ak treba evakuovať – zoberte batožinu a choďte na miesto stretnutia",
+            steps: "1. Zostaňte pokojní a zistite čo sa deje\n2. Skontrolujte zásoby a vybavenie\n3. Sledujte rozhlas / informácie\n4. Ak treba evakuovať – zoberte batoh a choďte na miesto stretnutia",
             evacPlace: "",
             note: ""
           },
@@ -1607,7 +1635,7 @@
           partial: {
             whoHome: "",
             whoWork: "",
-            homeSteps: "Rodič doma: pripraví batožinu a zásoby, zabezpečí deti a čaká na partnera alebo ide na miesto stretnutia.",
+            homeSteps: "Rodič doma: pripraví batoh a zásoby, zabezpečí deti a čaká na partnera alebo ide na miesto stretnutia.",
             workSteps: "Rodič v práci: bezpečne opustí pracovisko a smeruje na miesto stretnutia alebo domov.",
             meetPlace: "",
             meetTime: "",
@@ -1681,6 +1709,17 @@
         // Migrate: budget "basic" (old Úsporná) → "mid" (new Základná)
         if (state.profile && state.profile.budget === "basic") {
           state.profile.budget = "mid";
+        }
+        // Migrate: remove old default items from dynamic categories (replaced by profile-based generation)
+        const OLD_DEFAULTS = {
+          gear: ["Baterka + záložné batérie", "Powerbanka (min. 10 000 mAh)", "Rádio na batérie"],
+          medkit: ["Lieky proti bolesti (Paralen, Ibuprofen)", "Obväzy, dezinfekcia, rukavice", "Lieky na predpis – záložná zásoba"],
+          hygiene: ["Toaletný papier / vlhčené utierky", "Mydlo / dezinfekcia rúk"]
+        };
+        for (const [catId, oldNames] of Object.entries(OLD_DEFAULTS)) {
+          if (state.items[catId]) {
+            state.items[catId] = state.items[catId].filter(it => !oldNames.includes(it.name));
+          }
         }
         // Regenerate dynamic items from profile
         regenerateProfileBasedItems();
@@ -1819,19 +1858,19 @@
   }
 
   function rankForPct(p) {
-    if (p < 25) return "Otrhanec";
-    if (p < 50) return "Učeň";
-    if (p < 75) return "Strážca";
-    if (p < 100) return "Bojovník";
-    return "Rytier";
+    if (p <= 20) return "Začíname";
+    if (p <= 40) return "Už máte základ";
+    if (p <= 60) return "Dobrý základ";
+    if (p <= 80) return "Veľmi slušne";
+    return "Výborne pripravení";
   }
 
   function emojiForPct(p) {
-    if (p < 25) return "😟";
-    if (p < 50) return "😐";
-    if (p < 75) return "🙂";
-    if (p < 100) return "😄";
-    return "🛡️";
+    if (p <= 20) return "🌱";
+    if (p <= 40) return "📦";
+    if (p <= 60) return "👍";
+    if (p <= 80) return "💪";
+    return "🏆";
   }
 
   function calcWaterCompletion(item) {
@@ -2027,11 +2066,11 @@
             </div>
             <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
               <strong style="color:#1e40af;">📄 Kópia</strong><br>
-              <span style="color:var(--c-muted);">Papierová kópia v evakuačnej batožine + u príbuzných</span>
+              <span style="color:var(--c-muted);">Papierová kópia v evakuačnom batohu + u príbuzných</span>
             </div>
             <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
               <strong style="color:#1e40af;">💾 USB</strong><br>
-              <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batožine – scany všetkých dokumentov</span>
+              <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batohu – scany všetkých dokumentov</span>
             </div>
             <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
               <strong style="color:#1e40af;">☁️ Cloud</strong><br>
@@ -2299,7 +2338,7 @@
       if (filled) {
         previewHtml = getScenarioPreview(def.id, scenario);
       } else {
-        previewHtml = `<div style="font-size:0.78rem; color:${def.color}; opacity:0.7; margin-top:0.375rem;">Kliknutím nastavíte postup pre tento scenár →</div>`;
+        previewHtml = `<div style="font-size:0.78rem; color:${def.color}; opacity:0.7; margin-top:0.375rem;">Doplniť plán pre tento scenár →</div>`;
       }
 
       card.innerHTML = `
@@ -2582,7 +2621,7 @@
           </div>
           <div>
             <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten doma?</label>
-            <textarea name="homeSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batožinu, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
+            <textarea name="homeSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
           </div>
           <div>
             <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten v práci?</label>
@@ -2659,8 +2698,8 @@
       emailCard.style.display = "block";
       if (emailStatus) {
         emailStatus.textContent = configured
-          ? `✅ Aktívne – notifikácie na ${currentUser?.email || "váš email"}`
-          : "⚠️ Vyžaduje konfiguráciu EmailJS (pozri README)";
+          ? `✅ Aktívne – pripomienky na ${currentUser?.email || "váš email"}`
+          : "Pripomienky zatiaľ nie sú aktívne";
         emailStatus.style.color = configured ? "var(--c-green)" : "var(--c-muted)";
       }
     }
@@ -3191,7 +3230,7 @@
 
     // ── Oblečenie ──
     const clothItems = [
-      { name: "Pevná obuv", note: "Nepremokavá, pohodlná – pripraviť k batožine" },
+      { name: "Pevná obuv", note: "Nepremokavá, pohodlná – pripraviť k batohu" },
       { name: "Pláštenka / nepremokavá bunda", note: "" },
       { name: "Náhradné oblečenie", note: type === "infant" ? "2× body, čiapka, ponožky" : "Tričko, nohavice, mikina, čiapka" },
       { name: "Spodné prádlo a ponožky", note: "Min. 2 sady" },
@@ -3332,13 +3371,13 @@
         <div style="display:flex; align-items:flex-start; gap:0.75rem;">
           <div style="font-size:1.375rem; flex-shrink:0; margin-top:0.125rem;">💡</div>
           <div>
-            <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravenú evakuačnú batožinu?</div>
+            <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravený evakuačný batoh?</div>
             <div style="font-size:0.75rem; color:#a16207; line-height:1.6;">
-              Zásoby doma vás chránia pri kríze keď <strong>zostanete na mieste</strong> (výpadok prúdu, karanténa, snehová kalamita). 
-              Evakuačná batožina je pre opačný scenár — keď <strong>musíte rýchlo odísť</strong> (povodeň, požiar, chemický únik, vojenský konflikt). 
-              Máte max. <strong>15–30 minút</strong> na odchod. Ak je batožina pripravená, stačí ju zobrať a ísť. Každý člen rodiny by mal mať svoju vlastnú.
+              Keď musíte zostať doma, pomáhajú zásoby. 
+              Keď musíte <strong>odísť rýchlo</strong> (napr. požiar, povodeň, chemický únik, vojenský konflikt), pomôže pripravený batoh.
+              Stačí ho zobrať a ísť. Každý člen domácnosti by mal mať svoj.
             </div>
-            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; + 5 kg príručná batožina</div>
+            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; + 5 kg príručný batoh</div>
           </div>
         </div>
       </div>`;
@@ -3457,7 +3496,7 @@
   window.toggleAllEvacItems = toggleAllEvacItems;
 
   document.getElementById("btnRegenBags").onclick = () => {
-    if (confirm("Pregenerovať batožiny podľa aktuálneho profilu? Zaškrtnuté položky sa zachovajú.")) {
+    if (confirm("Pregenerovať batohy podľa aktuálneho profilu? Zaškrtnuté položky sa zachovajú.")) {
       generateEvacBags();
       scheduleSave();
       renderEvacBags();
@@ -3680,7 +3719,7 @@
         { text: "<strong>Sledujte počasie a spravodajstvo</strong> – informácie z SHMÚ a médií sú kľúčové." },
         { text: "<strong>Odstráňte nebezpečné látky</strong> – jedy, kyseliny a žieraviny, ktoré môžu reagovať s vodou." },
         { text: "<strong>Vypnite elektrinu, vodu a plyn</strong> – predíďte úrazom a výbuchom." },
-        { text: "<strong>Pripravte si evakuačnú batožinu</strong> – doklady, lieky, voda, potraviny, oblečenie." },
+        { text: "<strong>Pripravte si evakuačný batoh</strong> – doklady, lieky, voda, potraviny, oblečenie." },
         { text: "<strong>Presuňte sa na vyvýšené miesto</strong> – v prípade časovej tiesne okamžite prerušte všetky aktivity." },
         { text: "<strong>Nejazdite cez zaplavené cesty</strong> – ak neviete hĺbku vody. Rýchlo opustite auto, ktoré zalieva voda." },
         { text: "<strong>Zavolajte 112</strong> z bezpečného miesta a počkajte na ďalšie inštrukcie." }
@@ -3783,7 +3822,7 @@
         { text: "<strong>Telefonujte len v súrnom prípade</strong> – nezaťažujte siete." },
         { text: "<strong>Nikdy sa neukrývajte do pivníc</strong> a terénnych nerovností – chemické látky sú často ťažšie než vzduch." }
       ],
-      warning: "Pripravte si evakuačnú batožinu. Nakŕmte domáce zvieratá a uzatvorte ich v prepravných boxoch. Čakajte na pokyny záchranných zložiek.",
+      warning: "Pripravte si evakuačný batoh. Nakŕmte domáce zvieratá a uzatvorte ich v prepravných boxoch. Čakajte na pokyny záchranných zložiek.",
       source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu"
     },
     {
@@ -3802,7 +3841,7 @@
         { text: "<strong>Nepožívajte nechránené potraviny</strong>, ovocie a zeleninu z voľného priestranstva." },
         { text: "<strong>Evakuáciu vykonajte</strong> až na základe pokynov záchranárov alebo oficiálneho vyhlásenia." }
       ],
-      warning: "Sledujte informácie na oficiálnych komunikačných kanáloch. Pripravte si prostriedky improvizovanej ochrany a evakuačnú batožinu.",
+      warning: "Sledujte informácie na oficiálnych komunikačných kanáloch. Pripravte si prostriedky improvizovanej ochrany a evakuačný batoh.",
       source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu"
     },
     {
@@ -3910,8 +3949,8 @@
         { text: "<strong>Zavrite okná a dvere,</strong> vypnite ventiláciu a klimatizáciu." },
         { text: "<strong>Uzavrite vodu a plyn.</strong>" },
         { header: "Čo si vziať so sebou?" },
-        { text: "<strong>Evakuačnú batožinu</strong> – zavazadlo označte štítkom so menom a telefónnym číslom majiteľa." },
-        { text: "<strong>Hmotnosť batožiny:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná." },
+        { text: "<strong>Evakuačný batoh</strong> – zavazadlo označte štítkom so menom a telefónnym číslom majiteľa." },
+        { text: "<strong>Hmotnosť batohu:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná." },
         { header: "Ochrana osôb" },
         { text: "<strong>Deťom a zraniteľným osobám</strong> dajte do kapsy kartičku so menom, adresou a kontaktom na príbuzného." },
         { text: "<strong>Upozornite na evakuáciu susedov.</strong> Ponúknite im pomoc." },
@@ -3969,7 +4008,7 @@
         { text: "<strong>Zavolajte 112</strong> a informujte záchranárov o situácii." },
         { header: "Príprava vopred" },
         { text: "<strong>Identifikujte najbližšie úkryty</strong> – pivnice, podzemné garáže, metro, krytové priestory." },
-        { text: "<strong>Majte pripravenú evakuačnú batožinu</strong> pri dverách – doklady, voda, lieky, baterka, power banka." },
+        { text: "<strong>Majte pripravenú evakuačný batoh</strong> pri dverách – doklady, voda, lieky, baterka, power banka." },
         { text: "<strong>Dohodnite sa s rodinou na pláne stretnutia</strong> – kde sa stretnete ak vypadne signál." },
         { text: "<strong>Naučte sa základy prvej pomoci</strong> – zastavenie krvácania, ošetrenie popálenín, stabilizovaná poloha." },
         { text: "<strong>Sledujte oficiálne kanály</strong> – civilná ochrana, armáda, overené spravodajské zdroje." }
@@ -4075,7 +4114,7 @@
         { text: "<strong>Ujistime ich, že budeme stále s nimi.</strong>" },
         { text: "<strong>Povedieme im, že to spolu zvládneme</strong> a že existujú ľudia, ktorí nám pomôžu." },
         { text: "<strong>Ak je to možné, udržujeme obvyklý režim.</strong>" },
-        { note: "<strong>Evakuácia:</strong> V prípade evakuácie nezabudnite pripraviť dieťaťu cedulku s adresou a kontaktom na blízku osobu. A do evakuačnej batožiny pribaľte malú hračku." }
+        { note: "<strong>Evakuácia:</strong> V prípade evakuácie nezabudnite pripraviť dieťaťu cedulku s adresou a kontaktom na blízku osobu. A do evakuačného batohu pribaľte malú hračku." }
       ],
       warning: "",
       source: "Príručka 72h.gov.cz"
