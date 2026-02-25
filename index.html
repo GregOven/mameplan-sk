@@ -52,8 +52,7 @@
   <style>
     :root{
       --cream:#f5f0e8;--paper:#faf8f4;--ink:#1a1612;--ink2:#3d3730;
-      --muted:#6b6560;--accent:#c94f1a;--acc2:#e8803a;--green:#2a6b44;
-      --blue:#003da5;--border:#e2dbd0;--white:#ffffff;
+      --muted:#6b6560;--brand:#0b4ea2;--brand-mid:#3A72B5;--brand-tint:#EDF1F8;--cta:#D42E2E;--cta2:#E85050;--cta-tint:#FDF0F0;--green:#2a6b44;--border:#e2dbd0;--white:#ffffff;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -69,8 +68,8 @@
     .logo-icon{width:38px;height:38px;border-radius:9px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.1);flex-shrink:0}
     .logo-icon img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
     .logo-name{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;letter-spacing:-0.02em}
-    .nav-cta{background:var(--ink);color:#fff;padding:0.6rem 1.375rem;border-radius:99px;font-size:0.875rem;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;font-family:'Lexend',sans-serif;display:inline-block}
-    .nav-cta:hover{background:var(--accent);transform:translateY(-1px)}
+    .nav-cta{background:var(--cta);color:#fff;padding:0.6rem 1.375rem;border-radius:99px;font-size:0.875rem;font-weight:600;transition:all 0.2s;border:none;cursor:pointer;font-family:'Lexend',sans-serif;display:inline-block;box-shadow:0 2px 8px rgba(212,46,46,0.2)}
+    .nav-cta:hover{background:#B52525;transform:translateY(-1px);box-shadow:0 4px 12px rgba(212,46,46,0.3)}
 
     /* HERO */
     .hero-outer{max-width:1140px;margin:0 auto;padding:0 1.5rem}
@@ -78,12 +77,12 @@
     .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--cream);border:1px solid var(--border);border-radius:99px;padding:0.35rem 0.875rem;font-size:0.78rem;font-weight:500;color:var(--muted);margin-bottom:1.625rem}
     .badge-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
     h1.hero-title{font-family:'Fraunces',serif;font-size:clamp(2.5rem,4.5vw,3.75rem);font-weight:900;line-height:1.0;letter-spacing:-0.03em;margin-bottom:1.125rem}
-    h1.hero-title em{font-style:italic;color:var(--accent)}
+    h1.hero-title em{font-style:italic;color:var(--brand)}
     .hero-sub{font-size:1.0625rem;color:var(--ink2);font-weight:300;line-height:1.8;margin-bottom:1.875rem;max-width:480px}
     .hero-sub strong{font-weight:600;color:var(--ink)}
     .cta-group{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.625rem}
-    .btn-main{background:var(--accent);color:#fff;padding:0.9rem 2rem;border-radius:99px;font-weight:700;font-size:1rem;font-family:'Lexend',sans-serif;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(201,79,26,0.28);display:inline-flex;align-items:center;gap:0.5rem}
-    .btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,79,26,0.38)}
+    .btn-main{background:var(--cta);color:#fff;padding:0.9rem 2rem;border-radius:99px;font-weight:700;font-size:1rem;font-family:'Lexend',sans-serif;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(212,46,46,0.25);display:inline-flex;align-items:center;gap:0.5rem}
+    .btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(212,46,46,0.35)}
     .btn-ghost{color:var(--ink2);font-size:0.9375rem;font-weight:400;display:inline-flex;align-items:center;gap:0.375rem;padding:0.5rem 0;border-bottom:1px solid transparent;transition:border-color 0.2s}
     .btn-ghost:hover{border-color:var(--ink2)}
     .trust-row{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
@@ -112,7 +111,7 @@
     /* SECTIONS */
     .section{padding:5rem 1.5rem}
     .wrap{max-width:1140px;margin:0 auto}
-    .sec-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:0.875rem}
+    .sec-label{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--brand);margin-bottom:0.875rem}
     .sec-title{font-family:'Fraunces',serif;font-size:clamp(1.875rem,3.5vw,2.75rem);font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin-bottom:1rem}
     .sec-sub{font-size:1rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:520px}
 
@@ -134,27 +133,27 @@
     /* FEATURES */
     .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
     .feat-card{border:1px solid var(--border);border-radius:1.375rem;padding:1.625rem;transition:all 0.22s;position:relative;overflow:hidden;background:var(--paper)}
-    .feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--acc2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+    .feat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--brand-mid));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
     .feat-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.1);background:var(--white)}
     .feat-card:hover::after{transform:scaleX(1)}
     .feat-icon{width:48px;height:48px;border-radius:0.875rem;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:1.375rem;margin-bottom:1.125rem}
     .feat-title{font-weight:700;font-size:1rem;margin-bottom:0.5rem;letter-spacing:-0.01em}
     .feat-text{font-size:0.875rem;color:var(--muted);line-height:1.7;font-weight:300}
-    .feat-tag{display:inline-block;margin-top:0.875rem;font-size:0.68rem;font-weight:600;color:var(--accent);background:rgba(201,79,26,0.08);padding:0.2rem 0.625rem;border-radius:99px;letter-spacing:0.04em;text-transform:uppercase}
+    .feat-tag{display:inline-block;margin-top:0.875rem;font-size:0.68rem;font-weight:600;color:var(--brand);background:rgba(11,78,162,0.08);padding:0.2rem 0.625rem;border-radius:99px;letter-spacing:0.04em;text-transform:uppercase}
 
     /* HOW */
     .how-steps{display:grid;grid-template-columns:repeat(4,1fr);position:relative;margin-top:3rem}
     .how-line{position:absolute;top:26px;left:calc(12.5% + 26px);right:calc(12.5% + 26px);height:1px;background:var(--border)}
     .how-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 0.75rem}
-    .how-num{width:52px;height:52px;border-radius:50%;background:var(--white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.25rem;font-weight:800;color:var(--accent);margin-bottom:1.125rem;position:relative;z-index:1;transition:all 0.22s}
-    .how-step:hover .how-num{background:var(--accent);border-color:var(--accent);color:#fff}
+    .how-num{width:52px;height:52px;border-radius:50%;background:var(--white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.25rem;font-weight:800;color:var(--brand);margin-bottom:1.125rem;position:relative;z-index:1;transition:all 0.22s}
+    .how-step:hover .how-num{background:var(--brand);border-color:var(--brand);color:#fff}
     .how-step-title{font-weight:600;font-size:0.9375rem;margin-bottom:0.375rem}
     .how-step-text{font-size:0.8125rem;color:var(--muted);line-height:1.6;font-weight:300}
 
     /* STORY */
     .story-bg{background:var(--cream);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .story-text{font-size:1rem;color:var(--ink2);line-height:1.8;font-weight:300;margin-bottom:1rem}
-    .story-quote{border-left:3px solid var(--accent);padding:0.875rem 1.25rem;background:rgba(201,79,26,0.04);border-radius:0 0.5rem 0.5rem 0;margin-top:1.5rem}
+    .story-quote{border-left:3px solid var(--brand);padding:0.875rem 1.25rem;background:rgba(11,78,162,0.04);border-radius:0 0.5rem 0.5rem 0;margin-top:1.5rem}
     .story-quote p{font-family:'Fraunces',serif;font-size:1.0625rem;font-style:italic;font-weight:300;line-height:1.6;color:var(--ink2)}
     .author-row{display:flex;align-items:center;gap:0.875rem;margin-top:1.5rem}
     .author-av{width:44px;height:44px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-size:1.25rem;font-weight:700;color:#fff;flex-shrink:0}
@@ -164,20 +163,20 @@
     .stat-card{background:var(--white);border:1px solid var(--border);border-radius:1.125rem;padding:1.375rem}
     .stat-num{font-family:'Fraunces',serif;font-size:2.25rem;font-weight:900;color:var(--ink);line-height:1;margin-bottom:0.375rem}
     .stat-label{font-size:0.8rem;color:var(--muted);line-height:1.5;font-weight:300}
-    .stat-card.c-accent{background:var(--accent);border-color:var(--accent)}
+    .stat-card.c-accent{background:var(--brand);border-color:var(--brand)}
     .stat-card.c-green{background:var(--green);border-color:var(--green)}
     .stat-card.c-accent .stat-num,.stat-card.c-accent .stat-label,
     .stat-card.c-green .stat-num,.stat-card.c-green .stat-label{color:#fff}
 
     /* CTA */
     .cta-bg{background:var(--ink);color:#fff;overflow:hidden;position:relative}
-    .cta-bg::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(201,79,26,0.15) 0%,transparent 70%);top:-200px;right:-150px;pointer-events:none}
+    .cta-bg::before{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,46,46,0.15) 0%,transparent 70%);top:-200px;right:-150px;pointer-events:none}
     .cta-inner{text-align:center;max-width:600px;margin:0 auto;position:relative;z-index:1}
     .cta-title{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3.25rem);font-weight:900;line-height:1.05;letter-spacing:-0.03em;margin-bottom:1.125rem}
-    .cta-title em{font-style:italic;color:var(--acc2)}
+    .cta-title em{font-style:italic;color:var(--cta2)}
     .cta-sub{font-size:1rem;color:rgba(255,255,255,0.6);font-weight:300;line-height:1.75;margin-bottom:2.25rem}
-    .btn-main-lg{background:var(--accent);color:#fff;padding:1.1rem 2.5rem;border-radius:99px;font-weight:700;font-size:1.0625rem;font-family:'Lexend',sans-serif;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 24px rgba(201,79,26,0.35);display:inline-flex;align-items:center;gap:0.5rem}
-    .btn-main-lg:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,79,26,0.45)}
+    .btn-main-lg{background:var(--cta);color:#fff;padding:1.1rem 2.5rem;border-radius:99px;font-weight:700;font-size:1.0625rem;font-family:'Lexend',sans-serif;border:none;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 24px rgba(212,46,46,0.3);display:inline-flex;align-items:center;gap:0.5rem}
+    .btn-main-lg:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,46,46,0.4)}
     .cta-note{margin-top:1.375rem;font-size:0.75rem;color:rgba(255,255,255,0.35);line-height:1.6}
 
     /* FOOTER */
@@ -196,10 +195,10 @@
     /* STICKY MOBILE CTA */
     .sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(250,248,244,0.97);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:0.875rem 1.25rem;z-index:90;transform:translateY(100%);transition:transform 0.3s}
     .sticky-cta.show{transform:none}
-    .sticky-cta a{display:block;background:var(--accent);color:#fff;text-align:center;padding:0.875rem;border-radius:0.875rem;font-weight:700;font-size:1rem;font-family:'Lexend',sans-serif;box-shadow:0 4px 16px rgba(201,79,26,0.3)}
+    .sticky-cta a{display:block;background:var(--cta);color:#fff;text-align:center;padding:0.875rem;border-radius:0.875rem;font-weight:700;font-size:1rem;font-family:'Lexend',sans-serif;box-shadow:0 4px 16px rgba(212,46,46,0.25)}
 
     /* ACCESSIBILITY */
-    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+    :focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
     @media(prefers-reduced-motion:reduce){
       .r{transition:none;opacity:1;transform:none}
       *{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
@@ -243,7 +242,7 @@
 <nav id="mainNav">
   <div class="nav-inner">
     <a href="#" class="logo-wrap">
-      <span class="logo-name f">Mámeplán.sk</span>
+      <span class="logo-name f">Gerlach</span>
     </a>
     <a href="./app.html" class="nav-cta cta-open-btn">Vyskúšať zadarmo →</a>
   </div>
@@ -256,20 +255,26 @@
   <div>
     <div class="hero-badge">
       <div class="badge-dot"></div>
-      🇸🇰 Slovenský projekt 
+      🇸🇰 Slovenský projekt · Zadarmo · Bez reklám
     </div>
-
     <h1 class="hero-title">
       Viete, čo máte<br>doma pre prípad<br><em>núdze?</em>
     </h1>
-
     <p class="hero-sub">
-      <strong>Máme plán</strong> je slovenský projekt s aplikáciou <strong>Gerlach</strong>, ktorá vám pomôže pripraviť vašu domácnosť na <strong>výpadky, núdzové situácie a nečakané dni</strong> — krok po kroku, bez zbytočného stresu.
+      Gerlach vám pomôže mať <strong>jasný prehľad o zásobách, expiráciách a núdzových plánoch</strong> pre vašu rodinu – bez stresu, bez komplikácií.
     </p>
-
     <div class="cta-group">
-      <a href="./app.html" class="btn-main cta-open-btn">Začať zadarmo →</a>
+      <a href="./app.html" class="btn-main cta-open-btn">Vyskúšať zadarmo →</a>
       <a href="#ako-to-funguje" class="btn-ghost">Ako to funguje ↓</a>
+    </div>
+    <div class="trust-row">
+      <div class="trust-item">🔒 Google login</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">✓ Zadarmo navždy</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">🚫 Bez reklám</div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">🔐 Dáta len vaše</div>
     </div>
 
     <!-- Mini beta counter v hero -->
@@ -300,14 +305,14 @@
     </div>
     <div class="float bot">
       <div class="fl-label">Celková pripravenosť</div>
-      <div class="fl-val" style="color:var(--accent)">68%</div>
+      <div class="fl-val" style="color:var(--brand)">68%</div>
       <div class="fl-sub">Jedlo a voda ✓</div>
     </div>
     <!-- Phone -->
     <div class="phone">
       <div class="phone-screen">
         <!-- App header -->
-        <div style="background:#c94f1a;padding:0.625rem 0.875rem;display:flex;align-items:center;justify-content:space-between;">
+        <div style="background:#0b4ea2;padding:0.625rem 0.875rem;display:flex;align-items:center;justify-content:space-between;">
           <div style="display:flex;align-items:center;gap:0.375rem;">
             <div style="width:18px;height:18px;border-radius:4px;overflow:hidden;background:#fff;">
             <span style="font-family:'Fraunces',serif;font-weight:700;font-size:0.75rem;color:#fff;">Gerlach</span>
@@ -320,9 +325,9 @@
           <div style="background:#fff;border-radius:0.625rem;padding:0.625rem 0.75rem;margin-bottom:0.5rem;border:1px solid #e2dbd0;display:flex;align-items:center;gap:0.5rem;">
             <span style="font-size:0.58rem;color:#6b6560;white-space:nowrap;font-weight:500;">Pripravenosť</span>
             <div style="flex:1;height:5px;background:#e2dbd0;border-radius:99px;overflow:hidden;">
-              <div style="width:68%;height:100%;background:linear-gradient(90deg,#c94f1a,#e8803a);border-radius:99px;"></div>
+              <div style="width:68%;height:100%;background:linear-gradient(90deg,#0b4ea2,#3A72B5);border-radius:99px;"></div>
             </div>
-            <span style="font-size:0.65rem;font-weight:700;color:#c94f1a;white-space:nowrap;">68%</span>
+            <span style="font-size:0.65rem;font-weight:700;color:#0b4ea2;white-space:nowrap;">68%</span>
           </div>
           <!-- Profile mini -->
           <div style="background:#fff;border-radius:0.625rem;padding:0.625rem 0.75rem;margin-bottom:0.5rem;border:1px solid #e2dbd0;">
@@ -342,7 +347,7 @@
               </div>
             </div>
             <div style="background:#eff6ff;border-radius:0.375rem;padding:0.3rem 0.5rem;">
-              <span style="font-size:0.55rem;color:#003da5;font-weight:600;">💧 Potreba vody: 28 l/deň</span>
+              <span style="font-size:0.55rem;color:#0b4ea2;font-weight:600;">💧 Potreba vody: 28 l/deň</span>
             </div>
           </div>
           <!-- Categories label -->
@@ -406,7 +411,7 @@
   <div style="max-width:1140px; margin:0 auto; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; justify-content:center;">
     <div style="display:flex; align-items:center; gap:0.625rem;">
       <span style="font-size:0.75rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Testovacia prevádzka</span>
-      <span style="background:rgba(201,79,26,0.3); color:#e8803a; font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:99px; letter-spacing:0.06em; text-transform:uppercase;">Beta</span>
+      <span style="background:rgba(11,78,162,0.15); color:#3A72B5; font-size:0.7rem; font-weight:700; padding:0.15rem 0.5rem; border-radius:99px; letter-spacing:0.06em; text-transform:uppercase;">Beta</span>
     </div>
     <div style="display:flex; align-items:center; gap:0.875rem; flex:1; max-width:400px; min-width:200px;">
       <div style="flex:1; height:6px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
@@ -547,7 +552,7 @@
     <div class="two-col">
       <div>
         <p class="sec-label r">Príbeh projektu</p>
-        <h2 class="sec-title f r d1">Vzniklo to pre<br><em style="color:var(--accent);font-style:italic;">našu rodinu.</em></h2>
+        <h2 class="sec-title f r d1">Vzniklo to pre<br><em style="color:var(--brand);font-style:italic;">našu rodinu.</em></h2>
         <p class="story-text r d2">Volám sa Miloš, som otec rodiny. Gerlach som začal vytvárať pre nás a svojich kamarátov. Potreboval som mať prehľad – či v prípade záplav, výpadku elektriky alebo inej krízy máme doma to najnutnejšie.</p>
         <p class="story-text r d3">Z vlastnej skúsenosti viem, že excelové tabuľky nestačili – potraviny, voda aj lieky exspirujú. Povedal som si, že je čas na riešenie ktoré bude sledovať zásoby za mňa a pripraví nákupný zoznam toho, čo treba vymeniť.</p>
         <div class="story-quote r d3">
@@ -611,7 +616,7 @@
     </div>
     <div class="footer-links">
       <a href="./app.html" class="footer-link">Aplikácia</a>
-      <a href="mailto:hello@mameplan.sk" class="footer-link">Kontakt</a>
+      <a href="/cdn-cgi/l/email-protection#c0a8a5acacaf80ada1ada5b0aca1aeeeb3ab" class="footer-link">Kontakt</a>
     </div>
   </div>
 </footer>
@@ -621,7 +626,7 @@
   <a href="./app.html">Vyskúšať Gerlach zadarmo →</a>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const nav = document.getElementById('mainNav');
   const sticky = document.getElementById('stickyCta');
   let shown = false;
@@ -642,9 +647,4 @@
 
   // Scroll reveal
   const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('v'); ro.unobserve(e.target); }});
-  }, {threshold:0.1});
-  document.querySelectorAll('.r').forEach(el => ro.observe(el));
-</script>
-</body>
-</html>
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add(
