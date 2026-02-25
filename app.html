@@ -1097,12 +1097,12 @@
         <label id="itemLabelName" style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
         <input name="name" type="text" required />
       </div>
-      <div id="itemFieldsStandard" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
-        <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Množstvo</label>
+      <div id="itemFieldQtyRow" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div id="itemFieldQty">
+          <label id="itemLabelQty" style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Množstvo</label>
           <input name="qty" type="text" placeholder="napr. 5 ks" />
         </div>
-        <div>
+        <div id="itemFieldExpiry">
           <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
           <input name="expiry" type="date" />
         </div>
@@ -3588,21 +3588,43 @@
     {
       id: "blackout",
       emoji: "🔌",
-      title: "Blackout",
-      subtitle: "Dlhodobý výpadok elektrickej energie",
+      title: "Výpadok elektriny",
+      subtitle: "Čo robiť keď vypadne elektrický prúd",
       iconBg: "#f5f3ee",
       iconBorder: "#e2ddd5",
       steps: [
-        { text: "<strong>Zásobte sa jedlom a nápojmi</strong> – minimálne na 14 dní. Na osobu min. 4 litre vody denne (2 l na pitie, 2 l na varenie a hygienu)." },
-        { text: "<strong>Pripravte si náhradné osvetlenie</strong> – LED svetlá, sviečky, baterky s náhradnými batériami, čelovka." },
-        { text: "<strong>Náhradné zariadenia na varenie</strong> – suchý lieh, plynový varič, gril. Manipulujte opatrne." },
-        { text: "<strong>Batériové rádio</strong> – s náhradnými batériami na príjem informácií. Nezabudnite aj na autorádio." },
-        { text: "<strong>Zabezpečte si hotovosť</strong> – odporúča sa dvojnásobok týždenných nákupov. Bankomaty nebudú fungovať." },
-        { text: "<strong>Pripravte si lekárničku</strong> a dôležité lieky." },
-        { text: "<strong>Hygienické potreby</strong> – toaletný papier, mydlo, čistiace prostriedky, vrecia na odpadky." }
+        { header: "Okamžité kroky" },
+        { text: "<strong>Odpojte elektrické spotrebiče zo zásuviek.</strong> Najjednoduchšie je vypnúť hlavný ističe – ochránite spotrebiče pred poškodením pri obnovení prúdu." },
+        { text: "<strong>Platobné karty a bankomaty nebudú fungovať.</strong> Majte doma hotovosť (mince aj bankovky) na niekoľko dní." },
+        { note: "Do niekoľkých hodín prestanú fungovať aj telefónne siete. Významne sa obmedzí väčšina základných služieb." },
+        { header: "Jedlo a zásoby" },
+        { text: "<strong>Ledničku a mrazák otvárajte čo najmenej</strong> – potraviny zostanú chladené dlhšie." },
+        { text: "<strong>Niektoré veci premiestnite z mrazáku do lednice</strong> – pomôže to udržať v nej chlad." },
+        { text: "<strong>Kontrolujte podlahu</strong> – pri tání môže vytekať voda." },
+        { text: "<strong>Rozmrazené potraviny spotrebujte čo najrýchlejšie.</strong> Ak ich chcete znova zmraziť, najprv ich tepelne spracujte." },
+        { text: "<strong>V zime skladujte potraviny vonku</strong> – chráňte ich pred zvieratami, vlhkosťou a priamym slnkom." },
+        { text: "<strong>Jedlo pripravte bez elektriny:</strong> kuskus, instantná kaša, obilné vločky stačí zaliať studenou vodou. Varenie na kempingovom variči alebo grile – s ohňom zaobchádzajte opatrne." },
+        { header: "Ako zostať v teple" },
+        { text: "<strong>Dostatok teplého oblečenia, obuvi a prikrývok</strong> pre všetkých členov domácnosti." },
+        { text: "<strong>Udržiavajte teplo len v jednej miestnosti.</strong> Ostatné miestnosti používajte čo najmenej." },
+        { text: "<strong>Zavrite dvere do ostatných miestností</strong> a otvory utesnite závesom alebo dekami." },
+        { text: "<strong>Na podlahu položte koberec alebo prikrývky.</strong> Obliečte sa do vrstiev priedušného oblečenia." },
+        { text: "<strong>Presunete posteľ na najteplejšie miesto</strong> – všetci v domácnosti by mali tráviť čas a spať v jednej miestnosti." },
+        { warn: "<strong>Alkohol</strong> zahrieva len krátkodobo a piť ho v kríze môže byť nebezpečné – znižuje pozornosť a zhoršuje úsudok. Lepšie sa mu úplne vyhnúť." },
+        { header: "Toaleta a hygiena" },
+        { text: "<strong>Plošný výpadok elektriny môže prerušiť dodávky vody.</strong> Toaletu spláchnuteľ iba raz, potom sa nádržka nenapĺňa." },
+        { text: "<strong>Pri prerušení vody aj elektriny</strong> používajte toaletu len v nevyhnutných prípadoch. Na umytie rúk používajte dezinfekciu." },
+        { note: "<strong>Nouzové riešenie:</strong> do záchodovej misy vložíte odpadkový pytel, dáte naň toaletný papier, noviny alebo kočkolit. Po použití pytel pevne zaviažete a vložíte do ďalších dvoch vriec." },
+        { header: "Mobilný telefón" },
+        { text: "<strong>Telefón používajte len v najnutnejších prípadoch.</strong> Sieť môže byť preťažená alebo nefunkčná." },
+        { text: "<strong>Obmedzite sťahovanie dát</strong> a zbytočnú komunikáciu, šetrite batériu." },
+        { header: "Keď sa dodávky elektriny obnovia" },
+        { text: "<strong>Skontrolujte všetky elektrické spotrebiče a osvetlenie</strong> v byte alebo dome." },
+        { text: "<strong>Uistite sa, že nie je zapnutý sporák</strong> alebo iný spotrebič, ktorý by mohol byť nebezpečný." },
+        { text: "<strong>Overte stav potravín</strong> v lednici a mrazáku." }
       ],
-      warning: "Najskôr spotrebujte potraviny z chladničky. Zbytočne neotvárajte mrazničku. Niektoré potraviny možno v zime skladovať vonku – chráňte ich pred zvieratami.",
-      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu"
+      warning: "Pozor: V budovách s diaľkovým vykurovaním môže byť teplá voda počas výpadku prúdu nebezpečne horúca až vrúca.",
+      source: "Príručka 72h.gov.cz + Príručka MV SR"
     },
     {
       id: "chemical",
@@ -3738,20 +3760,226 @@
       id: "evacuation",
       emoji: "🏃",
       title: "Evakuácia",
-      subtitle: "Príprava a postup pri evakuácii",
+      subtitle: "Kompletný postup pri nariadení evakuácie",
       iconBg: "#fef3c7",
       iconBorder: "#fcd34d",
       steps: [
-        { text: "<strong>Zoznámte sa s evakuačnými trasami</strong> vo vašej obci alebo meste vopred." },
-        { text: "<strong>Pripravte evakuačnú batožinu:</strong> doklady (fotky v mobile), peniaze, lieky, potraviny a voda na 2–3 dni, hygiena, baterka, prikrývka, náhradné oblečenie a obuv." },
+        { header: "Bezpečnostné opatrenia" },
+        { text: "<strong>Uhaste oheň v kamnách alebo krbe.</strong>" },
+        { text: "<strong>Vypnite elektrické spotrebiče</strong> (okrem mrazáku a ledničky)." },
+        { text: "<strong>Zavrite okná a dvere,</strong> vypnite ventiláciu a klimatizáciu." },
+        { text: "<strong>Uzavrite vodu a plyn.</strong>" },
+        { header: "Čo si vziať so sebou?" },
+        { text: "<strong>Evakuačnú batožinu</strong> – zavazadlo označte štítkom so menom a telefónnym číslom majiteľa." },
         { text: "<strong>Hmotnosť batožiny:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná." },
-        { text: "<strong>Zabezpečte domácnosť:</strong> vypnite plyn, vodu a elektrinu. Zamknite dvere a okná." },
-        { text: "<strong>Dodržiavajte pokyny</strong> polície, hasičov alebo kompetentných orgánov." },
-        { text: "<strong>Odíďte čo najrýchlejšie ale bezpečne</strong> – nepodceňujte situáciu. Používajte evakuačné trasy." },
-        { text: "<strong>Po príchode sa zaregistrujte</strong> u kompetentných úradov. Sledujte informácie o možnom návrate." }
+        { header: "Ochrana osôb" },
+        { text: "<strong>Deťom a zraniteľným osobám</strong> dajte do kapsy kartičku so menom, adresou a kontaktom na príbuzného." },
+        { text: "<strong>Upozornite na evakuáciu susedov.</strong> Ponúknite im pomoc." },
+        { header: "Pred odchodom" },
+        { text: "<strong>Zamknite byt alebo dom.</strong>" },
+        { text: "<strong>Na dvere nalepte lístok</strong> s informáciou, kedy a kam ste sa evakuovali, s vašimi menami a kontaktami. Uľahčíte tým prácu záchranárom pri kontrole evakuovaných oblastí." },
+        { text: "<strong>Ak sa evakuujete sami,</strong> prihláste sa u známym alebo úradom. Záchranné zložky budú vedieť, kde vás v prípade potreby nájsť." },
+        { header: "Na zhromaždisku" },
+        { text: "<strong>Dostavte sa na určené miesto.</strong>" },
+        { text: "<strong>V prípade potreby použite ochranu dýchacích ciest</strong> a povrchu tela." },
+        { text: "<strong>Riaďte sa pokynmi záchranárov</strong> a zodpovedných osôb." },
+        { text: "<strong>Než sa evakuujete autom,</strong> zvážte riziká (počasí, palivo, stav ciest)." }
       ],
-      warning: "Pomôžte deťom, seniorom a osobám so zdravotným postihnutím. Informujte rodinu o pláne stretnutia pre prípad výpadku mobilných sietí.",
-      source: "Príručka MV SR „V prípade krízy alebo ozbrojeného konfliktu"
+      warning: "Výzvu k evakuácii musíte uposlúchnuť a riadiť sa pokynmi záchranných zložiek. Chránime tým nielen seba, ale aj zdravie a životy záchranných zložiek.",
+      source: "Príručka 72h.gov.cz + Príručka MV SR"
+    },
+    {
+      id: "armed_conflict",
+      emoji: "💣",
+      title: "Ozbrojený konflikt",
+      subtitle: "Čo robiť pri ostreľovaní, dronoch a bombardovaní",
+      iconBg: "#fef2f2",
+      iconBorder: "#fecaca",
+      steps: [
+        { header: "Keď zaznie vzdušný poplach (siréna)" },
+        { text: "<strong>Okamžite vyhľadajte úkryt</strong> – pivnica, suterén, metro, podzemný parking alebo vnútorná miestnosť bez okien." },
+        { text: "<strong>Držte sa ďalej od okien, sklenených plôch a vonkajších stien.</strong>" },
+        { text: "<strong>Sadnite si alebo ľahnite na zem</strong> – čím nižšie, tým lepšie." },
+        { text: "<strong>Chráňte si hlavu a krk</strong> rukami alebo vankúšom." },
+        { text: "<strong>Zostaňte v úkryte</strong> kým nezaznie signál koniec ohrozenia alebo kým nedostanete oficiálnu informáciu." },
+        { warn: "Nikdy nevychádzajte von bezprostredne po výbuchu – môžu nasledovať ďalšie útoky (tzv. double tap)." },
+        { header: "🏢 Byt (bytový dom)", forHousing: ["flat"] },
+        { text: "<strong>Ideálny úkryt je pivnica alebo suterén</strong> bytového domu. Dohodnite sa s ostatnými obyvateľmi vopred.", forHousing: ["flat"] },
+        { text: "<strong>Ak nemáte prístup do pivnice,</strong> choďte do vnútornej chodby alebo kúpeľne – miestností bez okien, obklopených nosnými stenami.", forHousing: ["flat"] },
+        { text: "<strong>Nepoužívajte výťah</strong> – pri výbuchu sa môže zaseknúť a zostanete uväznení.", forHousing: ["flat"] },
+        { text: "<strong>Prelepte okná krížom lepenkou</strong> – zmenšíte riziko poranenia odletujúcim sklom.", forHousing: ["flat"] },
+        { header: "🏠 Dom", forHousing: ["rd"] },
+        { text: "<strong>Ak nemáte pivnicu,</strong> úkryt vytvorte v najnižšom podlaží – vnútorná miestnosť bez okien (kúpeľňa, komora, priestor pod schodiskom).", forHousing: ["rd"] },
+        { text: "<strong>Zosilnite steny vrstvou vriec s pieskom</strong> alebo nábytkom naplneným knihami.", forHousing: ["rd"] },
+        { text: "<strong>Prelepte okná krížom lepenkou</strong> a zakryte ich závesmi alebo matracmi.", forHousing: ["rd"] },
+        { header: "🏠 Dom s pivnicou", forHousing: ["rd_cellar"] },
+        { text: "<strong>Pivnica je najlepší úkryt v dome.</strong> Pripravte ju vopred – vyčistite, doplňte zásoby vody, jedla, baterku a rádio.", forHousing: ["rd_cellar"] },
+        { text: "<strong>Zosilnite strop pivnice</strong> ak je to možné – drevené trámy, dosky, podpery.", forHousing: ["rd_cellar"] },
+        { text: "<strong>Majte viacero východov</strong> z pivnice ak je to možné – únikový otvor alebo okno.", forHousing: ["rd_cellar"] },
+        { text: "<strong>Prelepte okná v horných podlažiach</strong> krížom lepenkou.", forHousing: ["rd_cellar"] },
+        { header: "Drony" },
+        { text: "<strong>Ak počujete charakteristický bzukot dronu,</strong> okamžite sa ukryte pod betónovú konštrukciu alebo do budovy." },
+        { text: "<strong>Nepozerajte sa hore a nefotografujte</strong> – svetlo displeja vás identifikuje." },
+        { text: "<strong>Ľahnite si na zem tvárou nadol</strong> a zakryte si hlavu, ak ste vonku bez úkrytu." },
+        { text: "<strong>Ak ste v aute,</strong> zastavte, vystúpte a rýchlo sa ukryte v najbližšej budove alebo priekope." },
+        { header: "Po výbuchu / ostreľovaní" },
+        { text: "<strong>Skontrolujte seba a blízkych</strong> – ošetrite zranenia, zastavte krvácanie." },
+        { text: "<strong>Ak sa budova poškodila,</strong> opatrne ju opustite – pozor na uvoľnené konštrukcie a úlomky." },
+        { text: "<strong>Nedotýkajte sa neznámych predmetov</strong> – môže ísť o nevybuchnutú muníciu." },
+        { text: "<strong>Zavolajte 112</strong> a informujte záchranárov o situácii." },
+        { header: "Príprava vopred" },
+        { text: "<strong>Identifikujte najbližšie úkryty</strong> – pivnice, podzemné garáže, metro, krytové priestory." },
+        { text: "<strong>Majte pripravenú evakuačnú batožinu</strong> pri dverách – doklady, voda, lieky, baterka, power banka." },
+        { text: "<strong>Dohodnite sa s rodinou na pláne stretnutia</strong> – kde sa stretnete ak vypadne signál." },
+        { text: "<strong>Naučte sa základy prvej pomoci</strong> – zastavenie krvácania, ošetrenie popálenín, stabilizovaná poloha." },
+        { text: "<strong>Sledujte oficiálne kanály</strong> – civilná ochrana, armáda, overené spravodajské zdroje." }
+      ],
+      warning: "Tieto odporúčania vychádzajú zo skúseností ukrajinského obyvateľstva. Vždy sa riaďte pokynmi miestnych autorít a záchranných zložiek. Nevychádzajte von počas vzdušného poplachu.",
+      source: "Odporúčania DSNS (Ukrajinská záchranná služba) + Príručka MV SR + ICRC"
+    },
+    {
+      id: "survival_72h",
+      emoji: "⏱️",
+      title: "72 hodín bez služieb",
+      subtitle: "Ako zvládnuť 3 dni bez základných služieb",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { header: "Čo sa môže zmeniť v kríze?" },
+        { text: "<strong>Z kohútika nepotečie voda.</strong> Nepôjde elektrina." },
+        { text: "<strong>Prestane fungovať telefón,</strong> televízia a internet." },
+        { text: "<strong>Nikde si nevyzdvihneme lieky.</strong> Nebudeme môcť bežne variť a ohrievať jedlo." },
+        { text: "<strong>Prestane fungovať kúrenie.</strong> Obchody budú zavreté alebo v nich nič nekúpime." },
+        { text: "<strong>Nezaplatíme platobnou kartou.</strong> Na čerpacích staniciach nenatankujeme." },
+        { text: "<strong>Toaletu budeme môcť spláchnuť možno iba raz.</strong> Prestane jazdiť hromadná doprava." },
+        { note: "Pravidlo 72 hodín hovorí, že každý zvládne prvé tri dni bez pomoci záchranných zložiek – iba s tým, čo má doma. Ak sa včas pripravíme, pomôžeme tým aj ostatným." },
+        { header: "Dobrá príprava môže zachrániť život" },
+        { text: "<strong>Keď sa pripravíme vopred,</strong> nebudeme v strese a lepšie ochránime svoje zdravie aj majetok." },
+        { text: "<strong>Budeme kľudnejší a istejší.</strong> Budeme vedieť čo robiť a dokážeme pomôcť aj svojím blízkym a susedom." },
+        { header: "Voda" },
+        { text: "<strong>Na pitie používajte iba balenú vodu</strong> alebo vodu z pristavených cisterien." },
+        { warn: "Pozor – v budovách s diaľkovým vykurovaním môže byť teplá voda počas výpadku prúdu nebezpečne horúca až vrúca." }
+      ],
+      warning: "Najnáročnejšie bývajú prvé tri dni (72 hodín). Príprava zaberie len pár hodín, ale môže ušetriť veľa starostí. Príručku si prečítajte, pripravte si veci a uschovajte ju na dostupné miesto.",
+      source: "Príručka 72h.gov.cz"
+    },
+    {
+      id: "shelter",
+      emoji: "🛖",
+      title: "Ukrytie",
+      subtitle: "Kedy a ako sa ukryť na bezpečnom mieste",
+      iconBg: "#f0fdf4",
+      iconBorder: "#86efac",
+      steps: [
+        { text: "<strong>Keď zaznie varovný signál všeobecná výstraha</strong> (kolísavý tón po dobu 140 sekúnd), je najdôležitejšie okamžite vyhľadať bezpečné miesto v najbližšej pevnej budove." },
+        { header: "Kedy sa musíme ukryť?" },
+        { text: "<strong>Silná búrka alebo tornádo</strong>" },
+        { text: "<strong>Vysoká koncentrácia jedovatého dymu</strong> spôsobená požiarom" },
+        { text: "<strong>Únik nebezpečných látok</strong> do okolia" },
+        { text: "<strong>Riziko úniku radiácie</strong>" },
+        { note: "Bezpečným miestom môže byť domov, škola, pracovisko alebo iná verejná budova (obchodné centrum, úradná budova). Autobusová zastávka alebo auto bezpečným úkrytom nie sú." },
+        { header: "Čo robiť po varovnom signáli?" },
+        { text: "<strong>Rýchlo sa ukryte v najbližšej budove.</strong>" },
+        { text: "<strong>Dôkladne uzavrite dvere a okná.</strong> Utesnite otvory, vypnite ventiláciu a klimatizáciu." },
+        { text: "<strong>Zaistite si prístup k informáciám.</strong> Pri výpadku prúdu pomôže rádio na batérie." },
+        { text: "<strong>Zbytočne netelefonujte,</strong> aby ste nepreťažovali mobilné siete." },
+        { text: "<strong>Zostaňte v bezpečnom úkryte</strong> a čakajte na ďalšie pokyny záchranných zložiek alebo zodpovedných úradov." },
+        { warn: "Niektoré nebezpečné látky nie sú vidieť ani cítiť. V každom prípade preto berieme varovanie úradov vážne." }
+      ],
+      warning: "Nic veľa robiť nemusíte. Stačí sa ukryť, utesniť miestnosť a čakať na pokyny. Pamätajte na všeobecný signál – kolísavý tón 140 sekúnd.",
+      source: "Príručka 72h.gov.cz"
+    },
+    {
+      id: "help_neighbors",
+      emoji: "🤝",
+      title: "Pomoc susedom",
+      subtitle: "Vzájomná pomoc v okolí počas krízy",
+      iconBg: "#f0fdf4",
+      iconBorder: "#86efac",
+      steps: [
+        { text: "<strong>Žije vo vašom okolí niekto, kto by mohol potrebovať pomoc?</strong> Človek vo vyššom veku, s malými deťmi, s handicapom, nemocný alebo cudzinec, ktorý nerozumie dobre slovensky." },
+        { note: "V krízových situáciách je vzájomná pomoc kľúčová a môže zachrániť život. Spoločne sme silnejší a dokážeme prekonať aj tie najťažšie výzvy." },
+        { header: "Ľudia v našom okolí" },
+        { text: "<strong>Môžu potrebovať lekársku pomoc.</strong>" },
+        { text: "<strong>Môže im dochádzať jedlo alebo lieky.</strong>" },
+        { text: "<strong>Môžu mať problém dostať sa</strong> na miesto, kde sa rozdáva voda." },
+        { text: "<strong>Možno nevedia,</strong> prečo nefunguje elektrina a netečie voda." },
+        { header: "Čo môžeme pre susedov urobiť?" },
+        { text: "<strong>V naliehavých prípadoch zavoláme pomoc.</strong>" },
+        { text: "<strong>Rozdelíme sa s nimi o zásoby.</strong>" },
+        { text: "<strong>Pomôžeme im s nákupom alebo s presunom.</strong>" },
+        { text: "<strong>Ponúkneme, že im budeme odovzdávať dôležité informácie.</strong>" }
+      ],
+      warning: "Spoločenstvo a susedská pomoc sú v krízových situáciách neoceniteľné. Ak dokážete pomôcť, pomôžte.",
+      source: "Príručka 72h.gov.cz"
+    },
+    {
+      id: "children_crisis",
+      emoji: "👨‍👧‍👦",
+      title: "Komunikácia s deťmi",
+      subtitle: "Ako hovoriť s deťmi o kríze",
+      iconBg: "#fdf2f8",
+      iconBorder: "#fbcfe8",
+      steps: [
+        { text: "<strong>V krízových situáciách sa deťom venujte ešte viac než inokedy.</strong> Deti potrebujú chápať, čo sa deje, cítiť našu podporu a vedieť, čo ich čaká. Vďaka tomu sa s danou situáciou lepšie vyrovnajú." },
+        { header: "Ako s deťmi komunikovať?" },
+        { text: "<strong>Hovorte s nimi otvorene a úprimne,</strong> primerane veku." },
+        { text: "<strong>Dajte im priestor,</strong> aby povedali, z čoho majú obavy." },
+        { text: "<strong>Rozprávajte sa o svojich pocitoch.</strong>" },
+        { text: "<strong>Naslúchajte ich otázkam a názorom.</strong>" },
+        { text: "<strong>Snažte sa zostať v kľude.</strong> Deti totiž zrkadlia naše emócie." },
+        { text: "<strong>Zapojujeme ich primerane veku</strong> do bežných a postupne aj nových činností." },
+        { header: "Praktické tipy" },
+        { text: "<strong>Hovoríme o situácii jednoducho a zrozumiteľne.</strong>" },
+        { text: "<strong>Zdôrazníme, že situáciu riešia odborníci</strong> a že robia všetko pre to, aby nás ochránili." },
+        { text: "<strong>Ujistime ich, že budeme stále s nimi.</strong>" },
+        { text: "<strong>Povedieme im, že to spolu zvládneme</strong> a že existujú ľudia, ktorí nám pomôžu." },
+        { text: "<strong>Ak je to možné, udržujeme obvyklý režim.</strong>" },
+        { note: "<strong>Evakuácia:</strong> V prípade evakuácie nezabudnite pripraviť dieťaťu cedulku s adresou a kontaktom na blízku osobu. A do evakuačnej batožiny pribaľte malú hračku." }
+      ],
+      warning: "",
+      source: "Príručka 72h.gov.cz"
+    },
+    {
+      id: "mental_health",
+      emoji: "🧠",
+      title: "Psychická podpora",
+      subtitle: "Podpora v ťažkých chvíľach pre dospelých",
+      iconBg: "#ede9fe",
+      iconBorder: "#c4b5fd",
+      steps: [
+        { text: "<strong>V krízových situáciách je dôležité myslieť</strong> aj na psychickú pohodu. Každý človek môže prežívať a potrebovať niečo iného." },
+        { header: "Ako druhých psychicky podporovať?" },
+        { text: "<strong>Hovoríme s nimi otvorene a s rešpektom.</strong>" },
+        { text: "<strong>Dáme im priestor,</strong> aby vyjadrili svoje obavy a emócie." },
+        { text: "<strong>Naslúchame a nesúdime.</strong>" },
+        { text: "<strong>Snažíme sa udržiavať bežný denný režim.</strong>" },
+        { text: "<strong>Umožníme im, aby sa zapojili</strong> do riešenia situácie spôsobom, ktorý zvládnu." },
+        { header: "Kde hľadať pomoc?" },
+        { text: "<strong>Linka dôvery (Slovensko):</strong> 0800 500 333 – bezplatná, nonstop" },
+        { text: "<strong>Linka pomoci:</strong> 116 123 (SK) – pre emocionálnu podporu" },
+        { note: "Staráte sa o niekoho, kto má špecifické potreby (starší človek, osoba so zdravotným znevýhodnením alebo s duševným ochorením)? Na webe <strong>72h.gov.cz</strong> nájdete podrobnejšie informácie o tom, aká pomoc je k dispozícii." }
+      ],
+      warning: "",
+      source: "Príručka 72h.gov.cz + Linka dôvery SR"
+    },
+    {
+      id: "info_hygiene",
+      emoji: "📰",
+      title: "Overovanie informácií",
+      subtitle: "Ako zachádzať s informáciami v kríze",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Keď nastane krízová situácia,</strong> často sa začnú rýchlo šíriť nepodložené informácie a fámy. Takéto správy môžu zvyšovať neistotu a strach a komplikovať prácu záchranných zložiek." },
+        { header: "Ako zachádzať s informáciami?" },
+        { text: "<strong>Overujeme informácie z niekoľkých dôveryhodných zdrojov.</strong>" },
+        { text: "<strong>Spoliehame sa predovšetkým na oficiálne zdroje</strong> – Slovenský rozhlas, STV, RTVS, Civilná ochrana SR." },
+        { text: "<strong>Zdieľame iba overené informácie,</strong> o ktorých sme si istí, že sú pravdivé." },
+        { note: "V kríze platí: najprv overiť, potom zdieľať. Nepravdivé správy môžu spôsobiť paniku a ohroziť životy." }
+      ],
+      warning: "",
+      source: "Príručka 72h.gov.cz"
     }
   ];
 
@@ -3790,10 +4018,35 @@
 
     let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Hasiči: <a href="tel:150">150</a> &nbsp;|&nbsp; Polícia: <a href="tel:158">158</a></div>`;
 
+    // Render steps with support for headers, notes, and housing-specific content
     html += `<div style="margin-bottom:0.5rem;">`;
-    item.steps.forEach((step, idx) => {
+    let stepNum = 0;
+    const housing = (state.profile && state.profile.housing) || "flat";
+
+    item.steps.forEach(step => {
+      // Housing-specific content filter – applies to ALL step types
+      if (step.forHousing) {
+        if (!step.forHousing.includes(housing)) return;
+      }
+      // Section header
+      if (step.header) {
+        html += `<div style="font-size:0.82rem; font-weight:700; color:var(--c-text); margin:1rem 0 0.5rem; padding-bottom:0.375rem; border-bottom:1.5px solid var(--c-border);">${step.header}</div>`;
+        stepNum = 0;
+        return;
+      }
+      // Info/note box
+      if (step.note) {
+        html += `<div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#92400e;"><strong>💡</strong> ${step.note}</div>`;
+        return;
+      }
+      // Warning box
+      if (step.warn) {
+        html += `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#991b1b;"><strong>⚠️</strong> ${step.warn}</div>`;
+        return;
+      }
+      stepNum++;
       html += `<div class="fa-modal-step">
-        <div class="fa-step-num">${idx + 1}</div>
+        <div class="fa-step-num">${stepNum}</div>
         <div class="fa-step-text">${step.text}</div>
       </div>`;
     });
@@ -3889,8 +4142,12 @@
     const isEdit = itemIdx >= 0 && state.items[catId] && itemIdx < state.items[catId].length;
     const item = isEdit ? state.items[catId][itemIdx] : {};
     const isDocs = (catId === "docs");
+    const hasExpiry = (catId === "food_water" || catId === "medkit");
+    const hasLink = (catId === "food_water" || catId === "medkit" || catId === "hygiene" || catId === "gear");
+    const isCashOnly = (catId === "cash");
 
     // Title
+    const catLabels = { docs: "doklad", cash: "položku", medkit: "položku", food_water: "položku", hygiene: "položku", gear: "položku" };
     if (isDocs) {
       document.getElementById("itemModalTitle").textContent = isEdit ? "✏️ Upraviť doklad" : "➕ Pridať doklad";
     } else {
@@ -3898,18 +4155,34 @@
     }
     document.getElementById("btnItemSubmit").textContent = isEdit ? "Uložiť" : "Pridať";
 
-    // Label for name
+    // Name label
     document.getElementById("itemLabelName").textContent = isDocs ? "Názov dokladu *" : "Názov *";
 
-    // Show/hide fields based on category
-    document.getElementById("itemFieldsStandard").style.display = isDocs ? "none" : "grid";
-    document.getElementById("itemFieldDocs").style.display = isDocs ? "block" : "none";
-    document.getElementById("itemFieldLink").style.display = isDocs ? "none" : "block";
+    // Field visibility per category:
+    // docs: Name + Typ uloženia only
+    // cash: Name + Množstvo only
+    // food_water, medkit: Name + Množstvo + Expirácia + Odkaz
+    // hygiene, gear: Name + Množstvo + Odkaz (no expiry)
+    const qtyRow = document.getElementById("itemFieldQtyRow");
+    const expiryField = document.getElementById("itemFieldExpiry");
+    const docsField = document.getElementById("itemFieldDocs");
+    const linkField = document.getElementById("itemFieldLink");
+
+    if (isDocs) {
+      qtyRow.style.display = "none";
+      docsField.style.display = "block";
+      linkField.style.display = "none";
+    } else {
+      qtyRow.style.display = hasExpiry ? "grid" : "block";
+      qtyRow.style.gridTemplateColumns = hasExpiry ? "1fr 1fr" : "1fr";
+      expiryField.style.display = hasExpiry ? "block" : "none";
+      docsField.style.display = "none";
+      linkField.style.display = (hasLink && !isCashOnly) ? "block" : "none";
+    }
 
     f.elements["editIndex"].value = itemIdx;
     f.elements["name"].value = item.name || "";
 
-    // Fill qty in the right field
     if (isDocs) {
       f.elements["qty_docs"].value = item.qty || "";
       f.elements["qty"].value = "";
@@ -3918,8 +4191,8 @@
     } else {
       f.elements["qty"].value = item.qty || "";
       f.elements["qty_docs"].value = "";
-      f.elements["expiry"].value = item.expiry || "";
-      f.elements["link"].value = item.link || "";
+      f.elements["expiry"].value = hasExpiry ? (item.expiry || "") : "";
+      f.elements["link"].value = hasLink ? (item.link || "") : "";
     }
 
     openModal("modalAddItem");
@@ -3957,20 +4230,20 @@
     const cid = state.selectedCategoryId;
     const idx = parseInt(fd.get("editIndex"));
     const isDocs = (cid === "docs");
+    const hasExpiry = (cid === "food_water" || cid === "medkit");
+    const hasLink = (cid === "food_water" || cid === "medkit" || cid === "hygiene" || cid === "gear");
 
     const itemData = {
       name,
       qty: isDocs ? String(fd.get("qty_docs")||"").trim() : String(fd.get("qty")||"").trim(),
-      expiry: isDocs ? "" : String(fd.get("expiry")||"").trim(),
-      link: isDocs ? "" : String(fd.get("link")||"").trim(),
+      expiry: hasExpiry ? String(fd.get("expiry")||"").trim() : "",
+      link: hasLink ? String(fd.get("link")||"").trim() : "",
     };
 
     state.items[cid] = state.items[cid] || [];
     if (idx >= 0 && idx < state.items[cid].length) {
-      // Edit – preserve existing fields like done, docGroup, isWaterItem, etc.
       Object.assign(state.items[cid][idx], itemData);
     } else {
-      // Add new
       const newItem = { ...itemData, done: false };
       if (isDocs) newItem.docGroup = "Iné";
       state.items[cid].push(newItem);
