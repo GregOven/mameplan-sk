@@ -102,6 +102,49 @@
       position: relative;
       overflow: hidden;
     }
+
+    /* ═══════════════════════════════════════════
+       DEMO BANNER + VERSION BADGE
+    ═══════════════════════════════════════════ */
+    .demo-banner {
+      display: none;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-bottom: 1px solid #f59e0b;
+      padding: 0.5rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #92400e;
+      /* Statický banner — scrolluje preč. Verzia badge v headeri ostáva. */
+    }
+    .demo-banner.visible { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .demo-banner a {
+      display: inline-flex; align-items: center; gap: 0.25rem;
+      background: #92400e; color: #fff;
+      padding: 0.25rem 0.75rem; border-radius: 99px;
+      font-size: 0.72rem; font-weight: 700;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .demo-banner a:hover { background: #78350f; }
+    .version-badge {
+      display: inline-flex; align-items: center; gap: 0.375rem;
+      font-size: 0.65rem; font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .version-badge.beta {
+      background: var(--c-accent-light);
+      color: var(--c-accent);
+      border: 1px solid rgba(212,80,26,0.2);
+    }
+    .version-badge.demo-badge {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+    }
+    /* Demo mode: badge in header serves as persistent reminder */
     .login-screen::after {
       content: '';
       position: absolute;
@@ -880,6 +923,17 @@
       <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       Prihlásiť sa cez Google
     </button>
+
+    <div style="display:flex; align-items:center; gap:0.75rem; margin-top:1rem;">
+      <div style="flex:1; height:1px; background:var(--c-border);"></div>
+      <span style="font-size:0.75rem; color:var(--c-muted); font-weight:400;">alebo</span>
+      <div style="flex:1; height:1px; background:var(--c-border);"></div>
+    </div>
+
+    <button class="btn-google" id="btnDemoLogin" style="margin-top:1rem; border-color:#f59e0b; background:#fffbeb;">
+      🔍 Vyskúšať demo bez registrácie
+    </button>
+
     <div id="loginError" style="margin-top:1rem; color:#991b1b; font-size:0.85rem; display:none;"></div>
     <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
       Prihlásením súhlasíš s ukladaním tvojich dát v zabezpečenej databáze.<br>
@@ -901,10 +955,20 @@
 
 <!-- MAIN APP -->
 <div id="appScreen" style="display:none;">
+
+  <!-- Demo banner: viditeľný len v demo režime -->
+  <div class="demo-banner" id="demoBanner" role="alert">
+    <span>🔍 <strong>Demo režim</strong> — skúšate si appku bez registrácie. Dáta sa po zatvorení prehliadača vymažú.</span>
+    <a href="./app.html">Vytvoriť účet zadarmo →</a>
+  </div>
+
   <!-- Header -->
   <header class="app-header">
     <div class="app-header-inner">
-      <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
+      <div style="display:flex; align-items:center; gap:0.625rem;">
+        <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
+        <span class="version-badge beta" id="versionBadge">Beta v0.1</span>
+      </div>
       <div style="display:flex; align-items:center; gap:1rem;">
       <span class="sync-indicator">
         <span class="sync-dot" id="syncDot"></span>
@@ -1588,6 +1652,9 @@
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   // ── Firebase config ──────────────────────────────────────────────
+  // Demo mode: ?mode=demo v URL = žiadny Firebase, žiadna auth, dáta v sessionStorage
+  const isDemo = new URLSearchParams(location.search).get('mode') === 'demo';
+
   const firebaseConfig = {
     apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
     authDomain: "bez-paniky.firebaseapp.com",
@@ -1877,6 +1944,18 @@
   function metaRef() { return doc(db, "meta", "stats"); }
 
   async function loadUserData(uid) {
+    // Demo: načítame zo sessionStorage (ak tam niečo je)
+    if (isDemo) {
+      try {
+        const saved = sessionStorage.getItem('gerlach_demo_state');
+        if (saved) {
+          const data = JSON.parse(saved);
+          state = { ...state, ...data };
+        }
+      } catch(e) { console.warn("Demo load error", e); }
+      setSyncStatus("synced");
+      return;
+    }
     setSyncStatus("syncing");
     try {
       const snap = await getDoc(userDocRef(uid));
@@ -1950,6 +2029,14 @@
   }
 
   async function saveUserData() {
+    if (isDemo) {
+      // Demo: ukladáme do sessionStorage (zmizne po zatvorení tabu)
+      try {
+        sessionStorage.setItem('gerlach_demo_state', JSON.stringify(state));
+        setSyncStatus("synced");
+      } catch(e) { console.warn("Demo save error", e); }
+      return;
+    }
     if (!currentUser) return;
     setSyncStatus("syncing");
     try {
@@ -1971,6 +2058,11 @@
     const dot = document.getElementById("syncDot");
     const lbl = document.getElementById("syncLabel");
     if (!dot || !lbl) return;
+    if (isDemo) {
+      dot.className = "sync-dot";
+      lbl.textContent = "Demo";
+      return;
+    }
     dot.className = "sync-dot" + (s === "synced" ? " synced" : s === "syncing" ? " syncing" : "");
     lbl.textContent = s === "synced" ? "Uložené" : s === "syncing" ? "Ukladám…" : "";
   }
@@ -1993,7 +2085,49 @@
     }
   }
 
-  // ── Auth ─────────────────────────────────────────────────────────
+  // ── Demo mode startup ────────────────────────────────────────────
+  // Ak je ?mode=demo, preskočíme celý Firebase Auth a spustíme appku okamžite
+  function startDemoMode() {
+    document.body.classList.add('is-demo');
+    currentUser = { uid: 'demo', displayName: 'Demo používateľ', email: null, photoURL: null };
+
+    // Načítaj dáta zo sessionStorage (ak user sa vrátil v tom istom tabe)
+    loadUserData('demo');
+
+    // UI: demo banner
+    document.getElementById('demoBanner').classList.add('visible');
+
+    // UI: version badge → "Demo"
+    const badge = document.getElementById('versionBadge');
+    if (badge) {
+      badge.textContent = 'Demo';
+      badge.classList.remove('beta');
+      badge.classList.add('demo-badge');
+    }
+
+    // UI: avatar
+    const av = document.getElementById('userAvatar');
+    if (av) av.textContent = 'D';
+
+    // UI: skryť sync, logout, user menu
+    const syncEl = document.querySelector('.sync-indicator');
+    if (syncEl) syncEl.style.display = 'none';
+    document.getElementById('btnLogout').style.display = 'none';
+    const mobileLO = document.querySelector('.mobile-logout-btn');
+    if (mobileLO) mobileLO.style.display = 'none';
+
+    showScreen('app');
+    renderAll();
+    setupLogoEasterEgg();
+    if (!state.profile) openModal('modalProfile');
+  }
+
+  // Ak URL obsahuje ?mode=demo, spustíme demo okamžite
+  if (isDemo) {
+    startDemoMode();
+  }
+
+  // ── Auth (len pre normálny režim) ─────────────────────────────────
   document.getElementById("btnGoogleLogin").onclick = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -2005,9 +2139,24 @@
     }
   };
 
-  document.getElementById("btnLogout").onclick = () => signOut(auth);
+  // Demo button na login screen
+  document.getElementById("btnDemoLogin").onclick = () => {
+    window.location.href = './app.html?mode=demo';
+  };
 
-  onAuthStateChanged(auth, async (user) => {
+  document.getElementById("btnLogout").onclick = () => {
+    if (isDemo) {
+      // Demo: vymaž sessionStorage a vráť na login
+      sessionStorage.removeItem('gerlach_demo_state');
+      window.location.href = './app.html';
+      return;
+    }
+    signOut(auth);
+  };
+
+  // Auth state listener — len v normálnom režime
+  if (!isDemo) {
+    onAuthStateChanged(auth, async (user) => {
     if (!user) {
       currentUser = null;
       // Reset state pri odhlásení - žiadne dáta nezostanú v pamäti
@@ -2051,6 +2200,7 @@
     // Skontroluj expirácie a pošli notifikácie (ak treba)
     setTimeout(checkAndSendNotifications, 2000);
   });
+  } // end if (!isDemo)
 
   function showScreen(name) {
     document.getElementById("loginScreen").style.display = name === "login" ? "flex" : "none";
@@ -4859,6 +5009,7 @@
 
   // Skontroluje či sa má poslať email (cooldown 24h)
   async function canSendEmail(type) {
+    if (isDemo) return false; // Demo: žiadne emaily
     if (!currentUser) return false;
     if (EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return false; // nekonfigurované
     try {
@@ -4872,7 +5023,7 @@
 
   // Zapíše timestamp posledného odoslania
   async function markEmailSent(type) {
-    if (!currentUser) return;
+    if (isDemo || !currentUser) return;
     try {
       await setDoc(
         doc(db, "users", currentUser.uid, "notifications", type),
@@ -4955,6 +5106,7 @@
 
   // Hlavná funkcia – skontroluje expirácie a odošle emaily ak treba
   async function checkAndSendNotifications() {
+    if (isDemo) return; // Demo: žiadne emaily
     if (!currentUser || EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return;
 
     const expiringItems  = getExpiringItems(); // per-category thresholds
