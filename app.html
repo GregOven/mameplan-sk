@@ -1007,16 +1007,9 @@
           <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
           <div style="display:flex; flex-direction:column; gap:0.5rem;">
             <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
-              <input type="radio" name="budget" value="basic" style="accent-color:var(--c-accent); flex-shrink:0;" />
-              <div>
-                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Úsporná</div>
-                <div style="font-size:0.7rem; color:var(--c-muted);">Funkčné minimum</div>
-              </div>
-            </label>
-            <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
               <input type="radio" name="budget" value="mid" style="accent-color:var(--c-accent); flex-shrink:0;" />
               <div>
-                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Stredná</div>
+                <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Základná</div>
                 <div style="font-size:0.7rem; color:var(--c-muted);">Kvalita za rozumnú cenu</div>
               </div>
             </label>
@@ -1385,18 +1378,16 @@
       { name: "Drobné mince", done: false, qty: "", expiry: "", link: "" },
     ],
     medkit: [
-      { name: "Lieky proti bolesti (Paralen, Ibuprofen)", done: false, qty: "", expiry: "", link: "" },
-      { name: "Obväzy, dezinfekcia, rukavice", done: false, qty: "", expiry: "", link: "" },
-      { name: "Lieky na predpis – záložná zásoba", done: false, qty: "", expiry: "", link: "" },
+      { name: "Lieky na predpis – zásoba na 7 dní", done: false, qty: "", expiry: "", link: "" },
+      { name: "Dezinfekcia na rany (Betadine / Skinsept)", done: false, qty: "1 ks", expiry: "", link: "" },
     ],
     hygiene: [
-      { name: "Toaletný papier / vlhčené utierky", done: false, qty: "", expiry: "", link: "" },
-      { name: "Mydlo / dezinfekcia rúk", done: false, qty: "", expiry: "", link: "" },
+      { name: "Toaletný papier", done: false, qty: "", expiry: "", link: "" },
+      { name: "Mydlo", done: false, qty: "", expiry: "", link: "" },
     ],
     gear: [
-      { name: "Baterka + záložné batérie", done: false, qty: "", expiry: "", link: "" },
-      { name: "Powerbanka (min. 10 000 mAh)", done: false, qty: "", expiry: "", link: "" },
-      { name: "Rádio na batérie", done: false, qty: "", expiry: "", link: "" },
+      { name: "Baterka LED", done: false, qty: "", expiry: "", link: "" },
+      { name: "Rádio na batérie AM/FM", done: false, qty: "1 ks", expiry: "", link: "" },
     ],
     docs: [
       // ── Osobné dokumenty ──
@@ -1441,6 +1432,149 @@
       { name: "USB kľúč s dokumentmi – pripravený v batožine", done: false, qty: "Šifrovaný! + záloha na Cloud", expiry: "", link: "", docGroup: "Krízové dokumenty" },
     ],
   };
+
+  // ── Dynamic item generation based on profile ───────────────────
+  function generateProfileItems(profile) {
+    if (!profile) return {};
+    const a = profile.adults || 0, k = profile.kids || 0, inf = profile.infants || 0, s = profile.seniors || 0;
+    const persons = a + k + s; // Infants don't need most items separately
+    const allP = a + k + inf + s;
+    const days = profile.prepDays || 3;
+    const c = profile.readinessCoeff || 1.0;
+    const isPremium = profile.budget === "premium";
+    const isEnhanced = profile.readiness === "enhanced";
+    const ceil = Math.ceil;
+
+    function q(val, unit) { return `${ceil(val * c)} ${unit}`; }
+    function mk(name, qty, extra) { return { name, done: false, qty, expiry: "", link: "", ...extra }; }
+
+    // ── GEAR (Vybavenie) ───────────────────────────────────────────
+    const gear = [];
+    // Osvetlenie
+    gear.push(mk("Baterka LED", q(Math.max(persons, 1), "ks")));
+    gear.push(mk("Náhradné batérie AAA do baterky", q(ceil(Math.max(persons, 1) * days / 3) * 2, "ks")));
+    // Rádio
+    gear.push(mk("Rádio na batérie AM/FM", "1 ks"));
+    if (isPremium) gear.push(mk("Rádio núdzové Etón Odyssey (kľukou + solárne)", "1 ks"));
+    gear.push(mk("Náhradné batérie AA do rádia", q(ceil(days / 2) * 4, "ks")));
+    // Energia
+    gear.push(mk("Powerbanka min. 20 000 mAh", q(ceil(Math.max(allP, 1) / 2), "ks")));
+    // Varenie
+    gear.push(mk("Plynový kempingový varič", "1 ks"));
+    gear.push(mk("Plynové kartuše (230 g)", q(ceil(days / 2), "ks")));
+    gear.push(mk("Zápalky / zapaľovač", q(ceil(Math.max(persons, 1) / 2), "ks")));
+    // Voda - nádoby
+    const totalLitresDay = allP * 2;
+    const bigCanisters = ceil(totalLitresDay * days / 10);
+    const smallCanisters = ceil(totalLitresDay / 5);
+    gear.push(mk(
+      `Kanister na vodu s ventilom ${allP <= 2 ? "5" : "10"} L (EDA)`,
+      `${bigCanisters} ks – pred prvým použitím vypláchnite, aby sa stratil zápach z výroby`
+    ));
+    if (isEnhanced) gear.push(mk("Kanister na vodu 5 L (záložný)", q(smallCanisters, "ks")));
+    // Nástroje
+    gear.push(mk("Multifunkčný nôž", "1 ks"));
+    gear.push(mk("Pevná lepiaca páska (duct tape)", q(ceil(Math.max(allP, 1) / 3), "ks")));
+    gear.push(mk("Ceruzka a papier (blok A5)", "1 set"));
+    gear.push(mk("Píšťalka (signalizačná)", q(Math.max(persons, 1), "ks")));
+    gear.push(mk("Paracord / lano 15 m", "1 ks"));
+    gear.push(mk("Vrecia na odpad (60 L)", q(allP * ceil(days / 2), "ks")));
+    // Zvieratá
+    gear.push(mk("Krmivo pre domáce zvieratá", `podľa potreby na ${days} dní`));
+    // Kľúče
+    gear.push(mk("Náhradné kľúče od bytu / domu / auta", "1 sada"));
+
+    // ── MEDKIT (Lekárnička) ────────────────────────────────────────
+    const medkit = [];
+    // Lieky na predpis
+    medkit.push(mk("Lieky na predpis – zásoba na 7 dní", `+ popis: čo, kedy, ako užívate`, {expiry: ""}));
+    // Dezinfekcia
+    medkit.push(mk("Dezinfekcia na rany (Betadine / Skinsept)", q(Math.max(ceil(allP / 3), 1), "ks")));
+    medkit.push(mk("Dezinfekcia na ruky (gél, 100 ml)", q(Math.max(allP, 1), "ks")));
+    // Lieky
+    medkit.push(mk("Lieky proti bolesti – Ibuprofen 400 mg", q(Math.max(persons, 1), "balenie")));
+    medkit.push(mk("Lieky proti horúčke – Paralen 500 mg", q(Math.max(persons, 1), "balenie")));
+    medkit.push(mk("Lieky proti hnačke – Smecta / Imodium", q(Math.max(persons, 1), "balenie")));
+    medkit.push(mk("Lieky proti nevoľnosti (Kinedryl)", q(Math.max(ceil(allP / 2), 1), "balenie")));
+    medkit.push(mk("Aktívne uhlie (Carbosorb)", q(Math.max(ceil(allP / 2), 1), "balenie")));
+    medkit.push(mk("Kvapky do očí (umelé slzy)", "1 ks"));
+    medkit.push(mk("Elektrolyty – rehydratačné soli", q(Math.max(allP, 1), "sáčkov")));
+    // Obväzy
+    medkit.push(mk("Obväzy elastické + gáza (sterilná)", q(Math.max(ceil(allP / 2), 1), "set")));
+    medkit.push(mk("Náplasti rôzne veľkosti", q(Math.max(allP, 1), "balenie")));
+    medkit.push(mk("Trojrohá šatka", q(2, "ks")));
+    medkit.push(mk("Jednorazové rukavice (nitrylové)", q(allP * 2, "párov")));
+    medkit.push(mk("Škrtidlo (CAT tourniquet)", q(Math.max(ceil(allP / 3), 1), "ks")));
+    medkit.push(mk("Nožnice (lekárnické)", "1 ks"));
+    medkit.push(mk("Pinzeta", "1 ks"));
+    medkit.push(mk("Teplomer digitálny", "1 ks"));
+    medkit.push(mk("Záchranárska fólia (izotermická deka)", q(allP, "ks")));
+    // Ochrana dýchacích ciest
+    medkit.push(mk("Respirátor FFP2", q(allP * 2, "ks")));
+    medkit.push(mk("Respirátor FFP3", q(allP, "ks")));
+    // Deti – ak sú v profile
+    if (k > 0 || inf > 0) {
+      medkit.push(mk("Paralen pre deti (čapíky alebo sirup)", q(k + inf, "balenie")));
+      medkit.push(mk("Nurofen pre deti (sirup – od 3 mesiacov)", q(k + inf, "balenie")));
+      medkit.push(mk("Elektrolyty pre deti (rehydratačné soli)", q((k + inf) * 3, "sáčkov")));
+    }
+    if (inf > 0) {
+      medkit.push(mk("Nosné kvapky pre bábätká (fyziologický roztok)", q(inf, "ks")));
+      medkit.push(mk("Zinková masť (ochrana pokožky dojčaťa)", q(inf, "ks")));
+      medkit.push(mk("Kvapky proti kolikám (Espumisan / Sab Simplex)", q(inf, "ks")));
+    }
+    // Extras (Ukraine/ICRC recommendations)
+    if (isEnhanced) {
+      medkit.push(mk("Obväz s hemostatikom (QuikClot / Celox)", q(Math.max(ceil(allP / 2), 1), "ks")));
+      medkit.push(mk("Sam Splint – dlahovacia pomôcka", "1 ks"));
+      medkit.push(mk("Chest seal – okluzívna náplasť (pneumotorax)", "1 ks"));
+    }
+
+    // ── HYGIENE (Hygiena) ──────────────────────────────────────────
+    const hygiene = [];
+    hygiene.push(mk("Toaletný papier", q(ceil(allP * days / 3), "roliek")));
+    hygiene.push(mk("Mydlo / sprchový gél", q(Math.max(ceil(allP / 2), 1), "ks")));
+    hygiene.push(mk("Vlhčené utierky (veľké balenie)", q(Math.max(allP, 1), "balenie")));
+    hygiene.push(mk("Zubná kefka + zubná pasta", q(allP, "ks + 1 pasta")));
+    hygiene.push(mk("Šampón (cestovné balenie)", q(Math.max(ceil(allP / 2), 1), "ks")));
+    hygiene.push(mk("Dámska hygiena (vložky / tampóny)", "podľa potreby"));
+    hygiene.push(mk("Papierové vreckovky", q(allP, "balenie")));
+    hygiene.push(mk("Kočkolit / absorpčné vrecká (núdzová toaleta)", "1 balenie"));
+    hygiene.push(mk("Odpadkové vrecká na biologický odpad", q(allP * ceil(days / 2), "ks")));
+    if (inf > 0) {
+      hygiene.push(mk("Plienky (jednorazové)", q(inf * days * 6, "ks")));
+      hygiene.push(mk("Detské vlhčené obrúsky", q(inf * 2, "balenie")));
+      hygiene.push(mk("Ochranný krém na zadoček", q(inf, "ks")));
+    }
+    if (k > 0) {
+      hygiene.push(mk("Detské vlhčené obrúsky", q(k, "balenie")));
+    }
+
+    return { gear, medkit, hygiene };
+  }
+
+  // Regenerate items for dynamic categories, preserving done states and custom items
+  function regenerateProfileBasedItems() {
+    if (!state.profile) return;
+    const generated = generateProfileItems(state.profile);
+    ["gear", "medkit", "hygiene"].forEach(catId => {
+      if (!generated[catId]) return;
+      const existing = state.items[catId] || [];
+      const doneMap = {};
+      existing.forEach(it => { doneMap[it.name] = it.done; });
+      // Generated item names set
+      const genNames = new Set(generated[catId].map(it => it.name));
+      // Custom items = items that exist but are NOT in generated list
+      const custom = existing.filter(it => !genNames.has(it.name));
+      state.items[catId] = [
+        ...generated[catId].map(it => ({
+          ...it,
+          done: doneMap[it.name] !== undefined ? doneMap[it.name] : false
+        })),
+        ...custom
+      ];
+    });
+  }
 
   // Funkcia na vytvorenie čistého state - vždy volať pri novom prihlásení
   function freshState() {
@@ -1544,6 +1678,12 @@
           state.alertDaysFood = data.alertDaysFood || 30;
         }
         delete state.alertDays;
+        // Migrate: budget "basic" (old Úsporná) → "mid" (new Základná)
+        if (state.profile && state.profile.budget === "basic") {
+          state.profile.budget = "mid";
+        }
+        // Regenerate dynamic items from profile
+        regenerateProfileBasedItems();
       }
       setSyncStatus("synced");
     } catch(e) {
@@ -1741,8 +1881,8 @@
     const totalWater = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d * coeff;
     const housingMap = { flat: "Byt", rd: "Rodinný dom", rd_cellar: "RD + pivnica" };
     const readinessMap = { standard: "Odporúčaná", enhanced: "Zvýšená (+30%)" };
-    const budgetMap = { basic: "Úsporná", mid: "Stredná", premium: "Prémiová" };
-    const budgetColor = { basic: "#6b7280", mid: "#b45309", premium: "#7c3aed" };
+    const budgetMap = { mid: "Základná", premium: "Prémiová" };
+    const budgetColor = { mid: "#b45309", premium: "#7c3aed" };
     box.innerHTML = `
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.8rem;">
         <div style="background:var(--c-bg); border-radius:0.625rem; padding:0.5rem 0.625rem;">
@@ -3879,7 +4019,7 @@
         { text: "<strong>Riziko úniku radiácie</strong>" },
         { note: "Bezpečným miestom môže byť domov, škola, pracovisko alebo iná verejná budova (obchodné centrum, úradná budova). Autobusová zastávka alebo auto bezpečným úkrytom nie sú." },
         { header: "Čo robiť po varovnom signáli?" },
-        { text: "<strong>Rýchlo sa ukryte v najbližšej budove.</strong>" },
+        { text: "<strong>Rýchle sa ukryte v najbližšej budove.</strong>" },
         { text: "<strong>Dôkladne uzavrite dvere a okná.</strong> Utesnite otvory, vypnite ventiláciu a klimatizáciu." },
         { text: "<strong>Zaistite si prístup k informáciám.</strong> Pri výpadku prúdu pomôže rádio na batérie." },
         { text: "<strong>Zbytočne netelefonujte,</strong> aby ste nepreťažovali mobilné siete." },
@@ -4130,6 +4270,7 @@
       budget:   String(fd.get("budget")   || "mid"),
     };
     closeModal("modalProfile");
+    regenerateProfileBasedItems();
     scheduleSave(); renderAll();
   };
 
