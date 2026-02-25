@@ -1367,8 +1367,46 @@
       { name: "Rádio na batérie", done: false, qty: "", expiry: "", link: "" },
     ],
     docs: [
-      { name: "Kópie dokladov (papier / USB)", done: false, qty: "", expiry: "", link: "" },
-      { name: "Zoznam kontaktov (offline)", done: false, qty: "", expiry: "", link: "" },
+      // ── Osobné dokumenty ──
+      { name: "Občiansky preukaz / pas – originál", done: false, qty: "Každý člen rodiny", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Občiansky preukaz / pas – kópia papier + scan", done: false, qty: "PDF: Cloud + USB", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Rodný list – originál + úradne overená kópia", done: false, qty: "1–2 ks overených", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Rodný list – scan na Cloud + USB", done: false, qty: "", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Sobášny list / rozsudok o rozvode – originál", done: false, qty: "+ 1× overená kópia", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Sobášny list – scan na Cloud + USB", done: false, qty: "", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Vodičský preukaz – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      { name: "Kartička zdravotnej poisťovne – originál", done: false, qty: "+ scan / fotka", expiry: "", link: "", docGroup: "Osobné dokumenty" },
+      // ── Majetok a bývanie ──
+      { name: "List vlastníctva – výpis z katastra", done: false, qty: "+ 1× overená kópia", expiry: "", link: "", docGroup: "Majetok a bývanie" },
+      { name: "List vlastníctva – scan Cloud + USB", done: false, qty: "", expiry: "", link: "", docGroup: "Majetok a bývanie" },
+      { name: "Kúpna zmluva na nehnuteľnosť – originál", done: false, qty: "+ 1× overená kópia", expiry: "", link: "", docGroup: "Majetok a bývanie" },
+      { name: "Hypotekárna / úverová zmluva – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Majetok a bývanie" },
+      { name: "Nájomná zmluva (ak prenajímate) – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Majetok a bývanie" },
+      // ── Auto / Doprava ──
+      { name: "Technický preukaz (osvedčenie) – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Auto a doprava" },
+      { name: "Zmluva o kúpe vozidla – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Auto a doprava" },
+      { name: "PZP + havarijné poistenie – zmluva + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Auto a doprava" },
+      // ── Zamestnanie a vzdelanie ──
+      { name: "Diplom / vysvedčenia – originál", done: false, qty: "+ úradne overená kópia", expiry: "", link: "", docGroup: "Vzdelanie a práca" },
+      { name: "Diplom – scan na Cloud + USB", done: false, qty: "", expiry: "", link: "", docGroup: "Vzdelanie a práca" },
+      { name: "Certifikácie / odborné oprávnenia – originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Vzdelanie a práca" },
+      // ── Financie ──
+      { name: "Bankové účty – zmluvy originál + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Financie" },
+      { name: "Investičné zmluvy (broker, fondy) – scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Financie" },
+      { name: "Crypto seed / recovery fráza – PAPIER offline", done: false, qty: "2× na rôznych miestach! Nikdy nescanovať!", expiry: "", link: "", docGroup: "Financie" },
+      { name: "Životná / úrazová poistka – zmluva + scan", done: false, qty: "Cloud + USB + poznámka k podmienkam", expiry: "", link: "", docGroup: "Financie" },
+      { name: "Poistenie domu / bytu – zmluva + scan", done: false, qty: "Cloud + USB", expiry: "", link: "", docGroup: "Financie" },
+      { name: "Daňové dokumenty – posledné 2–4 roky", done: false, qty: "Papier + scan", expiry: "", link: "", docGroup: "Financie" },
+      // ── Zdravotné dokumenty ──
+      { name: "Karta pacienta – scan + papierová", done: false, qty: "", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
+      { name: "Lekárske správy (deti / chronickí pacienti)", done: false, qty: "Papier + Cloud + USB", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
+      { name: "Alergie / lieky / kontakty – 1× A4 v lekárničke", done: false, qty: "Papier v lekárničke + batožine", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
+      { name: "Darcu krvi / transplantácie / dôležité med. info", done: false, qty: "Papier + scan", expiry: "", link: "", docGroup: "Zdravotné dokumenty" },
+      // ── Krízové dokumenty ──
+      { name: "Plnomocenstvo – NOTÁRSKY OVERENÉ", done: false, qty: "Na správu majetku, bankové úkony, poistky", expiry: "", link: "", docGroup: "Krízové dokumenty" },
+      { name: "Závet / dedičstvo – originál u notára", done: false, qty: "Kópia pre rodinu. Scan neodporúčaný ako dôkaz!", expiry: "", link: "", docGroup: "Krízové dokumenty" },
+      { name: "Zoznam kontaktov offline – papier 1–2 strany", done: false, qty: "Lekár, právnik, banka, poisťovne, hasiči, elektrikár...", expiry: "", link: "", docGroup: "Krízové dokumenty" },
+      { name: "USB kľúč s dokumentmi – pripravený v batožine", done: false, qty: "Šifrovaný! + záloha na Cloud", expiry: "", link: "", docGroup: "Krízové dokumenty" },
     ],
   };
 
@@ -1790,10 +1828,51 @@
     const list = document.createElement("div");
     list.style.cssText = "display:flex; flex-direction:column; gap:0.5rem;";
 
+    // Docs category: info banner about storage strategy
+    if (catId === "docs") {
+      const banner = document.createElement("div");
+      banner.innerHTML = `
+        <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #bfdbfe; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
+          <div style="font-weight:700; font-size:0.85rem; color:#1e40af; margin-bottom:0.5rem;">📋 Kde uchovávať dokumenty?</div>
+          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
+            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
+              <strong style="color:#1e40af;">📁 Originál</strong><br>
+              <span style="color:var(--c-muted);">Doma v bezpečnom mieste (trezor, ohnivzdorná schránka)</span>
+            </div>
+            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
+              <strong style="color:#1e40af;">📄 Kópia</strong><br>
+              <span style="color:var(--c-muted);">Papierová kópia v evakuačnej batožine + u príbuzných</span>
+            </div>
+            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
+              <strong style="color:#1e40af;">💾 USB</strong><br>
+              <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batožine – scany všetkých dokumentov</span>
+            </div>
+            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
+              <strong style="color:#1e40af;">☁️ Cloud</strong><br>
+              <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
+            </div>
+          </div>
+          <div style="margin-top:0.5rem; font-size:0.7rem; color:#3b82f6; line-height:1.5; font-style:italic;">
+            ⚠️ Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
+          </div>
+        </div>`;
+      list.appendChild(banner);
+    }
+
     if (!items.length) {
       list.innerHTML = `<p style="color:var(--c-muted); font-size:0.875rem;">Zatiaľ žiadne položky.</p>`;
     } else {
+      let lastDocGroup = "";
       items.forEach((it, idx) => {
+        // Group headers for docs category
+        if (catId === "docs" && it.docGroup && it.docGroup !== lastDocGroup) {
+          lastDocGroup = it.docGroup;
+          const groupEmojis = { "Osobné dokumenty": "🪪", "Majetok a bývanie": "🏠", "Auto a doprava": "🚗", "Vzdelanie a práca": "🎓", "Financie": "💰", "Zdravotné dokumenty": "🏥", "Krízové dokumenty": "🚨" };
+          const gh = document.createElement("div");
+          gh.style.cssText = "padding:0.625rem 0 0.25rem; margin-top:0.375rem;";
+          gh.innerHTML = `<div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em;">${groupEmojis[it.docGroup]||"📋"} ${it.docGroup}</div>`;
+          list.appendChild(gh);
+        }
         if (it.isWaterItem && state.profile) {
           const p = state.profile;
           const d = p.prepDays || 3;
@@ -2882,11 +2961,14 @@
 
     // ── Doklady & peniaze ──
     items.push({ cat: "Doklady a peniaze", items: [
-      { name: "Občiansky preukaz / pas", note: "Originál alebo kópia" },
-      { name: "Kartička poistenca", note: "Zdravotná poisťovňa" },
-      { name: "Kópie dôležitých dokumentov", note: "Rodný list, zmluvy, poistky – ideálne aj foto v mobile" },
+      { name: "Občiansky preukaz / pas", note: "Originál – vždy mať pri sebe" },
+      { name: "Kartička zdravotnej poisťovne", note: "Originál" },
+      { name: "Kópie dôležitých dokumentov (papier)", note: "Rodný list, sobášny list, zmluvy, poistky" },
+      { name: "Šifrovaný USB kľúč so scanmi dokumentov", note: "Všetky doklady v PDF – viď kategória Doklady" },
       { name: "Kľúče", note: "Dom, auto, pivnica, kancelária" },
       { name: "Hotovosť + platobné karty", note: "Drobné mince + bankovky, min. na 3 dni" },
+      { name: "Zoznam kontaktov na papieri", note: "Lekár, právnik, banka, poisťovňa, rodina" },
+      { name: "Zdravotný info list (alergie, lieky)", note: "1× A4 – krvná skupina, alergie, užívané lieky" },
     ]});
 
     // ── Zdravie ──
