@@ -968,7 +968,7 @@
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
     <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, len sa dáta uložia len do prehliadača (zmažú sa po zatvorení karty).</span>
-    <a href="#" onclick="const u=new URL(location.href);u.searchParams.delete('mode');location.href=u.toString();return false;">Vytvoriť účet zadarmo →</a>
+    <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo →</a>
   </div>
 
   <!-- Header -->
@@ -1664,7 +1664,7 @@
 
   // ── Firebase config ──────────────────────────────────────────────
   // Demo mode: ?mode=demo v URL = žiadny Firebase, žiadna auth, dáta v sessionStorage
-  const isDemo = new URLSearchParams(location.search).get('mode') === 'demo';
+  let isDemo = new URLSearchParams(location.search).get('mode') === 'demo';
 
   const firebaseConfig = {
     apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
@@ -1677,12 +1677,9 @@
 
   const MAX_USERS = 200; // Limit registrácií
 
-  let app, auth, db;
-  if (!isDemo) {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-  }
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
@@ -2147,12 +2144,18 @@
 
     // Demo: update email section in profile
     const emailSection = document.getElementById('emailSettingsInProfile');
+
+    // Demo: "Vytvoriť účet zadarmo" link v banneri → ukončí demo a vráti na login
+    const bannerLink = document.getElementById('demoBannerCreateAccount');
+    if (bannerLink) {
+      bannerLink.onclick = (e) => { e.preventDefault(); document.getElementById('btnLogout').click(); };
+    }
     if (emailSection) {
       emailSection.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.5rem;">
           <div>
             <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">✉️ Emailové pripomienky</div>
-            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;">V demo režime nie sú dostupné. Vytvorte si účet pre emailové upozornenia na expirácie.</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;">V demo režime nie sú dostupné. Ukončite demo a vytvorte si účet pre emailové upozornenia na expirácie.</div>
           </div>
         </div>`;
     }
@@ -2179,18 +2182,27 @@
 
   // Demo button na login screen
   document.getElementById("btnDemoLogin").onclick = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('mode', 'demo');
-    window.location.href = url.toString();
+    isDemo = true;
+    startDemoMode();
   };
 
   document.getElementById("btnLogout").onclick = () => {
     if (isDemo) {
-      // Demo: vymaž sessionStorage a vráť na login
+      // Demo: vymaž sessionStorage, resetuj stav a vráť na login
       sessionStorage.removeItem('gerlach_demo_state');
-      const url = new URL(window.location.href);
-      url.searchParams.delete('mode');
-      window.location.href = url.toString();
+      isDemo = false;
+      currentUser = null;
+      state = freshState();
+      // Reset UI demo prvkov
+      document.body.classList.remove('is-demo');
+      const badge = document.getElementById('versionBadge');
+      if (badge) { badge.textContent = 'Beta v0.1'; badge.classList.remove('demo-badge'); badge.classList.add('beta'); }
+      document.getElementById('demoBanner').classList.remove('visible');
+      const btnLO = document.getElementById('btnLogout');
+      if (btnLO) btnLO.textContent = 'Odhlásiť';
+      const mobileLO = document.querySelector('.mobile-logout-btn');
+      if (mobileLO) mobileLO.textContent = 'Odhlásiť';
+      showScreen("login");
       return;
     }
     signOut(auth);
@@ -2199,6 +2211,8 @@
   // Auth state listener — len v normálnom režime
   if (!isDemo) {
     onAuthStateChanged(auth, async (user) => {
+    // Ak medzičasom užívateľ spustil demo, nerob nič
+    if (isDemo) return;
     if (!user) {
       currentUser = null;
       // Reset state pri odhlásení - žiadne dáta nezostanú v pamäti
