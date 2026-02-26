@@ -187,7 +187,8 @@
       cursor: pointer;
       transition: all 0.15s;
     }
-    .btn-google:hover { background: var(--c-bg); border-color: #c5c0b8; }
+    .btn-google:hover { background: var(--c-bg); border-color: #c5c0b8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    #btnDemoLogin:hover { background: #fef3c7 !important; border-color: #d97706 !important; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(245,158,11,0.15); }
     .btn-google svg { flex-shrink: 0; }
 
     .app-header {
@@ -982,7 +983,7 @@
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
     <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, iba dáta sa uložia len do prehliadača (zmažú sa po zatvorení karty v prehliadači).</span>
-    <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo →</a>
+    <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo</a>
   </div>
 
   <!-- Header -->
