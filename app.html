@@ -1693,9 +1693,13 @@
 
   const MAX_USERS = 200; // Limit registrácií
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  // V demo režime neinicializujeme Firebase vôbec
+  let app, auth, db;
+  if (!isDemo) {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+  }
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
@@ -2186,6 +2190,7 @@
 
   // ── Auth (len pre normálny režim) ─────────────────────────────────
   document.getElementById("btnGoogleLogin").onclick = async () => {
+    if (isDemo || !auth) return;
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
@@ -2221,7 +2226,7 @@
       showScreen("login");
       return;
     }
-    signOut(auth);
+    if (auth) signOut(auth);
   };
 
   // Auth state listener — len v normálnom režime
