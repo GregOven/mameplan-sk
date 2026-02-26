@@ -932,6 +932,17 @@
   </style>
 </head>
 <body>
+<!-- Okamžité skrytie login screen pre demo z webstránky (pred načítaním modulov) -->
+<script>
+if (window.location.hash === '#startdemo') {
+  document.documentElement.style.visibility = 'hidden';
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+    document.documentElement.style.visibility = '';
+  });
+}
+</script>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
