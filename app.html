@@ -585,6 +585,16 @@
         width: 100% !important;
         max-width: 100% !important;
       }
+      .modal-box::before {
+        content: '';
+        display: block;
+        width: 36px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--c-border);
+        margin: 0 auto 0.75rem;
+        opacity: 0.7;
+      }
       .modal-overlay {
         align-items: flex-end !important;
         padding: 0 !important;
@@ -801,7 +811,21 @@
       padding: 0.35rem 0.125rem; border-radius: 0.625rem;
     }
     .bottom-nav .tab-btn .tab-emoji { font-size: 1.125rem; }
-    .bottom-nav .tab-btn.active { background: transparent; color: var(--c-accent); }
+    .bottom-nav .tab-btn.active {
+      background: transparent; color: var(--c-accent);
+    }
+    .bottom-nav .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 3px;
+      border-radius: 0 0 3px 3px;
+      background: var(--c-accent);
+      transition: width 0.2s;
+    }
 
     /* ═══════════════════════════════════════════
        SOS FLOATING ACTION BUTTON
@@ -1297,7 +1321,7 @@
             <p style="margin:0 0 0.375rem;"><strong>2)</strong> Dohodnite si <strong>kontaktnú osobu mimo regiónu</strong> – cez ňu sa všetci nahlásia.</p>
             <p style="margin:0 0 0.375rem;"><strong>3)</strong> Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli.</p>
             <p style="margin:0 0 0.375rem;"><strong>4)</strong> Stretávajte sa na <strong>dohodnutom mieste</strong> – pravidlo: počkaj 30 min, príď znova o interval.</p>
-            <p style="margin:0;"><strong>5)</strong> Ak máte internet – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí“).</p>
+            <p style="margin:0;"><strong>5)</strong> Ak máte internet – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí”).</p>
           </div>
         </div>
       </div>
@@ -3071,7 +3095,71 @@
     }
   });
 
-  // ── Helper: make element keyboard-accessible ──────────────────
+  // ── Swipe-to-dismiss for mobile modals ─────────────────────
+  (function() {
+    const THRESHOLD = 80;  // px to dismiss
+    const VELOCITY_THRESHOLD = 0.5; // px/ms for quick swipes
+    let startY = 0, currentY = 0, startTime = 0, activeBox = null, activeOverlay = null;
+
+    document.addEventListener("touchstart", (e) => {
+      const overlay = e.target.closest(".modal-overlay.open");
+      if (!overlay) return;
+      const box = overlay.querySelector(".modal-box");
+      if (!box) return;
+      // Only start swipe from top 48px of modal (handle area) or if scrolled to top
+      const touch = e.touches[0];
+      const boxRect = box.getBoundingClientRect();
+      const touchInHandle = touch.clientY - boxRect.top < 48;
+      const scrolledToTop = box.scrollTop <= 0;
+      if (!touchInHandle && !scrolledToTop) return;
+      startY = touch.clientY;
+      currentY = startY;
+      startTime = Date.now();
+      activeBox = box;
+      activeOverlay = overlay;
+      activeBox.style.transition = "none";
+    }, { passive: true });
+
+    document.addEventListener("touchmove", (e) => {
+      if (!activeBox) return;
+      currentY = e.touches[0].clientY;
+      const dy = currentY - startY;
+      if (dy > 0) {
+        activeBox.style.transform = `translateY(${dy}px)`;
+        activeOverlay.style.background = `rgba(0,0,0,${Math.max(0, 0.4 - dy * 0.002)})`;
+      }
+    }, { passive: true });
+
+    document.addEventListener("touchend", () => {
+      if (!activeBox) return;
+      const dy = currentY - startY;
+      const dt = Date.now() - startTime;
+      const velocity = dy / Math.max(dt, 1);
+      if (dy > THRESHOLD || velocity > VELOCITY_THRESHOLD) {
+        // Dismiss
+        activeBox.style.transition = "transform 0.25s ease-out";
+        activeBox.style.transform = `translateY(100%)`;
+        activeOverlay.style.transition = "background 0.25s";
+        activeOverlay.style.background = "rgba(0,0,0,0)";
+        const overlayId = activeOverlay.id;
+        setTimeout(() => {
+          closeModal(overlayId);
+          const box = document.querySelector(`#${overlayId} .modal-box`);
+          if (box) { box.style.transform = ""; box.style.transition = ""; }
+          const ov = document.getElementById(overlayId);
+          if (ov) { ov.style.background = ""; ov.style.transition = ""; }
+        }, 260);
+      } else {
+        // Snap back
+        activeBox.style.transition = "transform 0.2s ease";
+        activeBox.style.transform = "";
+        activeOverlay.style.transition = "background 0.2s";
+        activeOverlay.style.background = "";
+      }
+      activeBox = null;
+      activeOverlay = null;
+    }, { passive: true });
+  })();
   function makeAccessibleCard(el, label, handler) {
     el.setAttribute("tabindex", "0");
     el.setAttribute("role", "button");
@@ -5118,51 +5206,73 @@
 
     let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Záchranka: <a href="tel:155">155</a></div>`;
 
-    // Steps – with support for headers, notes, warnings (same as emergency proc modal)
-    html += `<div style="margin-bottom:0.5rem;">`;
+    // Count real steps (text steps only, not headers/notes/warnings)
+    const QUICK_VIEW_LIMIT = 3;
+    const realSteps = item.steps.filter(s => s.text);
+    const hasMoreSteps = realSteps.length > QUICK_VIEW_LIMIT;
+
+    // Build steps HTML — split into quick-view and rest
     let stepNum = 0;
+    let realStepCount = 0;
+    let inHidden = false;
+
+    html += `<div style="margin-bottom:0.5rem;">`;
     item.steps.forEach(step => {
-      // Section header
+      // When we hit the limit, start the hidden section
+      if (hasMoreSteps && !inHidden && step.text && realStepCount === QUICK_VIEW_LIMIT) {
+        html += `</div><div id="faFullSteps" style="display:none;"><div style="margin-bottom:0.5rem;">`;
+        inHidden = true;
+        stepNum = 0; // Reset if new header section is in hidden part
+      }
       if (step.header) {
         html += `<div style="font-size:0.82rem; font-weight:700; color:var(--c-text); margin:1rem 0 0.5rem; padding-bottom:0.375rem; border-bottom:1.5px solid var(--c-border);">${step.header}</div>`;
         stepNum = 0;
         return;
       }
-      // Info/note box
       if (step.note) {
         html += `<div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#92400e;"><strong>💡</strong> ${step.note}</div>`;
         return;
       }
-      // Warning box
       if (step.warn) {
         html += `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#991b1b;"><strong>⚠️</strong> ${step.warn}</div>`;
         return;
       }
       stepNum++;
+      realStepCount++;
       html += `<div class="fa-modal-step">
         <div class="fa-step-num">${stepNum}</div>
         <div class="fa-step-text">${step.text}</div>
       </div>`;
     });
-    html += `</div>`;
 
-    // Warning
-    if (item.warning) {
-      html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
-    }
+    if (inHidden) {
+      html += `</div>`; // close inner margin div
+      // Warning, info, source inside hidden section
+      if (item.warning) html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+      if (item.info) html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
+      if (Array.isArray(item.sources)) {
+        html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
+          s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
+        ).join("<br>")}</div>`;
+      } else if (item.source) {
+        html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
+      }
+      html += `</div>`; // close faFullSteps
 
-    // Info
-    if (item.info) {
-      html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
-    }
-
-    // Source
-    if (Array.isArray(item.sources)) {
-      html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
-      ).join("<br>")}</div>`;
-    } else if (item.source) {
-      html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
+      // Expand button
+      html += `<button id="faExpandBtn" onclick="document.getElementById('faFullSteps').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:linear-gradient(135deg, #eff6ff, #dbeafe); border:1.5px solid #93c5fd; border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:#1e40af; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(59,130,246,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Zobraziť celý postup (${realSteps.length} krokov) →</button>`;
+    } else {
+      html += `</div>`; // close margin div (no hidden section)
+      // Warning, info, source in normal flow
+      if (item.warning) html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+      if (item.info) html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
+      if (Array.isArray(item.sources)) {
+        html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
+          s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
+        ).join("<br>")}</div>`;
+      } else if (item.source) {
+        html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
+      }
     }
 
     content.innerHTML = html;
