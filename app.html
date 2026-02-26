@@ -1903,12 +1903,49 @@
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
     { id: "food_water", name: "Jedlo a voda", emoji: "🥫", weight: 1.2 },
-    { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.8 },
+    { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.9 },
     { id: "medkit", name: "Lekárnička", emoji: "🩺", weight: 1.1 },
     { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
     { id: "gear", name: "Vybavenie", emoji: "🔦", weight: 1.0 },
     { id: "docs", name: "Doklady", emoji: "📄", weight: 0.9 },
   ];
+
+  // ── Zdroje odporúčaní pre kategórie ──────────────────────────
+  // Tieto zdroje sú použité pri výpočte množstiev a výbere položiek
+  const CATEGORY_SOURCES = {
+    food_water: {
+      water: {
+        label: "WHO – Voda, hygiena a zdravie v núdzových situáciách",
+        url: "https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health",
+        note: "2 l pitnej vody / dospelý / deň (min. pre pitie)"
+      },
+      food: {
+        label: "EFSA – Referenčné hodnoty pre energetický príjem (2013)",
+        url: "https://www.efsa.europa.eu/en/efsajournal/pub/3005",
+        note: "Priem. 2000 kcal/deň dospelý, PAL 1.4 (krízový režim)"
+      }
+    },
+    cash: {
+      label: "ECB \u2013 'Keep calm and carry cash' (2025) + Rak\u00FAska iniciat\u00EDva 'Bargeld f\u00FCr alle F\u00E4lle'",
+      url: "https://cashessentials.org/eu-recommends-including-cash-as-a-crucial-component-of-emergency-kits/",
+      note: "€70–100 / osobu na 72h, v malých nomináloch"
+    },
+    medkit: {
+      label: "CZ 72h príručka (MV ČR) + SK MINV brožúra + UA DSNS núdzová príručka",
+      url: "https://www.72h.gov.cz",
+      note: "Domáca lekárnička + núdzové zásoby liekov na 7 dní"
+    },
+    hygiene: {
+      label: "EU Preparedness Union Strategy (2025) + CZ 72h + SK MINV",
+      url: "https://commission.europa.eu/topics/preparedness_en",
+      note: "Min. 72h sebestačnosť vrátane hygienických potrieb"
+    },
+    gear: {
+      label: "\u0160v\u00E9dsko MSB 'Om krisen eller kriget kommer' (2024) + CZ 72h + SK MINV + UA DSNS",
+      url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/",
+      note: "Komunikácia, osvetlenie, varenie, nástroje – sebestačnosť min. 72h–7 dní"
+    }
+  };
 
   const DEFAULT_ITEMS = {
     food_water: [
@@ -1990,70 +2027,87 @@
     function mk(name, qty, extra) { return { name, done: false, qty, expiry: "", link: "", ...extra }; }
 
     // ── GEAR (Vybavenie) ───────────────────────────────────────────
+    // Zdroje: SE MSB 2024, CZ 72h, SK MINV, UA DSNS, NO DSB
     const gear = [];
-    // Osvetlenie
-    gear.push(mk("Baterka LED", q(Math.max(persons, 1), "ks")));
-    gear.push(mk("Náhradné batérie AAA do baterky", q(ceil(Math.max(persons, 1) * days / 3) * 2, "ks")));
-    // Rádio
+    // --- Osvetlenie (CZ, SK, UA, SE – všetky vyžadujú) ---
+    gear.push(mk("Baterka LED + čelovka", q(Math.max(persons, 1), "ks")));
+    gear.push(mk("Náhradné batérie (AAA + AA mix)", q(ceil(Math.max(persons, 1) * days / 3) * 2, "ks")));
+    gear.push(mk("Sviečky (čajové + klasické)", q(ceil(days * 3), "ks"), {link:""}));
+    // --- Komunikácia (CZ, SK, UA, SE – kritické pri výpadku) ---
     gear.push(mk("Rádio na batérie AM/FM", "1 ks"));
-    if (isPremium) gear.push(mk("Rádio núdzové Etón Odyssey (kľukou + solárne)", "1 ks"));
+    if (isPremium) gear.push(mk("Rádio núdzové s kľukou + solárne (Etón / Sangean)", "1 ks"));
     gear.push(mk("Náhradné batérie AA do rádia", q(ceil(days / 2) * 4, "ks")));
-    // Energia
+    // --- Energia (CZ, SK, UA, SE) ---
     gear.push(mk("Powerbanka min. 20 000 mAh", q(ceil(Math.max(allP, 1) / 2), "ks")));
-    // Varenie
+    gear.push(mk("USB nabíjací kábel (Lightning + USB-C + Micro)", "1 sada"));
+    // --- Varenie (CZ, SK, UA – varič + palivo) ---
     gear.push(mk("Plynový kempingový varič", "1 ks"));
     gear.push(mk("Plynové kartuše (230 g)", q(ceil(days / 2), "ks")));
-    gear.push(mk("Zápalky / zapaľovač", q(ceil(Math.max(persons, 1) / 2), "ks")));
-    // Voda - nádoby
+    gear.push(mk("Zápalky vodeodolné + zapaľovač", q(ceil(Math.max(persons, 1) / 2), "setov")));
+    // --- Voda – nádoby (CZ, SK, UA) ---
     const totalLitresDay = allP * 2;
     const bigCanisters = ceil(totalLitresDay * days / 10);
-    const smallCanisters = ceil(totalLitresDay / 5);
     gear.push(mk(
-      `Kanister na vodu s ventilom ${allP <= 2 ? "5" : "10"} L (EDA)`,
-      `${bigCanisters} ks – pred prvým použitím vypláchnite, aby sa stratil zápach z výroby`
+      `Kanister na vodu s ventilom ${allP <= 2 ? "5" : "10"} L`,
+      `${bigCanisters} ks`
     ));
-    if (isEnhanced) gear.push(mk("Kanister na vodu 5 L (záložný)", q(smallCanisters, "ks")));
-    // Nástroje
-    gear.push(mk("Multifunkčný nôž", "1 ks"));
+    if (isEnhanced) gear.push(mk("Kanister na vodu 5 L (záložný)", q(ceil(totalLitresDay / 5), "ks")));
+    // --- Nástroje (CZ, UA, SE) ---
+    gear.push(mk("Multifunkčný nôž / multitool", "1 ks"));
     gear.push(mk("Pevná lepiaca páska (duct tape)", q(ceil(Math.max(allP, 1) / 3), "ks")));
-    gear.push(mk("Ceruzka a papier (blok A5)", "1 set"));
-    gear.push(mk("Píšťalka (signalizačná)", q(Math.max(persons, 1), "ks")));
-    gear.push(mk("Paracord / lano 15 m", "1 ks"));
+    gear.push(mk("Ceruzka + papier (blok A5)", "1 set"));
+    gear.push(mk("Píšťalka signalizačná", q(Math.max(persons, 1), "ks")));
+    gear.push(mk("Lano / paracord 15 m", "1 ks"));
+    // --- Odpad + toaleta (CZ, SK – núdzová toaleta) ---
     gear.push(mk("Vrecia na odpad (60 L)", q(allP * ceil(days / 2), "ks")));
-    // Zvieratá
+    // --- Bezpečnosť (CZ, SK – hasiaci prístroj) ---
+    gear.push(mk("Hasiaci prístroj práškový 2 kg alebo hasiaca deka", "1 ks"));
+    // --- Ochrana (UA, SE – fólia na okná) ---
+    gear.push(mk("Igelitová fólia (zakrytie okien / izolácia)", "1 rolka"));
+    // --- Dokumenty digitálne (UA, CZ) ---
+    gear.push(mk("USB kľúč s kópiami dokumentov (šifrovaný)", "1 ks"));
+    // --- Zvieratá (CZ, SK, UA) ---
     gear.push(mk("Krmivo pre domáce zvieratá", `podľa potreby na ${days} dní`));
-    // Kľúče
+    // --- Kľúče ---
     gear.push(mk("Náhradné kľúče od bytu / domu / auta", "1 sada"));
+    // --- Mapa (UA – offline mapa) ---
+    gear.push(mk("Mapa okolia (papierová) + offline mapy v telefóne", "1 ks"));
 
     // ── MEDKIT (Lekárnička) ────────────────────────────────────────
+    // Zdroje: CZ 72h (obsah domácí lékárničky), SK MINV, UA DSNS (2 lekárničky),
+    // SE MSB 2024, IFRC first aid recommendations
     const medkit = [];
-    // Lieky na predpis
+    // --- Lieky na predpis (CZ, SK, UA – zásoba na 7 dní) ---
     medkit.push(mk("Lieky na predpis – zásoba na 7 dní", `+ popis: čo, kedy, ako užívate`, {expiry: ""}));
-    // Dezinfekcia
+    // --- Dezinfekcia (CZ, SK, UA) ---
     medkit.push(mk("Dezinfekcia na rany (Betadine / Skinsept)", q(Math.max(ceil(allP / 3), 1), "ks")));
     medkit.push(mk("Dezinfekcia na ruky (gél, 100 ml)", q(Math.max(allP, 1), "ks")));
-    // Lieky
+    // --- Lieky – bolesť, horúčka, tráviace (CZ, SK, UA) ---
     medkit.push(mk("Lieky proti bolesti – Ibuprofen 400 mg", q(Math.max(persons, 1), "balenie")));
     medkit.push(mk("Lieky proti horúčke – Paralen 500 mg", q(Math.max(persons, 1), "balenie")));
     medkit.push(mk("Lieky proti hnačke – Smecta / Imodium", q(Math.max(persons, 1), "balenie")));
     medkit.push(mk("Lieky proti nevoľnosti (Kinedryl)", q(Math.max(ceil(allP / 2), 1), "balenie")));
-    medkit.push(mk("Aktívne uhlie (Carbosorb)", q(Math.max(ceil(allP / 2), 1), "balenie")));
+    medkit.push(mk("Aktívne uhlie (Carbosorb) – otrava", q(Math.max(ceil(allP / 2), 1), "balenie")));
+    // --- Antihistaminikum (UA odporúčanie) ---
+    medkit.push(mk("Antihistaminikum (Cetirizín / Zyrtec)", q(Math.max(ceil(allP / 2), 1), "balenie")));
     medkit.push(mk("Kvapky do očí (umelé slzy)", "1 ks"));
-    medkit.push(mk("Elektrolyty – rehydratačné soli", q(Math.max(allP, 1), "sáčkov")));
-    // Obväzy
+    medkit.push(mk("Elektrolyty – rehydratačné soli (ORS)", q(Math.max(allP, 1), "sáčkov")));
+    // --- Obväzový materiál (CZ 72h detailný zoznam) ---
     medkit.push(mk("Obväzy elastické + gáza (sterilná)", q(Math.max(ceil(allP / 2), 1), "set")));
     medkit.push(mk("Náplasti rôzne veľkosti", q(Math.max(allP, 1), "balenie")));
     medkit.push(mk("Trojrohá šatka", q(2, "ks")));
     medkit.push(mk("Jednorazové rukavice (nitrylové)", q(allP * 2, "párov")));
+    // --- Trauma (CZ – škrtidlo, UA – tourniquet, hemostatik) ---
     medkit.push(mk("Škrtidlo (CAT tourniquet)", q(Math.max(ceil(allP / 3), 1), "ks")));
-    medkit.push(mk("Nožnice (lekárnické)", "1 ks"));
+    medkit.push(mk("Resuscitačná rúška s ventilom", "1 ks"));
+    // --- Nástroje (CZ) ---
+    medkit.push(mk("Nožnice (lekárnické / atraumatické)", "1 ks"));
     medkit.push(mk("Pinzeta", "1 ks"));
     medkit.push(mk("Teplomer digitálny", "1 ks"));
+    // --- Ochrana (CZ, SK) ---
     medkit.push(mk("Záchranárska fólia (izotermická deka)", q(allP, "ks")));
-    // Ochrana dýchacích ciest
     medkit.push(mk("Respirátor FFP2", q(allP * 2, "ks")));
-    medkit.push(mk("Respirátor FFP3", q(allP, "ks")));
-    // Deti – ak sú v profile
+    // --- Deti (CZ, SK, UA) ---
     if (k > 0 || inf > 0) {
       medkit.push(mk("Paralen pre deti (čapíky alebo sirup)", q(k + inf, "balenie")));
       medkit.push(mk("Nurofen pre deti (sirup – od 3 mesiacov)", q(k + inf, "balenie")));
@@ -2064,24 +2118,30 @@
       medkit.push(mk("Zinková masť (ochrana pokožky dojčaťa)", q(inf, "ks")));
       medkit.push(mk("Kvapky proti kolikám (Espumisan / Sab Simplex)", q(inf, "ks")));
     }
-    // Extras (Ukraine/ICRC recommendations)
+    // --- Rozšírené (UA DSNS + ICRC) ---
     if (isEnhanced) {
       medkit.push(mk("Obväz s hemostatikom (QuikClot / Celox)", q(Math.max(ceil(allP / 2), 1), "ks")));
       medkit.push(mk("Sam Splint – dlahovacia pomôcka", "1 ks"));
       medkit.push(mk("Chest seal – okluzívna náplasť (pneumotorax)", "1 ks"));
+      medkit.push(mk("Respirátor FFP3", q(allP, "ks")));
     }
 
     // ── HYGIENE (Hygiena) ──────────────────────────────────────────
+    // Zdroje: CZ 72h, SK MINV, EU Preparedness Union Strategy
     const hygiene = [];
     hygiene.push(mk("Toaletný papier", q(ceil(allP * days / 3), "roliek")));
     hygiene.push(mk("Mydlo / sprchový gél", q(Math.max(ceil(allP / 2), 1), "ks")));
     hygiene.push(mk("Vlhčené utierky (veľké balenie)", q(Math.max(allP, 1), "balenie")));
     hygiene.push(mk("Zubná kefka + zubná pasta", q(allP, "ks + 1 pasta")));
     hygiene.push(mk("Šampón (cestovné balenie)", q(Math.max(ceil(allP / 2), 1), "ks")));
-    hygiene.push(mk("Dámska hygiena (vložky / tampóny)", "podľa potreby"));
+    hygiene.push(mk("Ručník (rýchloschnúci)", q(allP, "ks")));
+    hygiene.push(mk("Menštruačné potreby (vložky / tampóny / kalíšok)", "podľa potreby"));
     hygiene.push(mk("Papierové vreckovky", q(allP, "balenie")));
+    hygiene.push(mk("Dezinfekcia na ruky (cestovné balenie 50 ml)", q(allP, "ks")));
+    // --- Núdzová toaleta (CZ – pytel do záchodu, SK) ---
     hygiene.push(mk("Kočkolit / absorpčné vrecká (núdzová toaleta)", "1 balenie"));
     hygiene.push(mk("Odpadkové vrecká na biologický odpad", q(allP * ceil(days / 2), "ks")));
+    // --- Deti (SK, CZ) ---
     if (inf > 0) {
       hygiene.push(mk("Plienky (jednorazové)", q(inf * days * 6, "ks")));
       hygiene.push(mk("Detské vlhčené obrúsky", q(inf * 2, "balenie")));
@@ -2245,6 +2305,42 @@
           if (state.items[catId]) {
             state.items[catId] = state.items[catId].filter(it => !oldNames.includes(it.name));
           }
+        }
+        // Migrate v22→v23: renamed items (preserve done state)
+        const RENAME_MAP = {
+          gear: {
+            "Baterka LED": "Baterka LED + čelovka",
+            "Náhradné batérie AAA do baterky": "Náhradné batérie (AAA + AA mix)",
+            "Rádio núdzové Etón Odyssey (kľukou + solárne)": "Rádio núdzové s kľukou + solárne (Etón / Sangean)",
+            "Zápalky / zapaľovač": "Zápalky vodeodolné + zapaľovač",
+            "Multifunkčný nôž": "Multifunkčný nôž / multitool",
+            "Ceruzka a papier (blok A5)": "Ceruzka + papier (blok A5)",
+            "Píšťalka (signalizačná)": "Píšťalka signalizačná",
+            "Paracord / lano 15 m": "Lano / paracord 15 m",
+          },
+          medkit: {
+            "Aktívne uhlie (Carbosorb)": "Aktívne uhlie (Carbosorb) – otrava",
+            "Elektrolyty – rehydratačné soli": "Elektrolyty – rehydratačné soli (ORS)",
+            "Nožnice (lekárnické)": "Nožnice (lekárnické / atraumatické)",
+          },
+          hygiene: {
+            "Dámska hygiena (vložky / tampóny)": "Menštruačné potreby (vložky / tampóny / kalíšok)",
+          }
+        };
+        for (const [catId, renames] of Object.entries(RENAME_MAP)) {
+          if (state.items[catId]) {
+            state.items[catId].forEach(it => {
+              if (renames[it.name]) it.name = renames[it.name];
+            });
+          }
+        }
+        // Also fix kanister name pattern (remove EDA suffix)
+        if (state.items.gear) {
+          state.items.gear.forEach(it => {
+            if (it.name && it.name.includes("Kanister na vodu s ventilom") && it.name.includes("(EDA)")) {
+              it.name = it.name.replace(" (EDA)", "");
+            }
+          });
         }
         // Regenerate dynamic items from profile
         regenerateProfileBasedItems();
@@ -3008,6 +3104,41 @@
           </div>
         </div>`;
       list.appendChild(banner);
+    }
+
+    // Source info banner for categories with defined sources
+    if (catId !== "docs" && CATEGORY_SOURCES[catId]) {
+      const src = CATEGORY_SOURCES[catId];
+      const srcBanner = document.createElement("div");
+      let srcHtml = "";
+      if (catId === "food_water") {
+        // Food+water has nested sources
+        srcHtml = `
+          <div style="background:linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border:1.5px solid #86efac; border-radius:1rem; padding:0.875rem; margin-bottom:1rem;">
+            <div style="font-weight:700; font-size:0.8rem; color:#166534; margin-bottom:0.375rem;">📚 Zdroje odporúčaní</div>
+            <div style="font-size:0.7rem; line-height:1.6; color:#15803d;">
+              <div style="margin-bottom:0.25rem;">💧 <strong>Voda:</strong> ${src.water.note}</div>
+              <div style="font-size:0.65rem; color:var(--c-muted); margin-bottom:0.375rem; padding-left:1.25rem;">→ <a href="${src.water.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${src.water.label}</a></div>
+              <div style="margin-bottom:0.25rem;">🍽️ <strong>Jedlo:</strong> ${src.food.note}</div>
+              <div style="font-size:0.65rem; color:var(--c-muted); padding-left:1.25rem;">→ <a href="${src.food.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${src.food.label}</a></div>
+            </div>
+          </div>`;
+      } else {
+        const sourceColor = catId === "medkit" ? { bg1: "#fef2f2", bg2: "#fee2e2", border: "#fca5a5", title: "#991b1b", text: "#b91c1c" }
+          : catId === "cash" ? { bg1: "#fefce8", bg2: "#fef9c3", border: "#fde047", title: "#854d0e", text: "#a16207" }
+          : catId === "hygiene" ? { bg1: "#fdf4ff", bg2: "#fae8ff", border: "#e9d5ff", title: "#6b21a8", text: "#7c3aed" }
+          : { bg1: "#eff6ff", bg2: "#dbeafe", border: "#93c5fd", title: "#1e40af", text: "#2563eb" };
+        srcHtml = `
+          <div style="background:linear-gradient(135deg, ${sourceColor.bg1} 0%, ${sourceColor.bg2} 100%); border:1.5px solid ${sourceColor.border}; border-radius:1rem; padding:0.875rem; margin-bottom:1rem;">
+            <div style="font-weight:700; font-size:0.8rem; color:${sourceColor.title}; margin-bottom:0.375rem;">📚 Zdroje odporúčaní</div>
+            <div style="font-size:0.7rem; line-height:1.6; color:${sourceColor.text};">
+              <div style="margin-bottom:0.25rem;">${src.note}</div>
+              <div style="font-size:0.65rem; color:var(--c-muted);">→ <a href="${src.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${src.label}</a></div>
+            </div>
+          </div>`;
+      }
+      srcBanner.innerHTML = srcHtml;
+      list.appendChild(srcBanner);
     }
 
     if (!items.length) {
