@@ -1546,8 +1546,8 @@
         </div>
       </div>
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
-        <input name="fe_expiry" type="date" />
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia *</label>
+        <input name="fe_expiry" type="date" required />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
         <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -1582,13 +1582,58 @@
         </div>
       </div>
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
-        <input name="we_expiry" type="date" />
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia *</label>
+        <input name="we_expiry" type="date" required />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
         <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- Modal: Edit Cash Entry -->
+<div class="modal-overlay" id="modalCashEdit">
+  <div class="modal-box" style="max-width:440px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť hotovosť</h3>
+      <button data-close="modalCashEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
+    </div>
+    <form id="cashEditForm" style="display:grid; gap:0.75rem;">
+      <input type="hidden" name="ce_catId" />
+      <input type="hidden" name="ce_itemIdx" />
+      <input type="hidden" name="ce_entryIdx" />
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Typ</label>
+          <select name="ce_type" style="font-size:0.9rem; padding:0.625rem 0.875rem;">
+            <option value="bankovka">💶 Bankovka</option>
+            <option value="minca">🪙 Minca</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Hodnota (€) *</label>
+          <input name="ce_value" type="number" min="0" step="0.01" required />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet kusov</label>
+        <input name="ce_qty" type="number" min="1" value="1" />
+      </div>
+      <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Validation Warning -->
+<div class="modal-overlay" id="modalValidation">
+  <div class="modal-box" style="max-width:400px; text-align:center;">
+    <div style="font-size:2.5rem; margin-bottom:0.75rem;">⚠️</div>
+    <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0 0 0.5rem;">Chýbajúce údaje</h3>
+    <p id="validationText" style="font-size:0.85rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
+    <button data-close="modalValidation" class="btn-primary" style="padding:0.625rem 2rem; font-size:0.85rem;">Rozumiem</button>
   </div>
 </div>
 
@@ -1871,8 +1916,7 @@
       { name: "Zásoby jedla", isFoodItem: true, foodEntries: [] },
     ],
     cash: [
-      { name: "Hotovosť na 3–7 dní", done: false, qty: "", expiry: "", link: "" },
-      { name: "Drobné mince", done: false, qty: "", expiry: "", link: "" },
+      { name: "Hotovosť v domácnosti", isCashItem: true, cashEntries: [] },
     ],
     medkit: [
       { name: "Lieky na predpis – zásoba na 7 dní", done: false, qty: "", expiry: "", link: "" },
@@ -2172,7 +2216,7 @@
         };
         // Migrate: ensure link field
         for (const cid of Object.keys(state.items)) {
-          state.items[cid] = state.items[cid].map(it => ({ link: "", waterBottles: 0, isWaterItem: false, isFoodItem: false, ...it }));
+          state.items[cid] = state.items[cid].map(it => ({ link: "", waterBottles: 0, isWaterItem: false, isFoodItem: false, isCashItem: false, ...it }));
         }
         // Migrate: docs category – if old format (no docGroup), replace with new comprehensive list
         if (state.items.docs && state.items.docs.length > 0 && !state.items.docs[0].docGroup) {
@@ -2237,6 +2281,17 @@
           state.items.food_water.forEach(it => {
             if (it.isFoodItem && !it.foodEntries) it.foodEntries = [];
             if (it.isWaterItem && !it.waterEntries) it.waterEntries = [];
+          });
+        }
+        // Migrate: cash – remove old items, ensure cash tracker exists
+        if (state.items.cash) {
+          const oldCashNames = ["Hotovosť na 3–7 dní", "Drobné mince"];
+          state.items.cash = state.items.cash.filter(it => !oldCashNames.includes(it.name));
+          if (!state.items.cash.find(it => it.isCashItem)) {
+            state.items.cash.push({ name: "Hotovosť v domácnosti", isCashItem: true, cashEntries: [] });
+          }
+          state.items.cash.forEach(it => {
+            if (it.isCashItem && !it.cashEntries) it.cashEntries = [];
           });
         }
       }
@@ -2537,17 +2592,18 @@
   }
 
   // ── Kalórie / Jedlo – inteligentný kalkulátor ──────────────────
-  // Odporúčané denné kcal podľa USDA & HHS Dietary Guidelines for Americans 2020–2025
-  // (sedentárna aktivita – krízový režim, priemer muž/žena)
-  // Zdroj: Dietary Guidelines for Americans 2020-2025, Appendix 2
+  // Odporúčané denné kcal podľa EFSA (European Food Safety Authority)
+  // Scientific Opinion on Dietary Reference Values for Energy (2013)
+  // PAL 1.4 (sedentárna aktivita – krízový režim), BMI 22 kg/m²
+  // Zdroj: EFSA Journal 2013;11(1):3005
   const KCAL_PER_DAY = {
-    adult:  2000,  // priemer muž/žena, sedentárna aktivita
+    adult:  2000,  // priemer muž/žena, PAL 1.4 (sedentárna)
     kid:    1500,  // deti 4–17 r., priemer
     infant: 1000,  // batoľatá 0–3 r.
-    senior: 1800   // seniori 65+, sedentárna aktivita
+    senior: 1800   // seniori 65+, PAL 1.4
   };
-  const KCAL_SOURCE_URL = "https://www.dietaryguidelines.gov/sites/default/files/2020-12/Dietary_Guidelines_for_Americans_2020-2025.pdf";
-  const KCAL_SOURCE_LABEL = "USDA & HHS – Dietary Guidelines for Americans 2020–2025";
+  const KCAL_SOURCE_URL = "https://www.efsa.europa.eu/en/efsajournal/pub/3005";
+  const KCAL_SOURCE_LABEL = "EFSA – Dietary Reference Values for Energy (2013)";
 
   function getDailyKcalNeed() {
     if (!state.profile) return 0;
@@ -2572,10 +2628,37 @@
     return Math.min(100, (getTotalFoodKcal(item) / totalNeeded) * 100);
   }
 
+  // ── Hotovosť – inteligentný kalkulátor ─────────────────────────
+  // ECB štúdia "Keep calm and carry cash" (2025) odporúča €70–100 / osobu na 72h
+  // Rakúska iniciatíva "Bargeld für alle Fälle": ~€100 / člen domácnosti
+  // EU Preparedness Union Strategy (2025): 72h sebestačnosť vrátane hotovosti
+  const CASH_PER_PERSON = 100; // € na osobu
+  const CASH_SOURCE_URL = "https://cashessentials.org/eu-recommends-including-cash-as-a-crucial-component-of-emergency-kits/";
+  const CASH_SOURCE_LABEL = "ECB & EU – Hotovosť ako súčasť núdzového vybavenia (2025)";
+
+  function getRecommendedCash() {
+    if (!state.profile) return 0;
+    const p = state.profile;
+    const totalPersons = (p.adults||0) + (p.kids||0) + (p.infants||0) + (p.seniors||0);
+    return totalPersons * CASH_PER_PERSON;
+  }
+
+  function getTotalCash(item) {
+    if (!item.isCashItem || !item.cashEntries) return 0;
+    return item.cashEntries.reduce((sum, e) => sum + ((e.value||0) * (e.qty||1)), 0);
+  }
+
+  function calcCashCompletion(item) {
+    if (!item.isCashItem || !state.profile) return 0;
+    const needed = getRecommendedCash();
+    if (!needed) return 0;
+    return Math.min(100, (getTotalCash(item) / needed) * 100);
+  }
+
   function categoryScore(catId) {
     const items = state.items[catId] || [];
     if (!items.length) return 0;
-    return items.reduce((sum, it) => sum + (it.isWaterItem ? calcWaterCompletion(it) : it.isFoodItem ? calcFoodCompletion(it) : it.done ? 100 : 0), 0) / items.length;
+    return items.reduce((sum, it) => sum + (it.isWaterItem ? calcWaterCompletion(it) : it.isFoodItem ? calcFoodCompletion(it) : it.isCashItem ? calcCashCompletion(it) : it.done ? 100 : 0), 0) / items.length;
   }
 
   function overallScore() {
@@ -2861,6 +2944,10 @@
     const detail = document.getElementById("categoryDetail");
     detail.innerHTML = "";
 
+    // Hide "Pridať položku" button for categories with smart trackers
+    const addBtn = document.getElementById("btnAddItem");
+    if (addBtn) addBtn.style.display = (catId === "food_water" || catId === "cash") ? "none" : "flex";
+
     // Aktualizuj modal header
     const modalHeader = document.getElementById("modalCatHeader");
     if (modalHeader) {
@@ -2869,7 +2956,7 @@
           <div style="font-size:1.5rem;">${cat.emoji}</div>
           <div>
             <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
-            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
+            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
           </div>
           <div style="margin-left:auto; text-align:right; padding-right:0.5rem; line-height:1.1;">
             <div style="font-size:0.72rem; color:var(--c-muted);">splnené na</div>
@@ -2886,7 +2973,7 @@
     // Progress v footer
     const modalProgress = document.getElementById("modalCatProgress");
     if (modalProgress) {
-      modalProgress.textContent = `${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.done).length} z ${items.length} položiek splnených`;
+      modalProgress.textContent = `${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} z ${items.length} položiek splnených`;
     }
 
     const list = document.createElement("div");
@@ -3047,19 +3134,19 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #93c5fd;">
               <div style="font-size:0.75rem; font-weight:600; color:#1e40af; margin-bottom:0.5rem;">+ Pridať vodu</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" />
+                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Litrov / kus</label>
-                    <input type="number" min="0" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Litrov / kus *</label>
+                    <input type="number" min="0" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                   <div>
                     <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
                     <input type="number" min="1" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia</label>
-                    <input type="date" id="we_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia *</label>
+                    <input type="date" id="we_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                 </div>
                 <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="we_add_${idx}">Pridať do zásob</button>
@@ -3078,7 +3165,8 @@
               const expInp = document.getElementById(`we_exp_${idx}`);
               const eName = (nameInp.value||"").trim();
               const eLiters = Number(litersInp.value)||0;
-              if (!eName || !eLiters) { alert("Zadajte názov a počet litrov."); return; }
+              const eExpiry = (expInp.value||"").trim();
+              if (!eName || !eLiters || !eExpiry) { showValidation("Vyplňte všetky povinné polia: názov, litrov a expiráciu."); return; }
               if (!state.items[catId][idx].waterEntries) state.items[catId][idx].waterEntries = [];
               state.items[catId][idx].waterEntries.push({
                 name: eName,
@@ -3222,19 +3310,19 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #fbbf24;">
               <div style="font-size:0.75rem; font-weight:600; color:#92400e; margin-bottom:0.5rem;">+ Pridať jedlo</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" />
+                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">kcal / kus</label>
-                    <input type="number" min="0" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">kcal / kus *</label>
+                    <input type="number" min="0" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                   <div>
                     <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
                     <input type="number" min="1" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia</label>
-                    <input type="date" id="fe_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia *</label>
+                    <input type="date" id="fe_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                 </div>
                 <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="fe_add_${idx}">Pridať do zásob</button>
@@ -3253,7 +3341,8 @@
               const expInp = document.getElementById(`fe_exp_${idx}`);
               const eName = (nameInp.value||"").trim();
               const eKcal = Number(kcalInp.value)||0;
-              if (!eName || !eKcal) { alert("Zadajte názov a počet kcal."); return; }
+              const eExpiry = (expInp.value||"").trim();
+              if (!eName || !eKcal || !eExpiry) { showValidation("Vyplňte všetky povinné polia: názov, kalórie a expiráciu."); return; }
               if (!state.items[catId][idx].foodEntries) state.items[catId][idx].foodEntries = [];
               state.items[catId][idx].foodEntries.push({
                 name: eName,
@@ -3280,6 +3369,169 @@
                 const entry = state.items[catId][itemI]?.foodEntries?.[entryI];
                 if (!entry) return;
                 openFoodEditModal(catId, itemI, entryI, entry);
+              };
+            });
+          }, 0);
+          return;
+        }
+
+        // ── CASH CARD (intelligent cash tracker) ─────────────────
+        if (it.isCashItem && state.profile) {
+          const p = state.profile;
+          const totalPersons = (p.adults||0) + (p.kids||0) + (p.infants||0) + (p.seniors||0);
+          const recommended = getRecommendedCash();
+          const currentCash = getTotalCash(it);
+          const cpct = calcCashCompletion(it);
+          const cCol = colorForPct(cpct);
+          const entries = it.cashEntries || [];
+
+          // Entries HTML
+          let cEntriesHtml = "";
+          if (entries.length === 0) {
+            cEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadna hotovosť. Pridajte bankovky a mince nižšie.</div>`;
+          } else {
+            // Group by type
+            const bankovky = entries.filter(e => e.type === "bankovka");
+            const mince = entries.filter(e => e.type === "minca");
+            const renderGroup = (groupEntries, label, emoji) => {
+              if (!groupEntries.length) return "";
+              const groupTotal = groupEntries.reduce((s, e) => s + (e.value||0)*(e.qty||1), 0);
+              return `<div style="margin-bottom:0.5rem;">
+                <div style="font-size:0.7rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">${emoji} ${label} — ${groupTotal.toFixed(2)} €</div>
+                ${groupEntries.map((e, ei) => {
+                  const realIdx = entries.indexOf(e);
+                  const totalE = (e.value||0)*(e.qty||1);
+                  return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.375rem 0.5rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(42,122,75,0.15); margin-bottom:0.25rem;">
+                    <div style="flex:1; min-width:0;">
+                      <div style="font-weight:600; font-size:0.78rem; color:var(--c-text);">${(e.value||0)} € × ${e.qty||1}</div>
+                      <div style="font-size:0.68rem; color:var(--c-muted);">= ${totalE.toFixed(2)} €</div>
+                    </div>
+                    <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-cash-edit="${idx}:${realIdx}">✏️</button>
+                    <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-cash-del="${idx}:${realIdx}">✕</button>
+                  </div>`;
+                }).join("")}
+              </div>`;
+            };
+            cEntriesHtml = renderGroup(bankovky, "Bankovky", "💶") + renderGroup(mince, "Mince", "🪙");
+          }
+
+          const row = document.createElement("div");
+          row.style.cssText = "background:linear-gradient(135deg, #eaf4ee 0%, #d1fae5 100%); border:1.5px solid #86efac; border-radius:1rem; padding:1.25rem;";
+          row.innerHTML = `
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; gap:0.75rem;">
+              <div style="font-weight:700; font-size:1rem;">💵 ${esc(it.name)}</div>
+              <span style="font-size:0.95rem; font-weight:700; color:${cCol}; flex-shrink:0;">${Math.round(cpct)}%</span>
+            </div>
+
+            <div class="water-info-grid" style="display:grid; grid-template-columns:1fr auto; gap:0.625rem; margin-bottom:0.875rem; align-items:stretch;">
+              <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.75rem;">
+                <div style="font-size:0.7rem; color:var(--c-green); font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Vaša hotovosť</div>
+                <div style="font-size:0.9rem; font-weight:700; color:#14532d;">${currentCash.toFixed(2)} €</div>
+                <div style="font-size:0.72rem; color:var(--c-green);">z odporúčaných ${recommended} € (${totalPersons} ${totalPersons === 1 ? "osoba" : totalPersons < 5 ? "osoby" : "osôb"} × ${CASH_PER_PERSON} €)</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.875rem; min-width:0;">
+                <div style="font-size:0.68rem; color:var(--c-green); font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Odporúčanie</div>
+                <div style="font-size:0.82rem; font-weight:700; color:#14532d; line-height:1.3;">€70–100 / osobu</div>
+                <div style="font-size:0.68rem; color:var(--c-green); opacity:0.75; margin-top:0.2rem;">v malých nomináloch</div>
+              </div>
+            </div>
+
+            <div class="progress-bar" style="margin-bottom:0.75rem; height:10px;">
+              <div class="progress-fill" style="width:${Math.min(100,cpct)}%; background:${colorForPct(cpct)};"></div>
+            </div>
+
+            <!-- Source -->
+            <div style="background:rgba(255,255,255,0.55); border-radius:0.5rem; padding:0.5rem 0.75rem; margin-bottom:0.875rem; font-size:0.7rem; color:#166534; line-height:1.6;">
+              <strong>Prečo hotovosť?</strong> Pri výpadku elektriny, kybernetických útokoch alebo živelných pohromách platobné terminály nefungujú. ECB odporúča mať doma €70–100 na osobu v malých bankovkách a minciach.
+              <br>
+              <a href="${CASH_SOURCE_URL}" target="_blank" rel="noopener" style="color:var(--c-green); text-decoration:underline; font-size:0.65rem;">📊 Zdroj: ${CASH_SOURCE_LABEL}</a>
+            </div>
+
+            <!-- Entries -->
+            <div style="display:flex; flex-direction:column; gap:0.25rem; margin-bottom:0.875rem;" id="cashEntriesList_${idx}">
+              ${cEntriesHtml}
+            </div>
+
+            <!-- Add cash entry form -->
+            <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #86efac;">
+              <div style="font-size:0.75rem; font-weight:600; color:#166534; margin-bottom:0.5rem;">+ Pridať hotovosť</div>
+              <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Typ</label>
+                    <select id="ce_type_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
+                      <option value="bankovka">💶 Bankovka</option>
+                      <option value="minca">🪙 Minca</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Hodnota (€)</label>
+                    <select id="ce_value_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
+                      <optgroup label="Bankovky">
+                        <option value="5">5 €</option>
+                        <option value="10" selected>10 €</option>
+                        <option value="20">20 €</option>
+                        <option value="50">50 €</option>
+                        <option value="100">100 €</option>
+                        <option value="200">200 €</option>
+                      </optgroup>
+                      <optgroup label="Mince">
+                        <option value="0.01">0,01 €</option>
+                        <option value="0.02">0,02 €</option>
+                        <option value="0.05">0,05 €</option>
+                        <option value="0.10">0,10 €</option>
+                        <option value="0.20">0,20 €</option>
+                        <option value="0.50">0,50 €</option>
+                        <option value="1">1 €</option>
+                        <option value="2">2 €</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet kusov</label>
+                  <input type="number" min="1" value="1" id="ce_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                </div>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="ce_add_${idx}">Pridať do zásob</button>
+              </div>
+            </div>`;
+          list.appendChild(row);
+
+          // Bind cash entry actions
+          setTimeout(() => {
+            const addBtn = document.getElementById(`ce_add_${idx}`);
+            if (addBtn) addBtn.onclick = () => {
+              const typeInp = document.getElementById(`ce_type_${idx}`);
+              const valueInp = document.getElementById(`ce_value_${idx}`);
+              const qtyInp = document.getElementById(`ce_qty_${idx}`);
+              const eValue = Number(valueInp.value)||0;
+              const eQty = Number(qtyInp.value)||1;
+              if (!eValue) return;
+              if (!state.items[catId][idx].cashEntries) state.items[catId][idx].cashEntries = [];
+              state.items[catId][idx].cashEntries.push({
+                type: typeInp.value,
+                value: eValue,
+                qty: eQty
+              });
+              scheduleSave(); renderAll();
+            };
+            // Delete entries
+            row.querySelectorAll("[data-cash-del]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.cashDel.split(":").map(Number);
+                if (state.items[catId][itemI] && state.items[catId][itemI].cashEntries) {
+                  state.items[catId][itemI].cashEntries.splice(entryI, 1);
+                  scheduleSave(); renderAll();
+                }
+              };
+            });
+            // Edit entries
+            row.querySelectorAll("[data-cash-edit]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.cashEdit.split(":").map(Number);
+                const entry = state.items[catId][itemI]?.cashEntries?.[entryI];
+                if (!entry) return;
+                openCashEditModal(catId, itemI, entryI, entry);
               };
             });
           }, 0);
@@ -5658,6 +5910,39 @@
     closeModal("modalWaterEdit");
     scheduleSave(); renderAll();
   };
+
+  // ── Cash Entry Edit Modal ────────────────────────────────────────
+  function openCashEditModal(catId, itemIdx, entryIdx, entry) {
+    const f = document.getElementById("cashEditForm");
+    f.elements["ce_catId"].value = catId;
+    f.elements["ce_itemIdx"].value = itemIdx;
+    f.elements["ce_entryIdx"].value = entryIdx;
+    f.elements["ce_type"].value = entry.type || "bankovka";
+    f.elements["ce_value"].value = entry.value || "";
+    f.elements["ce_qty"].value = entry.qty || 1;
+    openModal("modalCashEdit");
+  }
+
+  document.getElementById("cashEditForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const catId = fd.get("ce_catId");
+    const itemIdx = parseInt(fd.get("ce_itemIdx"));
+    const entryIdx = parseInt(fd.get("ce_entryIdx"));
+    const entry = state.items[catId]?.[itemIdx]?.cashEntries?.[entryIdx];
+    if (!entry) return;
+    entry.type = String(fd.get("ce_type")||"bankovka");
+    entry.value = Number(fd.get("ce_value"))||0;
+    entry.qty = Number(fd.get("ce_qty"))||1;
+    closeModal("modalCashEdit");
+    scheduleSave(); renderAll();
+  };
+
+  // ── Validation Modal Helper ──────────────────────────────────────
+  function showValidation(msg) {
+    document.getElementById("validationText").textContent = msg;
+    openModal("modalValidation");
+  }
 
   // Click outside modal to close
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
