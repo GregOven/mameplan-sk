@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gerlach – Pripravenosť na krízové situácie</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,6 +22,40 @@
     * { box-sizing: border-box; }
     body { font-family: 'Lexend', sans-serif; background: var(--c-bg); color: var(--c-text); font-size: 110%; }
     h1, h2, h3, .font-display { font-family: 'DM Sans', 'Lexend', sans-serif; letter-spacing: -0.025em; }
+
+    /* ═══════════════════════════════════════════
+       ACCESSIBILITY
+    ═══════════════════════════════════════════ */
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--c-text);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0 0 0.75rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 10001;
+      text-decoration: none;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: 3px solid var(--c-accent);
+      outline-offset: 2px;
+    }
+
+    /* Focus visible ring for all interactive elements */
+    [tabindex]:focus-visible,
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible {
+      outline: 2.5px solid var(--c-accent);
+      outline-offset: 2px;
+    }
 
     /* ═══════════════════════════════════════════
        DESIGN SYSTEM: SHADOWS & TRANSITIONS
@@ -744,7 +777,7 @@
       padding: 2rem 1.5rem; text-align: center;
     }
     .onboarding-card h2 { font-size: 1.5rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; letter-spacing: -0.03em; }
-    .onboarding-card p { color: #a16207; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .onboarding-card p { color: #854d0e; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
     .onboarding-card .btn-primary { padding: 0.875rem 2rem; font-size: 1rem; background: #92400e; }
     .onboarding-card .btn-primary:hover { background: #78350f; }
 
@@ -985,6 +1018,9 @@
 </head>
 <body>
 
+<!-- Skip to content (accessibility) -->
+<a href="#appMain" class="skip-link" id="skipLink">Preskočiť na obsah</a>
+
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
@@ -1085,7 +1121,7 @@
     </div>
   </div>
 
-  <div class="app-main-padding" style="max-width:1100px; margin:0 auto; padding:1.5rem 1rem;">
+  <div class="app-main-padding" id="appMain" style="max-width:1100px; margin:0 auto; padding:1.5rem 1rem;">
 
     <!-- ═══════════════ TAB A: MOJA PRÍPRAVA ═══════════════ -->
     <div class="tab-pane active" id="tabPreparation">
@@ -1787,7 +1823,7 @@
 
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:1rem; padding:1rem;">
         <div style="font-size:0.8rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">⏰ Časy stretávania</div>
-        <div style="font-size:0.72rem; color:#3b82f6; margin-bottom:0.625rem; line-height:1.5;">Kedy sa budete na mieste hľadať? Napr. každé 4 hodiny. Ak tam druhý nie je, príďte o ďalší interval.</div>
+        <div style="font-size:0.72rem; color:#2563eb; margin-bottom:0.625rem; line-height:1.5;">Kedy sa budete na mieste hľadať? Napr. každé 4 hodiny. Ak tam druhý nie je, príďte o ďalší interval.</div>
         <div id="meetingTimesEditor" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;"></div>
         <div style="display:flex; gap:0.5rem; align-items:center;">
           <input type="time" id="newMeetingTime" style="width:auto; font-size:0.85rem; padding:0.4rem 0.625rem;" />
@@ -2820,17 +2856,96 @@
 
   // ── Modal helpers ────────────────────────────────────────────────
   function openModal(id) {
-    document.getElementById(id).classList.add("open");
+    const overlay = document.getElementById(id);
+    overlay.classList.add("open");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("role", "dialog");
+    // Auto-detect label from first heading or title element in modal
+    const box = overlay.querySelector(".modal-box");
+    if (box) {
+      const titleEl = box.querySelector("h3[id], [id*='Title'], [id*='ModalTitle']") || box.querySelector("h3");
+      if (titleEl) {
+        if (!titleEl.id) titleEl.id = id + "_autoTitle";
+        overlay.setAttribute("aria-labelledby", titleEl.id);
+      }
+    }
     document.body.style.overflow = "hidden";
+    // Store the element that opened the modal so we can restore focus
+    overlay._previousFocus = document.activeElement;
+    // Focus the first focusable element inside the modal (or close button)
+    requestAnimationFrame(() => {
+      if (box) {
+        const firstFocusable = box.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (firstFocusable) firstFocusable.focus();
+      }
+    });
   }
   function closeModal(id) {
-    document.getElementById(id).classList.remove("open");
+    const overlay = document.getElementById(id);
+    overlay.classList.remove("open");
+    overlay.removeAttribute("aria-modal");
+    overlay.removeAttribute("aria-labelledby");
     // Obnov scroll len ak žiadny iný modal nie je otvorený
     if (!document.querySelector('.modal-overlay.open')) {
       document.body.style.overflow = "";
     }
+    // Restore focus to the element that opened the modal
+    if (overlay._previousFocus && typeof overlay._previousFocus.focus === 'function') {
+      overlay._previousFocus.focus();
+    }
   }
   document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => closeModal(b.dataset.close));
+
+  // ── Escape key closes topmost modal ──────────────────────────
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const openModals = [...document.querySelectorAll('.modal-overlay.open')];
+      if (openModals.length > 0) {
+        e.preventDefault();
+        closeModal(openModals[openModals.length - 1].id);
+      }
+    }
+  });
+
+  // ── Focus trap: keep Tab cycling within open modal ────────────
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Tab") return;
+    const openModal = document.querySelector('.modal-overlay.open');
+    if (!openModal) return;
+    const box = openModal.querySelector('.modal-box');
+    if (!box) return;
+    const focusable = [...box.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')].filter(el => {
+      return !el.disabled && el.offsetParent !== null;
+    });
+    if (focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first || !box.contains(document.activeElement)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last || !box.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  });
+
+  // ── Helper: make element keyboard-accessible ──────────────────
+  function makeAccessibleCard(el, label, handler) {
+    el.setAttribute("tabindex", "0");
+    el.setAttribute("role", "button");
+    el.setAttribute("aria-label", label);
+    el.onclick = handler;
+    el.onkeydown = (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handler();
+      }
+    };
+  }
 
   // ── Render ───────────────────────────────────────────────────────
 
@@ -3068,8 +3183,17 @@
       card.onclick = () => {
         state.selectedCategoryId = c.id;
         scheduleSave();
-        renderCategories(); // aktualizuj selected stav kariet
+        renderCategories();
         openCategoryModal(c);
+      };
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", c.name + " – " + Math.round(pct) + "% splnené");
+      card.onkeydown = (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          card.onclick();
+        }
       };
       grid.appendChild(card);
     }
@@ -3148,7 +3272,7 @@
               <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
             </div>
           </div>
-          <div style="margin-top:0.5rem; font-size:0.7rem; color:#3b82f6; line-height:1.5; font-style:italic;">
+          <div style="margin-top:0.5rem; font-size:0.7rem; color:#2563eb; line-height:1.5; font-style:italic;">
             ⚠️ Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
           </div>
         </div>`;
@@ -3162,11 +3286,11 @@
       srcBannerEl = document.createElement("div");
       const sourceColor = catId === "food_water" ? { bg1: "#f0fdf4", bg2: "#dcfce7", border: "#86efac", title: "#166534", text: "#15803d" }
         : catId === "medkit" ? { bg1: "#fef2f2", bg2: "#fee2e2", border: "#fca5a5", title: "#991b1b", text: "#b91c1c" }
-        : catId === "cash" ? { bg1: "#fefce8", bg2: "#fef9c3", border: "#fde047", title: "#854d0e", text: "#a16207" }
+        : catId === "cash" ? { bg1: "#fefce8", bg2: "#fef9c3", border: "#fde047", title: "#854d0e", text: "#854d0e" }
         : catId === "hygiene" ? { bg1: "#fdf4ff", bg2: "#fae8ff", border: "#e9d5ff", title: "#6b21a8", text: "#7c3aed" }
         : { bg1: "#eff6ff", bg2: "#dbeafe", border: "#93c5fd", title: "#1e40af", text: "#2563eb" };
       const linksHtml = src.sources.map(s =>
-        `<div style="padding:0.125rem 0;">→ <a href="${s.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${s.label}</a></div>`
+        `<div style="padding:0.125rem 0;">→ <a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a></div>`
       ).join("");
       srcBannerEl.innerHTML = `
         <div style="background:linear-gradient(135deg, ${sourceColor.bg1} 0%, ${sourceColor.bg2} 100%); border:1.5px solid ${sourceColor.border}; border-radius:1rem; padding:0.875rem; margin-top:1rem;">
@@ -3270,9 +3394,9 @@
 
             <div class="water-info-grid" style="display:grid; grid-template-columns:1fr auto; gap:0.625rem; margin-bottom:0.875rem; align-items:stretch;">
               <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.75rem;">
-                <div style="font-size:0.7rem; color:#3b82f6; font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Zásoby</div>
+                <div style="font-size:0.7rem; color:#2563eb; font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Zásoby</div>
                 <div style="font-size:0.9rem; font-weight:700; color:#1e3a8a;">${litreSklon(current)}</div>
-                <div style="font-size:0.72rem; color:#3b82f6;">z potrebných ${litreSklon(total)} na ${d} ${d===1?"deň":d<5?"dni":"dní"}</div>
+                <div style="font-size:0.72rem; color:#2563eb;">z potrebných ${litreSklon(total)} na ${d} ${d===1?"deň":d<5?"dni":"dní"}</div>
               </div>
               <div style="background:${durBg}; border:1px solid ${durBorder}; border-radius:0.625rem; padding:0.625rem 0.875rem; min-width:0; white-space:nowrap;">
                 <div style="font-size:0.68rem; color:${durColor}; font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Vydrží vám na</div>
@@ -3290,7 +3414,7 @@
               <strong>Denná potreba domácnosti:</strong> ${dailyNeed.toFixed(1)} l/deň
               <span style="opacity:0.7;">(${waterBreakdown.join(", ")})</span>
               <br>
-              <a href="${WATER_SOURCE_URL}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline; font-size:0.65rem;">📊 Zdroj: ${WATER_SOURCE_LABEL}</a>
+              <a href="${WATER_SOURCE_URL}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline; font-size:0.65rem;">📊 Zdroj: ${WATER_SOURCE_LABEL}</a>
             </div>
 
             <!-- Water entries list -->
@@ -3779,14 +3903,14 @@
 
     if (!hasData) {
       box.innerHTML = `
-        <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onclick="openMeetingPointModal()" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" tabindex="0" role="button" aria-label="Nastaviť miesto stretnutia" onclick="openMeetingPointModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMeetingPointModal()}" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;">📍</div>
             <div style="flex:1;">
               <div style="font-weight:700; font-size:0.95rem; color:#92400e;">Nastavte miesto stretnutia</div>
-              <div style="font-size:0.78rem; color:#a16207; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
+              <div style="font-size:0.78rem; color:#854d0e; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
             </div>
-            <div style="font-size:1.25rem; color:#a16207; flex-shrink:0;">→</div>
+            <div style="font-size:1.25rem; color:#854d0e; flex-shrink:0;">→</div>
           </div>
         </div>`;
       return;
@@ -3803,7 +3927,7 @@
     if (hasBackup) {
       backupHtml = `
         <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px dashed #bfdbfe;">
-          <div style="font-size:0.72rem; font-weight:600; color:#3b82f6; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">Záložné miesto</div>
+          <div style="font-size:0.72rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">Záložné miesto</div>
           <div style="font-weight:600; font-size:0.85rem;">${esc(mp.backup.name)}</div>
           ${mp.backup.address ? `<div style="font-size:0.75rem; color:var(--c-muted);">${esc(mp.backup.address)}</div>` : ""}
         </div>`;
@@ -3815,11 +3939,11 @@
           <div style="display:flex; align-items:flex-start; gap:0.75rem; flex:1; min-width:0;">
             <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0; color:white;">📍</div>
             <div style="flex:1; min-width:0;">
-              <div style="font-size:0.68rem; font-weight:600; color:#3b82f6; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
+              <div style="font-size:0.68rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
               <div style="font-weight:800; font-size:1.0625rem; color:var(--c-text); margin-top:0.125rem;">${esc(mp.name)}</div>
               ${mp.address ? `<div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.125rem;">📌 ${esc(mp.address)}</div>` : ""}
               ${mp.note ? `<div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
-              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#3b82f6; margin-bottom:0.25rem;">⏰ ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
+              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">⏰ ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
             </div>
           </div>
           <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.78rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
@@ -3912,6 +4036,15 @@
           </div>
         </div>`;
       card.onclick = () => openScenarioModal(def.id);
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", def.title + (filled ? " – hotovo" : " – doplniť plán"));
+      card.onkeydown = (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openScenarioModal(def.id);
+        }
+      };
       box.appendChild(card);
     });
   }
@@ -4887,7 +5020,7 @@
     // Source
     if (Array.isArray(item.sources)) {
       html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${s.label}</a>` : s.label
+        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
       ).join("<br>")}</div>`;
     } else if (item.source) {
       html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
@@ -5031,7 +5164,7 @@
 
     if (contacts.length === 0) {
       grid.innerHTML = `
-        <div onclick="openPersonalContactModal(-1)" style="background:linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border:1.5px dashed #86efac; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div onclick="openPersonalContactModal(-1)" tabindex="0" role="button" aria-label="Pridať osobný kontakt" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPersonalContactModal(-1)}" style="background:linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border:1.5px dashed #86efac; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="width:44px; height:44px; border-radius:50%; background:#86efac; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0;">+</div>
             <div>
@@ -5063,7 +5196,7 @@
         const phoneClean = (c.phone||"").replace(/\s/g, "");
         const phone2Clean = (c.phone2||"").replace(/\s/g, "");
         html += `
-          <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem; cursor:pointer; transition:background 0.15s;" onclick="openPersonalContactModal(${c._idx})" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='var(--c-bg)'">
+          <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem; cursor:pointer; transition:background 0.15s;" tabindex="0" role="button" aria-label="${esc(c.name||'')} – ${cat.label}" onclick="openPersonalContactModal(${c._idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPersonalContactModal(${c._idx})}" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='var(--c-bg)'">
             <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${cat.emoji}</div>
             <div style="flex:1; min-width:0;">
               <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
@@ -5455,7 +5588,7 @@
           <div style="font-size:1.375rem; flex-shrink:0; margin-top:0.125rem;">💡</div>
           <div>
             <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravený evakuačný batoh?</div>
-            <div style="font-size:0.75rem; color:#a16207; line-height:1.6;">
+            <div style="font-size:0.75rem; color:#854d0e; line-height:1.6;">
               Pri evakuácii máte často len <strong>5–15 minút</strong> na odchod z budovy. 
               Bez pripraveného batohu zabudnete lieky, doklady alebo vodu – to sú najčastejšie chyby.
               Každý člen domácnosti by mal mať <strong>vlastný batoh pri dverách</strong>.
@@ -5463,7 +5596,7 @@
               Batoh by mal byť <strong>samostatný</strong> – nebalte kuchynské nože ani veci, ktoré denne používate.
             </div>
             <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg (10–15% telesnej hmotnosti) &nbsp;|&nbsp; Senior 20 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; Bábätko 5 kg (nosí rodič)</div>
-            <div style="font-size:0.68rem; color:#a16207; margin-top:0.25rem;">Zdroj: CZ 72h príručka (MV ČR, 2025), SK MINV – Civilná ochrana, UA DSNS – Evakuácia obyvateľstva, SE MSB – Om krisen eller kriget kommer (2024)</div>
+            <div style="font-size:0.68rem; color:#854d0e; margin-top:0.25rem;">Zdroj: CZ 72h príručka (MV ČR, 2025), SK MINV – Civilná ochrana, UA DSNS – Evakuácia obyvateľstva, SE MSB – Om krisen eller kriget kommer (2024)</div>
           </div>
         </div>
       </div>
@@ -5480,7 +5613,7 @@
       const progressColor = colorForPct(prog.pct);
 
       html += `
-        <div onclick="openEvacBagModal('${bagId}')" style="background:${t.bg}; border:1.5px solid ${t.border}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div onclick="openEvacBagModal('${bagId}')" tabindex="0" role="button" aria-label="${esc(bag.label)} – ${prog.done} z ${prog.total}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEvacBagModal('${bagId}')}" style="background:${t.bg}; border:1.5px solid ${t.border}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.75rem;">
             <div style="width:40px; height:40px; border-radius:50%; background:white; border:1.5px solid ${t.border}; display:flex; align-items:center; justify-content:center; font-size:1.125rem; flex-shrink:0;">${t.emoji}</div>
             <div>
@@ -5742,6 +5875,15 @@
         </div>
         <div class="siren-wave ${siren.wave === 'steady' ? 'siren-wave-steady' : ''}" style="background:${siren.bg}; border:1px solid ${siren.border};">${bars}</div>`;
       card.onclick = () => openSirenModal(siren);
+      card.setAttribute("tabindex", "0");
+      card.setAttribute("role", "button");
+      card.setAttribute("aria-label", siren.title + " – " + siren.duration);
+      card.onkeydown = (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openSirenModal(siren);
+        }
+      };
       grid.appendChild(card);
     });
   }
@@ -5808,7 +5950,7 @@
       html += `<div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--c-border);">
         <div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); margin-bottom:0.375rem;">ZDROJE</div>`;
       siren.sources.forEach(src => {
-        html += `<div style="margin-bottom:0.25rem;"><a href="${src.url}" target="_blank" rel="noopener" style="color:#3b82f6; font-size:0.75rem; text-decoration:underline;">${src.label}</a></div>`;
+        html += `<div style="margin-bottom:0.25rem;"><a href="${src.url}" target="_blank" rel="noopener" style="color:#2563eb; font-size:0.75rem; text-decoration:underline;">${src.label}</a></div>`;
       });
       html += `</div>`;
     }
@@ -6707,7 +6849,7 @@
 
     if (Array.isArray(item.sources)) {
       html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">${s.label}</a>` : s.label
+        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
       ).join("<br>")}</div>`;
     } else if (item.source) {
       html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
