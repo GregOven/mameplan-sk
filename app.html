@@ -5350,6 +5350,9 @@
   // ══════════════════════════════════════════════════════════════════
 
   const EMERGENCY_PROC_DATA = [
+    // ═══════════════════════════════════════════════════════════════
+    // PRÍRODNÉ HROZBY
+    // ═══════════════════════════════════════════════════════════════
     {
       id: "flood",
       emoji: "🌊",
@@ -5358,21 +5361,30 @@
       iconBg: "#eff6ff",
       iconBorder: "#bfdbfe",
       steps: [
-        { text: "<strong>Zatvorte všetky okná a dvere</strong> – zabráňte vniknutiu vody do obytných priestorov." },
-        { text: "<strong>Sledujte počasie a spravodajstvo</strong> – informácie z SHMÚ a médií sú kľúčové." },
-        { text: "<strong>Odstráňte nebezpečné látky</strong> – jedy, kyseliny a žieraviny, ktoré môžu reagovať s vodou." },
-        { text: "<strong>Vypnite elektrinu, vodu a plyn</strong> – predíďte úrazom a výbuchom." },
-        { text: "<strong>Pripravte si evakuačný batoh</strong> – doklady, lieky, voda, potraviny, oblečenie." },
-        { text: "<strong>Presuňte sa na vyvýšené miesto</strong> – v prípade časovej tiesne okamžite prerušte všetky aktivity." },
-        { text: "<strong>Nejazdite cez zaplavené cesty</strong> – ak neviete hĺbku vody. Rýchlo opustite auto, ktoré zalieva voda." },
-        { text: "<strong>Zavolajte 112</strong> z bezpečného miesta a počkajte na ďalšie inštrukcie." }
+        { header: "Pred povodňou (keď hrozí)" },
+        { text: "<strong>Sledujte výstrahy SHMÚ</strong> (shmu.sk) a správy z oficiálnych kanálov. Stupeň povodňovej aktivity naznačuje závažnosť." },
+        { text: "<strong>Pripravte si evakuačný batoh</strong> \u2013 doklady v nepremokavom obale, lieky, voda, potraviny, nabíjačka, baterka." },
+        { text: "<strong>Presuňte cennosti do vyšších poschodí</strong> \u2013 doklady, elektroniku, lieky, dôležité dokumenty." },
+        { text: "<strong>Pripravte si nádoby na pitnú vodu</strong> \u2013 kanistre alebo uzatvárateľné nádoby na odber vody z cisterien, ak bude prerušený vodovod." },
+        { text: "<strong>Odstráňte nebezpečné látky</strong> \u2013 jedy, kyseliny a žieraviny z miest, kam môže dosiahnuť voda." },
+        { header: "Počas povodne" },
+        { text: "<strong>Vypnite elektrinu (hlavný istič), plyn a vodu.</strong> Predídete úrazom elektrickým prúdom a úniku plynu." },
+        { text: "<strong>Zatvorte všetky okná a dvere.</strong> Utesnite prívod vody do pivnice ak je to možné." },
+        { text: "<strong>Presuňte sa na vyvýšené miesto</strong> \u2013 vyššie poschodie, podkrovie. V prípade časovej tiesne okamžite prerušte všetky aktivity." },
+        { text: "<strong>Nejazdite cez zaplavené cesty</strong> \u2013 stačí 30 cm vody na odplavenie auta. Ak voda stúpa v aute, ihneď vystúpte a presúvajte sa peši na vyvýšené miesto." },
+        { warn: "<strong>Záplavová voda je kontaminovaná</strong> \u2013 kanalizácia, chemikálie, baktérie. Vyhnite sa kontaktu, nepite ju." },
+        { header: "Po povodni" },
+        { text: "<strong>Nevstupujte do zaplavených budov</strong> kým nie sú skontrolované \u2013 hrozí zrútenie, kontaminácia, úraz elektrickým prúdom." },
+        { text: "<strong>Nepite vodu z kohútika</strong> kým úrady nepotvrdia jej bezpečnosť. Používajte len balenú vodu." },
+        { text: "<strong>Vyfoťte škody</strong> pre poisťovňu ešte pred upratovaním. Dokumentujte stav." },
+        { text: "<strong>Vyveťrajte a vysušte priestory</strong> \u2013 plesne sa tvoria do 24\u201348 hodín." }
       ],
-      warning: "Vyhnite sa cestovaniu cez rizikové oblasti. Uistite sa, že vaši blízki a susedia majú všetky informácie. Dbajte na vlastnú bezpečnosť.",
-      source: "SK MINV",
+      warning: "Pri 3. stupni povodňovej aktivity buďte pripravení na okamžitú evakuáciu. Uistite sa, že vaši blízki a susedia (hlavne starší) majú všetky informácie.",
+      source: "CZ 72h + SK MINV",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }]
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Voda a záplavy", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Povodne", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
     },
     {
       id: "earthquake",
@@ -5382,20 +5394,140 @@
       iconBg: "#fef3c7",
       iconBorder: "#fcd34d",
       steps: [
-        { text: "<strong>V budove zostaňte vo vnútri, mimo budovy zostaňte vonku</strong> – najviac úrazov sa stáva pri panických presunoch." },
-        { text: "<strong>Vyhľadajte vhodné miesto</strong> – postavte sa k opornému múru alebo pod rám dverí, nikdy nie k oknu." },
-        { text: "<strong>Ukryte sa pod stôl</strong> alebo pod najbližší odolný predmet." },
-        { text: "<strong>Nevstupujte do výťahu</strong> a na schodište." },
-        { text: "<strong>Vonku sa zdržiavajte ďalej</strong> od elektrického vedenia, stromov a pomníkov." },
-        { text: "<strong>Nepoužívajte otvorený oheň</strong> – hrozí výbuch plynu a následný požiar." },
-        { text: "<strong>V aute okamžite zastavte</strong> na otvorenom priestranstve a nevystupujte počas otrasov." }
+        { header: "Počas otrasov" },
+        { text: "<strong>DROP \u2013 COVER \u2013 HOLD ON</strong> (Padnite \u2013 Ukryte sa \u2013 Držte sa): Padnite na kolená, ukryte sa pod pevný stôl alebo nábytok, držte sa nohy stola a chráňte hlavu a krk." },
+        { text: "<strong>Ak nie je nábytok poruke</strong> \u2013 kľaknite si k vnútornej nosnej stene, skrčte sa a chráňte hlavu rukami. Nikdy nie k oknu." },
+        { text: "<strong>V budove zostaňte vo vnútri, mimo budovu zostaňte vonku</strong> \u2013 najviac úrazov sa stáva pri panických presunoch počas otrasov." },
+        { text: "<strong>Nevstupujte do výťahu</strong> \u2013 pri otrasoch sa môže zaseknúť." },
+        { text: "<strong>Vonku sa zdržiavajte ďalej</strong> od budov, elektrického vedenia, stromov a billboardov." },
+        { text: "<strong>V aute zastavte</strong> na otvorenom priestranstve, zapnite výstražné svetlá a nevystupujte počas otrasov. Vyhnite sa mostom a nadjazdom." },
+        { header: "Po otrasoch" },
+        { text: "<strong>Očakávajte dotrasovanie</strong> (aftershocks) \u2013 môžu byť takmer rovnako silné a prichádzajú minúty až dni po hlavnom otrase." },
+        { text: "<strong>Skontrolujte rozvody plynu</strong> \u2013 ak cítite plyn, otvorte okná, opustite budovu a zavolajte hasieb (150). Nepoužívajte otvorený oheň ani elektrické spínače." },
+        { text: "<strong>Skontrolujte blízkych a susedov.</strong> Pomôžte zraneným ak tým neohrozíte seba." },
+        { text: "<strong>Opatrne opustite poškodenú budovu</strong> \u2013 pozor na uvoľnené konštrukcie, rozbité sklo a spadnuté vedenie." },
+        { text: "<strong>Nepite vodu z vodovodu</strong> kým nie je overená \u2013 potrubie môže byť poškodené." }
       ],
-      warning: "Zachovajte pokoj a rozvahu. Po otrasoch skontrolujte blízkych a susedov. V úzkych uliciach hľadajte ochranu pod najbližšou bránou.",
+      warning: "Na Slovensku sú najrizikovejšie oblasti Komárno, Dobrá Voda, Žilina. Aj malé otrasy môžu poškodiť statiku budovy \u2013 po zemetrasení nechajte budovu skontrolovať odborníkom.",
       source: "SK MINV",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Zemetrasenie", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
       ]
     },
+    {
+      id: "storm",
+      emoji: "🌪️",
+      title: "Víchrica / búrka",
+      subtitle: "Silný vietor, búrky, krupobitie a tornádo",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { header: "Pred búrkou" },
+        { text: "<strong>Sledujte výstrahy SHMÚ</strong> \u2013 varovanie 2. a 3. stupňa znamená vážne nebezpečenstvo." },
+        { text: "<strong>Zabezpečte voľné predmety</strong> na dvoroch a balkónoch \u2013 záhradný nábytok, kvetináče, odpadkové koše sa môžu stať smrteľnými projektilmi." },
+        { text: "<strong>Zatvorte a zabezpečte všetky okná a dvere.</strong> Stiahnite rolety alebo žalúzie." },
+        { text: "<strong>Neparkujte pod stromami</strong> a pri chatrných budovách alebo billboardoch." },
+        { header: "Počas búrky" },
+        { text: "<strong>Zostaňte vnútri.</strong> Nezdržiavajte sa pri oknách." },
+        { text: "<strong>Vonku vyhľadajte pevnú budovu</strong> \u2013 vyhnite sa voľným plochám, horám, parkom, izolovaným stromom." },
+        { text: "<strong>Pri blesku</strong> \u2013 ak ste vonku, skrčte sa čo najnižšie (nie na zem naplocho). Vyhnite sa kovovým konštrukciám, vode a vyvýšeným miestam." },
+        { text: "<strong>V aute zostaňte v aute</strong> \u2013 je relatívne bezpečným úkrytom (Faradayova klietka). Zastavte mimo stromy a vedenie." },
+        { warn: "<strong>Pri tornáde:</strong> Ihneď do pivnice alebo vnútornej miestnosti bez okien v najnižšom podlaží. Ľahnite si na zem a zakryte hlavu." },
+        { header: "Po búrke" },
+        { text: "<strong>Pozor na spadnuté vedenie</strong> \u2013 nepribližujte sa. Zavolajte 112." },
+        { text: "<strong>Nejazdite cez zaplavené úseky ciest.</strong>" },
+        { text: "<strong>Skontrolujte strechu a okná</strong> \u2013 dokumentujte škody pre poisťovňu." }
+      ],
+      warning: "Zabezpečte domáce zvieratá. Nejazdite s ľahkými vozidlami po otvorených veterných plochách. Švédsko MSB odporúča: majte doma rádio na batérie \u2013 pri výpadku prúdu je to často jediný zdroj informácií.",
+      source: "SK MINV + SE MSB",
+      sources: [
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Víchrica", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }
+      ]
+    },
+    {
+      id: "landslide",
+      emoji: "⛰️",
+      title: "Zosuv pôdy",
+      subtitle: "Zosuvy pôdy, bahno a skalné zrútenia",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Sledujte varovné znaky</strong> \u2013 neobvyklé zvuky (praskanie stromov, skál), náhle zmeny hladiny tokov, praskliny v zemi alebo na stenách, naklonené stromy alebo stĺpy." },
+        { text: "<strong>Pri prívalovom daždi</strong> v horskom alebo kopcovitom teréne buďte v strehu \u2013 najväčšie riziko zosuvu je keď je zem nasiaknutá po dlhotrvajúcich dažďoch." },
+        { text: "<strong>Ak počujete hučanie alebo vidíte pohyb zeme \u2013 okamžite utekajte</strong> kolmo na smer zosuvu, na najbližšie vyvýšené miesto." },
+        { text: "<strong>V budove sa presuňte</strong> na vyššie poschodie, čo najďalej od strany budovy smerujúcej k svahu." },
+        { text: "<strong>Ak nemôžete uniknúť</strong> \u2013 skrčte sa za skupinu väčších stromov alebo v najodolnejšej časti budovy, chráňte si hlavu." },
+        { text: "<strong>Po zosuve</strong> \u2013 nepribližujte sa k okraju. Hľadajte zranených, ale nevstupujte do nestabilného terénu. Zavolajte 112." }
+      ],
+      warning: "Zosuv sa pohybuje rýchlosťou až 50 km/h \u2013 reagujte okamžite, nečakajte. Nikdy sa nevracajte po cestu zosuvu.",
+      source: "SK MINV",
+      sources: [
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Zosuvy pôdy", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
+    },
+    {
+      id: "heat",
+      emoji: "🌡️",
+      title: "Extrémne horúčavy",
+      subtitle: "Vlny horúčav a tepelné ohrozenie",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { header: "Prevencia" },
+        { text: "<strong>Pite dostatočne</strong> \u2013 min. 2\u20133 litre vody denne, aj keď nemáte smäd. Vyhýbajte sa alkoholu a kofeínu." },
+        { text: "<strong>Zdržiavajte sa v tieni a klimatizovaných priestoroch</strong> \u2013 hlavne medzi 11:00\u201316:00." },
+        { text: "<strong>Oblečenie:</strong> ľahké, vzdušné, svetlých farieb. Pokrývka hlavy, slnečné okuliare." },
+        { text: "<strong>Tieňte okná</strong> žalúziami alebo roletami \u2013 cez deň neotvárajte okná na slnečnej strane, veťrajte v noci a ráno." },
+        { text: "<strong>Nenechávajte NIKDY deti a zvieratá</strong> v zaparkovanom aute \u2013 teplota vnútri stúpne za 10 minút o 20°C." },
+        { header: "Rozpoznajte tepelný úpal (stav ohrozenia života)" },
+        { text: "<strong>Príznaky:</strong> teplota nad 40°C, horúca suchá koža (bez potenia!), zmätenosť, strata vedomia, kŕče." },
+        { text: "<strong>Volajte 155</strong> \u2013 ide o život ohrozujúci stav." },
+        { text: "<strong>Chlaďte postihnutého</strong> \u2013 presuňte do tieňa/chladu, zabaľte do mokrých handier, prikladajte ľad na krk, podpazušie a slabiny." },
+        { warn: "Tepelný úpal ≠ úžeh. Pri úpale telo PRESTANE regulovať teplotu. Bez pomoci je smrteľný." },
+        { header: "Riziková skupina" },
+        { text: "<strong>Seniori, malé deti, chronicky chorí a ľudia na liekoch</strong> (diuretiká, beta-blokátory) sú najviac ohrození \u2013 kontrolujte ich stav." }
+      ],
+      warning: "ERC 2025 odporúča pri prehriatí: aktívne chladenie (studená voda, ľad) čo najrýchlejšie. Pri teplotách nad 35°C v tieni sledujte výstrahy SHMÚ a obmedzte pobyt vonku na minimum.",
+      source: "SK MINV + ERC 2025",
+      sources: [
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Horúčavy", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "ERC Guidelines 2025 \u2013 Special Circumstances: Hyperthermia", url: "https://www.resuscitationjournal.com/article/S0300-9572(25)00265-5/fulltext" }
+      ]
+    },
+    {
+      id: "snow",
+      emoji: "❄️",
+      title: "Snehová kalamita",
+      subtitle: "Extrémne sneženie, ľadovica a nízke teploty",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { header: "Doma" },
+        { text: "<strong>Majte zásoby jedla, vody a liekov</strong> min. na 3 dni \u2013 obchody a lekárne môžu byť nedostupné." },
+        { text: "<strong>Pripravte si alternatívne vykurovanie</strong> \u2013 ak máte krb alebo piecku, majte zásobu dreva. Nikdy nekúrte grilom ani plynovým varičom vnútri (otrava CO!)." },
+        { text: "<strong>Obliekajte sa do vrstiev</strong> \u2013 teplé ponožky, čiapka, šál, rukavice. Spodná vrstva termoprádlo, stredná fleece, vonkajšia vetru-odolná." },
+        { text: "<strong>Chráňte vodovodné potrubie pred zamrznutím</strong> \u2013 nechajte vodu mierne kvapkať, izolujte trúbky." },
+        { header: "Vonku a v aute" },
+        { text: "<strong>Obmedzte jazdu autom.</strong> Ak musíte ísť, vezmite si: teplú deku, sviecu v plechovke (ohreje interiér), lopatu, trakčný posyp, nabité telefóny, teplé oblečenie." },
+        { text: "<strong>Ak uviazne auto v snehu \u2013 zostaňte v aute.</strong> Zapínajte kúrenie len na krátke intervaly a pootvorte okno (prevencia otravy CO z výfuku zasypaného snehom)." },
+        { text: "<strong>Nezdržiavajte sa dlho na mraze</strong> \u2013 omrzliny vznikajú rýchlejšie než si myslíte, hlavne na ušiach, nose, prstoch." },
+        { warn: "<strong>Rozpoznajte omrzliny:</strong> biela/vosková koža, necitlivosť, pichanie. Zahrejte postihnuté miesto telesným teplom (podpazušie). NIKDY netrte snehom!" },
+        { header: "Ak vypadne kúrenie" },
+        { text: "<strong>Zhromaždite sa v jednej miestnosti.</strong> Utesnite dvere do ostatných miestností dekami." },
+        { text: "<strong>Na podlahu položte koberce/deky,</strong> presuňte posteľ na najteplejšie miesto. Spite spoločne \u2013 zdieľané teplo je najúčinnejšie." }
+      ],
+      warning: "Nedotýkajte sa namrznutých kovových predmetov holými rukami. Vždy majte rezervné suché oblečenie. Alkohol zahrieva len krátkodobo a potom zvyšuje stratu tepla \u2013 v zime sa mu vyhnite.",
+      source: "SK MINV + SE MSB + CZ 72h",
+      sources: [
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Snehová kalamita", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" },
+        { label: "CZ 72h príručka \u2013 Ako zostať v teple", url: "https://www.72h.gov.cz" }
+      ]
+    },
+    // ═══════════════════════════════════════════════════════════════
+    // HAVÁRIE A OHROZENIA
+    // ═══════════════════════════════════════════════════════════════
     {
       id: "fire",
       emoji: "🔥",
@@ -5404,19 +5536,30 @@
       iconBg: "#fef2f2",
       iconBorder: "#fecaca",
       steps: [
-        { text: "<strong>Ohláste požiar na číslo 150 alebo 112</strong> – z bezpečného miesta, bez zbytočného odkladu." },
-        { text: "<strong>Ak je to možné, požiar uhaste</strong> alebo spravte opatrenia na zamedzenie jeho šírenia." },
-        { text: "<strong>Uzavrite prívod plynu a elektriny.</strong>" },
-        { text: "<strong>Ihneď opustite ohrozený priestor</strong> – informujte osoby, ktoré môžu byť ohrozené." },
-        { text: "<strong>Poskytnite pomoc</strong> tým, ktorí ju potrebujú – ak tým neohrozíte seba." },
-        { text: "<strong>Uvoľnite prístupové cesty</strong> záchranným zložkám – minimálne 3 metre." }
+        { header: "Únik z horiaceho priestoru" },
+        { text: "<strong>Ohláste požiar na 150 alebo 112</strong> \u2013 aj keď si myslíte, že ho zvládnete uhasiť sami." },
+        { text: "<strong>Pred otvorením dverí priložte dlaň na kľučku</strong> \u2013 ak je horúca, za dverami je oheň. Neotvárajte a hľadajte inú cestu." },
+        { text: "<strong>Pohybujte sa pri zemi</strong> \u2013 dym stúpa hore, pri podlahe je lepší vzduch. Plazením k východu." },
+        { text: "<strong>Zakryte si nos a ústa</strong> navlhčenou tkaninou \u2013 zmenšíte vdýchnutie toxických splodín." },
+        { text: "<strong>Zatvárajte za sebou dvere</strong> (nezamykajte) \u2013 spomaľuje to šírenie ohňa a dymu." },
+        { text: "<strong>Nikdy sa nevracajte do horiaceho objektu</strong> \u2013 za žiadnych okolností." },
+        { header: "Ak nemôžete uniknúť" },
+        { text: "<strong>Zavrite dvere miestnosti,</strong> utesnite špáry mokrými handramí alebo oblečením." },
+        { text: "<strong>Dajte o sebe vedieť</strong> \u2013 volajte z okna, svieťte telefónom, klopte na stenu." },
+        { text: "<strong>Neotvárajte okná dokorán</strong> \u2013 privan vzduch podporí oheň. Pootvorte len na dýchanie." },
+        { header: "Prvotné hasenie (ak je bezpečné)" },
+        { text: "<strong>Malý požiar (do 1 m²)</strong> \u2013 použite hasiaci prístroj alebo mokrú deku. Smerujte prúd na základňu plameňa." },
+        { text: "<strong>Olej na panvici</strong> \u2013 NIKDY nelejte vodu! Prikryte pokrievkou alebo mokrou handrou. Vypnite sporák." },
+        { text: "<strong>Elektrika</strong> \u2013 najprv vypnite istič, potom haste. Nikdy nehaste vodou zapojené zariadenia." },
+        { text: "<strong>Uzavrite prívod plynu.</strong>" },
+        { text: "<strong>Uvoľnite prístupové cesty hasičom</strong> \u2013 minimálne 3 metre." }
       ],
-      warning: "Na výzvu veliteľa zásahu poskytnite vecnú alebo osobnú pomoc. Nikdy sa nevracajte do horiacej budovy.",
-      source: "SK MINV",
+      warning: "Dym zabíja rýchlejšie ako oheň \u2013 3 nádychy toxického dymu môžu spôsobiť bezvedomie. CZ príručka 72h: majte doma funkčný hasiaci prístroj a detektor dymu.",
+      source: "SK MINV + CZ 72h",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }]
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Požiar", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Požiar", url: "https://www.72h.gov.cz" }
+      ]
     },
     {
       id: "blackout",
@@ -5427,40 +5570,95 @@
       iconBorder: "#e2ddd5",
       steps: [
         { header: "Okamžité kroky" },
-        { text: "<strong>Odpojte elektrické spotrebiče zo zásuviek.</strong> Najjednoduchšie je vypnúť hlavný ističe – ochránite spotrebiče pred poškodením pri obnovení prúdu." },
-        { text: "<strong>Platobné karty a bankomaty nebudú fungovať.</strong> Majte doma hotovosť (mince aj bankovky) na niekoľko dní." },
+        { text: "<strong>Overte rozsah výpadku</strong> \u2013 svieti sa u susedov? Skontrolujte ističe. Ak je výpadok plošný, vypnite hlavný istič \u2013 ochránite spotrebiče pri obnovení prúdu." },
+        { text: "<strong>Platobné karty a bankomaty nebudú fungovať.</strong> Majte doma hotovosť (€70\u2013100 na osobu) v malých nomináloch." },
         { note: "Do niekoľkých hodín prestanú fungovať aj telefónne siete. Významne sa obmedzí väčšina základných služieb." },
         { header: "Jedlo a zásoby" },
-        { text: "<strong>Ledničku a mrazák otvárajte čo najmenej</strong> – potraviny zostanú chladené dlhšie." },
-        { text: "<strong>Niektoré veci premiestnite z mrazáku do lednice</strong> – pomôže to udržať v nej chlad." },
-        { text: "<strong>Kontrolujte podlahu</strong> – pri tání môže vytekať voda." },
+        { text: "<strong>Ledničku a mrazák otvárajte čo najmenej</strong> \u2013 potraviny v neotvorenom mrazáku vydržia 24\u201348 hodín." },
+        { text: "<strong>Premiestnite niečo z mrazáku do lednice</strong> \u2013 pomôže udržať v nej chlad." },
+        { text: "<strong>Kontrolujte podlahu</strong> \u2013 pri tání môže vytekať voda." },
         { text: "<strong>Rozmrazené potraviny spotrebujte čo najrýchlejšie.</strong> Ak ich chcete znova zmraziť, najprv ich tepelne spracujte." },
-        { text: "<strong>V zime skladujte potraviny vonku</strong> – chráňte ich pred zvieratami, vlhkosťou a priamym slnkom." },
-        { text: "<strong>Jedlo pripravte bez elektriny:</strong> kuskus, instantná kaša, obilné vločky stačí zaliať studenou vodou. Varenie na kempingovom variči alebo grile – s ohňom zaobchádzajte opatrne." },
-        { header: "Ako zostať v teple" },
-        { text: "<strong>Dostatok teplého oblečenia, obuvi a prikrývok</strong> pre všetkých členov domácnosti." },
-        { text: "<strong>Udržiavajte teplo len v jednej miestnosti.</strong> Ostatné miestnosti používajte čo najmenej." },
-        { text: "<strong>Zavrite dvere do ostatných miestností</strong> a otvory utesnite závesom alebo dekami." },
-        { text: "<strong>Na podlahu položte koberec alebo prikrývky.</strong> Obliečte sa do vrstiev priedušného oblečenia." },
-        { text: "<strong>Presunete posteľ na najteplejšie miesto</strong> – všetci v domácnosti by mali tráviť čas a spať v jednej miestnosti." },
-        { warn: "<strong>Alkohol</strong> zahrieva len krátkodobo a piť ho v kríze môže byť nebezpečné – znižuje pozornosť a zhoršuje úsudok. Lepšie sa mu úplne vyhnúť." },
+        { text: "<strong>V zime skladujte potraviny vonku</strong> \u2013 chráňte ich pred zvieratami a priamym slnkom." },
+        { text: "<strong>Jedlo bez elektriny:</strong> kuskus, instantná kaša, vločky stačí zaliať studenou vodou. Kempingový varič alebo gril \u2013 <strong>používajte len vonku!</strong>" },
+        { header: "Ako zostať v teple (zima)" },
+        { text: "<strong>Zhromaždite sa v jednej miestnosti.</strong> Dvere do ostatných miestností zatvorte a utesnite dekou." },
+        { text: "<strong>Na podlahu položte koberec alebo prikrývky.</strong> Oblečte si viaceré vrstvy priedušného oblečenia." },
+        { text: "<strong>Presuňte posteľ na najteplejšie miesto</strong> \u2013 spite spoločne pod všetkými prikrývkami." },
+        { warn: "<strong>Alkohol</strong> zahrieva len krátkodobo \u2013 znižuje pozornosť a zhoršuje termoreguláciu. Lepšie sa mu vyhnúť." },
         { header: "Toaleta a hygiena" },
-        { text: "<strong>Plošný výpadok elektriny môže prerušiť dodávky vody.</strong> Toaletu spláchnuteľ iba raz, potom sa nádržka nenapĺňa." },
+        { text: "<strong>Plošný výpadok elektriny prerušuje dodávky vody.</strong> Toaletu spláchnete iba raz, potom sa nádržka nenapĺňa." },
         { text: "<strong>Pri prerušení vody aj elektriny</strong> používajte toaletu len v nevyhnutných prípadoch. Na umytie rúk používajte dezinfekciu." },
-        { note: "<strong>Nouzové riešenie:</strong> do záchodovej misy vložíte odpadkový pytel, dáte naň toaletný papier, noviny alebo kočkolit. Po použití pytel pevne zaviažete a vložíte do ďalších dvoch vriec." },
-        { header: "Mobilný telefón" },
-        { text: "<strong>Telefón používajte len v najnutnejších prípadoch.</strong> Sieť môže byť preťažená alebo nefunkčná." },
-        { text: "<strong>Obmedzite sťahovanie dát</strong> a zbytočnú komunikáciu, šetrite batériu." },
-        { header: "Keď sa dodávky elektriny obnovia" },
-        { text: "<strong>Skontrolujte všetky elektrické spotrebiče a osvetlenie</strong> v byte alebo dome." },
-        { text: "<strong>Uistite sa, že nie je zapnutý sporák</strong> alebo iný spotrebič, ktorý by mohol byť nebezpečný." },
-        { text: "<strong>Overte stav potravín</strong> v lednici a mrazáku." }
+        { note: "<strong>Núdzové riešenie toalety:</strong> do záchodovej misy vložte odpadkový pytel, dajte naň toaletný papier, noviny alebo kočkolit. Po použití pytel pevne zaviažte a vložte do ďalších dvoch vriec." },
+        { header: "Komunikácia" },
+        { text: "<strong>Telefón používajte len v najnutnejších prípadoch.</strong> Šetrite batériu \u2013 letový režim, nízky jas." },
+        { text: "<strong>Rádio na batérie</strong> \u2013 môže byť jediný zdroj informácií. Slovenský rozhlas vysiela krízové informácie." },
+        { header: "Po obnovení dodávok" },
+        { text: "<strong>Skontrolujte spotrebiče</strong> \u2013 uistite sa, že nie je zapnutý sporák alebo iný spotrebič." },
+        { text: "<strong>Overte stav potravín</strong> v lednici a mrazáku \u2013 ak boli dlhšie ako 4 hodiny nad 5°C, zahoďte ich." }
       ],
-      warning: "Pozor: V budovách s diaľkovým vykurovaním môže byť teplá voda počas výpadku prúdu nebezpečne horúca až vrúca.",
+      warning: "Pozor: V budovách s diaľkovým vykurovaním môže byť teplá voda počas výpadku prúdu nebezpečne horúca. Nikdy nekúrte vnútri grilom alebo plynovým varičom \u2013 hrozí otrava oxidom uhoľnatým!",
+      source: "CZ 72h + SK MINV + SE MSB",
+      sources: [
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Výpadok elektriny", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }
+      ]
+    },
+    {
+      id: "water_outage",
+      emoji: "🚰",
+      title: "Výpadok vody",
+      subtitle: "Prerušenie dodávok pitnej vody",
+      iconBg: "#eff6ff",
+      iconBorder: "#bfdbfe",
+      steps: [
+        { header: "Okamžité kroky" },
+        { text: "<strong>Napustite si vodu</strong> kým ešte tečie \u2013 do vane, vedier, hrncov, PET fliaš. Každý liter sa počíta." },
+        { text: "<strong>Použite zásoby balenej vody na pitie.</strong> Minimum 2 litre na osobu/deň (SK MINV odporúča 3\u20135 l)." },
+        { text: "<strong>Pripravte si uzatvárateľné nádoby</strong> (kanistre) \u2013 na odber vody z cisterien alebo výdajných miest." },
+        { header: "Hospodárenie s vodou" },
+        { text: "<strong>Pitnú vodu používajte len na pitie a varenie.</strong> Na umývanie rúk stačí dezinfekčný gél." },
+        { text: "<strong>Nepoužívajte umývačku riadu.</strong> Riad umývajte minimálnym množstvom vody do lavóra." },
+        { text: "<strong>Toaletu splachujte len v nevyhnutnom prípade</strong> \u2013 použite dažďovú vodu, vodu z vane alebo starú vodu z varenia." },
+        { text: "<strong>Oblečenie neperte</strong> \u2013 prezliekajte sa a perte až po obnovení dodávok." },
+        { header: "Núdzové zdroje vody" },
+        { text: "<strong>Cistierna</strong> \u2013 sledujte oznámenia obce/vodárenskej spoločnosti o výdajných miestach." },
+        { text: "<strong>Zásobníky na ohrev vody</strong> (bojler) \u2013 obsahujú 50\u2013200 litrov vody, ktorá sa dá použiť (vypustite z výpustného ventilu)." },
+        { text: "<strong>Studňa</strong> \u2013 ak máte, overte kvalitu vody pred pitím (chemické znečistenie po povodniach)." },
+        { warn: "<strong>Vodu z neznámeho zdroja vždy prevárajte</strong> minimálne 1 minútu v plnom vare. Eliminujete baktérie (nie chemikálie)." },
+        { header: "Hygiena" },
+        { text: "<strong>Mokré obrúsky a dezinfekcia</strong> sú nevyhnutné \u2013 majte ich v zásobách." },
+        { text: "<strong>Na čistenie zubov</strong> použite balenú vodu, nie vodu z vodovodu (potrubie môže byť kontaminované)." }
+      ],
+      warning: "Po obnovení dodávok nechajte vodu tiecť niekoľko minút pred použitím \u2013 v potrubí môže byť znečistená. CZ príručka 72h: výpadok vody býva často sprievodným javom výpadku elektriny.",
       source: "CZ 72h + SK MINV",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" },
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Výpadok vody", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
+    },
+    {
+      id: "gas_leak",
+      emoji: "💨",
+      title: "Únik plynu",
+      subtitle: "Únik zemného plynu v budove alebo okolí",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { text: "<strong>Ak cítite plyn \u2013 NEPANIKUJTE, ale konajte rýchlo.</strong>" },
+        { text: "<strong>Nefajčite, neškrtajte zápalkou, nepoužívajte elektrické vypínače</strong> (ani nezapínajte, ani nevypínajte svetlo!). Iskra môže spôsobiť výbuch." },
+        { text: "<strong>Nepoužívajte zvončeky, telefón ani žiadne elektronické zariadenie</strong> v priestore s plynom." },
+        { text: "<strong>Otvorte okná a dvere dokorán</strong> \u2013 vytvorte prievan na odvetranie." },
+        { text: "<strong>Uzavrite hlavný ventil plynu</strong> \u2013 zvyčajne pri plynomere alebo pred sporákm. Otáčajte kolmo na potrubie = zavreté." },
+        { text: "<strong>Opustite budovu</strong> \u2013 vezmite si len kľúče a telefón. Varujte susedov." },
+        { text: "<strong>Až vonku zavolajte:</strong><br>\u2022 <strong>SPP poruchová linka: 0850 111 727</strong><br>\u2022 <strong>Hasiči: 150</strong><br>\u2022 <strong>Tiesňová linka: 112</strong>" },
+        { text: "<strong>Nevstupujte späť do budovy</strong> kým situáciu nevyhodnotí plynár alebo hasič." }
+      ],
+      warning: "Zemný plyn je bez zápachu \u2013 charakteristický zápach (po sírke) je pridaný odorizant. Ak cítite tento zápach, VŽDY to berte vážne. Oxid uhoľnatý (CO) je bez zápachu aj bez farby \u2013 preto je detektor CO v domácnosti nevyhnutný.",
+      source: "SK MINV + SPP",
+      sources: [
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Únik plynu", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "SPP \u2013 Poruchová linka a bezpečnosť", url: "https://www.spp.sk/" }
       ]
     },
     {
@@ -5471,190 +5669,99 @@
       iconBg: "#fef3c7",
       iconBorder: "#fcd34d",
       steps: [
-        { text: "<strong>Urýchlene opustite ohrozené miesto.</strong>" },
-        { text: "<strong>Ukryte sa v uzavretej miestnosti</strong> – vytvorte izolovaný uzavretý priestor." },
-        { text: "<strong>Vypnite ventiláciu a klimatizáciu.</strong>" },
+        { header: "Ak ste vonku" },
+        { text: "<strong>Okamžite sa vzďaľte</strong> od zdroja úniku \u2013 ideálne kolmo na smer vetra." },
+        { text: "<strong>Chráňte si dýchacie cesty</strong> \u2013 navlhčenou tkaninou, šálom, čímkoľvek. Dýchajte plytko." },
+        { text: "<strong>Chráňte si oči</strong> \u2013 okuliare, lyžiarske okuliare, čokoľvek." },
+        { text: "<strong>Presúvajte sa do vyšších polôh</strong> \u2013 väčšina nebezpečných plynov (chlór, fosgén) je ťažšia ako vzduch a hromadí sa v nížinách, pivniciach a priehlbinách." },
+        { warn: "<strong>Nikdy sa neukrývajte do pivníc</strong> a terénnych nerovností \u2013 chemické látky sú často ťažšie než vzduch a hromadia sa tam!" },
+        { header: "Ak ste doma (shelter-in-place)" },
+        { text: "<strong>Zostaňte doma!</strong> Zatvorte a utesnite okná, dvere, vetracie otvory." },
+        { text: "<strong>Vypnite ventiláciu, klimatizáciu, digestor.</strong>" },
         { text: "<strong>Uhaste otvorený oheň</strong> a vypnite plynové spotrebiče." },
-        { text: "<strong>Chráňte si dýchacie cesty a oči</strong> – navlhčenou tkaninou, improvizovaným rúškom." },
-        { text: "<strong>Sledujte informácie</strong> na oficiálnych komunikačných kanáloch." },
-        { text: "<strong>Telefonujte len v súrnom prípade</strong> – nezaťažujte siete." },
-        { text: "<strong>Nikdy sa neukrývajte do pivníc</strong> a terénnych nerovností – chemické látky sú často ťažšie než vzduch." }
+        { text: "<strong>Na utesnenie</strong> použite mokré handry, igelitové vrecia a lepiacu pásku na špáry okien a dverí." },
+        { text: "<strong>Presúvajte sa do vyšších poschodí</strong> \u2013 ak je to možné, na 2.+ poschodie." },
+        { header: "Ak ste boli vystavení chemikáliám" },
+        { text: "<strong>Odložte kontaminovaný odev</strong> do nepriedušného vreca." },
+        { text: "<strong>Osprchujte sa veľkým množstvom vody</strong> \u2013 min. 15 minút. Neumývajte sa teplou vodou (otvára póry)." },
+        { text: "<strong>Vypláchnite oči</strong> čistou vodou min. 15 minút." },
+        { text: "<strong>Vyhľadajte lekársku pomoc</strong> \u2013 aj keď sa cítite dobre. Niektoré látky majú oneskorený účinok (6\u201324 hodín)." }
       ],
-      warning: "Pripravte si evakuačný batoh. Nakŕmte domáce zvieratá a uzatvorte ich v prepravných boxoch. Čakajte na pokyny záchranných zložiek.",
-      source: "SK MINV",
+      warning: "Telefonujte len v súrnom prípade \u2013 nezaťažujte siete. Pripravte si evakuačný batoh pre prípad, že bude nariadená evakuácia. Sledujte pokyny na oficiálnych kanáloch.",
+      source: "SK MINV + CZ 72h",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }]
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Chemický únik", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "CZ 72h príručka (MV ČR, 2025)", url: "https://www.72h.gov.cz" }
+      ]
     },
     {
       id: "radiation",
       emoji: "☢️",
       title: "Rádioaktívny únik",
-      subtitle: "Únik nebezpečných rádioaktívnych látok",
+      subtitle: "Jadrová havária alebo rádioaktívna kontaminácia",
       iconBg: "#fef3c7",
       iconBorder: "#fcd34d",
       steps: [
-        { text: "<strong>Na otvorenom priestranstve ihneď vyhľadajte najbližšiu budovu.</strong>" },
-        { text: "<strong>Ukryte sa</strong> – zdržiavajte sa v stredových miestnostiach na prízemí alebo v suteréne." },
-        { text: "<strong>Ak ste mohli prísť do styku s rádioaktívnymi látkami:</strong> odložte kontaminovaný odev do nepriedušného obalu, umyte si ruky, tvár, vlasy, vypláchnite oči a ústa, osprchujte sa a vymeňte bielizeň." },
-        { text: "<strong>Uzatvorte a utesnite okná, dvere</strong> – vypnite ventiláciu a utesnite ďalšie otvory." },
-        { text: "<strong>Zabezpečte potraviny a vodu</strong> pred kontamináciou pomocou vzduchotesne uzavretých nádob." },
-        { text: "<strong>Nepožívajte nechránené potraviny</strong>, ovocie a zeleninu z voľného priestranstva." },
-        { text: "<strong>Evakuáciu vykonajte</strong> až na základe pokynov záchranárov alebo oficiálneho vyhlásenia." }
+        { header: "Okamžitá ochrana" },
+        { text: "<strong>Ihneď do budovy!</strong> Na otvorenom priestranstve vyhľadajte najbližšiu pevnú budovu." },
+        { text: "<strong>Choďte čo najhlbšie</strong> \u2013 stredové miestnosti na prízemí alebo suterén. Čím viac stien medzi vami a vonkajším prostredím, tým lepšie." },
+        { text: "<strong>Uzatvorte a utesnite okná, dvere,</strong> vetracie otvory. Vypnite ventiláciu a klimatizáciu." },
+        { text: "<strong>Zabezpečte potraviny a vodu</strong> \u2013 hermeticky uzavrite v nádobách. Nepožívajte ovocie, zeleninu a potraviny z voľného priestranstva." },
+        { header: "Ak ste boli vonku počas úniku" },
+        { text: "<strong>Odložte kontaminovaný odev</strong> do nepriedušného obalu \u2013 mimo obytné priestory." },
+        { text: "<strong>Umyte si ruky, tvár, vlasy šampónom</strong> (nie kondicionérom \u2013 viaže častice). Vypláchnite oči a ústa." },
+        { text: "<strong>Osprchujte sa a vymeňte bielizeň.</strong>" },
+        { header: "Jódové tablety" },
+        { text: "<strong>Jodid draselný (KI)</strong> \u2013 užite LEN na pokyn úradov. Chráni štítnu žľazu pred rádioaktívnym jódom." },
+        { note: "Fínsko (72 tuntia) odporúča mať doma jódové tablety. Na Slovensku ich vydávajú úrady v prípade jadrovej havárie (Jaslovské Bohunice, Mochovce)." },
+        { header: "Jadrový výbuch \u2013 UA DSNS odporúčania" },
+        { text: "<strong>Ak vidíte záblesk:</strong> NEPOZERAJTE SA naň (popáleniny rohovky). Okamžite ľahnite na zem tvárou nadol, nohy smerom k výbuchu, ruky pod telo, zakryte si uši." },
+        { text: "<strong>Čakajte na tlakovú vlnu</strong> \u2013 po prechode vlny okamžite utekajte do najbližšej budovy." },
+        { text: "<strong>V úkryte zostaňte min. 24 hodín</strong> \u2013 rádioaktívny spád je najsilnejší v prvých hodinách." },
+        { text: "<strong>Evakuáciu vykonajte</strong> až na pokyn úradov." }
       ],
-      warning: "Sledujte informácie na oficiálnych komunikačných kanáloch. Pripravte si prostriedky improvizovanej ochrany a evakuačný batoh.",
-      source: "SK MINV",
+      warning: "Rádioaktívne častice nie sú vidieť ani cítiť. VŽDY berte varovanie úradov vážne. Švédsko MSB (2024) a Fínsko (72 tuntia) zdôrazňujú: príprava na jadrovú hrozbu je súčasť civilnej pripravenosti v Európe.",
+      source: "SK MINV + UA DSNS + SE MSB + FI 72 tuntia",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "\u0160v\u00E9dsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }]
-    },
-    {
-      id: "landslide",
-      emoji: "⛰️",
-      title: "Zosuv pôdy",
-      subtitle: "Zosuvy pôdy a prívalové bahno",
-      iconBg: "#fef3c7",
-      iconBorder: "#fcd34d",
-      steps: [
-        { text: "<strong>Sledujte zmeny okolia</strong> – neobvyklé zvuky (praskajúce stromy, skaly), náhle zmeny hladiny tokov, viditeľné zmeny povrchu zeme." },
-        { text: "<strong>V budove sa zdržujte</strong> čo najďalej od možného ohrozenia, na vyššom poschodí. Schovajte sa pod pevný nábytok." },
-        { text: "<strong>Vonku sa presuňte</strong> mimo trasy zosuvu na najbližšie vyvýšené miesto." },
-        { text: "<strong>Ak nemôžete uniknúť</strong> – schovajte sa za skupinu väčších stromov alebo v najodolnejšej budove." },
-        { text: "<strong>Zavolajte 112</strong> z bezpečného miesta a počkajte na inštrukcie." }
-      ],
-      warning: "Najväčšie riziko zosuvu je pri prívalovom daždi, hlavne ak je zem nasiaknutá po dlhotrvajúcich dažďoch.",
-      source: "SK MINV",
-      sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Radiačná udalosť", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "UA DSNS \u2013 Ako sa chrániť pred jadrovým útokom", url: "https://dovidka.info/en/yak-diyaty-v-razi-zastosuvannya-brudnoyi-bomby-yadernoyi-ataky-chy-avariyi-na-aes/" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }
       ]
-    },
-    {
-      id: "storm",
-      emoji: "🌪️",
-      title: "Víchrica",
-      subtitle: "Víchrica a silný vietor",
-      iconBg: "#eff6ff",
-      iconBorder: "#bfdbfe",
-      steps: [
-        { text: "<strong>Nevychádzajte z domu</strong> ak nemusíte." },
-        { text: "<strong>Nezdržiavajte sa na voľných plochách.</strong>" },
-        { text: "<strong>Zatvorte a zabezpečte okná a dvere.</strong>" },
-        { text: "<strong>Odložte z dvorov voľne položené predmety</strong> – môžu sa stať nebezpečnými projektilmi." },
-        { text: "<strong>Neparkujte pod stromami</strong> a pri chatrných budovách." },
-        { text: "<strong>Vyhnite sa pohybu v horách a parkoch.</strong>" }
-      ],
-      warning: "Zabezpečte domáce zvieratá. Nejazdite s ľahkými vozidlami po otvorených veterných plochách.",
-      source: "SK MINV",
-      sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "\u0160v\u00E9dsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }]
     },
     {
       id: "terror",
       emoji: "🚨",
       title: "Teroristický útok",
-      subtitle: "Bombový útok alebo streľba",
+      subtitle: "Streľba, bombový útok alebo útok vozidlom",
       iconBg: "#fef2f2",
       iconBorder: "#fecaca",
       steps: [
-        { text: "<strong>Ak máte únikovú cestu – utečte.</strong> Zoberte si iba telefón, prepnite ho do tichého režimu." },
-        { text: "<strong>Varujte ostatných</strong> pred vstupom do nebezpečnej zóny." },
-        { text: "<strong>Ak nemôžete utiecť – schovajte sa.</strong> Zamknite dvere, kľúč ponechajte v zámku." },
-        { text: "<strong>Nezdržujte sa v blízkosti okien</strong> – schovajte sa za pevné veľké predmety." },
-        { text: "<strong>Pri bezprostrednom ohrození bojujte.</strong> Použite predmety v okolí – palica, kľúče, hasiaci prístroj." },
-        { text: "<strong>Volajte 158 alebo 112</strong> – inak zbytočne netelefonujte." },
-        { text: "<strong>Nezdieľajte záznamy na sociálnych sieťach</strong> – môžu byť zneužité." }
+        { header: "UTEČTE (ak máte únikovú cestu)" },
+        { text: "<strong>Opustite priestor najrýchlejšou bezpečnou cestou.</strong> Zoberte si iba telefón." },
+        { text: "<strong>Varujte ostatných</strong> pred vstupom do nebezpečnej zóny \u2013 ale nečakajte na nikoho, kto nechce ísť." },
+        { text: "<strong>Nechajte za sebou otvorené dvere</strong> \u2013 uľahčíte únik ďalším ľuďom." },
+        { text: "<strong>Neutekajte priamočiaro</strong> \u2013 cik-cak pohyb, za prekážkami, z dosahu útočníka." },
+        { header: "SKRYTE SA (ak nemôžete utiecť)" },
+        { text: "<strong>Zamknite dvere,</strong> kľúč nechajte v zámku. Zabarikádujte nábytkom." },
+        { text: "<strong>Nezdržujte sa pri oknách a stenách smerujúcich na chodbu.</strong>" },
+        { text: "<strong>Schovajte sa za pevné predmety</strong> \u2013 betónová stena, ťažký nábytok, pilier." },
+        { text: "<strong>Stíšte telefón</strong> (aj vibrácie!). Nepíšte na sociálne siete \u2013 prezrádzate svoju pozíciu." },
+        { text: "<strong>Zostaňte skrytí</strong> kým vás neoslobodí polícia." },
+        { header: "BRÁŇTE SA (posledná možnosť)" },
+        { text: "<strong>Len pri bezprostrednom ohrožení života</strong> \u2013 bojujte so všetkým čo máte." },
+        { text: "<strong>Použite predmety v okolí:</strong> hasiaci prístroj (oslepí + údery), stolička, fľaša, kľúče, pero." },
+        { text: "<strong>Konajte rozhodne a agresívne.</strong> Cieľte na oči a hrdlo." },
+        { header: "Po zásahu polície" },
+        { text: "<strong>Ukážte prázdne ruky</strong> \u2013 polícia netuší kto je útočník. Nerobte prudké pohyby." },
+        { text: "<strong>Poslúchajte pokyny policajtov</strong> \u2013 aj keď idú opačným smerom od východu." },
+        { text: "<strong>Nezdieľajte videá na sociálnych sieťach</strong> \u2013 môžu byť zneužité útočníkmi." }
       ],
-      warning: "Plňte pokyny vydané oprávnenými osobami. Ak neohrozíte seba, poskytnite pomoc tým, ktorí ju potrebujú. Sledujte informácie na oficiálnych kanáloch.",
-      source: "SK MINV",
+      warning: "Po výbuchu môžu nasledovať ďalšie útoky (tzv. double tap). Ak nie ste zranení, vzďaľte sa z miesta čo najďalej. Ak neohrozíte seba, poskytnite pomoc zraneným.",
+      source: "SK MINV + UA DSNS",
       sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "UA DSNS \u2013 Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" }]
-    },
-    {
-      id: "heat",
-      emoji: "🌡️",
-      title: "Horúčavy",
-      subtitle: "Extrémne vysoké teploty",
-      iconBg: "#fef3c7",
-      iconBorder: "#fcd34d",
-      steps: [
-        { text: "<strong>Zdržiavajte sa v tieni</strong> – vyhýbajte sa priamemu slnku." },
-        { text: "<strong>Dodržiavajte pitný režim</strong> a ľahšie sa stravujte." },
-        { text: "<strong>Vhodne sa obliekajte</strong> – ľahké, vzdušné oblečenie svetlých farieb." },
-        { text: "<strong>Tieňte okná</strong> žalúziami alebo roletami – zabráňte prenikaniu slnečných lúčov." },
-        { text: "<strong>Osviežte sa vlažnou sprchou</strong> aspoň raz denne – pozor na príliš studenú vodu." },
-        { text: "<strong>Nenechávajte deti a zvieratá</strong> v zaparkovaných autách – nikdy, v žiadnom prípade." }
-      ],
-      warning: "Používajte krémy s UV ochranou. Zabezpečte dostatok tekutín pre zvieratá a úkryt pred slnkom.",
-      source: "SK MINV",
-      sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Teroristický útok", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "UA DSNS \u2013 Príručka pre prípad núdze alebo vojny", url: "https://dovidka.info/" }
       ]
-    },
-    {
-      id: "snow",
-      emoji: "❄️",
-      title: "Snehová kalamita",
-      subtitle: "Extrémne sneženie a nízke teploty",
-      iconBg: "#eff6ff",
-      iconBorder: "#bfdbfe",
-      steps: [
-        { text: "<strong>Obmedzte automobilovú prepravu</strong> – hrozí uviaznutie vozidiel." },
-        { text: "<strong>Neblokujte odhrnuté cesty</strong> – záchranné zložky musia prejsť." },
-        { text: "<strong>Sledujte predpovede</strong> na stránke SHMÚ (shmu.sk)." },
-        { text: "<strong>Neparkujte pod stromami</strong> a pri chatrných budovách." },
-        { text: "<strong>Používajte viac vrstiev oblečenia</strong> – teplé ponožky, čiapku, šál, rukavice." },
-        { text: "<strong>Nezdržiavajte sa dlho na mraze</strong> – športové aktivity presuňte do interiéru." },
-        { text: "<strong>Zabezpečte domáce zvieratá</strong> pred mrazom." }
-      ],
-      warning: "Nedotýkajte sa namrznutých kovových predmetov holými rukami. V prípade premočenia majte po ruke rezervné oblečenie. Vrchné oblečenie by malo byť odolné voči vetru a dažďu.",
-      source: "SK MINV",
-      sources: [
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "\u0160v\u00E9dsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }]
-    },
-    {
-      id: "evacuation",
-      emoji: "🏃",
-      title: "Evakuácia",
-      subtitle: "Kompletný postup pri nariadení evakuácie",
-      iconBg: "#fef3c7",
-      iconBorder: "#fcd34d",
-      steps: [
-        { header: "Bezpečnostné opatrenia" },
-        { text: "<strong>Uhaste oheň v kamnách alebo krbe.</strong>" },
-        { text: "<strong>Vypnite elektrické spotrebiče</strong> (okrem mrazáku a ledničky)." },
-        { text: "<strong>Zavrite okná a dvere,</strong> vypnite ventiláciu a klimatizáciu." },
-        { text: "<strong>Uzavrite vodu a plyn.</strong>" },
-        { header: "Čo si vziať so sebou?" },
-        { text: "<strong>Evakuačný batoh</strong> – zavazadlo označte štítkom so menom a telefónnym číslom majiteľa." },
-        { text: "<strong>Hmotnosť batohu:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná." },
-        { header: "Ochrana osôb" },
-        { text: "<strong>Deťom a zraniteľným osobám</strong> dajte do kapsy kartičku so menom, adresou a kontaktom na príbuzného." },
-        { text: "<strong>Upozornite na evakuáciu susedov.</strong> Ponúknite im pomoc." },
-        { header: "Pred odchodom" },
-        { text: "<strong>Zamknite byt alebo dom.</strong>" },
-        { text: "<strong>Na dvere nalepte lístok</strong> s informáciou, kedy a kam ste sa evakuovali, s vašimi menami a kontaktami. Uľahčíte tým prácu záchranárom pri kontrole evakuovaných oblastí." },
-        { text: "<strong>Ak sa evakuujete sami,</strong> prihláste sa u známym alebo úradom. Záchranné zložky budú vedieť, kde vás v prípade potreby nájsť." },
-        { header: "Na zhromaždisku" },
-        { text: "<strong>Dostavte sa na určené miesto.</strong>" },
-        { text: "<strong>V prípade potreby použite ochranu dýchacích ciest</strong> a povrchu tela." },
-        { text: "<strong>Riaďte sa pokynmi záchranárov</strong> a zodpovedných osôb." },
-        { text: "<strong>Než sa evakuujete autom,</strong> zvážte riziká (počasí, palivo, stav ciest)." }
-      ],
-      warning: "Výzvu k evakuácii musíte uposlúchnuť a riadiť sa pokynmi záchranných zložiek. Chránime tým nielen seba, ale aj zdravie a životy záchranných zložiek.",
-      source: "CZ 72h + SK MINV",
-      sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" },
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
-      ,
-        { label: "UA DSNS \u2013 Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" }]
     },
     {
       id: "armed_conflict",
@@ -5664,52 +5771,52 @@
       iconBg: "#fef2f2",
       iconBorder: "#fecaca",
       steps: [
-        { header: "Keď zaznie vzdušný poplach (siréna)" },
-        { text: "<strong>Okamžite vyhľadajte úkryt</strong> – pivnica, suterén, metro, podzemný parking alebo vnútorná miestnosť bez okien." },
+        { header: "Keď zaznie siréna (vzdušný poplach)" },
+        { text: "<strong>Okamžite vyhľadajte úkryt</strong> \u2013 pivnica, suterén, metro, podzemný parking, vnútorná miestnosť bez okien." },
         { text: "<strong>Držte sa ďalej od okien, sklenených plôch a vonkajších stien.</strong>" },
-        { text: "<strong>Sadnite si alebo ľahnite na zem</strong> – čím nižšie, tým lepšie." },
-        { text: "<strong>Chráňte si hlavu a krk</strong> rukami alebo vankúšom." },
-        { text: "<strong>Zostaňte v úkryte</strong> kým nezaznie signál koniec ohrozenia alebo kým nedostanete oficiálnu informáciu." },
-        { warn: "Nikdy nevychádzajte von bezprostredne po výbuchu – môžu nasledovať ďalšie útoky (tzv. double tap)." },
-        { header: "🏢 Byt (bytový dom)", forHousing: ["flat"] },
-        { text: "<strong>Ideálny úkryt je pivnica alebo suterén</strong> bytového domu. Dohodnite sa s ostatnými obyvateľmi vopred.", forHousing: ["flat"] },
-        { text: "<strong>Ak nemáte prístup do pivnice,</strong> choďte do vnútornej chodby alebo kúpeľne – miestností bez okien, obklopených nosnými stenami.", forHousing: ["flat"] },
-        { text: "<strong>Nepoužívajte výťah</strong> – pri výbuchu sa môže zaseknúť a zostanete uväznení.", forHousing: ["flat"] },
-        { text: "<strong>Prelepte okná krížom lepenkou</strong> – zmenšíte riziko poranenia odletujúcim sklom.", forHousing: ["flat"] },
-        { header: "🏠 Dom", forHousing: ["rd"] },
-        { text: "<strong>Ak nemáte pivnicu,</strong> úkryt vytvorte v najnižšom podlaží – vnútorná miestnosť bez okien (kúpeľňa, komora, priestor pod schodiskom).", forHousing: ["rd"] },
-        { text: "<strong>Zosilnite steny vrstvou vriec s pieskom</strong> alebo nábytkom naplneným knihami.", forHousing: ["rd"] },
-        { text: "<strong>Prelepte okná krížom lepenkou</strong> a zakryte ich závesmi alebo matracmi.", forHousing: ["rd"] },
-        { header: "🏠 Dom s pivnicou", forHousing: ["rd_cellar"] },
-        { text: "<strong>Pivnica je najlepší úkryt v dome.</strong> Pripravte ju vopred – vyčistite, doplňte zásoby vody, jedla, baterku a rádio.", forHousing: ["rd_cellar"] },
-        { text: "<strong>Zosilnite strop pivnice</strong> ak je to možné – drevené trámy, dosky, podpery.", forHousing: ["rd_cellar"] },
-        { text: "<strong>Majte viacero východov</strong> z pivnice ak je to možné – únikový otvor alebo okno.", forHousing: ["rd_cellar"] },
-        { text: "<strong>Prelepte okná v horných podlažiach</strong> krížom lepenkou.", forHousing: ["rd_cellar"] },
+        { text: "<strong>Sadnite si alebo ľahnite na zem</strong> \u2013 čím nižšie, tým lepšie. Chráňte si hlavu a krk." },
+        { text: "<strong>Zostaňte v úkryte</strong> kým nezaznie signál konca ohrozenia alebo kým nedostanete oficiálnu informáciu." },
+        { warn: "Nikdy nevychádzajte von bezprostredne po výbuchu \u2013 môžu nasledovať ďalšie útoky (double tap)." },
+        { header: "Pravidlo dvoch stien (UA DSNS)" },
+        { text: "<strong>Ak ste doma a nestíhate do úkrytu</strong> \u2013 nájdite miesto oddelené od vonkajšej steny dvoma nosnými stenami. Kúpeľňa alebo chodba v strede bytu." },
+        { text: "<strong>Nikdy sa neukrývajte pri oknách</strong> \u2013 tlaková vlna vyráža sklo, ktoré spôsobuje najčastejšie zranenia civilistov." },
+        { header: "Ochrana okien a bytu" },
+        { text: "<strong>Prelepte okná krížom lepenkou</strong> \u2013 zmenšíte riziko poranenia odletujúcim sklom.", forHousing: ["flat", "rd", "rd_cellar"] },
+        { text: "<strong>Ochrana okien doskami, preglejkou</strong> alebo vrstvou kobercov. UA DSNS: nasypte piesok alebo zeminu do vriec pred vonkajšie steny a okná.", forHousing: ["rd", "rd_cellar"] },
+        { text: "<strong>Vnútri otočte ťažký nábytok</strong> (pohovka, skriňa) medzi vonkajšiu stenu a miesto kde sa zdržiavate \u2013 funguje ako ochranná bariéra." },
         { header: "Drony" },
-        { text: "<strong>Ak počujete charakteristický bzukot dronu,</strong> okamžite sa ukryte pod betónovú konštrukciu alebo do budovy." },
-        { text: "<strong>Nepozerajte sa hore a nefotografujte</strong> – svetlo displeja vás identifikuje." },
-        { text: "<strong>Ľahnite si na zem tvárou nadol</strong> a zakryte si hlavu, ak ste vonku bez úkrytu." },
-        { text: "<strong>Ak ste v aute,</strong> zastavte, vystúpte a rýchlo sa ukryte v najbližšej budove alebo priekope." },
+        { text: "<strong>Ak počujete bzukot dronu \u2013 okamžite pod betónovú konštrukciu</strong> alebo do budovy." },
+        { text: "<strong>Nepozerajte sa hore a nefotografujte</strong> \u2013 svetlo displeja vás identifikuje." },
+        { text: "<strong>Vonku bez úkrytu:</strong> ľahnite si tvárou nadol, zakryte hlavu. Akákoľvek priehlbina, priekopa alebo obrubník je lepšia ako nič." },
+        { header: "Ochrana sluchu a zraku" },
+        { text: "<strong>Chrániče sluchu alebo aspoň štuple do uší</strong> \u2013 výbuchy spôsobujú trvalé poškodenie sluchu. UA DSNS: slúchadlá sú ochrana proti barotraume." },
+        { text: "<strong>Ochranné okuliare</strong> \u2013 sklené črepiny, prach a úlomky ohrozujú zrak. Stavebné alebo lyžiarske okuliare." },
         { header: "Po výbuchu / ostreľovaní" },
-        { text: "<strong>Skontrolujte seba a blízkych</strong> – ošetrite zranenia, zastavte krvácanie." },
-        { text: "<strong>Ak sa budova poškodila,</strong> opatrne ju opustite – pozor na uvoľnené konštrukcie a úlomky." },
-        { text: "<strong>Nedotýkajte sa neznámych predmetov</strong> – môže ísť o nevybuchnutú muníciu." },
-        { text: "<strong>Zavolajte 112</strong> a informujte záchranárov o situácii." },
+        { text: "<strong>Skontrolujte seba a blízkych</strong> \u2013 zastavte krvácanie (pozrite postup Vojnové zranenia v sekcii Prvá pomoc)." },
+        { text: "<strong>Ak sa budova poškodila \u2013 opatrne ju opustite.</strong> Pozor na uvoľnené konštrukcie, rozbité sklo a spadnuté vedenie." },
+        { text: "<strong>Nedotýkajte sa neznámych predmetov</strong> \u2013 môže ísť o nevybuchnutú muníciu. Zavolajte 112." },
+        { text: "<strong>Ak ste pod troskami</strong> \u2013 zavolajte 112, klopte na potrubie, svieťte telefónom. Šetrite energiu." },
         { header: "Príprava vopred" },
-        { text: "<strong>Identifikujte najbližšie úkryty</strong> – pivnice, podzemné garáže, metro, krytové priestory." },
-        { text: "<strong>Majte pripravenú evakuačný batoh</strong> pri dverách – doklady, voda, lieky, baterka, power banka." },
-        { text: "<strong>Dohodnite sa s rodinou na pláne stretnutia</strong> – kde sa stretnete ak vypadne signál." },
-        { text: "<strong>Naučte sa základy prvej pomoci</strong> – zastavenie krvácania, ošetrenie popálenín, stabilizovaná poloha." },
-        { text: "<strong>Sledujte oficiálne kanály</strong> – civilná ochrana, armáda, overené spravodajské zdroje." }
+        { text: "<strong>Identifikujte najbližšie úkryty</strong> \u2013 pivnice, garáže, metro. UA DSNS: overte ich na mape úkrytov." },
+        { text: "<strong>Evakuačný batoh pri dverách</strong> \u2013 doklady, voda, lieky, baterka, power banka, peniaze, nabíjačka." },
+        { text: "<strong>Rodinný plán stretnutia</strong> \u2013 kde sa stretnete ak vypadne signál. Každý člen rodiny musí vedieť plán." },
+        { text: "<strong>Naučte sa základy prvej pomoci</strong> \u2013 turniket, zastavenie krvácania, stabilizovaná poloha." },
+        { text: "<strong>Pracovné oblečenie a ochranné pomôcky</strong> \u2013 UA DSNS odporúča: pracovné rukavice (sklo všade), pevnú obuv, stavebné okuliare, rúško/respirátor, prilbu." }
       ],
-      warning: "Tieto odporúčania vychádzajú zo skúseností ukrajinského obyvateľstva. Vždy sa riaďte pokynmi miestnych autorít a záchranných zložiek. Nevychádzajte von počas vzdušného poplachu.",
+      warning: "Tieto odporúčania vychádzajú zo skúseností ukrajinského obyvateľstva od roku 2022. Vždy sa riaďte pokynmi miestnych autorít. Najúčinnejšia ochrana civilistov je včasná evakuácia z ohrozenej oblasti.",
       source: "UA DSNS + SK MINV + ICRC",
       sources: [
-        { label: "UA DSNS – Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" },
-        { label: "SK MINV – V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
-        { label: "ICRC – International Committee of the Red Cross", url: "https://www.icrc.org/" }
+        { label: "UA DSNS \u2013 Príručka pre prípad núdze alebo vojny", url: "https://dovidka.info/" },
+        { label: "UA DSNS \u2013 Ako prežiť ostreľovanie a pripraviť úkryt", url: "https://dovidka.info/en/russians-are-shelling-ukrainian-cities-how-to-equip-a-shelter-and-get-out-of-the-rubble/" },
+        { label: "UA DSNS \u2013 Príprava civilnej obrany v obliehaniu", url: "https://dovidka.info/en/preparation-of-civil-defense-in-the-siege/" },
+        { label: "UA DSNS \u2013 V bojovej zóne", url: "https://dovidka.info/en/in-the-combat-area/" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "ICRC \u2013 International Committee of the Red Cross", url: "https://www.icrc.org/" }
       ]
     },
+    // ═══════════════════════════════════════════════════════════════
+    // PRIPRAVENOSŤ A PODPORA
+    // ═══════════════════════════════════════════════════════════════
     {
       id: "survival_72h",
       emoji: "⏱️",
@@ -5718,28 +5825,31 @@
       iconBg: "#eff6ff",
       iconBorder: "#bfdbfe",
       steps: [
-        { header: "Čo sa môže zmeniť v kríze?" },
-        { text: "<strong>Z kohútika nepotečie voda.</strong> Nepôjde elektrina." },
-        { text: "<strong>Prestane fungovať telefón,</strong> televízia a internet." },
-        { text: "<strong>Nikde si nevyzdvihneme lieky.</strong> Nebudeme môcť bežne variť a ohrievať jedlo." },
-        { text: "<strong>Prestane fungovať kúrenie.</strong> Obchody budú zavreté alebo v nich nič nekúpime." },
-        { text: "<strong>Nezaplatíme platobnou kartou.</strong> Na čerpacích staniciach nenatankujeme." },
-        { text: "<strong>Toaletu budeme môcť spláchnuť možno iba raz.</strong> Prestane jazdiť hromadná doprava." },
-        { note: "Pravidlo 72 hodín hovorí, že každý zvládne prvé tri dni bez pomoci záchranných zložiek – iba s tým, čo má doma. Ak sa včas pripravíme, pomôžeme tým aj ostatným." },
-        { header: "Dobrá príprava môže zachrániť život" },
-        { text: "<strong>Keď sa pripravíme vopred,</strong> nebudeme v strese a lepšie ochránime svoje zdravie aj majetok." },
-        { text: "<strong>Budeme kľudnejší a istejší.</strong> Budeme vedieť čo robiť a dokážeme pomôcť aj svojím blízkym a susedom." },
-        { header: "Voda" },
-        { text: "<strong>Na pitie používajte iba balenú vodu</strong> alebo vodu z pristavených cisterien." },
-        { warn: "Pozor – v budovách s diaľkovým vykurovaním môže byť teplá voda počas výpadku prúdu nebezpečne horúca až vrúca." }
+        { header: "Čo sa môže stať naraz?" },
+        { text: "<strong>Nepôjde elektrina.</strong> Z kohútika nepotečie voda. Prestane fungovať telefón, televízia a internet." },
+        { text: "<strong>Nezaplatíme kartou.</strong> Nenatankujeme. Obchody budú zavreté. Prestane jazdiť MHD." },
+        { text: "<strong>Prestane fungovať kúrenie.</strong> Nikde nevyzdvihneme lieky. Toaletu spláchneme možno raz." },
+        { note: "Pravidlo 72 hodín (CZ) / 1 týždeň (Švédsko, Nórsko): každý má zvládnuť prvé dni bez pomoci záchranných zložiek \u2013 iba s tým, čo má doma." },
+        { header: "Čo mať pripravené" },
+        { text: "<strong>Voda:</strong> min. 2\u20133 litre na osobu/deň. Na 72h = min. 6\u20139 litrov na osobu. Balenú + nádoby na odber." },
+        { text: "<strong>Jedlo:</strong> konzervy, sušienky, müsli tyčinky, sušené ovocie, orechy. Nič čo vyžaduje chladenie alebo varenie." },
+        { text: "<strong>Lieky:</strong> min. na 7\u201314 dní. Chronická medikácia, bežné lieky (paracetamol, ibuprofen, antidiaroiká)." },
+        { text: "<strong>Hotovosť:</strong> €70\u2013100 na osobu v malých nomináloch (€5, €10, €20)." },
+        { text: "<strong>Info a komunikácia:</strong> rádio na batérie, powerbanka, baterka, píšťalka, nabíjačky." },
+        { text: "<strong>Hygiena:</strong> mokré obrúsky, dezinfekcia, odpadkové vrecia, toaletný papier." },
+        { text: "<strong>Doklady:</strong> kópie OP, pasu, poistiek, lekárskych správ v nepremokavom obale." },
+        { header: "Prečo sa pripraviť?" },
+        { text: "<strong>Pripravená domácnosť = menej stresu + schopnosť pomáhať.</strong> Kto je pripravený, dokáže pomôcť susedom, starším a rodinám s deťmi." },
+        { text: "<strong>Príprava zaberie len pár hodín</strong> a stojí €30\u201350 na osobu. Môže zachrániť život." }
       ],
-      warning: "Najnáročnejšie bývajú prvé tri dni (72 hodín). Príprava zaberie len pár hodín, ale môže ušetriť veľa starostí. Príručku si prečítajte, pripravte si veci a uschovajte ju na dostupné miesto.",
-      source: "CZ 72h",
+      warning: "Najnáročnejšie bývajú prvé 72 hodín. Ak sa včas pripravíte, pomôžete tým nielen sebe ale aj ostatným. EU Preparedness Union Strategy (2025) odporúča 72h sebestačnosť pre všetkých občanov.",
+      source: "CZ 72h + SE MSB + SK MINV + EU",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }
-      ,
-        { label: "\u0160v\u00E9dsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" },
-        { label: "SK MINV \u2013 V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }]
+        { label: "CZ 72h príručka (MV ČR, 2025)", url: "https://www.72h.gov.cz" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "EU Preparedness Union Strategy (2025)", url: "https://commission.europa.eu/strategy-and-policy/priorities-2024-2029/protecting-our-european-way-life/european-security-and-defence/preparedness-union-strategy_en" }
+      ]
     },
     {
       id: "shelter",
@@ -5749,28 +5859,68 @@
       iconBg: "#f0fdf4",
       iconBorder: "#86efac",
       steps: [
-        { text: "<strong>Keď zaznie varovný signál všeobecná výstraha</strong> (kolísavý tón po dobu 140 sekúnd), je najdôležitejšie okamžite vyhľadať bezpečné miesto v najbližšej pevnej budove." },
+        { header: "Varovný signál" },
+        { text: "<strong>Všeobecná výstraha:</strong> kolísavý tón sirény po dobu 140 sekúnd. Znamená: ihneď sa ukryte!" },
+        { text: "<strong>Po zaznení signálu</strong> sa rýchlo ukryte v najbližšej pevnej budove. Dôkladne uzavrite dvere a okná." },
         { header: "Kedy sa musíme ukryť?" },
-        { text: "<strong>Silná búrka alebo tornádo</strong>" },
-        { text: "<strong>Vysoká koncentrácia jedovatého dymu</strong> spôsobená požiarom" },
-        { text: "<strong>Únik nebezpečných látok</strong> do okolia" },
-        { text: "<strong>Riziko úniku radiácie</strong>" },
-        { note: "Bezpečným miestom môže byť domov, škola, pracovisko alebo iná verejná budova (obchodné centrum, úradná budova). Autobusová zastávka alebo auto bezpečným úkrytom nie sú." },
-        { header: "Čo robiť po varovnom signáli?" },
-        { text: "<strong>Rýchle sa ukryte v najbližšej budove.</strong>" },
-        { text: "<strong>Dôkladne uzavrite dvere a okná.</strong> Utesnite otvory, vypnite ventiláciu a klimatizáciu." },
-        { text: "<strong>Zaistite si prístup k informáciám.</strong> Pri výpadku prúdu pomôže rádio na batérie." },
-        { text: "<strong>Zbytočne netelefonujte,</strong> aby ste nepreťažovali mobilné siete." },
-        { text: "<strong>Zostaňte v bezpečnom úkryte</strong> a čakajte na ďalšie pokyny záchranných zložiek alebo zodpovedných úradov." },
-        { warn: "Niektoré nebezpečné látky nie sú vidieť ani cítiť. V každom prípade preto berieme varovanie úradov vážne." }
+        { text: "<strong>Silná búrka alebo tornádo, únik nebezpečných látok, riziko radiácie, vzdušný poplach, ostreľovanie.</strong>" },
+        { header: "Čo je dobrý úkryt?" },
+        { text: "<strong>Najlepšie:</strong> pivnica, suterén, metro, podzemný parking, protiatómový kryt." },
+        { text: "<strong>Dobré:</strong> vnútorná miestnosť bez okien (kúpeľňa, chodba) obklopená nosnými stenami." },
+        { text: "<strong>Nie je úkryt:</strong> auto, autobusová zastávka, sklenená prístavba, stanové konštrukcie." },
+        { note: "UA DSNS pravidlo dvoch stien: medzi vami a vonkajšou stenou majú byť aspoň 2 nosné steny." },
+        { header: "V úkryte" },
+        { text: "<strong>Utesnite miestnosť</strong> \u2013 mokré handry do špár dverí a okien. Vypnite ventiláciu a klimatizáciu." },
+        { text: "<strong>Zabezpečte prístup k informáciám</strong> \u2013 rádio na batérie, telefón v letovom režime (šetrí batériu)." },
+        { text: "<strong>Zbytočne netelefonujte</strong> \u2013 nepreťažujte mobilné siete." },
+        { text: "<strong>Zostaňte v úkryte</strong> a čakajte na pokyny (rádio, sirény, záchranári)." },
+        { warn: "Niektoré nebezpečné látky nie sú vidieť ani cítiť. VŽDY berte varovanie úradov vážne \u2013 aj keď sa vám zdá, že vonku je všetko v poriadku." }
       ],
-      warning: "Nic veľa robiť nemusíte. Stačí sa ukryť, utesniť miestnosť a čakať na pokyny. Pamätajte na všeobecný signál – kolísavý tón 140 sekúnd.",
-      source: "CZ 72h",
+      warning: "Pamätajte: kolísavý tón 140 sekúnd = všeobecná výstraha = ihneď do úkrytu. Koniec ohrozenia: stály tón 140 sekúnd.",
+      source: "CZ 72h + UA DSNS + SK MINV",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }
-      ,
-        { label: "UA DSNS \u2013 Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" },
-        { label: "SK MINV \u2013 V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }]
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Ukrytie", url: "https://www.72h.gov.cz" },
+        { label: "UA DSNS \u2013 Úkryty a ochrana pred ostreľovaním", url: "https://dovidka.info/en/what-is-shelter/" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Ukrytie", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
+    },
+    {
+      id: "evacuation",
+      emoji: "🏃",
+      title: "Evakuácia",
+      subtitle: "Kompletný postup pri nariadení evakuácie",
+      iconBg: "#fef3c7",
+      iconBorder: "#fcd34d",
+      steps: [
+        { header: "Bezpečnostné opatrenia pred odchodom" },
+        { text: "<strong>Uhaste oheň</strong> v kamnách, krbe alebo na sporáku." },
+        { text: "<strong>Vypnite elektrické spotrebiče</strong> (okrem mrazáku \u2013 ak funguje elektrina)." },
+        { text: "<strong>Uzavrite vodu a plyn.</strong> Zatvorte okná a dvere, vypnite ventiláciu." },
+        { header: "Evakuačný batoh" },
+        { text: "<strong>Batoh označte štítkom</strong> so menom a telefónnym číslom." },
+        { text: "<strong>Hmotnosť:</strong> max 25 kg (dospelý), 15 kg (dieťa), + 5 kg príručná taška." },
+        { text: "<strong>Obsah:</strong> doklady v nepremokavom obale, peniaze, lieky, 1.5l vody na osobu, potraviny na 1\u20132 dni, oblečenie na prezlečenie, hygienické potreby, baterka, powerbanka, nabíjačka, rádio." },
+        { note: "UA DSNS: batoh max 25 litrov, max 50 kg. Plánujte, že časť cesty možno pôjdete peši \u2013 berte len najnutnejšie." },
+        { header: "Ochrana osôb" },
+        { text: "<strong>Deťom a zraniteľným osobám</strong> dajte do kapsy kartičku s menom, adresou a kontaktom na príbuzného." },
+        { text: "<strong>Upozornite susedov.</strong> Ponúknite pomoc starším a osobám s obmedzenou mobilitou." },
+        { text: "<strong>Nezabudnite na domáce zvieratá</strong> \u2013 prepravka, krmivo, voda, veterinárne doklady." },
+        { header: "Pred odchodom" },
+        { text: "<strong>Zamknite byt / dom.</strong>" },
+        { text: "<strong>Na dvere nalepte lístok</strong> s informáciou kedy a kam ste sa evakuovali, s menami a kontaktom." },
+        { header: "Evakuačné trasy" },
+        { text: "<strong>Riaďte sa pokynmi záchranárov</strong> \u2013 neopúšťajte stanovené trasy." },
+        { text: "<strong>Než sa evakuujete autom</strong> \u2013 zvážte riziká: palivo, stav ciest, premávka. V niektorých situáciách je peší odchod bezpečnejší." },
+        { text: "<strong>Ak sa evakuujete sami</strong> \u2013 nahláste sa úradom alebo známym, aby vedeli kde ste." },
+        { text: "<strong>Dostavte sa na určené zhromaždisko.</strong>" }
+      ],
+      warning: "Výzvu k evakuácii musíte uposlúchnuť. Nie je to odporúčanie \u2013 je to nariadenie na záchranu života. Chránime tým nielen seba, ale aj zdravie záchranárov.",
+      source: "CZ 72h + SK MINV + UA DSNS",
+      sources: [
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Evakuácia", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva: Evakuácia", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "UA DSNS \u2013 Evakuácia a organizácia úkrytov", url: "https://dovidka.info/en/evacuation-and-organization-of-shelters/" }
+      ]
     },
     {
       id: "help_neighbors",
@@ -5780,25 +5930,26 @@
       iconBg: "#f0fdf4",
       iconBorder: "#86efac",
       steps: [
-        { text: "<strong>Žije vo vašom okolí niekto, kto by mohol potrebovať pomoc?</strong> Človek vo vyššom veku, s malými deťmi, s handicapom, nemocný alebo cudzinec, ktorý nerozumie dobre slovensky." },
-        { note: "V krízových situáciách je vzájomná pomoc kľúčová a môže zachrániť život. Spoločne sme silnejší a dokážeme prekonať aj tie najťažšie výzvy." },
-        { header: "Ľudia v našom okolí" },
-        { text: "<strong>Môžu potrebovať lekársku pomoc.</strong>" },
-        { text: "<strong>Môže im dochádzať jedlo alebo lieky.</strong>" },
-        { text: "<strong>Môžu mať problém dostať sa</strong> na miesto, kde sa rozdáva voda." },
-        { text: "<strong>Možno nevedia,</strong> prečo nefunguje elektrina a netečie voda." },
-        { header: "Čo môžeme pre susedov urobiť?" },
-        { text: "<strong>V naliehavých prípadoch zavoláme pomoc.</strong>" },
-        { text: "<strong>Rozdelíme sa s nimi o zásoby.</strong>" },
-        { text: "<strong>Pomôžeme im s nákupom alebo s presunom.</strong>" },
-        { text: "<strong>Ponúkneme, že im budeme odovzdávať dôležité informácie.</strong>" }
+        { text: "<strong>Žije vo vašom okolí niekto, kto by mohol potrebovať pomoc?</strong> Starší človek, rodina s malými deťmi, osoba s handicapom, chorý alebo cudzinec, ktorý nerozumie dobre slovensky." },
+        { note: "V krízových situáciách je vzájomná pomoc kľúčová. CZ 72h: \u201ePripravená domácnosť môže lepšie pomáhať ostatným.\u201c Fínska príručka zdôrazňuje: vopred sa dohodnite so susedmi, kto je zraniteľný a kto môže pomôcť." },
+        { header: "Vaši susedia môžu" },
+        { text: "<strong>Potrebovať lekársku pomoc</strong> alebo lieky, na ktoré sa nedostanú." },
+        { text: "<strong>Nemať zásoby</strong> jedla alebo pitnej vody." },
+        { text: "<strong>Nevyznať sa v situácii</strong> \u2013 nevedia prečo nefunguje elektrina, voda, čo majú robiť." },
+        { text: "<strong>Mať problém s pohybom</strong> \u2013 nemôžu sa dostať na miesto výdaja vody alebo na zhromaždisko." },
+        { header: "Čo môžete urobiť" },
+        { text: "<strong>Zavolajte pomoc</strong> v naliehavých prípadoch (112, 155, 150)." },
+        { text: "<strong>Rozdeľte sa o zásoby</strong> \u2013 aj malé množstvo vody alebo jedla môže pomôcť." },
+        { text: "<strong>Pomôžte s presunom</strong> \u2013 do úkrytu, na zhromaždisko, k lekárovi." },
+        { text: "<strong>Odovzdávajte informácie</strong> \u2013 čo sa deje, kde je výdajné miesto, aké sú pokyny." },
+        { text: "<strong>Overte stav izolovaných ľudí</strong> \u2013 zaklopte, zavolajte, opýtajte sa či niečo nepotrebujú." }
       ],
-      warning: "Spoločenstvo a susedská pomoc sú v krízových situáciách neoceniteľné. Ak dokážete pomôcť, pomôžte.",
-      source: "CZ 72h",
+      warning: "Spoločenstvo a susedská pomoc sú v kríze neoceniteľné. UA skúsenosť: susedstvá, ktoré sa organizovali vopred, zvládli ostreľovanie a blackouty výrazne lepšie.",
+      source: "CZ 72h + SK MINV + FI 72 tuntia",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }
-      ,
-        { label: "SK MINV \u2013 V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }]
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Pomoc susedom", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
     },
     {
       id: "children_crisis",
@@ -5808,28 +5959,26 @@
       iconBg: "#fdf2f8",
       iconBorder: "#fbcfe8",
       steps: [
-        { text: "<strong>V krízových situáciách sa deťom venujte ešte viac než inokedy.</strong> Deti potrebujú chápať, čo sa deje, cítiť našu podporu a vedieť, čo ich čaká. Vďaka tomu sa s danou situáciou lepšie vyrovnajú." },
-        { header: "Ako s deťmi komunikovať?" },
-        { text: "<strong>Hovorte s nimi otvorene a úprimne,</strong> primerane veku." },
-        { text: "<strong>Dajte im priestor,</strong> aby povedali, z čoho majú obavy." },
-        { text: "<strong>Rozprávajte sa o svojich pocitoch.</strong>" },
-        { text: "<strong>Naslúchajte ich otázkam a názorom.</strong>" },
-        { text: "<strong>Snažte sa zostať v kľude.</strong> Deti totiž zrkadlia naše emócie." },
-        { text: "<strong>Zapojujeme ich primerane veku</strong> do bežných a postupne aj nových činností." },
-        { header: "Praktické tipy" },
-        { text: "<strong>Hovoríme o situácii jednoducho a zrozumiteľne.</strong>" },
-        { text: "<strong>Zdôrazníme, že situáciu riešia odborníci</strong> a že robia všetko pre to, aby nás ochránili." },
-        { text: "<strong>Ujistime ich, že budeme stále s nimi.</strong>" },
-        { text: "<strong>Povedieme im, že to spolu zvládneme</strong> a že existujú ľudia, ktorí nám pomôžu." },
-        { text: "<strong>Ak je to možné, udržujeme obvyklý režim.</strong>" },
-        { note: "<strong>Evakuácia:</strong> V prípade evakuácie nezabudnite pripraviť dieťaťu cedulku s adresou a kontaktom na blízku osobu. A do evakuačného batohu pribaľte malú hračku." }
+        { text: "<strong>V krízových situáciách sa deťom venujte ešte viac.</strong> Deti potrebujú chápať čo sa deje, cítiť podporu a vedieť čo ich čaká. Vďaka tomu sa so situáciou lepšie vyrovnajú." },
+        { header: "Ako komunikovať" },
+        { text: "<strong>Hovorte otvorene a úprimne,</strong> primerane veku dieťaťa." },
+        { text: "<strong>Dajte im priestor</strong> povedať, z čoho majú obavy. Naslúchajte." },
+        { text: "<strong>Hovorte aj o svojich pocitoch</strong> \u2013 je normálne cítiť strach alebo neistotu." },
+        { text: "<strong>Snažte sa zostať v pokoji</strong> \u2013 deti zrkadlia naše emócie." },
+        { text: "<strong>Zapojte ich do činností</strong> primerane veku \u2013 pomáhanie dáva pocit kontroly." },
+        { header: "Čo povedať" },
+        { text: "<strong>Situáciu vysvetlite jednoducho:</strong> \u201eTeraz nemáme elektrinu. To sa stáva a my sme pripravení.\u201c" },
+        { text: "<strong>Zdôraznite, že odborníci situáciu riešia</strong> a robia všetko pre ochranu." },
+        { text: "<strong>Ujistite ich:</strong> \u201eBudeme stále s tebou. Spolu to zvládneme.\u201c" },
+        { text: "<strong>Ak je to možné, udržujte obvyklý režim</strong> \u2013 jedlo, spánok, hra v pravidelných intervaloch." },
+        { note: "<strong>Evakuácia:</strong> Pripravte dieťaťu kartičku s menom, adresou a kontaktom na blízku osobu do vrecka. Do batôžku pribaľte obľúbenú hračku alebo plyšáka." }
       ],
-      warning: "",
-      source: "CZ 72h",
+      warning: "Obmedzte vystavenie detí správam a záberom z krízy/vojny. Sledujte zmeny správania (problémy so spánkom, agresivita, pomočovanie) \u2013 môžu byť signálom traumy.",
+      source: "CZ 72h + SK MINV",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }
-      ,
-        { label: "SK MINV \u2013 V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }]
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Deti a kríza", url: "https://www.72h.gov.cz" },
+        { label: "SK MINV \u2013 Ochrana obyvateľstva", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
     },
     {
       id: "mental_health",
@@ -5839,48 +5988,60 @@
       iconBg: "#ede9fe",
       iconBorder: "#c4b5fd",
       steps: [
-        { text: "<strong>V krízových situáciách je dôležité myslieť</strong> aj na psychickú pohodu. Každý človek môže prežívať a potrebovať niečo iného." },
-        { header: "Ako druhých psychicky podporovať?" },
-        { text: "<strong>Hovoríme s nimi otvorene a s rešpektom.</strong>" },
-        { text: "<strong>Dáme im priestor,</strong> aby vyjadrili svoje obavy a emócie." },
-        { text: "<strong>Naslúchame a nesúdime.</strong>" },
-        { text: "<strong>Snažíme sa udržiavať bežný denný režim.</strong>" },
-        { text: "<strong>Umožníme im, aby sa zapojili</strong> do riešenia situácie spôsobom, ktorý zvládnu." },
-        { header: "Kde hľadať pomoc?" },
-        { text: "<strong>Linka dôvery (Slovensko):</strong> 0800 500 333 – bezplatná, nonstop" },
-        { text: "<strong>Linka pomoci:</strong> 116 123 (SK) – pre emocionálnu podporu" },
-        { note: "Staráte sa o niekoho, kto má špecifické potreby (starší človek, osoba so zdravotným znevýhodnením alebo s duševným ochorením)? Na webe <strong>72h.gov.cz</strong> nájdete podrobnejšie informácie o tom, aká pomoc je k dispozícii." }
+        { text: "<strong>V kríze je dôležité myslieť aj na psychickú pohodu.</strong> Strach, úzkosť, hnev, smútok alebo necitlivosť sú normálne reakcie na nenormálnu situáciu." },
+        { header: "Ako sa starať o seba" },
+        { text: "<strong>Udržujte denný režim</strong> \u2013 pravidelné jedlo, spánok a pohyb pomáhajú." },
+        { text: "<strong>Obmedzte sledovanie správ</strong> \u2013 stačí 2x denne z overených zdrojov." },
+        { text: "<strong>Hovorte o svojich pocitoch</strong> s blízkymi \u2013 izolácia zhoršuje stav." },
+        { text: "<strong>Zapojte sa do pomoci ostatným</strong> \u2013 aktívna pomoc dáva pocit kontroly a zmyslu." },
+        { header: "Ako podporovať druhých" },
+        { text: "<strong>Hovorte s rešpektom a trpezlivosťou.</strong> Naslúchajte a nesúďte." },
+        { text: "<strong>Dajte priestor emóciám</strong> \u2013 plač, hnev aj ticho sú normálne reakcie." },
+        { text: "<strong>Umožnite zapojenie</strong> do riešenia situácie spôsobom, ktorý zvládnu." },
+        { header: "Linky pomoci" },
+        { text: "<strong>Linka dôvery (SK):</strong> <a href='tel:0800500333' style='color:#1e40af;font-weight:bold'>0800 500 333</a> \u2013 bezplatná, nonstop" },
+        { text: "<strong>Linka pomoci (SK):</strong> <a href='tel:116123' style='color:#1e40af;font-weight:bold'>116 123</a> \u2013 emocionálna podpora" },
+        { text: "<strong>Krízová linka (SK):</strong> <a href='tel:0800801616' style='color:#1e40af;font-weight:bold'>0800 801 616</a> \u2013 pre obete násilia" },
+        { note: "Staráte sa o niekoho so špecifickými potrebami (starší, osoba so zdravotným znevýhodnením, duševné ochorenie)? Kontaktujte miestny úrad sociálnych vecí alebo linku pomoci." }
       ],
-      warning: "",
-      source: "CZ 72h + Linka d\u00F4very SR",
+      warning: "Ak máte myšlienky na sebapoškodenie, zavolajte ihneď 0800 500 333 alebo 112. Nemusíte to zvládať sami.",
+      source: "CZ 72h + Linka dôvery SR",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" },
-        { label: "Linka d\u00F4very SR – 0800 500 333", url: "https://www.linkadovery.sk/" }
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Psychická podpora", url: "https://www.72h.gov.cz" },
+        { label: "Linka dôvery SR \u2013 0800 500 333", url: "https://www.linkadovery.sk/" }
       ]
     },
     {
       id: "info_hygiene",
       emoji: "📰",
       title: "Overovanie informácií",
-      subtitle: "Ako zachádzať s informáciami v kríze",
+      subtitle: "Ako rozpoznať a brániť sa dezinformáciám v kríze",
       iconBg: "#fef3c7",
       iconBorder: "#fcd34d",
       steps: [
-        { text: "<strong>Keď nastane krízová situácia,</strong> často sa začnú rýchlo šíriť nepodložené informácie a fámy. Takéto správy môžu zvyšovať neistotu a strach a komplikovať prácu záchranných zložiek." },
-        { header: "Ako zachádzať s informáciami?" },
-        { text: "<strong>Overujeme informácie z niekoľkých dôveryhodných zdrojov.</strong>" },
-        { text: "<strong>Spoliehame sa predovšetkým na oficiálne zdroje</strong> – Slovenský rozhlas, STV, RTVS, Civilná ochrana SR." },
-        { text: "<strong>Zdieľame iba overené informácie,</strong> o ktorých sme si istí, že sú pravdivé." },
-        { note: "V kríze platí: najprv overiť, potom zdieľať. Nepravdivé správy môžu spôsobiť paniku a ohroziť životy." }
+        { text: "<strong>V kríze sa rýchlo šíria fámy, poplašné správy a dezinformácie.</strong> Môžu spôsobiť paniku, ohroziť životy a komplikovať prácu záchranárov." },
+        { header: "Pravidlá informačnej hygieny" },
+        { text: "<strong>Overujte z viacerých dôveryhodných zdrojov</strong> \u2013 Slovenský rozhlas (RTVS), Civilná ochrana SR, SHMÚ, hasiči." },
+        { text: "<strong>Zdieľajte iba overené informácie.</strong> Pred zdieľaním sa spýtajte: Viem, kto to napísal? Je to z oficiálneho zdroja? Nie je to stará správa?" },
+        { text: "<strong>Dávajte pozor na emocionálny jazyk</strong> \u2013 správy typu \u201eŠÍRTE ĎALEJ!!!\u201c, \u201eVšetci musia vedieť!\u201c sú typickým znakom dezinformácií." },
+        { header: "UA skúsenosť s dezinformáciami vo vojne" },
+        { text: "<strong>Nefotografujte a nezdieľajte:</strong> pozície armády, pohyby vojsk, zásahy na objekty \u2013 pomáhate tým nepriateľovi." },
+        { text: "<strong>Falošné evakuačné príkazy:</strong> overte každý príkaz k evakuácii cez oficiálne kanály (rádio, web MV SR, civilná ochrana)." },
+        { text: "<strong>Nedôverujte neznámym účtom</strong> na sociálnych sieťach \u2013 boti a trollovia sú reálnou hrozbou aj v Európe." },
+        { note: "Švédsko MSB (2024): dezinformácie a kyberútoky sú súčasťou moderného konfliktu. Pripravte sa rovnako ako na výpadok elektriny." },
+        { header: "Dôveryhodné zdroje na Slovensku" },
+        { text: "<strong>RTVS</strong> (Slovenský rozhlas a televízia), <strong>SHMÚ</strong> (shmu.sk), <strong>Civilná ochrana MV SR</strong> (minv.sk), <strong>HaZZ SR</strong> (hasiči), <strong>112</strong> (tiesňová linka)." }
       ],
-      warning: "",
-      source: "CZ 72h",
+      warning: "V kríze platí: najprv overiť, potom zdieľať. Jedna nepravdivá správa môže spôsobiť paniku a ohroziť životy. Buďte súčasťou riešenia, nie problému.",
+      source: "CZ 72h + UA DSNS + SE MSB",
       sources: [
-        { label: "CZ 72h pr\u00EDru\u010Dka (MV \u010CR, 2025)", url: "https://www.72h.gov.cz" }
-      ,
-        { label: "UA DSNS \u2013 Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" }]
+        { label: "CZ 72h príručka (MV ČR, 2025) \u2013 Informačná hygiena", url: "https://www.72h.gov.cz" },
+        { label: "UA DSNS \u2013 Dezinformácie a informačná bezpečnosť", url: "https://dovidka.info/" },
+        { label: "Švédsko MSB \u2013 Om krisen eller kriget kommer (2024)", url: "https://www.msb.se/en/rad-till-privatpersoner/the-brochure-if-crisis-or-war-comes/" }
+      ]
     }
   ];
+
 
   function renderEmergencyProc() {
     const grid = document.getElementById("emergencyProcGrid");
@@ -5890,7 +6051,7 @@
     // Group definitions from UX audit
     const groups = [
       { label: "Prírodné hrozby", ids: ["flood", "earthquake", "storm", "landslide", "heat", "snow"] },
-      { label: "Havárie a ohrozenia", ids: ["fire", "blackout", "chemical", "radiation", "terror", "armed_conflict"] },
+      { label: "Havárie a ohrozenia", ids: ["fire", "blackout", "water_outage", "gas_leak", "chemical", "radiation", "terror", "armed_conflict"] },
       { label: "Pripravenosť a podpora", ids: ["survival_72h", "shelter", "evacuation", "help_neighbors", "children_crisis", "mental_health", "info_hygiene"] }
     ];
 
