@@ -210,8 +210,9 @@
     }
     .nav-demo:hover { color: var(--ink); background: var(--cream); }
 
-    /* Nav beta counter (desktop) */
+    /* Nav beta counter (desktop — centered) */
     .nav-beta {
+      position: absolute; left: 50%; transform: translateX(-50%);
       display: flex; align-items: center; gap: 0.5rem;
       background: var(--cream); border: 1px solid var(--border);
       border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
@@ -252,6 +253,7 @@
       max-width: 1080px; margin: 0 auto;
       padding: 0 1.5rem; height: 64px;
       display: flex; align-items: center; justify-content: space-between;
+      position: relative;
     }
     .nav-logo {
       font-family: 'Fraunces', serif;
@@ -296,11 +298,11 @@
 
     .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
 
-    /* Beta badge v hero (mobile only, desktop in nav) */
+    /* Beta badge v hero (mobile/tablet only) */
     .beta-badge {
-      display: inline-flex; align-items: center; gap: 0.625rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--cream); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-pill); padding: 0.375rem 0.875rem;
     }
     .beta-badge-label {
       font-size: 0.68rem; font-weight: 700;
@@ -308,7 +310,7 @@
       color: var(--muted);
     }
     .beta-badge-bar {
-      width: 100px; height: 5px;
+      width: 64px; height: 4px;
       background: var(--border); border-radius: 99px; overflow: hidden;
     }
     .beta-badge-fill {
@@ -317,11 +319,10 @@
     }
     .beta-badge-num {
       font-family: 'Fraunces', serif;
-      font-size: 0.8rem; font-weight: 700; color: var(--ink);
+      font-size: 0.75rem; font-weight: 700; color: var(--ink);
     }
     .beta-badge-free {
-      font-size: 0.75rem; font-weight: 600; color: var(--green);
-      border-left: 1px solid var(--border); padding-left: 0.625rem;
+      font-size: 0.72rem; font-weight: 600; color: var(--green);
     }
     .beta-badge-mobile { display: none; }
 
@@ -984,14 +985,17 @@
       /* Hero */
       .hero { padding: 5rem 0 0; }
       .hero h1 { font-size: 2rem; }
-      .hero-sub { font-size: 0.95rem; max-width: 100%; }
+      .hero-sub { font-size: 0.95rem; max-width: 100%; margin-bottom: 1.5rem; }
 
       /* Hero CTA buttons stack */
-      .hero-ctas { flex-direction: column; align-items: stretch; gap: 0.625rem; }
+      .hero-ctas { flex-direction: column; align-items: stretch; gap: 0.625rem; margin-bottom: 1.25rem; }
       .hero-ctas .btn { justify-content: center; }
 
+      /* Beta badge na mobile — viac priestoru od tlačidiel aj od dashboardu */
+      .beta-badge-mobile { margin-top: 0.25rem; margin-bottom: 0.5rem; }
+
       /* Dashboard */
-      .hero-dashboard-wrap { margin-top: 2rem; max-height: 440px; margin-bottom: -2rem; }
+      .hero-dashboard-wrap { margin-top: 1.5rem; max-height: 440px; margin-bottom: -2rem; }
       .dash-browser { transform: none; border-radius: 0.75rem 0.75rem 0 0; }
       .dash-chrome { padding: 0.4rem 0.75rem; }
       .dash-chrome-dots span { width: 8px; height: 8px; }
@@ -1069,18 +1073,18 @@
 <nav aria-label="Hlavná navigácia" class="nav" id="mainNav">
 <div class="nav-inner">
 <a aria-label="Mámeplán.sk – domov" class="nav-logo" href="/" style="display:flex; align-items:center; gap:0.5rem;">
-  <span style="font-size:1rem;"></span> mámeplán.sk
+  <span style="font-size:0.9rem;">🇸🇰</span> mámeplán.sk
 </a>
-<div class="nav-actions">
-  <!-- Beta counter (desktop) -->
+  <!-- Beta counter (desktop - centered) -->
   <div class="nav-beta js-nav-beta">
     <span>Beta</span>
     <div class="nav-beta-bar"><div class="nav-beta-fill js-bar" style="width:0%;"></div></div>
     <strong><span class="js-free">–</span></strong>
-    <span>voľných registrácií</span>
+    <span>voľných</span>
   </div>
-  <a aria-label="Vyskúšať demo bez registrácie" class="nav-demo" href="./app.html?mode=demo">Vyskúšať demo</a>
-  <a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn" href="./app.html">Spustiť appku</a>
+<div class="nav-actions">
+  <a aria-label="Vyskúšať demo bez registrácie" class="nav-demo" href="./Gerlach_v7.html?mode=demo">Vyskúšať demo</a>
+  <a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn" href="./Gerlach_v7.html">Spustiť appku</a>
 </div>
 </div>
 </nav>
@@ -1107,8 +1111,8 @@
     </p>
 <!-- CTA: Viditeľné keď beta NIE JE plná -->
 <div class="hero-ctas rv rv-d2">
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť Gerlach →</a>
-<a class="btn btn-secondary" href="./app.html?mode=demo">Vyskúšať demo ↗</a>
+<a class="btn btn-primary js-when-open cta-open-btn" href="./Gerlach_v7.html">Spustiť Gerlach</a>
+<a class="btn btn-secondary" href="./Gerlach_v7.html?mode=demo">Vyskúšať demo</a>
 </div>
 <!-- Whitelist: Viditeľný keď beta JE plná -->
 <div aria-label="Prihlásenie na čakací zoznam" class="waitlist-inline js-when-full" id="heroWaitlist" role="form">
@@ -1123,17 +1127,12 @@
 </div>
 <!-- Demo stále funguje aj pri plnej beta -->
 <div class="js-when-full" style="display:none; margin-top:0.75rem;">
-<a class="btn btn-secondary" href="./app.html?mode=demo">Medzitým vyskúšajte demo ↗</a>
+<a class="btn btn-secondary" href="./Gerlach_v7.html?mode=demo">Medzitým vyskúšajte demo</a>
 </div>
 <!-- Beta badge: MOBILE/TABLET ONLY -->
 <div class="beta-badge rv rv-d3 beta-badge-mobile">
-<div>
-<div class="beta-badge-label">Beta</div>
-<div style="display:flex; align-items:center; gap:0.5rem; margin-top:0.2rem;">
 <div class="beta-badge-bar"><div class="beta-badge-fill js-bar" style="width:0%;"></div></div>
 <span class="beta-badge-num"><span class="js-count">–</span>/<span class="js-max">200</span></span>
-</div>
-</div>
 <span class="beta-badge-free"><span class="js-free">–</span> voľných registrácií</span>
 </div>
 </div>
@@ -1442,7 +1441,7 @@
 <li>Po zatvorení prehliadača sa dáta zmažú</li>
 <li>Ideálne na prvé vyskúšanie</li>
 </ul>
-<a class="btn btn-secondary" href="./app.html?mode=demo" style="justify-content:center;">Vyskúšať demo →</a>
+<a class="btn btn-secondary" href="./Gerlach_v7.html?mode=demo" style="justify-content:center;">Vyskúšať demo</a>
 </div>
 <div class="compare-card full">
 <span class="compare-badge">Plná verzia</span>
@@ -1461,7 +1460,7 @@
 <li>Prístup z každého zariadenia (cloud)</li>
 <li>Prihlásenie cez Google — hneď ste v tom</li>
 </ul>
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html" style="justify-content:center;">Spustiť appku →</a>
+<a class="btn btn-primary js-when-open cta-open-btn" href="./Gerlach_v7.html" style="justify-content:center;">Spustiť appku</a>
 <!-- Ak beta plná -->
 <div class="js-when-full" style="display:none; text-align:center;">
 <p style="font-size:0.85rem; opacity:0.7; margin-bottom:0.5rem;">Beta je plná. Nechajte email nižšie.</p>
@@ -1523,8 +1522,8 @@
 <p class="sec-sub rv rv-d1">Bez inštalácie. Otvoríte v prehliadači a hneď viete, čo doma chýba.</p>
 <!-- Keď beta otvorená -->
 <div class="rv rv-d2 js-when-open" style="display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
-<a class="btn btn-primary cta-open-btn" href="./app.html">Spustiť Gerlach →</a>
-<a class="btn btn-ghost" href="./app.html?mode=demo" style="color:rgba(255,255,255,0.55);">alebo vyskúšajte demo ↗</a>
+<a class="btn btn-primary cta-open-btn" href="./Gerlach_v7.html">Spustiť Gerlach</a>
+<a class="btn btn-ghost" href="./Gerlach_v7.html?mode=demo" style="color:rgba(255,255,255,0.55);">alebo vyskúšajte demo</a>
 </div>
 <!-- Keď beta plná -->
 <div aria-label="Čakací zoznam" class="cta-waitlist js-when-full" role="form">
@@ -1536,7 +1535,7 @@
 <p class="waitlist-micro">Bez spamu. Ozveme sa len vtedy, keď sa uvoľnia miesta. Odhlásenie jedným klikom.</p>
 <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
 <div style="margin-top:1rem;">
-<a class="btn btn-ghost" href="./app.html?mode=demo" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo ↗</a>
+<a class="btn btn-ghost" href="./Gerlach_v7.html?mode=demo" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo</a>
 </div>
 </div>
 <p class="cta-note rv rv-d3">Pri prihlásení sa vaše dáta uložia do vášho konta. Každý používateľ vidí iba svoje vlastné údaje.</p>
@@ -1555,8 +1554,8 @@
   <span class="footer-text">mámeplán.sk © <span id="footerYear"></span> — Slovenský projekt pre slovenské domácnosti</span>
 </div>
 <div class="footer-links">
-<a class="footer-link" href="./app.html">Aplikácia</a>
-<a class="footer-link" href="mailto:app.gerlach@gmail.com">Kontakt</a>
+<a class="footer-link" href="./Gerlach_v7.html">Aplikácia</a>
+<a class="footer-link" href="mailto:kontakt@mameplan.sk">Kontakt</a>
 </div>
 </div>
 </footer>
@@ -1567,8 +1566,8 @@
 ════════════════════════════════════════════════════ -->
 <div aria-label="Rýchle akcie" class="sticky-bar" id="stickyBar">
 <div class="sticky-bar-inner">
-<a class="btn btn-secondary" href="./app.html?mode=demo">Demo</a>
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť appku →</a>
+<a class="btn btn-secondary" href="./Gerlach_v7.html?mode=demo">Demo</a>
+<a class="btn btn-primary js-when-open cta-open-btn" href="./Gerlach_v7.html">Spustiť appku</a>
 </div>
 </div>
 <!-- ════════════════════════════════════════════════════
@@ -1633,8 +1632,10 @@
     setTimeout(() => {
       form.querySelector('.waitlist-row').style.display = 'none';
       form.querySelector('.waitlist-micro').style.display = 'none';
-          success.style.display = 'block';
-      try { localStorage.setItem('gerlach_waitlist', email); } catch(e) {}
+      if (success) {
+        success.style.display = 'block';
+      }
+      localStorage.setItem('gerlach_waitlist', email);
     }, 600);
   }
 </script>
