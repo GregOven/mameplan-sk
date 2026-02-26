@@ -801,21 +801,61 @@
     }
     .bottom-nav .tab-btn {
       flex: 1;
-      flex-direction: column; gap: 0.125rem; font-size: 0.65rem;
-      padding: 0.375rem 0.25rem; border-radius: 0.625rem;
+      flex-direction: column; gap: 0.1rem; font-size: 0.6rem;
+      padding: 0.35rem 0.125rem; border-radius: 0.625rem;
     }
-    .bottom-nav .tab-btn .tab-emoji { font-size: 1.25rem; }
+    .bottom-nav .tab-btn .tab-emoji { font-size: 1.125rem; }
     .bottom-nav .tab-btn.active { background: transparent; color: var(--c-accent); }
+
+    /* ═══════════════════════════════════════════
+       SOS FLOATING ACTION BUTTON
+    ═══════════════════════════════════════════ */
+    .sos-fab {
+      display: none;
+      position: fixed;
+      z-index: 48;
+      bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+      right: 1rem;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      border: 2.5px solid #fecaca;
+      color: white;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.05rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35), 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+      font-family: 'DM Sans', 'Lexend', sans-serif;
+    }
+    .sos-fab:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(220, 38, 38, 0.45), 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .sos-fab:active { transform: scale(0.95); }
+    .sos-fab-icon { font-size: 1.25rem; line-height: 1; }
+    .sos-fab-label { font-size: 0.5rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1; }
 
     @media (max-width: 640px) {
       .tab-bar.top-tabs { display: none !important; }
-      .bottom-nav { display: flex; gap: 0.25rem; }
+      .bottom-nav { display: flex; gap: 0.125rem; }
+      .sos-fab { display: flex; }
       .app-main-padding { padding-bottom: 80px !important; }
       .hero-pct { font-size: 1.5rem !important; }
       .hero-rank { font-size: 1rem !important; }
       .hero-banner { padding: 1rem !important; }
       .hero-meta { gap: 0.375rem !important; }
       .hero-tag { font-size: 0.68rem !important; padding: 0.2rem 0.5rem !important; }
+    }
+    @media (min-width: 641px) {
+      .sos-fab {
+        display: flex;
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
     }
 
     @media (min-width: 641px) and (max-width: 900px) {
@@ -1110,7 +1150,10 @@
   <div class="tab-bar top-tabs" style="position:sticky; top:60px; z-index:49;">
     <div class="tab-bar-inner">
     <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')">
-      <span class="tab-emoji">🎒</span> Moja príprava
+      <span class="tab-emoji">🎒</span> Príprava
+    </button>
+    <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
+      <span class="tab-emoji">📋</span> Plán
     </button>
     <button class="tab-btn" data-tab="knowledge" onclick="switchTab('knowledge')">
       <span class="tab-emoji">📖</span> Vedomosti
@@ -1152,6 +1195,13 @@
         <p style="font-size:0.78rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Nakupujte postupne, odškrtávajte priebežne.</p>
         <div id="categoriesGrid" class="categories-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.75rem;"></div>
       </div>
+
+    </div><!-- end tabPreparation -->
+
+    <!-- ═══════════════ TAB B: PLÁN ═══════════════ -->
+    <div class="tab-pane" id="tabPlan">
+
+      <div class="zone-intro">Evakuačné batohy a rodinný krízový plán – dohodnite sa vopred, pripravte sa včas.</div>
 
       <!-- Evakuačné batohy -->
       <div class="card" id="evacBagsSection">
@@ -1195,23 +1245,13 @@
         </div>
       </div>
 
-    </div><!-- end tabPreparation -->
 
-    <!-- ═══════════════ TAB B: VEDOMOSTI ═══════════════ -->
+    </div><!-- end tabPlan -->
+
+    <!-- ═══════════════ TAB C: VEDOMOSTI ═══════════════ -->
     <div class="tab-pane" id="tabKnowledge">
 
       <div class="zone-intro">Nemusíte si všetko pamätať — stačí vedieť, kde hľadať.</div>
-
-      <!-- Postupy pri MU -->
-      <div class="card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
-          <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">⚠️ Postupy pri mimoriadnych udalostiach</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Prehľadné odporúčania, čo robiť krok po kroku</p>
-          </div>
-        </div>
-        <div id="emergencyProcGrid" class="mu-grid"></div>
-      </div>
 
       <!-- Prvá pomoc -->
       <div class="card">
@@ -1226,6 +1266,17 @@
           </div>
         </div>
         <div id="firstAidGrid" class="fa-grid"></div>
+      </div>
+
+      <!-- Postupy pri MU -->
+      <div class="card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h2 style="font-size:1.2rem; font-weight:700;">⚠️ Postupy pri mimoriadnych udalostiach</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Prehľadné odporúčania, čo robiť krok po kroku</p>
+          </div>
+        </div>
+        <div id="emergencyProcGrid" class="mu-grid"></div>
       </div>
 
       <!-- Varovné signály sirén -->
@@ -1260,7 +1311,7 @@
 
     </div><!-- end tabKnowledge -->
 
-    <!-- ═══════════════ TAB C: KONTAKTY ═══════════════ -->
+    <!-- ═══════════════ TAB D: KONTAKTY ═══════════════ -->
     <div class="tab-pane" id="tabContacts">
 
       <div class="zone-intro">Tiesňové linky, poruchové služby a vaše osobné kontakty na jednom mieste – offline prístupné, keď to najviac potrebujete.</div>
@@ -1304,13 +1355,23 @@
     <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')">
       <span class="tab-emoji">🎒</span> Príprava
     </button>
+    <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
+      <span class="tab-emoji">📋</span> Plán
+    </button>
     <button class="tab-btn" data-tab="knowledge" onclick="switchTab('knowledge')">
-      <span class="tab-emoji">📖</span> Postupy
+      <span class="tab-emoji">📖</span> Vedomosti
     </button>
     <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">
       <span class="tab-emoji">📞</span> Kontakty
     </button>
   </div>
+
+  <!-- SOS Floating Button (quick access to First Aid) -->
+  <button class="sos-fab" id="sosFab" onclick="switchTab('knowledge'); setTimeout(() => { const fa = document.getElementById('firstAidGrid'); if(fa) fa.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);" aria-label="SOS – Prvá pomoc">
+    <span class="sos-fab-icon">🆘</span>
+    <span class="sos-fab-label">SOS</span>
+  </button>
+
 </div><!-- end appScreen -->
 
 <!-- Modal: EmailJS technická konfigurácia -->
@@ -3079,7 +3140,8 @@
   // ── Tab Navigation ─────────────────────────────────────────
   function switchTab(tabName) {
     document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-    const paneId = tabName === 'preparation' ? 'tabPreparation' : tabName === 'knowledge' ? 'tabKnowledge' : 'tabContacts';
+    const paneMap = { preparation: 'tabPreparation', knowledge: 'tabKnowledge', plan: 'tabPlan', contacts: 'tabContacts' };
+    const paneId = paneMap[tabName] || 'tabPreparation';
     document.getElementById(paneId).classList.add('active');
     document.querySelectorAll('.tab-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.tab === tabName);
