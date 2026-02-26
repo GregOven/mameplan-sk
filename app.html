@@ -1690,8 +1690,9 @@ if (window.location.hash === '#startdemo') {
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   // ── Firebase config ──────────────────────────────────────────────
-  // Demo mode: ?mode=demo v URL = žiadny Firebase, žiadna auth, dáta v sessionStorage
-  let isDemo = new URLSearchParams(location.search).get('mode') === 'demo';
+  // Demo mode: ?mode=demo ALEBO #startdemo v URL
+  let isDemo = new URLSearchParams(location.search).get('mode') === 'demo'
+             || window.location.hash === '#startdemo';
 
   const firebaseConfig = {
     apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
@@ -2194,7 +2195,7 @@ if (window.location.hash === '#startdemo') {
     if (!state.profile) openModal('modalProfile');
   }
 
-  // Ak URL obsahuje ?mode=demo, spustíme demo okamžite
+  // Ak isDemo (z ?mode=demo alebo #startdemo), spustíme demo okamžite
   if (isDemo) {
     startDemoMode();
   }
@@ -2217,12 +2218,6 @@ if (window.location.hash === '#startdemo') {
     isDemo = true;
     startDemoMode();
   };
-
-  // Auto-start demo ak URL obsahuje #startdemo (z webstránky)
-  if (window.location.hash === '#startdemo') {
-    isDemo = true;
-    startDemoMode();
-  }
 
   document.getElementById("btnLogout").onclick = () => {
     if (isDemo) {
