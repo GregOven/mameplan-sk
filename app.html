@@ -932,17 +932,6 @@
   </style>
 </head>
 <body>
-<!-- Okamžité skrytie login screen pre demo z webstránky (pred načítaním modulov) -->
-<script>
-if (window.location.hash === '#startdemo') {
-  document.documentElement.style.visibility = 'hidden';
-  window.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('appScreen').style.display = 'block';
-    document.documentElement.style.visibility = '';
-  });
-}
-</script>
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
@@ -956,7 +945,7 @@ if (window.location.hash === '#startdemo') {
       Pokračovať cez Google
     </button>
     <div style="text-align:center; margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.4;">
-      údaje sa uložia do vášho účtu a uvidíte ich len vy
+      údaje sa uložia do vášho účtu a budú dostupné na každom zariadení
     </div>
 
     <div style="display:flex; align-items:center; gap:0.75rem; margin-top:1rem;">
@@ -966,7 +955,7 @@ if (window.location.hash === '#startdemo') {
     </div>
 
     <button class="btn-google" id="btnDemoLogin" style="margin-top:1rem; border-color:#f59e0b; background:#fffbeb;">
-      🔍 Vyskúšať demo (bez účtu)
+      🔍 Vyskúšať demo
     </button>
     <div style="text-align:center; margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.4;">
       dáta sa vymažú po zatvorení prehliadača
@@ -1688,9 +1677,8 @@ if (window.location.hash === '#startdemo') {
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
   // ── Firebase config ──────────────────────────────────────────────
-  // Demo mode: ?mode=demo ALEBO #startdemo v URL
-  let isDemo = new URLSearchParams(location.search).get('mode') === 'demo'
-             || window.location.hash === '#startdemo';
+  // Demo mode: ?mode=demo v URL
+  let isDemo = new URLSearchParams(location.search).get('mode') === 'demo';
 
   const firebaseConfig = {
     apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
@@ -2191,7 +2179,7 @@ if (window.location.hash === '#startdemo') {
     if (!state.profile) openModal('modalProfile');
   }
 
-  // Ak isDemo (z ?mode=demo alebo #startdemo), spustíme demo okamžite
+  // Ak isDemo (z ?mode=demo), spustíme demo okamžite
   if (isDemo) {
     startDemoMode();
   }
