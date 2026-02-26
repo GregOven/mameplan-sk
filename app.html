@@ -516,8 +516,89 @@
     }
 
     /* ═══════════════════════════════════════════
-       MOBILNÁ RESPONZIVITA
+       UTILITY CLASSES (consolidated inline styles)
     ═══════════════════════════════════════════ */
+
+    /* Modal close button */
+    .modal-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--c-muted); font-size: 1.375rem;
+      flex-shrink: 0; margin-left: 1rem;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 0.5rem; transition: background 0.15s;
+    }
+    .modal-close:hover { background: var(--c-bg); }
+
+    /* Modal header row */
+    .modal-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Section heading (uppercase muted) */
+    .section-label {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--c-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.625rem;
+    }
+
+    /* Card inner section background */
+    .card-section {
+      background: var(--c-bg);
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    /* Item form label (bold) — used in category/bag item rows */
+    .item-label {
+      font-size: 0.78rem; color: var(--c-muted);
+      display: block; margin-bottom: 0.375rem;
+      font-weight: 600;
+    }
+    /* Item form sublabel */
+    .item-sublabel {
+      font-size: 0.68rem; color: var(--c-muted);
+      display: block; margin-bottom: 0.2rem;
+    }
+    /* Item form label (regular) */
+    .item-label-light {
+      font-size: 0.8rem; color: var(--c-muted);
+      display: block; margin-bottom: 0.375rem;
+    }
+
+    /* Undo toast */
+    .undo-toast {
+      position: fixed;
+      bottom: calc(80px + env(safe-area-inset-bottom, 0px));
+      left: 50%; transform: translateX(-50%);
+      background: #1a1714; color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: 1rem;
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.82rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.24);
+      z-index: 200;
+      animation: toastSlideUp 0.3s ease-out;
+    }
+    .undo-toast button {
+      background: none; border: none;
+      color: #60a5fa; font-weight: 700;
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.82rem; cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      transition: background 0.15s;
+    }
+    .undo-toast button:hover { background: rgba(96,165,250,0.15); }
+    @keyframes toastSlideUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
 
     @media (max-width: 640px) {
 
@@ -1299,7 +1380,7 @@
         </div>
         <div id="meetingPointBox"></div>
         <div style="margin-top:1rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Krízové scenáre – kto, čo, kam?</div>
+          <div class="section-label">Krízové scenáre – kto, čo, kam?</div>
           <div class="info-collapse" style="background:var(--c-bg); margin-bottom:0.75rem;">
             <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
               <span>💡 Ako pracovať so scenármi</span>
@@ -1420,11 +1501,11 @@
           </div>
         </div>
         <div style="margin-bottom:1rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Tiesňové linky</div>
+          <div class="section-label">Tiesňové linky</div>
           <div class="ec-grid" id="emergencyLinesGrid"></div>
         </div>
         <div>
-          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Inštitúcie, krízové linky a poruchové služby</div>
+          <div class="section-label">Inštitúcie, krízové linky a poruchové služby</div>
           <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
         </div>
       </div>
@@ -1503,7 +1584,7 @@
       <!-- ── ZÁKLADNÉ NASTAVENIA ── -->
 
       <!-- Počet osôb -->
-      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+      <div class="card-section">
         <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">👨‍👩‍👧‍👦 Počet osôb v domácnosti</div>
         <div class="persons-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.625rem;">
           <div>
@@ -1536,7 +1617,7 @@
       <!-- Počet dní + Typ bývania -->
       <div class="profile-days-housing" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
         <!-- Počet dní sebestačnosti -->
-        <div class="prepdays-row" style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+        <div class="prepdays-row" class="card-section">
           <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">📅 Počet dní sebestačnosti</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; margin-bottom:0.75rem; line-height:1.4;">Minimum 3 dni. Pre väčší pocit istoty odporúčame 7 dní.</div>
           <input name="prepDays" type="number" min="1" max="30" value="3"
@@ -1546,7 +1627,7 @@
         </div>
 
         <!-- Typ bývania -->
-        <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+        <div class="card-section">
           <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🏠 Typ bývania</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Ovplyvňuje niektoré odporúčania.</div>
           <div style="display:flex; flex-direction:column; gap:0.5rem;">
@@ -1577,7 +1658,7 @@
           <!-- Úroveň + Nákladovosť -->
           <div class="profile-3col" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
             <!-- Úroveň pripravenosti -->
-            <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+            <div class="card-section">
               <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🛡️ Úroveň zásob</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Určuje výsledný komfort v čase krízy.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
@@ -1599,7 +1680,7 @@
             </div>
 
             <!-- Nákladovosť -->
-            <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+            <div class="card-section">
               <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">💰 Nákladovosť</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
@@ -1622,7 +1703,7 @@
           </div>
 
           <!-- Nastavenia: Sledovanie expirácie -->
-          <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+          <div class="card-section">
             <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">⏰ Sledovanie expirácie</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Upozorníme vás na položky, ktorým sa blíži dátum spotreby.</div>
             <div style="display:flex; flex-wrap:wrap; gap:0.625rem;">
@@ -1648,7 +1729,7 @@
           </div>
 
           <!-- Nastavenia: Emailové pripomienky -->
-          <div id="emailSettingsInProfile" style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+          <div id="emailSettingsInProfile" class="card-section">
             <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
               <div>
                 <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">✉️ Emailové pripomienky</div>
@@ -1674,9 +1755,9 @@
 <!-- Modal: Kategória Detail -->
 <div class="modal-overlay" id="modalCategory">
   <div class="modal-box" style="max-width:680px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <div id="modalCatHeader" style="flex:1; min-width:0;"></div>
-      <button data-close="modalCategory" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+      <button data-close="modalCategory" class="modal-close">✕</button>
     </div>
     <div id="categoryDetail" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
     <div style="display:flex; align-items:center; justify-content:space-between; padding-top:1rem; margin-top:0.5rem; border-top:1px solid var(--c-border);">
@@ -1691,32 +1772,32 @@
 <!-- Modal: Add / Edit Item -->
 <div class="modal-overlay" id="modalAddItem">
   <div class="modal-box" style="max-width:480px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <h3 id="itemModalTitle" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Pridať položku</h3>
       <button data-close="modalAddItem" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="addItemForm" style="display:grid; gap:0.75rem;">
       <input type="hidden" name="editIndex" value="-1" />
       <div>
-        <label id="itemLabelName" style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <label id="itemLabelName" class="item-label-light">Názov *</label>
         <input name="name" type="text" required />
       </div>
       <div id="itemFieldQtyRow" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div id="itemFieldQty">
-          <label id="itemLabelQty" style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Množstvo</label>
+          <label id="itemLabelQty" class="item-label-light">Množstvo</label>
           <input name="qty" type="text" placeholder="napr. 5 ks" />
         </div>
         <div id="itemFieldExpiry">
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
+          <label class="item-label-light">Expirácia</label>
           <input name="expiry" type="date" />
         </div>
       </div>
       <div id="itemFieldDocs" style="display:none;">
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Typ uloženia</label>
+        <label class="item-label-light">Typ uloženia</label>
         <input name="qty_docs" type="text" placeholder="napr. Originál + scan Cloud + USB kľúč" />
       </div>
       <div id="itemFieldLink">
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Odkaz (URL)</label>
+        <label class="item-label-light">Odkaz (URL)</label>
         <input name="link" type="url" placeholder="https://..." />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
@@ -1742,7 +1823,7 @@
 <!-- Modal: Edit Food Entry -->
 <div class="modal-overlay" id="modalFoodEdit">
   <div class="modal-box" style="max-width:440px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť jedlo</h3>
       <button data-close="modalFoodEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
@@ -1751,21 +1832,21 @@
       <input type="hidden" name="fe_itemIdx" />
       <input type="hidden" name="fe_entryIdx" />
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <label class="item-label-light">Názov *</label>
         <input name="fe_name" type="text" required />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">kcal / kus *</label>
+          <label class="item-label-light">kcal / kus *</label>
           <input name="fe_kcal" type="number" min="0" required />
         </div>
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet</label>
+          <label class="item-label-light">Počet</label>
           <input name="fe_qty" type="number" min="1" value="1" />
         </div>
       </div>
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia *</label>
+        <label class="item-label-light">Expirácia *</label>
         <input name="fe_expiry" type="date" required />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
@@ -1778,7 +1859,7 @@
 <!-- Modal: Edit Water Entry -->
 <div class="modal-overlay" id="modalWaterEdit">
   <div class="modal-box" style="max-width:440px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť vodu</h3>
       <button data-close="modalWaterEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
@@ -1787,21 +1868,21 @@
       <input type="hidden" name="we_itemIdx" />
       <input type="hidden" name="we_entryIdx" />
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <label class="item-label-light">Názov *</label>
         <input name="we_name" type="text" required />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Litrov / kus *</label>
+          <label class="item-label-light">Litrov / kus *</label>
           <input name="we_liters" type="number" min="0" step="0.1" required />
         </div>
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet</label>
+          <label class="item-label-light">Počet</label>
           <input name="we_qty" type="number" min="1" value="1" />
         </div>
       </div>
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia *</label>
+        <label class="item-label-light">Expirácia *</label>
         <input name="we_expiry" type="date" required />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
@@ -1814,7 +1895,7 @@
 <!-- Modal: Edit Cash Entry -->
 <div class="modal-overlay" id="modalCashEdit">
   <div class="modal-box" style="max-width:440px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť hotovosť</h3>
       <button data-close="modalCashEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
@@ -1824,19 +1905,19 @@
       <input type="hidden" name="ce_entryIdx" />
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Typ</label>
+          <label class="item-label-light">Typ</label>
           <select name="ce_type" style="font-size:0.9rem; padding:0.625rem 0.875rem;">
             <option value="bankovka">💶 Bankovka</option>
             <option value="minca">🪙 Minca</option>
           </select>
         </div>
         <div>
-          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Hodnota (€) *</label>
+          <label class="item-label-light">Hodnota (€) *</label>
           <input name="ce_value" type="number" min="0" step="0.01" required />
         </div>
       </div>
       <div>
-        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet kusov</label>
+        <label class="item-label-light">Počet kusov</label>
         <input name="ce_qty" type="number" min="1" value="1" />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
@@ -1867,7 +1948,7 @@
           <p id="muModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
-      <button data-close="modalEmergencyProc" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+      <button data-close="modalEmergencyProc" class="modal-close">✕</button>
     </div>
     <div id="muModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
   </div>
@@ -1878,7 +1959,7 @@
   <div class="modal-box" style="max-width:500px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
       <h3 id="sirenModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
-      <button data-close="modalSiren" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+      <button data-close="modalSiren" class="modal-close">✕</button>
     </div>
     <div id="sirenModalContent" style="max-height:65vh; overflow-y:auto;"></div>
   </div>
@@ -1899,7 +1980,7 @@
           <p id="evacBagModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
-      <button data-close="modalEvacBag" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+      <button data-close="modalEvacBag" class="modal-close">✕</button>
     </div>
     <div id="evacBagModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
   </div>
@@ -1908,7 +1989,7 @@
 <!-- Modal: Osobný kontakt -->
 <div class="modal-overlay" id="modalPersonalContact">
   <div class="modal-box" style="max-width:500px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <div>
         <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">👤 Nový kontakt</h3>
         <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Uložte si dôležité číslo pre prípad núdze</p>
@@ -1918,30 +1999,30 @@
     <form id="personalContactForm" style="display:grid; gap:1rem;">
       <input type="hidden" name="pc_editIndex" value="-1" />
       <div>
-        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Typ kontaktu *</label>
+        <label class="item-label">Typ kontaktu *</label>
         <div id="pcCategoryPicker" style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-bottom:0.5rem;"></div>
         <input name="pc_customType" type="text" id="pcCustomTypeInput" placeholder="Vlastný typ (napr. Susedka Mária)" style="display:none;" />
       </div>
       <div>
-        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Meno / Názov *</label>
+        <label class="item-label">Meno / Názov *</label>
         <input name="pc_name" type="text" required placeholder="napr. MUDr. Kováč, Allianz, Matka..." />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
         <div>
-          <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón *</label>
+          <label class="item-label">Telefón *</label>
           <input name="pc_phone" type="tel" required placeholder="+421..." />
         </div>
         <div>
-          <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón 2 (záložný)</label>
+          <label class="item-label">Telefón 2 (záložný)</label>
           <input name="pc_phone2" type="tel" placeholder="" />
         </div>
       </div>
       <div>
-        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Adresa</label>
+        <label class="item-label">Adresa</label>
         <input name="pc_address" type="text" placeholder="napr. Hlavná 15, Bratislava" />
       </div>
       <div>
-        <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+        <label class="item-label">Poznámka</label>
         <input name="pc_note" type="text" placeholder="napr. Ordinačné hodiny, číslo zmluvy..." />
       </div>
       <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
@@ -1955,7 +2036,7 @@
 <!-- Modal: Miesto stretnutia -->
 <div class="modal-overlay" id="modalMeetingPoint">
   <div class="modal-box" style="max-width:560px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <div>
         <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">📍 Miesto stretnutia</h3>
         <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Kde sa stretnete, keď nebude signál ani internet?</p>
@@ -1963,7 +2044,7 @@
       <button data-close="modalMeetingPoint" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
     <form id="meetingPointForm" style="display:grid; gap:1rem;">
-      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+      <div class="card-section">
         <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.625rem;">Hlavné miesto</div>
         <div style="display:grid; gap:0.625rem;">
           <div>
@@ -1991,7 +2072,7 @@
         </div>
       </div>
 
-      <div style="background:var(--c-bg); border-radius:1rem; padding:1rem;">
+      <div class="card-section">
         <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">Záložné miesto</div>
         <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.625rem;">Ak hlavné miesto nie je prístupné.</div>
         <div style="display:grid; gap:0.625rem;">
@@ -2016,7 +2097,7 @@
 <!-- Modal: Scenár -->
 <div class="modal-overlay" id="modalScenario">
   <div class="modal-box" style="max-width:600px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+    <div class="modal-header">
       <div>
         <h3 id="scenarioModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
         <p id="scenarioModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;"></p>
@@ -2036,7 +2117,7 @@
           <p id="faModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
-      <button data-close="modalFirstAid" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.375rem; flex-shrink:0; margin-left:1rem; width:32px; height:32px; display:flex; align-items:center; justify-content:center; border-radius:0.5rem; transition:background 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">✕</button>
+      <button data-close="modalFirstAid" class="modal-close">✕</button>
     </div>
     <div id="faModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
   </div>
@@ -3656,15 +3737,15 @@
                 <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Litrov / kus *</label>
+                    <label class="item-sublabel">Litrov / kus *</label>
                     <input type="number" min="0" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
+                    <label class="item-sublabel">Počet</label>
                     <input type="number" min="1" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia *</label>
+                    <label class="item-sublabel">Expirácia *</label>
                     <input type="date" id="we_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                 </div>
@@ -3832,15 +3913,15 @@
                 <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
                 <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">kcal / kus *</label>
+                    <label class="item-sublabel">kcal / kus *</label>
                     <input type="number" min="0" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
+                    <label class="item-sublabel">Počet</label>
                     <input type="number" min="1" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia *</label>
+                    <label class="item-sublabel">Expirácia *</label>
                     <input type="date" id="fe_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" required />
                   </div>
                 </div>
@@ -3977,14 +4058,14 @@
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Typ</label>
+                    <label class="item-sublabel">Typ</label>
                     <select id="ce_type_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
                       <option value="bankovka">💶 Bankovka</option>
                       <option value="minca">🪙 Minca</option>
                     </select>
                   </div>
                   <div>
-                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Hodnota (€)</label>
+                    <label class="item-sublabel">Hodnota (€)</label>
                     <select id="ce_value_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
                       <optgroup label="Bankovky">
                         <option value="5">5 €</option>
@@ -4008,7 +4089,7 @@
                   </div>
                 </div>
                 <div>
-                  <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet kusov</label>
+                  <label class="item-sublabel">Počet kusov</label>
                   <input type="number" min="1" value="1" id="ce_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                 </div>
                 <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="ce_add_${idx}">Pridať do zásob</button>
@@ -4385,15 +4466,15 @@
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Kde máte hlavný istič? Plynový uzáver? Batoh? Zapíšte si to \u2013 v strese si nepamätáte ani jednoduché veci.</em></div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Postup krok za krokom</label>
+            <label class="item-label">Postup krok za krokom</label>
             <textarea name="steps" rows="8" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kam evakuujete? (ak treba opustiť dom)</label>
+            <label class="item-label">Kam evakuujete? (ak treba opustiť dom)</label>
             <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. K starým rodičom, na chatu, na miesto stretnutia..." />
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <label class="item-label">Poznámka</label>
             <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kto vezme mačku, kto uzamkne dom, kde sú kľúče..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
@@ -4421,15 +4502,15 @@
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Mať čelovku a topánky pri posteli nie je paranoia – je to pripravenosť. V tme na rozbité sklo stúpite skôr než si to uvedomíte.</em></div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Postup krok za krokom</label>
+            <label class="item-label">Postup krok za krokom</label>
             <textarea name="steps" rows="7" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kam evakuujete v noci?</label>
+            <label class="item-label">Kam evakuujete v noci?</label>
             <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. Rovnaké miesto ako cez deň, alebo najbližší úkryt..." />
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <label class="item-label">Poznámka</label>
             <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Čelovka v nočnom stolíku, topánky pod posteľou..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
@@ -4458,28 +4539,28 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto cestuje?</label>
+              <label class="item-label">Kto cestuje?</label>
               <input name="whoTravels" type="text" value="${esc(s.whoTravels||"")}" placeholder="napr. Ocko, Mama..." />
             </div>
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kontaktná osoba mimo regiónu</label>
+              <label class="item-label">Kontaktná osoba mimo regiónu</label>
               <input name="contactPerson" type="text" value="${esc(s.contactPerson||"")}" placeholder="napr. Strýko Jano v Prahe" />
             </div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón kontaktnej osoby</label>
+            <label class="item-label">Telefón kontaktnej osoby</label>
             <input name="contactPhone" type="text" value="${esc(s.contactPhone||"")}" placeholder="napr. +421 9XX XXX XXX" />
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí rodina doma?</label>
+            <label class="item-label">Čo robí rodina doma?</label>
             <textarea name="stepsHome" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten, kto je preč?</label>
+            <label class="item-label">Čo robí ten, kto je preč?</label>
             <textarea name="stepsAway" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <label class="item-label">Poznámka</label>
             <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Číslo ambasády, poistenie na cestu..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
@@ -4514,19 +4595,19 @@
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
               <div>
-                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Kto ide?</label>
+                <label class="item-sublabel">Kto ide?</label>
                 <input name="task_person_${i}" type="text" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" />
               </div>
               <div>
-                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Vyzdvihne koho?</label>
+                <label class="item-sublabel">Vyzdvihne koho?</label>
                 <input name="task_picksUp_${i}" type="text" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" />
               </div>
               <div>
-                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Odkiaľ?</label>
+                <label class="item-sublabel">Odkiaľ?</label>
                 <input name="task_from_${i}" type="text" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" />
               </div>
               <div>
-                <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Poznámka</label>
+                <label class="item-sublabel">Poznámka</label>
                 <input name="task_note_${i}" type="text" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.85rem;" />
               </div>
             </div>
@@ -4547,16 +4628,16 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kde sa všetci stretnete?</label>
+              <label class="item-label">Kde sa všetci stretnete?</label>
               <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
             </div>
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">O koľkej najneskôr?</label>
+              <label class="item-label">O koľkej najneskôr?</label>
               <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, o 15:00..." />
             </div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <label class="item-label">Poznámka</label>
             <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Ak sa nedá vyzdvihnúť do 1h, volať babku..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
@@ -4578,10 +4659,10 @@
             <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Kto ide?</label><input name="task_person_${i}" type="text" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
-            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
-            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Odkiaľ?</label><input name="task_from_${i}" type="text" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
-            <div><label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Poznámka</label><input name="task_note_${i}" type="text" placeholder="" style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Kto ide?</label><input name="task_person_${i}" type="text" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Odkiaľ?</label><input name="task_from_${i}" type="text" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Poznámka</label><input name="task_note_${i}" type="text" placeholder="" style="font-size:0.85rem;" /></div>
           </div>`;
         tasksList.appendChild(row);
         bindRemoveButtons();
@@ -4631,34 +4712,34 @@
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto je doma?</label>
+              <label class="item-label">Kto je doma?</label>
               <input name="whoHome" type="text" value="${esc(s.whoHome||"")}" placeholder="napr. Mama, Mišo..." />
             </div>
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto je v práci?</label>
+              <label class="item-label">Kto je v práci?</label>
               <input name="whoWork" type="text" value="${esc(s.whoWork||"")}" placeholder="napr. Ocko, Katka..." />
             </div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten doma?</label>
+            <label class="item-label">Čo robí ten doma?</label>
             <textarea name="homeSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten v práci?</label>
+            <label class="item-label">Čo robí ten v práci?</label>
             <textarea name="workSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kde sa stretnete?</label>
+              <label class="item-label">Kde sa stretnete?</label>
               <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
             </div>
             <div>
-              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">O koľkej najneskôr?</label>
+              <label class="item-label">O koľkej najneskôr?</label>
               <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, ASAP..." />
             </div>
           </div>
           <div>
-            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <label class="item-label">Poznámka</label>
             <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kľúče od auta – v šuflíku v chodbe..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
@@ -7288,16 +7369,60 @@
     openModal("modalAddItem");
   }
 
+  // ── Undo toast system ──────────────────────────────────────
+  let undoTimeout = null;
+  let undoData = null;
+
+  function showUndoToast(message, restoreFn) {
+    // Remove existing toast
+    const existing = document.getElementById("undoToast");
+    if (existing) existing.remove();
+    if (undoTimeout) clearTimeout(undoTimeout);
+
+    const toast = document.createElement("div");
+    toast.id = "undoToast";
+    toast.className = "undo-toast";
+    toast.innerHTML = `<span>${message}</span><button onclick="performUndo()">Vrátiť späť</button>`;
+    document.body.appendChild(toast);
+
+    undoData = restoreFn;
+    undoTimeout = setTimeout(() => {
+      toast.style.opacity = "0";
+      toast.style.transition = "opacity 0.3s";
+      setTimeout(() => toast.remove(), 300);
+      undoData = null;
+    }, 5000);
+  }
+
+  window.performUndo = function() {
+    if (undoData) {
+      undoData();
+      undoData = null;
+    }
+    if (undoTimeout) clearTimeout(undoTimeout);
+    const toast = document.getElementById("undoToast");
+    if (toast) toast.remove();
+    scheduleSave(); renderAll();
+  };
+
   function openDeleteConfirmation(catId, itemIdx) {
     const cat = CATEGORIES.find(c => c.id === catId);
     const item = state.items[catId] && state.items[catId][itemIdx];
     if (!item || !cat) return;
-    pendingDeleteCatId = catId;
-    pendingDeleteIdx = itemIdx;
-    document.getElementById("deleteItemTitle").textContent = "Odstrániť položku?";
-    document.getElementById("deleteItemText").innerHTML =
-      `Naozaj si želáte odstrániť položku <strong>${esc(item.name)}</strong> zo zoznamu <strong>${cat.emoji} ${cat.name}</strong>?`;
-    openModal("modalDeleteItem");
+
+    // Save item data for undo
+    const deletedItem = structuredClone(item);
+    const deletedIdx = itemIdx;
+    const deletedCatId = catId;
+
+    // Delete immediately
+    state.items[catId].splice(itemIdx, 1);
+    scheduleSave(); renderAll();
+
+    // Show undo toast
+    showUndoToast(`🗑️ ${esc(deletedItem.name)} odstránené`, () => {
+      state.items[deletedCatId].splice(deletedIdx, 0, deletedItem);
+    });
   }
 
   document.getElementById("btnConfirmDelete").onclick = () => {
