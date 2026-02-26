@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<title>Právne informácie — Mámeplán.sk</title>
+<meta name="description" content="Podmienky používania, zásady ochrany osobných údajov a cookies politika projektu Mámeplán / Gerlach."/>
+<link rel="canonical" href="https://mameplan.sk/pravne-info.html"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --paper: #faf8f4;
+    --ink: #1a1612;
+    --ink2: #3d3730;
+    --muted: #6b6560;
+    --accent: #c94f1a;
+    --accent-hover: #b5441a;
+    --border: #e2dbd0;
+    --surface: #ffffff;
+    --radius-sm: 0.75rem;
+    --radius-md: 1.125rem;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Lexend', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:hover { color: var(--accent-hover); }
+
+  /* ── Nav ── */
+  .nav {
+    background: rgba(250,248,244,0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-inner {
+    max-width: 780px; margin: 0 auto;
+    height: 56px; display: flex;
+    align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--ink); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-back {
+    font-size: 0.82rem; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.15s;
+  }
+  .nav-back:hover { color: var(--ink); }
+
+  /* ── Content ── */
+  .wrap {
+    max-width: 780px; margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem;
+  }
+  .page-meta {
+    font-size: 0.78rem; color: var(--muted);
+    font-weight: 300; margin-bottom: 2.5rem;
+  }
+
+  /* ── Document nav (TOC) ── */
+  .doc-nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .doc-nav-title {
+    font-size: 0.68rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--muted); margin-bottom: 0.75rem;
+  }
+  .doc-nav a {
+    display: block; font-size: 0.88rem; font-weight: 500;
+    color: var(--ink2); text-decoration: none;
+    padding: 0.375rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.15s;
+  }
+  .doc-nav a:last-child { border-bottom: none; }
+  .doc-nav a:hover { color: var(--accent); }
+  .doc-nav a span { color: var(--muted); font-weight: 300; font-size: 0.8rem; }
+
+  /* ── Section dividers ── */
+  .doc-section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 80px;
+  }
+  .doc-divider {
+    height: 1px; background: var(--border);
+    margin: 3rem 0;
+  }
+
+  .doc-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.5rem; font-weight: 800;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+  .doc-section .doc-label {
+    font-size: 0.65rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--accent); margin-bottom: 0.75rem;
+    display: block;
+  }
+  .doc-section h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem; font-weight: 600;
+    margin: 1.75rem 0 0.625rem;
+    color: var(--ink);
+  }
+  .doc-section p {
+    font-size: 0.88rem; color: var(--ink2);
+    font-weight: 300; line-height: 1.75;
+    margin-bottom: 0.875rem;
+  }
+  .doc-section strong { font-weight: 600; color: var(--ink); }
+  .doc-section ul, .doc-section ol {
+    margin: 0.5rem 0 1rem 1.25rem;
+    font-size: 0.88rem; color: var(--ink2);
+    font-weight: 300; line-height: 1.75;
+  }
+  .doc-section li { margin-bottom: 0.375rem; }
+
+  .doc-highlight {
+    background: rgba(201,79,26,0.06);
+    border-left: 3px solid var(--accent);
+    padding: 0.875rem 1.125rem;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: 1.25rem 0;
+  }
+  .doc-highlight p { margin-bottom: 0; font-size: 0.85rem; }
+
+  .doc-table {
+    width: 100%; border-collapse: collapse;
+    margin: 1rem 0 1.5rem; font-size: 0.82rem;
+  }
+  .doc-table th, .doc-table td {
+    padding: 0.625rem 0.875rem;
+    text-align: left; border-bottom: 1px solid var(--border);
+    font-weight: 300; color: var(--ink2);
+  }
+  .doc-table th {
+    font-weight: 600; color: var(--ink);
+    background: var(--cream); font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+
+  /* ── Footer ── */
+  .legal-footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.75rem; color: var(--muted); font-weight: 300;
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 640px) {
+    .wrap { padding: 2rem 1.25rem 3rem; }
+    .page-title { font-size: 1.5rem; }
+    .doc-section h2 { font-size: 1.25rem; }
+    .doc-section h3 { font-size: 1rem; }
+    .doc-section p, .doc-section ul, .doc-section ol { font-size: 0.84rem; }
+    .doc-nav { padding: 1rem 1.125rem; }
+    .doc-table { font-size: 0.75rem; }
+    .doc-table th, .doc-table td { padding: 0.5rem 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="./index.html">Mámeplán.sk</a>
+    <a class="nav-back" href="./index.html">← Späť na hlavnú stránku</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<h1 class="page-title">Právne informácie</h1>
+<p class="page-meta">Posledná aktualizácia: 26. februára 2026 · Prevádzkovateľ: Miloš Horník</p>
+
+<!-- TOC -->
+<div class="doc-nav">
+  <div class="doc-nav-title">Obsah dokumentov</div>
+  <a href="#podmienky">1. Podmienky používania <span>— práva, povinnosti, zodpovednosť</span></a>
+  <a href="#ochrana-udajov">2. Zásady ochrany osobných údajov <span>— GDPR, spracúvanie dát</span></a>
+  <a href="#cookies">3. Zásady používania cookies <span>— typy, účel, nastavenia</span></a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DOKUMENT 1: PODMIENKY POUŽÍVANIA
+═══════════════════════════════════════════════════════════ -->
+<section class="doc-section" id="podmienky">
+<span class="doc-label">Dokument 1</span>
+<h2>Podmienky používania</h2>
+
+<h3>1. Úvodné ustanovenia</h3>
+<p>Tieto Podmienky používania (ďalej len „Podmienky") upravujú vzťah medzi prevádzkovateľom webovej stránky mameplan.sk a webovej aplikácie Gerlach (ďalej spoločne len „Služba") a každou fyzickou osobou, ktorá Službu používa (ďalej len „Používateľ").</p>
+<p>Prevádzkovateľom Služby je <strong>Miloš Horník</strong>, fyzická osoba – nepodnikateľ, kontaktný email: <strong>app.gerlach@gmail.com</strong> (ďalej len „Prevádzkovateľ").</p>
+<p>Služba je nekomerčný osobný projekt sprístupnený verejnosti bezodplatne. Nie je prevádzkovaná podnikateľským subjektom, neziskovou organizáciou ani štátnou inštitúciou.</p>
+
+<div class="doc-highlight">
+<p><strong>Používaním Služby (vrátane režimu demo) Používateľ potvrdzuje, že si tieto Podmienky prečítal, porozumel im a súhlasí s nimi v plnom rozsahu.</strong> Ak s Podmienkami nesúhlasíte, Službu nepoužívajte.</p>
+</div>
+
+<h3>2. Predmet a charakter Služby</h3>
+<p>Služba Gerlach je informačný nástroj, ktorý pomáha domácnostiam orientačne plánovať zásoby pre prípad núdzových situácií. Služba poskytuje najmä: orientačné výpočty zásob vody, jedla a liekov podľa veľkosti domácnosti; sledovanie dátumov expirácie; uloženie núdzového plánu a kontaktov; informácie o prvej pomoci a postupoch v krízových situáciách.</p>
+
+<div class="doc-highlight">
+<p><strong>Služba má výlučne informatívny a pomocný charakter.</strong> Nie je odborným poradenstvom v oblasti civilnej ochrany, zdravotníctva, bezpečnosti ani výživy. Výpočty a odporúčania sú orientačné a nemôžu nahradiť individuálne posúdenie odborníkom.</p>
+</div>
+
+<h3>3. Vylúčenie zodpovednosti</h3>
+<p><strong>Služba je poskytovaná „tak ako je" (as is) a „tak ako je dostupná" (as available), bez akýchkoľvek záruk, výslovných alebo implicitných.</strong> Prevádzkovateľ najmä nezaručuje:</p>
+<ul>
+  <li>nepretržitú dostupnosť, bezchybnosť alebo bezpečnosť Služby;</li>
+  <li>presnosť, úplnosť, aktuálnosť alebo vhodnosť poskytovaných informácií, výpočtov a odporúčaní pre konkrétnu situáciu Používateľa;</li>
+  <li>kompatibilitu so všetkými zariadeniami, prehliadačmi alebo operačnými systémami;</li>
+  <li>trvalé uchovanie akýchkoľvek dát Používateľa.</li>
+</ul>
+
+<p><strong>Prevádzkovateľ nenesie žiadnu zodpovednosť za škody</strong> (priame, nepriame, následné, náhodné, špeciálne alebo sankčné), ktoré vzniknú v súvislosti s používaním Služby alebo nemožnosťou jej použitia, a to vrátane, nie však výlučne:</p>
+<ul>
+  <li>škôd vzniknutých spoľahnutím sa na informácie, výpočty alebo odporúčania poskytnuté Službou;</li>
+  <li>straty dát, vrátane dát uložených vo Firestore alebo v sessionStorage;</li>
+  <li>škôd vzniknutých výpadkom Služby, chybou v softvéri alebo neoprávneným prístupom tretích strán;</li>
+  <li>škôd vzniknutých nesprávnym rozhodnutím Používateľa v krízovej alebo núdzovej situácii;</li>
+  <li>zdravotnej ujmy spôsobenej aplikovaním informácií o prvej pomoci alebo núdzových postupov.</li>
+</ul>
+
+<p><strong>Používateľ používa Službu výlučne na vlastnú zodpovednosť a vlastné riziko.</strong> Používateľ berie na vedomie, že v reálnej krízovej situácii je nevyhnutné riadiť sa pokynmi príslušných orgánov (Civilná ochrana SR, HaZZ, polícia, záchranné zložky) a nie výlučne informáciami zo Služby.</p>
+
+<h3>4. Vzdanie sa nárokov</h3>
+<p>Používateľ sa v maximálnom rozsahu povolenom platnými právnymi predpismi Slovenskej republiky vzdáva akýchkoľvek nárokov voči Prevádzkovateľovi súvisiacich s používaním Služby, vrátane nárokov na náhradu škody, ušlého zisku, nemajetkovej ujmy alebo akýchkoľvek iných strát.</p>
+<p>Ak príslušné právne predpisy neumožňujú úplné vylúčenie zodpovednosti, celková zodpovednosť Prevádzkovateľa voči Používateľovi za akékoľvek nároky súvisiace so Službou je obmedzená na sumu <strong>0 EUR</strong> (nula eur), keďže Služba je poskytovaná bezodplatne.</p>
+
+<h3>5. Povinnosti Používateľa</h3>
+<p>Používateľ sa zaväzuje:</p>
+<ul>
+  <li>používať Službu v súlade s právnym poriadkom SR, dobrými mravmi a týmito Podmienkami;</li>
+  <li>nezneužívať Službu na účely, na ktoré nie je určená;</li>
+  <li>nezasahovať do technickej infraštruktúry Služby, nepokúšať sa o neoprávnený prístup k dátam iných Používateľov;</li>
+  <li>nezadávať do Služby údaje tretích osôb bez ich súhlasu;</li>
+  <li>samostatne si zálohovať údaje, ktoré považuje za dôležité.</li>
+</ul>
+
+<h3>6. Duševné vlastníctvo</h3>
+<p>Všetok obsah Služby (zdrojový kód, dizajn, texty, grafika, logá) je chránený autorským právom podľa zákona č. 185/2015 Z. z. (Autorský zákon). Používateľ nesmie obsah Služby kopírovať, distribuovať, upravovať ani komerčne využívať bez písomného súhlasu Prevádzkovateľa.</p>
+
+<h3>7. Zmeny, prerušenie a ukončenie Služby</h3>
+<p>Prevádzkovateľ si vyhradzuje právo kedykoľvek a bez predchádzajúceho upozornenia:</p>
+<ul>
+  <li>zmeniť, obmedziť alebo úplne ukončiť poskytovanie Služby;</li>
+  <li>zmeniť tieto Podmienky (aktuálne znenie bude vždy dostupné na tejto stránke);</li>
+  <li>odstrániť účet alebo dáta Používateľa, ak poruší tieto Podmienky;</li>
+  <li>zmazať neaktívne účty a súvisiace dáta po období dlhšom ako 12 mesiacov bez prihlásenia.</li>
+</ul>
+<p>Prevádzkovateľ nemá povinnosť prevádzkovať Službu po akúkoľvek dobu ani informovať Používateľov o ukončení vopred.</p>
+
+<h3>8. Rozhodné právo a riešenie sporov</h3>
+<p>Tieto Podmienky sa riadia právnym poriadkom Slovenskej republiky. Prípadné spory budú riešené prednostne dohodou. Ak k dohode nedôjde, spor bude predložený príslušnému súdu Slovenskej republiky podľa sídla Prevádzkovateľa.</p>
+<p>Používateľ — spotrebiteľ má právo obrátiť sa na subjekt alternatívneho riešenia sporov podľa zákona č. 391/2015 Z. z. Zoznam subjektov vedie Ministerstvo hospodárstva SR: <a href="https://www.mhsr.sk/obchod/ochrana-spotrebitela/alternativne-riesenie-spotrebitelskych-sporov-1" target="_blank" rel="noopener">mhsr.sk</a>.</p>
+
+<h3>9. Oddeliteľnosť</h3>
+<p>Ak sa akékoľvek ustanovenie týchto Podmienok stane neplatným alebo nevymáhateľným, ostatné ustanovenia zostávajú v platnosti a účinnosti v plnom rozsahu.</p>
+
+<h3>10. Účinnosť</h3>
+<p>Tieto Podmienky nadobúdajú účinnosť dňom 26. februára 2026.</p>
+</section>
+
+<div class="doc-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DOKUMENT 2: ZÁSADY OCHRANY OSOBNÝCH ÚDAJOV
+═══════════════════════════════════════════════════════════ -->
+<section class="doc-section" id="ochrana-udajov">
+<span class="doc-label">Dokument 2</span>
+<h2>Zásady ochrany osobných údajov</h2>
+<p>Tento dokument informuje o spracúvaní osobných údajov v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 (GDPR) a zákonom č. 18/2018 Z. z. o ochrane osobných údajov v znení neskorších predpisov.</p>
+
+<h3>1. Prevádzkovateľ</h3>
+<p><strong>Miloš Horník</strong> — fyzická osoba, nepodnikateľ<br/>
+Email: <a href="mailto:app.gerlach@gmail.com">app.gerlach@gmail.com</a><br/>
+Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl. 37 GDPR, keďže nespracúva osobné údaje vo veľkom rozsahu a nejde o systematické monitorovanie.</p>
+
+<h3>2. Aké údaje spracúvame</h3>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Kategória údajov</th>
+      <th>Konkrétne údaje</th>
+      <th>Zdroj</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Prihlásenie (Google Auth)</strong></td>
+      <td>Meno, emailová adresa, URL profilového obrázku, jedinečný identifikátor Google účtu (UID)</td>
+      <td>Google účet Používateľa</td>
+    </tr>
+    <tr>
+      <td><strong>Údaje o domácnosti</strong></td>
+      <td>Počet členov domácnosti, zásoby (druhy, množstvá, dátumy expirácie), núdzový plán, núdzové kontakty (mená a telefónne čísla osôb zadaných Používateľom)</td>
+      <td>Zadané Používateľom</td>
+    </tr>
+    <tr>
+      <td><strong>Čakací zoznam (waitlist)</strong></td>
+      <td>Emailová adresa</td>
+      <td>Zadané Používateľom</td>
+    </tr>
+    <tr>
+      <td><strong>Demo režim</strong></td>
+      <td>Žiadne osobné údaje — dáta sa ukladajú výlučne do sessionStorage prehliadača a po jeho zatvorení sa automaticky vymažú</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Služba nezbiera ani nespracúva:</strong> údaje o polohe, biometrické údaje, údaje o zdravotnom stave, údaje z iných aplikácií, údaje o prehliadaní internetu ani žiadne analytické či sledovacie údaje (na Službe nie sú nasadené analytické nástroje).</p>
+
+<h3>3. Účel a právny základ spracúvania</h3>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Účel</th>
+      <th>Právny základ (GDPR)</th>
+      <th>Podrobnosti</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prihlásenie a identifikácia Používateľa</td>
+      <td>Čl. 6 ods. 1 písm. b) — plnenie zmluvy</td>
+      <td>Nevyhnutné na poskytnutie Služby (priradenie dát k účtu)</td>
+    </tr>
+    <tr>
+      <td>Ukladanie a zobrazovanie dát domácnosti</td>
+      <td>Čl. 6 ods. 1 písm. b) — plnenie zmluvy</td>
+      <td>Hlavná funkcia Služby</td>
+    </tr>
+    <tr>
+      <td>Čakací zoznam (waitlist)</td>
+      <td>Čl. 6 ods. 1 písm. a) — súhlas</td>
+      <td>Dobrovoľné zadanie emailu za účelom informovania o otvorení registrácie</td>
+    </tr>
+    <tr>
+      <td>Emailové upozornenia na expirácie (plánované)</td>
+      <td>Čl. 6 ods. 1 písm. a) — súhlas</td>
+      <td>V budúcnosti, po zavedení tejto funkcie, len so súhlasom Používateľa</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>4. Príjemcovia a sprostredkovatelia</h3>
+<p>Osobné údaje sú spracúvané prostredníctvom služieb tretích strán:</p>
+<ul>
+  <li><strong>Google LLC / Google Ireland Limited</strong> — poskytovateľ Firebase (autentifikácia, databáza Firestore). Google spracúva údaje ako sprostredkovateľ na základe štandardných zmluvných doložiek (SCC) a ďalších záruk podľa čl. 46 GDPR. Zásady ochrany údajov Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Podmienky Firebase: <a href="https://firebase.google.com/terms/data-processing-terms" target="_blank" rel="noopener">firebase.google.com/terms</a>.</li>
+</ul>
+<p>Prevádzkovateľ nepredáva, nepožičiava ani inak komerčne neposkytuje osobné údaje žiadnym tretím stranám.</p>
+
+<h3>5. Prenos údajov do tretích krajín</h3>
+<p>Firebase (Google) môže spracúvať údaje na serveroch v Európskej únii aj mimo nej (vrátane USA). Prenos je zabezpečený štandardnými zmluvnými doložkami (SCC) schválenými Európskou komisiou a ďalšími technickými a organizačnými opatreniami spoločnosti Google podľa čl. 46 GDPR.</p>
+
+<h3>6. Doba uchovávania</h3>
+<ul>
+  <li><strong>Údaje prihláseného Používateľa</strong> (účet + dáta domácnosti): po dobu existencie účtu. Po vymazaní účtu alebo po 12 mesiacoch neaktivity budú dáta vymazané.</li>
+  <li><strong>Waitlist email</strong>: do naplnenia účelu (odoslanie pozvánky) alebo do odvolania súhlasu, najdlhšie 12 mesiacov.</li>
+  <li><strong>Demo režim</strong>: dáta existujú výlučne v sessionStorage prehliadača a automaticky sa vymažú po zatvorení karty/prehliadača.</li>
+</ul>
+
+<h3>7. Práva dotknutej osoby</h3>
+<p>Podľa GDPR a zákona č. 18/2018 Z. z. má Používateľ právo:</p>
+<ul>
+  <li><strong>na prístup</strong> k svojim osobným údajom (čl. 15 GDPR);</li>
+  <li><strong>na opravu</strong> nesprávnych údajov (čl. 16);</li>
+  <li><strong>na vymazanie</strong> údajov / „právo byť zabudnutý" (čl. 17);</li>
+  <li><strong>na obmedzenie spracúvania</strong> (čl. 18);</li>
+  <li><strong>na prenosnosť údajov</strong> (čl. 20);</li>
+  <li><strong>namietať</strong> proti spracúvaniu (čl. 21);</li>
+  <li><strong>odvolať súhlas</strong> kedykoľvek, bez vplyvu na zákonnosť predchádzajúceho spracúvania (čl. 7 ods. 3).</li>
+</ul>
+<p>Požiadavky posielajte na <a href="mailto:app.gerlach@gmail.com">app.gerlach@gmail.com</a>. Na žiadosť odpovieme do 30 dní.</p>
+<p>Používateľ má tiež právo podať <strong>sťažnosť dozornému orgánu</strong>: Úrad na ochranu osobných údajov SR, Hraničná 12, 820 07 Bratislava 27, <a href="https://dataprotection.gov.sk" target="_blank" rel="noopener">dataprotection.gov.sk</a>.</p>
+
+<h3>8. Bezpečnosť údajov</h3>
+<p>Prevádzkovateľ prijal primerané technické a organizačné opatrenia na ochranu osobných údajov:</p>
+<ul>
+  <li>Prenos dát je šifrovaný (HTTPS / TLS).</li>
+  <li>Autentifikácia prebieha výlučne cez Google OAuth 2.0 — Služba neukladá ani nespracúva heslá.</li>
+  <li>Prístup k Firestore databáze je chránený bezpečnostnými pravidlami (Security Rules) — každý Používateľ má prístup výlučne k svojim vlastným dátam.</li>
+  <li>Demo režim nepoužíva serverové úložisko.</li>
+</ul>
+<p>Napriek týmto opatreniam Prevádzkovateľ nemôže zaručiť absolútnu bezpečnosť dát prenášaných cez internet (pozri Podmienky používania, bod 3).</p>
+
+<h3>9. Automatizované rozhodovanie a profilovanie</h3>
+<p>Služba nevykonáva automatizované rozhodovanie ani profilovanie v zmysle čl. 22 GDPR.</p>
+
+<h3>10. Zmeny týchto zásad</h3>
+<p>Prevádzkovateľ si vyhradzuje právo tieto Zásady aktualizovať. Aktuálne znenie bude vždy dostupné na tejto stránke s uvedeným dátumom poslednej aktualizácie.</p>
+</section>
+
+<div class="doc-divider"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DOKUMENT 3: ZÁSADY POUŽÍVANIA COOKIES
+═══════════════════════════════════════════════════════════ -->
+<section class="doc-section" id="cookies">
+<span class="doc-label">Dokument 3</span>
+<h2>Zásady používania cookies</h2>
+<p>Tento dokument informuje o používaní súborov cookies a podobných technológií na webovej stránke mameplan.sk a v aplikácii Gerlach, v súlade so zákonom č. 452/2021 Z. z. o elektronických komunikáciách a smernicou ePrivacy (2002/58/ES).</p>
+
+<h3>1. Čo sú cookies</h3>
+<p>Cookies sú malé textové súbory, ktoré webová stránka ukladá do prehliadača Používateľa. Slúžia na zapamätanie informácií medzi návštevami (napr. stav prihlásenia).</p>
+
+<h3>2. Aké cookies používame</h3>
+
+<table class="doc-table">
+  <thead>
+    <tr>
+      <th>Názov / Typ</th>
+      <th>Účel</th>
+      <th>Poskytovateľ</th>
+      <th>Kategória</th>
+      <th>Doba platnosti</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Firebase Auth cookies</td>
+      <td>Udržanie stavu prihlásenia cez Google účet</td>
+      <td>Google (Firebase)</td>
+      <td><strong>Nevyhnutné</strong></td>
+      <td>Do odhlásenia / max. 1 rok</td>
+    </tr>
+    <tr>
+      <td>__session, __firebase_*</td>
+      <td>Technické zabezpečenie autentifikácie</td>
+      <td>Google (Firebase)</td>
+      <td><strong>Nevyhnutné</strong></td>
+      <td>Relácia / max. 14 dní</td>
+    </tr>
+    <tr>
+      <td>sessionStorage (demo)</td>
+      <td>Dočasné uloženie demo dát</td>
+      <td>Prehliadač (lokálne)</td>
+      <td><strong>Nevyhnutné</strong></td>
+      <td>Do zatvorenia karty</td>
+    </tr>
+    <tr>
+      <td>localStorage (waitlist)</td>
+      <td>Ochrana proti duplicitnému odoslaniu waitlist formulára</td>
+      <td>Prehliadač (lokálne)</td>
+      <td><strong>Nevyhnutné</strong></td>
+      <td>Do vymazania Používateľom</td>
+    </tr>
+    <tr>
+      <td>gerlach_cookie_consent</td>
+      <td>Uloženie voľby Používateľa ohľadom cookies</td>
+      <td>mameplan.sk</td>
+      <td><strong>Nevyhnutné</strong></td>
+      <td>365 dní</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="doc-highlight">
+<p><strong>Služba aktuálne nepoužíva žiadne analytické, marketingové ani sledovacie cookies.</strong> Všetky cookies sú výlučne nevyhnutné (strictly necessary) na zabezpečenie základnej funkcionality Služby.</p>
+</div>
+
+<h3>3. Právny základ</h3>
+<p>Nevyhnutné cookies nepodliehajú súhlasu podľa čl. 5 ods. 5 zákona č. 452/2021 Z. z., keďže sú technicky nevyhnutné na poskytnutie Služby, ktorú Používateľ výslovne požaduje.</p>
+<p>Ak by v budúcnosti boli pridané analytické alebo iné nie nevyhnutné cookies, budú aktivované výlučne po udelení súhlasu Používateľom prostredníctvom cookies banneru.</p>
+
+<h3>4. Ako spravovať cookies</h3>
+<p>Používateľ môže cookies kedykoľvek odstrániť alebo zablokovať v nastaveniach svojho prehliadača. Upozorňujeme, že zablokovanie nevyhnutných cookies môže obmedziť alebo znemožniť fungovanie Služby (napr. nebude možné prihlásenie).</p>
+<p>Návody pre najpoužívanejšie prehliadače:</p>
+<ul>
+  <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+  <li><a href="https://support.mozilla.org/sk/kb/povolenie-zakazanie-cookies" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+  <li><a href="https://support.apple.com/sk-sk/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+  <li><a href="https://support.microsoft.com/sk-sk/microsoft-edge" target="_blank" rel="noopener">Microsoft Edge</a></li>
+</ul>
+
+<h3>5. Zmeny</h3>
+<p>Prevádzkovateľ si vyhradzuje právo tieto Zásady aktualizovať, najmä pri pridaní nových typov cookies. Aktuálne znenie bude vždy dostupné na tejto stránke.</p>
+</section>
+
+</div>
+
+<footer class="legal-footer">
+  Mámeplán.sk © <script>document.write(new Date().getFullYear())</script> · Miloš Horník · <a href="mailto:app.gerlach@gmail.com">app.gerlach@gmail.com</a>
+</footer>
+
+</body>
+</html>
