@@ -1520,6 +1520,42 @@
   </div>
 </div>
 
+<!-- Modal: Edit Food Entry -->
+<div class="modal-overlay" id="modalFoodEdit">
+  <div class="modal-box" style="max-width:440px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť jedlo</h3>
+      <button data-close="modalFoodEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
+    </div>
+    <form id="foodEditForm" style="display:grid; gap:0.75rem;">
+      <input type="hidden" name="fe_catId" />
+      <input type="hidden" name="fe_itemIdx" />
+      <input type="hidden" name="fe_entryIdx" />
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <input name="fe_name" type="text" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">kcal / kus *</label>
+          <input name="fe_kcal" type="number" min="0" required />
+        </div>
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet</label>
+          <input name="fe_qty" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
+        <input name="fe_expiry" type="date" />
+      </div>
+      <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Modal: Postup pri MU detail -->
 <div class="modal-overlay" id="modalEmergencyProc">
   <div class="modal-box" style="max-width:600px;">
@@ -1796,8 +1832,7 @@
   const DEFAULT_ITEMS = {
     food_water: [
       { name: "Pitná voda", done: false, qty: "", expiry: "", link: "", isWaterItem: true, waterBottles: 0 },
-      { name: "Trvanlivé jedlo (min. 3 dni)", done: false, qty: "", expiry: "", link: "" },
-      { name: "Otvárač / varič / palivo", done: false, qty: "", expiry: "", link: "" },
+      { name: "Zásoby jedla", isFoodItem: true, foodEntries: [] },
     ],
     cash: [
       { name: "Hotovosť na 3–7 dní", done: false, qty: "", expiry: "", link: "" },
@@ -2133,6 +2168,19 @@
         }
         // Regenerate dynamic items from profile
         regenerateProfileBasedItems();
+        // Migrate: food_water – remove old default items and ensure food tracker exists
+        if (state.items.food_water) {
+          const oldFoodNames = ["Trvanlivé jedlo (min. 3 dni)", "Otvárač / varič / palivo"];
+          state.items.food_water = state.items.food_water.filter(it => !oldFoodNames.includes(it.name));
+          // Ensure food tracker item exists
+          if (!state.items.food_water.find(it => it.isFoodItem)) {
+            state.items.food_water.push({ name: "Zásoby jedla", isFoodItem: true, foodEntries: [] });
+          }
+          // Ensure foodEntries array exists on food items
+          state.items.food_water.forEach(it => {
+            if (it.isFoodItem && !it.foodEntries) it.foodEntries = [];
+          });
+        }
       }
       setSyncStatus("synced");
     } catch(e) {
@@ -2407,10 +2455,46 @@
     return Math.min(100, ((item.waterBottles||0)*1.5 / total) * 100);
   }
 
+  // ── Kalórie / Jedlo – inteligentný kalkulátor ──────────────────
+  // Odporúčané denné kcal podľa EFSA (European Food Safety Authority)
+  // a US Dietary Guidelines 2020-2025 (sedentary/nízka aktivita – krízový režim)
+  // Zdroj: https://www.efsa.europa.eu/en/press/news/130110
+  const KCAL_PER_DAY = {
+    adult:  2000,  // priemer muž/žena, sedentárna aktivita
+    kid:    1500,  // deti 4–17 r., priemer
+    infant: 1000,  // batoľatá 0–3 r.
+    senior: 1800   // seniori 65+, sedentárna aktivita
+  };
+  const KCAL_SOURCE_URL = "https://www.efsa.europa.eu/en/press/news/130110";
+  const KCAL_SOURCE_LABEL = "EFSA – Dietary Reference Values for Energy (2013)";
+
+  function getDailyKcalNeed() {
+    if (!state.profile) return 0;
+    const p = state.profile;
+    const coeff = p.readinessCoeff || 1.0;
+    return ((p.adults||0) * KCAL_PER_DAY.adult
+          + (p.kids||0)   * KCAL_PER_DAY.kid
+          + (p.infants||0)* KCAL_PER_DAY.infant
+          + (p.seniors||0)* KCAL_PER_DAY.senior) * coeff;
+  }
+
+  function getTotalFoodKcal(item) {
+    if (!item.isFoodItem || !item.foodEntries) return 0;
+    return item.foodEntries.reduce((sum, e) => sum + ((e.kcal||0) * (e.qty||1)), 0);
+  }
+
+  function calcFoodCompletion(item) {
+    if (!item.isFoodItem || !state.profile) return 0;
+    const d = state.profile.prepDays || 3;
+    const totalNeeded = getDailyKcalNeed() * d;
+    if (!totalNeeded) return 0;
+    return Math.min(100, (getTotalFoodKcal(item) / totalNeeded) * 100);
+  }
+
   function categoryScore(catId) {
     const items = state.items[catId] || [];
     if (!items.length) return 0;
-    return items.reduce((sum, it) => sum + (it.isWaterItem ? calcWaterCompletion(it) : it.done ? 100 : 0), 0) / items.length;
+    return items.reduce((sum, it) => sum + (it.isWaterItem ? calcWaterCompletion(it) : it.isFoodItem ? calcFoodCompletion(it) : it.done ? 100 : 0), 0) / items.length;
   }
 
   function overallScore() {
@@ -2704,7 +2788,7 @@
           <div style="font-size:1.5rem;">${cat.emoji}</div>
           <div>
             <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
-            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>!i.isWaterItem ? i.done : calcWaterCompletion(i)>=100).length} / ${items.length} hotovo</div>
+            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
           </div>
           <div style="margin-left:auto; text-align:right; padding-right:0.5rem; line-height:1.1;">
             <div style="font-size:0.72rem; color:var(--c-muted);">splnené na</div>
@@ -2721,7 +2805,7 @@
     // Progress v footer
     const modalProgress = document.getElementById("modalCatProgress");
     if (modalProgress) {
-      modalProgress.textContent = `${items.filter(i=>!i.isWaterItem ? i.done : calcWaterCompletion(i)>=100).length} z ${items.length} položiek splnených`;
+      modalProgress.textContent = `${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.done).length} z ${items.length} položiek splnených`;
     }
 
     const list = document.createElement("div");
@@ -2841,6 +2925,181 @@
               state.items[catId][idx].waterBottles = Number(inp.value)||0;
               scheduleSave(); renderAll();
             };
+          }, 0);
+          return;
+        }
+
+        // ── FOOD CARD (intelligent calorie tracker) ──────────────
+        if (it.isFoodItem && state.profile) {
+          const p = state.profile;
+          const d = p.prepDays || 3;
+          const dailyKcal = getDailyKcalNeed();
+          const totalNeeded = dailyKcal * d;
+          const currentKcal = getTotalFoodKcal(it);
+          const fpct = calcFoodCompletion(it);
+          const fCol = colorForPct(fpct);
+          const entries = it.foodEntries || [];
+
+          // Duration calculation
+          const totalHoursFood = dailyKcal > 0 ? (currentKcal / dailyKcal) * 24 : 0;
+          const fDurDays = Math.floor(totalHoursFood / 24);
+          const fDurHours = Math.round(totalHoursFood % 24);
+
+          let fDurText = "";
+          if (currentKcal === 0) {
+            fDurText = "Žiadna zásoba";
+          } else if (totalHoursFood < 24) {
+            const h = Math.round(totalHoursFood);
+            fDurText = h <= 0 ? "Menej ako hodinu" : h === 1 ? "1 hodinu" : h < 5 ? h + " hodiny" : h + " hodín";
+          } else {
+            const dayW = fDurDays === 1 ? "deň" : fDurDays < 5 ? "dni" : "dní";
+            const hourP = fDurHours > 0 ? (" a " + fDurHours + (fDurHours === 1 ? " hodinu" : fDurHours < 5 ? " hodiny" : " hodín")) : "";
+            fDurText = fDurDays + " " + dayW + hourP;
+          }
+          const fDurPct = Math.min(100, (totalHoursFood / (d * 24)) * 100);
+          const fDurHue = Math.round((Math.min(100, Math.max(0, fDurPct)) / 100) * 120);
+          const fDurColor = `hsl(${fDurHue} 70% 34%)`;
+          const fDurBg = `hsl(${fDurHue} 70% 96%)`;
+          const fDurBorder = `hsl(${fDurHue} 60% 80%)`;
+
+          // Kcal breakdown per person type
+          const kcalBreakdown = [];
+          if (p.adults) kcalBreakdown.push(`${p.adults}× dospelý: ${KCAL_PER_DAY.adult} kcal`);
+          if (p.kids) kcalBreakdown.push(`${p.kids}× dieťa: ${KCAL_PER_DAY.kid} kcal`);
+          if (p.infants) kcalBreakdown.push(`${p.infants}× batoľa: ${KCAL_PER_DAY.infant} kcal`);
+          if (p.seniors) kcalBreakdown.push(`${p.seniors}× senior: ${KCAL_PER_DAY.senior} kcal`);
+
+          // Food entries HTML
+          let entriesHtml = "";
+          if (entries.length === 0) {
+            entriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadne jedlo. Pridajte prvú položku nižšie.</div>`;
+          } else {
+            entriesHtml = entries.map((e, ei) => {
+              const eExp = e.expiry ? daysUntil(e.expiry) : null;
+              const catAD = getAlertDaysForCategory("food_water");
+              const eExpBadge = e.expiry
+                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
+                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
+                  : `<span class="badge badge-gray" style="font-size:0.62rem;">${eExp}d</span>`)
+                : "";
+              const totalE = (e.kcal||0)*(e.qty||1);
+              return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.625rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(234,124,27,0.15);">
+                <div style="flex:1; min-width:0;">
+                  <div style="font-weight:600; font-size:0.8rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
+                    ${esc(e.name)} ${eExpBadge}
+                  </div>
+                  <div style="font-size:0.7rem; color:var(--c-muted); margin-top:0.125rem;">
+                    ${e.qty||1}× ${(e.kcal||0).toLocaleString()} kcal = <strong>${totalE.toLocaleString()} kcal</strong>${e.expiry ? " • " + e.expiry : ""}
+                  </div>
+                </div>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-food-edit="${idx}:${ei}">✏️</button>
+                <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-food-del="${idx}:${ei}">✕</button>
+              </div>`;
+            }).join("");
+          }
+
+          const row = document.createElement("div");
+          row.style.cssText = "background:linear-gradient(135deg, #fef7ed 0%, #fef3c7 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem;";
+          row.innerHTML = `
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; gap:0.75rem;">
+              <div style="font-weight:700; font-size:1rem;">🍽️ ${esc(it.name)}</div>
+              <span style="font-size:0.95rem; font-weight:700; color:${fCol}; flex-shrink:0;">${Math.round(fpct)}%</span>
+            </div>
+
+            <div class="water-info-grid" style="display:grid; grid-template-columns:1fr auto; gap:0.625rem; margin-bottom:0.875rem; align-items:stretch;">
+              <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.75rem;">
+                <div style="font-size:0.7rem; color:#b45309; font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Zásoby</div>
+                <div style="font-size:0.9rem; font-weight:700; color:#78350f;">${currentKcal.toLocaleString()} kcal</div>
+                <div style="font-size:0.72rem; color:#b45309;">z potrebných ${totalNeeded.toLocaleString()} kcal na ${d} ${d===1?"deň":d<5?"dni":"dní"}</div>
+              </div>
+              <div style="background:${fDurBg}; border:1px solid ${fDurBorder}; border-radius:0.625rem; padding:0.625rem 0.875rem; min-width:0; white-space:nowrap;">
+                <div style="font-size:0.68rem; color:${fDurColor}; font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Vydrží vám na</div>
+                <div style="font-size:0.95rem; font-weight:800; color:${fDurColor}; line-height:1.2;">${fDurText}</div>
+                <div style="font-size:0.68rem; color:${fDurColor}; opacity:0.75; margin-top:0.2rem;">pri ${dailyKcal.toLocaleString()} kcal/deň</div>
+              </div>
+            </div>
+
+            <div class="progress-bar" style="margin-bottom:0.75rem; height:10px;">
+              <div class="progress-fill" style="width:${Math.min(100,fpct)}%; background:${colorForPct(fpct)};"></div>
+            </div>
+
+            <!-- Kcal breakdown -->
+            <div style="background:rgba(255,255,255,0.55); border-radius:0.5rem; padding:0.5rem 0.75rem; margin-bottom:0.875rem; font-size:0.7rem; color:#92400e; line-height:1.6;">
+              <strong>Denná potreba domácnosti:</strong> ${dailyKcal.toLocaleString()} kcal/deň
+              <span style="opacity:0.7;">(${kcalBreakdown.join(", ")})</span>
+              <br>
+              <a href="${KCAL_SOURCE_URL}" target="_blank" rel="noopener" style="color:#b45309; text-decoration:underline; font-size:0.65rem;">📊 Zdroj: ${KCAL_SOURCE_LABEL}</a>
+            </div>
+
+            <!-- Food entries list -->
+            <div style="display:flex; flex-direction:column; gap:0.375rem; margin-bottom:0.875rem;" id="foodEntriesList_${idx}">
+              ${entriesHtml}
+            </div>
+
+            <!-- Add food entry form -->
+            <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #fbbf24;">
+              <div style="font-size:0.75rem; font-weight:600; color:#92400e; margin-bottom:0.5rem;">+ Pridať jedlo</div>
+              <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
+                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" />
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">kcal / kus</label>
+                    <input type="number" min="0" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
+                    <input type="number" min="1" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia</label>
+                    <input type="date" id="fe_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                </div>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="fe_add_${idx}">Pridať do zásob</button>
+              </div>
+            </div>`;
+          list.appendChild(row);
+
+          // Bind food entry actions
+          setTimeout(() => {
+            // Add entry
+            const addBtn = document.getElementById(`fe_add_${idx}`);
+            if (addBtn) addBtn.onclick = () => {
+              const nameInp = document.getElementById(`fe_name_${idx}`);
+              const kcalInp = document.getElementById(`fe_kcal_${idx}`);
+              const qtyInp = document.getElementById(`fe_qty_${idx}`);
+              const expInp = document.getElementById(`fe_exp_${idx}`);
+              const eName = (nameInp.value||"").trim();
+              const eKcal = Number(kcalInp.value)||0;
+              if (!eName || !eKcal) { alert("Zadajte názov a počet kcal."); return; }
+              if (!state.items[catId][idx].foodEntries) state.items[catId][idx].foodEntries = [];
+              state.items[catId][idx].foodEntries.push({
+                name: eName,
+                kcal: eKcal,
+                qty: Number(qtyInp.value)||1,
+                expiry: expInp.value||""
+              });
+              scheduleSave(); renderAll();
+            };
+            // Delete entries
+            row.querySelectorAll("[data-food-del]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.foodDel.split(":").map(Number);
+                if (state.items[catId][itemI] && state.items[catId][itemI].foodEntries) {
+                  state.items[catId][itemI].foodEntries.splice(entryI, 1);
+                  scheduleSave(); renderAll();
+                }
+              };
+            });
+            // Edit entries
+            row.querySelectorAll("[data-food-edit]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.foodEdit.split(":").map(Number);
+                const entry = state.items[catId][itemI]?.foodEntries?.[entryI];
+                if (!entry) return;
+                openFoodEditModal(catId, itemI, entryI, entry);
+              };
+            });
           }, 0);
           return;
         }
@@ -3356,6 +3615,15 @@
     for (const c of CATEGORIES) {
       const threshold = getAlertDaysForCategory(c.id);
       (state.items[c.id]||[]).forEach((it, idx) => {
+        // Food entries: check each entry's expiry
+        if (it.isFoodItem && it.foodEntries) {
+          it.foodEntries.forEach(fe => {
+            if (!fe.expiry) return;
+            const d = daysUntil(fe.expiry);
+            if (d <= threshold) alerts.push({ name: fe.name, expiry: fe.expiry, catName: c.name, catId: c.id, idx, days: d, threshold });
+          });
+          return;
+        }
         if (!it.expiry) return;
         const d = daysUntil(it.expiry);
         if (d <= threshold) alerts.push({ ...it, catName: c.name, catId: c.id, idx, days: d, threshold });
@@ -5142,6 +5410,35 @@
     scheduleSave(); renderAlerts(); renderAll();
   };
 
+  // ── Food Entry Edit Modal ───────────────────────────────────────
+  function openFoodEditModal(catId, itemIdx, entryIdx, entry) {
+    const f = document.getElementById("foodEditForm");
+    f.elements["fe_catId"].value = catId;
+    f.elements["fe_itemIdx"].value = itemIdx;
+    f.elements["fe_entryIdx"].value = entryIdx;
+    f.elements["fe_name"].value = entry.name || "";
+    f.elements["fe_kcal"].value = entry.kcal || "";
+    f.elements["fe_qty"].value = entry.qty || 1;
+    f.elements["fe_expiry"].value = entry.expiry || "";
+    openModal("modalFoodEdit");
+  }
+
+  document.getElementById("foodEditForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const catId = fd.get("fe_catId");
+    const itemIdx = parseInt(fd.get("fe_itemIdx"));
+    const entryIdx = parseInt(fd.get("fe_entryIdx"));
+    const entry = state.items[catId]?.[itemIdx]?.foodEntries?.[entryIdx];
+    if (!entry) return;
+    entry.name = String(fd.get("fe_name")||"").trim();
+    entry.kcal = Number(fd.get("fe_kcal"))||0;
+    entry.qty = Number(fd.get("fe_qty"))||1;
+    entry.expiry = String(fd.get("fe_expiry")||"").trim();
+    closeModal("modalFoodEdit");
+    scheduleSave(); renderAll();
+  };
+
   // Click outside modal to close
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
     overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay.id); };
@@ -5164,6 +5461,23 @@
     for (const c of CATEGORIES) {
       const catThreshold = thresholdDays !== undefined ? thresholdDays : getAlertDaysForCategory(c.id);
       (state.items[c.id] || []).forEach(it => {
+        // Food entries: check each entry's expiry
+        if (it.isFoodItem && it.foodEntries) {
+          it.foodEntries.forEach(fe => {
+            if (!fe.expiry) return;
+            const d = daysUntil(fe.expiry);
+            if (d <= catThreshold) {
+              items.push({
+                name:    fe.name,
+                catName: c.name,
+                expiry:  fe.expiry,
+                days:    d,
+                qty:     (fe.qty||1) + "× " + (fe.kcal||0) + " kcal"
+              });
+            }
+          });
+          return;
+        }
         if (!it.expiry || !it.done) return; // len položky ktoré sú v zásobách (done=true)
         const d = daysUntil(it.expiry);
         if (d <= catThreshold) {
