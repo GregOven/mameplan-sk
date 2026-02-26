@@ -797,6 +797,15 @@
         right: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        padding: 1.25rem 1rem !important;
+      }
+      /* Category modal items need breathing room on mobile */
+      #categoryDetail {
+        font-size: 0.88rem;
+        line-height: 1.6;
+      }
+      #categoryDetail .item-row {
+        padding: 0.75rem 0.625rem !important;
       }
       .modal-box::before {
         content: '';
@@ -1398,7 +1407,10 @@
   <header class="app-header">
     <div class="app-header-inner">
       <div style="display:flex; align-items:center; gap:0.625rem;">
-        <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
+        <div>
+          <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1.0625rem; letter-spacing:-0.02em; cursor:pointer; display:block; line-height:1.2;" id="headerLogo" title="Gerlach">Gerlach</span>
+          <span style="font-size:0.58rem; color:var(--c-muted); font-weight:400; letter-spacing:0.01em;">Pripravená domácnosť</span>
+        </div>
         <span class="version-badge beta" id="versionBadge">Beta v0.1</span>
       </div>
       <div style="display:flex; align-items:center; gap:1rem;">
@@ -1477,7 +1489,7 @@
         </div>
       </div>
       <div id="categoriesSection">
-        <h2 class="cats-heading" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.275rem; margin-bottom:0.25rem;">Čo mať po ruke</h2>
+        <h2 class="cats-heading" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.275rem; margin-bottom:0.25rem;">Čo mať doma pripravené?</h2>
         <p style="font-size:0.78rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Nakupujte postupne, odškrtávajte priebežne.</p>
         <div id="categoriesGrid" class="categories-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.75rem;"></div>
       </div>
@@ -1567,14 +1579,40 @@
       </div>
 
       <!-- Postupy pri MU -->
+      <!-- Prírodné hrozby -->
       <div class="card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
-          <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">⚠️ Postupy pri mimoriadnych udalostiach</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Prehľadné odporúčania, čo robiť krok po kroku</p>
-          </div>
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">🌊 Prírodné hrozby</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Čo robiť pri povodniach, zemetrasení, búrkach a ďalších živloch</p>
         </div>
-        <div id="emergencyProcGrid" class="mu-grid"></div>
+        <div id="procGridNature" class="mu-grid"></div>
+      </div>
+
+      <!-- Havárie a ohrozenia -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">🔥 Havárie a ohrozenia</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Požiare, výpadky, úniky plynu, chemické a radiačné havárie</p>
+        </div>
+        <div id="procGridHazards" class="mu-grid"></div>
+      </div>
+
+      <!-- Ozbrojený konflikt -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">⚔️ Ozbrojený konflikt</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Teroristický útok a vojenský konflikt – ako sa chrániť</p>
+        </div>
+        <div id="procGridConflict" class="mu-grid"></div>
+      </div>
+
+      <!-- Pripravenosť a podpora -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">🛡️ Pripravenosť a podpora</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">72-hodinová sebestačnosť, evakuácia, pomoc susedom, deti v kríze</p>
+        </div>
+        <div id="procGridSupport" class="mu-grid"></div>
       </div>
 
       <!-- Varovné signály sirén -->
@@ -2369,7 +2407,7 @@
     { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.9 },
     { id: "gear", name: "Vybavenie", emoji: "🔦", weight: 1.0 },
     { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
-    { id: "docs", name: "Doklady", emoji: "📄", weight: 0.9 },
+    { id: "docs", name: "Doklady", emoji: "📄", weight: 0.3 },
   ];
 
   // ── Zdroje odporúčaní pre kategórie ──────────────────────────
@@ -3729,28 +3767,33 @@
     if (catId === "docs") {
       const banner = document.createElement("div");
       banner.innerHTML = `
-        <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #bfdbfe; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
-          <div style="font-weight:700; font-size:0.85rem; color:#1e40af; margin-bottom:0.5rem;">📋 Kde uchovávať dokumenty?</div>
-          <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
-            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
-              <strong style="color:#1e40af;">📁 Originál</strong><br>
-              <span style="color:var(--c-muted);">Doma v bezpečnom mieste (trezor, ohnivzdorná schránka)</span>
+        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>💡 Kde uchovávať dokumenty?</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.5;">
+            <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+                <strong>📁 Originál</strong><br>
+                <span style="color:var(--c-muted);">Doma v bezpečnom mieste (trezor, ohnivzdorná schránka)</span>
+              </div>
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+                <strong>📄 Kópia</strong><br>
+                <span style="color:var(--c-muted);">Papierová kópia v evakuačnom batohu + u príbuzných</span>
+              </div>
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+                <strong>💾 USB</strong><br>
+                <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batohu – scany všetkých dokumentov</span>
+              </div>
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+                <strong>☁️ Cloud</strong><br>
+                <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
+              </div>
             </div>
-            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
-              <strong style="color:#1e40af;">📄 Kópia</strong><br>
-              <span style="color:var(--c-muted);">Papierová kópia v evakuačnom batohu + u príbuzných</span>
+            <div style="margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.5; font-style:italic;">
+              ⚠️ Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
             </div>
-            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
-              <strong style="color:#1e40af;">💾 USB</strong><br>
-              <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batohu – scany všetkých dokumentov</span>
-            </div>
-            <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid #bfdbfe;">
-              <strong style="color:#1e40af;">☁️ Cloud</strong><br>
-              <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
-            </div>
-          </div>
-          <div style="margin-top:0.5rem; font-size:0.7rem; color:#2563eb; line-height:1.5; font-style:italic;">
-            ⚠️ Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
           </div>
         </div>`;
       list.appendChild(banner);
@@ -7271,25 +7314,19 @@
 
 
   function renderEmergencyProc() {
-    const grid = document.getElementById("emergencyProcGrid");
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    // Group definitions from UX audit
-    const groups = [
-      { label: "Prírodné hrozby", ids: ["flood", "earthquake", "storm", "landslide", "heat", "snow"] },
-      { label: "Havárie a ohrozenia", ids: ["fire", "blackout", "water_outage", "gas_leak", "chemical", "radiation", "terror", "armed_conflict"] },
-      { label: "Pripravenosť a podpora", ids: ["survival_72h", "shelter", "evacuation", "help_neighbors", "children_crisis", "mental_health", "info_hygiene"] }
+    // 4 separate groups → 4 separate grids
+    const groupDefs = [
+      { gridId: "procGridNature", ids: ["flood", "earthquake", "storm", "landslide", "heat", "snow"] },
+      { gridId: "procGridHazards", ids: ["fire", "blackout", "water_outage", "gas_leak", "chemical", "radiation"] },
+      { gridId: "procGridConflict", ids: ["terror", "armed_conflict"] },
+      { gridId: "procGridSupport", ids: ["survival_72h", "shelter", "evacuation", "help_neighbors", "children_crisis", "mental_health", "info_hygiene"] }
     ];
 
-    groups.forEach(group => {
-      // Add group heading
-      const heading = document.createElement("div");
-      heading.className = "proc-group-heading";
-      heading.textContent = group.label;
-      grid.appendChild(heading);
+    groupDefs.forEach(group => {
+      const grid = document.getElementById(group.gridId);
+      if (!grid) return;
+      grid.innerHTML = "";
 
-      // Add cards for this group
       group.ids.forEach(id => {
         const item = EMERGENCY_PROC_DATA.find(d => d.id === id);
         if (!item) return;
