@@ -303,6 +303,7 @@
       background: rgba(0,0,0,0.4);
       display: none; align-items: center; justify-content: center;
       padding: 1rem; z-index: 100;
+      overscroll-behavior: contain;
     }
     .modal-overlay.open { display: flex; }
     .modal-box {
@@ -312,6 +313,8 @@
       padding: 1.5rem;
       width: 100%; max-width: 560px;
       max-height: 90vh; overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       box-shadow: 0 8px 32px rgba(0,0,0,0.12);
     }
 
@@ -612,6 +615,15 @@
       #btnLogout { display: none !important; }
       .user-avatar { cursor: pointer; }
       .mobile-logout-btn { display: flex !important; }
+
+      /* Osobné kontakty modal - telefónne polia na 1 stĺpec */
+      #personalContactForm > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+      }
+      /* Osobné kontakty modal - menší padding a scrollovateľný form */
+      #modalPersonalContact .modal-box {
+        padding: 1.25rem 1rem !important;
+      }
     }
     /* Stredné obrazovky - tablet */
     @media (min-width: 641px) and (max-width: 900px) {
@@ -971,7 +983,7 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, len sa dáta uložia len do prehliadača (zmažú sa po zatvorení karty).</span>
+    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, iba dáta sa uložia len do prehliadača (zmažú sa po zatvorení karty v prehliadači).</span>
     <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo →</a>
   </div>
 
@@ -2327,8 +2339,17 @@
   }
 
   // ── Modal helpers ────────────────────────────────────────────────
-  function openModal(id) { document.getElementById(id).classList.add("open"); }
-  function closeModal(id) { document.getElementById(id).classList.remove("open"); }
+  function openModal(id) {
+    document.getElementById(id).classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove("open");
+    // Obnov scroll len ak žiadny iný modal nie je otvorený
+    if (!document.querySelector('.modal-overlay.open')) {
+      document.body.style.overflow = "";
+    }
+  }
   document.querySelectorAll("[data-close]").forEach(b => b.onclick = () => closeModal(b.dataset.close));
 
   // ── Render ───────────────────────────────────────────────────────
@@ -5031,7 +5052,7 @@
 
   // Click outside modal to close
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
-    overlay.onclick = (e) => { if (e.target === overlay) overlay.classList.remove("open"); };
+    overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay.id); };
   });
 
 
