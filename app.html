@@ -926,11 +926,11 @@
   <div class="login-card">
     <h1 style="font-size:1.75rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1>
     <p style="color:var(--c-muted); font-size:0.9rem; margin-bottom:2rem; line-height:1.6;">
-      Slovenský online sprievodca pripravenosťou<br>na krízové situácie.
+      Pomáha domácnostiam na Slovensku<br>pripraviť sa na krízové situácie.
     </p>
     <button class="btn-google" id="btnGoogleLogin">
       <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Prihlásiť sa cez Google
+      Pokračovať cez Google
     </button>
 
     <div style="display:flex; align-items:center; gap:0.75rem; margin-top:1rem;">
@@ -940,17 +940,17 @@
     </div>
 
     <button class="btn-google" id="btnDemoLogin" style="margin-top:1rem; border-color:#f59e0b; background:#fffbeb;">
-      🔍 Vyskúšať demo bez registrácie
+      🔍 Vyskúšať demo (bez účtu)
     </button>
 
     <div id="loginError" style="margin-top:1rem; color:#991b1b; font-size:0.85rem; display:none;"></div>
     <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
-      Prihlásením súhlasíš s ukladaním tvojich dát v zabezpečenej databáze.<br>
-      Každý používateľ vidí len svoje vlastné dáta.
+      Demo sa neukladá – po zatvorení prehliadača sa vymaže.<br>
+      Ak sa prihlásiš, tvoje údaje sa uložia k tvojmu účtu a uvidíš ich len ty.
     </p>
   </div>
   <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted);">
-    Gerlach © 2025 – Zadarmo pre verejnosť
+    Gerlach © <span class="js-year"></span> – Zadarmo pre verejnosť
   </p>
 </div>
 
@@ -967,7 +967,7 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span>🔍 <strong>Demo režim</strong> — skúšate si appku bez registrácie. Dáta sa po zatvorení prehliadača vymažú.</span>
+    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, len sa dáta uložia len do prehliadača (zmažú sa po zatvorení karty).</span>
     <a href="./app.html">Vytvoriť účet zadarmo →</a>
   </div>
 
@@ -2071,9 +2071,11 @@
     if (!dot || !lbl) return;
     if (isDemo) {
       dot.className = "sync-dot";
-      lbl.textContent = "Demo";
+      dot.style.background = "#f59e0b";
+      lbl.textContent = s === "synced" ? "Demo · uložené" : "Demo";
       return;
     }
+    dot.style.background = "";
     dot.className = "sync-dot" + (s === "synced" ? " synced" : s === "syncing" ? " syncing" : "");
     lbl.textContent = s === "synced" ? "Uložené" : s === "syncing" ? "Ukladám…" : "";
   }
@@ -2120,16 +2122,38 @@
     const av = document.getElementById('userAvatar');
     if (av) av.textContent = 'D';
 
-    // UI: skryť sync, logout, user menu
+    // UI: sync indicator — show "Demo" instead of hiding
     const syncEl = document.querySelector('.sync-indicator');
-    if (syncEl) syncEl.style.display = 'none';
-    document.getElementById('btnLogout').style.display = 'none';
+    if (syncEl) {
+      syncEl.style.display = '';
+      const dot = document.getElementById('syncDot');
+      const lbl = document.getElementById('syncLabel');
+      if (dot) { dot.className = 'sync-dot'; dot.style.background = '#f59e0b'; }
+      if (lbl) lbl.textContent = 'Demo';
+    }
+
+    // UI: logout → "Ukončiť demo"
+    const btnLO = document.getElementById('btnLogout');
+    if (btnLO) { btnLO.textContent = 'Ukončiť demo'; btnLO.style.display = ''; }
     const mobileLO = document.querySelector('.mobile-logout-btn');
-    if (mobileLO) mobileLO.style.display = 'none';
+    if (mobileLO) { mobileLO.textContent = '🔍 Ukončiť demo'; }
 
     showScreen('app');
     renderAll();
     setupLogoEasterEgg();
+
+    // Demo: update email section in profile
+    const emailSection = document.getElementById('emailSettingsInProfile');
+    if (emailSection) {
+      emailSection.innerHTML = `
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <div>
+            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">✉️ Emailové pripomienky</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;">V demo režime nie sú dostupné. <a href="./app.html" style="color:var(--c-accent); font-weight:600;">Vytvorte si účet</a> pre emailové upozornenia na expirácie.</div>
+          </div>
+        </div>`;
+    }
+
     if (!state.profile) openModal('modalProfile');
   }
 
@@ -5136,6 +5160,10 @@
 
   // UI funkcia – manuálne odoslanie z appky (tlačidlo)
   async function sendTestNotification() {
+    if (isDemo) {
+      alert("V demo režime nie sú emailové notifikácie dostupné. Vytvorte si účet zadarmo pre plnú funkcionalitu.");
+      return;
+    }
     const btn = document.getElementById("btnTestEmail");
     if (btn) { btn.disabled = true; btn.textContent = "Odosielam..."; }
 
@@ -5178,6 +5206,9 @@
       menu.classList.remove("open");
     }
   });
+
+  // Dynamic year
+  document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
 
 </script>
 </body>
