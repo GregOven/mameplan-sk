@@ -1769,7 +1769,7 @@
 <a class="footer-link" href="./app.html">Aplikácia</a>
 <a class="footer-link" href="./pravne-info.html">Právne info</a>
 <a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a>
-<a class="footer-link" href="mailto:app.gerlach@gmail.com">Kontakt</a>
+<a class="footer-link js-contact-email" href="#">Kontakt</a>
 </div>
 </div>
 </footer>
@@ -1790,6 +1790,14 @@
 <script>
   /* ── Dynamic footer year ── */
   document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  /* ── Email anti-obfuscation ── */
+  (function() {
+    var u = 'app.gerlach', d = 'gmail.com', full = u + '@' + d;
+    document.querySelectorAll('.js-contact-email').forEach(function(el) {
+      el.href = 'mai' + 'lto:' + full;
+    });
+  })();
 
   /* ── Nav solid on scroll ── */
   const nav = document.getElementById('mainNav');
@@ -1829,17 +1837,16 @@
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
   <div class="cookie-banner-inner">
     <div class="cookie-banner-text">
-      Táto stránka používa výlučne <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na zabezpečenie prihlásenia a základnej funkcionality. Žiadne analytické ani reklamné cookies nepoužívame.
-      <a href="./pravne-info.html#cookies">Viac info</a>
+      Používame <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na prihlásenie a <strong style="font-weight:500;color:#fff;">analytické cookies</strong> (Firebase Analytics) na zlepšovanie služby. Analytické cookies aktivujeme len s vaším súhlasom.
+      <a href="./pravne-info.html#cookies">Podrobnosti</a>
     </div>
     <div class="cookie-banner-actions">
-      <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Rozumiem</button>
-      <a class="cookie-btn cookie-btn-info" href="./pravne-info.html#cookies">Podrobnosti</a>
+      <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Prijať všetko</button>
+      <button class="cookie-btn cookie-btn-info" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
     </div>
   </div>
 </div>
 <script>
-  /* ── Cookie consent ── */
   (function() {
     if (!localStorage.getItem('gerlach_cookie_consent')) {
       setTimeout(function() {
@@ -1847,8 +1854,14 @@
       }, 1200);
     }
   })();
-  function acceptCookies() {
-    localStorage.setItem('gerlach_cookie_consent', Date.now().toString());
+  function acceptAllCookies() {
+    localStorage.setItem('gerlach_cookie_consent', 'all');
+    localStorage.setItem('gerlach_cookie_analytics', 'true');
+    document.getElementById('cookieBanner').classList.remove('show');
+  }
+  function acceptNecessaryOnly() {
+    localStorage.setItem('gerlach_cookie_consent', 'necessary');
+    localStorage.removeItem('gerlach_cookie_analytics');
     document.getElementById('cookieBanner').classList.remove('show');
   }
 </script>
