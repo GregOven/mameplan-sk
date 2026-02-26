@@ -2207,6 +2207,12 @@
     startDemoMode();
   };
 
+  // Auto-start demo ak URL obsahuje #startdemo (z webstránky)
+  if (window.location.hash === '#startdemo') {
+    isDemo = true;
+    startDemoMode();
+  }
+
   document.getElementById("btnLogout").onclick = () => {
     if (isDemo) {
       // Demo: vymaž sessionStorage, resetuj stav a vráť na login
