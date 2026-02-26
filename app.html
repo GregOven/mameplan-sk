@@ -1705,13 +1705,11 @@ if (window.location.hash === '#startdemo') {
 
   const MAX_USERS = 200; // Limit registrácií
 
-  // V demo režime neinicializujeme Firebase vôbec
-  let app, auth, db;
-  if (!isDemo) {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-  }
+  // Firebase sa inicializuje VŽDY (aj v demo) — niektoré funkcie ho potrebujú.
+  // V demo režime sa preskočí len auth listener a ukladanie do Firestore.
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
@@ -2202,7 +2200,7 @@ if (window.location.hash === '#startdemo') {
 
   // ── Auth (len pre normálny režim) ─────────────────────────────────
   document.getElementById("btnGoogleLogin").onclick = async () => {
-    if (isDemo || !auth) return;
+    if (isDemo) return; // V demo ignoruj Google login
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
@@ -2238,7 +2236,7 @@ if (window.location.hash === '#startdemo') {
       showScreen("login");
       return;
     }
-    if (auth) signOut(auth);
+    signOut(auth);
   };
 
   // Auth state listener — len v normálnom režime
