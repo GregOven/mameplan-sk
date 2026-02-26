@@ -1732,6 +1732,8 @@
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, runTransaction }
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+  import { getAnalytics, logEvent, setAnalyticsCollectionEnabled }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
 
   // ── Firebase config ──────────────────────────────────────────────
   // Demo mode: ?mode=demo v URL
@@ -1743,7 +1745,8 @@
     projectId: "bez-paniky",
     storageBucket: "bez-paniky.firebasestorage.app",
     messagingSenderId: "539726693021",
-    appId: "1:539726693021:web:123de9d93568a285e54a74"
+    appId: "1:539726693021:web:123de9d93568a285e54a74",
+    measurementId: "G-8CG5KPWS0V"
   };
 
   const MAX_USERS = 200; // Limit registrácií
@@ -1753,6 +1756,32 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
+  // ── Firebase Analytics (consent-based) ─────────────────────────
+  // Analytics sa inicializuje hneď, ale zber dát je VYPNUTÝ.
+  // Zapne sa až po súhlase používateľa cez cookie banner.
+  const analytics = getAnalytics(app);
+  setAnalyticsCollectionEnabled(analytics, false); // Vypnuté by default
+
+  // Zapne analytics ak používateľ už dal súhlas
+  if (localStorage.getItem('gerlach_cookie_analytics') === 'true') {
+    setAnalyticsCollectionEnabled(analytics, true);
+  }
+
+  // Helper na logovanie eventov (bezpečný — ak analytics vypnuté, nič sa nestane)
+  function trackEvent(name, params) {
+    try { logEvent(analytics, name, params || {}); } catch(e) { /* ticho */ }
+  }
+
+  // Funkcia volaná z cookie banneru po súhlase
+  window.enableAnalytics = function() {
+    setAnalyticsCollectionEnabled(analytics, true);
+    localStorage.setItem('gerlach_cookie_analytics', 'true');
+  };
+  window.disableAnalytics = function() {
+    setAnalyticsCollectionEnabled(analytics, false);
+    localStorage.removeItem('gerlach_cookie_analytics');
+  };
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
@@ -2214,8 +2243,7 @@
     showScreen('app');
     renderAll();
     setupLogoEasterEgg();
-
-    // Demo: update email section in profile
+    trackEvent('demo_start');
     const emailSection = document.getElementById('emailSettingsInProfile');
 
     // Demo: "Vytvoriť účet zadarmo" link v banneri → ukončí demo a vráti na login
@@ -2326,6 +2354,7 @@
     showScreen("app");
     renderAll();
     setupLogoEasterEgg();
+    trackEvent('login', { method: 'google', is_new: !snap.exists() });
     if (!state.profile) openModal("modalProfile");
     // Skontroluj expirácie a pošli notifikácie (ak treba)
     setTimeout(checkAndSendNotifications, 2000);
@@ -2547,6 +2576,7 @@
     document.querySelectorAll('.tab-btn').forEach(b => {
       b.classList.toggle('active', b.dataset.tab === tabName);
     });
+    trackEvent('tab_switch', { tab: tabName });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   window.switchTab = switchTab;
@@ -4972,6 +5002,10 @@
     closeModal("modalProfile");
     regenerateProfileBasedItems();
     scheduleSave(); renderAll();
+    trackEvent('profile_setup', {
+      household_size: state.profile.adults + state.profile.kids + state.profile.infants + state.profile.seniors,
+      prep_days: state.profile.prepDays
+    });
     // Onboarding: scroll to categories after first profile save
     setTimeout(() => {
       const catSection = document.getElementById("categoriesSection");
@@ -5320,25 +5354,32 @@
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
   <div class="cookie-banner-inner">
     <div class="cookie-banner-text">
-      Aplikácia používa výlučne <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na prihlásenie a základnú funkcionality. Žiadne analytické ani reklamné cookies nepoužívame.
-      <a href="./pravne-info.html#cookies">Viac info</a>
+      Používame <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na prihlásenie a <strong style="font-weight:500;color:#fff;">analytické cookies</strong> (Firebase Analytics) na zlepšovanie aplikácie. Analytické cookies aktivujeme len s vaším súhlasom.
+      <a href="./pravne-info.html#cookies">Podrobnosti</a>
     </div>
     <div class="cookie-banner-actions">
-      <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Rozumiem</button>
-      <a class="cookie-btn cookie-btn-info" href="./pravne-info.html#cookies">Podrobnosti</a>
+      <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Prijať všetko</button>
+      <button class="cookie-btn cookie-btn-info" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
     </div>
   </div>
 </div>
 <script>
   (function() {
+    // Ak používateľ ešte nerozhodol → ukáž banner
     if (!localStorage.getItem('gerlach_cookie_consent')) {
       setTimeout(function() {
         document.getElementById('cookieBanner').classList.add('show');
       }, 1500);
     }
   })();
-  function acceptCookies() {
-    localStorage.setItem('gerlach_cookie_consent', Date.now().toString());
+  function acceptAllCookies() {
+    localStorage.setItem('gerlach_cookie_consent', 'all');
+    if (typeof window.enableAnalytics === 'function') window.enableAnalytics();
+    document.getElementById('cookieBanner').classList.remove('show');
+  }
+  function acceptNecessaryOnly() {
+    localStorage.setItem('gerlach_cookie_consent', 'necessary');
+    if (typeof window.disableAnalytics === 'function') window.disableAnalytics();
     document.getElementById('cookieBanner').classList.remove('show');
   }
 </script>
