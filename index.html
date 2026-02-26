@@ -262,6 +262,17 @@
     }
     .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
 
+    /* Nav beta pill for mobile — hidden on desktop */
+    .nav-beta-mobile {
+      display: none; align-items: center; gap: 0.375rem;
+      background: var(--cream); border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 0.25rem 0.625rem;
+      font-size: 0.65rem; color: var(--muted); font-weight: 500;
+      white-space: nowrap;
+    }
+    .nav-beta-mobile strong { color: var(--green); font-weight: 700; }
+    .nav-beta-mobile .nav-beta-bar { width: 32px; }
+
     /* ═══════════════════════════════════════════
        HERO — Centered layout + dashboard preview
     ═══════════════════════════════════════════ */
@@ -729,10 +740,11 @@
       max-width: 720px; margin: 1.25rem auto 0;
     }
     .feat-card {
-      background: var(--paper); border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-md); padding: 1.5rem;
       position: relative; overflow: hidden;
       transition: all 0.22s;
+      box-shadow: 0 1px 4px rgba(26,22,18,0.04), 0 2px 8px rgba(26,22,18,0.03);
     }
     .feat-card::after {
       content: ''; position: absolute;
@@ -744,7 +756,8 @@
     .feat-card:hover::after { transform: scaleX(1); }
     .feat-icon {
       width: 44px; height: 44px; border-radius: var(--radius-sm);
-      background: var(--cream); display: flex; align-items: center; justify-content: center;
+      background: var(--accent-tint); border: 1px solid rgba(201,79,26,0.1);
+      display: flex; align-items: center; justify-content: center;
       font-size: 1.25rem; margin-bottom: 1rem;
     }
     .feat-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.375rem; }
@@ -973,9 +986,11 @@
       .nav .btn-secondary { display: none; }
       .js-nav-beta { display: none !important; }
       .nav-demo { display: none; }
+      .nav-cta-launch { display: none !important; }
+      .nav-beta-mobile { display: flex !important; }
 
-      /* Beta badge mobile: visible, full width like CTAs */
-      .beta-badge-mobile { display: inline-flex !important; width: 100%; justify-content: center; }
+      /* Beta badge mobile: skryť z hero (je v nav) */
+      .beta-badge-mobile { display: none !important; }
 
       /* Layout */
       .section { padding: 3rem 1rem; }
@@ -990,11 +1005,8 @@
       .hero-ctas { flex-direction: column; align-items: stretch; gap: 0.625rem; margin-bottom: 1.25rem; }
       .hero-ctas .btn { justify-content: center; }
 
-      /* Beta badge na mobile — viac priestoru od tlačidiel aj od dashboardu */
-      .beta-badge-mobile { margin-top: 0.25rem; margin-bottom: 0.5rem; }
-
-      /* Dashboard */
-      .hero-dashboard-wrap { margin-top: 1.5rem; max-height: 440px; margin-bottom: -2rem; }
+      /* Dashboard — väčší odstup od CTA */
+      .hero-dashboard-wrap { margin-top: 2.5rem; max-height: 440px; margin-bottom: -2rem; }
       .dash-browser { transform: none; border-radius: 0.75rem 0.75rem 0 0; }
       .dash-chrome { padding: 0.4rem 0.75rem; }
       .dash-chrome-dots span { width: 8px; height: 8px; }
@@ -1071,8 +1083,8 @@
 ════════════════════════════════════════════════════ -->
 <nav aria-label="Hlavná navigácia" class="nav" id="mainNav">
 <div class="nav-inner">
-<a aria-label="Mámeplán.sk – domov" class="nav-logo" href="/" style="display:flex; align-items:center; gap:0.5rem;">
-  <span style="font-size:0.9rem;">🇸🇰</span> mámeplán.sk
+<a aria-label="Mámeplán.sk – domov" class="nav-logo" href="/">
+  Mámeplán.sk
 </a>
   <!-- Beta counter (desktop - centered) -->
   <div class="nav-beta js-nav-beta">
@@ -1083,7 +1095,14 @@
   </div>
 <div class="nav-actions">
   <a aria-label="Vyskúšať demo bez registrácie" class="nav-demo" href="./app.html#startdemo">Vyskúšať demo</a>
-  <a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn" href="./app.html">Spustiť appku</a>
+  <a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn nav-cta-launch" href="./app.html">Spustiť appku</a>
+  <!-- Beta pill: mobilný nav (namiesto CTA) -->
+  <div class="nav-beta-mobile js-nav-beta-mobile">
+    <span>Beta v0.1</span>
+    <div class="nav-beta-bar"><div class="nav-beta-fill js-bar" style="width:0%;"></div></div>
+    <strong><span class="js-free">–</span></strong>
+    <span>voľných registrácií</span>
+  </div>
 </div>
 </div>
 </nav>
