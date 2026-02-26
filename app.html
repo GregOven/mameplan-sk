@@ -976,7 +976,7 @@
       padding: 0 0.875rem;
     }
     .info-collapse.open .info-collapse-body {
-      max-height: 600px;
+      max-height: 1200px;
       padding: 0 0.875rem 0.75rem;
     }
     .info-collapse.open .info-collapse-arrow {
@@ -1355,14 +1355,13 @@
     <!-- ═══════════════ TAB B: PLÁN ═══════════════ -->
     <div class="tab-pane" id="tabPlan">
 
-      <div class="zone-intro">Evakuačné batohy a rodinný krízový plán – dohodnite sa vopred, pripravte sa včas.</div>
-
+      
       <!-- Evakuačné batohy -->
       <div class="card" id="evacBagsSection">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
             <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batohy</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený, skontrolovaný, pri dverách s topánkami</p>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený a skontrolovaný</p>
           </div>
           <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">🔄 Pregenerovať</button>
         </div>
@@ -1375,8 +1374,14 @@
           <h2 style="font-size:1.2rem; font-weight:700;">📋 Rodinný krízový plán</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:1rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>⚠️</strong> Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
+        <div class="info-collapse" style="background:#fef2f2; border:1px solid #fecaca; margin-bottom:1rem;">
+          <button class="info-collapse-toggle" style="color:#991b1b;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>⚠️ Prečo potrebujete krízový plán</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:#991b1b; line-height:1.6;">
+            Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
+          </div>
         </div>
         <div id="meetingPointBox"></div>
         <div style="margin-top:1rem;">
@@ -1399,7 +1404,7 @@
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:#1e40af; line-height:1.7;">
             <p style="margin:0 0 0.375rem;"><strong>1)</strong> Pošlite <strong>SMS</strong> – prechádza aj pri slabom signáli, keď hovory neprechádzajú.</p>
-            <p style="margin:0 0 0.375rem;"><strong>2)</strong> Dohodnite si <strong>kontaktnú osobu mimo regiónu</strong> – cez ňu sa všetci nahlásia.</p>
+            <p style="margin:0 0 0.375rem;"><strong>2)</strong> Vyberte si <strong>jednu osobu v inom meste</strong> (príbuzný, kamarát), ktorej sa každý člen rodiny ozve – slúži ako „ústredňa” keď sa nemôžete spojiť priamo.</p>
             <p style="margin:0 0 0.375rem;"><strong>3)</strong> Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli.</p>
             <p style="margin:0 0 0.375rem;"><strong>4)</strong> Stretávajte sa na <strong>dohodnutom mieste</strong> – pravidlo: počkaj 30 min, príď znova o interval.</p>
             <p style="margin:0;"><strong>5)</strong> Ak máte internet – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí”).</p>
@@ -1413,8 +1418,7 @@
     <!-- ═══════════════ TAB C: VEDOMOSTI ═══════════════ -->
     <div class="tab-pane" id="tabKnowledge">
 
-      <div class="zone-intro">Nemusíte si všetko pamätať — stačí vedieť, kde hľadať.</div>
-
+      
       <!-- Prvá pomoc -->
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
@@ -1447,10 +1451,24 @@
           <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>⚠️</strong> Ak zaznie siréna a nie je oznámená skúška – berte to vážne. Vojdite do budovy a zapnite rádio.
+        <div class="info-collapse" style="background:#fef2f2; border:1px solid #fecaca; margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#991b1b;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>⚠️ Čo robiť keď zaznie siréna</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:#991b1b; line-height:1.6;">
+            Ak zaznie siréna a nie je oznámená skúška – berte to vážne. Vojdite do budovy a zapnite rádio.
+          </div>
         </div>
-        <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;"></div>
+        <div class="info-collapse" id="sirensCollapse" style="background:var(--c-bg); margin-bottom:0.5rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>🔔 Typy signálov (kliknutím rozbaľte)</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body">
+            <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:0.625rem;"></div>
+          </div>
+        </div>
         <div class="info-collapse" style="background:var(--c-bg); margin-top:0.75rem;">
           <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span>💡 Skúška sirén a ďalšie informácie</span>
@@ -1469,10 +1487,24 @@
           <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>📡</strong> Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
+        <div class="info-collapse" style="background:#fef2f2; border:1px solid #fecaca; margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#991b1b;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>📡 Prečo rádio na batérie</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:#991b1b; line-height:1.6;">
+            Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
+          </div>
         </div>
-        <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
+        <div class="info-collapse" id="radioCollapse" style="background:var(--c-bg); margin-bottom:0.5rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>📻 Frekvencie podľa regiónov (kliknutím rozbaľte)</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body">
+            <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
+          </div>
+        </div>
         <div class="info-collapse" style="background:#eff6ff; border:1px solid #bfdbfe; margin-top:0.75rem;">
           <button class="info-collapse-toggle" style="color:#1e40af;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span>ℹ️ Tipy pre núdzové rádio</span>
@@ -1490,24 +1522,22 @@
     <!-- ═══════════════ TAB D: KONTAKTY ═══════════════ -->
     <div class="tab-pane" id="tabContacts">
 
-      <div class="zone-intro">Tiesňové linky, poruchové služby a vaše osobné kontakty na jednom mieste – offline prístupné, keď to najviac potrebujete.</div>
-
-      <!-- Dôležité kontakty (štátne) -->
+      <!-- Tiesňové linky (6 hlavných) -->
       <div class="card">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
-          <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">📞 Tiesňové kontakty</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky, poruchové služby a kľúčové inštitúcie SR</p>
-          </div>
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">📞 Tiesňové kontakty</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky SR – fungujú aj bez kreditu</p>
         </div>
-        <div style="margin-bottom:1rem;">
-          <div class="section-label">Tiesňové linky</div>
-          <div class="ec-grid" id="emergencyLinesGrid"></div>
+        <div class="ec-grid" id="emergencyLinesGrid"></div>
+      </div>
+
+      <!-- Inštitúcie, krízové linky a poruchové služby -->
+      <div class="card">
+        <div style="margin-bottom:0.875rem;">
+          <h2 style="font-size:1.2rem; font-weight:700;">🏛️ Inštitúcie, krízové linky a poruchové služby</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Kliknite na kategóriu pre zobrazenie kontaktov</p>
         </div>
-        <div>
-          <div class="section-label">Inštitúcie, krízové linky a poruchové služby</div>
-          <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
-        </div>
+        <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
       </div>
 
       <!-- Osobné kontakty -->
@@ -1545,7 +1575,6 @@
   <!-- SOS Floating Button (quick access to First Aid) -->
   <button class="sos-fab" id="sosFab" onclick="switchTab('knowledge'); setTimeout(() => { const fa = document.getElementById('firstAidGrid'); if(fa) fa.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);" aria-label="SOS – Prvá pomoc">
     <span class="sos-fab-icon">🆘</span>
-    <span class="sos-fab-label">SOS</span>
   </button>
 
 </div><!-- end appScreen -->
@@ -2202,7 +2231,8 @@
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
-    { id: "food_water", name: "Jedlo a voda", emoji: "🥫", weight: 1.2 },
+    { id: "food", name: "Jedlo", emoji: "🥫", weight: 1.0 },
+    { id: "water", name: "Voda", emoji: "💧", weight: 1.0 },
     { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.9 },
     { id: "medkit", name: "Lekárnička", emoji: "🩺", weight: 1.1 },
     { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
@@ -2213,13 +2243,19 @@
   // ── Zdroje odporúčaní pre kategórie ──────────────────────────
   // Tieto zdroje sú použité pri výpočte množstiev a výbere položiek
   const CATEGORY_SOURCES = {
-    food_water: {
-      note: "Voda: 2 l pitnej / osoba / de\u0148. Jedlo: 2000 kcal / de\u0148 dospel\u00FD (PAL 1.4, kr\u00EDzov\u00FD re\u017Eim)",
+    food: {
+      note: "Jedlo: 2000 kcal / deň dospelý (PAL 1.4, krízový režim). Dlhodobé potraviny, konzervy, sušené jedlá.",
       sources: [
-        { label: "WHO \u2013 Voda, hygiena a zdravie v n\u00FAdzov\u00FDch situ\u00E1ci\u00E1ch", url: "https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health" },
-        { label: "EFSA \u2013 Referen\u010Dn\u00E9 hodnoty pre energetick\u00FD pr\u00EDjem (2013)", url: "https://www.efsa.europa.eu/en/efsajournal/pub/3005" },
-        { label: "SK MINV \u2013 V pr\u00EDpade kr\u00EDzy alebo ozbrojen\u00E9ho konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
-        { label: "UA DSNS \u2013 Pr\u00EDru\u010Dka pre pr\u00EDpad n\u00FAdze alebo vojny", url: "https://dovidka.info/" }
+        { label: "EFSA – Referenčné hodnoty pre energetický príjem (2013)", url: "https://www.efsa.europa.eu/en/efsajournal/pub/3005" },
+        { label: "SK MINV – V prípade krízy alebo ozbrojeného konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "UA DSNS – Príručka pre prípad núdze alebo vojny", url: "https://dovidka.info/" }
+      ]
+    },
+    water: {
+      note: "Voda: 2 l pitnej / osoba / deň (WHO). Hygiena: ďalších 3–5 l / deň.",
+      sources: [
+        { label: "WHO – Voda, hygiena a zdravie v núdzových situáciách", url: "https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health" },
+        { label: "SK MINV – V prípade krízy alebo ozbrojeného konfliktu", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
       ]
     },
     cash: {
@@ -2259,9 +2295,11 @@
   };
 
   const DEFAULT_ITEMS = {
-    food_water: [
-      { name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] },
+    food: [
       { name: "Zásoby jedla", isFoodItem: true, foodEntries: [] },
+    ],
+    water: [
+      { name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] },
     ],
     cash: [
       { name: "Hotovosť v domácnosti", isCashItem: true, cashEntries: [] },
@@ -2492,7 +2530,7 @@
   function freshState() {
     return {
       profile: null,
-      selectedCategoryId: "food_water",
+      selectedCategoryId: "food",
       alertDaysMeds: 180,
       alertDaysFood: 30,
       items: structuredClone(DEFAULT_ITEMS),
@@ -2670,41 +2708,40 @@
         }
         // Regenerate dynamic items from profile
         regenerateProfileBasedItems();
-        // Migrate: food_water – remove old default items and ensure food+water trackers exist
+        // Migrate: food_water → food + water (v22 split)
         if (state.items.food_water) {
-          const oldFoodNames = ["Trvanlivé jedlo (min. 3 dni)", "Otvárač / varič / palivo"];
-          state.items.food_water = state.items.food_water.filter(it => !oldFoodNames.includes(it.name));
-          // Migrate water items: waterBottles → waterEntries
+          // Split food_water into separate food and water categories
+          if (!state.items.food) state.items.food = [];
+          if (!state.items.water) state.items.water = [];
           state.items.food_water.forEach(it => {
             if (it.isWaterItem) {
-              // Rename old "Pitná voda" to "Zásoby pitnej vody"
               if (it.name === "Pitná voda") it.name = "Zásoby pitnej vody";
-              // Convert legacy waterBottles to waterEntries
               if (!it.waterEntries) it.waterEntries = [];
               if (it.waterBottles && it.waterBottles > 0 && it.waterEntries.length === 0) {
-                it.waterEntries.push({
-                  name: "Fľaša 1,5 l",
-                  liters: 1.5,
-                  qty: it.waterBottles,
-                  expiry: ""
-                });
+                it.waterEntries.push({ name: "Fľaša 1,5 l", liters: 1.5, qty: it.waterBottles, expiry: "" });
               }
+              state.items.water.push(it);
+            } else if (it.isFoodItem) {
+              if (!it.foodEntries) it.foodEntries = [];
+              state.items.food.push(it);
+            } else {
+              // Regular items (non-tracker) go to food
+              state.items.food.push(it);
             }
           });
-          // Ensure food tracker item exists
-          if (!state.items.food_water.find(it => it.isFoodItem)) {
-            state.items.food_water.push({ name: "Zásoby jedla", isFoodItem: true, foodEntries: [] });
-          }
-          // Ensure water tracker item exists
-          if (!state.items.food_water.find(it => it.isWaterItem)) {
-            state.items.food_water.unshift({ name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] });
-          }
-          // Ensure foodEntries/waterEntries arrays exist
-          state.items.food_water.forEach(it => {
-            if (it.isFoodItem && !it.foodEntries) it.foodEntries = [];
-            if (it.isWaterItem && !it.waterEntries) it.waterEntries = [];
-          });
+          delete state.items.food_water;
         }
+        // Ensure food and water trackers exist
+        if (!state.items.food) state.items.food = [];
+        if (!state.items.water) state.items.water = [];
+        if (!state.items.food.find(it => it.isFoodItem)) {
+          state.items.food.unshift({ name: "Zásoby jedla", isFoodItem: true, foodEntries: [] });
+        }
+        if (!state.items.water.find(it => it.isWaterItem)) {
+          state.items.water.unshift({ name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] });
+        }
+        state.items.food.forEach(it => { if (it.isFoodItem && !it.foodEntries) it.foodEntries = []; });
+        state.items.water.forEach(it => { if (it.isWaterItem && !it.waterEntries) it.waterEntries = []; });
         // Migrate: cash – remove old items, ensure cash tracker exists
         if (state.items.cash) {
           const oldCashNames = ["Hotovosť na 3–7 dní", "Drobné mince"];
@@ -3178,8 +3215,8 @@
 
   // ── Swipe-to-dismiss for mobile modals ─────────────────────
   (function() {
-    const THRESHOLD = 80;  // px to dismiss
-    const VELOCITY_THRESHOLD = 0.5; // px/ms for quick swipes
+    const THRESHOLD = 80;
+    const VELOCITY_THRESHOLD = 0.5;
     let startY = 0, currentY = 0, startTime = 0, activeBox = null, activeOverlay = null;
 
     document.addEventListener("touchstart", (e) => {
@@ -3187,12 +3224,11 @@
       if (!overlay) return;
       const box = overlay.querySelector(".modal-box");
       if (!box) return;
-      // Only start swipe from top 48px of modal (handle area) or if scrolled to top
+      // ONLY start swipe from the handle area (top 32px of modal = the ::before bar)
       const touch = e.touches[0];
       const boxRect = box.getBoundingClientRect();
-      const touchInHandle = touch.clientY - boxRect.top < 48;
-      const scrolledToTop = box.scrollTop <= 0;
-      if (!touchInHandle && !scrolledToTop) return;
+      const touchInHandle = touch.clientY - boxRect.top < 32;
+      if (!touchInHandle) return;
       startY = touch.clientY;
       currentY = startY;
       startTime = Date.now();
@@ -3217,7 +3253,6 @@
       const dt = Date.now() - startTime;
       const velocity = dy / Math.max(dt, 1);
       if (dy > THRESHOLD || velocity > VELOCITY_THRESHOLD) {
-        // Dismiss
         activeBox.style.transition = "transform 0.25s ease-out";
         activeBox.style.transform = `translateY(100%)`;
         activeOverlay.style.transition = "background 0.25s";
@@ -3231,7 +3266,6 @@
           if (ov) { ov.style.background = ""; ov.style.transition = ""; }
         }, 260);
       } else {
-        // Snap back
         activeBox.style.transition = "transform 0.2s ease";
         activeBox.style.transform = "";
         activeOverlay.style.transition = "background 0.2s";
@@ -3523,7 +3557,7 @@
 
     // Hide "Pridať položku" button for categories with smart trackers
     const addBtn = document.getElementById("btnAddItem");
-    if (addBtn) addBtn.style.display = (catId === "food_water" || catId === "cash") ? "none" : "flex";
+    if (addBtn) addBtn.style.display = (catId === "food" || catId === "water" || catId === "cash") ? "none" : "flex";
 
     // Aktualizuj modal header
     const modalHeader = document.getElementById("modalCatHeader");
@@ -3592,7 +3626,7 @@
     if (catId !== "docs" && CATEGORY_SOURCES[catId]) {
       const src = CATEGORY_SOURCES[catId];
       srcBannerEl = document.createElement("div");
-      const sourceColor = catId === "food_water" ? { bg1: "#f0fdf4", bg2: "#dcfce7", border: "#86efac", title: "#166534", text: "#15803d" }
+      const sourceColor = (catId === "food" || catId === "water") ? { bg1: "#f0fdf4", bg2: "#dcfce7", border: "#86efac", title: "#166534", text: "#15803d" }
         : catId === "medkit" ? { bg1: "#fef2f2", bg2: "#fee2e2", border: "#fca5a5", title: "#991b1b", text: "#b91c1c" }
         : catId === "cash" ? { bg1: "#fefce8", bg2: "#fef9c3", border: "#fde047", title: "#854d0e", text: "#854d0e" }
         : catId === "hygiene" ? { bg1: "#fdf4ff", bg2: "#fae8ff", border: "#e9d5ff", title: "#6b21a8", text: "#7c3aed" }
@@ -3670,7 +3704,7 @@
           } else {
             wEntriesHtml = entries.map((e, ei) => {
               const eExp = e.expiry ? daysUntil(e.expiry) : null;
-              const catAD = getAlertDaysForCategory("food_water");
+              const catAD = getAlertDaysForCategory("food");
               const eExpBadge = e.expiry
                 ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
                   : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
@@ -3846,7 +3880,7 @@
           } else {
             entriesHtml = entries.map((e, ei) => {
               const eExp = e.expiry ? daysUntil(e.expiry) : null;
-              const catAD = getAlertDaysForCategory("food_water");
+              const catAD = getAlertDaysForCategory("food");
               const eExpBadge = e.expiry
                 ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
                   : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
@@ -4335,9 +4369,9 @@
         <div style="display:flex; align-items:flex-start; gap:0.75rem;">
           <div style="width:40px; height:40px; border-radius:50%; background:white; border:1.5px solid ${def.border}; display:flex; align-items:center; justify-content:center; font-size:1.125rem; flex-shrink:0;">${def.emoji}</div>
           <div style="flex:1; min-width:0;">
-            <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
               <div style="font-weight:700; font-size:0.9rem; color:${def.color};">${def.title}</div>
-              ${filled ? `<span style="background:white; border:1px solid ${def.border}; border-radius:999px; padding:0.1rem 0.4rem; font-size:0.625rem; font-weight:700; color:${def.color};">✓ HOTOVO</span>` : ""}
+              ${filled ? `<span style="background:white; border:1px solid ${def.border}; border-radius:999px; padding:0.1rem 0.4rem; font-size:0.625rem; font-weight:700; color:${def.color}; white-space:nowrap;">✓ HOTOVO</span>` : ""}
             </div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">${def.subtitle}</div>
             ${previewHtml}
@@ -4768,7 +4802,7 @@
 
   function getAlertDaysForCategory(catId) {
     if (catId === "medkit") return state.alertDaysMeds || 180;
-    if (catId === "food_water") return state.alertDaysFood || 30;
+    if (catId === "food" || catId === "water") return state.alertDaysFood || 30;
     return state.alertDaysFood || 30;
   }
 
@@ -5416,37 +5450,44 @@
     instGrid.innerHTML = "";
     
     const instGroups = [
-      { label: "Zdravie a toxikológia", indices: [0, 1] },
-      { label: "Krízové a psychologické linky", indices: [2, 3, 4] },
-      { label: "Civilná ochrana a počasie", indices: [5, 6] },
-      { label: "Humanitárna pomoc", indices: [7] },
-      { label: "Poruchové linky – energie (24/7)", indices: [8, 9, 10, 11] },
+      { label: "🏥 Zdravie a toxikológia", indices: [0, 1] },
+      { label: "💚 Krízové a psychologické linky", indices: [2, 3, 4] },
+      { label: "🛡️ Civilná ochrana a počasie", indices: [5, 6] },
+      { label: "✚ Humanitárna pomoc", indices: [7] },
+      { label: "⚡ Poruchové linky – energie (24/7)", indices: [8, 9, 10, 11] },
     ];
     
     instGroups.forEach(group => {
-      const groupHeader = document.createElement("div");
-      groupHeader.style.cssText = "font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin:0.75rem 0 0.375rem; padding-top:0.5rem; border-top:1px solid var(--c-border);";
-      groupHeader.textContent = group.label;
-      instGrid.appendChild(groupHeader);
+      const collapse = document.createElement("div");
+      collapse.className = "info-collapse";
+      collapse.style.cssText = "background:var(--c-bg); border-radius:0.75rem;";
       
+      let itemsHtml = "";
       group.indices.forEach(idx => {
         const inst = INSTITUTIONS[idx];
         if (!inst) return;
-        const row = document.createElement("div");
-        row.style.cssText = "display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem;";
         let actions = "";
         if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone}</a> `;
         if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone2}</a> `;
         if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">🔗 Web</a>`;
-        row.innerHTML = `
-          <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
-          <div style="flex:1; min-width:0;">
-            <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
-            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
-            <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
+        itemsHtml += `
+          <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
+            <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
+            <div style="flex:1; min-width:0;">
+              <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
+              <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
+              <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
+            </div>
           </div>`;
-        instGrid.appendChild(row);
       });
+      
+      collapse.innerHTML = `
+        <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+          <span>${group.label} <span style="font-size:0.68rem; color:var(--c-muted); font-weight:400;">(${group.indices.length})</span></span>
+          <span class="info-collapse-arrow">▼</span>
+        </button>
+        <div class="info-collapse-body" style="padding-top:0;">${itemsHtml}</div>`;
+      instGrid.appendChild(collapse);
     });
   }
 
@@ -5911,18 +5952,16 @@
     }
     if (regenBtn) regenBtn.style.display = "inline-flex";
 
-    // BYOB info - collapsible
+    // BYOB info - all collapsible
     let html = `
-      <div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#92400e; line-height:1.6;">
-        <strong>💡</strong> Pri evakuácii máte často len <strong>5–15 minút</strong>. Každý člen domácnosti potrebuje <strong>vlastný batoh pri dverách</strong>. Kontrola 2× ročne.
-      </div>
-      <div class="info-collapse" style="background:var(--c-bg); margin-bottom:1rem;">
-        <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-          <span>⚠️ Pravidlá batohu a podrobnosti</span>
+      <div class="info-collapse" style="background:#fef3c7; border:1px solid #fcd34d; margin-bottom:1rem;">
+        <button class="info-collapse-toggle" style="color:#92400e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+          <span>💡 Prečo evakuačný batoh a pravidlá</span>
           <span class="info-collapse-arrow">▼</span>
         </button>
-        <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
-          <p style="margin:0 0 0.5rem; color:#991b1b;"><strong>Pravidlá:</strong> 1) Batoh <strong>pri dverách</strong>, nie v skrini. 2) <strong>Topánky vedľa batohu</strong>. 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 r. – <strong>vedieť batoh otvoriť a niesť</strong>. 5) <strong>Kartička s kontaktom</strong> vo vrecku kabáta.</p>
+        <div class="info-collapse-body" style="font-size:0.75rem; color:#854d0e; line-height:1.6;">
+          <p style="margin:0 0 0.5rem;">Pri evakuácii máte často len <strong>5–15 minút</strong>. Každý člen domácnosti potrebuje <strong>vlastný batoh</strong>. Kontrola 2× ročne.</p>
+          <p style="margin:0 0 0.5rem; color:#991b1b;"><strong>Pravidlá:</strong> 1) Ideálne batoh <strong>pri dverách</strong> – ale lepšie v skrini ako vôbec. 2) <strong>Vedzte, aké topánky si beriete</strong> pri evakuácii (pevné, rýchlo obuvateľné). 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 r. – <strong>vedieť batoh otvoriť a niesť</strong>. 5) <strong>Kartička s kontaktom</strong> vo vrecku kabáta.</p>
           <p style="margin:0 0 0.5rem;">Bez pripraveného batohu zabudnete lieky, doklady alebo vodu. Batoh by mal byť <strong>samostatný</strong> – nebalte veci, ktoré denne používate.</p>
           <p style="margin:0 0 0.375rem; font-weight:600; color:#92400e;">Max. hmotnosť: Dospelý 25 kg &nbsp;|  Senior 20 kg &nbsp;|  Dieťa 15 kg &nbsp;|  Bábätko 5 kg (nosí rodič)</p>
           <p style="margin:0; font-size:0.68rem;">Zdroj: CZ 72h (MV ČR, 2025), SK MINV, UA DSNS, SE MSB (2024)</p>
@@ -7313,12 +7352,12 @@
     const isEdit = itemIdx >= 0 && state.items[catId] && itemIdx < state.items[catId].length;
     const item = isEdit ? state.items[catId][itemIdx] : {};
     const isDocs = (catId === "docs");
-    const hasExpiry = (catId === "food_water" || catId === "medkit");
-    const hasLink = (catId === "food_water" || catId === "medkit" || catId === "hygiene" || catId === "gear");
+    const hasExpiry = (catId === "food" || catId === "water" || catId === "medkit");
+    const hasLink = (catId === "food" || catId === "water" || catId === "medkit" || catId === "hygiene" || catId === "gear");
     const isCashOnly = (catId === "cash");
 
     // Title
-    const catLabels = { docs: "doklad", cash: "položku", medkit: "položku", food_water: "položku", hygiene: "položku", gear: "položku" };
+    const catLabels = { docs: "doklad", cash: "položku", medkit: "položku", food: "položku", water: "položku", hygiene: "položku", gear: "položku" };
     if (isDocs) {
       document.getElementById("itemModalTitle").textContent = isEdit ? "✏️ Upraviť doklad" : "➕ Pridať doklad";
     } else {
@@ -7332,7 +7371,7 @@
     // Field visibility per category:
     // docs: Name + Typ uloženia only
     // cash: Name + Množstvo only
-    // food_water, medkit: Name + Množstvo + Expirácia + Odkaz
+    // food, water, medkit: Name + Množstvo + Expirácia + Odkaz
     // hygiene, gear: Name + Množstvo + Odkaz (no expiry)
     const qtyRow = document.getElementById("itemFieldQtyRow");
     const expiryField = document.getElementById("itemFieldExpiry");
@@ -7445,8 +7484,8 @@
     const cid = state.selectedCategoryId;
     const idx = parseInt(fd.get("editIndex"));
     const isDocs = (cid === "docs");
-    const hasExpiry = (cid === "food_water" || cid === "medkit");
-    const hasLink = (cid === "food_water" || cid === "medkit" || cid === "hygiene" || cid === "gear");
+    const hasExpiry = (cid === "food" || cid === "water" || cid === "medkit");
+    const hasLink = (cid === "food" || cid === "water" || cid === "medkit" || cid === "hygiene" || cid === "gear");
 
     const itemData = {
       name,
