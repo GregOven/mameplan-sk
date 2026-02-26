@@ -921,6 +921,60 @@
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
     /* ═══════════════════════════════════════════
+       COOKIE BANNER
+    ═══════════════════════════════════════════ */
+    .cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--ink);
+      color: rgba(255,255,255,0.85);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 1rem 1.5rem;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cookie-banner.show { transform: none; }
+    .cookie-banner-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .cookie-banner-text {
+      flex: 1; min-width: 260px;
+      font-size: 0.8rem; font-weight: 300; line-height: 1.6;
+    }
+    .cookie-banner-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+    .cookie-banner-text a:hover { color: #e8803a; }
+    .cookie-banner-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+    .cookie-btn {
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.78rem; font-weight: 600;
+      padding: 0.5rem 1.125rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer; border: none;
+      transition: all 0.2s;
+    }
+    .cookie-btn-accept {
+      background: var(--accent); color: #fff;
+    }
+    .cookie-btn-accept:hover { background: var(--accent-hover); }
+    .cookie-btn-info {
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .cookie-btn-info:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    @media (max-width: 640px) {
+      .cookie-banner { padding: 0.875rem 1.25rem 1rem; }
+      .cookie-banner-inner { gap: 0.75rem; }
+      .cookie-banner-text { font-size: 0.75rem; min-width: 100%; }
+      .cookie-banner-actions { width: 100%; }
+      .cookie-btn { flex: 1; justify-content: center; text-align: center; }
+      /* Ak je cookie banner aj sticky bar naraz — daj banner nad sticky */
+      .cookie-banner.show ~ .sticky-bar.show,
+      .cookie-banner.show + .sticky-bar.show { display: none; }
+    }
+
+    /* ═══════════════════════════════════════════
        RESPONSIVE — TABLET (641–1024px)
     ═══════════════════════════════════════════ */
     @media (max-width: 1024px) {
@@ -1649,6 +1703,8 @@
 </div>
 <div class="footer-links">
 <a class="footer-link" href="./app.html">Aplikácia</a>
+<a class="footer-link" href="./pravne-info.html">Právne info</a>
+<a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a>
 <a class="footer-link" href="/cdn-cgi/l/email-protection#23484c4d57424857634e424e46534f424d0d5048">Kontakt</a>
 </div>
 </div>
@@ -1731,6 +1787,35 @@
       }
       localStorage.setItem('gerlach_waitlist', email);
     }, 600);
+  }
+</script>
+<!-- ════════════════════════════════════════════════════
+     COOKIE BANNER
+════════════════════════════════════════════════════ -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
+  <div class="cookie-banner-inner">
+    <div class="cookie-banner-text">
+      Táto stránka používa výlučne <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na zabezpečenie prihlásenia a základnej funkcionality. Žiadne analytické ani reklamné cookies nepoužívame.
+      <a href="./pravne-info.html#cookies">Viac info</a>
+    </div>
+    <div class="cookie-banner-actions">
+      <button class="cookie-btn cookie-btn-accept" onclick="acceptCookies()">Rozumiem</button>
+      <a class="cookie-btn cookie-btn-info" href="./pravne-info.html#cookies">Podrobnosti</a>
+    </div>
+  </div>
+</div>
+<script>
+  /* ── Cookie consent ── */
+  (function() {
+    if (!localStorage.getItem('gerlach_cookie_consent')) {
+      setTimeout(function() {
+        document.getElementById('cookieBanner').classList.add('show');
+      }, 1200);
+    }
+  })();
+  function acceptCookies() {
+    localStorage.setItem('gerlach_cookie_consent', Date.now().toString());
+    document.getElementById('cookieBanner').classList.remove('show');
   }
 </script>
 </body>
