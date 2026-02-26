@@ -1122,7 +1122,7 @@
         <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
             <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batohy</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti</p>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený, skontrolovaný, pri dverách s topánkami</p>
           </div>
           <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">🔄 Pregenerovať</button>
         </div>
@@ -1133,12 +1133,29 @@
       <div class="card">
         <div style="margin-bottom:1rem;">
           <h2 style="font-size:1.2rem; font-weight:700;">📋 Rodinný krízový plán</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál, budete vedieť čo robiť.</p>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
+        </div>
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:1rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>⚠️ Prečo je to dôležité?</strong> Mobilná sieť býva preťažená alebo nefunkčná do <strong>15–30 minút</strong> od začiatku krízy. Bez vopred dohodnutého plánu sa rodina nemusí nájsť aj niekoľko dní. Tento plán <strong>vytlačte</strong> a dajte kópiu <strong>každému členovi rodiny</strong> – do peňaženky, evakuačného batohu a na chladničku.
         </div>
         <div id="meetingPointBox"></div>
         <div style="margin-top:1rem;">
-          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Krízové scenáre</div>
+          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Krízové scenáre – kto, čo, kam?</div>
+          <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
+            <strong style="color:var(--c-text);">💡</strong> Prejdite si každý scenár a doplňte konkrétne mená, miesta a úlohy. Krízový plán funguje len ak ho <strong>poznajú všetci členovia rodiny</strong> – vrátane detí od 6 rokov. Ideálne si plán <strong>raz za rok precvičte</strong> (napr. pri skúške sirén).
+          </div>
           <div id="scenariosBox" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+        </div>
+        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:1rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
+          <strong>📱 Komunikačný plán (ak telefóny nefungujú):</strong><br>
+          1) Pošlite <strong>SMS</strong> – prechádza aj pri slabom signáli, keď hovory neprechádzajú.<br>
+          2) Dohodnite si <strong>kontaktnú osobu mimo regiónu</strong> (napr. príbuzný v inom meste) – cez ňu sa všetci nahlásia.<br>
+          3) Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli + kontaktné číslo.<br>
+          4) Stretávajte sa na <strong>dohodnutom mieste</strong> v dohodnutom čase – pravidlo: počkaj 30 min, príď znova o interval.<br>
+          5) Ak máte prístup k internetu – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí”).
+        </div>
+        <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.625rem 0.875rem; margin-top:0.75rem; font-size:0.68rem; color:var(--c-muted); line-height:1.5;">
+          <strong>Zdroje:</strong> CZ 72h príručka (MV ČR, 2025) – Rodina a susedia; SE MSB – Om krisen eller kriget kommer (2024); UA DSNS – Dovidka.info – Evakuácia; FEMA – Family Emergency Communication Plan
         </div>
       </div>
 
@@ -1179,11 +1196,14 @@
       <div class="card">
         <div style="margin-bottom:0.875rem;">
           <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Čo znamenajú jednotlivé signály a ako ich rozoznať</p>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
+        </div>
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>⚠️ Ak zaznie siréna a nie je oznámená skúška</strong> – berte to vážne. Rozoznajte typ tónu (kolísavý vs. stály), vojdite do budovy a zapnite rádio.
         </div>
         <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;"></div>
         <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
-          <strong style="color:var(--c-text);">💡 Tip:</strong> Skúška sirén prebieha spravidla <strong>každý druhý piatok v mesiaci o 12:00</strong>. Skúšky sú vopred oznámené v médiách.
+          <strong style="color:var(--c-text);">💡 Skúška sirén:</strong> Každý <strong>druhý piatok v mesiaci o 12:00</strong> prebieha pravidelná skúška (2 min stály tón). O skúškach informujú vopred médiá. Ak počujete sirénu mimo tohto termínu – <strong>nie je to skúška</strong>.
         </div>
       </div>
 
@@ -1191,11 +1211,14 @@
       <div class="card">
         <div style="margin-bottom:0.875rem;">
           <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie, cez ktoré si viete nájsť dôležité informácie aj bez internetu</p>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
+        </div>
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>📡 Prečo rádio?</strong> Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. Mobilná sieť a internet môžu zlyhať, rádio vysiela vždy. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
         </div>
         <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
         <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
-          <strong>ℹ️ Dôležité:</strong> Počas krízy sledujte Slovenský rozhlas a Rádio Regina. Rádio na batérie patrí medzi najdôležitejšiu výbavu domácnosti.
+          <strong>ℹ️ Tip:</strong> Zapíšte si frekvenciu pre váš región na papier a vložte ho k rádiu na batérie. V krízovej situácii nemusíte nič hľadať. <strong>Rádio Slovensko</strong> a <strong>Rádio Regina</strong> sú prioritné stanice pre núdzové hlásenia podľa Zákona o civilnej ochrane.
         </div>
       </div>
 
@@ -1204,14 +1227,14 @@
     <!-- ═══════════════ TAB C: KONTAKTY ═══════════════ -->
     <div class="tab-pane" id="tabContacts">
 
-      <div class="zone-intro">Tiesňové linky a kontakty na jednom mieste – rýchly prístup, keď to potrebujete.</div>
+      <div class="zone-intro">Tiesňové linky, poruchové služby a vaše osobné kontakty na jednom mieste – offline prístupné, keď to najviac potrebujete.</div>
 
       <!-- Dôležité kontakty (štátne) -->
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">📞 Dôležité kontakty</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky a kľúčové inštitúcie SR</p>
+            <h2 style="font-size:1.2rem; font-weight:700;">📞 Tiesňové kontakty</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky, poruchové služby a kľúčové inštitúcie SR</p>
           </div>
         </div>
         <div style="margin-bottom:1rem;">
@@ -1219,7 +1242,7 @@
           <div class="ec-grid" id="emergencyLinesGrid"></div>
         </div>
         <div>
-          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Dôležité inštitúcie</div>
+          <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Inštitúcie, krízové linky a poruchové služby</div>
           <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
         </div>
       </div>
@@ -1228,8 +1251,8 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">👤 Rodinné dôležité kontakty</h2>
-            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Ľudia, na ktorých sa viete spoľahnúť</p>
+            <h2 style="font-size:1.2rem; font-weight:700;">👤 Osobné kontakty</h2>
+            <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Lekári, poisťovne, služby a ľudia, na ktorých sa spoľahnete</p>
           </div>
           <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.78rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
         </div>
@@ -2206,7 +2229,7 @@
         },
         scenarios: {
           home: {
-            steps: "1. Zostaňte pokojní a zistite čo sa deje\n2. Skontrolujte zásoby a vybavenie\n3. Sledujte rozhlas / informácie\n4. Ak treba evakuovať – zoberte batoh a choďte na miesto stretnutia",
+            steps: "1. Zachovajte pokoj \u2013 panika je v\u00e1\u0161 najv\u00e4\u010d\u0161\u00ed nepriate\u013e\n2. Zistite typ ohrozenia: zapnite r\u00e1dio (96,6 FM BA / 90,1 FM BB / 89,5 FM KE)\n3. Zatvorte a utesnite okn\u00e1, dvere, ventil\u00e1ciu (chemick\u00fd \u00fanik, radi\u00e1cia)\n4. Skontrolujte z\u00e1soby: voda, jedlo, lieky, baterky, r\u00e1dio\n5. Pripravte evaku\u00e1\u010dn\u00e9 batohy pri dver\u00e1ch + pev\u00fa obuv\n6. Po\u010dkajte na hovor. inform\u00e1ciu \u2013 \u00farady povedia \u010do robi\u0165\n7. Ak nariadili evaku\u00e1ciu: vypnite isti\u010d + plyn, zamknite, l\u00edstok na dvere\n8. I\u010fte na miesto stretnutia pe\u0161o (auto len ak cesta vo\u013en\u00e1)",
             evacPlace: "",
             note: ""
           },
@@ -2219,10 +2242,23 @@
           partial: {
             whoHome: "",
             whoWork: "",
-            homeSteps: "Rodič doma: pripraví batoh a zásoby, zabezpečí deti a čaká na partnera alebo ide na miesto stretnutia.",
-            workSteps: "Rodič v práci: bezpečne opustí pracovisko a smeruje na miesto stretnutia alebo domov.",
+            homeSteps: "1. Zabezpe\u010dte deti \u2013 upokojte, vysvetlite primerane veku\n2. Pripravte v\u0161etky evaku\u00e1\u010dn\u00e9 batohy (aj partnerov)\n3. Sledujte r\u00e1dio \u2013 R\u00e1dio Slovensko\n4. SMS partnerovi: kr\u00e1tka spr\u00e1va s va\u0161ou poz\u00edciou\n5. Ak sa partner neozval do 2h \u2192 i\u010fte na miesto stretnutia\n6. L\u00edstok na dvere: kto, kedy, kam",
+            workSteps: "1. Bezpe\u010dne opustite pracovisko (kol\u00e1\u010d, ne\u010dakajte)\n2. SMS partnerovi: \u201eSom OK, idem dom/stretnutie\u201c\n3. Ak je cesta domov bezpe\u010dn\u00e1 \u2192 i\u010fte domov\n4. Ak nie \u2192 smerujte na miesto stretnutia\n5. Po ceste vyzvihnite bl\u00edzkych ak m\u00f4\u017eete",
             meetPlace: "",
             meetTime: "",
+            note: ""
+          },
+          night: {
+            steps: "1. Zobu\u010fte v\u0161etk\u00fdch \u2013 pokojne ale r\u00e1zne, najprv deti\n2. Oble\u010dte sa: tepl\u00e9 oble\u010denie + PEVN\u00c1 OBUV (pripraven\u00e1 pri batohu)\n3. \u010celovka/baterka na hlavu \u2013 ruky musia byti vo\u013en\u00e9\n4. Zapnite r\u00e1dio na bat\u00e9rie \u2013 zistite \u010do sa deje\n5. Evaku\u00e1\u010dny batoh je pri dver\u00e1ch \u2013 vezmite ho\n6. Deti: neste/ve\u010fte za ruku, star\u0161\u00edch podoprite\n7. NIKDY nehladajte veci po byte v tme \u2013 vezmite len to \u010do je pripraven\u00e9\n8. Mobil + k\u013e\u00fa\u010de + doklady = minimum",
+            evacPlace: "",
+            note: ""
+          },
+          travel: {
+            whoTravels: "",
+            contactPerson: "",
+            contactPhone: "",
+            stepsHome: "",
+            stepsAway: "",
             note: ""
           }
         }
@@ -2271,7 +2307,9 @@
               scenarios: {
                 home: { ...defaultPlans.scenarios.home, ...((data.plans.scenarios||{}).home || {}) },
                 separated: { ...defaultPlans.scenarios.separated, ...((data.plans.scenarios||{}).separated || {}), tasks: ((data.plans.scenarios||{}).separated||{}).tasks || [] },
-                partial: { ...defaultPlans.scenarios.partial, ...((data.plans.scenarios||{}).partial || {}) }
+                partial: { ...defaultPlans.scenarios.partial, ...((data.plans.scenarios||{}).partial || {}) },
+                night: { ...defaultPlans.scenarios.night, ...((data.plans.scenarios||{}).night || {}) },
+                travel: { ...defaultPlans.scenarios.travel, ...((data.plans.scenarios||{}).travel || {}) }
               }
             };
           }
@@ -2914,7 +2952,7 @@
           <circle cx="700" cy="35" r="1" fill="white" opacity="0.5"/>
           <circle cx="400" cy="10" r="2" fill="white" opacity="0.9"/>
         </svg>
-        <div class="easter-tatry-quote">„Kto raz bol na Gerlachu,<br>zvládne všetko."</div>
+        <div class="easter-tatry-quote">„Kto raz bol na Gerlachu,<br>zvládne všetko.”</div>
         <div class="easter-tatry-sub">Klikni kamkoľvek pre návrat</div>
       `;
       el.onclick = () => el.classList.remove('visible');
@@ -3741,7 +3779,7 @@
             <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;">📍</div>
             <div style="flex:1;">
               <div style="font-weight:700; font-size:0.95rem; color:#92400e;">Nastavte miesto stretnutia</div>
-              <div style="font-size:0.78rem; color:#a16207; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Dohodnite sa vopred s celou rodinou.</div>
+              <div style="font-size:0.78rem; color:#a16207; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
             </div>
             <div style="font-size:1.25rem; color:#a16207; flex-shrink:0;">→</div>
           </div>
@@ -3783,7 +3821,7 @@
         </div>
         ${backupHtml}
         <div style="background:rgba(255,255,255,0.6); border-radius:0.625rem; padding:0.625rem 0.75rem; margin-top:0.75rem; font-size:0.75rem; color:#1e40af; line-height:1.5;">
-          💡 <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval.
+          💡 <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval. Ak sa nestretnete ani na 3. pokus – prejdite na <strong>záložné miesto</strong>.
         </div>
       </div>`;
   }
@@ -3792,30 +3830,48 @@
   const SCENARIO_DEFS = [
     {
       id: "home",
-      emoji: "🏠",
+      emoji: "\ud83c\udfe0",
       title: "Celá rodina je doma",
-      subtitle: "Krízová situácia zastihne všetkých doma spolu",
+      subtitle: "Kríza zastihne všetkých doma \u2013 postup od momentu varovania po rozhodnutie zostať alebo evakuovať",
       color: "#2a7a4b",
       bg: "#eaf4ee",
       border: "#86efac"
     },
     {
       id: "separated",
-      emoji: "🏫",
-      title: "Rodičia v práci, deti mimo",
-      subtitle: "Deti sú v škole / škôlke / krúžkoch – oddelení od rodičov",
+      emoji: "\ud83c\udfeb",
+      title: "Rodičia v práci, deti v škole",
+      subtitle: "Rodina je rozdelená na 2\u20133 miesta \u2013 kto ide pre koho, odkiaľ, v akom poradí, záložný plán",
       color: "#b45309",
       bg: "#fef3c7",
       border: "#fcd34d"
     },
     {
       id: "partial",
-      emoji: "👨‍👧",
-      title: "Jeden rodič doma, druhý v práci",
-      subtitle: "Jeden z partnerov je s deťmi, druhý inde",
+      emoji: "\ud83d\udc68\u200d\ud83d\udc67",
+      title: "Jeden rodič doma, druh\u00fd v pr\u00e1ci",
+      subtitle: "Rozdelenie \u00faloh \u2013 kto zabezpečí deti, kto batoh, kto ide na miesto stretnutia",
       color: "#1e40af",
       bg: "#eff6ff",
       border: "#bfdbfe"
+    },
+    {
+      id: "night",
+      emoji: "\ud83c\udf19",
+      title: "Kr\u00edzov\u00e1 situ\u00e1cia v noci",
+      subtitle: "Sir\u00e9na o 3:00 r\u00e1no \u2013 orientácia v tme, oblečenie, deti, čo vziať, kam ísť",
+      color: "#6b21a8",
+      bg: "#faf5ff",
+      border: "#e9d5ff"
+    },
+    {
+      id: "travel",
+      emoji: "\u2708\ufe0f",
+      title: "Člen rodiny je mimo mesto",
+      subtitle: "Služobná cesta, dovolenka, zahraničie \u2013 kontaktná osoba, komunikácia, náhradné riešenia",
+      color: "#be185d",
+      bg: "#fdf2f8",
+      border: "#fbcfe8"
     }
   ];
 
@@ -3859,6 +3915,8 @@
     if (id === "home") return !!(s.steps && s.steps.trim());
     if (id === "separated") return (s.tasks && s.tasks.length > 0) || !!(s.meetPlace && s.meetPlace.trim());
     if (id === "partial") return !!(s.whoHome && s.whoHome.trim()) || !!(s.whoWork && s.whoWork.trim());
+    if (id === "night") return !!(s.steps && s.steps.trim());
+    if (id === "travel") return !!(s.contactPerson && s.contactPerson.trim()) || !!(s.steps && s.steps.trim());
     return false;
   }
 
@@ -3869,11 +3927,18 @@
     }
     if (id === "separated") {
       const taskCount = (s.tasks||[]).length;
-      const taskPrev = (s.tasks||[]).slice(0, 2).map(t => `<strong>${esc(t.person||"?")}</strong> → vyzdvihne <strong>${esc(t.picksUp||"?")}</strong> z ${esc(t.from||"?")}`).join("; ");
+      const taskPrev = (s.tasks||[]).slice(0, 2).map(t => `<strong>${esc(t.person||"?")}</strong> \u2192 vyzdvihne <strong>${esc(t.picksUp||"?")}</strong> z ${esc(t.from||"?")}`).join("; ");
       return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${taskCount > 0 ? taskPrev : ""}${s.meetPlace ? `<br>Stretnutie: <strong>${esc(s.meetPlace)}</strong>` : ""}${s.meetTime ? ` o <strong>${esc(s.meetTime)}</strong>` : ""}</div>`;
     }
     if (id === "partial") {
-      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${s.whoHome ? `Doma: <strong>${esc(s.whoHome)}</strong>` : ""}${s.whoWork ? ` | V práci: <strong>${esc(s.whoWork)}</strong>` : ""}</div>`;
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${s.whoHome ? `Doma: <strong>${esc(s.whoHome)}</strong>` : ""}${s.whoWork ? ` | V pr\u00e1ci: <strong>${esc(s.whoWork)}</strong>` : ""}</div>`;
+    }
+    if (id === "night") {
+      const lines = (s.steps||"").split("\n").filter(l => l.trim()).slice(0, 2);
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${lines.map(l => esc(l)).join("<br>")}</div>`;
+    }
+    if (id === "travel") {
+      return `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.375rem; line-height:1.5;">${s.contactPerson ? `Kontaktn\u00e1 osoba: <strong>${esc(s.contactPerson)}</strong>` : ""}${s.whoTravels ? ` | Cestuje: <strong>${esc(s.whoTravels)}</strong>` : ""}</div>`;
     }
     return "";
   }
@@ -3951,11 +4016,12 @@
       content.innerHTML = `
         <form id="scenarioHomeForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
-            <strong>Situácia:</strong> Celá rodina je doma keď nastane kríza. Čo robíte ako prvé?
+            <strong>Situácia:</strong> Celá rodina je doma keď nastane kríza (siréna, výbuch, zemetrasenie). Prepíšte alebo doplňte kroky podľa vašej domácnosti.
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Kde máte hlavný istič? Plynový uzáver? Batoh? Zapíšte si to \u2013 v strese si nepamätáte ani jednoduché veci.</em></div>
           </div>
           <div>
             <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Postup krok za krokom</label>
-            <textarea name="steps" rows="6" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní a zistite čo sa deje&#10;2. Skontrolujte zásoby&#10;3. Sledujte rozhlas&#10;4. Ak treba evakuovať...">${esc(s.steps||"")}</textarea>
+            <textarea name="steps" rows="8" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
           </div>
           <div>
             <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kam evakuujete? (ak treba opustiť dom)</label>
@@ -3963,7 +4029,7 @@
           </div>
           <div>
             <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="Čokoľvek dôležité pre tento scenár" />
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kto vezme mačku, kto uzamkne dom, kde sú kľúče..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -3975,6 +4041,95 @@
         state.plans.scenarios.home = {
           steps: String(fd.get("steps")||"").trim(),
           evacPlace: String(fd.get("evacPlace")||"").trim(),
+          note: String(fd.get("note")||"").trim()
+        };
+        closeModal("modalScenario");
+        scheduleSave(); renderPlans();
+      };
+    }
+
+    else if (scenarioId === "night") {
+      content.innerHTML = `
+        <form id="scenarioNightForm" style="display:grid; gap:1rem;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+            <strong>Situácia:</strong> Je 3:00 v noci, zaznie siréna alebo vás zobudí zemetrasenie. Je tma, ste dezorientovaní.
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Mať čelovku a topánky pri posteli nie je paranoia – je to pripravenosť. V tme na rozbité sklo stúpite skôr než si to uvedomíte.</em></div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Postup krok za krokom</label>
+            <textarea name="steps" rows="7" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kam evakuujete v noci?</label>
+            <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. Rovnaké miesto ako cez deň, alebo najbližší úkryt..." />
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Čelovka v nočnom stolíku, topánky pod posteľou..." />
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+          </div>
+        </form>`;
+      content.querySelector("#scenarioNightForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        state.plans.scenarios.night = {
+          steps: String(fd.get("steps")||"").trim(),
+          evacPlace: String(fd.get("evacPlace")||"").trim(),
+          note: String(fd.get("note")||"").trim()
+        };
+        closeModal("modalScenario");
+        scheduleSave(); renderPlans();
+      };
+    }
+
+    else if (scenarioId === "travel") {
+      content.innerHTML = `
+        <form id="scenarioTravelForm" style="display:grid; gap:1rem;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+            <strong>Situácia:</strong> Jeden člen rodiny je na služobnej ceste alebo na dovolenke – koordinácia na diaľku.
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Dohodnite si kontaktnú osobu mimo ohrozeného regiónu (napr. príbuzní v inom meste). Cez ňu sa rodina navzájom nájde aj keď lokálne siete zlyhajú.</em></div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kto cestuje?</label>
+              <input name="whoTravels" type="text" value="${esc(s.whoTravels||"")}" placeholder="napr. Ocko, Mama..." />
+            </div>
+            <div>
+              <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Kontaktná osoba mimo regiónu</label>
+              <input name="contactPerson" type="text" value="${esc(s.contactPerson||"")}" placeholder="napr. Strýko Jano v Prahe" />
+            </div>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Telefón kontaktnej osoby</label>
+            <input name="contactPhone" type="text" value="${esc(s.contactPhone||"")}" placeholder="napr. +421 9XX XXX XXX" />
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí rodina doma?</label>
+            <textarea name="stepsHome" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Čo robí ten, kto je preč?</label>
+            <textarea name="stepsAway" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
+          </div>
+          <div>
+            <label style="font-size:0.78rem; color:var(--c-muted); display:block; margin-bottom:0.375rem; font-weight:600;">Poznámka</label>
+            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Číslo ambasády, poistenie na cestu..." />
+          </div>
+          <div style="display:flex; justify-content:flex-end;">
+            <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+          </div>
+        </form>`;
+      content.querySelector("#scenarioTravelForm").onsubmit = (e) => {
+        e.preventDefault();
+        const fd = new FormData(e.target);
+        state.plans.scenarios.travel = {
+          whoTravels: String(fd.get("whoTravels")||"").trim(),
+          contactPerson: String(fd.get("contactPerson")||"").trim(),
+          contactPhone: String(fd.get("contactPhone")||"").trim(),
+          stepsHome: String(fd.get("stepsHome")||"").trim(),
+          stepsAway: String(fd.get("stepsAway")||"").trim(),
           note: String(fd.get("note")||"").trim()
         };
         closeModal("modalScenario");
@@ -4017,6 +4172,8 @@
         <form id="scenarioSepForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Rodičia sú v práci, deti v škole/škôlke/krúžkoch. Kto ide pre koho?
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Školy majú vlastné krízové plány \u2013 deti sú v bezpečí. Nepanikárte, ale majte jasné: kto ide kam, v akom poradí, a čo ak primárna osoba nemôže. Dohodnite záložného vyzberača!</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Školy majú vlastné krízové plány – deti nevydajú neautorizovaným osobám. Overte vopred, kto je oprávnený vyzdvihnúť vaše dieťa (a zapíšte to aj v škole).</em></div>
           </div>
           <div>
             <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.5rem;">Rozdelenie úloh</div>
@@ -4105,6 +4262,7 @@
         <form id="scenarioPartForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Jeden z partnerov je doma s deťmi, druhý je v práci. Čo robí každý?
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Dohodnite si jasné pravidlo: ak sa nedá spojiť do X minút, každý koná podľa plánu a smeruje na miesto stretnutia. Nečakajte na potvrdenie – konajte.</em></div>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
@@ -4387,19 +4545,19 @@
         { header: "Test FAST (rozpoznanie)" },
         { text: "<strong>F – Face (tvár):</strong> Požiadajte osobu, aby sa usmiala. Pokles jednej strany tváre? Kútik úst padá?" },
         { text: "<strong>A – Arms (ruky):</strong> Požiadajte zdvihnúť obe ruky a vydržať. Jedna ruka klesá alebo ju nevládze zdvihnúť?" },
-        { text: "<strong>S – Speech (reč):</strong> Požiadajte zopakovať jednoduchú vetu (napr. Dnes je pekný deň). Reč je nezrozumiteľná, pomalá, zmiešaná?" },
+        { text: "<strong>S – Speech (reč):</strong> Požiadajte zopakovať jednoduchú vetu (napr. „Dnes je pekný deň”). Reč je nezrozumiteľná, pomalá, zmiešaná?" },
         { text: "<strong>T – Time (čas):</strong> Ak je ČOKOĽVEK z toho prítomné → okamžite volajte <strong>155!</strong>" },
         { warn: "ERC 2025: Použitie škály na rozpoznanie mŕtvice (FAST) skracuje čas do začiatku liečby. Každá minúta bez liečby ničí ~1.9 milióna mozgových buniek." },
         { header: "Ďalšie príznaky" },
         { text: "<strong>Náhla silná bolesť hlavy</strong> bez zjavnej príčiny, náhle problémy s videním (na jedno alebo obe oči), náhle závrate a strata rovnováhy, náhle znecitlivenie tváre/ruky/nohy (zvyčajne na jednej strane)." },
         { header: "Čo robiť" },
-        { text: "<strong>Zavolajte 155 IHNEĎ</strong> – povedzte dispečerovi: Podozrenie na mŕtvicu, pozitívny test FAST." },
+        { text: "<strong>Zavolajte 155 IHNEĎ</strong> – povedzte dispečerovi: „Podozrenie na mŕtvicu, pozitívny test FAST.”" },
         { text: "<strong>Zaznamenajte čas</strong> kedy sa príznaky začali – táto informácia je kľúčová pre lekárov (rozhoduje o type liečby)." },
         { text: "<strong>Uložte osobu do pohodlnej polohy</strong> – ideálne polosediačka s podopretou hlavou." },
         { text: "<strong>Nič nepodávajte ústami</strong> – žiadne jedlo, pitie ani lieky. Prehĺtanie môže byť porušené." },
         { text: "<strong>Ak stratí vedomie ale dýcha</strong> → stabilizovaná poloha. Ak nedýcha → KPR." }
       ],
-      warning: "NIKDY nečakajte či príznaky ustúpia – pri mŕtvici platí „čas je mozog. Nepodávajte aspirín – neviete, či ide o upchatie cievy alebo krvácanie v mozgu (aspirín pri krvácaní zhoršuje stav).",
+      warning: "NIKDY nečakajte či príznaky ustúpia – pri mŕtvici platí „čas je mozog”. Nepodávajte aspirín – neviete, či ide o upchatie cievy alebo krvácanie v mozgu (aspirín pri krvácaní zhoršuje stav).",
       info: null,
       source: "ERC 2025 First Aid",
       sources: [
@@ -4549,7 +4707,7 @@
         { text: "<strong>Mierne (35–32°C):</strong> triaška, husacia koža, studené ruky a nohy, ťažkopádna reč, zmätenosť." },
         { text: "<strong>Stredné (32–28°C):</strong> triaška ustáva (!), ospalosť, strata koordinácie, iracionálne správanie (paradoxné vyzliekanie)." },
         { text: "<strong>Ťažké (<28°C):</strong> strata vedomia, sotva hmatateľný pulz, nehybnosť – môže vyzerať ako mŕtvy, ale NEMUSÍ byť." },
-        { warn: "ERC 2025: Nikto nie je mŕtvy, kým nie je teplý a mŕtvy. Pri ťažkom podchladení vždy začnite KPR ak nedýcha – aj pri zdanlivo beznádejnom stave." },
+        { warn: "ERC 2025: „Nikto nie je mŕtvy, kým nie je teplý a mŕtvy.” Pri ťažkom podchladení vždy začnite KPR ak nedýcha – aj pri zdanlivo beznádejnom stave." },
         { header: "Postup" },
         { text: "<strong>Presuňte do tepla</strong> – ak to nie je možné, chráňte pred vetrom, dažďom a chladom (prístrešok, izolácia od zeme)." },
         { text: "<strong>Vyzlečte mokré oblečenie</strong> – opatrne! Nahraďte suchým. Osoba sa nesmie sama prezliekať ani veľa hýbať." },
@@ -4562,7 +4720,7 @@
         { text: "<strong>Netrieťe končatiny</strong> a nemasírujte – hrozí srdcová arytmia." },
         { text: "<strong>Zaobchádzajte veľmi jemne</strong> – prudký pohyb pri ťažkom podchladení môže spustiť fibriláciu srdca." }
       ],
-      warning: "S ťažko podchladenou osobou zaobchádzajte ako s „surovým vajíčkom – každý prudký pohyb môže spôsobiť srdcovú arytmiu. Zahrievajte len trup, nie končatiny.",
+      warning: "S ťažko podchladenou osobou zaobchádzajte ako s „surovým vajíčkom” – každý prudký pohyb môže spôsobiť srdcovú arytmiu. Zahrievajte len trup, nie končatiny.",
       info: null,
       source: "ERC 2025 + SK MINV",
       sources: [
@@ -4616,7 +4774,7 @@
       steps: [
         { header: "⚠️ BEZPEČNOSŤ NAJPRV" },
         { text: "<strong>Nikdy nepomáhajte pod paľbou.</strong> Vaša smrť neznamenáa viac záchrancov. Počkajte kým je bezpečne, alebo prenášajte zraneného do úkrytu." },
-        { text: "<strong>Ak je zranený pri vedomí</strong> – komunikujte: Som tu, pomôžem ti. Musíš sa presunúť ku mne. Navigujte ho do bezpečia." },
+        { text: "<strong>Ak je zranený pri vedomí</strong> – komunikujte: „Som tu, pomôžem ti. Musíš sa presunúť ku mne.” Navigujte ho do bezpečia." },
         { header: "Protokol M.A.R.C.H. (NATO / UA štandard)" },
         { note: "MARCH je poradie priorít – riešte prvý problém ktorý nájdete, potom pokračujte ďalej." },
         { text: "<strong>M – Massive bleeding (masívne krvácanie)</strong><br>→ Turniket na končatiny (5–7 cm nad ranu, uťahovať kým neprestane krvácanie)<br>→ Wound packing pre neturniketovateľné oblasti (krk, podpazušie, slabiny)<br>→ <strong>Zapíšte čas</strong> fixkou na turniket aj na telo/čelo" },
@@ -4627,7 +4785,7 @@
         { header: "Výbuchové zranenia (blast)" },
         { text: "<strong>Výbuch spôsobuje viacero typov zranení:</strong><br>• Tlaková vlna – poškodenie pľúc, uší (hluchota), vnútorné orgány<br>• Črepiny/šrapnel – penetrujúce rany<br>• Odhodenie telom – tupé zranenia, zlomeniny<br>• Popáleniny – termické a chemické" },
         { text: "<strong>Ošetrite čo vidíte:</strong> zastavte krvácanie, zakryte otvorené rany, chráňte pred podchladením." },
-        { warn: "Po výbuchu: skontrolujte uši (krvácanie = barotrauma), dýchanie (piskanie = poškodenie pľúc). Aj dobre vyzerajúci zranení môžu mať skryté vnútorné zranenia." },
+        { warn: "Po výbuchu: skontrolujte uši (krvácanie = barotrauma), dýchanie (piskanie = poškodenie pľúc). Aj „dobre vyzerajúci” zranení môžu mať skryté vnútorné zranenia." },
         { header: "Strelné rany" },
         { text: "<strong>Vstupný aj výstupný otvor:</strong> strela vytvára vstupný otvor (menší) a výstupný (väčší, nepravidelný). Ošetrite obe rany." },
         { text: "<strong>Na končatinách:</strong> turniket je prvá voľba. Na trupe: wound packing + priamy tlak." },
@@ -4739,20 +4897,32 @@
   // ══════════════════════════════════════════════════════════════════
 
   const EMERGENCY_LINES = [
-    { number: "112", label: "Tiesňová linka", desc: "Všeobecná tiesňová linka v celej Európe (24/7). Možno zaslať aj SMS.", emoji: "🆘", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
-    { number: "150", label: "Hasiči", desc: "Hasičský a záchranný zbor SR.", emoji: "🚒", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
-    { number: "155", label: "Záchranka", desc: "Rýchla zdravotná pomoc.", emoji: "🚑", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
-    { number: "158", label: "Polícia", desc: "Policajný zbor SR.", emoji: "🚔", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
-    { number: "159", label: "Mestská polícia", desc: "Obecná / mestská polícia.", emoji: "👮", bg: "#f5f3ee", border: "#e2ddd5", color: "#6b6560" },
-    { number: "18 300", label: "Horská služba", desc: "Horská záchranná služba.", emoji: "⛰️", bg: "#eaf4ee", border: "#86efac", color: "#2a7a4b" },
+    { number: "112", label: "Tiesňová linka", desc: "Univerzálna európska tiesňová linka (24/7). Funguje aj bez SIM karty a bez kreditu. Možno zaslať aj SMS. Operátor hovorí anglicky. Volajte ak neviete, ktorú zložku potrebujete.", emoji: "🆘", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
+    { number: "150", label: "Hasiči (HaZZ)", desc: "Hasičský a záchranný zbor SR. Volajte pri požiari, úniku chemikálií alebo plynu, dopravnej nehode, záchrane osôb z výšky/hĺbky, záplavách a technických zásahoch.", emoji: "🚒", bg: "#fef2f2", border: "#fecaca", color: "#dc2626" },
+    { number: "155", label: "Záchranka (ZZS)", desc: "Záchranná zdravotná služba. Volajte pri bezvedomí, zástave dýchania, silnom krvácaní, bolesti na hrudníku, podozrení na mŕtvicu, ťažkých úrazoch, otravách a popáleninách.", emoji: "🚑", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
+    { number: "158", label: "Polícia (PZ SR)", desc: "Policajný zbor SR. Volajte pri trestnom čine, dopravnej nehode, ohrození bezpečnosti, krádeži, násilí, podozrivej činnosti alebo náleze podozrivého predmetu.", emoji: "🚔", bg: "#eff6ff", border: "#bfdbfe", color: "#1e40af" },
+    { number: "159", label: "Mestská polícia", desc: "Obecná / mestská polícia. Verejný poriadok, parkovanie, rušenie nočného kľudu, túlavé zvieratá, čierne skládky.", emoji: "👮", bg: "#f5f3ee", border: "#e2ddd5", color: "#6b6560" },
+    { number: "18 300", label: "Horská služba", desc: "Horská záchranná služba (HZS). Volajte pri úraze alebo stratení v horách. Funguje celoročne. Ak nemáte signál, skúste SMS na 112.", emoji: "⛰️", bg: "#eaf4ee", border: "#86efac", color: "#2a7a4b" },
   ];
 
   const INSTITUTIONS = [
-    { name: "Národné toxikologické informačné centrum", phone: "+421 2 5477 4166", phone2: "0911 166 066", desc: "24/7 nonstop – odborné rady pri otravách pre lekárov aj verejnosť.", emoji: "☠️" },
-    { name: "Slovenský hydrometeorologický ústav (SHMÚ)", url: "https://www.shmu.sk", desc: "Meteorologické a hydrologické výstrahy, predpovede počasia.", emoji: "🌦️" },
-    { name: "Ministerstvo vnútra SR – Civilná ochrana", url: "https://www.minv.sk", desc: "Aktuálne informácie o ochrane života a zdravia pri mimoriadnych udalostiach.", emoji: "🛡️" },
-    { name: "Úrad verejného zdravotníctva SR", phone: "+421 2 4928 4111", url: "https://www.uvzsr.sk", desc: "Epidemiologické ohrozenia, ochrana zdravia obyvateľstva.", emoji: "🏥" },
-    { name: "Slovenský Červený kríž", phone: "+421 2 5441 3868", url: "https://www.redcross.sk", desc: "Humanitárna pomoc, prvá pomoc, vyhľadávanie osôb.", emoji: "✚" },
+    // Zdravotníctvo a toxikológia
+    { name: "Národné toxikologické informačné centrum (NTIC)", phone: "+421 2 5477 4166", phone2: "0911 166 066", desc: "24/7 nonstop – odborné rady pri otravách pre lekárov aj verejnosť. Volajte pri požití liekov, chemikálií, húb, čistiacich prostriedkov.", emoji: "☠️" },
+    { name: "Úrad verejného zdravotníctva SR", phone: "+421 2 4928 4111", url: "https://www.uvzsr.sk", desc: "Epidemiologické ohrozenia, očkovanie, kvalita pitnej vody, ochrana zdravia.", emoji: "🏥" },
+    // Krízové a psychologické linky
+    { name: "Linka dôvery", phone: "0800 500 333", desc: "Bezplatná, nonstop, anonymná. Emocionálna podpora, krízy, myšlienky na sebapoškodenie. Pre dospelých aj mladistvých.", emoji: "💚" },
+    { name: "Linka pomoci", phone: "116 123", desc: "Emocionálna podpora a pomoc v krízových situáciách. Bezplatná linka.", emoji: "🤝" },
+    { name: "Linka pre ženy zažívajúce násilie", phone: "0800 212 212", desc: "Bezplatná, anonymná, 24/7. Pomoc pre obete domáceho násilia.", emoji: "🛡️" },
+    // Civilná ochrana a počasie
+    { name: "MV SR – Civilná ochrana", url: "https://www.minv.sk/?ochrana-obyvatelstva", desc: "Varovanie obyvateľstva, evakuácia, krízové riadenie. Oficiálne informácie pri mimoriadnych udalostiach.", emoji: "🛡️" },
+    { name: "SHMÚ – Výstrahy a počasie", url: "https://www.shmu.sk", desc: "Meteorologické a hydrologické výstrahy, predpovede počasia, povodňová aktivita, kvalita ovzdušia.", emoji: "🌦️" },
+    // Humanitárna pomoc
+    { name: "Slovenský Červený kríž", phone: "+421 2 5441 3868", url: "https://www.redcross.sk", desc: "Humanitárna pomoc, prvá pomoc, kurzy prvej pomoci, vyhľadávanie osôb, psychosociálna podpora.", emoji: "✚" },
+    // Poruchové linky – energie
+    { name: "SPP – Poruchová linka PLYN", phone: "0850 111 727", desc: "24/7, celé Slovensko. Volajte ihneď pri úniku plynu, zápachu, poškodení plynového zariadenia.", emoji: "🔥", highlight: true },
+    { name: "Poruchy elektriny – ZSD (západ)", phone: "0800 111 567", desc: "Západoslovenská distribučná. Bratislavský, Trnavský, Nitriansky kraj. Bezplatná linka.", emoji: "⚡" },
+    { name: "Poruchy elektriny – SSD (stred)", phone: "0800 159 000", desc: "Stredoslovenská distribučná. Žilinský, Banskobystrický kraj. Bezplatná linka.", emoji: "⚡" },
+    { name: "Poruchy elektriny – VSD (východ)", phone: "0800 123 332", desc: "Východoslovenská distribučná. Prešovský, Košický kraj. Bezplatná linka.", emoji: "⚡" },
   ];
 
   function renderEmergencyContacts() {
@@ -4772,52 +4942,78 @@
       linesGrid.appendChild(card);
     });
 
-    // Inštitúcie
+    // Inštitúcie – with group headers
     const instGrid = document.getElementById("institutionsGrid");
     if (!instGrid) return;
     instGrid.innerHTML = "";
-    INSTITUTIONS.forEach(inst => {
-      const row = document.createElement("div");
-      row.style.cssText = "display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem;";
-      let actions = "";
-      if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone}</a> `;
-      if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone2}</a> `;
-      if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">🔗 Web</a>`;
-      row.innerHTML = `
-        <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
-        <div style="flex:1; min-width:0;">
-          <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
-          <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
-          <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
-        </div>`;
-      instGrid.appendChild(row);
+    
+    const instGroups = [
+      { label: "Zdravie a toxikológia", indices: [0, 1] },
+      { label: "Krízové a psychologické linky", indices: [2, 3, 4] },
+      { label: "Civilná ochrana a počasie", indices: [5, 6] },
+      { label: "Humanitárna pomoc", indices: [7] },
+      { label: "Poruchové linky – energie (24/7)", indices: [8, 9, 10, 11] },
+    ];
+    
+    instGroups.forEach(group => {
+      const groupHeader = document.createElement("div");
+      groupHeader.style.cssText = "font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin:0.75rem 0 0.375rem; padding-top:0.5rem; border-top:1px solid var(--c-border);";
+      groupHeader.textContent = group.label;
+      instGrid.appendChild(groupHeader);
+      
+      group.indices.forEach(idx => {
+        const inst = INSTITUTIONS[idx];
+        if (!inst) return;
+        const row = document.createElement("div");
+        row.style.cssText = "display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem;";
+        let actions = "";
+        if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone}</a> `;
+        if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone2}</a> `;
+        if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">🔗 Web</a>`;
+        row.innerHTML = `
+          <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
+          </div>`;
+        instGrid.appendChild(row);
+      });
     });
   }
 
   // ══════════════════════════════════════════════════════════════════
-  // OSOBNÉ DÔLEŽITÉ KONTAKTY
+  // OSOBNÉ KONTAKTY
   // ══════════════════════════════════════════════════════════════════
 
   const PC_CATEGORIES = [
-    { id: "doctor",      emoji: "🩺", label: "Lekár",               placeholder: "MUDr. Kováč, praktický lekár" },
+    // Rodina a blízki
+    { id: "family",      emoji: "👨‍👩‍👧", label: "Rodina",              placeholder: "Mama, otec, babka, dedko..." },
+    { id: "neighbor",    emoji: "🏘️", label: "Sused / susedka",     placeholder: "Pán Horváth, 3. poschodie" },
+    { id: "friend",      emoji: "🫂", label: "Blízky priateľ",      placeholder: "Kamarát, ktorý vie pomôcť" },
+    { id: "work",        emoji: "💼", label: "Práca / zamestnávateľ", placeholder: "HR, šéf, kolega..." },
+    { id: "school",      emoji: "🎒", label: "Škola / škôlka",      placeholder: "ZŠ Partizánska, triedna učiteľka" },
+    // Zdravie
+    { id: "doctor",      emoji: "🩺", label: "Všeobecný lekár",     placeholder: "MUDr. Kováč, praktický lekár" },
     { id: "doctor_kid",  emoji: "👶", label: "Pediater",            placeholder: "MUDr. Nová, detská ambulancia" },
     { id: "dentist",     emoji: "🦷", label: "Zubár",               placeholder: "MDDr. Horvát" },
-    { id: "pharmacy",    emoji: "💊", label: "Lekáreň",             placeholder: "Lekáreň pri nemocnici" },
-    { id: "lawyer",      emoji: "⚖️", label: "Právnik",             placeholder: "JUDr. Novák" },
+    { id: "specialist",  emoji: "🏥", label: "Špecialista",         placeholder: "Kardiológ, alergológ, psychiater..." },
+    { id: "pharmacy",    emoji: "💊", label: "Lekáreň",             placeholder: "Lekáreň pri nemocnici, non-stop" },
+    // Financie a právo
     { id: "bank",        emoji: "🏦", label: "Banka",               placeholder: "Slovenská sporiteľňa, pobočka..." },
+    { id: "lawyer",      emoji: "⚖️", label: "Právnik / notár",     placeholder: "JUDr. Novák" },
     { id: "ins_life",    emoji: "🛡️", label: "Životná poisťovňa",   placeholder: "Allianz – číslo zmluvy..." },
     { id: "ins_car",     emoji: "🚗", label: "Autopoistenie",       placeholder: "Generali – PZP / havarijné" },
     { id: "ins_home",    emoji: "🏠", label: "Poistenie bytu/domu", placeholder: "ČSOB Poisťovňa – domácnosť" },
+    // Služby pre domácnosť
     { id: "electric",    emoji: "⚡", label: "Elektrikár",           placeholder: "Poruchová linka / súkromný" },
-    { id: "gas",         emoji: "🔥", label: "Plynár",              placeholder: "SPP poruchová linka" },
-    { id: "water",       emoji: "💧", label: "Vodár",               placeholder: "BVS poruchová linka" },
+    { id: "gas",         emoji: "🔥", label: "Plynár / SPP",        placeholder: "SPP poruchová: 0850 111 727" },
+    { id: "water",       emoji: "💧", label: "Vodár / vodáreň",     placeholder: "BVS, TVVK – poruchová linka" },
     { id: "locksmith",   emoji: "🔑", label: "Zámočník",            placeholder: "Non-stop zámočnícka služba" },
     { id: "vet",         emoji: "🐾", label: "Veterinár",           placeholder: "MVDr. Horváth, veterinárna klinika" },
-    { id: "neighbor",    emoji: "🏘️", label: "Sused / susedka",     placeholder: "Pán Horváth, 3. poschodie" },
-    { id: "family",      emoji: "👨‍👩‍👧", label: "Rodinný kontakt",    placeholder: "Babka, dedko, teta..." },
-    { id: "work",        emoji: "💼", label: "Práca / zamestnávateľ", placeholder: "HR oddelenie, šéf..." },
-    { id: "school",      emoji: "🎒", label: "Škola / škôlka",      placeholder: "ZŠ Partizánska, triedna učiteľka" },
+    // Úrady a ostatné
     { id: "embassy",     emoji: "🏛️", label: "Ambasáda / konzulát", placeholder: "Zastupiteľský úrad..." },
+    { id: "civil_def",   emoji: "📢", label: "Civilná ochrana / obec", placeholder: "Obecný úrad, krízový štáb..." },
     { id: "other",       emoji: "📝", label: "Iný kontakt",         placeholder: "" },
   ];
 
@@ -4834,8 +5030,8 @@
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="width:44px; height:44px; border-radius:50%; background:#86efac; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0;">+</div>
             <div>
-              <div style="font-weight:700; font-size:0.9rem; color:#166534;">Pridajte si dôležité kontakty</div>
-              <div style="font-size:0.75rem; color:#22c55e; line-height:1.5; margin-top:0.125rem;">Lekár, poisťovňa, elektrikár, zámočník a ďalšie — všetko na jednom mieste, offline prístupné.</div>
+              <div style="font-weight:700; font-size:0.9rem; color:#166534;">Pridajte si osobné kontakty</div>
+              <div style="font-size:0.75rem; color:#22c55e; line-height:1.5; margin-top:0.125rem;">Lekár, rodina, sused, poisťovňa, elektrikár, škola – všetko na jednom mieste, offline prístupné aj bez internetu a signálu.</div>
             </div>
           </div>
         </div>`;
@@ -4975,6 +5171,7 @@
     kid:    { emoji: "🧒", label: "Dieťa",   maxKg: 15, kcalDay: 1500, color: "#b45309", bg: "#fef3c7", border: "#fcd34d" },
     infant: { emoji: "👶", label: "Bábätko", maxKg: 5,  kcalDay: 800,  color: "#be185d", bg: "#fdf2f8", border: "#fbcfe8" },
     senior: { emoji: "👴", label: "Senior",  maxKg: 20, kcalDay: 1800, color: "#2a7a4b", bg: "#eaf4ee", border: "#86efac" },
+    pet:    { emoji: "🐾", label: "Domáce zviera", maxKg: 10, kcalDay: 0, color: "#6b6560", bg: "#f5f3ee", border: "#e2ddd5" },
   };
 
   function getEvacBagItems(type) {
@@ -4982,97 +5179,173 @@
     const kcal = t.kcalDay;
     const items = [];
 
+    // ── Domáce zviera – odlišný obsah ──
+    if (type === "pet") {
+      items.push({ cat: "Identifikácia", items: [
+        { name: "Očkovací preukaz zvieraťa", note: "Originál alebo kópia – niektoré útulky neprijmú zviera bez neho" },
+        { name: "Fotografia zvieraťa (aktuálna)", note: "Na papieri aj v telefóne – pre prípad straty" },
+        { name: "Adresná známka / mikročip", note: "Overte aktuálnosť údajov v registri (CRSZ)" },
+        { name: "Kópia registrácie / pedigree", note: "Ak je zviera registrované" },
+      ]});
+      items.push({ cat: "Krmivo a voda", items: [
+        { name: "Suché krmivo (zásoba na 3–5 dní)", note: "V uzatvárateľnom vodotesnom vrecku" },
+        { name: "Konzervy / mokré krmivo (3 dni)", note: "Nezabudnite na otvárač" },
+        { name: "Voda pre zviera (1–2 litre)", note: "Zvieratá nemôžu piť kontaminovanú vodu" },
+        { name: "Skladacia miska na jedlo a vodu", note: "Silikónová / plastová – skladná" },
+      ]});
+      items.push({ cat: "Zdravie", items: [
+        { name: "Pravidelne užívané lieky", note: "Antiparazitiká, srdcové lieky – zásoba na 7 dní" },
+        { name: "Kontakt na veterinára (na papieri)", note: "Mobilná sieť nemusí fungovať" },
+        { name: "Obväz, dezinfekcia pre zviera", note: "Základná veterinárna lekárnička" },
+      ]});
+      items.push({ cat: "Transport a bezpečnosť", items: [
+        { name: "Prepravka / klietka", note: "Primeraná veľkosť – zviera musí mať pohodlie. Pre mačky nevyhnutná" },
+        { name: "Vodítko + obojok + náhubok", note: "Aj kľudné zvieratá môžu v strese reagovať nepredvídateľne" },
+        { name: "Podložka / deka (známy pach)", note: "Zníženie stresu – zviera cíti domov" },
+        { name: "Hračka / predmet s vôňou domova", note: "Na upokojenie" },
+        { name: "Igelitové vrecká na exkrementy", note: "Min. 10 ks" },
+        { name: "Podložky na učenie (šteňatá/mačky)", note: "Ak nemáte prístup von" },
+      ]});
+      return items;
+    }
+
     // ── Doklady & peniaze ──
     items.push({ cat: "Doklady a peniaze", items: [
-      { name: "Občiansky preukaz / pas", note: "Originál – vždy mať pri sebe" },
-      { name: "Kartička zdravotnej poisťovne", note: "Originál" },
-      { name: "Kópie dôležitých dokumentov (papier)", note: "Rodný list, sobášny list, zmluvy, poistky" },
-      { name: "Šifrovaný USB kľúč so scanmi dokumentov", note: "Všetky doklady v PDF – viď kategória Doklady" },
-      { name: "Kľúče", note: "Dom, auto, pivnica, kancelária" },
-      { name: "Hotovosť + platobné karty", note: "Drobné mince + bankovky, min. na 3 dni" },
-      { name: "Zoznam kontaktov na papieri", note: "Lekár, právnik, banka, poisťovňa, rodina" },
-      { name: "Zdravotný info list (alergie, lieky)", note: "1× A4 – krvná skupina, alergie, užívané lieky" },
+      { name: "Občiansky preukaz / pas", note: "Originál – vždy mať pri sebe. Pas ak hrozí cezhraničná evakuácia. Deti: rodný list + OP dieťaťa" },
+      { name: "Kartička zdravotnej poisťovne", note: "Originál + EHIC karta (Európsky preukaz). Zapíšte si číslo poisťovne aj na papier" },
+      { name: "Kópie dôležitých dokumentov (papier)", note: "Rodný list, sobášny list, poistné zmluvy, list vlastníctva, zmluvy – vo vodotesnom zipovom vrecku" },
+      { name: "Šifrovaný USB kľúč so scanmi dokumentov", note: "Všetky doklady v PDF – záloha na USB aj v cloude. Heslo si pamätajte alebo dajte blízkej osobe" },
+      { name: "Kľúče (dom, auto, pivnica, garáž)", note: "Na jednom krúžku pri batohu. Náhradný kľúč u dôveryhodnej osoby mimo vášho regiónu" },
+      { name: "Hotovosť", note: "Min. 200–300 € v drobných (5, 10, 20 €). Bankomaty a terminály zlyhajú pri výpadku elektriny. Mince na automaty" },
+      { name: "Platobné karty", note: "Visa/Mastercard od dvoch rôznych bánk. Zapíšte si čísla na blokovanie kariet na papier" },
+      { name: "Zoznam kontaktov na papieri", note: "Rodina, lekár, právnik, banka, poisťovňa, zamestnávateľ, škola, ambasáda – telefón nemusí fungovať" },
+      { name: "Zdravotný info list", note: "Krvná skupina, alergie, užívané lieky, chronické ochorenia, kontakt na lekára – laminovaný 1× A4, v batohu aj peňaženke" },
     ]});
 
     // ── Zdravie ──
     const healthItems = [
-      { name: "Lekárnička", note: "Obväzy, dezinfekcia, náplaste, rukavice" },
-      { name: "Pravidelne užívané lieky", note: "Zásoby na minimálne 7 dní" },
-      { name: "Dezinfekcia na ruky", note: "" },
+      { name: "Osobná lekárnička", note: "Sterilné obväzy 3 veľkosti, gáza, náplaste, elastický obväz, trojcípy šatka, nožnice, pinzeta, latexové rukavice (5 párov), izotermická fólia" },
+      { name: "Dezinfekcia (rany)", note: "Betadine, Cutasept alebo peroxid vodíka – na ošetrenie otvorených poranení. Skontrolujte exspiráciu!" },
+      { name: "Pravidelne užívané lieky", note: "Zásoby na minimálne 7–14 dní + kópia receptu / názov lieku na papieri. Inzulín: chladiace puzdro FRIO" },
+      { name: "Voľnopredajné lieky", note: "Ibuprofen/Paralen (bolesť, teplota), Smecta/aktívne uhlie (hnačka), Cerucal (nevoľnosť), antihistaminikum (alergia), Immodium, Endiaron" },
+      { name: "Dezinfekcia na ruky", note: "Gél alebo sprej – min. 60% alkohol, 100 ml. Bez čistej vody je to jediná hygiena rúk" },
+      { name: "Ochranné rúška FFP2 (2 ks)", note: "Ochrana pred prachom, dymom, chemikáliami, infekciami. FFP2 chráni aj pred vírusmi" },
+      { name: "Opaľovací krém SPF 30+", note: "Pri dlhšej evakuácii vonku – spálenie znižuje odolnosť organizmu" },
     ];
     if (type !== "infant") {
-      healthItems.push({ name: "Okuliare / kontaktné šošovky", note: "Ak ich používate – náhradné!" });
+      healthItems.push({ name: "Okuliare / kontaktné šošovky", note: "Náhradné! Bez okuliarov ste v kríze výrazne zraniteľnejší. Čistiaci sprej/ubrúsky" });
     }
     if (type === "infant") {
-      healthItems.push({ name: "Plienky a vlhčené utierky", note: "Zásoba na min. 3 dni" });
-      healthItems.push({ name: "Dojčenská výživa / mlieko", note: "Práškové + fľaška s cumlíkom" });
-      healthItems.push({ name: "Cumlík a obľúbená hračka", note: "Na upokojenie" });
+      healthItems.push({ name: "Plienky a vlhčené utierky", note: "Zásoba na min. 3–5 dní (15–25 ks plienok). Vezmite aj vrecká na použité plienky" });
+      healthItems.push({ name: "Dojčenská výživa / mlieko", note: "Práškové mlieko + sterilizovaná fľaška s cumlíkom + čistá voda. Hotové mliečka v Tetrapaku sú najpohodlnejšie" });
+      healthItems.push({ name: "Cumlík a obľúbená hračka", note: "Na upokojenie – stres bábätko cíti od rodiča. Vezmite 2 kusy cumlíka (jeden sa stratí)" });
+      healthItems.push({ name: "Detský krém / zinková masť", note: "Ochrana pred opruzeninami pri dlhšom pobyte bez kúpania" });
+      healthItems.push({ name: "Teplomer", note: "Digitálny, bezortuťový. Horúčka u bábätka je vždy urgentná!" });
     }
     items.push({ cat: "Zdravie a hygiena", items: healthItems });
 
     // ── Jedlo a voda ──
     const foodItems = [
-      { name: "Balená pitná voda", note: "Min. 1,5 l na 24 hodín" },
-      { name: "Fľaša na filtrovanie vody", note: "Pre prípad kontaminovanej vody – zvýšená odolnosť" },
-      { name: `Trvanlivé jedlo na 24 h (${kcal} kcal)`, note: type === "infant" ? "Detská výživa v poháriku, kaša" : type === "kid" ? "Energetické tyčinky, orechy, sušené ovocie, konzervy" : "Energetické tyčinky, orechy, konzervy, sušené mäso, čokoláda" },
+      { name: "Balená pitná voda (min. 1,5 l)", note: "1,5–2 l na osobu na 24 hodín. Malé fľaše 0,5 l sú praktickejšie – ľahšie sa nesú a delia" },
     ];
+    if (type === "adult" || type === "senior") {
+      foodItems.push({ name: "Tablety na čistenie vody", note: "Micropur, Aquatabs – 1 tableta = 1 liter. Na núdzovú úpravu vody z neznámeho zdroja. Účinkujú 30 min" });
+    }
+    foodItems.push({ name: `Trvanlivé jedlo na 24 h (~${kcal} kcal)`, note: type === "infant" ? "Detská výživa v poháriku, instantná kaša, keksíky, banán" : type === "kid" ? "Energetické tyčinky, orechy, sušené ovocie, keksíky, konzervy s krúžkom, müsli tyčinky" : "Energetické tyčinky, orechy, konzervy s krúžkom, sušené mäso (jerky), čokoláda, instantná polievka, arašidové maslo" });
     if (type !== "infant") {
-      foodItems.push({ name: "Hrnček + miska + príbor", note: "Ľahké, plastové alebo titánové" });
-      foodItems.push({ name: "Multifunkčný nôž", note: "Vrátane otvárača na konzervy" });
+      foodItems.push({ name: "Hrnček + lyžica", note: "Ľahký plastový alebo titánový. Lyžica je najdôležitejšia – konzervu zjete aj bez vidličky" });
+      foodItems.push({ name: "Multifunkčný nôž", note: "S otvárač na konzervy, nožom, skrutkovačom – napr. Victorinox. Nenoste v príručnej batožine lietadla" });
+    }
+    if (type === "adult" || type === "senior") {
+      foodItems.push({ name: "Soľ a cukor (malé balenia)", note: "Soľ: na dehydratáciu, cukor: na rýchlu energiu. Malé vrecúška z reštaurácie sú ideálne" });
     }
     items.push({ cat: "Jedlo a voda", items: foodItems });
 
     // ── Oblečenie ──
     const clothItems = [
-      { name: "Pevná obuv", note: "Nepremokavá, pohodlná – pripraviť k batohu" },
-      { name: "Pláštenka / nepremokavá bunda", note: "" },
-      { name: "Náhradné oblečenie", note: type === "infant" ? "2× body, čiapka, ponožky" : "Tričko, nohavice, mikina, čiapka" },
-      { name: "Spodné prádlo a ponožky", note: "Min. 2 sady" },
+      { name: "Pevná obuv (PRI BATOHU!)", note: "Nepremokavá, členkové, pohodlná – pripravte VEDĽA batohu. V panike na ňu nemáte čas hľadať. Najčastejšia chyba evakuácie!" },
+      { name: "Pláštenka / nepremokavá bunda", note: "Ľahká, skladná – ochrana pred dažďom, vetrom aj chladnou nocou. Poncho pokryje aj batoh" },
+      { name: "Náhradné oblečenie (1 sada)", note: type === "infant" ? "2× body, čiapka, ponožky, teplá kombinéza, overal" : "Tričko, nohavice, mikina, čiapka – podľa ročného obdobia. Radšej vrstvy ako jednu hrubú vestu" },
+      { name: "Spodné prádlo a ponožky (2 sady)", note: "Suché ponožky = prevencia pľuzgierov a podchladenia. Merino vlna je ideálna – rýchlo schne, nesmrdí" },
     ];
+    if (type === "adult" || type === "senior") {
+      clothItems.push({ name: "Pracovné rukavice", note: "Kožené alebo mechanické – ochrana rúk pri pohybe v troskách, skle, drôtoch. Nepoužívajte textilné" });
+      clothItems.push({ name: "Ochranné okuliare / lyžiarske okuliare", note: "Proti prachu, dymu a úlomkom – dôležité pri pohybe v poškodených budovách" });
+    }
     items.push({ cat: "Oblečenie", items: clothItems });
 
     // ── Spanie a teplo ──
     const sleepItems = [
-      { name: "Spacák alebo teplá deka", note: "Kompaktný, ľahký" },
+      { name: "Spacák alebo teplá deka", note: "Kompaktný, ľahký – teplota komfortu min. 5\u00b0C. Syntetický schne rýchlejšie ako páperový" },
+      { name: "Izotermická (z\u00e1chranárska) fólia (2 ks)", note: "Zlatá/strieborná – váži 50 g, zachráni život pri podchladení. Strieborná strana k telu = teplo dovnútra. Balte 2 ks pre istotu" },
     ];
     if (type !== "infant") {
-      sleepItems.push({ name: "Karimatka", note: "Skladacia penová alebo nafukovacia" });
+      sleepItems.push({ name: "Karimatka", note: "Skladacia penová alebo nafukovacia – izolácia od studenej/mokrej zeme je kritická. Zem odčerpáva teplo 25× rýchlejšie ako vzduch" });
     }
     if (type === "infant") {
-      sleepItems.push({ name: "Zavinovačka / detská deka", note: "" });
+      sleepItems.push({ name: "Zavinovačka / detská deka", note: "Bábätko stráca teplo rýchlejšie ako dospelý – veľký povrch tela voči hmotnosti. Vždy kontrolujte teplotu krku" });
+    }
+    if (type === "adult") {
+      sleepItems.push({ name: "Sviečka v plechovke + zapaľovač", note: "Čajová sviečka v konzerve = núdzové svetlo aj teplo (zvýši teplotu malého priestoru o 2–3\u00b0C). Pozor na vetranie!" });
     }
     items.push({ cat: "Spanie a teplo", items: sleepItems });
 
     // ── Technika a komunikácia ──
     const techItems = [];
     if (type !== "infant") {
-      techItems.push({ name: "Mobilný telefón + nabíjačka", note: "S káblem" });
-      techItems.push({ name: "Nabitá power banka", note: "Min. 10 000 mAh, pravidelne dobíjať" });
+      techItems.push({ name: "Mobilný telefón + nabíjačka + kábel", note: "Nabite na 100% IHNEĎ pri varovných správach. Zapnite šetrič batérie, vypnite WiFi/Bluetooth, znížte jas" });
+      techItems.push({ name: "Nabitá power banka (min. 10 000 mAh)", note: "Pravidelne dobíjajte 1\u00d7 mesačne. Skontrolujte kompatibilitu kábla. Solárna power banka = bonus" });
     }
     if (type === "adult" || type === "senior") {
-      techItems.push({ name: "Rádio na batérie", note: "Na príjem núdzového vysielania" });
+      techItems.push({ name: "Rádio na batérie / kľučkou", note: "Jediný spoľahlivý zdroj informácií pri výpadku elektriny a internetu. Nalaďte Rádio Slovensko (96,6 FM BA / 90,1 FM BB / 89,5 FM KE)" });
+      techItems.push({ name: "Náhradné batérie (AA, AAA)", note: "Pre rádio a baterku. Lithiové batérie vydržia dlhšie a nekorodujú. Skontrolujte aký typ potrebujete" });
     }
-    techItems.push({ name: "Baterka / čelovka", note: "S náhradnými batériami" });
+    techItems.push({ name: "Baterka / čelovka", note: "LED, s náhradnými batériami. Čelovka uvoľní obe ruky – zásadná výhoda pri pohybe v tme" });
+    if (type === "adult" || type === "kid") {
+      techItems.push({ name: "Píšťalka", note: "Na privolanie pomoci – počuť ju na 1+ km, aj keď nemáte silu kričať. Každý člen rodiny by mal mať svoju" });
+    }
     if (type !== "infant") {
-      techItems.push({ name: "Papier a ceruzka", note: "Na poznámky, správy pre rodinu" });
+      techItems.push({ name: "Papier, ceruzka, permanentná fixka", note: "Na poznámky, správy pre rodinu, označenie dverí pri evakuácii. Fixka píše aj na mokrý povrch" });
+    }
+    if (type === "adult") {
+      techItems.push({ name: "Mapa regiónu (papierová)", note: "GPS nemusí fungovať. Papierová mapa kraja s vyznačenými evakuačnými trasami a úkrytmi" });
     }
     if (techItems.length) items.push({ cat: "Technika a komunikácia", items: techItems });
 
-    // ── Rôzne ──
-    const miscItems = [
-      { name: "Uterák z mikrovlákna", note: "Skladací, rýchloschnúci" },
+    // ── Hygiena ──
+    const hygieneItems = [
+      { name: "Toaletný papier (kompaktný)", note: "Stlačte rolku, vyberte dutinku – zaberá polovicu miesta" },
+      { name: "Uterák z mikrovlákna", note: "Skladací, rýchloschnúci – zaberá minimum miesta" },
     ];
-    if (type === "kid") {
-      miscItems.push({ name: "Hračka / plyšiak / hra", note: "Na upokojenie a rozptýlenie" });
-      miscItems.push({ name: "Kniha / omaľovánky + ceruzky", note: "" });
-    } else if (type === "adult" || type === "senior") {
-      miscItems.push({ name: "Kniha / spoločenská hra / karty", note: "Psychická pohoda je dôležitá" });
-      miscItems.push({ name: "Píšťalka", note: "Na privolanie pomoci" });
-      miscItems.push({ name: "Igelitové vrecká (3–5 ks)", note: "Na odpadky, mokré veci, improvizovaná ochrana" });
-      miscItems.push({ name: "Páska lepiaca (duct tape)", note: "Univerzálne použitie – opravy, utesňovanie" });
-      miscItems.push({ name: "Lano / šnúra (5 m)", note: "Paracord alebo podobné" });
+    if (type !== "infant") {
+      hygieneItems.push({ name: "Zubná kefka + mini pasta", note: "" });
+      hygieneItems.push({ name: "Vlhčené utierky", note: "Na rýchlu hygienu bez vody" });
     }
-    items.push({ cat: "Rôzne", items: miscItems });
+    if (type === "adult" || type === "senior") {
+      hygieneItems.push({ name: "Menštruačné pomôcky", note: "Ak relevantné – kalíšok alebo vložky na 3–5 dní" });
+    }
+    items.push({ cat: "Hygiena", items: hygieneItems });
+
+    // ── Rôzne ──
+    const miscItems = [];
+    if (type === "kid") {
+      miscItems.push({ name: "Hračka / plyšiak / hra", note: "Na upokojenie a rozptýlenie – stres prežívajú aj deti. Obľúbená vec = pocit bezpečia" });
+      miscItems.push({ name: "Kniha / omaľovánky + ceruzky", note: "Dlhé čakanie je pre deti najťažšie. Malý zápisník a fixky zaberú minimum miesta" });
+      miscItems.push({ name: "Kartička s menom a kontaktom", note: "Meno dieťaťa, mená rodičov, telefón, adresa, krvná skupina – do vrecka kabáta aj do batohu. Laminovaná!" });
+      miscItems.push({ name: "Malý snack navyše", note: "Hladné dieťa = nespokojné dieťa. Müsli tyčinka, sušienky, orechy – niečo čo má rado" });
+    } else if (type === "adult") {
+      miscItems.push({ name: "Igelitové vrecká (5–10 ks)", note: "Na odpadky, mokré veci, improvizovaná ochrana, zber vody, na nohy cez topánky pri brodení" });
+      miscItems.push({ name: "Páska lepiaca (duct tape)", note: "Opravy, utesňovanie okien, označovanie, improvizované obväzy, oprava stanu. Naviňte 3–5 m na kreditku" });
+      miscItems.push({ name: "Lano / paracord (10 m)", note: "Sušenie oblečenia, improvizovaný prístrešok, záchranné účely, nosnosť paracordu: 250 kg" });
+      miscItems.push({ name: "Zapaľovač + zápalky (vodotesné)", note: "Núdzový oheň na varenie, signalizáciu, teplo. Zapaľovač + záloha zápalky vo vodotesnom obale" });
+      miscItems.push({ name: "Kniha / karty / hra", note: "Psychická pohoda je dôležitá – dlhé čakanie bez aktivity je psychicky vyčerpávajúce" });
+      miscItems.push({ name: "Kabínkové vrecko na cennosti", note: "Pod oblečenie – pas, peniaze, kľúče na tele. Pri evakuácii sa batoh môže stratiť" });
+    } else if (type === "senior") {
+      miscItems.push({ name: "Skladacia palica / sedačka", note: "Ak používate – pri dlhom presune nevyhnutná. Trojnožka je ľahká a skladná" });
+      miscItems.push({ name: "Kniha / karty / sudoku", note: "Na udržanie psychickej pohody a mentálnej aktivity" });
+      miscItems.push({ name: "Naslúchadlo + batérie", note: "Ak používate – náhradné batérie a čistiaca pomôcka" });
+    }
+    if (miscItems.length) items.push({ cat: "Rôzne", items: miscItems });
 
     return items;
   }
@@ -5119,6 +5392,17 @@
         checked: existing ? existing.checked : {}
       };
     }
+    if (p.pets && p.pets > 0) {
+      for (let i = 0; i < p.pets; i++) {
+        const id = "pet_" + i;
+        const existing = state.evacuationBags[id];
+        bags[id] = {
+          type: "pet",
+          label: (p.pets > 1) ? `Zviera ${i + 1}` : "Domáce zviera",
+          checked: existing ? existing.checked : {}
+        };
+      }
+    }
     state.evacuationBags = bags;
   }
 
@@ -5152,7 +5436,7 @@
 
     // Auto-generate if empty or profile changed
     const bagKeys = Object.keys(state.evacuationBags);
-    const expectedCount = (state.profile.adults||0) + (state.profile.kids||0) + (state.profile.infants||0) + (state.profile.seniors||0);
+    const expectedCount = (state.profile.adults||0) + (state.profile.kids||0) + (state.profile.infants||0) + (state.profile.seniors||0) + (state.profile.pets||0);
     if (bagKeys.length === 0 || bagKeys.length !== expectedCount) {
       generateEvacBags();
       scheduleSave();
@@ -5167,13 +5451,19 @@
           <div>
             <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravený evakuačný batoh?</div>
             <div style="font-size:0.75rem; color:#a16207; line-height:1.6;">
-              Keď musíte zostať doma, pomáhajú zásoby. 
-              Keď musíte <strong>odísť rýchlo</strong> (napr. požiar, povodeň, chemický únik, vojenský konflikt), pomôže pripravený batoh.
-              Stačí ho zobrať a ísť. Každý člen domácnosti by mal mať svoj.
+              Pri evakuácii máte často len <strong>5–15 minút</strong> na odchod z budovy. 
+              Bez pripraveného batohu zabudnete lieky, doklady alebo vodu – to sú najčastejšie chyby.
+              Každý člen domácnosti by mal mať <strong>vlastný batoh pri dverách</strong>.
+              <strong>Kontrola 2× ročne</strong> – jar a jeseň: vymeňte potraviny, batérie, lieky, overte oblečenie podľa sezóny.
+              Batoh by mal byť <strong>samostatný</strong> – nebalte kuchynské nože ani veci, ktoré denne používate.
             </div>
-            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; + 5 kg príručný batoh</div>
+            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg (10–15% telesnej hmotnosti) &nbsp;|&nbsp; Senior 20 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; Bábätko 5 kg (nosí rodič)</div>
+            <div style="font-size:0.68rem; color:#a16207; margin-top:0.25rem;">Zdroj: CZ 72h príručka (MV ČR, 2025), SK MINV – Civilná ochrana, UA DSNS – Evakuácia obyvateľstva, SE MSB – Om krisen eller kriget kommer (2024)</div>
           </div>
         </div>
+      </div>
+      <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:1rem; font-size:0.75rem; color:#991b1b; line-height:1.6;">
+        <strong>⚠️ Pravidlá batohu:</strong> 1) Batoh <strong>pri dverách</strong>, nie v skrini. 2) <strong>Topánky vedľa batohu</strong> – nie v botníku. 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 rokov by mali <strong>vedieť batoh otvoriť a niesť samy</strong>. 5) Do vrecka kabáta <strong>kartička s menom a kontaktom</strong> na príbuzného.
       </div>`;
 
     // Bag cards
@@ -5311,9 +5601,30 @@
       bg: "#fef2f2",
       border: "#fecaca",
       wave: "oscillating",
-      meaning: "Signalizuje ohrozenie alebo vznik mimoriadnej udalosti, ako aj možnosť rozšírenia jej následkov.",
-      action: "Ihneď vyhľadajte úkryt v najbližšej budove. Zavrite a utesnite okná, dvere a ventilačné otvory. Sledujte vysielanie rozhlasu a televízie. Riaďte sa pokynmi záchranných zložiek.",
-      note: "Kolísavým tónom v trvaní 2 min sa počas vojnového stavu vyhlasuje aj ohrozenie v prípade možného vzdušného napadnutia."
+      meaning: "Signalizuje ohrozenie alebo vznik mimoriadnej udalosti (chemický únik, radiácia, priemyselná havária, teroristický útok), ako aj možnosť rozšírenia jej následkov. Tón stúpa a klesá po dobu 2 minút.",
+      howToRecognize: "Kolísavý (stúpajúci a klesajúci) tón sirény trvajúci presne 2 minúty. Zvuk pripomína vlnenie – striedavo zosilňuje a zoslabuje. Jednoznačne odlíšiteľný od stáleho tónu skúšky.",
+      actions: [
+        { header: "Okamžité kroky (prvé 2 minúty)" },
+        { text: "<strong>Vojdite do najbližšej budovy</strong> – nepokúšajte sa dostať domov, vojdite do najbližšieho murovaného objektu." },
+        { text: "<strong>Zatvorte a utesnite okná, dvere a ventilačné otvory.</strong> Netesnosti prelepte lepiacou páskou, väčšie otvory utesnite mokrými handradami alebo fóliou." },
+        { text: "<strong>Vypnite klimatizáciu a ventilátory</strong> – zastavte akúkoľvek výmenu vzduchu s vonkajším prostredím." },
+        { text: "<strong>Presuňte sa do vnútornej miestnosti</strong> bez okien (chodba, kúpeľňa). Ak hrozí chemická kontaminácia, choďte do vyšších poschodí (väčšina chemikálií je ťažšia ako vzduch)." },
+        { header: "Informovanie sa" },
+        { text: "<strong>Zapnite Rádio Slovensko</strong> (96,6 FM Bratislava, 90,1 FM B. Bystrica, 89,5 FM Košice) alebo Rádio Regina – dozviete sa čo sa stalo a čo robiť." },
+        { text: "<strong>Ak nemáte elektriku</strong>, použite rádio na batérie alebo v aute." },
+        { text: "<strong>Netelefonujte zbytočne</strong> – nezaťažujte tiesňové linky. Volajte len ak potrebujete záchranu alebo máte informácie pre záchranné zložky." },
+        { warn: "Varovný signál sa ihneď po skončení dopĺňa <strong>hovorenou informáciou</strong> v rozhlase a TV – obsahuje miesto, čas, druh ohrozenia, veľkosť ohrozeného územia a pokyny. Počkajte na ňu!" },
+        { header: "Čomu sa vyhnúť" },
+        { text: "<strong>Neotvárajte okná „pozrieť sa čo sa deje”</strong> – práve to je najnebezpečnejšie pri chemickom úniku." },
+        { text: "<strong>Nevychádzajte von</strong> kým nedostanete pokyn od záchranných zložiek. Budova je váš najlepší úkryt." },
+        { text: "<strong>Nevyzdvihujte deti zo škôl</strong> – školy majú vlastné ochranné postupy a vaše cestovanie vás môže ohroziť." }
+      ],
+      note: "Počas vojnového stavu alebo vojny sa rovnakým kolísavým tónom (2 min) vyhlasuje aj <strong>VZDUŠNÝ POPLACH</strong>. Slovná informácia potom obsahuje vymedzenie ohrozeného územia a výraz „vzdušný poplach”.",
+      sources: [
+        { label: "Zákon č. 42/1994 Z.z. o civilnej ochrane obyvateľstva, § 18", url: "https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/1994/42/" },
+        { label: "SK MINV – Varovné signály civilnej ochrany", url: "https://www.minv.sk/?ochrana-obyvatelstva" },
+        { label: "Civilná ochrana Košice – Čo robiť keď zaznie siréna", url: "https://www.cokosice.sk/-co-robit-ked-zaznie-sirena" }
+      ]
     },
     {
       id: "water",
@@ -5324,22 +5635,54 @@
       bg: "#eff6ff",
       border: "#bfdbfe",
       wave: "steady",
-      meaning: "Signalizuje ohrozenie ničivými účinkami vody – povodne, pretrhnutie hrádze a pod.",
-      action: "Okamžite sa presuňte na vyššie položené miesto. Nevstupujte do zaplavených oblastí. Sledujte pokyny záchranných zložiek a miestnych úradov.",
-      note: null
+      meaning: "Signalizuje ohrozenie ničivými účinkami vody – hroziace povodne, pretrhnutie priehrady, náhla prívalová vlna. Je najdlhší signál (6 minút), aby bol jednoznačne odlíšiteľný.",
+      howToRecognize: "Neprerušovaný stály tón sirény trvajúci celých 6 minút. Je to najdlhší varovný signál v systéme – jeho dĺžka sama o sebe signalizuje vodnú hrozbu.",
+      actions: [
+        { header: "Okamžité kroky" },
+        { text: "<strong>Okamžite sa presuňte na vyvýšené miesto</strong> – vyššie poschodie, kopec, vyvýšený terén. Každá minúta sa počíta." },
+        { warn: "<strong>NEUKRÝVAJTE SA v pivnici ani suteréne!</strong> Pri ohrození vodou je úkryt v nízko položených priestoroch smrteľne nebezpečný." },
+        { text: "<strong>Nevstupujte do zatopeného priestoru</strong> – stačí 15 cm tečúcej vody na zhodenie dospelého človeka, 30 cm odplávi auto." },
+        { text: "<strong>Ak ste v aute</strong> a voda stúpa – ihneď vystúpte a presuňte sa peši na vyššie miesto. Auto nie je bezpečné." },
+        { header: "Príprava na evakuáciu" },
+        { text: "<strong>Vezmite si evakuačný batoh, doklady, lieky.</strong> Doklady uložte do vodotesného obalu (igelitový vrecko)." },
+        { text: "<strong>Vypnite hlavný istič, plyn a vodu</strong> ak máte čas – predídete elektrickému šoku a úniku plynu." },
+        { text: "<strong>Varujte susedov</strong>, najmä starších, imobilných a ľudí s malými deťmi." },
+        { header: "Čo robiť ďalej" },
+        { text: "<strong>Sledujte rozhlasové vysielanie</strong> – dozviete sa smer a rýchlosť postupu vody, evakuačné trasy." },
+        { text: "<strong>Riaďte sa pokynmi záchranných zložiek</strong> a miestnych úradov. Nepodceňujte situáciu." },
+        { text: "<strong>Nepite vodu z vodovodu</strong> – vodovod môže byť kontaminovaný záplavovou vodou." }
+      ],
+      note: null,
+      sources: [
+        { label: "Zákon č. 42/1994 Z.z. o civilnej ochrane obyvateľstva, § 18", url: "https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/1994/42/" },
+        { label: "SK MINV – Varovné signály: Ohrozenie vodou", url: "https://www.minv.sk/?ochrana-obyvatelstva" }
+      ]
     },
     {
       id: "end",
       title: "Koniec ohrozenia",
       duration: "2 minúty",
-      type: "stály tón",
+      type: "stály tón (bez opakovania)",
       color: "#2a7a4b",
       bg: "#eaf4ee",
       border: "#86efac",
       wave: "steady",
-      meaning: "Signalizuje koniec ohrozenia alebo koniec pôsobenia následkov mimoriadnej udalosti.",
-      action: "Sledujte doplnkovú hovorenú informáciu v médiách. Riaďte sa pokynmi kompetentných orgánov. Nevracajte sa do ohrozenej oblasti, kým to nebude povolené.",
-      note: "Tento signál sa vysiela bez opakovania a je doplnený hovorenou informáciou."
+      meaning: "Signalizuje koniec ohrozenia alebo koniec pôsobenia následkov mimoriadnej udalosti. Vysiela sa jednorazovo, bez opakovania.",
+      howToRecognize: "Neprerušovaný stály tón trvajúci 2 minúty, ktorý zaznie <strong>iba raz</strong> (bez opakovania). Odlíšenie od skúšky: pred skúškou sú ľudia vopred informovaní médiami.",
+      actions: [
+        { header: "Po zaznení signálu" },
+        { text: "<strong>Počkajte na hovorenú informáciu</strong> v rozhlase, televízii alebo miestnom rozhlase – potvrdí koniec ohrozenia a dá ďalšie pokyny." },
+        { text: "<strong>Vyvetrajte miestnosť</strong> – otvorte okná, pustite ventiláciu a obnovte cirkuláciu vzduchu." },
+        { text: "<strong>Riaďte sa pokynmi záchranných zložiek</strong> – niektoré oblasti môžu byť stále nebezpečné." },
+        { header: "Opatrnosť po odvolaní" },
+        { text: "<strong>Nevracajte sa do ohrozenej oblasti</strong> kým to nebude výslovne povolené. Môžu pretrvávať skryté nebezpečenstvá (kontaminácia, nestabilné konštrukcie)." },
+        { text: "<strong>Skontrolujte stav bytu/domu</strong> – rozvody plynu, elektriny, vody. Pri pochybnostiach volajte poruchové linky." },
+        { text: "<strong>Skontrolujte blízkych a susedov</strong> – overte či sú v poriadku, najmä starší a zraniteľní ľudia." }
+      ],
+      note: "Signál „Koniec ohrozenia” sa vždy dopĺňa hovorenou informáciou – sledujte médiá aj po jeho odznení.",
+      sources: [
+        { label: "Zákon č. 42/1994 Z.z. o civilnej ochrane obyvateľstva, § 18", url: "https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/1994/42/" }
+      ]
     },
     {
       id: "test",
@@ -5350,9 +5693,18 @@
       bg: "#f5f3ee",
       border: "#e2ddd5",
       wave: "steady",
-      meaning: "Pravidelné preskúšanie funkčnosti sirén. Nejedná sa o skutočné ohrozenie.",
-      action: "Žiadna akcia nie je potrebná. Skúšky sú vopred oznámené v médiách.",
-      note: "Skúška prebieha spravidla každý druhý piatok v mesiaci o 12:00."
+      meaning: "Pravidelné preskúšanie funkčnosti varovného systému. Nejedná sa o skutočné ohrozenie – žiadna akcia nie je potrebná.",
+      howToRecognize: "Stály neprerušovaný tón, 2 minúty. Koná sa <strong>pravidelne každý druhý piatok v mesiaci o 12:00</strong>. O skúške vopred informujú médiá a miestny rozhlas.",
+      actions: [
+        { header: "Žiadna akcia nie je potrebná" },
+        { text: "<strong>Skúšky sú vopred oznámené</strong> v médiách. Ak ste si istí, že je piatok a napoludnie – ide o pravidelnú skúšku." },
+        { text: "<strong>Ak počujete sirénu mimo pravidelného termínu</strong> a neboli ste o skúške informovaní – berichte to vážne a postupujte podľa typu signálu." },
+        { note: "Skúšky sirén sa na Slovensku vykonávajú od roku 1996 na základe Zákona č. 42/1994 Z.z. o civilnej ochrane obyvateľstva. Okrem pravidelných mesačných skúšok sa môžu uskutočniť aj mimoriadne skúšky – o tých sa dozvíte z médií vopred." }
+      ],
+      note: null,
+      sources: [
+        { label: "Zákon č. 42/1994 Z.z. o civilnej ochrane obyvateľstva", url: "https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/1994/42/" }
+      ]
     }
   ];
 
@@ -5390,33 +5742,71 @@
   }
 
   function openSirenModal(siren) {
-    document.getElementById("sirenModalTitle").textContent = "🔔 " + siren.title;
+    document.getElementById("sirenModalTitle").textContent = "\ud83d\udd14 " + siren.title;
     let html = `
       <div style="background:${siren.bg}; border:1.5px solid ${siren.border}; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
           <div style="font-size:1.75rem; font-weight:800; color:${siren.color};">${siren.duration}</div>
           <div>
             <div style="font-weight:700; color:${siren.color}; font-size:0.9rem;">${siren.type.charAt(0).toUpperCase() + siren.type.slice(1)}</div>
-            <div style="font-size:0.75rem; color:var(--c-muted);">trvanie signálu</div>
+            <div style="font-size:0.75rem; color:var(--c-muted);">trvanie sign\u00e1lu</div>
           </div>
         </div>
       </div>
 
       <div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">📖 Význam</div>
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\ud83d\udcd6 V\u00fdznam</div>
         <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.meaning}</div>
-      </div>
-
-      <div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">✅ Čo robiť</div>
-        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.action}</div>
       </div>`;
 
-    if (siren.note) {
-      html += `<div class="fa-info"><strong>ℹ️ Poznámka:</strong> ${siren.note}</div>`;
+    if (siren.howToRecognize) {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\ud83d\udd0a Ako rozozna\u0165</div>
+        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.howToRecognize}</div>
+      </div>`;
     }
 
-    html += `<div class="fa-source"><strong>Zdroj:</strong> <a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline;">SK MINV \u2013 V pr\u00edpade kr\u00edzy alebo ozbrojen\u00e9ho konfliktu (2025)</a></div>`;
+    // Render structured actions (array) or legacy string
+    if (Array.isArray(siren.actions)) {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.5rem;">\u2705 \u010co robi\u0165</div>`;
+      let stepNum = 0;
+      siren.actions.forEach(item => {
+        if (item.header) {
+          html += `<div style="font-weight:700; font-size:0.8rem; color:${siren.color}; margin:0.75rem 0 0.375rem; padding-top:0.375rem; border-top:1px solid ${siren.border};">${item.header}</div>`;
+        } else if (item.warn) {
+          html += `<div class="fa-warning"><strong>\u26a0\ufe0f</strong> ${item.warn}</div>`;
+        } else if (item.note) {
+          html += `<div class="fa-info"><strong>\u2139\ufe0f</strong> ${item.note}</div>`;
+        } else if (item.text) {
+          stepNum++;
+          html += `<div style="display:flex; gap:0.5rem; margin-bottom:0.5rem; font-size:0.85rem; line-height:1.6;">
+            <span style="font-weight:700; color:${siren.color}; flex-shrink:0; min-width:1.25rem;">${stepNum}.</span>
+            <span style="color:var(--c-text);">${item.text}</span>
+          </div>`;
+        }
+      });
+      html += `</div>`;
+    } else if (siren.action) {
+      html += `<div style="margin-bottom:1rem;">
+        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\u2705 \u010co robi\u0165</div>
+        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.action}</div>
+      </div>`;
+    }
+
+    if (siren.note) {
+      html += `<div class="fa-info"><strong>\u2139\ufe0f Pozn\u00e1mka:</strong> ${siren.note}</div>`;
+    }
+
+    // Render sources array or fallback
+    if (siren.sources && siren.sources.length > 0) {
+      html += `<div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--c-border);">
+        <div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); margin-bottom:0.375rem;">ZDROJE</div>`;
+      siren.sources.forEach(src => {
+        html += `<div style="margin-bottom:0.25rem;"><a href="${src.url}" target="_blank" rel="noopener" style="color:#3b82f6; font-size:0.75rem; text-decoration:underline;">${src.label}</a></div>`;
+      });
+      html += `</div>`;
+    }
 
     document.getElementById("sirenModalContent").innerHTML = html;
     openModal("modalSiren");
@@ -5428,44 +5818,63 @@
 
   const RADIO_DATA = [
     {
-      name: "Slovenský rozhlas – Rádio Slovensko",
-      desc: "Hlavný kanál pre núdzové hlásenia a pokyny záchranných zložiek pre celé Slovensko.",
+      name: "Rádio Slovensko",
+      desc: "Hlavný kanál STVR pre núdzové hlásenia a pokyny záchranných zložiek. Pri mimoriadnej udalosti prerušuje bežný program a vysiela krízové informácie pre celé Slovensko.",
       emoji: "📡",
       bg: "#fef2f2",
       border: "#fecaca",
+      priority: true,
       frequencies: [
-        { region: "Bratislava", fm: "96.6 MHz" },
-        { region: "Banská Bystrica", fm: "94.4 MHz" },
-        { region: "Košice", fm: "89.5 MHz" },
-        { region: "Žilina", fm: "104.8 MHz" },
-        { region: "Nitra", fm: "92.2 MHz" },
-        { region: "Prešov", fm: "100.3 MHz" },
-        { region: "Trenčín", fm: "92.7 MHz" },
-        { region: "Trnava", fm: "101.1 MHz" },
+        { region: "Bratislava", fm: "96,6 MHz", note: "Kamzík, 50 kW" },
+        { region: "Banská Bystrica", fm: "90,1 MHz", note: "Suchá hora, 100 kW" },
+        { region: "Košice", fm: "89,5 MHz", note: "Humenec, 50 kW" },
+        { region: "Žilina", fm: "104,8 MHz", note: "" },
+        { region: "Nitra", fm: "91,2 MHz", note: "Zobor, 10 kW" },
+        { region: "Prešov", fm: "100,3 MHz", note: "" },
+        { region: "Trenčín", fm: "92,7 MHz", note: "" },
+        { region: "Trnava", fm: "101,1 MHz", note: "" },
+        { region: "Poprad", fm: "92,2 MHz", note: "Kráľova hoľa, 30 kW" },
+        { region: "Stará Ľubovňa", fm: "89,1 MHz", note: "" },
       ]
     },
     {
       name: "Rádio Regina",
-      desc: "Regionálne vysielanie s lokálnymi núdzovými informáciami a varovaniami.",
+      desc: "Regionálne vysielanie STVR s lokálnymi núdzovými informáciami, varovaniami a pokynmi. Tri samostatné okruhy pokrývajú celé Slovensko s regionálne relevantnými informáciami.",
       emoji: "🏔️",
       bg: "#eff6ff",
       border: "#bfdbfe",
+      priority: true,
       frequencies: [
-        { region: "Západ (BA, TN, TT, NR)", fm: "99.3 MHz" },
-        { region: "Stred (BB, ZA)", fm: "100.3 MHz" },
-        { region: "Východ (KE, PO)", fm: "103.2 MHz" },
+        { region: "Regina Západ (BA, TT, TN, NR)", fm: "99,3 MHz", note: "Kamzík, BA" },
+        { region: "Regina Stred (BB, ZA)", fm: "101,5 MHz", note: "Suchá hora, BB" },
+        { region: "Regina Východ (KE, PO)", fm: "100,3 MHz", note: "Humenec, KE" },
       ]
     },
     {
       name: "Rádio Patria",
-      desc: "Vysielanie v maďarskom jazyku – núdzové hlásenia pre južné Slovensko.",
+      desc: "Vysielanie STVR v maďarskom jazyku. Núdzové hlásenia pre obyvateľov južného Slovenska, ktorí preferujú maďarský jazyk.",
       emoji: "🌍",
       bg: "#eaf4ee",
       border: "#86efac",
+      priority: false,
       frequencies: [
-        { region: "Bratislava", fm: "98.9 MHz" },
-        { region: "Komárno", fm: "96.2 MHz" },
-        { region: "Rim. Sobota", fm: "105.5 MHz" },
+        { region: "Bratislava", fm: "98,9 MHz", note: "" },
+        { region: "Komárno", fm: "96,2 MHz", note: "" },
+        { region: "Rimavská Sobota", fm: "105,5 MHz", note: "" },
+        { region: "Košice", fm: "91,1 MHz", note: "" },
+      ]
+    },
+    {
+      name: "Rádio Devín",
+      desc: "Kultúrny okruh STVR – v prípade krízy sa zapája do núdzového vysielania ako záloha hlavného okruhu Rádio Slovensko.",
+      emoji: "🎵",
+      bg: "#f5f3ee",
+      border: "#e2ddd5",
+      priority: false,
+      frequencies: [
+        { region: "Bratislava", fm: "101,4 MHz", note: "" },
+        { region: "Banská Bystrica", fm: "88,8 MHz", note: "" },
+        { region: "Košice", fm: "96,4 MHz", note: "" },
       ]
     }
   ];
@@ -5478,16 +5887,21 @@
       const card = document.createElement("div");
       card.style.cssText = `background:${radio.bg}; border:1.5px solid ${radio.border}; border-radius:1rem; padding:1rem;`;
       let freqHtml = radio.frequencies.map(f =>
-        `<div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid ${radio.border};">
+        `<div style="display:flex; justify-content:space-between; align-items:center; padding:0.3rem 0; border-bottom:1px solid ${radio.border};">
           <span style="font-size:0.78rem; color:var(--c-muted);">${f.region}</span>
-          <span style="font-size:0.78rem; font-weight:700; color:var(--c-text);">${f.fm}</span>
+          <div style="display:flex; align-items:center; gap:0.375rem;">
+            <span style="font-size:0.82rem; font-weight:700; color:var(--c-text); font-family:'Lexend',sans-serif;">${f.fm}</span>
+          </div>
         </div>`
       ).join("");
+      const priorityBadge = radio.priority
+        ? `<span style="display:inline-block; background:#dc2626; color:#fff; font-size:0.6rem; font-weight:700; padding:0.1rem 0.375rem; border-radius:0.25rem; vertical-align:middle; margin-left:0.375rem;">PRIORITA</span>`
+        : "";
       card.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.625rem;">
           <span style="font-size:1.25rem;">${radio.emoji}</span>
           <div>
-            <div style="font-weight:700; font-size:0.875rem;">${radio.name}</div>
+            <div style="font-weight:700; font-size:0.875rem;">${radio.name}${priorityBadge}</div>
             <div style="font-size:0.7rem; color:var(--c-muted); line-height:1.4; margin-top:0.1rem;">${radio.desc}</div>
           </div>
         </div>
