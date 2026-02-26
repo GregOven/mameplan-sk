@@ -835,6 +835,49 @@
     .sos-fab-icon { font-size: 1.25rem; line-height: 1; }
     .sos-fab-label { font-size: 0.5rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1; }
 
+    /* ═══ Collapsible Info Panel ═══ */
+    .info-collapse {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: margin 0.2s;
+    }
+    .info-collapse-toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 0.875rem;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'Lexend', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-align: left;
+      transition: opacity 0.15s;
+    }
+    .info-collapse-toggle:hover { opacity: 0.8; }
+    .info-collapse-arrow {
+      font-size: 0.6rem;
+      transition: transform 0.25s;
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+    .info-collapse-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 0.875rem;
+    }
+    .info-collapse.open .info-collapse-body {
+      max-height: 600px;
+      padding: 0 0.875rem 0.75rem;
+    }
+    .info-collapse.open .info-collapse-arrow {
+      transform: rotate(180deg);
+    }
+
     @media (max-width: 640px) {
       .tab-bar.top-tabs { display: none !important; }
       .bottom-nav { display: flex; gap: 0.125rem; }
@@ -1227,27 +1270,35 @@
           <h2 style="font-size:1.2rem; font-weight:700;">📋 Rodinný krízový plán</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:1rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>⚠️ Prečo je to dôležité?</strong> Mobilná sieť býva preťažená alebo nefunkčná do <strong>15–30 minút</strong> od začiatku krízy. Bez vopred dohodnutého plánu sa rodina nemusí nájsť aj niekoľko dní. Tento plán <strong>vytlačte</strong> a dajte kópiu <strong>každému členovi rodiny</strong> – do peňaženky, evakuačného batohu a na chladničku.
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:1rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>⚠️</strong> Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
         </div>
         <div id="meetingPointBox"></div>
         <div style="margin-top:1rem;">
           <div style="font-size:0.78rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.625rem;">Krízové scenáre – kto, čo, kam?</div>
-          <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
-            <strong style="color:var(--c-text);">💡</strong> Prejdite si každý scenár a doplňte konkrétne mená, miesta a úlohy. Krízový plán funguje len ak ho <strong>poznajú všetci členovia rodiny</strong> – vrátane detí od 6 rokov. Ideálne si plán <strong>raz za rok precvičte</strong> (napr. pri skúške sirén).
+          <div class="info-collapse" style="background:var(--c-bg); margin-bottom:0.75rem;">
+            <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+              <span>💡 Ako pracovať so scenármi</span>
+              <span class="info-collapse-arrow">▼</span>
+            </button>
+            <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
+              Prejdite si každý scenár a doplňte konkrétne mená, miesta a úlohy. Krízový plán funguje len ak ho <strong>poznajú všetci členovia rodiny</strong> – vrátane detí od 6 rokov. Ideálne si plán <strong>raz za rok precvičte</strong> (napr. pri skúške sirén).
+            </div>
           </div>
           <div id="scenariosBox" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
         </div>
-        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:1rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
-          <strong>📱 Komunikačný plán (ak telefóny nefungujú):</strong><br>
-          1) Pošlite <strong>SMS</strong> – prechádza aj pri slabom signáli, keď hovory neprechádzajú.<br>
-          2) Dohodnite si <strong>kontaktnú osobu mimo regiónu</strong> (napr. príbuzný v inom meste) – cez ňu sa všetci nahlásia.<br>
-          3) Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli + kontaktné číslo.<br>
-          4) Stretávajte sa na <strong>dohodnutom mieste</strong> v dohodnutom čase – pravidlo: počkaj 30 min, príď znova o interval.<br>
-          5) Ak máte prístup k internetu – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí”).
-        </div>
-        <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.625rem 0.875rem; margin-top:0.75rem; font-size:0.68rem; color:var(--c-muted); line-height:1.5;">
-          <strong>Zdroje:</strong> CZ 72h príručka (MV ČR, 2025) – Rodina a susedia; SE MSB – Om krisen eller kriget kommer (2024); UA DSNS – Dovidka.info – Evakuácia; FEMA – Family Emergency Communication Plan
+        <div class="info-collapse" style="background:#eff6ff; border:1px solid #bfdbfe; margin-top:1rem;">
+          <button class="info-collapse-toggle" style="color:#1e40af;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>📱 Komunikačný plán (ak telefóny nefungujú)</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:#1e40af; line-height:1.7;">
+            <p style="margin:0 0 0.375rem;"><strong>1)</strong> Pošlite <strong>SMS</strong> – prechádza aj pri slabom signáli, keď hovory neprechádzajú.</p>
+            <p style="margin:0 0 0.375rem;"><strong>2)</strong> Dohodnite si <strong>kontaktnú osobu mimo regiónu</strong> – cez ňu sa všetci nahlásia.</p>
+            <p style="margin:0 0 0.375rem;"><strong>3)</strong> Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli.</p>
+            <p style="margin:0 0 0.375rem;"><strong>4)</strong> Stretávajte sa na <strong>dohodnutom mieste</strong> – pravidlo: počkaj 30 min, príď znova o interval.</p>
+            <p style="margin:0;"><strong>5)</strong> Ak máte internet – <strong>Google crisis response</strong>, sociálne siete (status „som v bezpečí“).</p>
+          </div>
         </div>
       </div>
 
@@ -1291,12 +1342,19 @@
           <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>⚠️ Ak zaznie siréna a nie je oznámená skúška</strong> – berte to vážne. Rozoznajte typ tónu (kolísavý vs. stály), vojdite do budovy a zapnite rádio.
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>⚠️</strong> Ak zaznie siréna a nie je oznámená skúška – berte to vážne. Vojdite do budovy a zapnite rádio.
         </div>
         <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.625rem;"></div>
-        <div style="background:var(--c-bg); border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
-          <strong style="color:var(--c-text);">💡 Skúška sirén:</strong> Každý <strong>druhý piatok v mesiaci o 12:00</strong> prebieha pravidelná skúška (2 min stály tón). O skúškach informujú vopred médiá. Ak počujete sirénu mimo tohto termínu – <strong>nie je to skúška</strong>.
+        <div class="info-collapse" style="background:var(--c-bg); margin-top:0.75rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>💡 Skúška sirén a ďalšie informácie</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
+            <p style="margin:0 0 0.5rem;"><strong style="color:var(--c-text);">Skúška sirén:</strong> Každý <strong>druhý piatok v mesiaci o 12:00</strong> prebieha pravidelná skúška (2 min stály tón). O skúškach informujú vopred médiá. Ak počujete sirénu mimo tohto termínu – <strong>nie je to skúška</strong>.</p>
+            <p style="margin:0; font-size:0.72rem;">Rozoznajte typ tónu: kolísavý = všeobecné ohrozenie, stály = koniec ohrozenia. Pri kolísavom tóne vojdite do budovy, zatvorte okná, zapnite rádio.</p>
+          </div>
         </div>
       </div>
 
@@ -1306,12 +1364,19 @@
           <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
         </div>
-        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
-          <strong>📡 Prečo rádio?</strong> Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. Mobilná sieť a internet môžu zlyhať, rádio vysiela vždy. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
+        <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#991b1b; line-height:1.6;">
+          <strong>📡</strong> Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
         </div>
         <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
-        <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.75rem; padding:0.75rem 1rem; margin-top:0.75rem; font-size:0.78rem; color:#1e40af; line-height:1.6;">
-          <strong>ℹ️ Tip:</strong> Zapíšte si frekvenciu pre váš región na papier a vložte ho k rádiu na batérie. V krízovej situácii nemusíte nič hľadať. <strong>Rádio Slovensko</strong> a <strong>Rádio Regina</strong> sú prioritné stanice pre núdzové hlásenia podľa Zákona o civilnej ochrane.
+        <div class="info-collapse" style="background:#eff6ff; border:1px solid #bfdbfe; margin-top:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#1e40af;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>ℹ️ Tipy pre núdzové rádio</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.78rem; color:#1e40af; line-height:1.6;">
+            <p style="margin:0 0 0.5rem;">Zapíšte si frekvenciu pre váš región na papier a vložte ho k rádiu na batérie. V krízovej situácii nemusíte nič hľadať.</p>
+            <p style="margin:0;"><strong>Rádio Slovensko</strong> a <strong>Rádio Regina</strong> sú prioritné stanice pre núdzové hlásenia podľa Zákona o civilnej ochrane. Mobilná sieť a internet môžu zlyhať – rádio vysiela vždy.</p>
+          </div>
         </div>
       </div>
 
@@ -5655,27 +5720,22 @@
     }
     if (regenBtn) regenBtn.style.display = "inline-flex";
 
-    // BYOB info banner
+    // BYOB info - collapsible
     let html = `
-      <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
-        <div style="display:flex; align-items:flex-start; gap:0.75rem;">
-          <div style="font-size:1.375rem; flex-shrink:0; margin-top:0.125rem;">💡</div>
-          <div>
-            <div style="font-weight:700; font-size:0.85rem; color:#92400e; margin-bottom:0.25rem;">Prečo mať pripravený evakuačný batoh?</div>
-            <div style="font-size:0.75rem; color:#854d0e; line-height:1.6;">
-              Pri evakuácii máte často len <strong>5–15 minút</strong> na odchod z budovy. 
-              Bez pripraveného batohu zabudnete lieky, doklady alebo vodu – to sú najčastejšie chyby.
-              Každý člen domácnosti by mal mať <strong>vlastný batoh pri dverách</strong>.
-              <strong>Kontrola 2× ročne</strong> – jar a jeseň: vymeňte potraviny, batérie, lieky, overte oblečenie podľa sezóny.
-              Batoh by mal byť <strong>samostatný</strong> – nebalte kuchynské nože ani veci, ktoré denne používate.
-            </div>
-            <div style="font-size:0.72rem; color:#92400e; margin-top:0.375rem; font-weight:600;">Max. hmotnosť: Dospelý 25 kg (10–15% telesnej hmotnosti) &nbsp;|&nbsp; Senior 20 kg &nbsp;|&nbsp; Dieťa 15 kg &nbsp;|&nbsp; Bábätko 5 kg (nosí rodič)</div>
-            <div style="font-size:0.68rem; color:#854d0e; margin-top:0.25rem;">Zdroj: CZ 72h príručka (MV ČR, 2025), SK MINV – Civilná ochrana, UA DSNS – Evakuácia obyvateľstva, SE MSB – Om krisen eller kriget kommer (2024)</div>
-          </div>
-        </div>
+      <div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.625rem 0.875rem; margin-bottom:0.75rem; font-size:0.78rem; color:#92400e; line-height:1.6;">
+        <strong>💡</strong> Pri evakuácii máte často len <strong>5–15 minút</strong>. Každý člen domácnosti potrebuje <strong>vlastný batoh pri dverách</strong>. Kontrola 2× ročne.
       </div>
-      <div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:1rem; font-size:0.75rem; color:#991b1b; line-height:1.6;">
-        <strong>⚠️ Pravidlá batohu:</strong> 1) Batoh <strong>pri dverách</strong>, nie v skrini. 2) <strong>Topánky vedľa batohu</strong> – nie v botníku. 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 rokov by mali <strong>vedieť batoh otvoriť a niesť samy</strong>. 5) Do vrecka kabáta <strong>kartička s menom a kontaktom</strong> na príbuzného.
+      <div class="info-collapse" style="background:var(--c-bg); margin-bottom:1rem;">
+        <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+          <span>⚠️ Pravidlá batohu a podrobnosti</span>
+          <span class="info-collapse-arrow">▼</span>
+        </button>
+        <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
+          <p style="margin:0 0 0.5rem; color:#991b1b;"><strong>Pravidlá:</strong> 1) Batoh <strong>pri dverách</strong>, nie v skrini. 2) <strong>Topánky vedľa batohu</strong>. 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 r. – <strong>vedieť batoh otvoriť a niesť</strong>. 5) <strong>Kartička s kontaktom</strong> vo vrecku kabáta.</p>
+          <p style="margin:0 0 0.5rem;">Bez pripraveného batohu zabudnete lieky, doklady alebo vodu. Batoh by mal byť <strong>samostatný</strong> – nebalte veci, ktoré denne používate.</p>
+          <p style="margin:0 0 0.375rem; font-weight:600; color:#92400e;">Max. hmotnosť: Dospelý 25 kg &nbsp;|  Senior 20 kg &nbsp;|  Dieťa 15 kg &nbsp;|  Bábätko 5 kg (nosí rodič)</p>
+          <p style="margin:0; font-size:0.68rem;">Zdroj: CZ 72h (MV ČR, 2025), SK MINV, UA DSNS, SE MSB (2024)</p>
+        </div>
       </div>`;
 
     // Bag cards
