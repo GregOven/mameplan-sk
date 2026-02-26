@@ -1556,6 +1556,42 @@
   </div>
 </div>
 
+<!-- Modal: Edit Water Entry -->
+<div class="modal-overlay" id="modalWaterEdit">
+  <div class="modal-box" style="max-width:440px;">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť vodu</h3>
+      <button data-close="modalWaterEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
+    </div>
+    <form id="waterEditForm" style="display:grid; gap:0.75rem;">
+      <input type="hidden" name="we_catId" />
+      <input type="hidden" name="we_itemIdx" />
+      <input type="hidden" name="we_entryIdx" />
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Názov *</label>
+        <input name="we_name" type="text" required />
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Litrov / kus *</label>
+          <input name="we_liters" type="number" min="0" step="0.1" required />
+        </div>
+        <div>
+          <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Počet</label>
+          <input name="we_qty" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <div>
+        <label style="font-size:0.8rem; color:var(--c-muted); display:block; margin-bottom:0.375rem;">Expirácia</label>
+        <input name="we_expiry" type="date" />
+      </div>
+      <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
+        <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Modal: Postup pri MU detail -->
 <div class="modal-overlay" id="modalEmergencyProc">
   <div class="modal-box" style="max-width:600px;">
@@ -1831,7 +1867,7 @@
 
   const DEFAULT_ITEMS = {
     food_water: [
-      { name: "Pitná voda", done: false, qty: "", expiry: "", link: "", isWaterItem: true, waterBottles: 0 },
+      { name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] },
       { name: "Zásoby jedla", isFoodItem: true, foodEntries: [] },
     ],
     cash: [
@@ -2136,7 +2172,7 @@
         };
         // Migrate: ensure link field
         for (const cid of Object.keys(state.items)) {
-          state.items[cid] = state.items[cid].map(it => ({ link: "", waterBottles: 0, isWaterItem: false, ...it }));
+          state.items[cid] = state.items[cid].map(it => ({ link: "", waterBottles: 0, isWaterItem: false, isFoodItem: false, ...it }));
         }
         // Migrate: docs category – if old format (no docGroup), replace with new comprehensive list
         if (state.items.docs && state.items.docs.length > 0 && !state.items.docs[0].docGroup) {
@@ -2168,17 +2204,39 @@
         }
         // Regenerate dynamic items from profile
         regenerateProfileBasedItems();
-        // Migrate: food_water – remove old default items and ensure food tracker exists
+        // Migrate: food_water – remove old default items and ensure food+water trackers exist
         if (state.items.food_water) {
           const oldFoodNames = ["Trvanlivé jedlo (min. 3 dni)", "Otvárač / varič / palivo"];
           state.items.food_water = state.items.food_water.filter(it => !oldFoodNames.includes(it.name));
+          // Migrate water items: waterBottles → waterEntries
+          state.items.food_water.forEach(it => {
+            if (it.isWaterItem) {
+              // Rename old "Pitná voda" to "Zásoby pitnej vody"
+              if (it.name === "Pitná voda") it.name = "Zásoby pitnej vody";
+              // Convert legacy waterBottles to waterEntries
+              if (!it.waterEntries) it.waterEntries = [];
+              if (it.waterBottles && it.waterBottles > 0 && it.waterEntries.length === 0) {
+                it.waterEntries.push({
+                  name: "Fľaša 1,5 l",
+                  liters: 1.5,
+                  qty: it.waterBottles,
+                  expiry: ""
+                });
+              }
+            }
+          });
           // Ensure food tracker item exists
           if (!state.items.food_water.find(it => it.isFoodItem)) {
             state.items.food_water.push({ name: "Zásoby jedla", isFoodItem: true, foodEntries: [] });
           }
-          // Ensure foodEntries array exists on food items
+          // Ensure water tracker item exists
+          if (!state.items.food_water.find(it => it.isWaterItem)) {
+            state.items.food_water.unshift({ name: "Zásoby pitnej vody", isWaterItem: true, waterEntries: [] });
+          }
+          // Ensure foodEntries/waterEntries arrays exist
           state.items.food_water.forEach(it => {
             if (it.isFoodItem && !it.foodEntries) it.foodEntries = [];
+            if (it.isWaterItem && !it.waterEntries) it.waterEntries = [];
           });
         }
       }
@@ -2445,28 +2503,51 @@
     return "";
   }
 
+  // ── Voda – inteligentný kalkulátor ──────────────────────────────
+  // Odporúčania WHO pre núdzové situácie: min. 2,5–3 l na osobu/deň na pitie
+  // Appka používa 2 l/deň dospelý, 1.5 l dieťa, 1 l batoľa, 2 l senior (konzervat. odhad na pitie)
+  // Zdroj: WHO Technical Notes on WASH in Emergencies (Technical Note No. 9)
+  const WATER_SOURCE_URL = "https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health/environmental-health-in-emergencies/humanitarian-emergencies";
+  const WATER_SOURCE_LABEL = "WHO – Water, Sanitation and Health in Emergencies";
+
+  function getDailyWaterNeed() {
+    if (!state.profile) return 0;
+    const p = state.profile;
+    const coeff = p.readinessCoeff || 1.0;
+    return ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * coeff;
+  }
+
+  function getTotalWaterLiters(item) {
+    if (!item.isWaterItem) return 0;
+    // Support legacy waterBottles field
+    if (item.waterBottles && (!item.waterEntries || item.waterEntries.length === 0)) {
+      return (item.waterBottles || 0) * 1.5;
+    }
+    if (!item.waterEntries) return 0;
+    return item.waterEntries.reduce((sum, e) => sum + ((e.liters||0) * (e.qty||1)), 0);
+  }
+
   function calcWaterCompletion(item) {
     if (!item.isWaterItem || !state.profile) return item.done ? 100 : 0;
     const p = state.profile;
     const d = p.prepDays || 3;
-    const coeff = p.readinessCoeff || 1.0;
-    const total = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d * coeff;
+    const total = getDailyWaterNeed() * d;
     if (!total) return 0;
-    return Math.min(100, ((item.waterBottles||0)*1.5 / total) * 100);
+    return Math.min(100, (getTotalWaterLiters(item) / total) * 100);
   }
 
   // ── Kalórie / Jedlo – inteligentný kalkulátor ──────────────────
-  // Odporúčané denné kcal podľa EFSA (European Food Safety Authority)
-  // a US Dietary Guidelines 2020-2025 (sedentary/nízka aktivita – krízový režim)
-  // Zdroj: https://www.efsa.europa.eu/en/press/news/130110
+  // Odporúčané denné kcal podľa USDA & HHS Dietary Guidelines for Americans 2020–2025
+  // (sedentárna aktivita – krízový režim, priemer muž/žena)
+  // Zdroj: Dietary Guidelines for Americans 2020-2025, Appendix 2
   const KCAL_PER_DAY = {
     adult:  2000,  // priemer muž/žena, sedentárna aktivita
     kid:    1500,  // deti 4–17 r., priemer
     infant: 1000,  // batoľatá 0–3 r.
     senior: 1800   // seniori 65+, sedentárna aktivita
   };
-  const KCAL_SOURCE_URL = "https://www.efsa.europa.eu/en/press/news/130110";
-  const KCAL_SOURCE_LABEL = "EFSA – Dietary Reference Values for Energy (2013)";
+  const KCAL_SOURCE_URL = "https://www.dietaryguidelines.gov/sites/default/files/2020-12/Dietary_Guidelines_for_Americans_2020-2025.pdf";
+  const KCAL_SOURCE_LABEL = "USDA & HHS – Dietary Guidelines for Americans 2020–2025";
 
   function getDailyKcalNeed() {
     if (!state.profile) return 0;
@@ -2859,13 +2940,14 @@
         if (it.isWaterItem && state.profile) {
           const p = state.profile;
           const d = p.prepDays || 3;
-          const total = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * d;
-          const current = (it.waterBottles||0) * 1.5;
+          const dailyNeed = getDailyWaterNeed();
+          const total = dailyNeed * d;
+          const current = getTotalWaterLiters(it);
           const wpct = calcWaterCompletion(it);
           const wCol = colorForPct(wpct);
+          const entries = it.waterEntries || [];
 
-          // Výpočet na koľko dní/hodín vydrží aktuálna zásoba
-          const dailyNeed = ((p.adults||0)*2 + (p.kids||0)*1.5 + (p.infants||0)*1 + (p.seniors||0)*2) * (p.readinessCoeff||1.0);
+          // Duration calculation
           const totalHours = dailyNeed > 0 ? (current / dailyNeed) * 24 : 0;
           const durDays = Math.floor(totalHours / 24);
           const durHours = Math.round(totalHours % 24);
@@ -2881,12 +2963,47 @@
             const hourPart = durHours > 0 ? (" a " + durHours + (durHours === 1 ? " hodinu" : durHours < 5 ? " hodiny" : " hodín")) : "";
             durText = durDays + " " + dayWord + hourPart;
           }
-          // Farba podľa % naplnenia - rovnaká logika ako všade inde
-          const durPct = Math.min(100, (totalHours / ((p.prepDays||3) * 24)) * 100);
+          const durPct = Math.min(100, (totalHours / (d * 24)) * 100);
           const durHue = Math.round((Math.min(100, Math.max(0, durPct)) / 100) * 120);
           const durColor = `hsl(${durHue} 70% 34%)`;
           const durBg = `hsl(${durHue} 70% 96%)`;
           const durBorder = `hsl(${durHue} 60% 80%)`;
+
+          // Water breakdown per person type
+          const waterBreakdown = [];
+          if (p.adults) waterBreakdown.push(`${p.adults}× dospelý: 2 l`);
+          if (p.kids) waterBreakdown.push(`${p.kids}× dieťa: 1,5 l`);
+          if (p.infants) waterBreakdown.push(`${p.infants}× batoľa: 1 l`);
+          if (p.seniors) waterBreakdown.push(`${p.seniors}× senior: 2 l`);
+
+          // Water entries HTML
+          let wEntriesHtml = "";
+          if (entries.length === 0) {
+            wEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadna voda. Pridajte prvú položku nižšie.</div>`;
+          } else {
+            wEntriesHtml = entries.map((e, ei) => {
+              const eExp = e.expiry ? daysUntil(e.expiry) : null;
+              const catAD = getAlertDaysForCategory("food_water");
+              const eExpBadge = e.expiry
+                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
+                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
+                  : `<span class="badge badge-gray" style="font-size:0.62rem;">${eExp}d</span>`)
+                : "";
+              const totalE = (e.liters||0)*(e.qty||1);
+              return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.625rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(59,130,246,0.15);">
+                <div style="flex:1; min-width:0;">
+                  <div style="font-weight:600; font-size:0.8rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
+                    ${esc(e.name)} ${eExpBadge}
+                  </div>
+                  <div style="font-size:0.7rem; color:var(--c-muted); margin-top:0.125rem;">
+                    ${e.qty||1}× ${(e.liters||0)} l = <strong>${totalE.toFixed(1)} l</strong>${e.expiry ? " • " + e.expiry : ""}
+                  </div>
+                </div>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-water-edit="${idx}:${ei}">✏️</button>
+                <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-water-del="${idx}:${ei}">✕</button>
+              </div>`;
+            }).join("");
+          }
 
           const row = document.createElement("div");
           row.className = "water-card";
@@ -2909,22 +3026,87 @@
               </div>
             </div>
 
-            <div class="progress-bar" style="margin-bottom:0.875rem; height:10px;">
+            <div class="progress-bar" style="margin-bottom:0.75rem; height:10px;">
               <div class="progress-fill" style="width:${Math.min(100,wpct)}%; background:${colorForPct(wpct)};"></div>
             </div>
 
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-              <label style="font-size:0.8rem; color:#1e40af; white-space:nowrap; font-weight:500;">Fľaše 1,5 l:</label>
-              <input type="number" min="0" value="${it.waterBottles||0}" id="wb_${idx}" style="width:80px;" />
-              <span style="font-size:0.8rem; color:#3b82f6;">${litreSklon(current)} celkom</span>
+            <!-- Water breakdown -->
+            <div style="background:rgba(255,255,255,0.55); border-radius:0.5rem; padding:0.5rem 0.75rem; margin-bottom:0.875rem; font-size:0.7rem; color:#1e40af; line-height:1.6;">
+              <strong>Denná potreba domácnosti:</strong> ${dailyNeed.toFixed(1)} l/deň
+              <span style="opacity:0.7;">(${waterBreakdown.join(", ")})</span>
+              <br>
+              <a href="${WATER_SOURCE_URL}" target="_blank" rel="noopener" style="color:#3b82f6; text-decoration:underline; font-size:0.65rem;">📊 Zdroj: ${WATER_SOURCE_LABEL}</a>
+            </div>
+
+            <!-- Water entries list -->
+            <div style="display:flex; flex-direction:column; gap:0.375rem; margin-bottom:0.875rem;" id="waterEntriesList_${idx}">
+              ${wEntriesHtml}
+            </div>
+
+            <!-- Add water entry form -->
+            <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #93c5fd;">
+              <div style="font-size:0.75rem; font-weight:600; color:#1e40af; margin-bottom:0.5rem;">+ Pridať vodu</div>
+              <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
+                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" />
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Litrov / kus</label>
+                    <input type="number" min="0" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Počet</label>
+                    <input type="number" min="1" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                  <div>
+                    <label style="font-size:0.68rem; color:var(--c-muted); display:block; margin-bottom:0.2rem;">Expirácia</label>
+                    <input type="date" id="we_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  </div>
+                </div>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="we_add_${idx}">Pridať do zásob</button>
+              </div>
             </div>`;
           list.appendChild(row);
+
+          // Bind water entry actions
           setTimeout(() => {
-            const inp = document.getElementById(`wb_${idx}`);
-            if (inp) inp.onchange = () => {
-              state.items[catId][idx].waterBottles = Number(inp.value)||0;
+            // Add entry
+            const addBtn = document.getElementById(`we_add_${idx}`);
+            if (addBtn) addBtn.onclick = () => {
+              const nameInp = document.getElementById(`we_name_${idx}`);
+              const litersInp = document.getElementById(`we_liters_${idx}`);
+              const qtyInp = document.getElementById(`we_qty_${idx}`);
+              const expInp = document.getElementById(`we_exp_${idx}`);
+              const eName = (nameInp.value||"").trim();
+              const eLiters = Number(litersInp.value)||0;
+              if (!eName || !eLiters) { alert("Zadajte názov a počet litrov."); return; }
+              if (!state.items[catId][idx].waterEntries) state.items[catId][idx].waterEntries = [];
+              state.items[catId][idx].waterEntries.push({
+                name: eName,
+                liters: eLiters,
+                qty: Number(qtyInp.value)||1,
+                expiry: expInp.value||""
+              });
               scheduleSave(); renderAll();
             };
+            // Delete entries
+            row.querySelectorAll("[data-water-del]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.waterDel.split(":").map(Number);
+                if (state.items[catId][itemI] && state.items[catId][itemI].waterEntries) {
+                  state.items[catId][itemI].waterEntries.splice(entryI, 1);
+                  scheduleSave(); renderAll();
+                }
+              };
+            });
+            // Edit entries
+            row.querySelectorAll("[data-water-edit]").forEach(btn => {
+              btn.onclick = () => {
+                const [itemI, entryI] = btn.dataset.waterEdit.split(":").map(Number);
+                const entry = state.items[catId][itemI]?.waterEntries?.[entryI];
+                if (!entry) return;
+                openWaterEditModal(catId, itemI, entryI, entry);
+              };
+            });
           }, 0);
           return;
         }
@@ -3621,6 +3803,15 @@
             if (!fe.expiry) return;
             const d = daysUntil(fe.expiry);
             if (d <= threshold) alerts.push({ name: fe.name, expiry: fe.expiry, catName: c.name, catId: c.id, idx, days: d, threshold });
+          });
+          return;
+        }
+        // Water entries: check each entry's expiry
+        if (it.isWaterItem && it.waterEntries) {
+          it.waterEntries.forEach(we => {
+            if (!we.expiry) return;
+            const d = daysUntil(we.expiry);
+            if (d <= threshold) alerts.push({ name: we.name, expiry: we.expiry, catName: c.name, catId: c.id, idx, days: d, threshold });
           });
           return;
         }
@@ -5439,6 +5630,35 @@
     scheduleSave(); renderAll();
   };
 
+  // ── Water Entry Edit Modal ───────────────────────────────────────
+  function openWaterEditModal(catId, itemIdx, entryIdx, entry) {
+    const f = document.getElementById("waterEditForm");
+    f.elements["we_catId"].value = catId;
+    f.elements["we_itemIdx"].value = itemIdx;
+    f.elements["we_entryIdx"].value = entryIdx;
+    f.elements["we_name"].value = entry.name || "";
+    f.elements["we_liters"].value = entry.liters || "";
+    f.elements["we_qty"].value = entry.qty || 1;
+    f.elements["we_expiry"].value = entry.expiry || "";
+    openModal("modalWaterEdit");
+  }
+
+  document.getElementById("waterEditForm").onsubmit = (e) => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const catId = fd.get("we_catId");
+    const itemIdx = parseInt(fd.get("we_itemIdx"));
+    const entryIdx = parseInt(fd.get("we_entryIdx"));
+    const entry = state.items[catId]?.[itemIdx]?.waterEntries?.[entryIdx];
+    if (!entry) return;
+    entry.name = String(fd.get("we_name")||"").trim();
+    entry.liters = Number(fd.get("we_liters"))||0;
+    entry.qty = Number(fd.get("we_qty"))||1;
+    entry.expiry = String(fd.get("we_expiry")||"").trim();
+    closeModal("modalWaterEdit");
+    scheduleSave(); renderAll();
+  };
+
   // Click outside modal to close
   document.querySelectorAll(".modal-overlay").forEach(overlay => {
     overlay.onclick = (e) => { if (e.target === overlay) closeModal(overlay.id); };
@@ -5473,6 +5693,23 @@
                 expiry:  fe.expiry,
                 days:    d,
                 qty:     (fe.qty||1) + "× " + (fe.kcal||0) + " kcal"
+              });
+            }
+          });
+          return;
+        }
+        // Water entries: check each entry's expiry
+        if (it.isWaterItem && it.waterEntries) {
+          it.waterEntries.forEach(we => {
+            if (!we.expiry) return;
+            const d = daysUntil(we.expiry);
+            if (d <= catThreshold) {
+              items.push({
+                name:    we.name,
+                catName: c.name,
+                expiry:  we.expiry,
+                days:    d,
+                qty:     (we.qty||1) + "× " + (we.liters||0) + " l"
               });
             }
           });
