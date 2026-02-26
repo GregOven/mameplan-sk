@@ -459,32 +459,82 @@
       color: var(--c-text);
       line-height: 1.3;
     }
+    /* ── Modal content system (unified) ── */
+    .modal-section {
+      margin-bottom: 0.25rem;
+    }
+    .modal-section-header {
+      display: flex; align-items: center; gap: 0.625rem;
+      padding: 0.625rem 0.75rem;
+      background: var(--c-bg);
+      border-left: 4px solid var(--c-accent);
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 1rem 0 0.5rem;
+      font-family: 'DM Sans', 'Lexend', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--c-text);
+      letter-spacing: -0.01em;
+    }
+    .modal-section-header:first-child { margin-top: 0; }
+    .modal-section-steps {
+      padding-left: 0.5rem;
+      border-left: 2px solid var(--c-border);
+      margin-left: 0.375rem;
+    }
     .fa-modal-step {
       display: flex;
       align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--c-border);
+      gap: 0.625rem;
+      padding: 0.5rem 0.375rem;
+      margin: 0;
+      border-bottom: none;
+      transition: background 0.15s;
+      border-radius: 0.5rem;
     }
-    .fa-modal-step:last-child { border-bottom: none; }
+    .fa-modal-step:hover {
+      background: rgba(0,0,0,0.02);
+    }
     .fa-step-num {
-      width: 28px; height: 28px;
+      width: 24px; height: 24px;
       border-radius: 50%;
       background: var(--c-accent);
       color: white;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.75rem; font-weight: 700;
+      font-size: 0.68rem; font-weight: 700;
       flex-shrink: 0;
+      margin-top: 0.1rem;
     }
     .fa-step-text {
-      font-size: 0.85rem;
-      line-height: 1.55;
+      font-size: 0.82rem;
+      line-height: 1.6;
       color: var(--c-text);
     }
-    .fa-step-text strong { color: var(--c-accent); }
+    .fa-step-text strong { color: var(--c-text); font-weight: 700; }
+    .modal-warn-box {
+      background: var(--c-error-bg);
+      border: 1px solid var(--c-error-border);
+      border-radius: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      font-size: 0.8rem;
+      color: #991b1b;
+      line-height: 1.55;
+      margin: 0.375rem 0 0.375rem 0.875rem;
+    }
+    .modal-note-box {
+      background: var(--c-warning-bg);
+      border: 1px solid var(--c-warning-border);
+      border-radius: 0.75rem;
+      padding: 0.625rem 0.75rem;
+      font-size: 0.8rem;
+      color: #854d0e;
+      line-height: 1.55;
+      margin: 0.375rem 0 0.375rem 0.875rem;
+    }
+    /* Legacy aliases — keep for backward compat */
     .fa-warning {
-      background: #fef2f2;
-      border: 1px solid #fecaca;
+      background: var(--c-error-bg);
+      border: 1px solid var(--c-error-border);
       border-radius: 0.75rem;
       padding: 0.75rem 1rem;
       font-size: 0.8rem;
@@ -493,12 +543,12 @@
       margin-top: 0.75rem;
     }
     .fa-info {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
+      background: var(--c-info-bg);
+      border: 1px solid var(--c-info-border);
       border-radius: 0.75rem;
       padding: 0.75rem 1rem;
       font-size: 0.8rem;
-      color: #1e40af;
+      color: var(--c-info);
       line-height: 1.5;
       margin-top: 0.75rem;
     }
@@ -521,6 +571,7 @@
       margin-bottom: 1rem;
       font-size: 0.85rem;
       font-weight: 600;
+      flex-wrap: wrap;
     }
     .fa-emergency-bar a {
       color: white;
@@ -5497,6 +5548,70 @@
     });
   }
 
+  // ── Shared modal content renderer ──────────────────────────────
+  function renderStepsHTML(steps, options = {}) {
+    const housing = options.housing || "flat";
+    let html = '';
+    let inSection = false;
+    let stepNum = 0;
+
+    steps.forEach(step => {
+      if (step.forHousing && !step.forHousing.includes(housing)) return;
+
+      if (step.header) {
+        if (inSection) html += '</div></div>'; // close steps + section
+        html += `<div class="modal-section">`;
+        html += `<div class="modal-section-header">${step.header}</div>`;
+        html += `<div class="modal-section-steps">`;
+        inSection = true;
+        stepNum = 0;
+        return;
+      }
+
+      if (!inSection) {
+        html += `<div class="modal-section"><div class="modal-section-steps">`;
+        inSection = true;
+      }
+
+      if (step.note) {
+        html += `<div class="modal-note-box"><strong>💡</strong> ${step.note}</div>`;
+        return;
+      }
+      if (step.warn) {
+        html += `<div class="modal-warn-box"><strong>⚠️</strong> ${step.warn}</div>`;
+        return;
+      }
+      if (step.text) {
+        stepNum++;
+        html += `<div class="fa-modal-step">
+          <div class="fa-step-num">${stepNum}</div>
+          <div class="fa-step-text">${step.text}</div>
+        </div>`;
+      }
+    });
+
+    if (inSection) html += '</div></div>';
+    return html;
+  }
+
+  function renderSourcesCollapsible(sources, source) {
+    if (!sources && !source) return '';
+    let linksHtml = '';
+    if (Array.isArray(sources)) {
+      linksHtml = sources.map(s =>
+        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
+      ).join('<br>');
+    } else if (source) {
+      linksHtml = source;
+    }
+    return `<div style="margin-top:1rem; border-top:1px solid var(--c-border); padding-top:0.5rem;">
+      <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''">
+        💡 Zdroje <span class="arrow">▼</span>
+      </button>
+      <div class="source-body">${linksHtml}</div>
+    </div>`;
+  }
+
   function openFirstAidModal(item) {
     const icon = document.getElementById("faModalIcon");
     const title = document.getElementById("faModalTitle");
@@ -5511,73 +5626,32 @@
 
     let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Záchranka: <a href="tel:155">155</a></div>`;
 
-    // Count real steps (text steps only, not headers/notes/warnings)
+    // Count real steps for quick-view limit
     const QUICK_VIEW_LIMIT = 3;
     const realSteps = item.steps.filter(s => s.text);
     const hasMoreSteps = realSteps.length > QUICK_VIEW_LIMIT;
 
-    // Build steps HTML — split into quick-view and rest
-    let stepNum = 0;
-    let realStepCount = 0;
-    let inHidden = false;
+    // Render all steps with section structure
+    const allStepsHtml = renderStepsHTML(item.steps);
 
-    html += `<div style="margin-bottom:0.5rem;">`;
-    item.steps.forEach(step => {
-      // When we hit the limit, start the hidden section
-      if (hasMoreSteps && !inHidden && step.text && realStepCount === QUICK_VIEW_LIMIT) {
-        html += `</div><div id="faFullSteps" style="display:none;"><div style="margin-bottom:0.5rem;">`;
-        inHidden = true;
-        stepNum = 0; // Reset if new header section is in hidden part
-      }
-      if (step.header) {
-        html += `<div style="font-size:0.82rem; font-weight:700; color:var(--c-text); margin:1rem 0 0.5rem; padding-bottom:0.375rem; border-bottom:1.5px solid var(--c-border);">${step.header}</div>`;
-        stepNum = 0;
-        return;
-      }
-      if (step.note) {
-        html += `<div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#92400e;"><strong>💡</strong> ${step.note}</div>`;
-        return;
-      }
-      if (step.warn) {
-        html += `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#991b1b;"><strong>⚠️</strong> ${step.warn}</div>`;
-        return;
-      }
-      stepNum++;
-      realStepCount++;
-      html += `<div class="fa-modal-step">
-        <div class="fa-step-num">${stepNum}</div>
-        <div class="fa-step-text">${step.text}</div>
-      </div>`;
-    });
+    if (hasMoreSteps) {
+      // Split: show first few, hide rest behind expand button
+      // We show the full structured HTML but wrap the "more" portion
+      html += `<div id="faQuickView">${allStepsHtml}</div>`;
 
-    if (inHidden) {
-      html += `</div>`; // close inner margin div
-      // Warning, info, source inside hidden section
-      if (item.warning) html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
-      if (Array.isArray(item.sources)) {
-        html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-          s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
-        ).join("<br>")}</div>`;
-      } else if (item.source) {
-        html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
-      }
-      html += `</div>`; // close faFullSteps
+      // Warning/info/source in hidden section
+      let extraHtml = '';
+      if (item.warning) extraHtml += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+      if (item.info) extraHtml += `<div class="fa-info"><strong>💡 Tip:</strong> ${item.info}</div>`;
+      extraHtml += renderSourcesCollapsible(item.sources, item.source);
 
-      // Expand button
-      html += `<button id="faExpandBtn" onclick="document.getElementById('faFullSteps').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:linear-gradient(135deg, #eff6ff, #dbeafe); border:1.5px solid #93c5fd; border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:#1e40af; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(59,130,246,0.15)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Zobraziť celý postup (${realSteps.length} krokov) →</button>`;
+      html += `<div id="faExtraContent" style="display:none;">${extraHtml}</div>`;
+      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">⚠️ Dôležité upozornenia a zdroje →</button>`;
     } else {
-      html += `</div>`; // close margin div (no hidden section)
-      // Warning, info, source in normal flow
+      html += allStepsHtml;
       if (item.warning) html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) html += `<div class="fa-info"><strong>ℹ️ Tip:</strong> ${item.info}</div>`;
-      if (Array.isArray(item.sources)) {
-        html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-          s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
-        ).join("<br>")}</div>`;
-      } else if (item.source) {
-        html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
-      }
+      if (item.info) html += `<div class="fa-info"><strong>💡 Tip:</strong> ${item.info}</div>`;
+      html += renderSourcesCollapsible(item.sources, item.source);
     }
 
     content.innerHTML = html;
@@ -6457,61 +6531,51 @@
             <div style="font-size:0.75rem; color:var(--c-muted);">trvanie sign\u00e1lu</div>
           </div>
         </div>
-      </div>
-
-      <div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\ud83d\udcd6 V\u00fdznam</div>
-        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.meaning}</div>
       </div>`;
 
+    // Meaning section
+    html += `<div class="modal-section">
+      <div class="modal-section-header">\ud83d\udcd6 V\u00fdznam</div>
+      <div class="modal-section-steps">
+        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.meaning}</div>
+      </div>
+    </div>`;
+
     if (siren.howToRecognize) {
-      html += `<div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\ud83d\udd0a Ako rozozna\u0165</div>
-        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.howToRecognize}</div>
+      html += `<div class="modal-section">
+        <div class="modal-section-header">\ud83d\udd0a Ako rozozna\u0165</div>
+        <div class="modal-section-steps">
+          <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.howToRecognize}</div>
+        </div>
       </div>`;
     }
 
-    // Render structured actions (array) or legacy string
+    // Render structured actions
     if (Array.isArray(siren.actions)) {
-      html += `<div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.5rem;">\u2705 \u010co robi\u0165</div>`;
-      let stepNum = 0;
+      // Convert siren actions to steps format and use shared renderer
+      const stepsForRender = [];
+      stepsForRender.push({ header: "\u2705 \u010co robi\u0165" });
       siren.actions.forEach(item => {
-        if (item.header) {
-          html += `<div style="font-weight:700; font-size:0.8rem; color:${siren.color}; margin:0.75rem 0 0.375rem; padding-top:0.375rem; border-top:1px solid ${siren.border};">${item.header}</div>`;
-        } else if (item.warn) {
-          html += `<div class="fa-warning"><strong>\u26a0\ufe0f</strong> ${item.warn}</div>`;
-        } else if (item.note) {
-          html += `<div class="fa-info"><strong>\u2139\ufe0f</strong> ${item.note}</div>`;
-        } else if (item.text) {
-          stepNum++;
-          html += `<div style="display:flex; gap:0.5rem; margin-bottom:0.5rem; font-size:0.85rem; line-height:1.6;">
-            <span style="font-weight:700; color:${siren.color}; flex-shrink:0; min-width:1.25rem;">${stepNum}.</span>
-            <span style="color:var(--c-text);">${item.text}</span>
-          </div>`;
-        }
+        if (item.header) stepsForRender.push({ header: item.header });
+        else if (item.warn) stepsForRender.push({ warn: item.warn });
+        else if (item.note) stepsForRender.push({ note: item.note });
+        else if (item.text) stepsForRender.push({ text: item.text });
       });
-      html += `</div>`;
+      html += renderStepsHTML(stepsForRender);
     } else if (siren.action) {
-      html += `<div style="margin-bottom:1rem;">
-        <div style="font-weight:700; font-size:0.85rem; margin-bottom:0.375rem;">\u2705 \u010co robi\u0165</div>
-        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6;">${siren.action}</div>
+      html += `<div class="modal-section">
+        <div class="modal-section-header">\u2705 \u010co robi\u0165</div>
+        <div class="modal-section-steps">
+          <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.action}</div>
+        </div>
       </div>`;
     }
 
     if (siren.note) {
-      html += `<div class="fa-info"><strong>\u2139\ufe0f Pozn\u00e1mka:</strong> ${siren.note}</div>`;
+      html += `<div class="fa-info"><strong>💡 Pozn\u00e1mka:</strong> ${siren.note}</div>`;
     }
 
-    // Render sources array or fallback
-    if (siren.sources && siren.sources.length > 0) {
-      html += `<div style="margin-top:1rem; padding-top:0.75rem; border-top:1px solid var(--c-border);">
-        <div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); margin-bottom:0.375rem;">ZDROJE</div>`;
-      siren.sources.forEach(src => {
-        html += `<div style="margin-bottom:0.25rem;"><a href="${src.url}" target="_blank" rel="noopener" style="color:#2563eb; font-size:0.75rem; text-decoration:underline;">${src.label}</a></div>`;
-      });
-      html += `</div>`;
-    }
+    html += renderSourcesCollapsible(siren.sources, null);
 
     document.getElementById("sirenModalContent").innerHTML = html;
     openModal("modalSiren");
@@ -7361,51 +7425,14 @@
 
     let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Hasiči: <a href="tel:150">150</a> &nbsp;|&nbsp; Polícia: <a href="tel:158">158</a></div>`;
 
-    // Render steps with support for headers, notes, and housing-specific content
-    html += `<div style="margin-bottom:0.5rem;">`;
-    let stepNum = 0;
     const housing = (state.profile && state.profile.housing) || "flat";
-
-    item.steps.forEach(step => {
-      // Housing-specific content filter – applies to ALL step types
-      if (step.forHousing) {
-        if (!step.forHousing.includes(housing)) return;
-      }
-      // Section header
-      if (step.header) {
-        html += `<div style="font-size:0.82rem; font-weight:700; color:var(--c-text); margin:1rem 0 0.5rem; padding-bottom:0.375rem; border-bottom:1.5px solid var(--c-border);">${step.header}</div>`;
-        stepNum = 0;
-        return;
-      }
-      // Info/note box
-      if (step.note) {
-        html += `<div style="background:#fef3c7; border:1px solid #fcd34d; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#92400e;"><strong>💡</strong> ${step.note}</div>`;
-        return;
-      }
-      // Warning box
-      if (step.warn) {
-        html += `<div style="background:#fef2f2; border:1px solid #fecaca; border-radius:0.75rem; padding:0.75rem; margin:0.5rem 0; font-size:0.78rem; line-height:1.6; color:#991b1b;"><strong>⚠️</strong> ${step.warn}</div>`;
-        return;
-      }
-      stepNum++;
-      html += `<div class="fa-modal-step">
-        <div class="fa-step-num">${stepNum}</div>
-        <div class="fa-step-text">${step.text}</div>
-      </div>`;
-    });
-    html += `</div>`;
+    html += renderStepsHTML(item.steps, { housing });
 
     if (item.warning) {
       html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
     }
 
-    if (Array.isArray(item.sources)) {
-      html += `<div class="fa-source"><strong>Zdroje:</strong><br>${item.sources.map(s =>
-        s.url ? `<a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a>` : s.label
-      ).join("<br>")}</div>`;
-    } else if (item.source) {
-      html += `<div class="fa-source"><strong>Zdroj:</strong> ${item.source}</div>`;
-    }
+    html += renderSourcesCollapsible(item.sources, item.source);
 
     content.innerHTML = html;
     openModal("modalEmergencyProc");
