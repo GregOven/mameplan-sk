@@ -58,7 +58,7 @@
 <!-- Firebase: Live beta counter -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
     const app = initializeApp({
       apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
@@ -94,6 +94,70 @@
         el.style.display = isFull ? "" : "none";
       });
     });
+
+    /* ── Waitlist: uloženie emailu do Firestore ── */
+    window.submitWaitlist = async function(btn) {
+      const form = btn.closest('.waitlist-inline, .cta-waitlist');
+      const input = form.querySelector('.waitlist-input');
+      const email = input.value.trim().toLowerCase();
+      const success = form.querySelector('.waitlist-success');
+
+      // Validácia
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.style.borderColor = '#dc2626';
+        input.focus();
+        return;
+      }
+
+      // Lokálna ochrana proti duplicite (rýchla, bez server call)
+      if (localStorage.getItem('gerlach_waitlist')) {
+        form.querySelector('.waitlist-row').style.display = 'none';
+        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+        if (success) {
+          success.textContent = '✓ Tento email už máme — ozveme sa!';
+          success.style.display = 'block';
+        }
+        return;
+      }
+
+      btn.textContent = '...';
+      btn.disabled = true;
+      input.disabled = true;
+
+      try {
+        // Email ako document ID (automatická deduplikácia)
+        const docId = email.replace(/[.#$/\[\]]/g, '_');
+        const ref = doc(db, 'waitlist', docId);
+
+        // setDoc na nový dokument = create (pravidlá povolia)
+        // setDoc na existujúci dokument = update (pravidlá zablokujú → catch)
+        await setDoc(ref, {
+          email: email,
+          timestamp: new Date().toISOString(),
+          source: window.location.pathname.includes('app') ? 'app' : 'web'
+        });
+
+        // Úspech — nový zápis
+        form.querySelector('.waitlist-row').style.display = 'none';
+        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+        if (success) success.style.display = 'block';
+        localStorage.setItem('gerlach_waitlist', email);
+
+      } catch (err) {
+        // Permission denied = dokument už existuje (update zablokovaný)
+        // Alebo iná chyba — v oboch prípadoch zobrazíme success
+        console.warn('Waitlist:', err.code || err.message);
+        form.querySelector('.waitlist-row').style.display = 'none';
+        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+        if (success) {
+          success.textContent = err.code === 'permission-denied'
+            ? '✓ Tento email už máme — ozveme sa!'
+            : '✓ Ďakujeme! Ozveme sa.';
+          success.style.display = 'block';
+        }
+        localStorage.setItem('gerlach_waitlist', email);
+      }
+    };
   </script>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -1269,7 +1333,7 @@
 <input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
 <button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Pošlite mi pozvánku</button>
 </div>
-<p class="waitlist-micro">Bez spamu. Ozveme sa len vtedy, keď sa uvoľnia miesta. Odhlásenie jedným klikom.</p>
+<p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline;">ochrana údajov</a>). Odhlásenie jedným klikom.</p>
 <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
 </div>
 <!-- Demo stále funguje aj pri plnej beta -->
@@ -1680,7 +1744,7 @@
 <input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
 <button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Zapísať sa</button>
 </div>
-<p class="waitlist-micro">Bez spamu. Ozveme sa len vtedy, keď sa uvoľnia miesta. Odhlásenie jedným klikom.</p>
+<p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline;">ochrana údajov</a>). Odhlásenie jedným klikom.</p>
 <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
 <div style="margin-top:1rem;">
 <a class="btn btn-ghost" href="./app.html" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo</a>
@@ -1758,36 +1822,6 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
-
-  /* ── Whitelist submit ──
-     Predpoklad: Whitelist sa uloží do Firestore collection "waitlist".
-     Zatiaľ front-end only s localStorage ochranou proti duplicitám. */
-  function submitWaitlist(btn) {
-    const form = btn.closest('.waitlist-inline, .cta-waitlist');
-    const input = form.querySelector('.waitlist-input');
-    const email = input.value.trim();
-    const success = form.querySelector('.waitlist-success');
-
-    if (!email || !email.includes('@')) {
-      input.style.borderColor = '#dc2626';
-      input.focus();
-      return;
-    }
-
-    /* Predpoklad: tu by bol fetch na backend/Firestore.
-       Zatiaľ simulujeme success. */
-    btn.textContent = '...';
-    btn.disabled = true;
-
-    setTimeout(() => {
-      form.querySelector('.waitlist-row').style.display = 'none';
-      form.querySelector('.waitlist-micro').style.display = 'none';
-      if (success) {
-        success.style.display = 'block';
-      }
-      localStorage.setItem('gerlach_waitlist', email);
-    }, 600);
-  }
 </script>
 <!-- ════════════════════════════════════════════════════
      COOKIE BANNER
