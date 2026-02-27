@@ -58,7 +58,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
+import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
 const app = initializeApp({
   apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
   authDomain: "bez-paniky.firebaseapp.com",
@@ -69,7 +69,7 @@ const db = getFirestore(app);
 // App Check (reCAPTCHA v3)
 if (location.hostname === 'localhost') { self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; }
 initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider('6LeN2HksAAAAAH_Urnmy61VGqP8JfTxAG1hsyBI1'),
+  provider: new ReCaptchaEnterpriseProvider('6Le3B3osAAAAAOFa4BAO3kt21ikSxUjpnArMKOJK'),
   isTokenAutoRefreshEnabled: true
 });
 const MAX = 200;
