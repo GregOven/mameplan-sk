@@ -46,7 +46,7 @@
 <!-- Firebase: Live beta counter -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 const app = initializeApp({
   apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
   authDomain: "bez-paniky.firebaseapp.com",
@@ -65,10 +65,38 @@ onSnapshot(doc(db, "meta", "stats"), (snap) => {
   document.querySelectorAll(".js-when-open").forEach(el => { el.style.display = isFull ? "none" : ""; });
   document.querySelectorAll(".js-when-full").forEach(el => { el.style.display = isFull ? "" : "none"; });
 });
+/* Waitlist: save email to Firestore */
+window.submitWaitlist = async function(btn) {
+  const form = btn.closest('.waitlist-inline, .cta-waitlist');
+  const input = form.querySelector('.waitlist-input');
+  const email = input.value.trim().toLowerCase();
+  const success = form.querySelector('.waitlist-success');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.style.borderColor = '#dc2626'; input.focus(); return; }
+  if (localStorage.getItem('gerlach_waitlist')) {
+    form.querySelector('.waitlist-row').style.display = 'none';
+    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+    if (success) { success.textContent = '✓ Tento email už máme — ozveme sa!'; success.style.display = 'block'; }
+    return;
+  }
+  btn.textContent = '...'; btn.disabled = true; input.disabled = true;
+  try {
+    const docId = email.replace(/[.#$/\[\]]/g, '_');
+    await setDoc(doc(db, 'waitlist', docId), { email, timestamp: new Date().toISOString(), source: 'web' });
+    form.querySelector('.waitlist-row').style.display = 'none';
+    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+    if (success) success.style.display = 'block';
+    localStorage.setItem('gerlach_waitlist', email);
+  } catch (err) {
+    form.querySelector('.waitlist-row').style.display = 'none';
+    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+    if (success) { success.textContent = err.code === 'permission-denied' ? '✓ Tento email už máme — ozveme sa!' : '✓ Ďakujeme! Ozveme sa.'; success.style.display = 'block'; }
+    localStorage.setItem('gerlach_waitlist', email);
+  }
+};
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600;1,6..72,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700;1,9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════════════════════════
    CONCEPT B — REFINED
@@ -101,7 +129,7 @@ onSnapshot(doc(db, "meta", "stats"), (snap) => {
   --r: 0.875rem;
   --r-lg: 1.25rem;
   --r-xl: 1.5rem;
-  --serif: 'Newsreader', Georgia, serif;
+  --serif: 'Fraunces', Georgia, serif;
   --sans: 'Outfit', system-ui, sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -131,25 +159,51 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 /* ── Nav ── */
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 .nav-inner{max-width:1120px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative}
-.nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:700;letter-spacing:-0.02em;color:var(--moss)}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:800;letter-spacing:-0.02em;color:var(--moss)}
 .nav-links{display:flex;gap:1.75rem}
 .nav-link{font-size:0.82rem;font-weight:500;color:var(--muted);transition:color 0.15s}
 .nav-link:hover{color:var(--ink)}
 .nav-right{display:flex;gap:0.5rem;align-items:center}
 
-/* ── Beta counter pill ── */
-.beta-pill{display:inline-flex;align-items:center;gap:0.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:0.25rem 0.75rem;font-size:0.68rem;color:var(--muted);font-weight:500;white-space:nowrap}
-.beta-pill-bar{width:40px;height:4px;background:var(--border);border-radius:99px;overflow:hidden}
-.beta-pill-bar-fill{height:100%;border-radius:99px;background:var(--moss);transition:width 0.6s ease}
-.beta-pill strong{color:var(--moss);font-weight:700}
+/* ── Beta counter pill — dynamic design ── */
+.beta-pill{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,rgba(30,58,95,0.08) 0%,rgba(190,45,62,0.06) 100%);border:1.5px solid rgba(30,58,95,0.15);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.7rem;color:var(--ink2);font-weight:500;white-space:nowrap;position:relative;overflow:hidden}
+.beta-pill::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(190,45,62,0.04) 50%,transparent 100%);animation:betaShimmer 3s ease-in-out infinite;pointer-events:none}
+@keyframes betaShimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
+.beta-pill-label{font-weight:600;color:var(--ink);letter-spacing:-0.01em}
+.beta-pill-bar{width:44px;height:5px;background:rgba(30,58,95,0.1);border-radius:99px;overflow:hidden}
+.beta-pill-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--moss),var(--red));transition:width 0.6s ease}
+.beta-pill-count{font-weight:700;color:var(--red);font-size:0.72rem}
+.beta-pill-of{color:var(--muted);font-weight:400}
 .hero-beta{margin-bottom:0.75rem}
+
+/* ── Waitlist form ── */
+.waitlist-inline{display:none;flex-direction:column;gap:0.625rem;max-width:380px;margin:0 auto}
+.waitlist-row{display:flex;gap:0.5rem}
+.waitlist-input{flex:1;padding:0.65rem 0.875rem;border:1.5px solid var(--border);border-radius:var(--r);font-family:var(--sans);font-size:0.85rem;background:var(--surface);color:var(--ink);transition:border-color 0.15s}
+.waitlist-input:focus{outline:none;border-color:var(--moss)}
+.waitlist-input::placeholder{color:#a39e98}
+.waitlist-micro{font-size:0.7rem;color:var(--muted);font-weight:300;line-height:1.5}
+.waitlist-micro a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.waitlist-success{display:none;padding:0.65rem 0.875rem;background:rgba(30,58,95,0.06);border:1px solid rgba(30,58,95,0.15);border-radius:var(--r);font-size:0.82rem;color:var(--moss);font-weight:500}
+.cta-waitlist{display:none;max-width:400px;margin:0 auto}
+.cta-waitlist .waitlist-input{background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.15)}
+.cta-waitlist .waitlist-input::placeholder{color:rgba(255,255,255,0.35)}
+.cta-waitlist .waitlist-input:focus{border-color:var(--red)}
+.cta-waitlist .waitlist-micro{color:rgba(255,255,255,0.35)}
+.cta-waitlist .waitlist-success{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.8)}
+
+/* ── Sticky mobile CTA bar ── */
+.sticky-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(245,243,238,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:0.75rem 1rem;z-index:90;transform:translateY(100%);transition:transform 0.3s}
+.sticky-bar.show{transform:none}
+.sticky-bar-inner{display:flex;gap:0.5rem;max-width:480px;margin:0 auto}
+.sticky-bar .btn{flex:1;justify-content:center;font-size:0.875rem;padding:0.7rem 1rem}
 
 /* ═══════ HERO ═══════ */
 .hero{padding:3.5rem 0 0;text-align:center}
 .hero-chip{display:inline-flex;align-items:center;gap:0.5rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.75rem;font-weight:600;color:var(--moss);margin-bottom:1.25rem}
 .hero-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 3px rgba(30,58,95,0.15)}
-.hero h1{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:700;line-height:1.1;letter-spacing:-0.025em;max-width:720px;margin:0 auto 1rem}
-.hero h1 em{font-style:italic;color:var(--red);font-weight:700}
+.hero h1{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:900;line-height:1.1;letter-spacing:-0.025em;max-width:720px;margin:0 auto 1rem}
+.hero h1 em{font-style:italic;color:var(--red);font-weight:800}
 .hero-sub{font-size:1.0625rem;color:var(--ink2);font-weight:300;line-height:1.75;max-width:560px;margin:0 auto 1.5rem}
 .hero-sub strong{font-weight:600;color:var(--ink)}
 .hero-ctas{display:flex;align-items:center;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.625rem}
@@ -170,7 +224,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 /* Hero frame: equal height columns + fog */
 .hero-frame-body-grid{position:relative}
 .hero-frame-body-grid>.app-card,
-.hero-frame-body-grid>.app-modal{display:flex;flex-direction:column;min-height:0;max-height:340px;overflow:hidden}
+.hero-frame-body-grid>.app-modal{display:flex;flex-direction:column;min-height:0;max-height:380px;overflow:hidden}
 .hero-frame-body-grid::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--bg) 0%,rgba(236,234,228,0.85) 40%,transparent 100%);pointer-events:none;z-index:2;border-radius:0 0 0 0}
 
 /* ═══════ APP UI COMPONENTS ═══════ */
@@ -234,7 +288,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .section{padding:4.5rem 0}
 .section-alt{background:var(--surface)}
 .sec-overline{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.625rem}
-.sec-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.125rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.sec-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.125rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
 .sec-sub{font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:520px}
 .text-center{text-align:center}
 .mx-auto{margin-left:auto;margin-right:auto}
@@ -249,7 +303,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .showcase-half>div{display:flex;flex-direction:column}
 .showcase-half>div .app-frame{margin-top:auto}
 .showcase-label{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--red);margin-bottom:0.375rem}
-.showcase-title{font-family:var(--serif);font-size:1.375rem;font-weight:700;line-height:1.2;margin-bottom:0.5rem}
+.showcase-title{font-family:var(--serif);font-size:1.375rem;font-weight:800;line-height:1.2;margin-bottom:0.5rem}
 .showcase-desc{font-size:0.9rem;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:0.75rem}
 .showcase-detail{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;padding:0.5rem 0.75rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:var(--r);margin-bottom:0.375rem}
 .showcase-detail strong{font-weight:600;color:var(--moss)}
@@ -312,7 +366,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .cta-section{background:var(--ink);color:#fff;position:relative;overflow:hidden}
 .cta-section::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(190,45,62,0.08) 0%,transparent 65%);top:-250px;right:-100px;pointer-events:none}
 .cta-inner{text-align:center;max-width:540px;margin:0 auto;position:relative}
-.cta-section h2{font-family:var(--serif);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;line-height:1.1;margin-bottom:0.75rem}
+.cta-section h2{font-family:var(--serif);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;line-height:1.1;margin-bottom:0.75rem}
 .cta-section h2 em{font-style:italic;color:var(--red)}
 .cta-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:1.5rem}
 .cta-note{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:1rem}
@@ -366,6 +420,13 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
   .wrap{padding:0 1.25rem}
   .footer-inner{flex-direction:column;align-items:center;text-align:center}
   .showcase{padding:2rem 0}
+  .sticky-bar{display:block}
+  .sticky-bar .btn{font-size:0.8125rem;padding:0.625rem 0.875rem}
+  .waitlist-inline{max-width:100%}
+  .waitlist-row{flex-direction:column}
+  .waitlist-row .btn{justify-content:center}
+  .cta-waitlist .waitlist-row{flex-direction:column}
+  .cookie-banner.show ~ .sticky-bar.show{display:none}
 }
 </style>
 </head>
@@ -386,10 +447,10 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
   <div class="hero-chip rv"><span class="hero-chip-dot"></span> 🇸🇰 Slovenský projekt</div>
   <!-- Beta counter (hero) -->
   <div class="beta-pill hero-beta rv rv-d1">
-    <span>Beta v0.1</span>
+    <span class="beta-pill-label">Beta v0.1</span>
     <div class="beta-pill-bar"><div class="beta-pill-bar-fill js-bar" style="width:0%"></div></div>
-    <strong><span class="js-free">–</span></strong>
-    <span>voľných registrácií z 200</span>
+    <span class="beta-pill-count"><span class="js-free">–</span></span>
+    <span class="beta-pill-of">voľných z 200</span>
   </div>
   <h1 class="rv rv-d2">Prvý slovenský online sprievodca pre <em>krízové situácie</em></h1>
   <p class="hero-sub rv rv-d3">Aplikácia Gerlach <strong>vypočíta zásoby</strong> podľa špecifikácií vašej rodiny, <strong>upozorní na expirácie</strong>, informuje o postupoch v krízových situáciách a mnoho iného. Jeden klik — funguje okamžite.</p>
@@ -397,10 +458,24 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
     <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
     <a class="btn btn-lg btn-outline" href="./app.html">Vyskúšať demo</a>
   </div>
+  <!-- Waitlist form (visible only when beta is full) -->
+  <div class="waitlist-inline js-when-full" id="heroWaitlist" role="form" aria-label="Čakací zoznam">
+    <p style="font-size:0.88rem;font-weight:500;margin-bottom:0.2rem">Beta je aktuálne plná — ďakujeme za záujem.</p>
+    <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:0.5rem">Nechajte nám email a pošleme vám pozvánku, keď otvoríme ďalšie miesta.</p>
+    <div class="waitlist-row">
+      <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
+      <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Pošlite mi pozvánku</button>
+    </div>
+    <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov">ochrana údajov</a>).</p>
+    <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
+  </div>
+  <div class="js-when-full" style="display:none;margin-top:0.5rem">
+    <a class="btn btn-sm btn-outline" href="./app.html">Medzitým vyskúšajte demo</a>
+  </div>
   <p class="hero-note rv rv-d4">Bez inštalácie · Demo bez registrácie · Google prihlásenie na plnú verziu</p>
 
   <!-- ═══════ HERO PRODUCT SCREENSHOT ═══════ -->
-  <div class="app-frame rv rv-d3" style="max-width:960px;margin:0 auto">
+  <div class="app-frame rv rv-d3" style="max-width:1040px;margin:0 auto">
     <div class="app-frame-bar">
       <div class="app-frame-dots"><span></span><span></span><span></span></div>
       <div class="app-frame-url">🔒 mameplan.sk/app</div>
@@ -495,7 +570,7 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
         <div class="showcase-detail"><span>Kalkulátor na <strong>7 kategórií</strong> — voda, jedlo, lieky, hygiena, peniaze...</span></div>
       </div>
       <div class="showcase-visual">
-        <div class="app-frame rounded" style="max-width:400px">
+        <div class="app-frame rounded">
           <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
           <div class="app-frame-body">
             <div class="app-card" style="margin:0">
@@ -698,7 +773,18 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
   <p class="cta-sub rv rv-d1">Gerlach otvoríte v prehliadači a za pár minút budete mať prehľad o tom, ako je vaša domácnosť pripravená.</p>
   <div class="rv rv-d2" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem">
     <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
-    <a href="./app.html" style="color:rgba(255,255,255,0.4);font-size:0.85rem">alebo vyskúšajte demo bez registrácie</a>
+    <a class="js-when-open" href="./app.html" style="color:rgba(255,255,255,0.4);font-size:0.85rem">alebo vyskúšajte demo bez registrácie</a>
+  </div>
+  <!-- CTA Waitlist (visible only when beta full) -->
+  <div class="cta-waitlist js-when-full" role="form" aria-label="Čakací zoznam">
+    <p style="font-size:0.95rem;margin-bottom:0.625rem;color:rgba(255,255,255,0.75)">Beta je plná. Nechajte email — dáme vedieť.</p>
+    <div class="waitlist-row">
+      <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
+      <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Zapísať sa</button>
+    </div>
+    <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline">ochrana údajov</a>).</p>
+    <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
+    <div style="margin-top:0.75rem"><a href="./app.html" style="color:rgba(255,255,255,0.45);font-size:0.85rem">Medzitým vyskúšajte demo</a></div>
   </div>
   <p class="cta-note rv rv-d3">Vaše dáta sa uložia do vášho konta. Každý používateľ vidí iba svoje údaje.</p>
 </div></div>
@@ -710,6 +796,14 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
   <span class="footer-text">🇸🇰 Mámeplán.sk © <span id="fy"></span> — Zadarmo pre verejnosť</span>
   <div class="footer-links"><a class="footer-link" href="./app.html">Aplikácia</a><a class="footer-link" href="./pravne-info.html">Právne info</a><a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a><a class="footer-link js-ce" href="#">Kontakt</a></div>
 </div></footer>
+
+<!-- ═══════ STICKY MOBILE CTA BAR ═══════ -->
+<div class="sticky-bar" id="stickyBar" aria-label="Rýchle akcie">
+  <div class="sticky-bar-inner">
+    <a class="btn btn-outline" href="./app.html">Demo</a>
+    <a class="btn btn-red js-when-open" href="./app.html">Spustiť</a>
+  </div>
+</div>
 
 <!-- ═══════ COOKIE BANNER ═══════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
@@ -731,6 +825,19 @@ document.getElementById('fy').textContent=new Date().getFullYear();
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}});},{threshold:0.1});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 function toggleMod(el){document.querySelectorAll('.mod-card.open').forEach(c=>{if(c!==el)c.classList.remove('open')});el.classList.toggle('open')}
+// Sticky mobile CTA bar
+(function(){
+  const sticky=document.getElementById('stickyBar');
+  if(!sticky)return;
+  let shown=false;
+  window.addEventListener('scroll',function(){
+    if(!shown&&scrollY>innerHeight*0.5){sticky.classList.add('show');shown=true;}
+  },{passive:true});
+  const heroCtas=document.querySelector('.hero-ctas');
+  if(heroCtas){new IntersectionObserver(function(entries){
+    sticky.classList.toggle('show',!entries[0].isIntersecting&&shown);
+  }).observe(heroCtas);}
+})();
 // Cookie consent
 (function(){if(!localStorage.getItem('gerlach_cookie_consent')){setTimeout(function(){document.getElementById('cookieBanner').classList.add('show');},1200);}})();
 function acceptAllCookies(){localStorage.setItem('gerlach_cookie_consent','all');localStorage.setItem('gerlach_cookie_analytics','true');document.getElementById('cookieBanner').classList.remove('show');}
