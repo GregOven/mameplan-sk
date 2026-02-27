@@ -2446,6 +2446,8 @@
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
   import { getAnalytics, logEvent, setAnalyticsCollectionEnabled }
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+  import { initializeAppCheck, ReCaptchaV3Provider }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
 
   // ── Firebase config ──────────────────────────────────────────────
   // Demo mode: ?mode=demo v URL
@@ -2468,6 +2470,13 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
+
+  // ── App Check (reCAPTCHA v3) ──────────────────────────────────
+  if (location.hostname === 'localhost') { self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; }
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6LeN2HksAAAAAH_Urnmy61VGqP8JfTxAG1hsyBI1'),
+    isTokenAutoRefreshEnabled: true
+  });
 
   // ── Firebase Analytics (consent-based) ─────────────────────────
   // Analytics sa inicializuje hneď, ale zber dát je VYPNUTÝ.
