@@ -47,12 +47,19 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
 const app = initializeApp({
   apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
   authDomain: "bez-paniky.firebaseapp.com",
   projectId: "bez-paniky"
 });
 const db = getFirestore(app);
+// App Check (reCAPTCHA v3)
+if (location.hostname === 'localhost') { self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; }
+initializeAppCheck(app, {
+  provider: new ReCaptchaV3Provider('6LeN2HksAAAAAH_Urnmy61VGqP8JfTxAG1hsyBI1'),
+  isTokenAutoRefreshEnabled: true
+});
 const MAX = 200;
 onSnapshot(doc(db, "meta", "stats"), (snap) => {
   const count = snap.exists() ? (snap.data().registeredUsers || 0) : 0;
