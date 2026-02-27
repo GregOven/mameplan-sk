@@ -2457,7 +2457,7 @@
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
   import { getAnalytics, logEvent, setAnalyticsCollectionEnabled }
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
-  import { initializeAppCheck, ReCaptchaV3Provider }
+  import { initializeAppCheck, ReCaptchaEnterpriseProvider }
     from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js";
 
   // ── Firebase config ──────────────────────────────────────────────
@@ -2485,7 +2485,7 @@
   // ── App Check (reCAPTCHA v3) ──────────────────────────────────
   if (location.hostname === 'localhost') { self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; }
   initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider('6LeN2HksAAAAAH_Urnmy61VGqP8JfTxAG1hsyBI1'),
+    provider: new ReCaptchaEnterpriseProvider('6Le3B3osAAAAAOFa4BAO3kt21ikSxUjpnArMKOJK'),
     isTokenAutoRefreshEnabled: true
   });
 
