@@ -1,1869 +1,740 @@
 <!DOCTYPE html>
-
 <html lang="sk">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
-<!-- SEO: Title + Description -->
-<title>Mámeplán – pripravenosť domácnosti na krízové situácie</title>
-<meta content="Bezplatná slovenská aplikácia, ktorá vypočíta zásoby pre vašu rodinu, hlída expirácie a uloží núdzové plány. Vyskúšajte demo bez registrácie." name="description"/>
-<!-- SEO: Canonical -->
-<link href="https://mameplan.sk/" rel="canonical"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Mámeplán – prvý slovenský online sprievodca pre krízové situácie</title>
+<meta name="description" content="Bezplatná slovenská aplikácia Gerlach. Vypočíta zásoby pre vašu rodinu, upozorní na expirácie, informuje o postupoch v krízových situáciách. Vyskúšajte demo bez registrácie."/>
+<link rel="canonical" href="https://mameplan.sk/"/>
 <!-- OpenGraph -->
-<meta content="website" property="og:type"/>
-<meta content="https://mameplan.sk/" property="og:url"/>
-<meta content="Mámeplán – Vie vaša rodina, čo má doma pre prípad núdze?" property="og:title"/>
-<meta content="Bezplatná SK appka: vypočíta zásoby, hlída expirácie, uloží núdzový plán. Vyskúšajte demo bez registrácie." property="og:description"/>
-<meta content="sk_SK" property="og:locale"/>
-<meta content="Mámeplán" property="og:site_name"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://mameplan.sk/"/>
+<meta property="og:title" content="Mámeplán – Prvý slovenský online sprievodca pre krízové situácie"/>
+<meta property="og:description" content="Bezplatná SK appka Gerlach: zásoby, expirácie, núdzové postupy. Demo bez registrácie."/>
+<meta property="og:locale" content="sk_SK"/>
+<meta property="og:site_name" content="Mámeplán"/>
 <!-- Twitter Card -->
-<meta content="summary_large_image" name="twitter:card"/>
-<meta content="Mámeplán – Pripravenosť rodiny na jednom mieste" name="twitter:title"/>
-<meta content="Bezplatná SK appka: zásoby, expirácie, núdzový plán. Demo bez registrácie." name="twitter:description"/>
-<!-- Schema.org: WebSite + SoftwareApplication -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Mámeplán – Pripravenosť rodiny na jednom mieste"/>
+<meta name="twitter:description" content="Bezplatná SK appka Gerlach: zásoby, expirácie, núdzové postupy. Demo bez registrácie."/>
+<!-- Schema.org -->
 <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "Mámeplán",
-        "url": "https://mameplan.sk/",
-        "description": "Slovenská aplikácia pre pripravenosť domácnosti na krízové situácie",
-        "inLanguage": "sk"
-      },
-      {
-        "@type": "SoftwareApplication",
-        "name": "Gerlach",
-        "applicationCategory": "LifestyleApplication",
-        "operatingSystem": "Web",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "EUR"
-        },
-        "description": "Aplikácia na sledovanie zásob, expirácií a núdzových plánov pre slovenské domácnosti",
-        "inLanguage": "sk",
-        "author": {
-          "@type": "Person",
-          "name": "Miloš",
-          "jobTitle": "Zakladateľ projektu Mámeplán"
-        }
-      }
-    ]
-  }
-  </script>
-<!-- Predpoklad: favicon existuje v /favicon.ico -->
-<link href="/favicon.ico" rel="icon" sizes="any"/>
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Mámeplán",
+      "url": "https://mameplan.sk/",
+      "description": "Slovenská aplikácia pre pripravenosť domácnosti na krízové situácie",
+      "inLanguage": "sk"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Gerlach",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+      "description": "Aplikácia na sledovanie zásob, expirácií a núdzových plánov pre slovenské domácnosti",
+      "inLanguage": "sk",
+      "author": { "@type": "Person", "name": "Miloš", "jobTitle": "Zakladateľ projektu Mámeplán" }
+    }
+  ]
+}
+</script>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
 <!-- Firebase: Live beta counter -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-    const app = initializeApp({
-      apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
-      authDomain: "bez-paniky.firebaseapp.com",
-      projectId: "bez-paniky"
-    });
-    const db = getFirestore(app);
-    const MAX = 200;
-
-    onSnapshot(doc(db, "meta", "stats"), (snap) => {
-      const count = snap.exists() ? (snap.data().registeredUsers || 0) : 0;
-      const free = Math.max(0, MAX - count);
-      const pct = Math.min(100, Math.round((count / MAX) * 100));
-
-      // Update all counter elements
-      document.querySelectorAll(".js-free").forEach(el => { el.textContent = free; });
-      document.querySelectorAll(".js-count").forEach(el => { el.textContent = count; });
-      document.querySelectorAll(".js-max").forEach(el => { el.textContent = MAX; });
-
-      // Beta bar
-      document.querySelectorAll(".js-bar").forEach(el => {
-        el.style.width = pct + "%";
-      });
-
-      /* ── UX: Switch medzi "launch app" a "whitelist" ──
-         Ak free === 0, schováme launch CTA a ukážeme whitelist form.
-         Demo tlačidlo ostáva vždy viditeľné. */
-      const isFull = free === 0;
-      document.querySelectorAll(".js-when-open").forEach(el => {
-        el.style.display = isFull ? "none" : "";
-      });
-      document.querySelectorAll(".js-when-full").forEach(el => {
-        el.style.display = isFull ? "" : "none";
-      });
-    });
-
-    /* ── Waitlist: uloženie emailu do Firestore ── */
-    window.submitWaitlist = async function(btn) {
-      const form = btn.closest('.waitlist-inline, .cta-waitlist');
-      const input = form.querySelector('.waitlist-input');
-      const email = input.value.trim().toLowerCase();
-      const success = form.querySelector('.waitlist-success');
-
-      // Validácia
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        input.style.borderColor = '#dc2626';
-        input.focus();
-        return;
-      }
-
-      // Lokálna ochrana proti duplicite (rýchla, bez server call)
-      if (localStorage.getItem('gerlach_waitlist')) {
-        form.querySelector('.waitlist-row').style.display = 'none';
-        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-        if (success) {
-          success.textContent = '✓ Tento email už máme — ozveme sa!';
-          success.style.display = 'block';
-        }
-        return;
-      }
-
-      btn.textContent = '...';
-      btn.disabled = true;
-      input.disabled = true;
-
-      try {
-        // Email ako document ID (automatická deduplikácia)
-        const docId = email.replace(/[.#$/\[\]]/g, '_');
-        const ref = doc(db, 'waitlist', docId);
-
-        // setDoc na nový dokument = create (pravidlá povolia)
-        // setDoc na existujúci dokument = update (pravidlá zablokujú → catch)
-        await setDoc(ref, {
-          email: email,
-          timestamp: new Date().toISOString(),
-          source: window.location.pathname.includes('app') ? 'app' : 'web'
-        });
-
-        // Úspech — nový zápis
-        form.querySelector('.waitlist-row').style.display = 'none';
-        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-        if (success) success.style.display = 'block';
-        localStorage.setItem('gerlach_waitlist', email);
-
-      } catch (err) {
-        // Permission denied = dokument už existuje (update zablokovaný)
-        // Alebo iná chyba — v oboch prípadoch zobrazíme success
-        console.warn('Waitlist:', err.code || err.message);
-        form.querySelector('.waitlist-row').style.display = 'none';
-        if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-        if (success) {
-          success.textContent = err.code === 'permission-denied'
-            ? '✓ Tento email už máme — ozveme sa!'
-            : '✓ Ďakujeme! Ozveme sa.';
-          success.style.display = 'block';
-        }
-        localStorage.setItem('gerlach_waitlist', email);
-      }
-    };
-  </script>
-<!-- Fonts -->
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+const app = initializeApp({
+  apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
+  authDomain: "bez-paniky.firebaseapp.com",
+  projectId: "bez-paniky"
+});
+const db = getFirestore(app);
+const MAX = 200;
+onSnapshot(doc(db, "meta", "stats"), (snap) => {
+  const count = snap.exists() ? (snap.data().registeredUsers || 0) : 0;
+  const free = Math.max(0, MAX - count);
+  const pct = Math.min(100, Math.round((count / MAX) * 100));
+  document.querySelectorAll(".js-free").forEach(el => { el.textContent = free; });
+  document.querySelectorAll(".js-count").forEach(el => { el.textContent = count; });
+  document.querySelectorAll(".js-bar").forEach(el => { el.style.width = pct + "%"; });
+  const isFull = free === 0;
+  document.querySelectorAll(".js-when-open").forEach(el => { el.style.display = isFull ? "none" : ""; });
+  document.querySelectorAll(".js-when-full").forEach(el => { el.style.display = isFull ? "" : "none"; });
+});
+</script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600&amp;family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600;1,6..72,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-    /* ═══════════════════════════════════════════
-       DESIGN TOKENS
-       Zachovaná pôvodná farebnosť, vyčistená.
-    ═══════════════════════════════════════════ */
-    :root {
-      --cream: #f5f0e8;
-      --paper: #faf8f4;
-      --ink: #1a1612;
-      --ink2: #3d3730;
-      --muted: #6b6560;
-      --accent: #c94f1a;
-      --accent-hover: #b5441a;
-      --accent-glow: rgba(201,79,26,0.22);
-      --accent-tint: rgba(201,79,26,0.06);
-      --green: #2a6b44;
-      --green-tint: rgba(42,107,68,0.08);
-      --border: #e2dbd0;
-      --surface: #ffffff;
-      --radius-sm: 0.75rem;
-      --radius-md: 1.125rem;
-      --radius-pill: 99px;
-    }
-
-    /* ═══════════════════════════════════════════
-       RESET + BASE
-    ═══════════════════════════════════════════ */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Lexend', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-
-    /* ═══════════════════════════════════════════
-       UTILITIES
-    ═══════════════════════════════════════════ */
-    .f { font-family: 'Fraunces', serif; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
-    .text-center { text-align: center; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-
-    /* Scroll reveal */
-    .rv { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
-    .rv.visible { opacity: 1; transform: none; }
-    .rv-d1 { transition-delay: 0.06s; }
-    .rv-d2 { transition-delay: 0.12s; }
-    .rv-d3 { transition-delay: 0.18s; }
-    @media (prefers-reduced-motion: reduce) {
-      .rv { transition: none; opacity: 1; transform: none; }
-    }
-
-    /* ═══════════════════════════════════════════
-       BUTTONS
-    ═══════════════════════════════════════════ */
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-family: 'Lexend', sans-serif; font-weight: 700;
-      border: none; cursor: pointer; transition: all 0.2s;
-      border-radius: var(--radius-pill); white-space: nowrap;
-    }
-    .btn-primary {
-      background: var(--accent); color: #fff;
-      padding: 0.875rem 2rem; font-size: 1rem;
-      box-shadow: 0 4px 18px var(--accent-glow);
-    }
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px var(--accent-glow);
-    }
-    .btn-secondary {
-      background: var(--surface); color: var(--ink);
-      padding: 0.875rem 2rem; font-size: 1rem;
-      border: 1.5px solid var(--border);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .btn-secondary:hover {
-      background: var(--cream);
-      border-color: #c5c0b8;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
-    .btn-sm {
-      padding: 0.6rem 1.25rem; font-size: 0.875rem;
-    }
-    .btn-ghost {
-      background: none; color: var(--ink2);
-      padding: 0.5rem 0; font-size: 0.9375rem;
-      font-weight: 400;
-      border-bottom: 1px solid transparent;
-    }
-    .btn-ghost:hover { border-color: var(--ink2); }
-
-    /* Nav demo link — clean, no border artifacts */
-    .nav-demo {
-      color: var(--muted);
-      font-size: 0.85rem; font-weight: 500;
-      padding: 0.5rem 0.875rem;
-      border-radius: var(--radius-pill);
-      transition: color 0.15s, background 0.15s;
-      font-family: 'Lexend', sans-serif;
-    }
-    .nav-demo:hover { color: var(--ink); background: var(--cream); }
-
-    /* Nav beta counter (desktop — centered) */
-    .nav-beta {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      display: flex; align-items: center; gap: 0.5rem;
-      background: var(--cream); border: 1px solid var(--border);
-      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
-      font-size: 0.72rem; color: var(--muted); font-weight: 500;
-    }
-    .nav-beta-bar {
-      width: 48px; height: 4px;
-      background: var(--border); border-radius: 99px; overflow: hidden;
-    }
-    .nav-beta-fill {
-      height: 100%; border-radius: 99px;
-      background: var(--accent); transition: width 0.6s ease;
-    }
-    .nav-beta strong { color: var(--green); font-weight: 700; }
-
-    /* SK flag micro-stripe in nav */
-    .nav::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #fff 0%, #fff 33.33%, #0b4ea2 33.33%, #0b4ea2 66.66%, #ee1c25 66.66%);
-      opacity: 0; transition: opacity 0.3s;
-    }
-    .nav.solid::after { opacity: 0.15; }
-
-    /* ═══════════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════════ */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      transition: background 0.3s, border 0.3s, backdrop-filter 0.3s;
-    }
-    .nav.solid {
-      background: rgba(250,248,244,0.95);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      max-width: 1080px; margin: 0 auto;
-      padding: 0 1.5rem; height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      position: relative;
-    }
-    .nav-logo {
-      font-family: 'Fraunces', serif;
-      font-size: 1.25rem; font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
-
-    /* Nav beta pill for mobile — hidden on desktop */
-    .nav-beta-mobile {
-      display: none; align-items: center; gap: 0.375rem;
-      background: var(--cream); border: 1px solid var(--border);
-      border-radius: var(--radius-pill); padding: 0.25rem 0.625rem;
-      font-size: 0.65rem; color: var(--muted); font-weight: 500;
-      white-space: nowrap;
-    }
-    .nav-beta-mobile strong { color: var(--green); font-weight: 700; }
-    .nav-beta-mobile .nav-beta-bar { width: 32px; }
-
-    /* ═══════════════════════════════════════════
-       HERO — Centered layout + dashboard preview
-    ═══════════════════════════════════════════ */
-    .hero {
-      padding: 8rem 0 0;
-      text-align: center;
-    }
-    .hero-overline {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--cream); border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.875rem;
-      font-size: 0.78rem; font-weight: 500; color: var(--muted);
-      margin-bottom: 1.5rem;
-    }
-    .hero-overline-dot {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--green);
-    }
-    .hero h1 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(2.5rem, 5vw, 3.75rem);
-      font-weight: 900; line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin: 0 auto 1.125rem;
-      max-width: 720px;
-    }
-    .hero h1 em { font-style: italic; color: var(--accent); }
-    .hero-sub {
-      font-size: 1.0625rem; color: var(--ink2);
-      font-weight: 300; line-height: 1.8;
-      max-width: 540px; margin: 0 auto 2rem;
-    }
-    .hero-sub strong { font-weight: 600; color: var(--ink); }
-    .hero-sub-mobile { display: none; }
-
-    .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 0.875rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-
-    /* Beta badge v hero (mobile/tablet only — matches nav-beta style) */
-    .beta-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      background: var(--cream); border: 1px solid var(--border);
-      border-radius: var(--radius-pill); padding: 0.3rem 0.75rem;
-      font-size: 0.72rem; color: var(--muted); font-weight: 500;
-    }
-    .beta-badge-label {
-      font-size: 0.72rem; font-weight: 500;
-      color: var(--muted);
-    }
-    .beta-badge-bar {
-      width: 48px; height: 4px;
-      background: var(--border); border-radius: 99px; overflow: hidden;
-    }
-    .beta-badge-fill {
-      height: 100%; border-radius: 99px;
-      background: var(--accent); transition: width 0.6s ease;
-    }
-    .beta-badge-num {
-      color: var(--green); font-weight: 700; font-size: 0.72rem;
-    }
-    .beta-badge-free {
-      font-size: 0.72rem; font-weight: 500; color: var(--muted);
-    }
-    .beta-badge-mobile { display: none; }
-
-    /* ═══════════════════════════════════════════
-       HERO DASHBOARD — Faithful app recreation
-       Based on real app screenshots.
-    ═══════════════════════════════════════════ */
-    .hero-dashboard-wrap {
-      max-width: 900px;
-      margin: 3rem auto -2rem;
-      perspective: 1800px;
-      position: relative;
-      z-index: 1;
-      max-height: 560px;
-      overflow: hidden;
-    }
-    .hero-dashboard-wrap::after {
-      content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 180px;
-      background: linear-gradient(to top, var(--paper) 15%, rgba(245,240,232,0.85) 40%, transparent 100%);
-      pointer-events: none; z-index: 3;
-    }
-
-    /* Browser chrome */
-    .dash-browser {
-      background: #f0ece6;
-      border: 1px solid var(--border);
-      border-radius: 1rem 1rem 0 0;
-      box-shadow: 0 -2px 40px rgba(26,23,20,0.06), 0 20px 60px rgba(26,23,20,0.10);
-      transform: rotateX(2deg);
-      transform-origin: center top;
-      overflow: hidden;
-    }
-    .dash-chrome {
-      display: flex; align-items: center; gap: 0.625rem;
-      padding: 0.625rem 1rem;
-      background: #e8e3db;
-      border-bottom: 1px solid var(--border);
-    }
-    .dash-chrome-dots { display: flex; gap: 5px; }
-    .dash-chrome-dots span { width: 10px; height: 10px; border-radius: 50%; }
-    .dash-chrome-dots span:nth-child(1) { background: #ff5f57; }
-    .dash-chrome-dots span:nth-child(2) { background: #febc2e; }
-    .dash-chrome-dots span:nth-child(3) { background: #28c840; }
-    .dash-url {
-      flex: 1; margin: 0 0.5rem;
-      background: #fff; border-radius: 6px;
-      padding: 0.3rem 0.75rem;
-      font-size: 0.7rem; color: var(--muted);
-      display: flex; align-items: center; gap: 0.375rem;
-    }
-    .dash-url-lock { font-size: 0.6rem; }
-
-    /* App content area */
-    .dash-app {
-      padding: 0;
-      background: var(--paper);
-    }
-
-    /* App header (matches real: Gerlach BETA V0.1 ... ● Uložené (M) Odhlásiť) */
-    .app-hdr {
-      display: flex; align-items: center;
-      padding: 0.625rem 1.25rem;
-      background: var(--paper);
-      border-bottom: 1px solid var(--border);
-    }
-    .app-hdr-logo {
-      font-family: 'Fraunces', serif; font-weight: 700;
-      font-size: 0.9rem; color: var(--ink);
-    }
-    .app-hdr-badge {
-      font-size: 0.5rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.06em;
-      background: #fef2f2; color: var(--accent);
-      border: 1px solid rgba(201,79,26,0.2);
-      padding: 0.1rem 0.4rem; border-radius: var(--radius-pill);
-      margin-left: 0.5rem;
-    }
-    .app-hdr-right {
-      margin-left: auto;
-      display: flex; align-items: center; gap: 0.625rem;
-      font-size: 0.7rem; color: var(--muted);
-    }
-    .app-hdr-sync {
-      display: flex; align-items: center; gap: 0.25rem;
-    }
-    .app-hdr-sync-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green);
-    }
-    .app-hdr-avatar {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: var(--ink); color: #fff;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', serif; font-size: 0.65rem; font-weight: 700;
-    }
-    .app-hdr-logout {
-      font-size: 0.7rem; color: var(--muted);
-      padding: 0.2rem 0.5rem;
-      border: 1px solid var(--border); border-radius: var(--radius-pill);
-    }
-
-    /* Tab nav */
-    .app-tabs {
-      display: flex; align-items: center;
-      padding: 0.375rem 1.25rem; gap: 0;
-      background: var(--paper);
-    }
-    .app-tab {
-      padding: 0.5rem 1.25rem;
-      font-size: 0.75rem; font-weight: 500;
-      color: var(--muted);
-      border-radius: var(--radius-pill);
-      display: flex; align-items: center; gap: 0.375rem;
-      white-space: nowrap;
-    }
-    .app-tab.active {
-      background: var(--ink); color: #fff;
-      font-weight: 600;
-    }
-
-    /* Readiness card */
-    .app-readiness {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.25rem 1.5rem;
-      margin: 1rem 1.25rem 0;
-    }
-    .app-readiness-top {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      margin-bottom: 0.375rem;
-    }
-    .app-readiness-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1rem; font-weight: 800; color: var(--ink);
-    }
-    .app-readiness-pct {
-      font-family: 'Fraunces', serif;
-      font-size: 1.5rem; font-weight: 900;
-      color: var(--accent); line-height: 1;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .app-readiness-edit {
-      font-size: 0.65rem; font-weight: 500;
-      padding: 0.2rem 0.625rem;
-      border: 1px solid var(--border); border-radius: var(--radius-pill);
-      color: var(--muted);
-    }
-    .app-readiness-bar {
-      width: 100%; height: 8px;
-      background: #ede9e3; border-radius: 99px;
-      overflow: hidden; margin-bottom: 0.375rem;
-    }
-    .app-readiness-bar-fill {
-      height: 100%; border-radius: 99px;
-      background: linear-gradient(90deg, var(--accent), #e8803a);
-    }
-    .app-readiness-msg {
-      font-size: 0.75rem; font-style: italic;
-      color: var(--muted); font-weight: 300;
-      margin-bottom: 0.5rem;
-    }
-    .app-readiness-tags {
-      display: flex; gap: 0.375rem; flex-wrap: wrap;
-    }
-    .app-readiness-tag {
-      display: inline-flex; align-items: center; gap: 0.25rem;
-      font-size: 0.65rem; font-weight: 500; color: var(--ink2);
-      background: var(--paper); border: 1px solid var(--border);
-      padding: 0.15rem 0.5rem; border-radius: var(--radius-pill);
-    }
-
-    /* Category section */
-    .app-cats-section {
-      padding: 1.25rem 1.25rem 0.5rem;
-    }
-    .app-cats-title {
-      font-family: 'Fraunces', serif;
-      font-size: 0.95rem; font-weight: 800; color: var(--ink);
-      margin-bottom: 0.15rem;
-    }
-    .app-cats-sub {
-      font-size: 0.72rem; color: var(--muted); font-weight: 300;
-      margin-bottom: 0.875rem;
-    }
-    .app-cats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.625rem;
-    }
-    .app-cat-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.875rem;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .app-cat-card:hover {
-      border-color: #c5c0b8;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-    }
-    .app-cat-card.highlighted {
-      border-color: var(--green);
-      border-width: 2px;
-    }
-    .app-cat-card.highlighted-orange {
-      border-color: var(--accent);
-      border-width: 2px;
-    }
-    .app-cat-top {
-      display: flex; align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-    }
-    .app-cat-emoji { font-size: 1.25rem; }
-    .app-cat-pct {
-      font-size: 0.85rem; font-weight: 800;
-      line-height: 1;
-    }
-    .app-cat-name {
-      font-size: 0.78rem; font-weight: 700; color: var(--ink);
-      margin-bottom: 0.15rem;
-    }
-    .app-cat-status {
-      font-size: 0.62rem; font-weight: 500;
-      margin-bottom: 0.375rem;
-    }
-    .app-cat-bar {
-      height: 4px; background: #ede9e3;
-      border-radius: 99px; overflow: hidden;
-    }
-    .app-cat-bar-fill {
-      height: 100%; border-radius: 99px;
-    }
-
-    /* Evakuačné batohy preview */
-    .app-batohy {
-      padding: 0 1.25rem 1.5rem;
-      margin-top: 0.875rem;
-    }
-    .app-batohy-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 0.15rem;
-    }
-    .app-batohy-title {
-      font-family: 'Fraunces', serif;
-      font-size: 0.95rem; font-weight: 800; color: var(--ink);
-      display: flex; align-items: center; gap: 0.375rem;
-    }
-    .app-batohy-sub {
-      font-size: 0.72rem; color: var(--muted); font-weight: 300;
-      margin-bottom: 0.75rem;
-    }
-    .app-batohy-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-    }
-    .app-batoh-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.75rem;
-    }
-    .app-batoh-top {
-      display: flex; align-items: center; gap: 0.375rem;
-      margin-bottom: 0.375rem;
-    }
-    .app-batoh-av {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: #fef2f2;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.6rem;
-    }
-    .app-batoh-name {
-      font-size: 0.72rem; font-weight: 700;
-    }
-    .app-batoh-meta {
-      font-size: 0.58rem; color: var(--muted); font-weight: 300;
-      margin-bottom: 0.375rem;
-    }
-    .app-batoh-bar {
-      height: 4px; background: #ede9e3;
-      border-radius: 99px; overflow: hidden;
-      margin-bottom: 0.15rem;
-    }
-    .app-batoh-bar-fill {
-      height: 100%; border-radius: 99px;
-    }
-    .app-batoh-count {
-      font-size: 0.6rem; font-weight: 700;
-      text-align: right;
-    }
-
-    /* Whitelist form (skrytý ak beta nie je plná) */
-    .waitlist-inline {
-      display: none; /* JS toggles this */
-      flex-direction: column; gap: 0.625rem;
-      max-width: 380px; margin: 0 auto;
-    }
-    .waitlist-row { display: flex; gap: 0.5rem; }
-    .waitlist-input {
-      flex: 1; padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border); border-radius: var(--radius-sm);
-      font-family: 'Lexend', sans-serif; font-size: 0.9rem;
-      background: var(--surface); color: var(--ink);
-      transition: border-color 0.15s;
-    }
-    .waitlist-input:focus { outline: none; border-color: var(--accent); }
-    .waitlist-input::placeholder { color: #a39e98; }
-    .waitlist-micro { font-size: 0.72rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
-    .waitlist-success {
-      display: none; padding: 0.75rem 1rem;
-      background: var(--green-tint); border: 1px solid rgba(42,107,68,0.2);
-      border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--green); font-weight: 500;
-    }
-
-    /* ═══════════════════════════════════════════
-       TRUST BAR
-    ═══════════════════════════════════════════ */
-    .trust-bar {
-      background: var(--cream);
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-      padding: 1rem 1.5rem;
-      position: relative;
-      z-index: 5;
-    }
-    .trust-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center;
-      gap: 1.75rem; flex-wrap: wrap;
-    }
-    .trust-item { display: flex; align-items: center; gap: 0.375rem; font-size: 0.85rem; color: var(--muted); }
-    .trust-item strong { color: var(--ink); font-weight: 600; }
-    .trust-sep { width: 1px; height: 16px; background: var(--border); }
-
-    /* ═══════════════════════════════════════════
-       SECTIONS
-    ═══════════════════════════════════════════ */
-    .section { padding: 5rem 1.5rem; }
-    .sec-overline {
-      font-size: 0.7rem; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 0.75rem;
-    }
-    .sec-title {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-      font-weight: 800; line-height: 1.1;
-      letter-spacing: -0.025em; margin-bottom: 0.875rem;
-    }
-    .sec-sub {
-      font-size: 1rem; color: var(--muted);
-      font-weight: 300; line-height: 1.75; max-width: 540px;
-    }
-    .sec-sub-center { margin: 0 auto; }
-
-    /* ═══════════════════════════════════════════
-       PREČO: 3 scenáre v jednom riadku
-    ═══════════════════════════════════════════ */
-    .why-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem; margin-top: 2.25rem;
-    }
-    .why-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 1.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .why-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.08); }
-    .why-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-    .why-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.375rem; }
-    .why-text { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
-
-    /* ═══════════════════════════════════════════
-       AKO TO FUNGUJE: 3 kroky
-    ═══════════════════════════════════════════ */
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; position: relative; }
-    .steps::before {
-      content: ''; position: absolute;
-      top: 26px; left: calc(16.67% + 26px); right: calc(16.67% + 26px);
-      height: 1px; background: var(--border);
-    }
-    .step { display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .step-num {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--surface); border: 2px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', serif; font-size: 1.25rem; font-weight: 800;
-      color: var(--accent); margin-bottom: 1rem;
-      position: relative; z-index: 1; transition: all 0.2s;
-    }
-    .step:hover .step-num { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .step-title { font-weight: 600; font-size: 0.9375rem; margin-bottom: 0.375rem; }
-    .step-text { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; max-width: 240px; }
-
-    /* ═══════════════════════════════════════════
-       FEATURES: 3 kľúčové
-    ═══════════════════════════════════════════ */
-    .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.5rem; }
-    .feat-grid-2 {
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 720px; margin: 1.25rem auto 0;
-    }
-    .feat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 1.5rem;
-      position: relative; overflow: hidden;
-      transition: all 0.22s;
-      box-shadow: 0 1px 4px rgba(26,22,18,0.04), 0 2px 8px rgba(26,22,18,0.03);
-    }
-    .feat-card::after {
-      content: ''; position: absolute;
-      bottom: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--accent), #e8803a);
-      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
-    }
-    .feat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.08); background: var(--surface); }
-    .feat-card:hover::after { transform: scaleX(1); }
-    .feat-icon {
-      width: 44px; height: 44px; border-radius: var(--radius-sm);
-      background: var(--accent-tint); border: 1px solid rgba(201,79,26,0.1);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem; margin-bottom: 1rem;
-    }
-    .feat-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.375rem; }
-    .feat-text { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
-
-    /* ═══════════════════════════════════════════
-       DEMO vs PLNÁ VERZIA
-    ═══════════════════════════════════════════ */
-    .compare {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-      margin-top: 2.5rem; max-width: 720px; margin-left: auto; margin-right: auto;
-    }
-    .compare-card {
-      border-radius: var(--radius-md); padding: 1.75rem;
-      display: flex; flex-direction: column;
-    }
-    .compare-card.demo {
-      background: var(--surface); border: 1.5px solid var(--border);
-    }
-    .compare-card.full {
-      background: var(--ink); color: #fff; border: 1.5px solid var(--ink);
-    }
-    .compare-badge {
-      display: inline-block; font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.2rem 0.625rem; border-radius: var(--radius-pill);
-      margin-bottom: 1rem; width: fit-content;
-    }
-    .compare-card.demo .compare-badge { background: var(--cream); color: var(--muted); }
-    .compare-card.full .compare-badge { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); }
-    .compare-title {
-      font-family: 'Fraunces', serif;
-      font-size: 1.25rem; font-weight: 800; margin-bottom: 0.75rem;
-    }
-    .compare-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; flex: 1; }
-    .compare-list li {
-      font-size: 0.85rem; font-weight: 300; line-height: 1.5;
-      display: flex; align-items: flex-start; gap: 0.5rem;
-    }
-    .compare-list li::before { content: '✓'; font-weight: 700; flex-shrink: 0; }
-    .compare-card.demo .compare-list li::before { color: var(--green); }
-    .compare-card.full .compare-list li::before { color: rgba(255,255,255,0.5); }
-    .compare-card.full .btn-primary { background: var(--accent); }
-
-    /* ═══════════════════════════════════════════
-       PRÍBEH
-    ═══════════════════════════════════════════ */
-    .story-section { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .story-text { font-size: 1rem; color: var(--ink2); font-weight: 300; line-height: 1.8; margin-bottom: 1rem; }
-    .story-quote {
-      border-left: 3px solid var(--accent); padding: 0.75rem 1.125rem;
-      background: var(--accent-tint); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      margin-top: 1.25rem;
-    }
-    .story-quote p {
-      font-family: 'Fraunces', serif; font-size: 1rem;
-      font-style: italic; font-weight: 300; line-height: 1.6; color: var(--ink2);
-    }
-    .author-row { display: flex; align-items: center; gap: 0.75rem; margin-top: 1.25rem; }
-    .author-av {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: var(--ink); display: flex; align-items: center; justify-content: center;
-      font-family: 'Fraunces', serif; font-size: 1.125rem; font-weight: 700; color: #fff;
-    }
-    .author-name { font-weight: 600; font-size: 0.875rem; }
-    .author-role { font-size: 0.75rem; color: var(--muted); }
-    .stats-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.875rem; }
-    .stat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius-md); padding: 1.125rem; text-align: center;
-    }
-    .stat-num { font-family: 'Fraunces', serif; font-size: 1.75rem; font-weight: 900; line-height: 1; margin-bottom: 0.25rem; }
-    .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 300; line-height: 1.45; }
-
-    /* ═══════════════════════════════════════════
-       FINAL CTA
-    ═══════════════════════════════════════════ */
-    .cta-section {
-      background: var(--ink); color: #fff;
-      overflow: hidden; position: relative;
-    }
-    .cta-section::before {
-      content: ''; position: absolute;
-      width: 500px; height: 500px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,79,26,0.12) 0%, transparent 70%);
-      top: -200px; right: -100px; pointer-events: none;
-    }
-    .cta-inner {
-      text-align: center; max-width: 560px;
-      margin: 0 auto; position: relative; z-index: 1;
-    }
-    .cta-section h2 {
-      font-family: 'Fraunces', serif;
-      font-size: clamp(1.875rem, 4.5vw, 3rem);
-      font-weight: 900; line-height: 1.05;
-      letter-spacing: -0.03em; margin-bottom: 1rem;
-    }
-    .cta-section h2 em { font-style: italic; color: #e8803a; }
-    .cta-section .sec-sub { color: rgba(255,255,255,0.55); margin: 0 auto 2rem; }
-    .cta-section .btn-primary { font-size: 1.0625rem; padding: 1rem 2.25rem; }
-    .cta-note {
-      margin-top: 1.25rem; font-size: 0.72rem;
-      color: rgba(255,255,255,0.3); line-height: 1.6;
-    }
-    /* Whitelist v CTA section */
-    .cta-waitlist {
-      display: none; /* JS toggles */
-      max-width: 400px; margin: 0 auto;
-    }
-    .cta-waitlist .waitlist-input {
-      background: rgba(255,255,255,0.08); color: #fff;
-      border-color: rgba(255,255,255,0.15);
-    }
-    .cta-waitlist .waitlist-input::placeholder { color: rgba(255,255,255,0.35); }
-    .cta-waitlist .waitlist-input:focus { border-color: var(--accent); }
-    .cta-waitlist .waitlist-micro { color: rgba(255,255,255,0.35); }
-
-    /* ═══════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════ */
-    .flag-line {
-      height: 3px;
-      background: linear-gradient(90deg, #fff 0%, #fff 33.33%, #0b4ea2 33.33%, #0b4ea2 66.66%, #ee1c25 66.66%);
-      opacity: 0.18;
-    }
-    footer {
-      padding: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-    .footer-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 0.75rem;
-    }
-    .footer-text { font-size: 0.78rem; color: var(--muted); }
-    .footer-links { display: flex; gap: 1.25rem; }
-    .footer-link { font-size: 0.78rem; color: var(--muted); transition: color 0.15s; }
-    .footer-link:hover { color: var(--ink); }
-
-    /* ═══════════════════════════════════════════
-       STICKY MOBILE CTA
-    ═══════════════════════════════════════════ */
-    .sticky-bar {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(250,248,244,0.97);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid var(--border);
-      padding: 0.75rem 1rem; z-index: 90;
-      transform: translateY(100%); transition: transform 0.3s;
-    }
-    .sticky-bar.show { transform: none; }
-    .sticky-bar-inner { display: flex; gap: 0.5rem; max-width: 480px; margin: 0 auto; }
-    .sticky-bar .btn { flex: 1; justify-content: center; font-size: 0.875rem; padding: 0.75rem 1rem; }
-
-    /* ═══════════════════════════════════════════
-       ACCESSIBILITY
-    ═══════════════════════════════════════════ */
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-    /* ═══════════════════════════════════════════
-       COOKIE BANNER
-    ═══════════════════════════════════════════ */
-    .cookie-banner {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      z-index: 200;
-      background: var(--ink);
-      color: rgba(255,255,255,0.85);
-      border-top: 1px solid rgba(255,255,255,0.1);
-      padding: 1rem 1.5rem;
-      transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .cookie-banner.show { transform: none; }
-    .cookie-banner-inner {
-      max-width: 1080px; margin: 0 auto;
-      display: flex; align-items: center; gap: 1.25rem;
-      flex-wrap: wrap;
-    }
-    .cookie-banner-text {
-      flex: 1; min-width: 260px;
-      font-size: 0.8rem; font-weight: 300; line-height: 1.6;
-    }
-    .cookie-banner-text a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-    .cookie-banner-text a:hover { color: #e8803a; }
-    .cookie-banner-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
-    .cookie-btn {
-      font-family: 'Lexend', sans-serif;
-      font-size: 0.78rem; font-weight: 600;
-      padding: 0.5rem 1.125rem;
-      border-radius: var(--radius-pill);
-      cursor: pointer; border: none;
-      transition: all 0.2s;
-    }
-    .cookie-btn-accept {
-      background: var(--accent); color: #fff;
-    }
-    .cookie-btn-accept:hover { background: var(--accent-hover); }
-    .cookie-btn-info {
-      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-    .cookie-btn-info:hover { background: rgba(255,255,255,0.15); color: #fff; }
-    @media (max-width: 640px) {
-      .cookie-banner { padding: 0.875rem 1.25rem 1rem; }
-      .cookie-banner-inner { gap: 0.75rem; }
-      .cookie-banner-text { font-size: 0.75rem; min-width: 100%; }
-      .cookie-banner-actions { width: 100%; }
-      .cookie-btn { flex: 1; justify-content: center; text-align: center; }
-      /* Ak je cookie banner aj sticky bar naraz — daj banner nad sticky */
-      .cookie-banner.show ~ .sticky-bar.show,
-      .cookie-banner.show + .sticky-bar.show { display: none; }
-    }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE — TABLET (641–1024px)
-    ═══════════════════════════════════════════ */
-    @media (max-width: 1024px) {
-      /* Hero: already centered, just adjust spacing */
-      .hero { padding-top: 6.5rem; }
-      .hero-dashboard-wrap { max-width: 100%; max-height: 500px; }
-      .dash-browser { transform: rotateX(1deg); }
-
-      /* Nav beta: hide on tablet */
-      .js-nav-beta { display: none; }
-
-      /* Beta badge: show on tablet below CTAs */
-      .beta-badge-mobile { display: inline-flex !important; }
-
-      /* Story: stack */
-      .story-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-
-      /* Why: 3 cols still fit on tablet, but tighter */
-      .why-grid { gap: 1rem; }
-
-      /* Steps: still 3 on tablet */
-      .steps { gap: 1.5rem; }
-
-      /* Features: top row 3, bottom row 2 still ok but tighter */
-      .feat-grid { gap: 1rem; }
-      .feat-grid-2 { gap: 1rem; }
-
-      /* Compare: stack on tablet */
-      .compare { grid-template-columns: 1fr; max-width: 480px; }
-
-      /* Stats: 2 cols on tablet */
-      .stats-row { gap: 0.75rem; }
-    }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE — SMALL TABLET (641–768px)
-    ═══════════════════════════════════════════ */
-    @media (max-width: 768px) {
-      /* Why: 1 col */
-      .why-grid { grid-template-columns: 1fr; }
-
-      /* Features: all 1 col */
-      .feat-grid { grid-template-columns: 1fr !important; }
-      .feat-grid-2 { grid-template-columns: 1fr !important; max-width: 100% !important; }
-
-      /* Steps: stack */
-      .steps { grid-template-columns: 1fr !important; }
-      .steps::before { display: none; }
-      .step-text { max-width: 100%; }
-
-      /* Stats */
-      .stats-row { grid-template-columns: 1fr !important; }
-
-      /* Dashboard: 2-col cats grid on small tablet */
-      .app-cats-grid { grid-template-columns: repeat(2, 1fr); }
-      .app-batohy-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE — MOBILE (≤640px)
-       Princíp: progressive disclosure — menej textu,
-       viac vzduchu, jasná hierarchia na prvý pohľad.
-    ═══════════════════════════════════════════ */
-    @media (max-width: 640px) {
-
-      /* ── Nav ── */
-      .nav-inner { padding: 0 1rem; height: 52px; }
-      .nav .btn-secondary { display: none; }
-      .js-nav-beta { display: none !important; }
-      .nav-demo { display: none; }
-      .nav-cta-launch { display: none !important; }
-      .nav-beta-mobile { display: flex !important; }
-
-      /* ── Layout: kompaktnejšie sekcie ── */
-      .section { padding: 2.5rem 1.25rem; }
-      .wrap { padding: 0 1.25rem; }
-
-      /* ── HERO: čistý, zaostrený ── */
-      .hero { padding: 4.5rem 0 0; }
-      .hero-overline { font-size: 0.72rem; padding: 0.25rem 0.75rem; margin-bottom: 1.25rem; }
-      .hero h1 { font-size: 1.75rem; margin-bottom: 0.75rem; line-height: 1.12; }
-
-      /* Subtitle: kratší, max 3 riadky */
-      .hero-sub {
-        font-size: 0.88rem; max-width: 100%;
-        margin-bottom: 1.25rem; line-height: 1.65;
-      }
-      .hero-sub-full { display: none; }
-      .hero-sub-mobile { display: inline; }
-
-      /* Hero CTA buttons — side by side, kompaktné */
-      .hero-ctas {
-        flex-direction: row; align-items: stretch;
-        gap: 0.5rem; margin-bottom: 1rem;
-      }
-      .hero-ctas .btn {
-        justify-content: center; flex: 1;
-        font-size: 0.875rem; padding: 0.75rem 0.5rem;
-      }
-
-      /* Beta badge: skryť z hero (je v nav) */
-      .beta-badge-mobile { display: none !important; }
-
-      /* Dashboard preview: menší, len naznačenie */
-      .hero-dashboard-wrap {
-        margin-top: 1.75rem; max-height: 320px; margin-bottom: -1.5rem;
-      }
-      .hero-dashboard-wrap::after {
-        height: 140px;
-        background: linear-gradient(to top, var(--paper) 20%, rgba(245,240,232,0.9) 50%, transparent 100%);
-      }
-      .dash-browser { transform: none; border-radius: 0.75rem 0.75rem 0 0; }
-      .dash-chrome { padding: 0.35rem 0.625rem; }
-      .dash-chrome-dots span { width: 7px; height: 7px; }
-      .dash-url { font-size: 0.55rem; padding: 0.15rem 0.4rem; }
-      .app-hdr { padding: 0.4rem 0.625rem; }
-      .app-hdr-logo { font-size: 0.7rem; }
-      .app-hdr-badge { font-size: 0.4rem; padding: 0.05rem 0.3rem; }
-      .app-hdr-right { gap: 0.3rem; font-size: 0.55rem; }
-      .app-hdr-avatar { width: 18px; height: 18px; font-size: 0.5rem; }
-      .app-hdr-logout { font-size: 0.55rem; padding: 0.1rem 0.3rem; }
-      .app-tabs { padding: 0.2rem 0.625rem; }
-      .app-tab { font-size: 0.6rem; padding: 0.3rem 0.6rem; }
-      .app-readiness { margin: 0.5rem 0.625rem 0; padding: 0.625rem 0.75rem; }
-      .app-readiness-title { font-size: 0.75rem; }
-      .app-readiness-pct { font-size: 1.1rem; }
-      .app-cats-section { padding: 0.5rem 0.625rem 0.25rem; }
-      .app-cats-grid { grid-template-columns: repeat(2, 1fr); gap: 0.375rem; }
-      .app-batohy { padding: 0 0.625rem 0.75rem; }
-      .app-batohy-grid { grid-template-columns: repeat(2, 1fr); gap: 0.3rem; }
-
-      /* ── Trust bar: jemnejší, kompaktný ── */
-      .trust-bar { padding: 0.625rem 1rem; }
-      .trust-sep { display: none; }
-      .trust-inner { gap: 0.5rem 1rem; justify-content: center; flex-wrap: wrap; }
-      .trust-item { font-size: 0.72rem; }
-
-      /* ── Sekcie: typografia ── */
-      .sec-overline { font-size: 0.65rem; margin-bottom: 0.5rem; }
-      .sec-title { font-size: 1.5rem; margin-bottom: 0.625rem; }
-      .sec-sub {
-        max-width: 100%; font-size: 0.85rem;
-        line-height: 1.6; margin-bottom: 0;
-      }
-      /* Dlhé sec-sub na mobile: orezať na max 4 riadky */
-      .sec-sub-clamp {
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      /* Inštitucionálne zdroje — na mobile skryté, nekonvertujú */
-      .sec-sub-sources { display: none; }
-
-      /* ── Prečo karty: kompaktnejšie ── */
-      .why-grid { gap: 0.75rem; margin-top: 1.5rem; }
-      .why-card { padding: 1rem 1.125rem; }
-      .why-icon { font-size: 1.25rem; margin-bottom: 0.5rem; }
-      .why-title { font-size: 0.875rem; margin-bottom: 0.25rem; }
-      .why-text { font-size: 0.8rem; line-height: 1.55; }
-
-      /* ── Ako to funguje: kroky ── */
-      .steps { gap: 1.25rem; margin-top: 1.75rem; }
-      .step-num { width: 44px; height: 44px; font-size: 1.1rem; margin-bottom: 0.625rem; }
-      .step-title { font-size: 0.875rem; }
-      .step-text { font-size: 0.8rem; line-height: 1.5; }
-
-      /* ── Feature karty: úsporné ── */
-      .feat-grid { gap: 0.75rem; margin-top: 1.75rem; }
-      .feat-card { padding: 1rem 1.125rem; }
-      .feat-icon { width: 38px; height: 38px; font-size: 1.1rem; margin-bottom: 0.625rem; }
-      .feat-title { font-size: 0.875rem; margin-bottom: 0.25rem; }
-      .feat-text { font-size: 0.8rem; line-height: 1.5; }
-
-      /* ── Compare: kompaktné ── */
-      .compare { max-width: 100%; gap: 0.75rem; margin-top: 1.75rem; }
-      .compare-card { padding: 1.125rem; }
-      .compare-title { font-size: 1.1rem; margin-bottom: 0.5rem; }
-      .compare-list { gap: 0.375rem; margin-bottom: 1rem; }
-      .compare-list li { font-size: 0.8rem; }
-
-      /* ── Story: kompaktný ── */
-      .story-text { font-size: 0.88rem; line-height: 1.65; }
-      .story-quote { padding: 0.625rem 0.875rem; margin-top: 1rem; }
-      .story-quote p { font-size: 0.88rem; }
-      .stats-row { gap: 0.625rem; }
-      .stat-card { padding: 0.875rem; }
-      .stat-num { font-size: 1.5rem; }
-      .stat-label { font-size: 0.68rem; }
-
-      /* ── CTA section ── */
-      .cta-section .sec-sub { font-size: 0.88rem; }
-      .cta-section h2 { font-size: 1.625rem; }
-      .cta-section .btn-primary { font-size: 0.9375rem; padding: 0.875rem 1.75rem; width: 100%; justify-content: center; }
-      .cta-inner { max-width: 100%; }
-      .cta-note { font-size: 0.68rem; }
-
-      /* ── Waitlist ── */
-      .waitlist-inline { max-width: 100%; }
-      .waitlist-row { flex-direction: column; }
-      .waitlist-row .btn { justify-content: center; }
-      .cta-waitlist { max-width: 100%; }
-      .cta-waitlist .waitlist-row { flex-direction: column; }
-
-      /* ── Footer ── */
-      .footer-inner { flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; }
-
-      /* ── Sticky bar ── */
-      .sticky-bar { display: block; }
-      .sticky-bar .btn { font-size: 0.8125rem; padding: 0.625rem 0.875rem; }
-      body { padding-bottom: 68px; }
-    }
-
-    /* ═══════════════════════════════════════════
-       RESPONSIVE — VERY SMALL (≤380px)
-    ═══════════════════════════════════════════ */
-    @media (max-width: 380px) {
-      .hero h1 { font-size: 1.5rem; }
-      .hero-sub { font-size: 0.82rem; }
-      .nav-logo { font-size: 1.05rem; }
-      .nav-beta-mobile { font-size: 0.58rem; padding: 0.2rem 0.5rem; }
-      .hero-ctas .btn { font-size: 0.8rem; padding: 0.625rem 0.375rem; }
-      .sec-title { font-size: 1.3rem; }
-      .btn-sm { padding: 0.5rem 1rem; font-size: 0.8rem; }
-    }
-
+/* ═══════════════════════════════════════════════════
+   CONCEPT B — REFINED
+   Slovak Red + Gerlach Moss Green
+   Newsreader + Outfit
+   Product-centered, honest, expandable details
+═══════════════════════════════════════════════════ */
+:root {
+  --bg: #f5f3ee;
+  --bg2: #eceae4;
+  --surface: #ffffff;
+  --ink: #1a1816;
+  --ink2: #3a3733;
+  --muted: #7a756d;
+  /* Slovak-flag inspired red */
+  --red: #be2d3e;
+  --red-soft: #fdf0f1;
+  --red-border: #e8b4ba;
+  --red-hover: #a12535;
+  /* Gerlach — original navy blue */
+  --moss: #1e3a5f;
+  --moss-soft: #edf1f7;
+  --moss-border: #b8c8da;
+  /* Slate / rock grey accent */
+  --slate: #5e6b73;
+  --slate-soft: #eef0f2;
+  /* Shared */
+  --border: #e0ddd6;
+  --border2: #d1cdc4;
+  --r: 0.875rem;
+  --r-lg: 1.25rem;
+  --r-xl: 1.5rem;
+  --serif: 'Newsreader', Georgia, serif;
+  --sans: 'Outfit', system-ui, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-synthesis:none}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+
+/* Reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity 0.55s ease,transform 0.55s ease}
+.rv.visible{opacity:1;transform:none}
+.rv-d1{transition-delay:0.07s}.rv-d2{transition-delay:0.14s}.rv-d3{transition-delay:0.21s}.rv-d4{transition-delay:0.28s}
+@media(prefers-reduced-motion:reduce){.rv{transition:none;opacity:1;transform:none}}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;font-family:var(--sans);font-weight:600;border:none;border-radius:999px;transition:all 0.25s;white-space:nowrap;text-decoration:none}
+.btn-lg{padding:0.9rem 2.25rem;font-size:1rem}
+.btn-sm{padding:0.5rem 1.25rem;font-size:0.85rem}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 4px 16px rgba(190,45,62,0.18)}
+.btn-red:hover{background:var(--red-hover);transform:translateY(-2px);box-shadow:0 6px 24px rgba(190,45,62,0.25)}
+.btn-moss{background:var(--moss);color:#fff}
+.btn-moss:hover{background:#152d4a;transform:translateY(-1px)}
+.btn-outline{background:var(--surface);color:var(--ink);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--moss);background:var(--moss-soft)}
+
+/* ── Nav ── */
+.nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;position:relative}
+.nav-logo{font-family:var(--serif);font-size:1.15rem;font-weight:700;letter-spacing:-0.02em;color:var(--moss)}
+.nav-links{display:flex;gap:1.75rem}
+.nav-link{font-size:0.82rem;font-weight:500;color:var(--muted);transition:color 0.15s}
+.nav-link:hover{color:var(--ink)}
+.nav-right{display:flex;gap:0.5rem;align-items:center}
+
+/* ── Beta counter pill ── */
+.beta-pill{display:inline-flex;align-items:center;gap:0.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:0.25rem 0.75rem;font-size:0.68rem;color:var(--muted);font-weight:500;white-space:nowrap}
+.beta-pill-bar{width:40px;height:4px;background:var(--border);border-radius:99px;overflow:hidden}
+.beta-pill-bar-fill{height:100%;border-radius:99px;background:var(--moss);transition:width 0.6s ease}
+.beta-pill strong{color:var(--moss);font-weight:700}
+.hero-beta{margin-bottom:0.75rem}
+
+/* ═══════ HERO ═══════ */
+.hero{padding:3.5rem 0 0;text-align:center}
+.hero-chip{display:inline-flex;align-items:center;gap:0.5rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.75rem;font-weight:600;color:var(--moss);margin-bottom:1.25rem}
+.hero-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 3px rgba(30,58,95,0.15)}
+.hero h1{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:700;line-height:1.1;letter-spacing:-0.025em;max-width:720px;margin:0 auto 1rem}
+.hero h1 em{font-style:italic;color:var(--red);font-weight:700}
+.hero-sub{font-size:1.0625rem;color:var(--ink2);font-weight:300;line-height:1.75;max-width:560px;margin:0 auto 1.5rem}
+.hero-sub strong{font-weight:600;color:var(--ink)}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.625rem}
+.hero-note{font-size:0.75rem;color:var(--muted);margin-bottom:2rem}
+
+/* ═══════ APP FRAME (browser chrome) ═══════ */
+.app-frame{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl) var(--r-xl) 0 0;overflow:hidden;box-shadow:0 -4px 40px rgba(0,0,0,0.06)}
+.app-frame.rounded{border-radius:var(--r-xl);box-shadow:0 6px 28px rgba(0,0,0,0.06)}
+.app-frame-bar{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.app-frame-dots{display:flex;gap:4px}
+.app-frame-dots span{width:8px;height:8px;border-radius:50%}
+.app-frame-dots span:nth-child(1){background:#ff5f57}
+.app-frame-dots span:nth-child(2){background:#febc2e}
+.app-frame-dots span:nth-child(3){background:#28c840}
+.app-frame-url{flex:1;background:var(--surface);border-radius:5px;padding:0.2rem 0.625rem;font-size:0.62rem;color:var(--muted);margin:0 0.375rem}
+.app-frame-body{padding:0.875rem;background:var(--bg)}
+
+/* Hero frame: equal height columns + fog */
+.hero-frame-body-grid{position:relative}
+.hero-frame-body-grid>.app-card,
+.hero-frame-body-grid>.app-modal{display:flex;flex-direction:column;min-height:0;max-height:340px;overflow:hidden}
+.hero-frame-body-grid::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--bg) 0%,rgba(236,234,228,0.85) 40%,transparent 100%);pointer-events:none;z-index:2;border-radius:0 0 0 0}
+
+/* ═══════ APP UI COMPONENTS ═══════ */
+.app-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.875rem;margin-bottom:0.5rem}
+.app-card:last-child{margin-bottom:0}
+.app-title{font-family:var(--serif);font-size:0.8rem;font-weight:700;margin-bottom:0.25rem}
+.app-sub{font-size:0.6rem;color:var(--muted)}
+.app-bar{height:5px;background:#ece8e0;border-radius:99px;overflow:hidden;margin-top:0.25rem}
+.app-bar-fill{height:100%;border-radius:99px}
+.app-label{font-size:0.52rem;color:var(--muted);display:flex;justify-content:space-between;margin-top:0.2rem}
+.app-score{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1}
+.app-row{display:flex;align-items:center;gap:0.375rem;padding:0.3rem 0;border-top:1px solid var(--border);font-size:0.6rem}
+.app-row:first-of-type{border-top:none}
+.app-chk{width:13px;height:13px;border-radius:3px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.45rem;flex-shrink:0}
+.app-chk.ok{background:var(--moss);border-color:var(--moss);color:#fff}
+.app-chk.warn{background:#d97706;border-color:#d97706;color:#fff}
+.app-chk.miss{border-color:var(--red);border-style:dashed}
+.app-name{flex:1;font-weight:500}
+.app-meta{color:var(--muted);font-size:0.5rem}
+.app-tags{display:flex;gap:0.25rem;flex-wrap:wrap;margin-top:0.25rem}
+.app-tag{font-size:0.5rem;padding:0.1rem 0.35rem;border-radius:999px;background:var(--bg);border:1px solid var(--border);font-weight:500}
+.app-grid-sm{display:grid;grid-template-columns:repeat(2,1fr);gap:0.375rem;margin-top:0.5rem}
+.app-cell{background:var(--bg);border:1px solid var(--border);border-radius:0.5rem;padding:0.4rem;text-align:center}
+.app-cell-emoji{font-size:0.85rem}
+.app-cell-name{font-size:0.5rem;font-weight:600;margin-top:0.1rem}
+.app-cell-pct{font-size:0.55rem;font-weight:700;margin-top:0.1rem}
+
+/* First Aid modal replica */
+.app-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem;overflow:hidden}
+.app-modal-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;padding-bottom:0.375rem;border-bottom:1px solid var(--border)}
+.app-modal-emoji{font-size:1.25rem}
+.app-modal-title{font-family:var(--serif);font-size:0.82rem;font-weight:700}
+.app-modal-subtitle{font-size:0.55rem;color:var(--muted)}
+.app-modal-section{margin-top:0.375rem}
+.app-modal-section-header{font-size:0.6rem;font-weight:700;color:var(--ink);margin-bottom:0.25rem;padding:0.15rem 0.375rem;background:var(--bg);border-radius:0.25rem}
+.app-modal-steps{padding-left:0.375rem;border-left:2px solid var(--border);margin-left:0.25rem}
+.app-modal-step{display:flex;align-items:flex-start;gap:0.375rem;padding:0.2rem 0.15rem;font-size:0.55rem;line-height:1.45}
+.app-modal-step-num{width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.42rem;font-weight:700;flex-shrink:0;margin-top:0.05rem}
+.app-modal-step-text{flex:1;color:var(--ink2)}
+.app-modal-step-text strong{color:var(--ink);font-weight:600}
+.app-modal-warn{display:flex;gap:0.25rem;padding:0.25rem 0.375rem;background:#fef2f2;border:1px solid #fecaca;border-radius:0.375rem;font-size:0.5rem;color:#991b1b;line-height:1.4;margin:0.25rem 0}
+.app-modal-source{font-size:0.45rem;color:var(--muted);margin-top:0.375rem;padding-top:0.25rem;border-top:1px solid var(--border)}
+
+/* Conflict procedure replica */
+.app-proc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem}
+.app-proc-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;padding-bottom:0.375rem;border-bottom:1px solid var(--border)}
+.app-proc-icon{width:28px;height:28px;border-radius:0.5rem;background:#fef2f2;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;font-size:0.9rem}
+.app-proc-title{font-family:var(--serif);font-size:0.8rem;font-weight:700}
+.app-proc-subtitle{font-size:0.52rem;color:var(--muted)}
+
+/* ═══════ CALLOUT BAR ═══════ */
+.callout{background:var(--ink);padding:0.875rem 0;position:relative;overflow:hidden}
+.callout::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 20% 50%,rgba(30,58,95,0.25) 0%,transparent 60%),radial-gradient(ellipse 60% 100% at 85% 50%,rgba(190,45,62,0.12) 0%,transparent 55%);pointer-events:none}
+.callout-inner{display:flex;align-items:center;justify-content:center;gap:1.75rem;flex-wrap:wrap;position:relative;color:#fff}
+.callout-item{font-size:0.82rem;font-weight:400;display:flex;align-items:center;gap:0.375rem}
+.callout-check{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center}
+.callout-check svg{width:10px;height:10px}
+.callout-sep{width:1px;height:14px;background:rgba(255,255,255,0.12)}
+
+/* ═══════ SECTIONS ═══════ */
+.section{padding:4.5rem 0}
+.section-alt{background:var(--surface)}
+.sec-overline{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.625rem}
+.sec-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.125rem);font-weight:700;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.sec-sub{font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:520px}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+
+/* ═══════ SHOWCASE (features with screenshots) ═══════ */
+.showcase{padding:3rem 0;border-bottom:1px solid var(--border)}
+.showcase:last-child{border-bottom:none}
+.showcase-full{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.showcase-full.reverse .showcase-text{order:2}
+.showcase-full.reverse .showcase-visual{order:1}
+.showcase-half{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.showcase-half>div{display:flex;flex-direction:column}
+.showcase-half>div .app-frame{margin-top:auto}
+.showcase-label{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--red);margin-bottom:0.375rem}
+.showcase-title{font-family:var(--serif);font-size:1.375rem;font-weight:700;line-height:1.2;margin-bottom:0.5rem}
+.showcase-desc{font-size:0.9rem;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:0.75rem}
+.showcase-detail{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;padding:0.5rem 0.75rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:var(--r);margin-bottom:0.375rem}
+.showcase-detail strong{font-weight:600;color:var(--moss)}
+
+/* ═══════ EXPANDABLE MODULE CARDS ═══════ */
+.mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-top:2rem}
+.mod-card{background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;transition:all 0.25s;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.mod-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.05)}
+.mod-card-top{padding:1.25rem;cursor:pointer;display:flex;flex-direction:column;position:relative}
+.mod-emoji{font-size:1.375rem;margin-bottom:0.5rem;display:block}
+.mod-title{font-weight:700;font-size:0.88rem;margin-bottom:0.2rem}
+.mod-text{font-size:0.78rem;color:var(--muted);font-weight:300;line-height:1.55}
+.mod-expand-icon{position:absolute;top:1rem;right:1rem;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all 0.25s}
+.mod-expand-icon svg{width:10px;height:10px;color:var(--muted);transition:transform 0.25s}
+.mod-card.open .mod-expand-icon svg{transform:rotate(180deg)}
+.mod-card.open .mod-expand-icon{background:var(--moss-soft);border-color:var(--moss-border)}
+.mod-detail{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.mod-card.open .mod-detail{max-height:300px}
+.mod-detail-inner{padding:0 1.25rem 1.25rem;border-top:1px solid var(--border);padding-top:0.875rem;font-size:0.78rem;color:var(--ink2);line-height:1.65;font-weight:300}
+.mod-detail-inner strong{font-weight:600;color:var(--ink)}
+
+/* ═══════ STEPS ═══════ */
+.steps-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
+.step{text-align:center;padding:1.25rem}
+.step-badge{width:44px;height:44px;border-radius:50%;background:var(--moss);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.125rem;font-weight:700;margin:0 auto 0.75rem;transition:all 0.2s}
+.step:hover .step-badge{background:var(--red);transform:scale(1.08)}
+.step-title{font-weight:700;font-size:0.9rem;margin-bottom:0.25rem}
+.step-text{font-size:0.82rem;color:var(--muted);font-weight:300;line-height:1.6}
+
+/* ═══════ SECURITY ═══════ */
+.sec-chips{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem}
+.sec-chip{display:flex;align-items:center;gap:0.375rem;background:var(--surface);border:1.5px solid var(--border);border-radius:999px;padding:0.4rem 0.875rem;font-size:0.78rem;font-weight:500;transition:border-color 0.2s}
+.sec-chip:hover{border-color:var(--moss)}
+
+/* ═══════ FAQ ═══════ */
+.faq-list{max-width:680px;margin:2rem auto 0}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem;font-size:0.9rem;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;transition:color 0.15s}
+.faq-q:hover{color:var(--red)}
+.faq-arrow{width:18px;height:18px;flex-shrink:0;transition:transform 0.25s;color:var(--muted)}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.35s}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 0 1rem;font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.7}
+
+/* ═══════ STORY ═══════ */
+.story-row{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:2rem}
+.story-quote{border-left:3px solid var(--red);padding:0.625rem 1rem;margin:1rem 0;background:var(--red-soft);border-radius:0 var(--r) var(--r) 0}
+.story-quote p{font-family:var(--serif);font-style:italic;color:var(--ink2);font-weight:400;line-height:1.6}
+.author-row{display:flex;align-items:center;gap:0.75rem;margin-top:1rem}
+.author-av{width:40px;height:40px;border-radius:50%;background:var(--moss);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1rem;font-weight:700}
+.author-name{font-weight:600;font-size:0.85rem}
+.author-role{font-size:0.72rem;color:var(--muted)}
+.stat-stack{display:flex;flex-direction:column;gap:0.75rem}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;display:flex;align-items:center;gap:1rem}
+.stat-num{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1;min-width:3.5rem;color:var(--moss)}
+.stat-label{font-size:0.82rem;color:var(--muted);font-weight:300;line-height:1.4}
+
+/* ═══════ CTA ═══════ */
+.cta-section{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(190,45,62,0.08) 0%,transparent 65%);top:-250px;right:-100px;pointer-events:none}
+.cta-inner{text-align:center;max-width:540px;margin:0 auto;position:relative}
+.cta-section h2{font-family:var(--serif);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:700;line-height:1.1;margin-bottom:0.75rem}
+.cta-section h2 em{font-style:italic;color:var(--red)}
+.cta-sub{font-size:0.95rem;color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:1.5rem}
+.cta-note{font-size:0.72rem;color:rgba(255,255,255,0.25);margin-top:1rem}
+
+/* Footer */
+.flag-line{height:3px;background:linear-gradient(90deg,#fff 33.33%,#0b4ea2 33.33% 66.66%,#ee1c25 66.66%);opacity:0.15}
+footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
+.footer-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem}
+.footer-text{font-size:0.75rem;color:var(--muted)}
+.footer-links{display:flex;gap:1.25rem}
+.footer-link{font-size:0.75rem;color:var(--muted);transition:color 0.15s}
+.footer-link:hover{color:var(--ink)}
+/* ── Cookie banner ── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(26,24,22,0.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:1rem 1.5rem;transform:translateY(100%);transition:transform 0.4s ease}
+.cookie-banner.show{transform:none}
+.cookie-banner-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;gap:1.25rem}
+.cookie-banner-text{font-size:0.78rem;color:rgba(255,255,255,0.65);line-height:1.6;flex:1}
+.cookie-banner-text strong{font-weight:500;color:#fff}
+.cookie-banner-text a{color:var(--red);text-decoration:underline;text-underline-offset:2px}
+.cookie-actions{display:flex;gap:0.5rem;flex-shrink:0}
+.cookie-btn{font-family:var(--sans);font-size:0.78rem;font-weight:600;border:none;border-radius:999px;padding:0.5rem 1rem;cursor:pointer;transition:all 0.15s}
+.cookie-btn-accept{background:var(--moss);color:#fff}
+.cookie-btn-accept:hover{background:#2e5740}
+.cookie-btn-necessary{background:transparent;color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.15)}
+.cookie-btn-necessary:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+@media(max-width:640px){.cookie-banner-inner{flex-direction:column;gap:0.75rem}.cookie-actions{width:100%}.cookie-btn{flex:1}}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:4px}
+
+/* ═══════ RESPONSIVE ═══════ */
+@media(max-width:900px){
+  .hero-frame-body-grid{grid-template-columns:1fr 1fr !important}
+  .showcase-full{grid-template-columns:1fr;gap:2rem}
+  .showcase-full.reverse .showcase-text{order:1}
+  .showcase-full.reverse .showcase-visual{order:2}
+  .showcase-half{grid-template-columns:1fr}
+  .mod-grid{grid-template-columns:repeat(2,1fr)}
+  .story-row{grid-template-columns:1fr;gap:2rem}
+  .steps-row{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media(max-width:640px){
+  .section{padding:3rem 0}
+  .hero{padding:2.5rem 0 0}
+  .hero h1{font-size:1.75rem}
+  .hero-frame-body-grid{grid-template-columns:1fr !important}
+  .mod-grid,.steps-row{grid-template-columns:1fr}
+  .hero-ctas{flex-direction:column;align-items:stretch}
+  .hero-ctas .btn{justify-content:center}
+  .callout-sep{display:none}
+  .callout-inner{gap:0.5rem 1.25rem}
+  .wrap{padding:0 1.25rem}
+  .footer-inner{flex-direction:column;align-items:center;text-align:center}
+  .showcase{padding:2rem 0}
+}
 </style>
 </head>
 <body>
-<!-- ════════════════════════════════════════════════════
-     NAV
-     UX: 2 akcie — demo (nízky záväzok) + spustiť (konverzia).
-     Na mobile sa nav CTA schová, nahradí sticky bar.
-════════════════════════════════════════════════════ -->
-<nav aria-label="Hlavná navigácia" class="nav" id="mainNav">
+
+<!-- ═══════ NAV ═══════ -->
+<nav class="nav" aria-label="Navigácia">
 <div class="nav-inner">
-<a aria-label="Mámeplán.sk – domov" class="nav-logo" href="/">
-  Mámeplán.sk
-</a>
-  <!-- Beta counter (desktop - centered) -->
-  <div class="nav-beta js-nav-beta">
-    <span>Beta v0.1</span>
-    <div class="nav-beta-bar"><div class="nav-beta-fill js-bar" style="width:0%;"></div></div>
-    <strong><span class="js-free">–</span></strong>
-    <span>voľných registrácií</span>
-  </div>
-<div class="nav-actions">
-  <a aria-label="Vyskúšať demo bez registrácie" class="nav-demo" href="./app.html">Vyskúšať demo</a>
-  <a aria-label="Spustiť aplikáciu" class="btn btn-primary btn-sm js-when-open cta-open-btn nav-cta-launch" href="./app.html">Spustiť appku</a>
-  <!-- Beta pill: mobilný nav (namiesto CTA) -->
-  <div class="nav-beta-mobile js-nav-beta-mobile">
-    <span>Beta v0.1</span>
-    <div class="nav-beta-bar"><div class="nav-beta-fill js-bar" style="width:0%;"></div></div>
-    <strong><span class="js-free">–</span></strong>
-    <span>voľných</span>
-  </div>
-</div>
+  <a class="nav-logo" href="/">Mámeplán.sk</a>
+  <div class="nav-links"><a class="nav-link" href="#funkcie">Funkcie</a><a class="nav-link" href="#ako">Ako to funguje</a><a class="nav-link" href="#faq">FAQ</a></div>
+  <div class="nav-right"><a class="btn btn-sm btn-outline" href="./app.html">Demo</a><a class="btn btn-sm btn-red" href="./app.html">Spustiť</a></div>
 </div>
 </nav>
-<!-- ════════════════════════════════════════════════════
-     HERO
-     UX: Value proposition + dual CTA + beta slot counter.
-     Ak je beta plná, CTA sa nahradí whitelist formom.
-════════════════════════════════════════════════════ -->
+
+<!-- ═══════ HERO ═══════ -->
+<section class="hero">
 <div class="wrap">
-<section aria-labelledby="hero-heading" class="hero">
-<div>
-<div class="hero-overline rv">
-<span aria-hidden="true" class="hero-overline-dot"></span>
-      🇸🇰 Slovenský projekt · Zadarmo pre verejnosť
-    </div>
-<h1 class="rv rv-d1" id="hero-heading">
-      Vie vaša rodina, čo potrebuje mať doma pre prípad <em>núdze?</em>
-</h1>
-<p class="hero-sub rv rv-d2">
-      <span class="hero-sub-full">Gerlach <strong>vypočíta zásoby</strong> podľa veľkosti vašej rodiny,
-      <strong>upozorní pred expiráciou</strong>, uloží <strong>núdzový plán</strong>,
-      ponúkne prvú pomoc a postupy pre krízové situácie na jednom mieste.
-      Zadarmo pre verejnosť — lebo je dôležité, aby sme si pomáhali.</span>
-      <span class="hero-sub-mobile">Gerlach <strong>vypočíta zásoby</strong> pre vašu rodinu, <strong>upozorní pred expiráciou</strong> a uloží <strong>núdzový plán</strong>. Zadarmo pre verejnosť.</span>
-    </p>
-<!-- CTA: Viditeľné keď beta NIE JE plná -->
-<div class="hero-ctas rv rv-d2">
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť Gerlach</a>
-<a class="btn btn-secondary" href="./app.html">Vyskúšať demo</a>
-</div>
-<!-- Whitelist: Viditeľný keď beta JE plná -->
-<div aria-label="Prihlásenie na čakací zoznam" class="waitlist-inline js-when-full" id="heroWaitlist" role="form">
-<p style="font-size:0.9rem; font-weight:500; margin-bottom:0.25rem;">Beta je aktuálne plná — ďakujeme za obrovský záujem.</p>
-<p style="font-size:0.82rem; color:var(--muted); font-weight:300; margin-bottom:0.625rem;">Nechajte nám email a pošleme vám pozvánku, keď otvoríme ďalšie miesta.</p>
-<div class="waitlist-row">
-<input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
-<button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Pošlite mi pozvánku</button>
-</div>
-<p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline;">ochrana údajov</a>). Odhlásenie jedným klikom.</p>
-<div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
-</div>
-<!-- Demo stále funguje aj pri plnej beta -->
-<div class="js-when-full" style="display:none; margin-top:0.75rem;">
-<a class="btn btn-secondary" href="./app.html">Medzitým vyskúšajte demo</a>
-</div>
-<!-- Beta badge: MOBILE/TABLET ONLY -->
-<div class="beta-badge rv rv-d3 beta-badge-mobile">
-<span class="beta-badge-label">Beta v0.1</span>
-<div class="beta-badge-bar"><div class="beta-badge-fill js-bar" style="width:0%;"></div></div>
-<strong class="beta-badge-num"><span class="js-free">–</span></strong>
-<span class="beta-badge-free">voľných registrácií</span>
-</div>
-</div>
-
-<!-- ── APP PREVIEW — Faithful recreation of real app UI ── -->
-<div class="hero-dashboard-wrap rv rv-d3" aria-hidden="true">
-<div class="dash-browser">
-  <!-- Browser chrome -->
-  <div class="dash-chrome">
-    <div class="dash-chrome-dots"><span></span><span></span><span></span></div>
-    <div class="dash-url">
-      <span class="dash-url-lock">🔒</span>
-      mameplan.sk/app.html
-    </div>
+  <div class="hero-chip rv"><span class="hero-chip-dot"></span> 🇸🇰 Slovenský projekt</div>
+  <!-- Beta counter (hero) -->
+  <div class="beta-pill hero-beta rv rv-d1">
+    <span>Beta v0.1</span>
+    <div class="beta-pill-bar"><div class="beta-pill-bar-fill js-bar" style="width:0%"></div></div>
+    <strong><span class="js-free">–</span></strong>
+    <span>voľných registrácií z 200</span>
   </div>
+  <h1 class="rv rv-d2">Prvý slovenský online sprievodca pre <em>krízové situácie</em></h1>
+  <p class="hero-sub rv rv-d3">Aplikácia Gerlach <strong>vypočíta zásoby</strong> podľa špecifikácií vašej rodiny, <strong>upozorní na expirácie</strong>, informuje o postupoch v krízových situáciách a mnoho iného. Jeden klik — funguje okamžite.</p>
+  <div class="hero-ctas rv rv-d4">
+    <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
+    <a class="btn btn-lg btn-outline" href="./app.html">Vyskúšať demo</a>
+  </div>
+  <p class="hero-note rv rv-d4">Bez inštalácie · Demo bez registrácie · Google prihlásenie na plnú verziu</p>
 
-  <!-- App content -->
-  <div class="dash-app">
-    <!-- App header -->
-    <div class="app-hdr">
-      <span class="app-hdr-logo">Gerlach</span>
-      <span class="app-hdr-badge">Beta v0.1</span>
-      <div class="app-hdr-right">
-        <div class="app-hdr-sync">
-          <span class="app-hdr-sync-dot"></span>
-          <span>Uložené</span>
-        </div>
-        <div class="app-hdr-avatar">M</div>
-        <span class="app-hdr-logout">Odhlásiť</span>
-      </div>
+  <!-- ═══════ HERO PRODUCT SCREENSHOT ═══════ -->
+  <div class="app-frame rv rv-d3" style="max-width:960px;margin:0 auto">
+    <div class="app-frame-bar">
+      <div class="app-frame-dots"><span></span><span></span><span></span></div>
+      <div class="app-frame-url">🔒 mameplan.sk/app</div>
     </div>
+    <div class="app-frame-body">
+      <div class="hero-frame-body-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem">
+        <!-- Col 1: Dashboard -->
+        <div class="app-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.375rem">
+            <div><div class="app-title">🏠 Stav domácnosti</div><div class="app-sub">4 osoby · 3 dni · byt</div></div>
+            <div class="app-score" style="color:var(--red)">38%</div>
+          </div>
+          <div class="app-bar"><div class="app-bar-fill" style="width:38%;background:linear-gradient(90deg,var(--red),#e06060)"></div></div>
+          <div class="app-label"><span>Dobrý základ</span><span>38 / 100</span></div>
+          <div class="app-grid-sm">
+            <div class="app-cell"><div class="app-cell-emoji">💧</div><div class="app-cell-name">Voda</div><div class="app-cell-pct" style="color:var(--red)">42%</div></div>
+            <div class="app-cell"><div class="app-cell-emoji">🥫</div><div class="app-cell-name">Jedlo</div><div class="app-cell-pct" style="color:#dc2626">20%</div></div>
+            <div class="app-cell"><div class="app-cell-emoji">🩺</div><div class="app-cell-name">Lekárnička</div><div class="app-cell-pct" style="color:var(--moss)">88%</div></div>
+            <div class="app-cell"><div class="app-cell-emoji">🔦</div><div class="app-cell-name">Vybavenie</div><div class="app-cell-pct" style="color:var(--red)">55%</div></div>
+          </div>
+        </div>
 
-    <!-- Tab navigation -->
-    <div class="app-tabs">
-      <div class="app-tab active">🎒 Moja príprava</div>
-      <div class="app-tab">📖 Vedomosti</div>
-      <div class="app-tab">📞 Kontakty</div>
-    </div>
+        <!-- Col 2: Checklist -->
+        <div class="app-card">
+          <div class="app-title">📦 Checklist — Vybavenie</div>
+          <div class="app-sub" style="margin-bottom:0.375rem">14 z 24 položiek</div>
+          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Baterka LED + čelovka</div><div class="app-meta">2 ks</div></div>
+          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Powerbanka 20 000 mAh</div><div class="app-meta">2 ks</div></div>
+          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Rádio na batérie AM/FM</div><div class="app-meta">1 ks</div></div>
+          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Plynový kempingový varič</div><div class="app-meta">1 ks</div></div>
+          <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--red)">Kanister na vodu 10L</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
+          <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted)">Hasiaci prístroj 2kg</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
+        </div>
 
-    <!-- Readiness card -->
-    <div class="app-readiness">
-      <div class="app-readiness-top">
-        <div>
-          <div class="app-readiness-title">Už máte základ</div>
-        </div>
-        <div class="app-readiness-pct">
-          25%
-          <span class="app-readiness-edit">Upraviť ⚙️</span>
-        </div>
-      </div>
-      <div class="app-readiness-bar">
-        <div class="app-readiness-bar-fill" style="width: 25%;"></div>
-      </div>
-      <div class="app-readiness-msg">Prvý krok na Rysy — základ stojí</div>
-      <div class="app-readiness-tags">
-        <span class="app-readiness-tag">👨‍👩‍👧‍👦 4 osoby</span>
-        <span class="app-readiness-tag">🛡️ 3 dni</span>
-        <span class="app-readiness-tag">🏠 Byt</span>
-        <span class="app-readiness-tag">💰 Základná</span>
-      </div>
-    </div>
-
-    <!-- Categories -->
-    <div class="app-cats-section">
-      <div class="app-cats-title">Čo mať po ruke</div>
-      <div class="app-cats-sub">Nakupujte postupne, odškrtávajte priebežne.</div>
-      <div class="app-cats-grid">
-        <!-- Row 1: 4 cards -->
-        <div class="app-cat-card highlighted-orange">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">🥫</span>
-            <span class="app-cat-pct" style="color:var(--accent);">33%</span>
+        <!-- Col 3: First Aid Modal — Popáleniny -->
+        <div class="app-modal">
+          <div class="app-modal-header">
+            <div class="app-modal-emoji">🔥</div>
+            <div><div class="app-modal-title">Popáleniny</div><div class="app-modal-subtitle">Termické, obareniny a chemické</div></div>
           </div>
-          <div class="app-cat-name">Jedlo a voda</div>
-          <div class="app-cat-status" style="color:var(--accent);">splnené na 33%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:33%; background:var(--accent);"></div></div>
-        </div>
-        <div class="app-cat-card">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">🪙</span>
-            <span class="app-cat-pct" style="color:#dc2626;">0%</span>
+          <div class="app-modal-section">
+            <div class="app-modal-section-header">Okamžitý postup</div>
+            <div class="app-modal-steps">
+              <div class="app-modal-step"><div class="app-modal-step-num">1</div><div class="app-modal-step-text"><strong>Zastavte pôsobenie tepla</strong> — ak horí oblečenie: STOP–DROP–ROLL</div></div>
+              <div class="app-modal-step"><div class="app-modal-step-num">2</div><div class="app-modal-step-text"><strong>Chlaďte tečúcou vodou 20 min</strong> — izbová teplota (15–25°C)</div></div>
+              <div class="app-modal-step"><div class="app-modal-step-num">3</div><div class="app-modal-step-text"><strong>Odstráňte oblečenie a šperky</strong> — ak nie sú prilepené</div></div>
+            </div>
           </div>
-          <div class="app-cat-name">Peniaze</div>
-          <div class="app-cat-status" style="color:#dc2626;">splnené na 0%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:0%;"></div></div>
-        </div>
-        <div class="app-cat-card highlighted">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">💊</span>
-            <span class="app-cat-pct" style="color:var(--green);">88%</span>
+          <div class="app-modal-warn"><span>⚠️</span><span>NIKDY: ľad, maslo, zubnú pastu, olej, múku</span></div>
+          <div class="app-modal-section">
+            <div class="app-modal-section-header">Po chladení</div>
+            <div class="app-modal-steps">
+              <div class="app-modal-step"><div class="app-modal-step-num">4</div><div class="app-modal-step-text"><strong>Zakryte ranu</strong> voľne čistou tkaninou alebo potravinárskou fóliou</div></div>
+              <div class="app-modal-step"><div class="app-modal-step-num">5</div><div class="app-modal-step-text"><strong>Neprepichujte pľuzgiere</strong> — chránia pred infekciou</div></div>
+            </div>
           </div>
-          <div class="app-cat-name">Lekárnička</div>
-          <div class="app-cat-status" style="color:var(--green);">splnené na 88%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:88%; background:var(--green);"></div></div>
-        </div>
-        <div class="app-cat-card">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">🧴</span>
-            <span class="app-cat-pct" style="color:#dc2626;">0%</span>
-          </div>
-          <div class="app-cat-name">Hygiena</div>
-          <div class="app-cat-status" style="color:#dc2626;">splnené na 0%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:0%;"></div></div>
-        </div>
-        <!-- Row 2: 2 cards (first 2 cols) -->
-        <div class="app-cat-card">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">🔧</span>
-            <span class="app-cat-pct" style="color:#dc2626;">0%</span>
-          </div>
-          <div class="app-cat-name">Vybavenie</div>
-          <div class="app-cat-status" style="color:#dc2626;">splnené na 0%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:0%;"></div></div>
-        </div>
-        <div class="app-cat-card highlighted-orange">
-          <div class="app-cat-top">
-            <span class="app-cat-emoji">📁</span>
-            <span class="app-cat-pct" style="color:var(--accent);">12%</span>
-          </div>
-          <div class="app-cat-name">Doklady</div>
-          <div class="app-cat-status" style="color:var(--accent);">splnené na 12%</div>
-          <div class="app-cat-bar"><div class="app-cat-bar-fill" style="width:12%; background:var(--accent);"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Evakuačné batohy -->
-    <div class="app-batohy">
-      <div class="app-batohy-header">
-        <div class="app-batohy-title">🎒 Evakuačné batohy</div>
-      </div>
-      <div class="app-batohy-sub">Osobný evakuačný batoh pre každého člena domácnosti</div>
-      <div class="app-batohy-grid">
-        <div class="app-batoh-card">
-          <div class="app-batoh-top">
-            <div class="app-batoh-av">🧒</div>
-            <span class="app-batoh-name" style="color:var(--accent);">Dieťa 1</span>
-          </div>
-          <div class="app-batoh-meta">max 15 kg · 1500 kcal/deň</div>
-          <div class="app-batoh-bar"><div class="app-batoh-bar-fill" style="width:0%; background:#ede9e3;"></div></div>
-          <div class="app-batoh-count" style="color:var(--accent);">0/30</div>
-        </div>
-        <div class="app-batoh-card">
-          <div class="app-batoh-top">
-            <div class="app-batoh-av">🧒</div>
-            <span class="app-batoh-name" style="color:var(--accent);">Dieťa 2</span>
-          </div>
-          <div class="app-batoh-meta">max 15 kg · 1500 kcal/deň</div>
-          <div class="app-batoh-bar"><div class="app-batoh-bar-fill" style="width:0%; background:#ede9e3;"></div></div>
-          <div class="app-batoh-count" style="color:var(--accent);">0/30</div>
-        </div>
-        <div class="app-batoh-card">
-          <div class="app-batoh-top">
-            <div class="app-batoh-av" style="background:#fef9c3;">🧑</div>
-            <span class="app-batoh-name" style="color:var(--accent);">Dospelý 2</span>
-          </div>
-          <div class="app-batoh-meta">max 25 kg · 2000 kcal/deň</div>
-          <div class="app-batoh-bar"><div class="app-batoh-bar-fill" style="width:0%; background:#ede9e3;"></div></div>
-          <div class="app-batoh-count" style="color:var(--accent);">0/34</div>
-        </div>
-        <div class="app-batoh-card" style="border-color: var(--green);">
-          <div class="app-batoh-top">
-            <div class="app-batoh-av" style="background:#fef9c3;">🧑</div>
-            <span class="app-batoh-name" style="color:var(--accent);">Dospelý 1</span>
-          </div>
-          <div class="app-batoh-meta">max 25 kg · 2000 kcal/deň</div>
-          <div class="app-batoh-bar"><div class="app-batoh-bar-fill" style="width:56%; background:var(--green);"></div></div>
-          <div class="app-batoh-count" style="color:var(--green);">19/34</div>
+          <div class="app-modal-source">Zdroj: ERC 2025 + ILCOR CoSTR 2025</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
 </section>
-</div>
-<!-- ════════════════════════════════════════════════════
-     TRUST BAR
-     UX: Sociálny dôkaz v jednom riadku. Krátko, konkrétne.
-════════════════════════════════════════════════════ -->
-<div aria-label="Dôveryhodnosť" class="trust-bar" role="complementary">
-<div class="trust-inner">
-<div class="trust-item">✓ <strong>Zadarmo</strong> pre verejnosť</div>
-<div aria-hidden="true" class="trust-sep"></div>
-<div class="trust-item">🇸🇰 <strong>Slovenský</strong> projekt</div>
-<div aria-hidden="true" class="trust-sep"></div>
-<div class="trust-item">🔒 <strong>Google</strong> účet</div>
-</div>
-</div>
-<!-- ════════════════════════════════════════════════════
-     PREČO NA TOM ZÁLEŽÍ
-     UX: 3 konkrétne scenáre z SK reality.
-     Žiadne vágne tvrdenia — len fakty ktoré ľudia zažili.
-════════════════════════════════════════════════════ -->
-<section aria-labelledby="preco-title" class="section" id="preco">
-<div class="wrap">
-<p class="sec-overline rv text-center">Prečo to má zmysel</p>
-<h2 class="sec-title f rv rv-d1 text-center" id="preco-title">Záleží na tom, či sme pripravení?</h2>
-<p class="sec-sub sec-sub-center rv rv-d2 sec-sub-clamp">Nie je to paranoja — je to starostlivosť. Keď príde výpadok, povodeň alebo iná nepríjemná situácia, prvé hodiny rozhodujú. Pripravená domácnosť má pokojnejšiu hlavu, robí lepšie rozhodnutia a často vie pomôcť aj druhým. Pripravená spoločnosť je odolnejšia a stabilnejšia.</p>
-<div class="why-grid">
-<div class="why-card rv">
-<div aria-hidden="true" class="why-icon">😷</div>
-<div class="why-title">Prázdne regály</div>
-<div class="why-text">Marec 2020 — rúška za 10 €, toaletné papiere nedostupné. Kto mal domácnosť pripravenú, nemusel nikam bežať, ušetril a dokonca mohol pomôcť susedom.</div>
-</div>
-<div class="why-card rv rv-d1">
-<div aria-hidden="true" class="why-icon">⚡</div>
-<div class="why-title">Výpadky elektriny</div>
-<div class="why-text">Niekoľkohodinový aj viacdenný výpadok? Ste bez svetla, bez tepla. Teplé jedlo je vtedy komfort, nie samozrejmosť.</div>
-</div>
-<div class="why-card rv rv-d2">
-<div aria-hidden="true" class="why-icon">🛡️</div>
-<div class="why-title">Ozbrojený konflikt</div>
-<div class="why-text">Nikto si to neželá, ale je dobré vedieť, čo robiť v prípade bombardovania, útoku dronov, kde sa schovať a ako reagovať.</div>
-</div>
-</div>
-</div>
-</section>
-<!-- ════════════════════════════════════════════════════
-     AKO TO FUNGUJE
-     UX: 3 kroky (nie 4 — "buďte pokojní" nie je krok).
-     Minimálny kognitívny load.
-════════════════════════════════════════════════════ -->
-<section aria-labelledby="howto-title" class="section" id="ako-to-funguje" style="background:var(--surface);">
-<div class="wrap">
-<p class="sec-overline rv text-center">Ako to funguje</p>
-<h2 class="sec-title f rv rv-d1 text-center" id="howto-title">Tri kroky. Dve minúty.</h2>
-<div class="steps">
-<div class="step rv">
-<div aria-hidden="true" class="step-num f">1</div>
-<div class="step-title">Prihláste sa</div>
-<p class="step-text">Cez Google účet. Bez nového hesla a bez zbytočných krokov.</p>
-</div>
-<div class="step rv rv-d1">
-<div aria-hidden="true" class="step-num f">2</div>
-<div class="step-title">Zadefinujte vašu rodinu</div>
-<p class="step-text">Nastavíte domácnosť (ľudia, dni sebestačnosti, bývanie). Gerlach vám prepočíta, čo potrebujete mať doma.</p>
-</div>
-<div class="step rv rv-d2">
-<div aria-hidden="true" class="step-num f">3</div>
-<div class="step-title">Sledujte a dopĺňajte</div>
-<p class="step-text">Dopĺňate postupne. Vidíte, čo chýba, čo je hotové a čo treba čoskoro spotrebovať alebo vymeniť.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- ════════════════════════════════════════════════════
-     ČO GERLACH ROBÍ
-     UX: 5 kľúčových funkcií aplikácie.
-════════════════════════════════════════════════════ -->
-<section aria-labelledby="features-title" class="section">
-<div class="wrap">
-<p class="sec-overline rv text-center">Čo Gerlach urobí za vás</p>
-<h2 class="sec-title f rv rv-d1 text-center" id="features-title">Päť vecí, ktoré stoja za to.</h2>
-<p class="sec-sub sec-sub-center rv rv-d2 sec-sub-sources">Mameplan dáva dokopy výpočty a odporúčania z overených príručiek a inštitúcií (Civilná ochrana SR / Ministerstvo vnútra SR, krízové odporúčania SR a ČR, WHO, Úrad verejného zdravotníctva SR a princípy prvej pomoci zo Slovenského Červeného kríža) — preložené do jednoduchých krokov a prispôsobené vašej domácnosti.</p>
-<div class="feat-grid">
-<div class="feat-card rv">
-<div aria-hidden="true" class="feat-icon">💧</div>
-<div class="feat-title">Zásoby na mieru</div>
-<p class="feat-text">Voda a jedlo vypočítané pre vašu domácnosť na zvolený počet dní. Jasne a bez hádania.</p>
-</div>
-<div class="feat-card rv rv-d1">
-<div aria-hidden="true" class="feat-icon">⏱️</div>
-<div class="feat-title">Expirácie pod kontrolou</div>
-<p class="feat-text">Lieky, potraviny aj voda. Gerlach vás upozorní vopred (lieky 180 dní, jedlo a voda 30 dní), aby ste nevyhadzovali a neostali prekvapení.</p>
-</div>
-<div class="feat-card rv rv-d2">
-<div aria-hidden="true" class="feat-icon">📦</div>
-<div class="feat-title">Checklist, ktorý dáva zmysel</div>
-<p class="feat-text">Jedlo a voda, peniaze, hygiena, lekárnička, vybavenie, dokumenty. Predvyplnené odporúčania + váš profil domácnosti. Vy len odškrtávate a vidíte progres.</p>
-</div>
-</div>
-<!-- Druhý riadok: 2 karty centrovane -->
-<div class="feat-grid feat-grid-2">
-<div class="feat-card rv">
-<div aria-hidden="true" class="feat-icon">🩹</div>
-<div class="feat-title">Prvá pomoc a postupy</div>
-<p class="feat-text">Rýchle, prehľadné postupy a prvá pomoc pre typické situácie (výpadky, povodne, nehody…). Keď ide o čas, nechcete hľadať po internete.</p>
-</div>
-<div class="feat-card rv rv-d1">
-<div aria-hidden="true" class="feat-icon">📞</div>
-<div class="feat-title">Kontakty a núdzové info</div>
-<p class="feat-text">Tiesňové linky, dôležité inštitúcie, núdzové vysielanie aj vaše rodinné kontakty — pripravené, keď ich potrebujete.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- ════════════════════════════════════════════════════
-     DEMO vs PLNÁ VERZIA
-     UX: Jasný kontrast medzi demo a plnou verziou.
-     Demo = nízky záväzok na vyskúšanie.
-     Plná = motivácia pre registráciu + live beta counter.
-════════════════════════════════════════════════════ -->
-<section aria-labelledby="demo-title" class="section" id="demo" style="background:var(--surface);">
-<div class="wrap">
-<p class="sec-overline rv text-center">Vyskúšajte si to hneď</p>
-<h2 class="sec-title f rv rv-d1 text-center" id="demo-title">Demo bez registrácie. Kedykoľvek.</h2>
-<p class="sec-sub sec-sub-center rv rv-d2 sec-sub-clamp">Chcete si to najprv len „ohmatať“? Demo ide okamžite — bez prihlásenia, bez emailu. Po zatvorení prehliadača sa všetko zmaže.</p>
-<div class="compare rv rv-d2">
-<div class="compare-card demo">
-<span class="compare-badge">Demo</span>
-<div class="compare-title f">Vyskúšajte si to hneď</div>
-<ul class="compare-list">
-<li>Celé demo — bez obmedzení</li>
-<li>Bez registrácie a prihlásenia</li>
-<li>Po zatvorení prehliadača sa dáta zmažú</li>
-<li>Ideálne na prvé vyskúšanie</li>
-</ul>
-<a class="btn btn-secondary" href="./app.html" style="justify-content:center;">Vyskúšať demo</a>
-</div>
-<div class="compare-card full">
-<span class="compare-badge">Plná verzia</span>
-<div class="compare-title f">Plná verzia (konto)</div>
-<!-- Live beta counter -->
-<div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem; padding:0.5rem 0.75rem; background:rgba(255,255,255,0.08); border-radius:0.5rem; border:1px solid rgba(255,255,255,0.1);">
-<span style="font-size:0.65rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.5);">Beta</span>
-<div style="flex:1; height:4px; background:rgba(255,255,255,0.1); border-radius:99px; overflow:hidden;">
-<div class="js-bar" style="height:100%; border-radius:99px; background:var(--accent); transition:width 0.6s;"></div>
-</div>
-<span style="font-family:'Fraunces',serif; font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.8);"><span class="js-count">–</span>/<span class="js-max">200</span></span>
-</div>
-<ul class="compare-list">
-<li>Dáta sa ukladajú do vášho konta</li>
-<li>Emailové upozornenia na blížiace sa expirácie (lieky, jedlo, voda)</li>
-<li>Prístup z každého zariadenia (cloud)</li>
-<li>Google účet — hneď ste v tom</li>
-</ul>
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html" style="justify-content:center;">Spustiť appku</a>
-<!-- Ak beta plná -->
-<div class="js-when-full" style="display:none; text-align:center;">
-<p style="font-size:0.85rem; opacity:0.7; margin-bottom:0.5rem;">Beta je plná. Nechajte email nižšie.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- ════════════════════════════════════════════════════
-     PRÍBEH
-     UX: Krátky founder story. Buduje dôveru.
-     Štatistiky namiesto dlhého textu.
-════════════════════════════════════════════════════ -->
-<section aria-labelledby="story-title" class="section story-section">
-<div class="wrap">
-<div class="story-grid">
-<div>
-<p class="sec-overline rv">Príbeh</p>
-<h2 class="sec-title f rv rv-d1" id="story-title">Vzniklo to pre<br/><em style="color:var(--accent);font-style:italic;">moju rodinu.</em></h2>
-<p class="story-text rv rv-d2">Som Miloš, otec rodiny. Chcel som mať jasno — či pri výpadku, záplavách alebo inom probléme máme doma to najnutnejšie. Tabuľky nestačili. Voda, jedlo aj lieky expirujú a v bežnom živote to nikto nemá čas strážiť.</p>
-<div class="story-quote rv rv-d3">
-<p>„Keď sme pripravení, v kríze máme viac pokoja, energie a empatie jeden voči druhému.“</p>
-</div>
-<div class="author-row rv rv-d3">
-<div aria-hidden="true" class="author-av f">M</div>
-<div>
-<div class="author-name">Miloš</div>
-<div class="author-role">Zakladateľ Gerlachu · otec rodiny</div>
-</div>
-</div>
-</div>
-<div>
-<div class="stats-row rv rv-d1">
-<div class="stat-card">
-<div class="stat-num f">72h</div>
-<div class="stat-label">minimálna zásoba podľa Civilnej ochrany SR</div>
-</div>
-<div class="stat-card">
-<div class="stat-num f">0 €</div>
-<div class="stat-label">stojí Gerlach — zadarmo pre verejnosť</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- ════════════════════════════════════════════════════
-     FINAL CTA / WAITLIST
-     UX: Posledná konverzná šanca.
-     Ak beta otvorená → launch app.
-     Ak beta plná → whitelist email form.
-     Demo tlačidlo vždy viditeľné.
-════════════════════════════════════════════════════ -->
-<div aria-hidden="true" class="flag-line"></div>
-<section aria-labelledby="cta-title" class="section cta-section">
-<div class="wrap">
-<div class="cta-inner">
-<h2 class="rv" id="cta-title">Začnite dnes.<br/><em>Trvá to dve minúty.</em></h2>
-<p class="sec-sub rv rv-d1">Bez inštalácie. Otvoríte v prehliadači a hneď viete, čo doma chýba.</p>
-<!-- Keď beta otvorená -->
-<div class="rv rv-d2 js-when-open" style="display:flex; flex-direction:column; align-items:center; gap:0.75rem;">
-<a class="btn btn-primary cta-open-btn" href="./app.html">Spustiť Gerlach</a>
-<a class="btn btn-ghost" href="./app.html" style="color:rgba(255,255,255,0.55);">alebo vyskúšajte demo</a>
-</div>
-<!-- Keď beta plná -->
-<div aria-label="Čakací zoznam" class="cta-waitlist js-when-full" role="form">
-<p style="font-size:0.95rem; margin-bottom:0.75rem; color:rgba(255,255,255,0.75);">Beta je plná. Nechajte email — dáme vedieť.</p>
-<div class="waitlist-row">
-<input aria-label="Váš email" class="waitlist-input" placeholder="vas@email.sk" required="" type="email"/>
-<button class="btn btn-primary btn-sm" onclick="submitWaitlist(this)" type="button">Zapísať sa</button>
-</div>
-<p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline;">ochrana údajov</a>). Odhlásenie jedným klikom.</p>
-<div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
-<div style="margin-top:1rem;">
-<a class="btn btn-ghost" href="./app.html" style="color:rgba(255,255,255,0.55);">Medzitým vyskúšajte demo</a>
-</div>
-</div>
-<p class="cta-note rv rv-d3">Pri prihlásení sa vaše dáta uložia do vášho konta. Každý používateľ vidí iba svoje vlastné údaje.</p>
-</div>
-</div>
-</section>
-<!-- SK trikolóra divider -->
-<div aria-hidden="true" class="flag-line"></div>
-<!-- ════════════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════════════ -->
-<footer role="contentinfo">
-<div class="footer-inner">
-<div style="display:flex; align-items:center; gap:0.625rem;">
-  <span style="font-size:0.85rem;">🇸🇰</span>
-  <span class="footer-text">Mámeplán.sk © <span id="footerYear"></span> — Zadarmo pre verejnosť</span>
-</div>
-<div class="footer-links">
-<a class="footer-link" href="./app.html">Aplikácia</a>
-<a class="footer-link" href="./pravne-info.html">Právne info</a>
-<a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a>
-<a class="footer-link js-contact-email" href="#">Kontakt</a>
-</div>
-</div>
-</footer>
-<!-- ════════════════════════════════════════════════════
-     STICKY MOBILE CTA
-     UX: Na mobile nahrádza nav akcie.
-     Dva tlačidlá: demo + spustiť.
-════════════════════════════════════════════════════ -->
-<div aria-label="Rýchle akcie" class="sticky-bar" id="stickyBar">
-<div class="sticky-bar-inner">
-<a class="btn btn-secondary" href="./app.html">Demo</a>
-<a class="btn btn-primary js-when-open cta-open-btn" href="./app.html">Spustiť appku</a>
-</div>
-</div>
-<!-- ════════════════════════════════════════════════════
-     SCRIPTS
-════════════════════════════════════════════════════ -->
-<script>
-  /* ── Dynamic footer year ── */
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  /* ── Email anti-obfuscation ── */
-  (function() {
-    var u = 'app.gerlach', d = 'gmail.com', full = u + '@' + d;
-    document.querySelectorAll('.js-contact-email').forEach(function(el) {
-      el.href = 'mai' + 'lto:' + full;
-    });
-  })();
+<!-- ═══════ CALLOUT BAR — Clean, no emoji ═══════ -->
+<div class="callout">
+<div class="callout-inner wrap">
+  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Zadarmo pre verejnosť</div>
+  <div class="callout-sep"></div>
+  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Google prihlásenie</div>
+  <div class="callout-sep"></div>
+  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Funguje v prehliadači</div>
+  <div class="callout-sep"></div>
+  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Demo bez registrácie</div>
+</div>
+</div>
 
-  /* ── Nav solid on scroll ── */
-  const nav = document.getElementById('mainNav');
-  const sticky = document.getElementById('stickyBar');
-  let shown = false;
+<!-- ═══════ SHOWCASE — Čo vidíte v appke ═══════ -->
+<section class="section" id="funkcie">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Čo vidíte v appke</p>
+  <h2 class="sec-title text-center mx-auto rv rv-d1" style="max-width:580px">Nehovoríme vám, že to je užitočné. Ukážeme vám to.</h2>
 
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('solid', scrollY > 40);
-    if (!shown && scrollY > innerHeight * 0.5) {
-      sticky.classList.add('show');
-      shown = true;
-    }
-  }, { passive: true });
+  <!-- SHOWCASE 1: Zásoby voda — full width -->
+  <div class="showcase rv rv-d2">
+    <div class="showcase-full">
+      <div class="showcase-text">
+        <div class="showcase-label">Zásoby</div>
+        <div class="showcase-title">Presne viete koľko vody, jedla a liekov potrebujete</div>
+        <p class="showcase-desc">4 osoby × 3 dni = 24 litrov vody. Gerlach to spočíta za vás — podľa odporúčaní WHO a Civilnej ochrany SR.</p>
+        <div class="showcase-detail"><span>WHO odporúča <strong>2L pitnej + 1L úžitkovej</strong> na osobu/deň</span></div>
+        <div class="showcase-detail"><span>Kalkulátor na <strong>7 kategórií</strong> — voda, jedlo, lieky, hygiena, peniaze...</span></div>
+      </div>
+      <div class="showcase-visual">
+        <div class="app-frame rounded" style="max-width:400px">
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
+          <div class="app-frame-body">
+            <div class="app-card" style="margin:0">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.375rem">
+                <div><div class="app-title">💧 Voda</div><div class="app-sub">Potrebné: 24L · Máte: 10L</div></div>
+                <div style="font-family:var(--serif);font-size:1.125rem;font-weight:700;color:var(--red)">42%</div>
+              </div>
+              <div class="app-bar"><div class="app-bar-fill" style="width:42%;background:var(--red)"></div></div>
+              <div style="margin-top:0.5rem">
+                <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Balená voda 5L</div><div class="app-meta">exp. 03/2026</div></div>
+                <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Balená voda 5L</div><div class="app-meta">exp. 05/2026</div></div>
+                <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted);font-style:italic">Chýba 14L...</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  /* UX: Skryť sticky keď sú hero CTA viditeľné */
-  const heroCtas = document.querySelector('.hero-ctas');
-  if (heroCtas) {
-    new IntersectionObserver(([e]) => {
-      sticky.classList.toggle('show', !e.isIntersecting && shown);
-    }).observe(heroCtas);
-  }
+  <!-- SHOWCASE 2: Two columns — Checklist + Ozbrojený konflikt -->
+  <div class="showcase rv">
+    <div class="showcase-half">
 
-  /* ── Scroll reveal ── */
-  const revealObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        revealObserver.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
-</script>
-<!-- ════════════════════════════════════════════════════
-     COOKIE BANNER
-════════════════════════════════════════════════════ -->
+      <!-- Left: Checklist vybavenia -->
+      <div>
+        <div class="showcase-label">Checklisty</div>
+        <div class="showcase-title" style="font-size:1.125rem">Predvyplnené zoznamy — vy len odškrtávate</div>
+        <p class="showcase-desc" style="font-size:0.85rem;margin-bottom:1rem">Lekárnička, hygiena, peniaze, vybavenie, doklady — generované podľa počtu osôb a dní.</p>
+        <div class="app-frame rounded">
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
+          <div class="app-frame-body">
+            <div class="app-card" style="margin:0">
+              <div class="app-title">🔦 Vybavenie</div>
+              <div class="app-sub" style="margin-bottom:0.375rem">14 z 24 položiek · 58%</div>
+              <div class="app-bar" style="margin-bottom:0.5rem"><div class="app-bar-fill" style="width:58%;background:var(--red)"></div></div>
+              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Baterka LED + čelovka</div><div class="app-meta">2 ks</div></div>
+              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Powerbanka 20 000 mAh</div><div class="app-meta">2 ks</div></div>
+              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Rádio AM/FM na batérie</div><div class="app-meta">1 ks</div></div>
+              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Plynový kempingový varič</div><div class="app-meta">1 ks</div></div>
+              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Multifunkčný nôž</div><div class="app-meta">1 ks</div></div>
+              <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--red)">Kanister na vodu 10L</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
+              <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted)">Hasiaci prístroj 2kg</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Ozbrojený konflikt postup -->
+      <div>
+        <div class="showcase-label">Krízové postupy</div>
+        <div class="showcase-title" style="font-size:1.125rem">21 scenárov krok za krokom — keď na hľadanie nie je čas</div>
+        <p class="showcase-desc" style="font-size:0.85rem;margin-bottom:1rem">Od povodní cez blackout až po ozbrojený konflikt — rešpektujúc zásady Civilnej ochrany SR, UA DSNS a ICRC.</p>
+        <div class="app-frame rounded">
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
+          <div class="app-frame-body">
+            <div class="app-proc">
+              <div class="app-proc-header">
+                <div class="app-proc-icon">💣</div>
+                <div><div class="app-proc-title">Ozbrojený konflikt</div><div class="app-proc-subtitle">Ostreľovanie, drony a bombardovanie</div></div>
+              </div>
+              <div class="app-modal-section">
+                <div class="app-modal-section-header">Keď zaznie siréna</div>
+                <div class="app-modal-steps">
+                  <div class="app-modal-step"><div class="app-modal-step-num">1</div><div class="app-modal-step-text"><strong>Okamžite vyhľadajte úkryt</strong> — pivnica, suterén, metro, podzemný parking</div></div>
+                  <div class="app-modal-step"><div class="app-modal-step-num">2</div><div class="app-modal-step-text"><strong>Držte sa ďalej od okien</strong> a vonkajších stien</div></div>
+                  <div class="app-modal-step"><div class="app-modal-step-num">3</div><div class="app-modal-step-text"><strong>Sadnite si alebo ľahnite</strong> — čím nižšie, tým lepšie</div></div>
+                </div>
+              </div>
+              <div class="app-modal-warn"><span>⚠️</span><span>Nikdy nevychádzajte von hneď po výbuchu — môžu nasledovať ďalšie útoky</span></div>
+              <div class="app-modal-section">
+                <div class="app-modal-section-header">Pravidlo dvoch stien (UA DSNS)</div>
+                <div class="app-modal-steps">
+                  <div class="app-modal-step"><div class="app-modal-step-num">4</div><div class="app-modal-step-text"><strong>Nestíhate do úkrytu?</strong> Kúpeľňa alebo chodba v strede bytu</div></div>
+                </div>
+              </div>
+              <div class="app-modal-source">Zdroj: UA DSNS + SK MINV + ICRC</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ ALL MODULES — Expandable ═══════ -->
+<section class="section section-alt">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Všetky moduly</p>
+  <h2 class="sec-title text-center rv rv-d1">Všetko na jednom mieste.</h2>
+  <p class="sec-sub text-center mx-auto rv rv-d2">Odporúčania rešpektujúce Civilnú ochranu SR (MV SR), WHO, Európsku radu pre resuscitáciu (ERC 2025), ILCOR CoSTR 2025, Červený kríž (ICRC), ukrajinskú DSNS, švédsku MSB, českú príručku 72 hodín a EFSA — preložené do jednoduchých krokov.</p>
+  <div class="mod-grid">
+    <div class="mod-card rv">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">💧</span><div class="mod-title">Zásoby bez tipovania</div><p class="mod-text">Vyberiete <strong>počet ľudí a dní</strong> a Gerlach pripraví odporúčaný checklist aj množstvá.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner"><strong>Voda podľa WHO</strong>, jedlo (kalórie), lieky a hotovosť. V prehľade vidíte, čo máte pripravené a čo ešte chýba — vrátane <strong>expirácií a upozornení</strong>.</div></div>
+    </div>
+    <div class="mod-card rv rv-d1">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📦</span><div class="mod-title">Checklisty</div><p class="mod-text">Voda, jedlo, lekárnička, hygiena, vybavenie, peniaze a doklady.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner"><strong>Šesť kategórií</strong> s predpripravenými položkami, ktoré sa automaticky prispôsobia profilu domácnosti. Odškrtávate len to, čo máte — <strong>pripravenosť (progres) vidíte hneď</strong>.</div></div>
+    </div>
+    <div class="mod-card rv rv-d2">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">⏱️</span><div class="mod-title">Expirácie</div><p class="mod-text">Upozornenia vopred — aby nič neprepadlo.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner">Lieky pripomenieme <strong>180 dní vopred</strong>, jedlo a vodu <strong>30 dní vopred</strong>. Dvojstupňové upozornenie (žlté/červené) vám pomôže dopĺňať zásoby včas.</div></div>
+    </div>
+    <div class="mod-card rv rv-d3">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🎒</span><div class="mod-title">Evakuačné batohy</div><p class="mod-text">Batoh pre každého člena domácnosti.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner">Aplikácia automaticky pripraví checklist pre <strong>dospelého, dieťa, seniora aj bábätko</strong>. Nechýbajú doklady, voda, lieky, svetlo, nabíjanie, hotovosť a základné oblečenie. Podľa odporúčaní <strong>SK MV SR</strong> a <strong>UA DSNS</strong>.</div></div>
+    </div>
+    <div class="mod-card rv">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🩹</span><div class="mod-title">Prvá pomoc</div><p class="mod-text">12 postupov krok za krokom.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner"><strong>KPR</strong>, silné krvácanie, popáleniny, zlomeniny, šok, otrava, anafylaxia, úpal, podchladenie, utopenie, vojnové zranenia a mdloba. Každý postup je spracovaný <strong>krok po kroku</strong> s dôležitými varovaniami. Podľa <strong>ERC Guidelines 2025</strong> a <strong>ILCOR CoSTR 2025</strong>.</div></div>
+    </div>
+    <div class="mod-card rv rv-d1">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📋</span><div class="mod-title">Krízový plán</div><p class="mod-text">5 scenárov pre rodinu — premyslite si kam ísť, kde sa stretnúť, komu volať.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner"><strong>Denný režim</strong> (práca/škola), noc, dieťa v škole, mimo domova a dlhodobá separácia — čo budete robiť? Prejdite si scenáre s rodinou a <strong>buďte pripravení</strong>.</div></div>
+    </div>
+    <div class="mod-card rv rv-d2">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🚨</span><div class="mod-title">Krízové postupy</div><p class="mod-text">21 scenárov — povodne, blackout a ďalšie.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner">Povodne, víchrice, zemetrasenie, blackout, chemická havária, radiácia, požiar, teroristický útok, ozbrojený konflikt, evakuácia a ďalšie. Postupy podľa <strong>Civilnej ochrany SR, UA DSNS, ICRC</strong>. Prispôsobené typu bývania.</div></div>
+    </div>
+    <div class="mod-card rv rv-d3">
+      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📞</span><div class="mod-title">Kontakty a rádiá</div><p class="mod-text">Tiesňové linky, inštitúcie a núdzové vysielanie — aj bez internetu.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+      <div class="mod-detail"><div class="mod-detail-inner">Nájdete <strong>112, 150, 155, 158</strong> a ďalšie dôležité čísla, prehľad núdzových frekvencií a vysvetlenie <strong>varovných sirén</strong> vrátane 4 signálov. Plus vaše rodinné kontakty — všetko vždy po ruke.</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ AKO ═══════ -->
+<section class="section" id="ako">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Ako začať</p>
+  <h2 class="sec-title text-center rv rv-d1">Tri kroky. Dve minúty.</h2>
+  <div class="steps-row">
+    <div class="step rv"><div class="step-badge">1</div><div class="step-title">Kliknite na tlačidlo Spustiť</div><p class="step-text">Zaregistrujete sa pomocou Google účtu. Žiadna inštalácia. Aplikáciu používate ihneď.</p></div>
+    <div class="step rv rv-d1"><div class="step-badge">2</div><div class="step-title">Nastavte domácnosť</div><p class="step-text">Vďaka tomu Gerlach vypočíta odporúčané zásoby vody, jedla či liekov.</p></div>
+    <div class="step rv rv-d2"><div class="step-badge">3</div><div class="step-title">Dopĺňajte postupne</div><p class="step-text">Nakupujte priebežne. Vidíte progres a zároveň Gerlach monitoruje blížiace sa expirácie, na ktoré vás upozorní.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ BEZPEČNOSŤ ═══════ -->
+<section class="section section-alt">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Bezpečnosť a súkromie</p>
+  <h2 class="sec-title text-center rv rv-d1">Vaše dáta patria vám.</h2>
+  <div class="sec-chips rv rv-d2">
+    <div class="sec-chip">Google prihlásenie — žiadne nové heslo</div>
+    <div class="sec-chip">Každý vidí iba svoje údaje</div>
+    <div class="sec-chip">Demo — bez registrácie, plná funkcionalita</div>
+    <div class="sec-chip">Slovenský neziskový projekt</div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ FAQ ═══════ -->
+<section class="section" id="faq">
+<div class="wrap">
+  <p class="sec-overline text-center rv">FAQ</p>
+  <h2 class="sec-title text-center rv rv-d1">Čo vás môže zaujímať</h2>
+  <div class="faq-list">
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Je Gerlach naozaj zadarmo?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Áno. Neziskový projekt pre verejnosť. Žiadne predplatné, skryté poplatky ani reklamy.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Musím sa registrovať?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Nie. Demo funguje okamžite bez registrácie. Ak chcete dáta ukladať trvalo, stačí sa prihlásiť cez Google účet.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Z akých zdrojov vychádzate?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Civilná ochrana SR, Ministerstvo vnútra SR, WHO, Červený kríž, ERC 2025, ILCOR CoSTR 2025, ukrajinská DSNS. Zdroj je pri každej sekcii v aplikácii.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Sú moje dáta v bezpečí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Dáta sú vo vašom osobnom Firebase účte. Nikto iný k nim nemá prístup. V demo režime sa ukladajú len do prehliadača a po zatvorení sa zmažú.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Kto za projektom stojí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Miloš, otec rodiny zo Slovenska. Gerlach vznikol z osobnej potreby vedieť, či je jeho domácnosť pripravená na neočakávané situácie.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Pre koho je Gerlach určený?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Pre každú slovenskú domácnosť. Nemusíte byť „prepper" — stačí chcieť vedieť, čo máte doma a čo by bolo dobré doplniť. Postupne, bez stresu.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Funguje aj offline?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Na prvé načítanie potrebujete internet. Po prihlásení Firestore umožňuje čiastočný offline prístup k uloženým dátam. Na plnej offline podpore pracujeme.</div></div></div>
+    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Ako môžem projekt podporiť?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Zdieľaním s rodinou, priateľmi alebo susedmi. Každá pripravená domácnosť posilňuje celú komunitu.</div></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ STORY ═══════ -->
+<section class="section section-alt">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Príbeh</p>
+  <h2 class="sec-title text-center rv rv-d1">Riešenie, ktoré som vytvoril pre moju rodinu.</h2>
+  <div class="story-row rv rv-d2">
+    <div>
+      <p style="font-size:0.95rem;color:var(--ink2);font-weight:300;line-height:1.8">Som Miloš, otec rodiny. Premýšľal som, či pri dlhšom výpadku elektriny alebo konflikte máme doma to najnutnejšie. Excel nestačil — voda, jedlo aj lieky expirujú a nikto to nemá čas strážiť. Tak som vytvoril Gerlach. Dnes ho zdieľam s vami a verím, že pomôže aj vám.</p>
+      <div class="story-quote"><p>„Keď sme pripravení, v kríze máme viac pokoja, energie a empatie jeden voči druhému."</p></div>
+      <div class="author-row"><div class="author-av">M</div><div><div class="author-name">Miloš</div><div class="author-role">Zakladateľ projektu · otec rodiny</div></div></div>
+    </div>
+    <div class="stat-stack">
+      <div class="stat-card"><div class="stat-num">72h</div><div class="stat-label">minimálna sebestačnosť podľa Civilnej ochrany SR</div></div>
+      <div class="stat-card"><div class="stat-num" style="color:var(--red)">0 €</div><div class="stat-label">stojí Gerlach — zadarmo pre verejnosť</div></div>
+      <div class="stat-card"><div class="stat-num">33</div><div class="stat-label">postupov prvej pomoci a krízových scenárov</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════ CTA ═══════ -->
+<div class="flag-line" aria-hidden="true"></div>
+<section class="section cta-section">
+<div class="wrap"><div class="cta-inner">
+  <h2 class="rv">Začnite <em>ešte dnes.</em></h2>
+  <p class="cta-sub rv rv-d1">Gerlach otvoríte v prehliadači a za pár minút budete mať prehľad o tom, ako je vaša domácnosť pripravená.</p>
+  <div class="rv rv-d2" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem">
+    <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
+    <a href="./app.html" style="color:rgba(255,255,255,0.4);font-size:0.85rem">alebo vyskúšajte demo bez registrácie</a>
+  </div>
+  <p class="cta-note rv rv-d3">Vaše dáta sa uložia do vášho konta. Každý používateľ vidí iba svoje údaje.</p>
+</div></div>
+</section>
+<div class="flag-line" aria-hidden="true"></div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer role="contentinfo"><div class="footer-inner">
+  <span class="footer-text">🇸🇰 Mámeplán.sk © <span id="fy"></span> — Zadarmo pre verejnosť</span>
+  <div class="footer-links"><a class="footer-link" href="./app.html">Aplikácia</a><a class="footer-link" href="./pravne-info.html">Právne info</a><a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a><a class="footer-link js-ce" href="#">Kontakt</a></div>
+</div></footer>
+
+<!-- ═══════ COOKIE BANNER ═══════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
   <div class="cookie-banner-inner">
     <div class="cookie-banner-text">
-      Používame <strong style="font-weight:500;color:#fff;">nevyhnutné cookies</strong> na prihlásenie a <strong style="font-weight:500;color:#fff;">analytické cookies</strong> (Firebase Analytics) na zlepšovanie služby. Analytické cookies aktivujeme len s vaším súhlasom.
+      Používame <strong>nevyhnutné cookies</strong> na prihlásenie a <strong>analytické cookies</strong> (Firebase Analytics) na zlepšovanie služby. Analytické cookies aktivujeme len s vaším súhlasom.
       <a href="./pravne-info.html#cookies">Podrobnosti</a>
     </div>
-    <div class="cookie-banner-actions">
+    <div class="cookie-actions">
       <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Prijať všetko</button>
-      <button class="cookie-btn cookie-btn-info" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
+      <button class="cookie-btn cookie-btn-necessary" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
     </div>
   </div>
 </div>
+
 <script>
-  (function() {
-    if (!localStorage.getItem('gerlach_cookie_consent')) {
-      setTimeout(function() {
-        document.getElementById('cookieBanner').classList.add('show');
-      }, 1200);
-    }
-  })();
-  function acceptAllCookies() {
-    localStorage.setItem('gerlach_cookie_consent', 'all');
-    localStorage.setItem('gerlach_cookie_analytics', 'true');
-    document.getElementById('cookieBanner').classList.remove('show');
-  }
-  function acceptNecessaryOnly() {
-    localStorage.setItem('gerlach_cookie_consent', 'necessary');
-    localStorage.removeItem('gerlach_cookie_analytics');
-    document.getElementById('cookieBanner').classList.remove('show');
-  }
+document.getElementById('fy').textContent=new Date().getFullYear();
+(function(){var u='app.gerlach',d='gmail.com',f=u+'@'+d;document.querySelectorAll('.js-ce').forEach(function(e){e.href='mai'+'lto:'+f;});})();
+const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}});},{threshold:0.1});
+document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
+function toggleMod(el){document.querySelectorAll('.mod-card.open').forEach(c=>{if(c!==el)c.classList.remove('open')});el.classList.toggle('open')}
+// Cookie consent
+(function(){if(!localStorage.getItem('gerlach_cookie_consent')){setTimeout(function(){document.getElementById('cookieBanner').classList.add('show');},1200);}})();
+function acceptAllCookies(){localStorage.setItem('gerlach_cookie_consent','all');localStorage.setItem('gerlach_cookie_analytics','true');document.getElementById('cookieBanner').classList.remove('show');}
+function acceptNecessaryOnly(){localStorage.setItem('gerlach_cookie_consent','necessary');localStorage.removeItem('gerlach_cookie_analytics');document.getElementById('cookieBanner').classList.remove('show');}
 </script>
 </body>
 </html>
