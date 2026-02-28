@@ -189,6 +189,33 @@
       text-decoration: none; transition: background 0.15s;
     }
     .demo-banner a:hover { background: #78350f; }
+
+    /* ── Data management ── */
+    .data-mgmt { margin-top:1.5rem; padding-top:1.5rem; border-top:1.5px solid var(--c-border); }
+    .data-mgmt-title { font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.5rem; }
+    .data-mgmt-desc { font-size:0.72rem; color:var(--c-muted); margin-bottom:1rem; line-height:1.5; }
+    .data-mgmt-row { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem; }
+    .btn-data { display:inline-flex; align-items:center; gap:0.375rem; padding:0.5rem 0.875rem; font-size:0.78rem; font-weight:600; font-family:'Lexend',sans-serif; border-radius:0.625rem; cursor:pointer; transition:all 0.15s; border:1.5px solid var(--c-border); background:white; color:var(--c-text); }
+    .btn-data:hover { background:var(--c-bg); border-color:#ccc; }
+    .btn-data-danger { border-color:#fca5a5; color:#dc2626; background:#fef2f2; }
+    .btn-data-danger:hover { background:#fee2e2; border-color:#f87171; }
+    .data-mgmt-note { font-size:0.68rem; color:var(--c-muted); line-height:1.5; margin-top:0.5rem; }
+    .data-file-input { display:none; }
+
+    /* Delete confirmation */
+    .delete-confirm { display:none; margin-top:0.75rem; padding:1rem; background:#fef2f2; border:1.5px solid #fca5a5; border-radius:0.875rem; }
+    .delete-confirm.open { display:block; }
+    .delete-confirm p { font-size:0.78rem; color:#991b1b; line-height:1.6; margin-bottom:0.75rem; }
+    .delete-confirm-input { width:100%; padding:0.5rem 0.75rem; font-size:0.82rem; border:1.5px solid #fca5a5; border-radius:0.5rem; font-family:'Lexend',sans-serif; margin-bottom:0.75rem; }
+    .delete-confirm-input:focus { outline:none; border-color:#dc2626; }
+    .delete-confirm-actions { display:flex; gap:0.5rem; justify-content:flex-end; }
+    .btn-delete-final { padding:0.5rem 1rem; font-size:0.78rem; font-weight:700; font-family:'Lexend',sans-serif; border-radius:0.5rem; cursor:pointer; border:none; background:#dc2626; color:white; opacity:0.5; pointer-events:none; transition:all 0.15s; }
+    .btn-delete-final.enabled { opacity:1; pointer-events:auto; }
+    .btn-delete-final.enabled:hover { background:#b91c1c; }
+
+    /* General toast */
+    .app-toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:#1a1612; color:white; padding:0.625rem 1.25rem; border-radius:0.75rem; font-size:0.82rem; font-weight:500; font-family:'Lexend',sans-serif; z-index:9999; opacity:0; transition:opacity 0.3s; pointer-events:none; max-width:90vw; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.25); }
+    .app-toast.visible { opacity:1; }
     .version-badge {
       display: inline-flex; align-items: center; gap: 0.375rem;
       font-size: 0.65rem; font-weight: 600;
@@ -1498,7 +1525,7 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Všetko funguje rovnako, iba dáta sa uložia len do prehliadača (zmažú sa po zatvorení karty v prehliadači).</span>
+    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Dáta sa zmažú po zatvorení karty. <strong>Tip:</strong> Exportujte si dáta cez Profil → Správa dát a kedykoľvek ich naimportujte späť.</span>
     <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo</a>
   </div>
 
@@ -2061,6 +2088,57 @@
         <button type="submit" class="btn-primary" style="padding:0.75rem 2.5rem; font-size:0.9375rem;">Uložiť profil</button>
       </div>
     </form>
+
+    <!-- ═══════ SPRÁVA DÁT ═══════ -->
+    <div class="data-mgmt" id="dataMgmtSection">
+      <div class="data-mgmt-title">📦 Správa dát</div>
+
+      <!-- Export -->
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:0.75rem; font-weight:600; color:var(--c-text); margin-bottom:0.375rem;">Export dát</div>
+        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Stiahnite si kópiu všetkých svojich dát vo formáte JSON. Súbor môžete použiť na zálohu alebo import do iného zariadenia.</div>
+        <div class="data-mgmt-row">
+          <button class="btn-data" onclick="exportUserData()">📥 Exportovať dáta</button>
+        </div>
+      </div>
+
+      <!-- Import (demo only by default, or always shown) -->
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:0.75rem; font-weight:600; color:var(--c-text); margin-bottom:0.375rem;">Import dát</div>
+        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Nahrajte predtým exportovaný súbor. <strong>Importované dáta nahradia vaše aktuálne dáta.</strong></div>
+        <div class="data-mgmt-row">
+          <button class="btn-data" onclick="document.getElementById('importFileInput').click()">📤 Importovať zo súboru</button>
+          <input type="file" id="importFileInput" class="data-file-input" accept=".json,application/json" onchange="importUserData(this)" />
+        </div>
+      </div>
+
+      <!-- Delete (logged-in only) -->
+      <div id="deleteDataSection" style="display:none;">
+        <div style="font-size:0.75rem; font-weight:600; color:#dc2626; margin-bottom:0.375rem;">Vymazanie dát</div>
+        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Natrvalo vymažte všetky dáta spojené s vaším účtom. Táto akcia je <strong>nezvratná</strong>.</div>
+        <div class="data-mgmt-row">
+          <button class="btn-data btn-data-danger" onclick="showDeleteConfirm()">🗑️ Vymazať všetky moje dáta</button>
+        </div>
+        <div class="delete-confirm" id="deleteConfirm">
+          <p><strong>Pozor:</strong> Táto akcia natrvalo vymaže všetky vaše dáta vrátane profilu, zásob, plánov, kontaktov a nastavení. Dáta nie je možné obnoviť.</p>
+          <p>Pre potvrdenie napíšte <strong>VYMAZAŤ</strong> do poľa nižšie:</p>
+          <input type="text" class="delete-confirm-input" id="deleteConfirmInput" placeholder="Napíšte VYMAZAŤ" oninput="checkDeleteConfirmation(this)" autocomplete="off" />
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; color:#991b1b; margin-bottom:0.75rem; cursor:pointer;">
+            <input type="checkbox" id="deleteAccountCheckbox" style="accent-color:#dc2626;" />
+            Vymazať aj Google prihlásenie z tejto aplikácie (zruší prístup)
+          </label>
+          <div class="delete-confirm-actions">
+            <button class="btn-data" onclick="hideDeleteConfirm()">Zrušiť</button>
+            <button class="btn-delete-final" id="btnDeleteFinal" onclick="executeDeleteAllData()">Natrvalo vymazať</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-mgmt-note" id="dataMgmtNote">
+        💡 Export vytvorí JSON súbor, ktorý si môžete uložiť na disk. Pri importe sa aktuálne dáta nahradia importovanými.
+      </div>
+    </div>
+    <!-- ═══════ /SPRÁVA DÁT ═══════ -->
   </div>
 </div>
 
@@ -2461,9 +2539,9 @@
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, deleteUser }
     from "https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, runTransaction }
+  import { getFirestore, doc, getDoc, setDoc, updateDoc, increment, runTransaction, deleteDoc, collection, getDocs }
     from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
   import { getAnalytics, logEvent, setAnalyticsCollectionEnabled }
     from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
@@ -3173,6 +3251,7 @@
     showScreen('app');
     state._profileWasSet = !!state.profile;
     renderAll();
+    updateDataMgmtVisibility();
     setupLogoEasterEgg();
     trackEvent('demo_start');
     const emailSection = document.getElementById('emailSettingsInProfile');
@@ -3292,6 +3371,7 @@
     showScreen("app");
     state._profileWasSet = !!state.profile;
     renderAll();
+    updateDataMgmtVisibility();
     setupLogoEasterEgg();
     trackEvent('login', { method: 'google', is_new: !snap.exists() });
     if (!state.profile) openModal("modalProfile");
@@ -3307,6 +3387,330 @@
   }
 
   // ── Helpers ──────────────────────────────────────────────────────
+  // ── Toast notification ──────────────────────────────────────────
+  let _toastTimer = null;
+  function showToast(msg, duration = 3000) {
+    let el = document.getElementById('appToast');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'appToast';
+      el.className = 'app-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = msg;
+    el.classList.add('visible');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => el.classList.remove('visible'), duration);
+  }
+
+  // ── DATA MANAGEMENT: Export / Import / Delete ──────────────────
+
+  const EXPORT_VERSION = 1;
+  const EXPORT_MAX_SIZE = 1 * 1024 * 1024; // 1 MB
+
+  // ── Required keys in valid state object
+  const VALID_STATE_KEYS = ['profile', 'items', 'plans', 'personalContacts', 'evacuationBags', 'alertDaysMeds', 'alertDaysFood', 'selectedCategoryId'];
+
+  function exportUserData() {
+    try {
+      const exportData = {
+        exportVersion: EXPORT_VERSION,
+        exportDate: new Date().toISOString(),
+        appVersion: 'v50',
+        source: isDemo ? 'demo' : 'account',
+        data: structuredClone(state)
+      };
+      // Remove any transient UI state that shouldn't be exported
+      delete exportData.data._dirty;
+      delete exportData.data._lastSync;
+
+      const json = JSON.stringify(exportData, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      const date = new Date().toISOString().slice(0, 10);
+      a.href = url;
+      a.download = `gerlach-export-${date}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      showToast('✅ Dáta exportované');
+    } catch (e) {
+      console.error('Export error:', e);
+      showToast('❌ Export sa nepodaril');
+    }
+  }
+
+  function importUserData(fileInput) {
+    const file = fileInput.files?.[0];
+    if (!file) return;
+
+    // Reset input so same file can be selected again
+    fileInput.value = '';
+
+    // Size check
+    if (file.size > EXPORT_MAX_SIZE) {
+      showToast('❌ Súbor je príliš veľký (max 1 MB)');
+      return;
+    }
+
+    // Type check
+    if (!file.name.endsWith('.json') && file.type !== 'application/json') {
+      showToast('❌ Povolený je len formát JSON');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      try {
+        const raw = e.target.result;
+
+        // Parse JSON
+        let parsed;
+        try {
+          parsed = JSON.parse(raw);
+        } catch {
+          showToast('❌ Súbor nie je platný JSON');
+          return;
+        }
+
+        // Validate structure
+        if (!parsed || typeof parsed !== 'object') {
+          showToast('❌ Neplatný formát exportu');
+          return;
+        }
+
+        // Accept both wrapped (with exportVersion) and raw state
+        let importedData;
+        if (parsed.exportVersion && parsed.data && typeof parsed.data === 'object') {
+          // Wrapped export format
+          if (parsed.exportVersion > EXPORT_VERSION) {
+            showToast('❌ Novšia verzia exportu — aktualizujte aplikáciu');
+            return;
+          }
+          importedData = parsed.data;
+        } else if (parsed.items && parsed.plans) {
+          // Raw state object (backward compatible)
+          importedData = parsed;
+        } else {
+          showToast('❌ Súbor neobsahuje platné dáta Gerlach');
+          return;
+        }
+
+        // Validate data has expected fields
+        const validation = validateImportData(importedData);
+        if (!validation.ok) {
+          showToast('❌ ' + validation.error);
+          return;
+        }
+
+        // Sanitize: deep-clone to prevent prototype pollution
+        const safeData = JSON.parse(JSON.stringify(importedData));
+
+        // Confirm with user
+        const itemCount = Object.values(safeData.items || {}).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+        const profileInfo = safeData.profile ? `${safeData.profile.adults || 0} dospelí, ${safeData.profile.kids || 0} deti` : 'bez profilu';
+        const contactCount = (safeData.personalContacts || []).length;
+
+        const msg = `Importovať dáta?\n\n` +
+          `• Profil: ${profileInfo}\n` +
+          `• Položiek: ${itemCount}\n` +
+          `• Kontaktov: ${contactCount}\n\n` +
+          `⚠️ Vaše aktuálne dáta budú nahradené.`;
+
+        if (!confirm(msg)) return;
+
+        // Apply import using the same merge logic as loadUserData
+        const mergedState = freshState();
+        Object.assign(mergedState, safeData);
+
+        // Ensure critical fields have correct types
+        mergedState.personalContacts = Array.isArray(safeData.personalContacts) ? safeData.personalContacts : [];
+        mergedState.evacuationBags = (safeData.evacuationBags && typeof safeData.evacuationBags === 'object' && !Array.isArray(safeData.evacuationBags)) ? safeData.evacuationBags : {};
+        mergedState.alertDaysMeds = typeof safeData.alertDaysMeds === 'number' ? safeData.alertDaysMeds : 180;
+        mergedState.alertDaysFood = typeof safeData.alertDaysFood === 'number' ? safeData.alertDaysFood : 30;
+
+        // Load into app
+        state = mergedState;
+        saveUserData();
+        renderAll();
+        showToast('✅ Dáta úspešne importované');
+
+      } catch (e) {
+        console.error('Import error:', e);
+        showToast('❌ Import sa nepodaril: ' + (e.message || 'neznáma chyba'));
+      }
+    };
+    reader.onerror = () => showToast('❌ Nepodarilo sa prečítať súbor');
+    reader.readAsText(file);
+  }
+
+  function validateImportData(data) {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      return { ok: false, error: 'Dáta musia byť objekt' };
+    }
+
+    // items must be object (not array)
+    if (data.items && (typeof data.items !== 'object' || Array.isArray(data.items))) {
+      return { ok: false, error: 'Neplatný formát položiek (items)' };
+    }
+
+    // If items exist, each category must be an array
+    if (data.items) {
+      for (const [key, val] of Object.entries(data.items)) {
+        if (!Array.isArray(val)) {
+          return { ok: false, error: `Kategória "${key}" nie je pole` };
+        }
+        // Max 500 items per category
+        if (val.length > 500) {
+          return { ok: false, error: `Príliš veľa položiek v kategórii "${key}" (max 500)` };
+        }
+        // Validate each item has name as string
+        for (const item of val) {
+          if (!item || typeof item !== 'object' || typeof item.name !== 'string') {
+            return { ok: false, error: `Neplatná položka v kategórii "${key}"` };
+          }
+          if (item.name.length > 500) {
+            return { ok: false, error: `Príliš dlhý názov položky v "${key}"` };
+          }
+        }
+      }
+    }
+
+    // plans must be object
+    if (data.plans && (typeof data.plans !== 'object' || Array.isArray(data.plans))) {
+      return { ok: false, error: 'Neplatný formát plánov' };
+    }
+
+    // personalContacts must be array if present
+    if (data.personalContacts && !Array.isArray(data.personalContacts)) {
+      return { ok: false, error: 'Kontakty musia byť pole' };
+    }
+    if (data.personalContacts && data.personalContacts.length > 50) {
+      return { ok: false, error: 'Príliš veľa kontaktov (max 50)' };
+    }
+
+    // evacuationBags must be object if present
+    if (data.evacuationBags) {
+      if (typeof data.evacuationBags !== 'object' || Array.isArray(data.evacuationBags)) {
+        return { ok: false, error: 'Neplatný formát evakuačných batohov' };
+      }
+      if (Object.keys(data.evacuationBags).length > 20) {
+        return { ok: false, error: 'Príliš veľa batohov (max 20)' };
+      }
+    }
+
+    // alertDays must be numbers if present
+    if (data.alertDaysMeds !== undefined && typeof data.alertDaysMeds !== 'number') {
+      return { ok: false, error: 'alertDaysMeds musí byť číslo' };
+    }
+    if (data.alertDaysFood !== undefined && typeof data.alertDaysFood !== 'number') {
+      return { ok: false, error: 'alertDaysFood musí byť číslo' };
+    }
+
+    // Check total serialized size (prevent abuse)
+    const serialized = JSON.stringify(data);
+    if (serialized.length > EXPORT_MAX_SIZE) {
+      return { ok: false, error: 'Dáta sú príliš veľké' };
+    }
+
+    return { ok: true };
+  }
+
+  function showDeleteConfirm() {
+    const el = document.getElementById('deleteConfirm');
+    el.classList.add('open');
+    document.getElementById('deleteConfirmInput').value = '';
+    document.getElementById('btnDeleteFinal').classList.remove('enabled');
+    document.getElementById('deleteAccountCheckbox').checked = false;
+  }
+
+  function hideDeleteConfirm() {
+    document.getElementById('deleteConfirm').classList.remove('open');
+  }
+
+  function checkDeleteConfirmation(input) {
+    const btn = document.getElementById('btnDeleteFinal');
+    if (input.value.trim() === 'VYMAZAŤ') {
+      btn.classList.add('enabled');
+    } else {
+      btn.classList.remove('enabled');
+    }
+  }
+
+  async function executeDeleteAllData() {
+    if (document.getElementById('deleteConfirmInput').value.trim() !== 'VYMAZAŤ') return;
+    if (isDemo) return;
+    if (!currentUser) return;
+
+    const deleteAccount = document.getElementById('deleteAccountCheckbox').checked;
+    const uid = currentUser.uid;
+
+    try {
+      showToast('⏳ Mazanie dát...');
+
+      // 1. Delete notification subdocuments
+      try {
+        const notifCol = collection(db, 'users', uid, 'notifications');
+        const notifSnap = await getDocs(notifCol);
+        const deletePromises = notifSnap.docs.map(d => deleteDoc(d.ref));
+        await Promise.all(deletePromises);
+      } catch (e) {
+        console.warn('Notification docs delete failed (may not exist):', e);
+      }
+
+      // 2. Delete main data document (try delete first, fallback to overwrite)
+      try {
+        await deleteDoc(userDocRef(uid));
+      } catch (e) {
+        // Fallback: overwrite with minimal empty state if delete not permitted by rules
+        console.warn('deleteDoc failed, overwriting with empty state:', e);
+        await setDoc(userDocRef(uid), { _deleted: true, _deletedAt: new Date().toISOString() });
+      }
+
+      // 3. Optionally delete Firebase Auth account
+      if (deleteAccount && auth.currentUser) {
+        try {
+          await deleteUser(auth.currentUser);
+          showToast('✅ Účet a všetky dáta boli vymazané');
+        } catch (e) {
+          if (e.code === 'auth/requires-recent-login') {
+            showToast('⚠️ Dáta vymazané. Pre zrušenie účtu sa znovu prihláste a skúste znova.');
+          } else {
+            console.error('Auth delete error:', e);
+            showToast('⚠️ Dáta vymazané, ale účet sa nepodarilo zrušiť.');
+          }
+        }
+      } else {
+        showToast('✅ Všetky dáta boli vymazané');
+      }
+
+      // 4. Reset local state and sign out
+      state = freshState();
+      hideDeleteConfirm();
+
+      // Small delay for toast to be visible
+      setTimeout(() => {
+        signOut(auth);
+      }, 1500);
+
+    } catch (e) {
+      console.error('Delete all data error:', e);
+      showToast('❌ Mazanie sa nepodarilo: ' + (e.message || 'neznáma chyba'));
+    }
+  }
+
+  // Show/hide delete section based on mode
+  function updateDataMgmtVisibility() {
+    const deleteSection = document.getElementById('deleteDataSection');
+    if (deleteSection) {
+      deleteSection.style.display = isDemo ? 'none' : 'block';
+    }
+  }
+
   function esc(s) {
     return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
   }
