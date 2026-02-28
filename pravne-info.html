@@ -5,6 +5,22 @@
 <meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Právne informácie — Mámeplán.sk</title>
 <meta name="description" content="Podmienky používania, zásady ochrany osobných údajov a cookies politika projektu Mámeplán / Gerlach."/>
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src https://fonts.gstatic.com;
+  connect-src 'self';
+  img-src 'self' data:;
+  object-src 'none';
+  base-uri 'self';
+  form-action 'none';
+  worker-src 'none';
+  upgrade-insecure-requests;
+"/>
+<meta http-equiv="X-Content-Type-Options" content="nosniff"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"/>
 <link rel="canonical" href="https://mameplan.sk/pravne-info.html"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -204,7 +220,7 @@
 <div class="wrap">
 
 <h1 class="page-title">Právne informácie</h1>
-<p class="page-meta">Posledná aktualizácia: 26. februára 2026 · Prevádzkovateľ: Miloš Horník</p>
+<p class="page-meta">Posledná aktualizácia: 28. februára 2026 · Prevádzkovateľ: Miloš Horník</p>
 
 <!-- TOC -->
 <div class="doc-nav">
@@ -233,7 +249,11 @@
 <p><strong>Veková hranica:</strong> Služba je určená osobám starším ako 16 rokov. Osoby mladšie ako 16 rokov môžu Službu používať výlučne pod dohľadom a so súhlasom zákonného zástupcu. Zákonný zástupca preberá plnú zodpovednosť za používanie Služby maloletou osobou a súhlasí s týmito Podmienkami v jej mene. Prevádzkovateľ nenesie žiadnu zodpovednosť za používanie Služby maloletými osobami.</p>
 
 <h3>2. Predmet a charakter Služby</h3>
-<p>Služba Gerlach je informačný nástroj, ktorý pomáha domácnostiam orientačne plánovať zásoby pre prípad núdzových situácií. Služba poskytuje najmä: orientačné výpočty zásob vody, jedla a liekov podľa veľkosti domácnosti; sledovanie dátumov expirácie; uloženie núdzového plánu a kontaktov; informácie o prvej pomoci a postupoch v krízových situáciách.</p>
+<p>Služba Gerlach je informačný nástroj, ktorý pomáha domácnostiam orientačne plánovať zásoby pre prípad núdzových situácií. Služba poskytuje najmä: orientačné výpočty zásob vody, jedla a liekov podľa veľkosti domácnosti; sledovanie dátumov expirácie; uloženie núdzového plánu a kontaktov; informácie o prvej pomoci a postupoch v krízových situáciách; emailové upozornenia na blížiace sa expirácie zásob.</p>
+
+<div class="doc-highlight">
+<p><strong>Služba je vo fáze obmedzeného prístupu (beta / early access).</strong> Prevádzkovateľ môže kedykoľvek zmeniť, obmedziť alebo ukončiť dostupnosť Služby, jej funkcie alebo kapacitu bez predchádzajúceho upozornenia. Počet registrovaných Používateľov môže byť obmedzený.</p>
+</div>
 
 <div class="doc-highlight">
 <p><strong>Služba má výlučne informatívny a pomocný charakter.</strong> Nie je odborným poradenstvom v oblasti civilnej ochrany, zdravotníctva, bezpečnosti ani výživy. Výpočty a odporúčania sú orientačné a nemôžu nahradiť individuálne posúdenie odborníkom.</p>
@@ -253,7 +273,7 @@
 <p><strong>Prevádzkovateľ nenesie žiadnu zodpovednosť za škody</strong> (priame, nepriame, následné, náhodné, špeciálne alebo sankčné), ktoré vzniknú v súvislosti s používaním Služby alebo nemožnosťou jej použitia, a to vrátane, nie však výlučne:</p>
 <ul>
   <li>škôd vzniknutých spoľahnutím sa na informácie, výpočty alebo odporúčania poskytnuté Službou;</li>
-  <li>straty dát, vrátane dát uložených vo Firestore alebo v sessionStorage;</li>
+  <li>straty dát, vrátane dát uložených v Službe alebo v prehliadači Používateľa;</li>
   <li>škôd vzniknutých výpadkom Služby, chybou v softvéri alebo neoprávneným prístupom tretích strán;</li>
   <li>škôd vzniknutých nesprávnym rozhodnutím Používateľa v krízovej alebo núdzovej situácii;</li>
   <li>zdravotnej ujmy spôsobenej aplikovaním informácií o prvej pomoci alebo núdzových postupov.</li>
@@ -270,12 +290,17 @@
 <ul>
   <li>používať Službu v súlade s právnym poriadkom SR, dobrými mravmi a týmito Podmienkami;</li>
   <li>nezneužívať Službu na účely, na ktoré nie je určená;</li>
-  <li>nezasahovať do technickej infraštruktúry Služby, nepokúšať sa o neoprávnený prístup k dátam iných Používateľov;</li>
+  <li>nezasahovať do technickej infraštruktúry Služby, nepokúšať sa o neoprávnený prístup k dátam iných Používateľov ani o obchádzanie bezpečnostných opatrení Služby;</li>
   <li>nezadávať do Služby údaje tretích osôb bez ich výslovného súhlasu (pozri bod 5a nižšie);</li>
+  <li>nepoužívať automatizované nástroje (boty, skripty, scrapers) na prístup k Službe alebo interakciu s ňou bez predchádzajúceho písomného súhlasu Prevádzkovateľa;</li>
   <li>samostatne si zálohovať údaje, ktoré považuje za dôležité.</li>
 </ul>
 
-<p id="tretie-osoby"><strong>5a. Údaje tretích osôb (núdzové kontakty).</strong> Služba umožňuje zadávať mená a telefónne čísla osôb ako núdzové kontakty. Používateľ prehlasuje a zaručuje, že pred zadaním údajov akejkoľvek tretej osoby získal jej výslovný súhlas s uložením týchto údajov v Službe. <strong>Používateľ nesie plnú a výlučnú zodpovednosť za zákonnosť zadania údajov tretích osôb.</strong> Ak tretia osoba uplatní akýkoľvek nárok voči Prevádzkovateľovi v súvislosti s neoprávneným spracúvaním jej údajov, Používateľ je povinný Prevádzkovateľa v plnom rozsahu odškodniť (pozri bod 6).</p>
+<p><strong>5a. Údaje tretích osôb (núdzové kontakty).</strong> Služba umožňuje zadávať mená a telefónne čísla osôb ako núdzové kontakty. Používateľ prehlasuje a zaručuje, že pred zadaním údajov akejkoľvek tretej osoby získal jej výslovný súhlas s uložením týchto údajov v Službe. <strong>Používateľ nesie plnú a výlučnú zodpovednosť za zákonnosť zadania údajov tretích osôb.</strong> Ak tretia osoba uplatní akýkoľvek nárok voči Prevádzkovateľovi v súvislosti s neoprávneným spracúvaním jej údajov, Používateľ je povinný Prevádzkovateľa v plnom rozsahu odškodniť (pozri bod 6).</p>
+
+<p><strong>5b. Primerané používanie (fair use).</strong> Služba je navrhnutá pre bežné osobné používanie domácnosťami. Prevádzkovateľ si vyhradzuje právo obmedziť alebo pozastaviť prístup Používateľovi, ktorý Službu zaťažuje neprimeraným spôsobom, a to bez predchádzajúceho upozornenia a bez povinnosti uviesť dôvod.</p>
+
+<p><strong>5c. Informačný obsah a zdroje.</strong> Časť informačného obsahu Služby (napr. texty o prvej pomoci, krízových postupoch, právnych predpisoch) bola vytvorená alebo spracovaná s podporou nástrojov umelej inteligencie a následne kontrolovaná Prevádzkovateľom. Napriek vynaloženiu primeraného úsilia na overenie správnosti Prevádzkovateľ nezaručuje absolútnu presnosť, úplnosť ani aktuálnosť týchto informácií. Používateľ je povinný si kritické informácie (najmä zdravotné a bezpečnostné) overiť z oficiálnych zdrojov.</p>
 
 <h3>6. Odškodnenie (indemnifikácia)</h3>
 <p>Používateľ sa zaväzuje odškodniť a chrániť Prevádzkovateľa pred akýmikoľvek nárokmi, žalobami, škodami, nákladmi (vrátane primeraných nákladov na právne zastúpenie) a stratami, ktoré vzniknú v dôsledku:</p>
@@ -288,7 +313,7 @@
 <p>Táto povinnosť odškodnenia pretrváva aj po ukončení používania Služby alebo po zrušení účtu Používateľa.</p>
 
 <h3>7. Vyššia moc (force majeure)</h3>
-<p>Prevádzkovateľ nenesie zodpovednosť za neplnenie alebo oneskorené plnenie akýchkoľvek povinností vyplývajúcich z týchto Podmienok, ak je takéto neplnenie spôsobené okolnosťami mimo primeranú kontrolu Prevádzkovateľa (vyššia moc). Za okolnosti vyššej moci sa považujú najmä: prírodné katastrofy, povodne, zemetrasenia, pandémie, vojnové konflikty, teroristické útoky, kybernetické útoky, výpadky elektrickej energie alebo internetu, zlyhanie služieb tretích strán (vrátane Google/Firebase), legislatívne zmeny, rozhodnutia orgánov verejnej moci a iné nepredvídateľné udalosti.</p>
+<p>Prevádzkovateľ nenesie zodpovednosť za neplnenie alebo oneskorené plnenie akýchkoľvek povinností vyplývajúcich z týchto Podmienok, ak je takéto neplnenie spôsobené okolnosťami mimo primeranú kontrolu Prevádzkovateľa (vyššia moc). Za okolnosti vyššej moci sa považujú najmä: prírodné katastrofy, povodne, zemetrasenia, pandémie, vojnové konflikty, teroristické útoky, kybernetické útoky, výpadky elektrickej energie alebo internetu, zlyhanie služieb tretích strán (vrátane poskytovateľov cloudových služieb), legislatívne zmeny, rozhodnutia orgánov verejnej moci a iné nepredvídateľné udalosti.</p>
 
 <div class="doc-highlight">
 <p><strong>Používateľ výslovne berie na vedomie, že Služba nemusí byť dostupná práve v čase reálnej krízovej situácie</strong> (výpadok elektriny, internetu, serverov). Služba nie je záchranný systém a nemôže nahradiť oficiálne núdzové služby (112, 150, 155, 158). Prevádzkovateľ nenesie žiadnu zodpovednosť za nedostupnosť Služby počas krízovej situácie.</p>
@@ -318,7 +343,7 @@
 <p>Ak sa akékoľvek ustanovenie týchto Podmienok stane neplatným alebo nevymáhateľným, ostatné ustanovenia zostávajú v platnosti a účinnosti v plnom rozsahu.</p>
 
 <h3>13. Účinnosť</h3>
-<p>Tieto Podmienky nadobúdajú účinnosť dňom 26. februára 2026.</p>
+<p>Tieto Podmienky nadobúdajú účinnosť dňom 28. februára 2026.</p>
 </section>
 
 <div class="doc-divider"></div>
@@ -364,13 +389,13 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
     </tr>
     <tr>
       <td><strong>Demo režim</strong></td>
-      <td>Žiadne osobné údaje — dáta sa ukladajú výlučne do sessionStorage prehliadača a po jeho zatvorení sa automaticky vymažú</td>
+      <td>Žiadne osobné údaje — dáta sa ukladajú výlučne do prehliadača Používateľa a po jeho zatvorení sa automaticky vymažú</td>
       <td>—</td>
     </tr>
   </tbody>
 </table>
 
-<p><strong>Služba nezbiera ani nespracúva:</strong> údaje o polohe, biometrické údaje, údaje o zdravotnom stave, údaje z iných aplikácií ani údaje o prehliadaní internetu. Firebase Analytics (ak je aktivovaný so súhlasom) zbiera výlučne anonymné štatistiky o používaní aplikácie — nie osobné identifikátory.</p>
+<p><strong>Služba nezbiera ani nespracúva:</strong> údaje o polohe, biometrické údaje, údaje o zdravotnom stave, údaje z iných aplikácií ani údaje o prehliadaní internetu. Analytika (ak je aktivovaná so súhlasom) zbiera výlučne anonymné štatistiky o používaní aplikácie — nie osobné identifikátory.</p>
 
 <p><strong>Deti a maloletí:</strong> Služba nie je určená osobám mladším ako 16 rokov. Prevádzkovateľ vedome nespracúva osobné údaje detí mladších ako 16 rokov. Ak zákonný zástupca zistí, že dieťa poskytlo osobné údaje bez jeho súhlasu, nech kontaktuje Prevádzkovateľa na <a class="js-email" href="#">[načítavam…]</a> — údaje budú bezodkladne vymazané.</p>
 
@@ -403,9 +428,9 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
       <td>Dobrovoľné zadanie emailu za účelom informovania o otvorení registrácie</td>
     </tr>
     <tr>
-      <td>Emailové upozornenia na expirácie (plánované)</td>
-      <td>Čl. 6 ods. 1 písm. a) — súhlas</td>
-      <td>V budúcnosti, po zavedení tejto funkcie, len so súhlasom Používateľa</td>
+      <td>Emailové upozornenia na expirácie zásob</td>
+      <td>Čl. 6 ods. 1 písm. b) — plnenie zmluvy</td>
+      <td>Automatické emailové upozornenia na blížiace sa expirácie zásob a odporúčania na doplnenie. Odosielané na email priradený k Google účtu Používateľa. Súčasť hlavnej funkcionality Služby.</td>
     </tr>
     <tr>
       <td>Údaje tretích osôb (núdzové kontakty)</td>
@@ -413,7 +438,7 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
       <td>Oprávnený záujem Používateľa mať dostupné núdzové kontakty. Používateľ zodpovedá za informovanie dotknutých osôb.</td>
     </tr>
     <tr>
-      <td>Analytika používania aplikácie (Firebase Analytics)</td>
+      <td>Analytika používania aplikácie</td>
       <td>Čl. 6 ods. 1 písm. a) — súhlas</td>
       <td>Anonymné štatistiky (počet návštev, použité funkcie, typ zariadenia). Aktivuje sa len po udelení súhlasu cez cookies banner. Nezbierajú sa žiadne osobné identifikátory.</td>
     </tr>
@@ -423,18 +448,19 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 <h3>4. Príjemcovia a sprostredkovatelia</h3>
 <p>Osobné údaje sú spracúvané prostredníctvom služieb tretích strán:</p>
 <ul>
-  <li><strong>Google LLC / Google Ireland Limited</strong> — poskytovateľ Firebase (autentifikácia, databáza Firestore, Firebase Analytics). Google spracúva údaje ako sprostredkovateľ na základe štandardných zmluvných doložiek (SCC) a ďalších záruk podľa čl. 46 GDPR. Firebase Analytics zbiera anonymné štatistiky o používaní aplikácie (žiadne osobné identifikátory). Zásady ochrany údajov Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>. Podmienky Firebase: <a href="https://firebase.google.com/terms/data-processing-terms" target="_blank" rel="noopener">firebase.google.com/terms</a>.</li>
+  <li><strong>Google LLC / Google Ireland Limited</strong> — poskytovateľ cloudových služieb (autentifikácia, databáza, analytika, overovanie bezpečnosti). Google spracúva údaje ako sprostredkovateľ na základe štandardných zmluvných doložiek (SCC) a ďalších záruk podľa čl. 46 GDPR. Analytika zbiera výlučne anonymné štatistiky o používaní aplikácie (žiadne osobné identifikátory). Zásady ochrany údajov Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</li>
+  <li><strong>EmailJS (emailjs.com)</strong> — poskytovateľ služby odosielania emailov. Spracúva emailovú adresu Používateľa výlučne za účelom doručenia upozornení na expirácie zásob. Zásady ochrany údajov: <a href="https://www.emailjs.com/legal/privacy-policy/" target="_blank" rel="noopener">emailjs.com/legal/privacy-policy</a>.</li>
 </ul>
 <p>Prevádzkovateľ nepredáva, nepožičiava ani inak komerčne neposkytuje osobné údaje žiadnym tretím stranám.</p>
 
 <h3>5. Prenos údajov do tretích krajín</h3>
-<p>Firebase (Google) môže spracúvať údaje na serveroch v Európskej únii aj mimo nej (vrátane USA). Prenos je zabezpečený štandardnými zmluvnými doložkami (SCC) schválenými Európskou komisiou a ďalšími technickými a organizačnými opatreniami spoločnosti Google podľa čl. 46 GDPR.</p>
+<p>Služby tretích strán (Google, EmailJS) môžu spracúvať údaje na serveroch v Európskej únii aj mimo nej (vrátane USA). Prenos je zabezpečený štandardnými zmluvnými doložkami (SCC) schválenými Európskou komisiou a ďalšími technickými a organizačnými opatreniami podľa čl. 46 GDPR.</p>
 
 <h3>6. Doba uchovávania</h3>
 <ul>
   <li><strong>Údaje prihláseného Používateľa</strong> (účet + dáta domácnosti): po dobu existencie účtu. Po vymazaní účtu alebo po 12 mesiacoch neaktivity budú dáta vymazané.</li>
-  <li><strong>Waitlist email</strong>: uložený v databáze Firestore (Google). Uchovávaný do naplnenia účelu (odoslanie pozvánky) alebo do odvolania súhlasu, najdlhšie 12 mesiacov od zápisu. Používateľ môže požiadať o vymazanie kedykoľvek na <a class="js-email" href="#">[načítavam…]</a>.</li>
-  <li><strong>Demo režim</strong>: dáta existujú výlučne v sessionStorage prehliadača a automaticky sa vymažú po zatvorení karty/prehliadača.</li>
+  <li><strong>Waitlist email</strong>: uložený na serveri Prevádzkovateľa (cloudová databáza). Uchovávaný do naplnenia účelu (odoslanie pozvánky) alebo do odvolania súhlasu, najdlhšie 12 mesiacov od zápisu. Používateľ môže požiadať o vymazanie kedykoľvek na <a class="js-email" href="#">[načítavam…]</a>.</li>
+  <li><strong>Demo režim</strong>: dáta existujú výlučne v prehliadači Používateľa a automaticky sa vymažú po zatvorení karty/prehliadača.</li>
 </ul>
 
 <h3>7. Práva dotknutej osoby</h3>
@@ -456,8 +482,9 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 <ul>
   <li>Prenos dát je šifrovaný (HTTPS / TLS).</li>
   <li>Autentifikácia prebieha výlučne cez Google OAuth 2.0 — Služba neukladá ani nespracúva heslá.</li>
-  <li>Prístup k Firestore databáze je chránený bezpečnostnými pravidlami (Security Rules) — každý Používateľ má prístup výlučne k svojim vlastným dátam.</li>
-  <li>Demo režim nepoužíva serverové úložisko.</li>
+  <li>Prístup k údajom je zabezpečený server-side pravidlami na úrovni databázy — každý Používateľ má prístup výlučne k svojim vlastným dátam.</li>
+  <li>Požiadavky na službu sú overované automatizovaným systémom ochrany proti zneužitiu.</li>
+  <li>Demo režim nespracúva žiadne osobné údaje a neukladá dáta na server.</li>
 </ul>
 <p>Napriek týmto opatreniam Prevádzkovateľ nemôže zaručiť absolútnu bezpečnosť dát prenášaných cez internet (pozri Podmienky používania, bod 3).</p>
 
@@ -495,7 +522,7 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 <table class="doc-table">
   <thead>
     <tr>
-      <th>Názov / Typ</th>
+      <th>Typ</th>
       <th>Účel</th>
       <th>Poskytovateľ</th>
       <th>Kategória</th>
@@ -504,51 +531,30 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
   </thead>
   <tbody>
     <tr>
-      <td>Firebase Auth cookies</td>
-      <td>Udržanie stavu prihlásenia cez Google účet</td>
-      <td>Google (Firebase)</td>
+      <td>Autentifikačné cookies</td>
+      <td>Udržanie stavu prihlásenia cez Google účet a technické zabezpečenie autentifikácie</td>
+      <td>Google</td>
       <td><strong>Nevyhnutné</strong></td>
       <td>Do odhlásenia / max. 1 rok</td>
     </tr>
     <tr>
-      <td>__session, __firebase_*</td>
-      <td>Technické zabezpečenie autentifikácie</td>
-      <td>Google (Firebase)</td>
-      <td><strong>Nevyhnutné</strong></td>
-      <td>Relácia / max. 14 dní</td>
-    </tr>
-    <tr>
-      <td>sessionStorage (demo)</td>
-      <td>Dočasné uloženie demo dát</td>
+      <td>Dočasné dáta demo režimu</td>
+      <td>Dočasné uloženie demo dát v prehliadači</td>
       <td>Prehliadač (lokálne)</td>
       <td><strong>Nevyhnutné</strong></td>
       <td>Do zatvorenia karty</td>
     </tr>
     <tr>
-      <td>localStorage (waitlist)</td>
-      <td>Lokálna záloha na ochranu proti duplicitnému odoslaniu (email sa primárne ukladá na server Firestore)</td>
+      <td>Lokálne nastavenia</td>
+      <td>Uloženie voľby Používateľa ohľadom cookies a ochrana proti duplicitnému odoslaniu formulárov</td>
       <td>Prehliadač (lokálne)</td>
       <td><strong>Nevyhnutné</strong></td>
       <td>Do vymazania Používateľom</td>
     </tr>
     <tr>
-      <td>gerlach_cookie_consent</td>
-      <td>Uloženie voľby Používateľa ohľadom cookies</td>
-      <td>mameplan.sk</td>
-      <td><strong>Nevyhnutné</strong></td>
-      <td>365 dní</td>
-    </tr>
-    <tr>
-      <td>gerlach_cookie_analytics</td>
-      <td>Uloženie súhlasu s analytickými cookies</td>
-      <td>mameplan.sk</td>
-      <td><strong>Nevyhnutné</strong></td>
-      <td>365 dní</td>
-    </tr>
-    <tr>
-      <td>_firebase_analytics_*</td>
-      <td>Anonymná štatistika používania aplikácie (počet návštev, použité funkcie, typ zariadenia)</td>
-      <td>Google (Firebase Analytics)</td>
+      <td>Analytické cookies</td>
+      <td>Anonymná štatistika používania aplikácie (počet návštev, použité funkcie, typ zariadenia). Nezbierajú sa žiadne osobné identifikátory.</td>
+      <td>Google</td>
       <td><strong>Analytické</strong></td>
       <td>Max. 14 mesiacov</td>
     </tr>
@@ -556,12 +562,12 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 </table>
 
 <div class="doc-highlight">
-<p><strong>Analytické cookies (Firebase Analytics) sa aktivujú výlučne po udelení súhlasu Používateľom</strong> prostredníctvom cookies banneru. Ak Používateľ zvolí „Len nevyhnutné", žiadne analytické cookies sa nepoužijú. Služba nepoužíva žiadne marketingové ani sledovacie cookies.</p>
+<p><strong>Analytické cookies sa aktivujú výlučne po udelení súhlasu Používateľom</strong> prostredníctvom cookies banneru. Ak Používateľ zvolí „Len nevyhnutné", žiadne analytické cookies sa nepoužijú. Služba nepoužíva žiadne marketingové ani sledovacie cookies.</p>
 </div>
 
 <h3>3. Právny základ</h3>
 <p><strong>Nevyhnutné cookies</strong> nepodliehajú súhlasu podľa čl. 5 ods. 5 zákona č. 452/2021 Z. z., keďže sú technicky nevyhnutné na poskytnutie Služby, ktorú Používateľ výslovne požaduje.</p>
-<p><strong>Analytické cookies</strong> (Firebase Analytics) sa aktivujú výlučne na základe predchádzajúceho súhlasu Používateľa (čl. 5 ods. 5 zákona č. 452/2021 Z. z. a čl. 6 ods. 1 písm. a) GDPR). Súhlas je udelený kliknutím na „Prijať všetko" v cookies banneri. Používateľ môže súhlas kedykoľvek odvolať vymazaním cookies v prehliadači — pri ďalšej návšteve sa banner zobrazí znova.</p>
+<p><strong>Analytické cookies</strong> sa aktivujú výlučne na základe predchádzajúceho súhlasu Používateľa (čl. 5 ods. 5 zákona č. 452/2021 Z. z. a čl. 6 ods. 1 písm. a) GDPR). Súhlas je udelený kliknutím na „Prijať všetko" v cookies banneri. Používateľ môže súhlas kedykoľvek odvolať vymazaním cookies v prehliadači — pri ďalšej návšteve sa banner zobrazí znova.</p>
 
 <h3>4. Ako spravovať cookies</h3>
 <p>Používateľ môže cookies kedykoľvek odstrániť alebo zablokovať v nastaveniach svojho prehliadača. Upozorňujeme, že zablokovanie nevyhnutných cookies môže obmedziť alebo znemožniť fungovanie Služby (napr. nebude možné prihlásenie).</p>
@@ -580,11 +586,14 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 </div>
 
 <footer class="legal-footer">
-  Mámeplán.sk © <script>document.write(new Date().getFullYear())</script> · Miloš Horník · <a class="js-email" href="#">[načítavam…]</a>
+  Mámeplán.sk © <span id="footerYear"></span> · Miloš Horník · <a class="js-email" href="#">[načítavam…]</a>
 </footer>
 
+<script>try { if (self !== top) { top.location = self.location; } } catch(e) {}</script>
 <script>
-  // Email sa renderuje cez JS aby ho hosting/CDN filtre neobfuskovali
+  // Year
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+  // Email sa renderuje cez JS (anti-scraping)
   (function() {
     var u = 'app.gerlach', d = 'gmail.com', full = u + '@' + d;
     document.querySelectorAll('.js-email').forEach(function(el) {
