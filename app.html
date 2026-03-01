@@ -8,13 +8,14 @@
     script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://www.google.com https://apis.google.com https://www.googletagmanager.com https://www.recaptcha.net;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src https://fonts.gstatic.com;
-    connect-src https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.google-analytics.com https://api.emailjs.com https://www.google.com https://firebase.googleapis.com https://content-firebaseappcheck.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://recaptchaenterprise.googleapis.com https://www.recaptcha.net;
+    connect-src https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.google-analytics.com https://www.google.com https://firebase.googleapis.com https://content-firebaseappcheck.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://recaptchaenterprise.googleapis.com https://www.recaptcha.net;
     frame-src https://accounts.google.com https://www.google.com https://bez-paniky.firebaseapp.com https://recaptcha.google.com https://www.recaptcha.net;
     img-src 'self' data: https://*.googleusercontent.com https://www.google-analytics.com https://www.googletagmanager.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     worker-src 'none';
+    frame-ancestors 'self';
     upgrade-insecure-requests;
   " />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -498,6 +499,9 @@
 
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
     @keyframes tipSlideIn { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes alertPulseAnim { 0%,100% { transform:scale(1); opacity:1; } 50% { transform:scale(1.3); opacity:0.6; } }
+    @keyframes alertShimmer { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
+    .notif-dot { position:absolute; top:-2px; right:-2px; width:8px; height:8px; border-radius:50%; background:#ef4444; border:2px solid var(--c-bg); animation:alertPulseAnim 2s ease-in-out infinite; pointer-events:none; }
 
     .water-card {
       background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
@@ -1539,8 +1543,9 @@
 
       <!-- Segment tabs (desktop/tablet only, hidden on mobile via CSS) -->
       <nav class="header-tabs" id="headerTabs" aria-label="Hlavná navigácia">
-        <button class="header-tab-btn active" data-tab="preparation" onclick="switchTab('preparation')">
+        <button class="header-tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
           <span class="tab-emoji">🎒</span> Príprava
+          <span class="notif-dot" id="headerAlertDot" style="display:none;"></span>
         </button>
         <button class="header-tab-btn" data-tab="plan" onclick="switchTab('plan')">
           <span class="tab-emoji">📋</span> Plán
@@ -1577,8 +1582,9 @@
   <!-- Tab Bar (kept for backwards compat, hidden on desktop via CSS) -->
   <div class="tab-bar top-tabs" style="position:sticky; top:48px; z-index:49;">
     <div class="tab-bar-inner">
-    <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')">
+    <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
       <span class="tab-emoji">🎒</span> Príprava
+      <span class="notif-dot" id="mobileAlertDot" style="display:none;"></span>
     </button>
     <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
       <span class="tab-emoji">📋</span> Plán
@@ -1611,9 +1617,16 @@
       </div>
 
       <!-- Alerts -->
-      <div class="card" id="alertsSection" style="display:none;">
-        <h2 style="font-size:1rem; font-weight:700; margin-bottom:0.25rem;">⚠️ Upozornenia</h2>
-        <p style="font-size:0.75rem; color:var(--c-muted); margin-bottom:0.75rem;">Čo sa blíži a oplatí sa riešiť teraz</p>
+      <div class="card" id="alertsSection" style="display:none; border:2px solid #f59e0b; background:linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); position:relative; overflow:hidden;">
+        <div style="position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b); background-size:200% 100%; animation:alertShimmer 3s ease-in-out infinite;"></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem; flex-wrap:wrap; gap:0.5rem;">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <div id="alertPulse" style="width:10px; height:10px; border-radius:50%; background:#ef4444; animation:alertPulseAnim 2s ease-in-out infinite; flex-shrink:0;"></div>
+            <h2 style="font-size:1rem; font-weight:700; margin:0;">⚠️ Upozornenia</h2>
+            <span id="alertCount" class="badge badge-red" style="font-size:0.68rem;"></span>
+          </div>
+        </div>
+        <p style="font-size:0.75rem; color:#92400e; margin-bottom:0.75rem;">Položky s blížiacou sa expiráciou — spotrebujte ich alebo vymeňte za čerstvé</p>
         <div id="alertsBox"></div>
       </div>
 
@@ -1868,8 +1881,9 @@
 
   <!-- Bottom Nav (Mobile) -->
   <div class="bottom-nav" id="bottomNav">
-    <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')">
+    <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
       <span class="tab-emoji">🎒</span> Príprava
+      <span class="notif-dot" id="bottomAlertDot" style="display:none;"></span>
     </button>
     <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
       <span class="tab-emoji">📋</span> Plán
@@ -1888,24 +1902,6 @@
   </button>
 
 </div><!-- end appScreen -->
-
-<!-- Modal: EmailJS technická konfigurácia -->
-<div class="modal-overlay" id="modalEmailJSInfo">
-  <div class="modal-box" style="max-width:420px;">
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1rem;">⚙️ Technická poznámka pre správcu</h3>
-      <button data-close="modalEmailJSInfo" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
-    </div>
-    <div style="font-size:0.8rem; color:var(--c-muted); line-height:1.6;">
-      <p style="margin-bottom:0.5rem;">Emailové pripomienky využívajú službu <strong>EmailJS</strong>. Pre aktiváciu je potrebné nastaviť konfiguráciu:</p>
-      <div style="background:var(--c-bg); border-radius:0.5rem; padding:0.75rem; margin:0.5rem 0; font-family:monospace; font-size:0.72rem; line-height:1.5;">
-        publicKey: "S9KjZEwsiiUC69fX-XqbK"<br>
-        serviceId: "service_h4jkdfs"
-      </div>
-      <p style="margin-top:0.5rem;">Email sa odosiela max 1× za 24 hodín. Upozornenia na expiráciu podľa nastavení sledovania + nákupný zoznam (14 dní pred).</p>
-    </div>
-  </div>
-</div>
 
 <!-- Modal: Profile -->
 <div class="modal-overlay" id="modalProfile">
@@ -2067,16 +2063,12 @@
             </div>
           </div>
 
-          <!-- Nastavenia: Emailové pripomienky -->
-          <div id="emailSettingsInProfile" class="card-section">
-            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+          <!-- Nastavenia: In-app upozornenia -->
+          <div class="card-section">
+            <div style="display:flex; align-items:center; gap:0.5rem;">
               <div>
-                <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">✉️ Emailové pripomienky</div>
-                <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;" id="emailNotifStatus">Pripomienky zatiaľ nie sú aktívne</div>
-              </div>
-              <div style="display:flex; gap:0.375rem;">
-                <button type="button" id="btnTestEmail" onclick="sendTestNotification()" class="btn-ghost" style="font-size:0.72rem; padding:0.3rem 0.625rem;">Testovací email</button>
-                <button type="button" onclick="document.getElementById('modalEmailJSInfo').classList.add('open')" class="btn-ghost" style="font-size:0.65rem; padding:0.3rem 0.4rem; color:var(--c-muted);">⚙️</button>
+                <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">🔔 Upozornenia na expirácie</div>
+                <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; line-height:1.4;">Aktívne — upozornenia sa zobrazujú priamo v aplikácii pri každom otvorení. Skontrolujte kartu „Upozornenia" na úvodnej obrazovke.</div>
               </div>
             </div>
           </div>
@@ -2513,28 +2505,8 @@
   </div>
 </div>
 
-<!-- EmailJS SDK -->
 <!-- Anti-clickjacking (GitHub Pages nemá HTTP header support) -->
 <script>try{if(self!==top){top.location=self.location;}}catch(e){}</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" crossorigin="anonymous"></script>
-<!-- TODO: Pridať integrity="sha384-..." hash — vygeneruj na https://www.srihash.org/ -->
-<script>
-  // ── EmailJS konfigurácia ─────────────────────────────────────────
-  // POKYN: Zaregistruj sa na emailjs.com, vytvor service + template a vlož ID sem
-  const EMAILJS_CONFIG = {
-    publicKey:   "S9KjZEwsiiUC69fX-XqbK",     // Account → API Keys
-    serviceId:   "service_h4jkdfs",             // Email Services → Service ID
-    template_expiry:  "template_expiry_warn", // Template ID pre upozornenie na expiráciu
-    template_shopping: "template_shopping_list" // Template ID pre nákupný zoznam
-  };
-  // Inicializuj EmailJS
-  (function() {
-    if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
-      emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
-    }
-  })();
-</script>
 
 <!-- Firebase SDK -->
 <script type="module">
@@ -3375,8 +3347,6 @@
     setupLogoEasterEgg();
     trackEvent('login', { method: 'google', is_new: !snap.exists() });
     if (!state.profile) openModal("modalProfile");
-    // Skontroluj expirácie a pošli notifikácie (ak treba)
-    setTimeout(checkAndSendNotifications, 2000);
   });
   } // end if (!isDemo)
 
@@ -5604,26 +5574,27 @@
     alerts.sort((a,b) => a.days - b.days);
     const section = document.getElementById("alertsSection");
     const box = document.getElementById("alertsBox");
-    // Email notif status – update in profile modal
-    const emailStatus = document.getElementById("emailNotifStatus");
-    if (emailStatus) {
-      const configured = EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY";
-      emailStatus.textContent = configured
-        ? `✅ Aktívne – pripomienky na ${currentUser?.email || "váš email"}`
-        : "Pripomienky zatiaľ nie sú aktívne";
-      emailStatus.style.color = configured ? "var(--c-green)" : "var(--c-muted)";
-    }
+    // Update notification dots on all Príprava tabs
+    const dotIds = ["headerAlertDot", "mobileAlertDot", "bottomAlertDot"];
+    dotIds.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = alerts.length ? "block" : "none"; });
+    const countBadge = document.getElementById("alertCount");
+    if (countBadge) countBadge.textContent = alerts.length || "";
 
     if (!alerts.length) { section.style.display = "none"; return; }
     section.style.display = "block";
-    box.innerHTML = alerts.slice(0,6).map(a => `
-      <div style="display:flex; align-items:center; justify-content:space-between; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
-        <div>
-          <div style="font-weight:500; font-size:0.875rem;">${esc(a.name)}</div>
-          <div style="font-size:0.75rem; color:var(--c-muted);">${esc(a.catName)} • ${esc(a.expiry)}</div>
+    const hasExpired = alerts.some(a => a.days < 0);
+    box.innerHTML = alerts.slice(0,8).map(a => {
+      const isExpired = a.days < 0;
+      const bgColor = isExpired ? "#fef2f2" : a.days <= 7 ? "#fffbeb" : "transparent";
+      return `
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:0.625rem 0.5rem; border-bottom:1px solid rgba(0,0,0,0.06); border-radius:0.5rem; background:${bgColor}; margin-bottom:0.125rem;">
+        <div style="min-width:0;">
+          <div style="font-weight:600; font-size:0.85rem; ${isExpired ? 'color:#dc2626;' : ''}">${esc(a.name)}</div>
+          <div style="font-size:0.72rem; color:#92400e;">${esc(a.catName)} • ${esc(a.expiry)}</div>
         </div>
-        <span class="badge ${a.days < 0 ? 'badge-red' : 'badge-amber'}">${a.days < 0 ? 'EXPIROVANÉ' : 'za ' + a.days + ' dní'}</span>
-      </div>`).join("");
+        <span class="badge ${isExpired ? 'badge-red' : 'badge-amber'}" style="flex-shrink:0; margin-left:0.5rem;">${isExpired ? 'EXPIROVANÉ' : 'za ' + a.days + ' dní'}</span>
+      </div>`;
+    }).join("") + (alerts.length > 8 ? `<div style="text-align:center; padding:0.5rem; font-size:0.75rem; color:#92400e; font-weight:600;">+ ďalších ${alerts.length - 8} položiek</div>` : "");
   }
 
 
@@ -8352,228 +8323,6 @@
   });
 
 
-  // ══════════════════════════════════════════════════════════════════
-  // EMAIL NOTIFIKÁCIE
-  // ══════════════════════════════════════════════════════════════════
-
-  // Prahové hodnoty v dňoch
-  // Expirácia: riadi sa nastaveniami v appke (alertDaysMeds / alertDaysFood)
-  const NOTIFY_SHOPPING_DAYS = 14; // nákupný zoznam ak expiruje do 14 dní
-  const NOTIFY_COOLDOWN_H    = 24; // min. hodín medzi emailami rovnakého typu
-
-  // Zistí čo expiruje – vráti pole { name, catName, expiry, days }
-  // Ak thresholdDays nie je zadaný, použije per-kategóriu nastavenia
-  function getExpiringItems(thresholdDays) {
-    const items = [];
-    for (const c of CATEGORIES) {
-      const catThreshold = thresholdDays !== undefined ? thresholdDays : getAlertDaysForCategory(c.id);
-      (state.items[c.id] || []).forEach(it => {
-        // Food entries: check each entry's expiry
-        if (it.isFoodItem && it.foodEntries) {
-          it.foodEntries.forEach(fe => {
-            if (!fe.expiry) return;
-            const d = daysUntil(fe.expiry);
-            if (d <= catThreshold) {
-              items.push({
-                name:    fe.name,
-                catName: c.name,
-                expiry:  fe.expiry,
-                days:    d,
-                qty:     (fe.qty||1) + "× " + (fe.kcal||0) + " kcal"
-              });
-            }
-          });
-          return;
-        }
-        // Water entries: check each entry's expiry
-        if (it.isWaterItem && it.waterEntries) {
-          it.waterEntries.forEach(we => {
-            if (!we.expiry) return;
-            const d = daysUntil(we.expiry);
-            if (d <= catThreshold) {
-              items.push({
-                name:    we.name,
-                catName: c.name,
-                expiry:  we.expiry,
-                days:    d,
-                qty:     (we.qty||1) + "× " + (we.liters||0) + " l"
-              });
-            }
-          });
-          return;
-        }
-        if (!it.expiry || !it.done) return; // len položky ktoré sú v zásobách (done=true)
-        const d = daysUntil(it.expiry);
-        if (d <= catThreshold) {
-          items.push({
-            name:    it.name,
-            catName: c.name,
-            expiry:  it.expiry,
-            days:    d,
-            qty:     it.qty || ""
-          });
-        }
-      });
-    }
-    return items.sort((a, b) => a.days - b.days);
-  }
-
-  // Skontroluje či sa má poslať email (cooldown 24h)
-  async function canSendEmail(type) {
-    if (isDemo) return false; // Demo: žiadne emaily
-    if (!currentUser) return false;
-    if (EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return false; // nekonfigurované
-    try {
-      const snap = await getDoc(doc(db, "users", currentUser.uid, "notifications", type));
-      if (!snap.exists()) return true;
-      const lastSent = snap.data().sentAt?.toMillis?.() || 0;
-      const hoursSince = (Date.now() - lastSent) / 3600000;
-      return hoursSince >= NOTIFY_COOLDOWN_H;
-    } catch { return false; }
-  }
-
-  // Zapíše timestamp posledného odoslania
-  async function markEmailSent(type) {
-    if (isDemo || !currentUser) return;
-    try {
-      await setDoc(
-        doc(db, "users", currentUser.uid, "notifications", type),
-        { sentAt: new Date() }
-      );
-    } catch(e) { console.warn("markEmailSent error", e); }
-  }
-
-  // Formátuje zoznam položiek do HTML pre email
-  function formatItemsHtml(items) {
-    return items.map(it => {
-      const daysLabel = it.days < 0
-        ? "<span style='color:#dc2626;font-weight:600;'>EXPIROVANÉ</span>"
-        : `za <strong>${it.days} dní</strong> (${esc(it.expiry)})`;
-      return `<tr>
-        <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;">${esc(it.name)}</td>
-        <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;color:#6b6560;">${esc(it.catName)}</td>
-        <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;">${daysLabel}</td>
-      </tr>`;
-    }).join("");
-  }
-
-  // EMAIL 1 – Upozornenie na blížiacu sa expiráciu (spotrebuj to!)
-  async function sendExpiryWarningEmail(items) {
-    if (!currentUser?.email) return;
-    if (!(await canSendEmail("expiry_warning"))) return;
-    if (!items.length) return;
-
-    const userName = currentUser.displayName?.split(" ")[0] || "používateľ";
-    const itemsHtml = formatItemsHtml(items);
-    const itemCount = items.length;
-
-    try {
-      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.template_expiry, {
-        to_email:    currentUser.email,
-        to_name:     userName,
-        item_count:  itemCount,
-        items_html:  itemsHtml,
-        items_text:  items.map(it => `• ${it.name} (${it.catName}) – expiruje ${it.expiry}`).join("\n"),
-        app_url:     window.location.href,
-        subject:     `Gerlach: ${itemCount} ${itemCount === 1 ? "položka" : itemCount < 5 ? "položky" : "položiek"} v zásobách čoskoro expiruje`
-      });
-      await markEmailSent("expiry_warning");
-      console.log("✉️ Expiry warning email odoslaný");
-    } catch(e) {
-      console.warn("EmailJS expiry send error:", e);
-    }
-  }
-
-  // EMAIL 2 – Nákupný zoznam (dobuď zásoby!)
-  async function sendShoppingListEmail(items) {
-    if (!currentUser?.email) return;
-    if (!(await canSendEmail("shopping_list"))) return;
-    if (!items.length) return;
-
-    const userName = currentUser.displayName?.split(" ")[0] || "používateľ";
-    const itemCount = items.length;
-    const shoppingHtml = items.map(it => `<tr>
-      <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;"><strong>${esc(it.name)}</strong></td>
-      <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;color:#6b6560;">${esc(it.catName)}</td>
-      <td style="padding:6px 12px;border-bottom:1px solid #f0ebe3;color:#6b6560;">${esc(it.qty || "—")}</td>
-    </tr>`).join("");
-
-    try {
-      await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.template_shopping, {
-        to_email:      currentUser.email,
-        to_name:       userName,
-        item_count:    itemCount,
-        shopping_html: shoppingHtml,
-        shopping_text: items.map(it => `• ${it.name} (${it.catName})${it.qty ? " – " + it.qty : ""}`).join("\n"),
-        app_url:       window.location.href,
-        subject:       `Gerlach: Nákupný zoznam – ${itemCount} ${itemCount === 1 ? "položka na doplnenie" : "položky na doplnenie"}`
-      });
-      await markEmailSent("shopping_list");
-      console.log("✉️ Shopping list email odoslaný");
-    } catch(e) {
-      console.warn("EmailJS shopping send error:", e);
-    }
-  }
-
-  // Hlavná funkcia – skontroluje expirácie a odošle emaily ak treba
-  async function checkAndSendNotifications() {
-    if (isDemo) return; // Demo: žiadne emaily
-    if (!currentUser || EMAILJS_CONFIG.publicKey === "YOUR_EMAILJS_PUBLIC_KEY") return;
-
-    const expiringItems  = getExpiringItems(); // per-category thresholds
-    const criticalItems  = getExpiringItems(NOTIFY_SHOPPING_DAYS);
-
-    // Email 1: upozornenie (podľa nastavených prahov per kategória)
-    if (expiringItems.length > 0) {
-      await sendExpiryWarningEmail(expiringItems);
-    }
-
-    // Email 2: nákupný zoznam (do 14 dní) – s oneskorením aby neišli súčasne
-    if (criticalItems.length > 0) {
-      setTimeout(() => sendShoppingListEmail(criticalItems), 3000);
-    }
-  }
-
-  // UI funkcia – manuálne odoslanie z appky (tlačidlo)
-  async function sendTestNotification() {
-    if (isDemo) {
-      alert("V demo režime nie sú emailové notifikácie dostupné. Vytvorte si účet zadarmo pre plnú funkcionalitu.");
-      return;
-    }
-    const btn = document.getElementById("btnTestEmail");
-    if (btn) { btn.disabled = true; btn.textContent = "Odosielam..."; }
-
-    try {
-      const expiringItems = getExpiringItems(); // per-category thresholds
-      const criticalItems = getExpiringItems(NOTIFY_SHOPPING_DAYS);
-
-      if (!expiringItems.length && !criticalItems.length) {
-        alert("Žiadne položky s blížiacou sa expiráciou. Pridajte položky s dátumom expirácie.");
-        return;
-      }
-
-      // Obíde cooldown pre testovanie
-      if (EMAILJS_CONFIG.publicKey !== "YOUR_EMAILJS_PUBLIC_KEY") {
-        await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.template_expiry, {
-          to_email:   currentUser.email,
-          to_name:    currentUser.displayName?.split(" ")[0] || "používateľ",
-          item_count: expiringItems.length,
-          items_text: expiringItems.map(it => `• ${it.name} (${it.catName}) – expiruje ${it.expiry}`).join("\n"),
-          items_html: formatItemsHtml(expiringItems),
-          app_url:    window.location.href,
-          subject:    "Gerlach: Test emailovej notifikácie"
-        });
-        alert(`✅ Testovací email odoslaný na ${currentUser.email}`);
-      } else {
-        alert("EmailJS nie je nakonfigurovaný. Pozri komentáre v kóde.");
-      }
-    } catch(e) {
-      alert("Chyba pri odosielaní: " + (e.text || e.message || e));
-    } finally {
-      if (btn) { btn.disabled = false; btn.textContent = "Testovací email"; }
-    }
-  }
-
   // Zavrieť user menu pri kliknutí mimo
   document.addEventListener("click", (e) => {
     const menu = document.getElementById("userMenu");
@@ -8582,9 +8331,6 @@
       menu.classList.remove("open");
     }
   });
-
-  // Expose to window (needed for inline onclick in profile)
-  window.sendTestNotification = sendTestNotification;
 
   // Dynamic year
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
