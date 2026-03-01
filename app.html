@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' 'unsafe-inline' https://www.gstatic.com https://cdn.jsdelivr.net https://www.google.com https://apis.google.com https://www.googletagmanager.com https://www.recaptcha.net;
+    script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google.com https://apis.google.com https://www.googletagmanager.com https://www.recaptcha.net;
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
     font-src https://fonts.gstatic.com;
     connect-src https://firestore.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.google-analytics.com https://www.google.com https://firebase.googleapis.com https://content-firebaseappcheck.googleapis.com https://*.google-analytics.com https://*.analytics.google.com https://recaptchaenterprise.googleapis.com https://www.recaptcha.net;
@@ -15,7 +15,6 @@
     base-uri 'self';
     form-action 'self';
     worker-src 'none';
-    frame-ancestors 'self';
     upgrade-insecure-requests;
   " />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -3634,16 +3633,6 @@
     try {
       showToast('⏳ Mazanie dát...');
 
-      // 1. Delete notification subdocuments
-      try {
-        const notifCol = collection(db, 'users', uid, 'notifications');
-        const notifSnap = await getDocs(notifCol);
-        const deletePromises = notifSnap.docs.map(d => deleteDoc(d.ref));
-        await Promise.all(deletePromises);
-      } catch (e) {
-        console.warn('Notification docs delete failed (may not exist):', e);
-      }
-
       // 2. Delete main data document (try delete first, fallback to overwrite)
       try {
         await deleteDoc(userDocRef(uid));
@@ -3702,7 +3691,7 @@
   window.executeDeleteAllData = executeDeleteAllData;
 
   function esc(s) {
-    return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
   }
 
   function daysUntil(d) {
