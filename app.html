@@ -200,7 +200,7 @@
     .btn-data-danger { border-color:#fca5a5; color:#dc2626; background:#fef2f2; }
     .btn-data-danger:hover { background:#fee2e2; border-color:#f87171; }
     .data-mgmt-note { font-size:0.68rem; color:var(--c-muted); line-height:1.5; margin-top:0.5rem; }
-    .data-file-input { display:none; }
+
 
     /* Delete confirmation */
     .delete-confirm { display:none; margin-top:0.75rem; padding:1rem; background:#fef2f2; border:1.5px solid #fca5a5; border-radius:0.875rem; }
@@ -1528,7 +1528,7 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Dáta sa zmažú po zatvorení karty. <strong>Tip:</strong> Exportujte si dáta cez Profil → Správa dát a kedykoľvek ich naimportujte späť.</span>
+    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Dáta sa zmažú po zatvorení karty. <strong>Tip:</strong> Exportujte si dáta cez Profil → Správa dát.</span>
     <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo</a>
   </div>
 
@@ -2087,19 +2087,9 @@
       <!-- Export -->
       <div style="margin-bottom:1rem;">
         <div style="font-size:0.75rem; font-weight:600; color:var(--c-text); margin-bottom:0.375rem;">Export dát</div>
-        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Stiahnite si kópiu všetkých svojich dát vo formáte JSON. Súbor môžete použiť na zálohu alebo import do iného zariadenia.</div>
+        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Stiahnite si kópiu všetkých svojich dát vo formáte JSON. Súbor môžete použiť ako zálohu.</div>
         <div class="data-mgmt-row">
           <button class="btn-data" onclick="exportUserData()">📥 Exportovať dáta</button>
-        </div>
-      </div>
-
-      <!-- Import (demo only by default, or always shown) -->
-      <div style="margin-bottom:1rem;">
-        <div style="font-size:0.75rem; font-weight:600; color:var(--c-text); margin-bottom:0.375rem;">Import dát</div>
-        <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Nahrajte predtým exportovaný súbor. <strong>Importované dáta nahradia vaše aktuálne dáta.</strong></div>
-        <div class="data-mgmt-row">
-          <button class="btn-data" onclick="document.getElementById('importFileInput').click()">📤 Importovať zo súboru</button>
-          <input type="file" id="importFileInput" class="data-file-input" accept=".json,application/json" onchange="importUserData(this)" />
         </div>
       </div>
 
@@ -2126,7 +2116,7 @@
       </div>
 
       <div class="data-mgmt-note" id="dataMgmtNote">
-        💡 Export vytvorí JSON súbor, ktorý si môžete uložiť na disk. Pri importe sa aktuálne dáta nahradia importovanými.
+        💡 Export vytvorí JSON súbor, ktorý si môžete uložiť na disk ako zálohu.
       </div>
     </div>
     <!-- ═══════ /SPRÁVA DÁT ═══════ -->
@@ -3372,10 +3362,9 @@
     _toastTimer = setTimeout(() => el.classList.remove('visible'), duration);
   }
 
-  // ── DATA MANAGEMENT: Export / Import / Delete ──────────────────
+  // ── DATA MANAGEMENT: Export / Delete ────────────────────────────
 
   const EXPORT_VERSION = 1;
-  const EXPORT_MAX_SIZE = 1 * 1024 * 1024; // 1 MB
 
   function exportUserData() {
     try {
@@ -3409,196 +3398,6 @@
       console.error('Export error:', e);
       showToast('❌ Export sa nepodaril');
     }
-  }
-
-  function importUserData(fileInput) {
-    const file = fileInput.files?.[0];
-    if (!file) return;
-
-    // Reset input so same file can be selected again
-    fileInput.value = '';
-
-    // Size check
-    if (file.size > EXPORT_MAX_SIZE) {
-      showToast('❌ Súbor je príliš veľký (max 1 MB)');
-      return;
-    }
-
-    // Type check
-    if (!file.name.endsWith('.json') && file.type !== 'application/json') {
-      showToast('❌ Povolený je len formát JSON');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      try {
-        const raw = e.target.result;
-
-        // Parse JSON
-        let parsed;
-        try {
-          parsed = JSON.parse(raw);
-        } catch {
-          showToast('❌ Súbor nie je platný JSON');
-          return;
-        }
-
-        // Validate structure
-        if (!parsed || typeof parsed !== 'object') {
-          showToast('❌ Neplatný formát exportu');
-          return;
-        }
-
-        // Accept both wrapped (with exportVersion) and raw state
-        let importedData;
-        if (parsed.exportVersion && parsed.data && typeof parsed.data === 'object') {
-          // Wrapped export format
-          if (parsed.exportVersion > EXPORT_VERSION) {
-            showToast('❌ Novšia verzia exportu — aktualizujte aplikáciu');
-            return;
-          }
-          importedData = parsed.data;
-        } else if (parsed.items && parsed.plans) {
-          // Raw state object (backward compatible)
-          importedData = parsed;
-        } else {
-          showToast('❌ Súbor neobsahuje platné dáta Gerlach');
-          return;
-        }
-
-        // Validate data has expected fields
-        const validation = validateImportData(importedData);
-        if (!validation.ok) {
-          showToast('❌ ' + validation.error);
-          return;
-        }
-
-        // Sanitize: deep-clone to prevent prototype pollution
-        const safeData = JSON.parse(JSON.stringify(importedData));
-
-        // SECURITY: whitelist only allowed state keys (prevents __proto__ pollution, state injection)
-        const ALLOWED_STATE_KEYS = ['profile', 'items', 'plans', 'personalContacts', 'evacuationBags', 'alertDaysMeds', 'alertDaysFood', 'selectedCategoryId'];
-        const filteredData = {};
-        for (const key of ALLOWED_STATE_KEYS) {
-          if (key in safeData) {
-            filteredData[key] = safeData[key];
-          }
-        }
-
-        // Confirm with user
-        const itemCount = Object.values(filteredData.items || {}).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
-        const profileInfo = filteredData.profile ? `${filteredData.profile.adults || 0} dospelí, ${filteredData.profile.kids || 0} deti` : 'bez profilu';
-        const contactCount = (filteredData.personalContacts || []).length;
-
-        const msg = `Importovať dáta?\n\n` +
-          `• Profil: ${profileInfo}\n` +
-          `• Položiek: ${itemCount}\n` +
-          `• Kontaktov: ${contactCount}\n\n` +
-          `⚠️ Vaše aktuálne dáta budú nahradené.`;
-
-        if (!confirm(msg)) return;
-
-        // Apply import using the same merge logic as loadUserData
-        const mergedState = freshState();
-        Object.assign(mergedState, filteredData);
-
-        // Ensure critical fields have correct types
-        mergedState.personalContacts = Array.isArray(filteredData.personalContacts) ? filteredData.personalContacts : [];
-        mergedState.evacuationBags = (filteredData.evacuationBags && typeof filteredData.evacuationBags === 'object' && !Array.isArray(filteredData.evacuationBags)) ? filteredData.evacuationBags : {};
-        mergedState.alertDaysMeds = typeof filteredData.alertDaysMeds === 'number' ? filteredData.alertDaysMeds : 180;
-        mergedState.alertDaysFood = typeof filteredData.alertDaysFood === 'number' ? filteredData.alertDaysFood : 30;
-
-        // Load into app
-        state = mergedState;
-        saveUserData();
-        renderAll();
-        showToast('✅ Dáta úspešne importované');
-
-      } catch (e) {
-        console.error('Import error:', e);
-        showToast('❌ Import sa nepodaril: ' + (e.message || 'neznáma chyba'));
-      }
-    };
-    reader.onerror = () => showToast('❌ Nepodarilo sa prečítať súbor');
-    reader.readAsText(file);
-  }
-
-  function validateImportData(data) {
-    if (!data || typeof data !== 'object' || Array.isArray(data)) {
-      return { ok: false, error: 'Dáta musia byť objekt' };
-    }
-
-    // items must be object (not array)
-    if (data.items && (typeof data.items !== 'object' || Array.isArray(data.items))) {
-      return { ok: false, error: 'Neplatný formát položiek (items)' };
-    }
-
-    // If items exist, each category must be an array
-    if (data.items) {
-      // SECURITY: only allow known category keys
-      const ALLOWED_CATEGORIES = ['water', 'food', 'medkit', 'cash', 'gear', 'hygiene', 'docs'];
-      for (const [key, val] of Object.entries(data.items)) {
-        if (!ALLOWED_CATEGORIES.includes(key)) {
-          return { ok: false, error: `Neznáma kategória "${key}"` };
-        }
-        if (!Array.isArray(val)) {
-          return { ok: false, error: `Kategória "${key}" nie je pole` };
-        }
-        // Max 500 items per category
-        if (val.length > 500) {
-          return { ok: false, error: `Príliš veľa položiek v kategórii "${key}" (max 500)` };
-        }
-        // Validate each item has name as string
-        for (const item of val) {
-          if (!item || typeof item !== 'object' || typeof item.name !== 'string') {
-            return { ok: false, error: `Neplatná položka v kategórii "${key}"` };
-          }
-          if (item.name.length > 500) {
-            return { ok: false, error: `Príliš dlhý názov položky v "${key}"` };
-          }
-        }
-      }
-    }
-
-    // plans must be object
-    if (data.plans && (typeof data.plans !== 'object' || Array.isArray(data.plans))) {
-      return { ok: false, error: 'Neplatný formát plánov' };
-    }
-
-    // personalContacts must be array if present
-    if (data.personalContacts && !Array.isArray(data.personalContacts)) {
-      return { ok: false, error: 'Kontakty musia byť pole' };
-    }
-    if (data.personalContacts && data.personalContacts.length > 50) {
-      return { ok: false, error: 'Príliš veľa kontaktov (max 50)' };
-    }
-
-    // evacuationBags must be object if present
-    if (data.evacuationBags) {
-      if (typeof data.evacuationBags !== 'object' || Array.isArray(data.evacuationBags)) {
-        return { ok: false, error: 'Neplatný formát evakuačných batohov' };
-      }
-      if (Object.keys(data.evacuationBags).length > 20) {
-        return { ok: false, error: 'Príliš veľa batohov (max 20)' };
-      }
-    }
-
-    // alertDays must be numbers if present
-    if (data.alertDaysMeds !== undefined && typeof data.alertDaysMeds !== 'number') {
-      return { ok: false, error: 'alertDaysMeds musí byť číslo' };
-    }
-    if (data.alertDaysFood !== undefined && typeof data.alertDaysFood !== 'number') {
-      return { ok: false, error: 'alertDaysFood musí byť číslo' };
-    }
-
-    // Check total serialized size (prevent abuse)
-    const serialized = JSON.stringify(data);
-    if (serialized.length > EXPORT_MAX_SIZE) {
-      return { ok: false, error: 'Dáta sú príliš veľké' };
-    }
-
-    return { ok: true };
   }
 
   function showDeleteConfirm() {
@@ -3684,7 +3483,6 @@
 
   // Expose data management functions to global scope (needed for inline onclick handlers)
   window.exportUserData = exportUserData;
-  window.importUserData = importUserData;
   window.showDeleteConfirm = showDeleteConfirm;
   window.hideDeleteConfirm = hideDeleteConfirm;
   window.checkDeleteConfirmation = checkDeleteConfirmation;
