@@ -4,18 +4,18 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <meta http-equiv="Content-Security-Policy" content="
-  default-src 'self';
-  script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google.com https://apis.google.com https://www.recaptcha.net;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  font-src https://fonts.gstatic.com;
-  connect-src https://firestore.googleapis.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.google.com https://firebase.googleapis.com https://content-firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.recaptcha.net;
-  frame-src https://www.google.com https://recaptcha.google.com https://www.recaptcha.net;
-  img-src 'self' data:;
-  object-src 'none';
-  base-uri 'self';
-  form-action 'self';
-  worker-src 'none';
-  upgrade-insecure-requests;
+ default-src 'self';
+ script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.google.com https://apis.google.com https://www.recaptcha.net;
+ style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+ font-src https://fonts.gstatic.com;
+ connect-src https://firestore.googleapis.com https://firebaseinstallations.googleapis.com https://www.googleapis.com https://www.google.com https://firebase.googleapis.com https://content-firebaseappcheck.googleapis.com https://recaptchaenterprise.googleapis.com https://www.recaptcha.net;
+ frame-src https://www.google.com https://recaptcha.google.com https://www.recaptcha.net;
+ img-src 'self' data:;
+ object-src 'none';
+ base-uri 'self';
+ form-action 'self';
+ worker-src 'none';
+ upgrade-insecure-requests;
 " />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
 <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -37,127 +37,129 @@
 <!-- Schema.org -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "name": "Mámeplán",
-      "url": "https://mameplan.sk/",
-      "description": "Slovenská aplikácia pre pripravenosť domácnosti na krízové situácie",
-      "inLanguage": "sk"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "name": "Gerlach",
-      "applicationCategory": "LifestyleApplication",
-      "operatingSystem": "Web",
-      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-      "description": "Aplikácia na sledovanie zásob, expirácií a núdzových plánov pre slovenské domácnosti",
-      "inLanguage": "sk",
-      "author": { "@type": "Person", "name": "Miloš", "jobTitle": "Zakladateľ projektu Mámeplán" }
-    }
-  ]
+ "@context": "https://schema.org",
+ "@graph": [
+ {
+ "@type": "WebSite",
+ "name": "Mámeplán",
+ "url": "https://mameplan.sk/",
+ "description": "Slovenská aplikácia pre pripravenosť domácnosti na krízové situácie",
+ "inLanguage": "sk"
+ },
+ {
+ "@type": "SoftwareApplication",
+ "name": "Gerlach",
+ "applicationCategory": "LifestyleApplication",
+ "operatingSystem": "Web",
+ "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+ "description": "Aplikácia na sledovanie zásob, expirácií a núdzových plánov pre slovenské domácnosti",
+ "inLanguage": "sk",
+ "author": { "@type": "Person", "name": "Miloš", "jobTitle": "Zakladateľ projektu Mámeplán" }
+ }
+ ]
 }
 </script>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <!-- Firebase: Live beta counter -->
 <!-- Anti-clickjacking (GitHub Pages nemá HTTP header support) -->
-<script>if (self !== top) { top.location = self.location; }</script>
+<script>try { if (self !== top) { top.location = self.location; } } catch(e) {}</script>
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
-import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js";
-import { initializeAppCheck, ReCaptchaEnterpriseProvider } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app-check.js";
+try {
+const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js");
+const { getFirestore, doc, onSnapshot, setDoc } = await import("https://www.gstatic.com/firebasejs/11.8.0/firebase-firestore.js");
+const { initializeAppCheck, ReCaptchaEnterpriseProvider } = await import("https://www.gstatic.com/firebasejs/11.8.0/firebase-app-check.js");
 const app = initializeApp({
-  apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
-  authDomain: "bez-paniky.firebaseapp.com",
-  projectId: "bez-paniky",
-  appId: "1:539726693021:web:123de9d93568a285e54a74"
+ apiKey: "AIzaSyA5_U4_9La4JpK8wAXBqY6GmkKxCLkH8T4",
+ authDomain: "bez-paniky.firebaseapp.com",
+ projectId: "bez-paniky",
+ appId: "1:539726693021:web:123de9d93568a285e54a74"
 });
 const db = getFirestore(app);
 // App Check (reCAPTCHA Enterprise)
 if (location.hostname === 'localhost') { self.FIREBASE_APPCHECK_DEBUG_TOKEN = true; }
 initializeAppCheck(app, {
-  provider: new ReCaptchaEnterpriseProvider('6Le3B3osAAAAAOFa4BAO3kt21ikSxUjpnArMKOJK'),
-  isTokenAutoRefreshEnabled: true
+ provider: new ReCaptchaEnterpriseProvider('6Le3B3osAAAAAOFa4BAO3kt21ikSxUjpnArMKOJK'),
+ isTokenAutoRefreshEnabled: true
 });
 const MAX = 200;
 onSnapshot(doc(db, "meta", "stats"), (snap) => {
-  const count = snap.exists() ? (snap.data().registeredUsers || 0) : 0;
-  const free = Math.max(0, MAX - count);
-  const pct = Math.min(100, Math.round((count / MAX) * 100));
-  document.querySelectorAll(".js-free").forEach(el => { el.textContent = free; });
-  document.querySelectorAll(".js-count").forEach(el => { el.textContent = count; });
-  document.querySelectorAll(".js-bar").forEach(el => { el.style.width = pct + "%"; });
-  const isFull = free === 0;
-  document.querySelectorAll(".js-when-open").forEach(el => { el.style.display = isFull ? "none" : ""; });
-  document.querySelectorAll(".js-when-full").forEach(el => { el.style.display = isFull ? "" : "none"; });
+ const count = snap.exists() ? (snap.data().registeredUsers || 0) : 0;
+ const free = Math.max(0, MAX - count);
+ const pct = Math.min(100, Math.round((count / MAX) * 100));
+ document.querySelectorAll(".js-free").forEach(el => { el.textContent = free; });
+ document.querySelectorAll(".js-count").forEach(el => { el.textContent = count; });
+ document.querySelectorAll(".js-bar").forEach(el => { el.style.width = pct + "%"; });
+ const isFull = free === 0;
+ document.querySelectorAll(".js-when-open").forEach(el => { el.style.display = isFull ? "none" : ""; });
+ document.querySelectorAll(".js-when-full").forEach(el => { el.style.display = isFull ? "" : "none"; });
 });
 /* Waitlist: save email to Firestore */
 window.submitWaitlist = async function(btn) {
-  const form = btn.closest('.waitlist-inline, .cta-waitlist');
-  const input = form.querySelector('.waitlist-input');
-  const email = input.value.trim().toLowerCase();
-  const success = form.querySelector('.waitlist-success');
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.style.borderColor = '#dc2626'; input.focus(); return; }
-  if (localStorage.getItem('gerlach_waitlist')) {
-    form.querySelector('.waitlist-row').style.display = 'none';
-    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-    if (success) { success.textContent = '✓ Tento email už máme — ozveme sa!'; success.style.display = 'block'; }
-    return;
-  }
-  btn.textContent = '...'; btn.disabled = true; input.disabled = true;
-  try {
-    const docId = email.replace(/[.#$/\[\]]/g, '_');
-    await setDoc(doc(db, 'waitlist', docId), { email, timestamp: new Date().toISOString(), source: 'web' });
-    form.querySelector('.waitlist-row').style.display = 'none';
-    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-    if (success) success.style.display = 'block';
-    localStorage.setItem('gerlach_waitlist', email);
-  } catch (err) {
-    form.querySelector('.waitlist-row').style.display = 'none';
-    if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
-    if (success) { success.textContent = err.code === 'permission-denied' ? '✓ Tento email už máme — ozveme sa!' : '✓ Ďakujeme! Ozveme sa.'; success.style.display = 'block'; }
-    localStorage.setItem('gerlach_waitlist', email);
-  }
+ const form = btn.closest('.waitlist-inline, .cta-waitlist');
+ const input = form.querySelector('.waitlist-input');
+ const email = input.value.trim().toLowerCase();
+ const success = form.querySelector('.waitlist-success');
+ if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { input.style.borderColor = '#dc2626'; input.focus(); return; }
+ if (localStorage.getItem('gerlach_waitlist')) {
+ form.querySelector('.waitlist-row').style.display = 'none';
+ if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+ if (success) { success.textContent = 'Tento email už máme — ozveme sa!'; success.style.display = 'block'; }
+ return;
+ }
+ btn.textContent = '...'; btn.disabled = true; input.disabled = true;
+ try {
+ const docId = email.replace(/[.#$/\[\]]/g, '_');
+ await setDoc(doc(db, 'waitlist', docId), { email, timestamp: new Date().toISOString(), source: 'web' });
+ form.querySelector('.waitlist-row').style.display = 'none';
+ if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+ if (success) success.style.display = 'block';
+ localStorage.setItem('gerlach_waitlist', email);
+ } catch (err) {
+ form.querySelector('.waitlist-row').style.display = 'none';
+ if (form.querySelector('.waitlist-micro')) form.querySelector('.waitlist-micro').style.display = 'none';
+ if (success) { success.textContent = err.code === 'permission-denied' ? 'Tento email už máme — ozveme sa!' : 'Ďakujeme! Ozveme sa.'; success.style.display = 'block'; }
+ localStorage.setItem('gerlach_waitlist', email);
+ }
 };
+} catch(e) { console.warn('Firebase init skipped:', e.message); }
 </script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700;1,9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════════════════════════
-   CONCEPT B — REFINED
-   Slovak Red + Gerlach Moss Green
-   Newsreader + Outfit
-   Product-centered, honest, expandable details
+ CONCEPT B — REFINED
+ Slovak Red + Gerlach Moss Green
+ Newsreader + Outfit
+ Product-centered, honest, expandable details
 ═══════════════════════════════════════════════════ */
 :root {
-  --bg: #f5f3ee;
-  --bg2: #eceae4;
-  --surface: #ffffff;
-  --ink: #1a1816;
-  --ink2: #3a3733;
-  --muted: #7a756d;
-  /* Slovak-flag inspired red */
-  --red: #1e3a5f;
-  --red-soft: #edf1f7;
-  --red-border: #b8c8da;
-  --red-hover: #152d4a;
-  /* Gerlach — original navy blue */
-  --moss: #be2d3e;
-  --moss-soft: #fdf0f1;
-  --moss-border: #e8b4ba;
-  /* Slate / rock grey accent */
-  --slate: #5e6b73;
-  --slate-soft: #eef0f2;
-  /* Shared */
-  --border: #e0ddd6;
-  --border2: #d1cdc4;
-  --r: 0.875rem;
-  --r-lg: 1.25rem;
-  --r-xl: 1.5rem;
-  --serif: 'Fraunces', Georgia, serif;
-  --sans: 'Outfit', system-ui, sans-serif;
+ --bg: #f5f3ee;
+ --bg2: #eceae4;
+ --surface: #ffffff;
+ --ink: #1a1816;
+ --ink2: #3a3733;
+ --muted: #7a756d;
+ /* Slovak-flag inspired red */
+ --red: #1e3a5f;
+ --red-soft: #edf1f7;
+ --red-border: #b8c8da;
+ --red-hover: #152d4a;
+ /* Gerlach — original navy blue */
+ --moss: #be2d3e;
+ --moss-soft: #fdf0f1;
+ --moss-border: #e8b4ba;
+ /* Slate / rock grey accent */
+ --slate: #5e6b73;
+ --slate-soft: #eef0f2;
+ /* Shared */
+ --border: #e0ddd6;
+ --border2: #d1cdc4;
+ --r: 0.875rem;
+ --r-lg: 1.25rem;
+ --r-xl: 1.5rem;
+ --serif: 'Fraunces', Georgia, serif;
+ --sans: 'Outfit', system-ui, sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -194,13 +196,14 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .nav-right{display:flex;gap:0.5rem;align-items:center}
 
 /* ── Beta counter pill — dynamic design ── */
-.beta-pill{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,rgba(190,45,62,0.08) 0%,rgba(30,58,95,0.06) 100%);border:1.5px solid rgba(190,45,62,0.15);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.7rem;color:var(--ink2);font-weight:500;white-space:nowrap;position:relative;overflow:hidden}
-.beta-pill::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(30,58,95,0.04) 50%,transparent 100%);animation:betaShimmer 3s ease-in-out infinite;pointer-events:none}
+.beta-pill{display:inline-flex;align-items:center;gap:0.5rem;background:linear-gradient(135deg,rgba(34,197,94,0.06) 0%,rgba(34,197,94,0.12) 100%);border:1.5px solid rgba(34,197,94,0.2);border-radius:999px;padding:0.35rem 1rem;font-size:0.72rem;color:var(--ink2);font-weight:500;white-space:nowrap;position:relative;overflow:hidden;box-shadow:0 0 20px rgba(34,197,94,0.08),inset 0 1px 0 rgba(255,255,255,0.6)}
+.beta-pill::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.4) 50%,transparent 100%);animation:betaShimmer 2.5s ease-in-out infinite;pointer-events:none}
 @keyframes betaShimmer{0%,100%{transform:translateX(-100%)}50%{transform:translateX(100%)}}
-.beta-pill-label{font-weight:600;color:var(--ink);letter-spacing:-0.01em}
-.beta-pill-bar{width:44px;height:5px;background:rgba(190,45,62,0.1);border-radius:99px;overflow:hidden}
-.beta-pill-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--moss),var(--red));transition:width 0.6s ease}
-.beta-pill-count{font-weight:700;color:var(--red);font-size:0.72rem}
+.beta-pill-label{font-weight:700;color:var(--ink);letter-spacing:-0.01em}
+.beta-pill-bar{width:48px;height:6px;background:rgba(34,197,94,0.12);border-radius:99px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,0.06)}
+.beta-pill-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#22c55e,#16a34a,#15803d);background-size:200% 100%;animation:barGlow 3s ease-in-out infinite;transition:width 0.6s ease;box-shadow:0 0 6px rgba(34,197,94,0.4)}
+@keyframes barGlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.beta-pill-count{font-weight:800;font-size:0.82rem;color:#15803d}
 .beta-pill-of{color:var(--muted);font-weight:400}
 .hero-beta{margin-bottom:0.75rem}
 
@@ -228,8 +231,9 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 
 /* ═══════ HERO ═══════ */
 .hero{padding:3.5rem 0 0;text-align:center}
-.hero-chip{display:inline-flex;align-items:center;gap:0.5rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.75rem;font-weight:600;color:var(--moss);margin-bottom:1.25rem}
-.hero-chip-dot{width:6px;height:6px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 3px rgba(190,45,62,0.15)}
+.hero-chip{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.25);border-radius:999px;padding:0.3rem 0.875rem;font-size:0.75rem;font-weight:600;color:#16a34a;margin-bottom:1.25rem}
+.hero-chip-dot{width:9px;height:9px;border-radius:50%;background:#22c55e;box-shadow:0 0 6px rgba(34,197,94,0.5),0 0 14px rgba(34,197,94,0.3);animation:neonPulse 2s ease-in-out infinite}
+@keyframes neonPulse{0%,100%{box-shadow:0 0 6px rgba(34,197,94,0.5),0 0 14px rgba(34,197,94,0.3)}50%{box-shadow:0 0 10px rgba(34,197,94,0.8),0 0 22px rgba(34,197,94,0.5)}}
 .hero h1{font-family:var(--serif);font-size:clamp(2rem,4.5vw,3.25rem);font-weight:900;line-height:1.1;letter-spacing:-0.025em;max-width:720px;margin:0 auto 1rem}
 .hero h1 em{font-style:italic;color:var(--red);font-weight:800}
 .hero-sub{font-size:1.0625rem;color:var(--ink2);font-weight:300;line-height:1.75;max-width:560px;margin:0 auto 1.5rem}
@@ -238,27 +242,28 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .hero-note{font-size:0.75rem;color:var(--muted);margin-bottom:2rem}
 
 /* ═══════ APP FRAME (browser chrome) ═══════ */
-.app-frame{background:var(--bg2);border:1.5px solid var(--border);border-radius:var(--r-xl) var(--r-xl) 0 0;overflow:hidden;box-shadow:0 -4px 40px rgba(0,0,0,0.06)}
-.app-frame.rounded{border-radius:var(--r-xl);box-shadow:0 6px 28px rgba(0,0,0,0.06)}
-.app-frame-bar{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:var(--bg);border-bottom:1px solid var(--border)}
+.app-frame{background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:var(--r-xl) var(--r-xl) 0 0;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.08),0 2px 8px rgba(0,0,0,0.04)}
+.app-frame.rounded{border-radius:var(--r-xl);box-shadow:0 12px 48px rgba(0,0,0,0.10),0 2px 12px rgba(0,0,0,0.05)}
+.app-frame-bar{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.875rem;background:#fafaf8;border-bottom:1px solid rgba(0,0,0,0.06)}
 .app-frame-dots{display:flex;gap:4px}
 .app-frame-dots span{width:8px;height:8px;border-radius:50%}
 .app-frame-dots span:nth-child(1){background:#ff5f57}
 .app-frame-dots span:nth-child(2){background:#febc2e}
 .app-frame-dots span:nth-child(3){background:#28c840}
-.app-frame-url{flex:1;background:var(--surface);border-radius:5px;padding:0.2rem 0.625rem;font-size:0.62rem;color:var(--muted);margin:0 0.375rem}
-.app-frame-body{padding:0.875rem;background:var(--bg)}
+.app-frame-url{flex:1;background:#f0efec;border-radius:5px;padding:0.2rem 0.625rem;font-size:0.62rem;color:var(--muted);margin:0 0.375rem;display:flex;align-items:center;gap:0.25rem}
+.app-frame-url::before{content:'';display:inline-block;width:8px;height:10px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 14' fill='none' stroke='%237a756d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='6' width='8' height='7' rx='1.5'/%3E%3Cpath d='M4 6V4a2 2 0 0 1 4 0v2'/%3E%3C/svg%3E") center/contain no-repeat}
+.app-frame-body{padding:0.875rem;background:#fff}
 
 /* Hero frame: equal height columns + fog */
 .hero-frame-body-grid{position:relative}
 .hero-frame-body-grid>.app-card,
 .hero-frame-body-grid>.app-modal{display:flex;flex-direction:column;min-height:0;max-height:380px;overflow:hidden}
-.hero-frame-body-grid::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--bg) 0%,rgba(236,234,228,0.85) 40%,transparent 100%);pointer-events:none;z-index:2;border-radius:0 0 0 0}
+.hero-frame-body-grid::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,#fff 0%,rgba(255,255,255,0.85) 40%,transparent 100%);pointer-events:none;z-index:2;border-radius:0 0 0 0}
 
 /* ═══════ APP UI COMPONENTS ═══════ */
-.app-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.875rem;margin-bottom:0.5rem}
+.app-card{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:var(--r);padding:0.875rem;margin-bottom:0.5rem}
 .app-card:last-child{margin-bottom:0}
-.app-title{font-family:var(--serif);font-size:0.8rem;font-weight:700;margin-bottom:0.25rem}
+.app-title{font-family:var(--sans);font-size:0.82rem;font-weight:700;margin-bottom:0.25rem}
 .app-sub{font-size:0.6rem;color:var(--muted)}
 .app-bar{height:5px;background:#ece8e0;border-radius:99px;overflow:hidden;margin-top:0.25rem}
 .app-bar-fill{height:100%;border-radius:99px}
@@ -267,21 +272,21 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .app-row{display:flex;align-items:center;gap:0.375rem;padding:0.3rem 0;border-top:1px solid var(--border);font-size:0.6rem}
 .app-row:first-of-type{border-top:none}
 .app-chk{width:13px;height:13px;border-radius:3px;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.45rem;flex-shrink:0}
-.app-chk.ok{background:var(--moss);border-color:var(--moss);color:#fff}
+.app-chk.ok{background:#22c55e;border-color:#22c55e;color:#fff}
 .app-chk.warn{background:#d97706;border-color:#d97706;color:#fff}
-.app-chk.miss{border-color:var(--red);border-style:dashed}
+.app-chk.miss{border-color:#d1cdc4;border-style:dashed}
 .app-name{flex:1;font-weight:500}
 .app-meta{color:var(--muted);font-size:0.5rem}
 .app-tags{display:flex;gap:0.25rem;flex-wrap:wrap;margin-top:0.25rem}
 .app-tag{font-size:0.5rem;padding:0.1rem 0.35rem;border-radius:999px;background:var(--bg);border:1px solid var(--border);font-weight:500}
 .app-grid-sm{display:grid;grid-template-columns:repeat(2,1fr);gap:0.375rem;margin-top:0.5rem}
 .app-cell{background:var(--bg);border:1px solid var(--border);border-radius:0.5rem;padding:0.4rem;text-align:center}
-.app-cell-emoji{font-size:0.85rem}
+.app-cell-emoji{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .app-cell-name{font-size:0.5rem;font-weight:600;margin-top:0.1rem}
 .app-cell-pct{font-size:0.55rem;font-weight:700;margin-top:0.1rem}
 
 /* First Aid modal replica */
-.app-modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem;overflow:hidden}
+.app-modal{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:var(--r);padding:0.75rem;overflow:hidden}
 .app-modal-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;padding-bottom:0.375rem;border-bottom:1px solid var(--border)}
 .app-modal-emoji{font-size:1.25rem}
 .app-modal-title{font-family:var(--serif);font-size:0.82rem;font-weight:700}
@@ -297,7 +302,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .app-modal-source{font-size:0.45rem;color:var(--muted);margin-top:0.375rem;padding-top:0.25rem;border-top:1px solid var(--border)}
 
 /* Conflict procedure replica */
-.app-proc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:0.75rem}
+.app-proc{background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:var(--r);padding:0.75rem}
 .app-proc-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;padding-bottom:0.375rem;border-bottom:1px solid var(--border)}
 .app-proc-icon{width:28px;height:28px;border-radius:0.5rem;background:#fef2f2;border:1px solid #fecaca;display:flex;align-items:center;justify-content:center;font-size:0.9rem}
 .app-proc-title{font-family:var(--serif);font-size:0.8rem;font-weight:700}
@@ -314,7 +319,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 
 /* ═══════ SECTIONS ═══════ */
 .section{padding:4.5rem 0}
-.section-alt{background:var(--surface)}
+.section-alt{background:var(--bg2)}
 .sec-overline{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.625rem}
 .sec-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.125rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
 .sec-sub{font-size:0.95rem;color:var(--muted);font-weight:300;line-height:1.75;max-width:520px}
@@ -322,26 +327,27 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .mx-auto{margin-left:auto;margin-right:auto}
 
 /* ═══════ SHOWCASE (features with screenshots) ═══════ */
-.showcase{padding:3rem 0;border-bottom:1px solid var(--border)}
+.showcase{padding:3.5rem 0;border-bottom:1px solid var(--border)}
 .showcase:last-child{border-bottom:none}
-.showcase-full{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+.showcase-full{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
 .showcase-full.reverse .showcase-text{order:2}
 .showcase-full.reverse .showcase-visual{order:1}
-.showcase-half{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.showcase-half{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 .showcase-half>div{display:flex;flex-direction:column}
 .showcase-half>div .app-frame{margin-top:auto}
 .showcase-label{font-size:0.7rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--red);margin-bottom:0.375rem}
 .showcase-title{font-family:var(--serif);font-size:1.375rem;font-weight:800;line-height:1.2;margin-bottom:0.5rem}
 .showcase-desc{font-size:0.9rem;color:var(--muted);font-weight:300;line-height:1.7;margin-bottom:0.75rem}
-.showcase-detail{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;padding:0.5rem 0.75rem;background:var(--moss-soft);border:1px solid var(--moss-border);border-radius:var(--r);margin-bottom:0.375rem}
+.showcase-detail{display:flex;align-items:center;gap:0.5rem;font-size:0.78rem;padding:0.5rem 0.75rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:0.375rem}
 .showcase-detail strong{font-weight:600;color:var(--moss)}
 
 /* ═══════ EXPANDABLE MODULE CARDS ═══════ */
 .mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.875rem;margin-top:2rem}
-.mod-card{background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--r-lg);overflow:hidden;transition:all 0.25s;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+.mod-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:all 0.25s;box-shadow:0 2px 12px rgba(0,0,0,0.06),0 1px 4px rgba(0,0,0,0.04)}
 .mod-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.05)}
 .mod-card-top{padding:1.25rem;cursor:pointer;display:flex;flex-direction:column;position:relative}
 .mod-emoji{font-size:1.375rem;margin-bottom:0.5rem;display:block}
+.mod-num{display:inline-flex;align-items:center;justify-content:center;width:1.75rem;height:1.75rem;border-radius:0.5rem;background:var(--red);color:#fff;font-family:var(--serif);font-size:0.8rem;font-weight:700;margin-bottom:0.5rem}
 .mod-title{font-weight:700;font-size:0.88rem;margin-bottom:0.2rem}
 .mod-text{font-size:0.78rem;color:var(--muted);font-weight:300;line-height:1.55}
 .mod-expand-icon{position:absolute;top:1rem;right:1rem;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all 0.25s}
@@ -367,7 +373,7 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .sec-chip:hover{border-color:var(--moss)}
 
 /* ═══════ FAQ ═══════ */
-.faq-list{max-width:680px;margin:2rem auto 0}
+.faq-list{max-width:680px;margin:2rem auto 0;background:#fff;border-radius:var(--r-lg);padding:0.25rem 1.5rem;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 .faq-item{border-bottom:1px solid var(--border)}
 .faq-q{width:100%;background:none;border:none;display:flex;align-items:center;justify-content:space-between;padding:1rem 0;gap:1rem;font-size:0.9rem;font-weight:600;color:var(--ink);text-align:left;cursor:pointer;transition:color 0.15s}
 .faq-q:hover{color:var(--red)}
@@ -425,36 +431,37 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
 
 /* ═══════ RESPONSIVE ═══════ */
 @media(max-width:900px){
-  .hero-frame-body-grid{grid-template-columns:1fr 1fr !important}
-  .showcase-full{grid-template-columns:1fr;gap:2rem}
-  .showcase-full.reverse .showcase-text{order:1}
-  .showcase-full.reverse .showcase-visual{order:2}
-  .showcase-half{grid-template-columns:1fr}
-  .mod-grid{grid-template-columns:repeat(2,1fr)}
-  .story-row{grid-template-columns:1fr;gap:2rem}
-  .steps-row{grid-template-columns:1fr 1fr}
-  .nav-links{display:none}
+ .hero-frame-body-grid{grid-template-columns:1fr 1fr !important}
+ .hero-frame-body-grid>*:nth-child(3){display:none}
+ .showcase-full{grid-template-columns:1fr;gap:2rem}
+ .showcase-full.reverse .showcase-text{order:1}
+ .showcase-full.reverse .showcase-visual{order:2}
+ .showcase-half{grid-template-columns:1fr}
+ .mod-grid{grid-template-columns:repeat(2,1fr)}
+ .story-row{grid-template-columns:1fr;gap:2rem}
+ .steps-row{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
+ .nav-links{display:none}
 }
 @media(max-width:640px){
-  .section{padding:3rem 0}
-  .hero{padding:2.5rem 0 0}
-  .hero h1{font-size:1.75rem}
-  .hero-frame-body-grid{grid-template-columns:1fr !important}
-  .mod-grid,.steps-row{grid-template-columns:1fr}
-  .hero-ctas{flex-direction:column;align-items:stretch}
-  .hero-ctas .btn{justify-content:center}
-  .callout-sep{display:none}
-  .callout-inner{gap:0.5rem 1.25rem}
-  .wrap{padding:0 1.25rem}
-  .footer-inner{flex-direction:column;align-items:center;text-align:center}
-  .showcase{padding:2rem 0}
-  .sticky-bar{display:block}
-  .sticky-bar .btn{font-size:0.8125rem;padding:0.625rem 0.875rem}
-  .waitlist-inline{max-width:100%}
-  .waitlist-row{flex-direction:column}
-  .waitlist-row .btn{justify-content:center}
-  .cta-waitlist .waitlist-row{flex-direction:column}
-  .cookie-banner.show ~ .sticky-bar.show{display:none}
+ .section{padding:3rem 0}
+ .hero{padding:2.5rem 0 0}
+ .hero h1{font-size:1.75rem}
+ .hero-frame-body-grid{grid-template-columns:1fr !important}
+ .mod-grid{grid-template-columns:1fr}
+ .hero-ctas{flex-direction:column;align-items:stretch}
+ .hero-ctas .btn{justify-content:center}
+ .callout-sep{display:none}
+ .callout-inner{gap:0.5rem 1.25rem}
+ .wrap{padding:0 1.25rem}
+ .footer-inner{flex-direction:column;align-items:center;text-align:center}
+ .showcase{padding:2rem 0}
+ .sticky-bar{display:block}
+ .sticky-bar .btn{font-size:0.8125rem;padding:0.625rem 0.875rem}
+ .waitlist-inline{max-width:100%}
+ .waitlist-row{flex-direction:column}
+ .waitlist-row .btn{justify-content:center}
+ .cta-waitlist .waitlist-row{flex-direction:column}
+ .cookie-banner.show ~ .sticky-bar.show{display:none}
 }
 </style>
 </head>
@@ -463,155 +470,177 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
 <!-- ═══════ NAV ═══════ -->
 <nav class="nav" id="mainNav" aria-label="Navigácia">
 <div class="nav-inner">
-  <a class="nav-logo" href="/">Mámeplán.sk</a>
-  <div class="nav-links"><a class="nav-link" href="#funkcie">Funkcie</a><a class="nav-link" href="#ako">Ako to funguje</a><a class="nav-link" href="#faq">FAQ</a></div>
-  <div class="nav-right"><a class="btn btn-sm btn-outline" href="./app.html">Demo</a><a class="btn btn-sm btn-red" href="./app.html">Spustiť</a></div>
+ <a class="nav-logo" href="/">Mámeplán.sk</a>
+ <div class="nav-links"><a class="nav-link" href="#funkcie">Funkcie</a><a class="nav-link" href="#ako">Ako to funguje</a><a class="nav-link" href="#faq">FAQ</a></div>
+ <div class="nav-right"><a class="btn btn-sm btn-outline" href="./app.html">Demo</a><a class="btn btn-sm btn-red" href="./app.html">Spustiť</a></div>
 </div>
 </nav>
 
 <!-- ═══════ HERO ═══════ -->
 <section class="hero">
 <div class="wrap">
-  <div class="hero-chip rv"><span class="hero-chip-dot"></span> 🇸🇰 Slovenský projekt</div>
-  <!-- Beta counter (hero) -->
-  <div class="beta-pill hero-beta rv rv-d1">
-    <span class="beta-pill-label">Beta v0.1</span>
-    <div class="beta-pill-bar"><div class="beta-pill-bar-fill js-bar" style="width:0%"></div></div>
-    <span class="beta-pill-count"><span class="js-free">–</span></span>
-    <span class="beta-pill-of">voľných z 200</span>
-  </div>
-  <h1 class="rv rv-d2">Prvý slovenský online sprievodca pre <em>krízové situácie</em></h1>
-  <p class="hero-sub rv rv-d3">Aplikácia Gerlach <strong>vypočíta zásoby</strong> podľa špecifikácií vašej rodiny, <strong>upozorní na expirácie</strong>, informuje o postupoch v krízových situáciách a mnoho iného. Jeden klik — funguje okamžite.</p>
-  <div class="hero-ctas rv rv-d4">
-    <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
-    <a class="btn btn-lg btn-outline" href="./app.html">Vyskúšať demo</a>
-  </div>
-  <!-- Waitlist form (visible only when beta is full) -->
-  <div class="waitlist-inline js-when-full" id="heroWaitlist" role="form" aria-label="Čakací zoznam">
-    <p style="font-size:0.88rem;font-weight:500;margin-bottom:0.2rem">Beta je aktuálne plná — ďakujeme za záujem.</p>
-    <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:0.5rem">Nechajte nám email a pošleme vám pozvánku, keď otvoríme ďalšie miesta.</p>
-    <div class="waitlist-row">
-      <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
-      <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Pošlite mi pozvánku</button>
-    </div>
-    <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov">ochrana údajov</a>).</p>
-    <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
-  </div>
-  <div class="js-when-full" style="display:none;margin-top:0.5rem">
-    <a class="btn btn-sm btn-outline" href="./app.html">Medzitým vyskúšajte demo</a>
-  </div>
-  <p class="hero-note rv rv-d4">Bez inštalácie · Demo bez registrácie · Google prihlásenie na plnú verziu</p>
+ <div class="hero-chip rv"><span class="hero-chip-dot"></span> 🇸🇰 Slovenský projekt</div>
+ <!-- Beta counter (hero) -->
+ <div class="beta-pill hero-beta rv rv-d1">
+ <span class="beta-pill-label">Beta v0.1</span>
+ <div class="beta-pill-bar"><div class="beta-pill-bar-fill js-bar" style="width:0%"></div></div>
+ <span class="beta-pill-count"><span class="js-free">–</span></span>
+ <span class="beta-pill-of">voľných z 200</span>
+ </div>
+ <h1 class="rv rv-d2">Prvý slovenský online sprievodca pre <em>krízové situácie</em></h1>
+ <p class="hero-sub rv rv-d3">Aplikácia Gerlach <strong>vypočíta zásoby</strong> podľa špecifikácií vašej rodiny, <strong>upozorní na expirácie</strong>, informuje o postupoch v krízových situáciách a mnoho iného. Jeden klik — funguje okamžite.</p>
+ <div class="hero-ctas rv rv-d4">
+ <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
+ <a class="btn btn-lg btn-outline" href="./app.html">Vyskúšať demo</a>
+ </div>
+ <!-- Waitlist form (visible only when beta is full) -->
+ <div class="waitlist-inline js-when-full" id="heroWaitlist" role="form" aria-label="Čakací zoznam">
+ <p style="font-size:0.88rem;font-weight:500;margin-bottom:0.2rem">Beta je aktuálne plná — ďakujeme za záujem.</p>
+ <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-bottom:0.5rem">Nechajte nám email a pošleme vám pozvánku, keď otvoríme ďalšie miesta.</p>
+ <div class="waitlist-row">
+ <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
+ <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Pošlite mi pozvánku</button>
+ </div>
+ <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov">ochrana údajov</a>).</p>
+ <div class="waitlist-success" role="status">Ďakujeme! Ozveme sa, keď sa otvorí ďalšie kolo.</div>
+ </div>
+ <div class="js-when-full" style="display:none;margin-top:0.5rem">
+ <a class="btn btn-sm btn-outline" href="./app.html">Medzitým vyskúšajte demo</a>
+ </div>
+ <p class="hero-note rv rv-d4">Bez inštalácie · Demo bez registrácie · Google prihlásenie na plnú verziu</p>
 
-  <!-- ═══════ HERO PRODUCT SCREENSHOT ═══════ -->
-  <div class="app-frame rv rv-d3" style="max-width:1040px;margin:0 auto">
-    <div class="app-frame-bar">
-      <div class="app-frame-dots"><span></span><span></span><span></span></div>
-      <div class="app-frame-url">🔒 mameplan.sk/app</div>
-    </div>
-    <div class="app-frame-body">
-      <div class="hero-frame-body-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem">
-        <!-- Col 1: Dashboard -->
-        <div class="app-card">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.375rem">
-            <div><div class="app-title">🏠 Stav domácnosti</div><div class="app-sub">4 osoby · 3 dni · byt</div></div>
-            <div class="app-score" style="color:var(--red)">38%</div>
-          </div>
-          <div class="app-bar"><div class="app-bar-fill" style="width:38%;background:linear-gradient(90deg,var(--red),#e06060)"></div></div>
-          <div class="app-label"><span>Dobrý základ</span><span>38 / 100</span></div>
-          <div class="app-grid-sm">
-            <div class="app-cell"><div class="app-cell-emoji">💧</div><div class="app-cell-name">Voda</div><div class="app-cell-pct" style="color:var(--red)">42%</div></div>
-            <div class="app-cell"><div class="app-cell-emoji">🥫</div><div class="app-cell-name">Jedlo</div><div class="app-cell-pct" style="color:#dc2626">20%</div></div>
-            <div class="app-cell"><div class="app-cell-emoji">🩺</div><div class="app-cell-name">Lekárnička</div><div class="app-cell-pct" style="color:var(--moss)">88%</div></div>
-            <div class="app-cell"><div class="app-cell-emoji">🔦</div><div class="app-cell-name">Vybavenie</div><div class="app-cell-pct" style="color:var(--red)">55%</div></div>
-          </div>
-        </div>
-
-        <!-- Col 2: Checklist -->
-        <div class="app-card">
-          <div class="app-title">📦 Checklist — Vybavenie</div>
-          <div class="app-sub" style="margin-bottom:0.375rem">14 z 24 položiek</div>
-          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Baterka LED + čelovka</div><div class="app-meta">2 ks</div></div>
-          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Powerbanka 20 000 mAh</div><div class="app-meta">2 ks</div></div>
-          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Rádio na batérie AM/FM</div><div class="app-meta">1 ks</div></div>
-          <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Plynový kempingový varič</div><div class="app-meta">1 ks</div></div>
-          <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--red)">Kanister na vodu 10L</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
-          <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted)">Hasiaci prístroj 2kg</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
-        </div>
-
-        <!-- Col 3: First Aid Modal — Popáleniny -->
-        <div class="app-modal">
-          <div class="app-modal-header">
-            <div class="app-modal-emoji">🔥</div>
-            <div><div class="app-modal-title">Popáleniny</div><div class="app-modal-subtitle">Termické, obareniny a chemické</div></div>
-          </div>
-          <div class="app-modal-section">
-            <div class="app-modal-section-header">Okamžitý postup</div>
-            <div class="app-modal-steps">
-              <div class="app-modal-step"><div class="app-modal-step-num">1</div><div class="app-modal-step-text"><strong>Zastavte pôsobenie tepla</strong> — ak horí oblečenie: STOP–DROP–ROLL</div></div>
-              <div class="app-modal-step"><div class="app-modal-step-num">2</div><div class="app-modal-step-text"><strong>Chlaďte tečúcou vodou 20 min</strong> — izbová teplota (15–25°C)</div></div>
-              <div class="app-modal-step"><div class="app-modal-step-num">3</div><div class="app-modal-step-text"><strong>Odstráňte oblečenie a šperky</strong> — ak nie sú prilepené</div></div>
+ <!-- ═══════ HERO PRODUCT SCREENSHOT ═══════ -->
+ <div class="app-frame rv rv-d3" style="max-width:1040px;margin:0 auto">
+ <div class="app-frame-bar">
+ <div class="app-frame-dots"><span></span><span></span><span></span></div>
+ <div class="app-frame-url">mameplan.sk/app</div>
+ </div>
+ <div class="app-frame-body">
+ <div class="hero-frame-body-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.75rem">
+ <!-- Col 1: Dashboard (real app design) -->
+            <div class="app-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.25rem">
+                <div class="app-title" style="font-size:0.82rem">Už máte základ</div>
+                <div style="display:flex;align-items:center;gap:0.375rem"><span style="font-family:var(--serif);font-size:1.1rem;font-weight:800;color:#c05621">38%</span><span style="font-size:0.42rem;padding:0.12rem 0.3rem;border:1px solid var(--border);border-radius:4px;color:var(--muted)">Upraviť</span></div>
+              </div>
+              <div class="app-bar" style="height:6px;margin-bottom:0.15rem"><div class="app-bar-fill" style="width:38%;background:#ca8a04"></div></div>
+              <div style="font-size:0.42rem;color:var(--muted);font-style:italic;margin-bottom:0.1rem">Prvý krok na Rysy — základ stojí</div>
+              <div style="display:flex;gap:0.2rem;flex-wrap:wrap;margin-bottom:0.5rem">
+                <span style="font-size:0.4rem;padding:0.08rem 0.25rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--muted)">3 osoby</span>
+                <span style="font-size:0.4rem;padding:0.08rem 0.25rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--muted)">3 dni</span>
+                <span style="font-size:0.4rem;padding:0.08rem 0.25rem;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--muted)">Byt</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.25rem">
+                <div style="padding:0.3rem 0.4rem;border-radius:0.3rem;border:1.5px solid hsl(102 65% 55%);background:hsl(102 60% 97%)"><div style="display:flex;align-items:center;gap:0.2rem;margin-bottom:0.05rem"><div style="width:5px;height:5px;border-radius:50%;background:hsl(102 75% 36%)"></div><span style="font-size:0.42rem;font-weight:600">Voda</span></div><span style="font-size:0.6rem;font-weight:800;color:hsl(102 75% 36%)">91%</span></div>
+                <div style="padding:0.3rem 0.4rem;border-radius:0.3rem;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:0.2rem;margin-bottom:0.05rem"><div style="width:5px;height:5px;border-radius:50%;background:hsl(0 75% 42%)"></div><span style="font-size:0.42rem;font-weight:600">Jedlo</span></div><span style="font-size:0.6rem;font-weight:800;color:hsl(0 75% 42%)">2%</span></div>
+                <div style="padding:0.3rem 0.4rem;border-radius:0.3rem;border:1.5px solid hsl(82 50% 65%);background:hsl(82 60% 97%)"><div style="display:flex;align-items:center;gap:0.2rem;margin-bottom:0.05rem"><div style="width:5px;height:5px;border-radius:50%;background:hsl(82 65% 38%)"></div><span style="font-size:0.42rem;font-weight:600">Lekárnička</span></div><span style="font-size:0.6rem;font-weight:800;color:hsl(82 65% 38%)">68%</span></div>
+                <div style="padding:0.3rem 0.4rem;border-radius:0.3rem;border:1px solid var(--border)"><div style="display:flex;align-items:center;gap:0.2rem;margin-bottom:0.05rem"><div style="width:5px;height:5px;border-radius:50%;background:hsl(0 75% 42%)"></div><span style="font-size:0.42rem;font-weight:600">Peniaze</span></div><span style="font-size:0.6rem;font-weight:800;color:hsl(0 75% 42%)">0%</span></div>
+              </div>
             </div>
-          </div>
-          <div class="app-modal-warn"><span>⚠️</span><span>NIKDY: ľad, maslo, zubnú pastu, olej, múku</span></div>
-          <div class="app-modal-section">
-            <div class="app-modal-section-header">Po chladení</div>
-            <div class="app-modal-steps">
-              <div class="app-modal-step"><div class="app-modal-step-num">4</div><div class="app-modal-step-text"><strong>Zakryte ranu</strong> voľne čistou tkaninou alebo potravinárskou fóliou</div></div>
-              <div class="app-modal-step"><div class="app-modal-step-num">5</div><div class="app-modal-step-text"><strong>Neprepichujte pľuzgiere</strong> — chránia pred infekciou</div></div>
+
+            <!-- Col 2: Hygiene checklist (real app design) -->
+            <div class="app-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.15rem">
+                <div class="app-title" style="font-size:0.7rem">Hygiena</div>
+                <span style="font-size:0.7rem;font-weight:800;color:hsl(0 75% 42%)">0%</span>
+              </div>
+              <div class="app-sub" style="margin-bottom:0.25rem">0 / 13 hotovo</div>
+              <div class="app-bar" style="height:4px;margin-bottom:0.375rem"><div class="app-bar-fill" style="width:1%;background:hsl(0 75% 42%)"></div></div>
+              <div class="app-row"><div class="app-chk miss" style="width:14px;height:14px;border-radius:50%"></div><div><div class="app-name" style="font-weight:600">Toaletný papier</div><div style="font-size:0.4rem;color:var(--muted)">3 roliek</div></div><div class="app-meta" style="margin-left:auto;display:flex;gap:0.15rem"><span style="font-size:0.38rem;padding:0.1rem 0.25rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.38rem;color:#dc2626">×</span></div></div>
+              <div class="app-row"><div class="app-chk miss" style="width:14px;height:14px;border-radius:50%"></div><div><div class="app-name" style="font-weight:600">Mydlo / sprchový gél</div><div style="font-size:0.4rem;color:var(--muted)">2 ks</div></div><div class="app-meta" style="margin-left:auto;display:flex;gap:0.15rem"><span style="font-size:0.38rem;padding:0.1rem 0.25rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.38rem;color:#dc2626">×</span></div></div>
+              <div class="app-row"><div class="app-chk miss" style="width:14px;height:14px;border-radius:50%"></div><div><div class="app-name" style="font-weight:600">Vlhčené utierky</div><div style="font-size:0.4rem;color:var(--muted)">3 balenie</div></div><div class="app-meta" style="margin-left:auto;display:flex;gap:0.15rem"><span style="font-size:0.38rem;padding:0.1rem 0.25rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.38rem;color:#dc2626">×</span></div></div>
+              <div class="app-row"><div class="app-chk miss" style="width:14px;height:14px;border-radius:50%"></div><div><div class="app-name" style="font-weight:600">Zubná kefka + pasta</div><div style="font-size:0.4rem;color:var(--muted)">3 ks + 1 pasta</div></div><div class="app-meta" style="margin-left:auto;display:flex;gap:0.15rem"><span style="font-size:0.38rem;padding:0.1rem 0.25rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.38rem;color:#dc2626">×</span></div></div>
+              <div class="app-row"><div class="app-chk miss" style="width:14px;height:14px;border-radius:50%"></div><div><div class="app-name" style="font-weight:600">Šampón</div><div style="font-size:0.4rem;color:var(--muted)">2 ks</div></div><div class="app-meta" style="margin-left:auto;display:flex;gap:0.15rem"><span style="font-size:0.38rem;padding:0.1rem 0.25rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.38rem;color:#dc2626">×</span></div></div>
             </div>
-          </div>
-          <div class="app-modal-source">Zdroj: ERC 2025 + ILCOR CoSTR 2025</div>
-        </div>
-      </div>
-    </div>
-  </div>
+
+            <!-- Col 3: Armed conflict procedure (real app design) -->
+            <div class="app-modal">
+              <div style="display:flex;align-items:center;gap:0.375rem;margin-bottom:0.375rem;padding-bottom:0.25rem;border-bottom:1px solid var(--border)">
+                <div style="width:22px;height:22px;border-radius:50%;background:#1a1816;display:flex;align-items:center;justify-content:center;font-size:0.5rem;flex-shrink:0"><svg viewBox="0 0 16 16" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3M8 10v1"/></svg></div>
+                <div><div style="font-family:var(--serif);font-size:0.72rem;font-weight:700">Ozbrojený konflikt</div><div style="font-size:0.42rem;color:var(--muted)">Čo robiť pri ostreľovaní, dronoch a bombardovaní</div></div>
+              </div>
+              <div style="background:#dc2626;border-radius:0.3rem;padding:0.2rem 0.4rem;margin-bottom:0.3rem;display:flex;gap:0.5rem;font-size:0.42rem;color:#fff;font-weight:600">
+                <span>Tiesňové číslo: <u>112</u></span><span>|</span><span>Hasiči: <u>150</u></span><span>|</span><span>Polícia: <u>158</u></span>
+              </div>
+              <div style="background:#1a1816;color:#fff;font-size:0.45rem;font-weight:600;padding:0.2rem 0.4rem;border-radius:0.25rem 0.25rem 0 0;margin-bottom:0">Keď zaznie siréna (vzdušný poplach)</div>
+              <div style="padding:0.25rem 0.35rem;border:1px solid var(--border);border-top:0;border-radius:0 0 0.25rem 0.25rem;margin-bottom:0.25rem">
+                <div style="display:flex;align-items:flex-start;gap:0.25rem;padding:0.15rem 0;font-size:0.42rem;line-height:1.4"><div style="width:14px;height:14px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.35rem;font-weight:700;flex-shrink:0">1</div><div><strong>Okamžite vyhľadajte úkryt</strong> – pivnica, suterén, metro</div></div>
+                <div style="display:flex;align-items:flex-start;gap:0.25rem;padding:0.15rem 0;font-size:0.42rem;line-height:1.4"><div style="width:14px;height:14px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.35rem;font-weight:700;flex-shrink:0">2</div><div><strong>Držte sa ďalej od okien</strong> a vonkajších stien</div></div>
+                <div style="display:flex;align-items:flex-start;gap:0.25rem;padding:0.15rem 0;font-size:0.42rem;line-height:1.4"><div style="width:14px;height:14px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.35rem;font-weight:700;flex-shrink:0">3</div><div><strong>Sadnite si alebo ľahnite</strong> – čím nižšie, tým lepšie</div></div>
+              </div>
+              <div style="display:flex;gap:0.2rem;padding:0.2rem 0.35rem;background:#fef2f2;border:1px solid #fecaca;border-radius:0.25rem;font-size:0.4rem;color:#991b1b;line-height:1.35;margin-bottom:0.25rem"><span style="color:#dc2626;font-weight:700">!</span><span>Nikdy nevychádzajte von bezprostredne po výbuchu</span></div>
+              <div style="background:#1a1816;color:#fff;font-size:0.45rem;font-weight:600;padding:0.2rem 0.4rem;border-radius:0.25rem 0.25rem 0 0">Pravidlo dvoch stien (UA DSNS)</div>
+              <div style="padding:0.2rem 0.35rem;border:1px solid var(--border);border-top:0;border-radius:0 0 0.25rem 0.25rem">
+                <div style="display:flex;align-items:flex-start;gap:0.25rem;padding:0.15rem 0;font-size:0.42rem;line-height:1.4"><div style="width:14px;height:14px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.35rem;font-weight:700;flex-shrink:0">1</div><div><strong>Nestíhate do úkrytu?</strong> Kúpeľňa alebo chodba v strede bytu</div></div>
+              </div>
+ </div>
+ </div>
+ </div>
+ </div>
 </div>
 </section>
 
 <!-- ═══════ CALLOUT BAR — Clean, no emoji ═══════ -->
 <div class="callout">
 <div class="callout-inner wrap">
-  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Zadarmo pre verejnosť</div>
-  <div class="callout-sep"></div>
-  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Google prihlásenie</div>
-  <div class="callout-sep"></div>
-  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Funguje v prehliadači</div>
-  <div class="callout-sep"></div>
-  <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Demo bez registrácie</div>
+ <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Zadarmo pre verejnosť</div>
+ <div class="callout-sep"></div>
+ <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Google prihlásenie</div>
+ <div class="callout-sep"></div>
+ <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Funguje v prehliadači</div>
+ <div class="callout-sep"></div>
+ <div class="callout-item"><span class="callout-check"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></span> Demo bez registrácie</div>
 </div>
 </div>
 
 <!-- ═══════ SHOWCASE — Čo vidíte v appke ═══════ -->
 <section class="section" id="funkcie">
 <div class="wrap">
-  <p class="sec-overline text-center rv">Čo vidíte v appke</p>
-  <h2 class="sec-title text-center mx-auto rv rv-d1" style="max-width:580px">Nehovoríme vám, že to je užitočné. Ukážeme vám to.</h2>
+ <p class="sec-overline text-center rv">Čo vidíte v appke</p>
+ <h2 class="sec-title text-center mx-auto rv rv-d1" style="max-width:580px">Nehovoríme vám, že to je užitočné. Ukážeme vám to.</h2>
 
-  <!-- SHOWCASE 1: Zásoby voda — full width -->
-  <div class="showcase rv rv-d2">
-    <div class="showcase-full">
-      <div class="showcase-text">
-        <div class="showcase-label">Zásoby</div>
-        <div class="showcase-title">Presne viete koľko vody, jedla a liekov potrebujete</div>
-        <p class="showcase-desc">4 osoby × 3 dni = 24 litrov vody. Gerlach to spočíta za vás — podľa odporúčaní WHO a Civilnej ochrany SR.</p>
-        <div class="showcase-detail"><span>WHO odporúča <strong>2L pitnej + 1L úžitkovej</strong> na osobu/deň</span></div>
-        <div class="showcase-detail"><span>Kalkulátor na <strong>7 kategórií</strong> — voda, jedlo, lieky, hygiena, peniaze...</span></div>
-      </div>
-      <div class="showcase-visual">
+ <!-- SHOWCASE 1: Zásoby voda — full width -->
+ <div class="showcase rv rv-d2">
+ <div class="showcase-full">
+ <div class="showcase-text">
+ <div class="showcase-label">Zásoby</div>
+ <div class="showcase-title">Presne viete koľko vody, jedla a liekov potrebujete</div>
+ <p class="showcase-desc">4 osoby × 3 dni = 24 litrov vody. Gerlach to spočíta za vás — podľa odporúčaní WHO a Civilnej ochrany SR.</p>
+ <div class="showcase-detail"><span>WHO odporúča <strong>2L pitnej + 1L úžitkovej</strong> na osobu/deň</span></div>
+ <div class="showcase-detail"><span>Kalkulátor na <strong>7 kategórií</strong> — voda, jedlo, lieky, hygiena, peniaze...</span></div>
+ </div>
+ <div class="showcase-visual">
         <div class="app-frame rounded">
-          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
-          <div class="app-frame-body">
-            <div class="app-card" style="margin:0">
-              <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.375rem">
-                <div><div class="app-title">💧 Voda</div><div class="app-sub">Potrebné: 24L · Máte: 10L</div></div>
-                <div style="font-family:var(--serif);font-size:1.125rem;font-weight:700;color:var(--red)">42%</div>
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">mameplan.sk/app</div></div>
+          <div class="app-frame-body" style="padding:0.75rem">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.2rem">
+              <div><div style="font-size:0.82rem;font-weight:700">Voda</div><div style="font-size:0.48rem;color:var(--muted)">1 / 1 hotovo</div></div>
+              <div style="text-align:right"><div style="font-size:0.38rem;color:var(--muted)">splnené na</div><div style="font-size:1rem;font-weight:800;color:hsl(102 75% 36%)">91%</div></div>
+            </div>
+            <div class="app-bar" style="height:5px;margin-bottom:0.5rem"><div class="app-bar-fill" style="width:91%;background:#22c55e"></div></div>
+            <div style="border:1px solid var(--border);border-radius:0.4rem;padding:0.4rem;margin-bottom:0.4rem">
+              <div style="display:flex;justify-content:space-between;margin-bottom:0.25rem"><span style="font-size:0.58rem;font-weight:700">Zásoby vody (litre)</span><span style="font-size:0.58rem;font-weight:800;color:hsl(102 75% 36%)">91%</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.25rem;margin-bottom:0.25rem">
+                <div style="text-align:center;padding:0.25rem;border:1.5px solid #dbeafe;border-radius:0.3rem;background:#eff6ff"><div style="font-size:0.35rem;font-weight:600;color:#2563eb;text-transform:uppercase;letter-spacing:0.04em">POTREBNÉ</div><div style="font-size:0.65rem;font-weight:800;color:#2563eb">16.5</div><div style="font-size:0.32rem;color:var(--muted)">litrov na 3 dni</div></div>
+                <div style="text-align:center;padding:0.25rem;border:1.5px solid #dcfce7;border-radius:0.3rem;background:#f0fdf4"><div style="font-size:0.35rem;font-weight:600;color:#16a34a;text-transform:uppercase;letter-spacing:0.04em">MÁTE</div><div style="font-size:0.65rem;font-weight:800;color:#16a34a">15.0</div><div style="font-size:0.32rem;color:var(--muted)">litrov</div></div>
+                <div style="text-align:center;padding:0.25rem;border:1.5px solid #fecaca;border-radius:0.3rem;background:#fef2f2"><div style="font-size:0.35rem;font-weight:600;color:#dc2626;text-transform:uppercase;letter-spacing:0.04em">CHÝBA</div><div style="font-size:0.65rem;font-weight:800;color:#dc2626">1.5</div><div style="font-size:0.32rem;color:var(--muted)">litrov</div></div>
               </div>
-              <div class="app-bar"><div class="app-bar-fill" style="width:42%;background:var(--red)"></div></div>
-              <div style="margin-top:0.5rem">
-                <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Balená voda 5L</div><div class="app-meta">exp. 03/2026</div></div>
-                <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Balená voda 5L</div><div class="app-meta">exp. 05/2026</div></div>
-                <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted);font-style:italic">Chýba 14L...</div></div>
+              <div class="app-bar" style="height:4px;margin-bottom:0.15rem"><div class="app-bar-fill" style="width:91%;background:#22c55e"></div></div>
+              <div style="font-size:0.38rem;color:var(--muted)">Vydrží na: <strong style="color:var(--ink)">2 dni a 17 hodín</strong></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.3rem;padding:0.3rem 0.4rem;border:1px solid var(--border);border-radius:0.3rem;margin-bottom:0.35rem">
+              <div style="flex:1"><div style="font-size:0.5rem;font-weight:600">Balená voda <span style="font-size:0.35rem;padding:0.04rem 0.18rem;background:#f0fdf4;border:1px solid #dcfce7;border-radius:3px;color:#16a34a">791d</span></div><div style="font-size:0.38rem;color:var(--muted)">10× 1.5 l = 15.0 l • 2028-05-01</div></div>
+              <span style="font-size:0.35rem;padding:0.08rem 0.22rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.4rem;color:var(--muted)">×</span>
+            </div>
+            <div style="border:2px solid var(--ink);border-radius:0.4rem;padding:0.3rem 0.4rem">
+              <div style="font-size:0.45rem;font-weight:600;margin-bottom:0.2rem">+ Pridať vodu</div>
+              <div style="height:1.1rem;border:1px solid var(--border);border-radius:0.2rem;margin-bottom:0.2rem;background:#fafaf8;font-size:0.35rem;color:var(--muted);display:flex;align-items:center;padding:0 0.3rem">Názov (napr. Fľaša 1,5 l, Kanister 5 l)</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.2rem;margin-bottom:0.25rem">
+                <div><div style="font-size:0.32rem;color:var(--muted);margin-bottom:0.06rem">Litrov / kus *</div><div style="height:0.85rem;border:1px solid var(--border);border-radius:0.2rem;background:#fff;font-size:0.38rem;display:flex;align-items:center;padding:0 0.2rem;color:var(--muted)">1.5</div></div>
+                <div><div style="font-size:0.32rem;color:var(--muted);margin-bottom:0.06rem">Počet *</div><div style="height:0.85rem;border:1px solid var(--border);border-radius:0.2rem;background:#fff;font-size:0.38rem;display:flex;align-items:center;padding:0 0.2rem;color:var(--muted)">1</div></div>
+                <div><div style="font-size:0.32rem;color:var(--muted);margin-bottom:0.06rem">Expirácia *</div><div style="height:0.85rem;border:1px solid var(--border);border-radius:0.2rem;background:#fff;font-size:0.38rem;display:flex;align-items:center;padding:0 0.2rem;color:var(--muted)">01 / 03 / 2026</div></div>
               </div>
+              <div style="background:var(--ink);color:#fff;text-align:center;padding:0.25rem;border-radius:0.3rem;font-size:0.42rem;font-weight:600">Pridať do zásob</div>
             </div>
           </div>
         </div>
@@ -619,63 +648,65 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
     </div>
   </div>
 
-  <!-- SHOWCASE 2: Two columns — Checklist + Ozbrojený konflikt -->
-  <div class="showcase rv">
-    <div class="showcase-half">
+ <!-- SHOWCASE 2: Two columns — Checklist + Ozbrojený konflikt -->
+ <div class="showcase rv">
+ <div class="showcase-half">
 
-      <!-- Left: Checklist vybavenia -->
+ <!-- Left: Checklist Hygiena (real app design) -->
       <div>
         <div class="showcase-label">Checklisty</div>
         <div class="showcase-title" style="font-size:1.125rem">Predvyplnené zoznamy — vy len odškrtávate</div>
         <p class="showcase-desc" style="font-size:0.85rem;margin-bottom:1rem">Lekárnička, hygiena, peniaze, vybavenie, doklady — generované podľa počtu osôb a dní.</p>
         <div class="app-frame rounded">
-          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
-          <div class="app-frame-body">
-            <div class="app-card" style="margin:0">
-              <div class="app-title">🔦 Vybavenie</div>
-              <div class="app-sub" style="margin-bottom:0.375rem">14 z 24 položiek · 58%</div>
-              <div class="app-bar" style="margin-bottom:0.5rem"><div class="app-bar-fill" style="width:58%;background:var(--red)"></div></div>
-              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Baterka LED + čelovka</div><div class="app-meta">2 ks</div></div>
-              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Powerbanka 20 000 mAh</div><div class="app-meta">2 ks</div></div>
-              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Rádio AM/FM na batérie</div><div class="app-meta">1 ks</div></div>
-              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Plynový kempingový varič</div><div class="app-meta">1 ks</div></div>
-              <div class="app-row"><div class="app-chk ok">✓</div><div class="app-name">Multifunkčný nôž</div><div class="app-meta">1 ks</div></div>
-              <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--red)">Kanister na vodu 10L</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
-              <div class="app-row"><div class="app-chk miss"></div><div class="app-name" style="color:var(--muted)">Hasiaci prístroj 2kg</div><div class="app-meta" style="color:var(--red)">chýba</div></div>
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">mameplan.sk/app</div></div>
+          <div class="app-frame-body" style="padding:0.625rem">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:0.15rem">
+              <div><div style="font-size:0.75rem;font-weight:700">Hygiena</div><div style="font-size:0.45rem;color:var(--muted)">0 / 13 hotovo</div></div>
+              <div style="text-align:right"><div style="font-size:0.35rem;color:var(--muted)">splnené na</div><div style="font-size:0.85rem;font-weight:800;color:hsl(0 75% 42%)">0%</div></div>
+            </div>
+            <div class="app-bar" style="height:4px;margin-bottom:0.4rem"><div class="app-bar-fill" style="width:1%;background:hsl(0 75% 42%)"></div></div>
+            <div style="display:flex;flex-direction:column;gap:0.2rem">
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Toaletný papier</div><div style="font-size:0.35rem;color:var(--muted)">3 roliek</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Mydlo / sprchový gél</div><div style="font-size:0.35rem;color:var(--muted)">2 ks</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Vlhčené utierky (veľké balenie)</div><div style="font-size:0.35rem;color:var(--muted)">3 balenie</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Zubná kefka + zubná pasta</div><div style="font-size:0.35rem;color:var(--muted)">3 ks + 1 pasta</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Šampón (cestovné balenie)</div><div style="font-size:0.35rem;color:var(--muted)">2 ks</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Ručník (rýchloschnúci)</div><div style="font-size:0.35rem;color:var(--muted)">3 ks</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
+              <div style="display:flex;align-items:center;gap:0.3rem;padding:0.28rem 0.35rem;border:1px solid var(--border);border-radius:0.3rem"><div style="width:14px;height:14px;border-radius:50%;border:1.5px solid #d1cdc4;flex-shrink:0"></div><div style="flex:1"><div style="font-size:0.48rem;font-weight:600">Papierové vreckovky</div><div style="font-size:0.35rem;color:var(--muted)">3 balenie</div></div><span style="font-size:0.32rem;padding:0.06rem 0.18rem;border:1px solid var(--border);border-radius:3px;color:var(--muted)">Upraviť</span><span style="font-size:0.42rem;color:#f87171;margin-left:0.1rem">×</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Right: Ozbrojený konflikt postup -->
+      <!-- Right: Ozbrojený konflikt (real app design) -->
       <div>
         <div class="showcase-label">Krízové postupy</div>
         <div class="showcase-title" style="font-size:1.125rem">21 scenárov krok za krokom — keď na hľadanie nie je čas</div>
         <p class="showcase-desc" style="font-size:0.85rem;margin-bottom:1rem">Od povodní cez blackout až po ozbrojený konflikt — rešpektujúc zásady Civilnej ochrany SR, UA DSNS a ICRC.</p>
         <div class="app-frame rounded">
-          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">🔒 mameplan.sk/app</div></div>
-          <div class="app-frame-body">
-            <div class="app-proc">
-              <div class="app-proc-header">
-                <div class="app-proc-icon">💣</div>
-                <div><div class="app-proc-title">Ozbrojený konflikt</div><div class="app-proc-subtitle">Ostreľovanie, drony a bombardovanie</div></div>
-              </div>
-              <div class="app-modal-section">
-                <div class="app-modal-section-header">Keď zaznie siréna</div>
-                <div class="app-modal-steps">
-                  <div class="app-modal-step"><div class="app-modal-step-num">1</div><div class="app-modal-step-text"><strong>Okamžite vyhľadajte úkryt</strong> — pivnica, suterén, metro, podzemný parking</div></div>
-                  <div class="app-modal-step"><div class="app-modal-step-num">2</div><div class="app-modal-step-text"><strong>Držte sa ďalej od okien</strong> a vonkajších stien</div></div>
-                  <div class="app-modal-step"><div class="app-modal-step-num">3</div><div class="app-modal-step-text"><strong>Sadnite si alebo ľahnite</strong> — čím nižšie, tým lepšie</div></div>
-                </div>
-              </div>
-              <div class="app-modal-warn"><span>⚠️</span><span>Nikdy nevychádzajte von hneď po výbuchu — môžu nasledovať ďalšie útoky</span></div>
-              <div class="app-modal-section">
-                <div class="app-modal-section-header">Pravidlo dvoch stien (UA DSNS)</div>
-                <div class="app-modal-steps">
-                  <div class="app-modal-step"><div class="app-modal-step-num">4</div><div class="app-modal-step-text"><strong>Nestíhate do úkrytu?</strong> Kúpeľňa alebo chodba v strede bytu</div></div>
-                </div>
-              </div>
-              <div class="app-modal-source">Zdroj: UA DSNS + SK MINV + ICRC</div>
+          <div class="app-frame-bar"><div class="app-frame-dots"><span></span><span></span><span></span></div><div class="app-frame-url">mameplan.sk/app</div></div>
+          <div class="app-frame-body" style="padding:0.625rem">
+            <div style="display:flex;align-items:center;gap:0.35rem;margin-bottom:0.3rem">
+              <div style="width:24px;height:24px;border-radius:50%;background:#1a1816;flex-shrink:0"></div>
+              <div><div style="font-size:0.7rem;font-weight:700">Ozbrojený konflikt</div><div style="font-size:0.38rem;color:var(--muted)">Čo robiť pri ostreľovaní, dronoch a bombardovaní</div></div>
+            </div>
+            <div style="background:#dc2626;border-radius:0.3rem;padding:0.18rem 0.35rem;margin-bottom:0.3rem;display:flex;gap:0.35rem;font-size:0.38rem;color:#fff;font-weight:600"><span>Tiesňové číslo: <u>112</u></span><span>|</span><span>Hasiči: <u>150</u></span><span>|</span><span>Polícia: <u>158</u></span></div>
+            <div style="background:#1a1816;color:#fff;font-size:0.42rem;font-weight:600;padding:0.15rem 0.35rem;border-radius:0.2rem 0.2rem 0 0">Keď zaznie siréna (vzdušný poplach)</div>
+            <div style="padding:0.2rem 0.3rem;border:1px solid var(--border);border-top:0;border-radius:0 0 0.2rem 0.2rem;margin-bottom:0.2rem">
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">1</div><div><strong>Okamžite vyhľadajte úkryt</strong> – pivnica, suterén, metro</div></div>
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">2</div><div><strong>Držte sa ďalej od okien</strong> a vonkajších stien</div></div>
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">3</div><div><strong>Sadnite si alebo ľahnite</strong> – čím nižšie, tým lepšie</div></div>
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">4</div><div><strong>Zostaňte v úkryte</strong> kým nezaznie signál konca ohrozenia</div></div>
+            </div>
+            <div style="display:flex;gap:0.15rem;padding:0.15rem 0.3rem;background:#fef2f2;border:1px solid #fecaca;border-radius:0.2rem;font-size:0.36rem;color:#991b1b;line-height:1.3;margin-bottom:0.2rem"><span style="color:#dc2626;font-weight:700">!</span><span>Nikdy nevychádzajte von po výbuchu – môžu nasledovať ďalšie útoky (double tap)</span></div>
+            <div style="background:#1a1816;color:#fff;font-size:0.42rem;font-weight:600;padding:0.15rem 0.35rem;border-radius:0.2rem 0.2rem 0 0">Pravidlo dvoch stien (UA DSNS)</div>
+            <div style="padding:0.2rem 0.3rem;border:1px solid var(--border);border-top:0;border-radius:0 0 0.2rem 0.2rem;margin-bottom:0.2rem">
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">1</div><div><strong>Ak ste doma a nestíhate do úkrytu</strong> – kúpeľňa alebo chodba v strede bytu</div></div>
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">2</div><div><strong>Nikdy sa neukrývajte pri oknách</strong> – tlaková vlna vyráža sklo</div></div>
+            </div>
+            <div style="background:#ca8a04;color:#fff;font-size:0.42rem;font-weight:600;padding:0.15rem 0.35rem;border-radius:0.2rem 0.2rem 0 0">Drony</div>
+            <div style="padding:0.2rem 0.3rem;border:1px solid var(--border);border-top:0;border-radius:0 0 0.2rem 0.2rem">
+              <div style="display:flex;align-items:flex-start;gap:0.2rem;padding:0.1rem 0;font-size:0.38rem;line-height:1.4"><div style="min-width:14px;height:14px;border-radius:50%;background:#dc2626;color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.32rem;font-weight:700;flex-shrink:0">1</div><div><strong>Ak počujete bzukot dronu</strong> – okamžite pod betónovú konštrukciu</div></div>
             </div>
           </div>
         </div>
@@ -688,94 +719,94 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
 <!-- ═══════ ALL MODULES — Expandable ═══════ -->
 <section class="section section-alt">
 <div class="wrap">
-  <p class="sec-overline text-center rv">Všetky moduly</p>
-  <h2 class="sec-title text-center rv rv-d1">Všetko na jednom mieste.</h2>
-  <p class="sec-sub text-center mx-auto rv rv-d2">Odporúčania rešpektujúce Civilnú ochranu SR (MV SR), WHO, Európsku radu pre resuscitáciu (ERC 2025), ILCOR CoSTR 2025, Červený kríž (ICRC), ukrajinskú DSNS, švédsku MSB, českú príručku 72 hodín a EFSA — preložené do jednoduchých krokov.</p>
-  <div class="mod-grid">
-    <div class="mod-card rv">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">💧</span><div class="mod-title">Zásoby bez tipovania</div><p class="mod-text">Vyberiete <strong>počet ľudí a dní</strong> a Gerlach pripraví odporúčaný checklist aj množstvá.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner"><strong>Voda podľa WHO</strong>, jedlo (kalórie), lieky a hotovosť. V prehľade vidíte, čo máte pripravené a čo ešte chýba — vrátane <strong>expirácií a upozornení</strong>.</div></div>
-    </div>
-    <div class="mod-card rv rv-d1">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📦</span><div class="mod-title">Checklisty</div><p class="mod-text">Voda, jedlo, lekárnička, hygiena, vybavenie, peniaze a doklady.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner"><strong>Šesť kategórií</strong> s predpripravenými položkami, ktoré sa automaticky prispôsobia profilu domácnosti. Odškrtávate len to, čo máte — <strong>pripravenosť (progres) vidíte hneď</strong>.</div></div>
-    </div>
-    <div class="mod-card rv rv-d2">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">⏱️</span><div class="mod-title">Expirácie</div><p class="mod-text">Upozornenia vopred — aby nič neprepadlo.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner">Lieky pripomenieme <strong>180 dní vopred</strong>, jedlo a vodu <strong>30 dní vopred</strong>. Dvojstupňové upozornenie (žlté/červené) vám pomôže dopĺňať zásoby včas.</div></div>
-    </div>
-    <div class="mod-card rv rv-d3">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🎒</span><div class="mod-title">Evakuačné batohy</div><p class="mod-text">Batoh pre každého člena domácnosti.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner">Aplikácia automaticky pripraví checklist pre <strong>dospelého, dieťa, seniora aj bábätko</strong>. Nechýbajú doklady, voda, lieky, svetlo, nabíjanie, hotovosť a základné oblečenie. Podľa odporúčaní <strong>SK MV SR</strong> a <strong>UA DSNS</strong>.</div></div>
-    </div>
-    <div class="mod-card rv">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🩹</span><div class="mod-title">Prvá pomoc</div><p class="mod-text">12 postupov krok za krokom.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner"><strong>KPR</strong>, silné krvácanie, popáleniny, zlomeniny, šok, otrava, anafylaxia, úpal, podchladenie, utopenie, vojnové zranenia a mdloba. Každý postup je spracovaný <strong>krok po kroku</strong> s dôležitými varovaniami. Podľa <strong>ERC Guidelines 2025</strong> a <strong>ILCOR CoSTR 2025</strong>.</div></div>
-    </div>
-    <div class="mod-card rv rv-d1">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📋</span><div class="mod-title">Krízový plán</div><p class="mod-text">5 scenárov pre rodinu — premyslite si kam ísť, kde sa stretnúť, komu volať.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner"><strong>Denný režim</strong> (práca/škola), noc, dieťa v škole, mimo domova a dlhodobá separácia — čo budete robiť? Prejdite si scenáre s rodinou a <strong>buďte pripravení</strong>.</div></div>
-    </div>
-    <div class="mod-card rv rv-d2">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">🚨</span><div class="mod-title">Krízové postupy</div><p class="mod-text">21 scenárov — povodne, blackout a ďalšie.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner">Povodne, víchrice, zemetrasenie, blackout, chemická havária, radiácia, požiar, teroristický útok, ozbrojený konflikt, evakuácia a ďalšie. Postupy podľa <strong>Civilnej ochrany SR, UA DSNS, ICRC</strong>. Prispôsobené typu bývania.</div></div>
-    </div>
-    <div class="mod-card rv rv-d3">
-      <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji">📞</span><div class="mod-title">Kontakty a rádiá</div><p class="mod-text">Tiesňové linky, inštitúcie a núdzové vysielanie — aj bez internetu.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
-      <div class="mod-detail"><div class="mod-detail-inner">Nájdete <strong>112, 150, 155, 158</strong> a ďalšie dôležité čísla, prehľad núdzových frekvencií a vysvetlenie <strong>varovných sirén</strong> vrátane 4 signálov. Plus vaše rodinné kontakty — všetko vždy po ruke.</div></div>
-    </div>
-  </div>
+ <p class="sec-overline text-center rv">Všetky moduly</p>
+ <h2 class="sec-title text-center rv rv-d1">Všetko na jednom mieste.</h2>
+ <p class="sec-sub text-center mx-auto rv rv-d2">Odporúčania rešpektujúce Civilnú ochranu SR (MV SR), WHO, Európsku radu pre resuscitáciu (ERC 2025), ILCOR CoSTR 2025, Červený kríž (ICRC), ukrajinskú DSNS, švédsku MSB, českú príručku 72 hodín a EFSA — preložené do jednoduchých krokov.</p>
+ <div class="mod-grid">
+ <div class="mod-card rv">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">1</span><div class="mod-title">Zásoby bez tipovania</div><p class="mod-text">Vyberiete <strong>počet ľudí a dní</strong> a Gerlach pripraví odporúčaný checklist aj množstvá.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner"><strong>Voda podľa WHO</strong>, jedlo (kalórie), lieky a hotovosť. V prehľade vidíte, čo máte pripravené a čo ešte chýba — vrátane <strong>expirácií a upozornení</strong>.</div></div>
+ </div>
+ <div class="mod-card rv rv-d1">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">2</span><div class="mod-title">Checklisty</div><p class="mod-text">Voda, jedlo, lekárnička, hygiena, vybavenie, peniaze a doklady.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner"><strong>Šesť kategórií</strong> s predpripravenými položkami, ktoré sa automaticky prispôsobia profilu domácnosti. Odškrtávate len to, čo máte — <strong>pripravenosť (progres) vidíte hneď</strong>.</div></div>
+ </div>
+ <div class="mod-card rv rv-d2">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">3</span><div class="mod-title">Expirácie</div><p class="mod-text">Upozornenia vopred — aby nič neprepadlo.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner">Lieky pripomenieme <strong>180 dní vopred</strong>, jedlo a vodu <strong>30 dní vopred</strong>. Dvojstupňové upozornenie (žlté/červené) vám pomôže dopĺňať zásoby včas.</div></div>
+ </div>
+ <div class="mod-card rv rv-d3">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">4</span><div class="mod-title">Evakuačné batohy</div><p class="mod-text">Batoh pre každého člena domácnosti.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner">Aplikácia automaticky pripraví checklist pre <strong>dospelého, dieťa, seniora aj bábätko</strong>. Nechýbajú doklady, voda, lieky, svetlo, nabíjanie, hotovosť a základné oblečenie. Podľa odporúčaní <strong>SK MV SR</strong> a <strong>UA DSNS</strong>.</div></div>
+ </div>
+ <div class="mod-card rv">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">5</span><div class="mod-title">Prvá pomoc</div><p class="mod-text">12 postupov krok za krokom.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner"><strong>KPR</strong>, silné krvácanie, popáleniny, zlomeniny, šok, otrava, anafylaxia, úpal, podchladenie, utopenie, vojnové zranenia a mdloba. Každý postup je spracovaný <strong>krok po kroku</strong> s dôležitými varovaniami. Podľa <strong>ERC Guidelines 2025</strong> a <strong>ILCOR CoSTR 2025</strong>.</div></div>
+ </div>
+ <div class="mod-card rv rv-d1">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">6</span><div class="mod-title">Krízový plán</div><p class="mod-text">5 scenárov pre rodinu — premyslite si kam ísť, kde sa stretnúť, komu volať.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner"><strong>Denný režim</strong> (práca/škola), noc, dieťa v škole, mimo domova a dlhodobá separácia — čo budete robiť? Prejdite si scenáre s rodinou a <strong>buďte pripravení</strong>.</div></div>
+ </div>
+ <div class="mod-card rv rv-d2">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">7</span><div class="mod-title">Krízové postupy</div><p class="mod-text">21 scenárov — povodne, blackout a ďalšie.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner">Povodne, víchrice, zemetrasenie, blackout, chemická havária, radiácia, požiar, teroristický útok, ozbrojený konflikt, evakuácia a ďalšie. Postupy podľa <strong>Civilnej ochrany SR, UA DSNS, ICRC</strong>. Prispôsobené typu bývania.</div></div>
+ </div>
+ <div class="mod-card rv rv-d3">
+ <div class="mod-card-top" onclick="toggleMod(this.parentElement)"><span class="mod-emoji mod-num">8</span><div class="mod-title">Kontakty a rádiá</div><p class="mod-text">Tiesňové linky, inštitúcie a núdzové vysielanie — aj bez internetu.</p><div class="mod-expand-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div></div>
+ <div class="mod-detail"><div class="mod-detail-inner">Nájdete <strong>112, 150, 155, 158</strong> a ďalšie dôležité čísla, prehľad núdzových frekvencií a vysvetlenie <strong>varovných sirén</strong> vrátane 4 signálov. Plus vaše rodinné kontakty — všetko vždy po ruke.</div></div>
+ </div>
+ </div>
 </div>
 </section>
 
 <!-- ═══════ AKO ═══════ -->
 <section class="section" id="ako">
 <div class="wrap">
-  <p class="sec-overline text-center rv">Ako začať</p>
-  <h2 class="sec-title text-center rv rv-d1">Tri kroky. Dve minúty.</h2>
-  <div class="steps-row">
-    <div class="step rv"><div class="step-badge">1</div><div class="step-title">Kliknite na tlačidlo Spustiť</div><p class="step-text">Zaregistrujete sa pomocou Google účtu. Žiadna inštalácia. Aplikáciu používate ihneď.</p></div>
-    <div class="step rv rv-d1"><div class="step-badge">2</div><div class="step-title">Nastavte domácnosť</div><p class="step-text">Vďaka tomu Gerlach vypočíta odporúčané zásoby vody, jedla či liekov.</p></div>
-    <div class="step rv rv-d2"><div class="step-badge">3</div><div class="step-title">Dopĺňajte postupne</div><p class="step-text">Nakupujte priebežne. Vidíte progres a zároveň Gerlach monitoruje blížiace sa expirácie, na ktoré vás upozorní.</p></div>
-  </div>
+ <p class="sec-overline text-center rv">Ako začať</p>
+ <h2 class="sec-title text-center rv rv-d1">Tri kroky. Dve minúty.</h2>
+ <div class="steps-row">
+ <div class="step rv"><div class="step-badge">1</div><div class="step-title">Kliknite na tlačidlo Spustiť</div><p class="step-text">Zaregistrujete sa pomocou Google účtu. Žiadna inštalácia. Aplikáciu používate ihneď.</p></div>
+ <div class="step rv rv-d1"><div class="step-badge">2</div><div class="step-title">Nastavte domácnosť</div><p class="step-text">Vďaka tomu Gerlach vypočíta odporúčané zásoby vody, jedla či liekov.</p></div>
+ <div class="step rv rv-d2"><div class="step-badge">3</div><div class="step-title">Dopĺňajte postupne</div><p class="step-text">Nakupujte priebežne. Vidíte progres a zároveň Gerlach monitoruje blížiace sa expirácie, na ktoré vás upozorní.</p></div>
+ </div>
 </div>
 </section>
 
 <!-- ═══════ FAQ ═══════ -->
 <section class="section section-alt" id="faq">
 <div class="wrap">
-  <p class="sec-overline text-center rv">FAQ</p>
-  <h2 class="sec-title text-center rv rv-d1">Čo vás môže zaujímať</h2>
-  <div class="faq-list">
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Je Gerlach naozaj zadarmo?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Áno. Neziskový projekt pre verejnosť. Žiadne predplatné, skryté poplatky ani reklamy.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Musím sa registrovať?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Nie. Demo funguje okamžite bez registrácie. Ak chcete dáta ukladať trvalo, stačí sa prihlásiť cez Google účet.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Z akých zdrojov vychádzate?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Civilná ochrana SR, Ministerstvo vnútra SR, WHO, Červený kríž, ERC 2025, ILCOR CoSTR 2025, ukrajinská DSNS. Zdroj je pri každej sekcii v aplikácii.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Sú moje dáta v bezpečí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Dáta sú vo vašom osobnom Firebase účte. Nikto iný k nim nemá prístup. V demo režime sa ukladajú len do prehliadača a po zatvorení sa zmažú.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Kto za projektom stojí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Miloš, otec rodiny zo Slovenska. Gerlach vznikol z osobnej potreby vedieť, či je jeho domácnosť pripravená na neočakávané situácie.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Pre koho je Gerlach určený?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Pre každú slovenskú domácnosť. Nemusíte byť „prepper" — stačí chcieť vedieť, čo máte doma a čo by bolo dobré doplniť. Postupne, bez stresu.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Funguje aj offline?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Na prvé načítanie potrebujete internet. Po prihlásení Firestore umožňuje čiastočný offline prístup k uloženým dátam. Na plnej offline podpore pracujeme.</div></div></div>
-    <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Ako môžem projekt podporiť?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Zdieľaním s rodinou, priateľmi alebo susedmi. Každá pripravená domácnosť posilňuje celú komunitu.</div></div></div>
-  </div>
+ <p class="sec-overline text-center rv">FAQ</p>
+ <h2 class="sec-title text-center rv rv-d1">Čo vás môže zaujímať</h2>
+ <div class="faq-list">
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Je Gerlach naozaj zadarmo?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Áno. Neziskový projekt pre verejnosť. Žiadne predplatné, skryté poplatky ani reklamy.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Musím sa registrovať?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Nie. Demo funguje okamžite bez registrácie. Ak chcete dáta ukladať trvalo, stačí sa prihlásiť cez Google účet.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Z akých zdrojov vychádzate?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Civilná ochrana SR, Ministerstvo vnútra SR, WHO, Červený kríž, ERC 2025, ILCOR CoSTR 2025, ukrajinská DSNS. Zdroj je pri každej sekcii v aplikácii.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Sú moje dáta v bezpečí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Dáta sú vo vašom osobnom Firebase účte. Nikto iný k nim nemá prístup. V demo režime sa ukladajú len do prehliadača a po zatvorení sa zmažú.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Kto za projektom stojí?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Miloš, otec rodiny zo Slovenska. Gerlach vznikol z osobnej potreby vedieť, či je jeho domácnosť pripravená na neočakávané situácie.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Pre koho je Gerlach určený?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Pre každú slovenskú domácnosť. Nemusíte byť „prepper" — stačí chcieť vedieť, čo máte doma a čo by bolo dobré doplniť. Postupne, bez stresu.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Funguje aj offline?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Na prvé načítanie potrebujete internet. Po prihlásení Firestore umožňuje čiastočný offline prístup k uloženým dátam. Na plnej offline podpore pracujeme.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Ako môžem projekt podporiť?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Zdieľaním s rodinou, priateľmi alebo susedmi. Každá pripravená domácnosť posilňuje celú komunitu.</div></div></div>
+ </div>
 </div>
 </section>
 
 <!-- ═══════ STORY ═══════ -->
 <section class="section">
 <div class="wrap">
-  <p class="sec-overline text-center rv">Príbeh</p>
-  <h2 class="sec-title text-center rv rv-d1">Riešenie, ktoré som vytvoril pre moju rodinu.</h2>
-  <div class="story-row rv rv-d2">
-    <div>
-      <p style="font-size:0.95rem;color:var(--ink2);font-weight:300;line-height:1.8">Som Miloš, otec rodiny. Premýšľal som, či pri dlhšom výpadku elektriny alebo konflikte máme doma to najnutnejšie. Excel nestačil — voda, jedlo aj lieky expirujú a nikto to nemá čas strážiť. Tak som vytvoril Gerlach. Dnes ho zdieľam s vami a verím, že pomôže aj vám.</p>
-      <div class="story-quote"><p>„Keď sme pripravení, v kríze máme viac pokoja, energie a empatie jeden voči druhému."</p></div>
-      <div class="author-row"><div class="author-av">M</div><div><div class="author-name">Miloš</div><div class="author-role">Zakladateľ projektu · otec rodiny</div></div></div>
-    </div>
-    <div class="stat-stack">
-      <div class="stat-card"><div class="stat-num">72h</div><div class="stat-label">minimálna sebestačnosť podľa Civilnej ochrany SR</div></div>
-      <div class="stat-card"><div class="stat-num" style="color:var(--red)">0 €</div><div class="stat-label">stojí Gerlach — zadarmo pre verejnosť</div></div>
-      <div class="stat-card"><div class="stat-num">33</div><div class="stat-label">postupov prvej pomoci a krízových scenárov</div></div>
-    </div>
-  </div>
+ <p class="sec-overline text-center rv">Príbeh</p>
+ <h2 class="sec-title text-center rv rv-d1">Riešenie, ktoré som vytvoril pre moju rodinu.</h2>
+ <div class="story-row rv rv-d2">
+ <div>
+ <p style="font-size:0.95rem;color:var(--ink2);font-weight:300;line-height:1.8">Som Miloš, otec rodiny. Premýšľal som, či pri dlhšom výpadku elektriny alebo konflikte máme doma to najnutnejšie. Excel nestačil — voda, jedlo aj lieky expirujú a nikto to nemá čas strážiť. Tak som vytvoril Gerlach. Dnes ho zdieľam s vami a verím, že pomôže aj vám.</p>
+ <div class="story-quote"><p>„Keď sme pripravení, v kríze máme viac pokoja, energie a empatie jeden voči druhému."</p></div>
+ <div class="author-row"><div class="author-av">M</div><div><div class="author-name">Miloš</div><div class="author-role">Zakladateľ projektu · otec rodiny</div></div></div>
+ </div>
+ <div class="stat-stack">
+ <div class="stat-card"><div class="stat-num">72h</div><div class="stat-label">minimálna sebestačnosť podľa Civilnej ochrany SR</div></div>
+ <div class="stat-card"><div class="stat-num" style="color:var(--red)">0 €</div><div class="stat-label">stojí Gerlach — zadarmo pre verejnosť</div></div>
+ <div class="stat-card"><div class="stat-num">33</div><div class="stat-label">postupov prvej pomoci a krízových scenárov</div></div>
+ </div>
+ </div>
 </div>
 </section>
 
@@ -783,54 +814,54 @@ footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border)}
 <div class="flag-line" aria-hidden="true"></div>
 <section class="section cta-section">
 <div class="wrap"><div class="cta-inner">
-  <h2 class="rv">Začnite <em>ešte dnes.</em></h2>
-  <p class="cta-sub rv rv-d1">Gerlach otvoríte v prehliadači a za pár minút budete mať prehľad o tom, ako je vaša domácnosť pripravená.</p>
-  <div class="rv rv-d2" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem">
-    <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
-    <a class="js-when-open" href="./app.html" style="color:rgba(255,255,255,0.4);font-size:0.85rem">alebo vyskúšajte demo bez registrácie</a>
-  </div>
-  <!-- CTA Waitlist (visible only when beta full) -->
-  <div class="cta-waitlist js-when-full" role="form" aria-label="Čakací zoznam">
-    <p style="font-size:0.95rem;margin-bottom:0.625rem;color:rgba(255,255,255,0.75)">Beta je plná. Nechajte email — dáme vedieť.</p>
-    <div class="waitlist-row">
-      <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
-      <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Zapísať sa</button>
-    </div>
-    <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline">ochrana údajov</a>).</p>
-    <div class="waitlist-success" role="status">✓ Ďakujeme! Ozveme sa.</div>
-    <div style="margin-top:0.75rem"><a href="./app.html" style="color:rgba(255,255,255,0.45);font-size:0.85rem">Medzitým vyskúšajte demo</a></div>
-  </div>
-  <p class="cta-note rv rv-d3">Vaše dáta sa uložia do vášho konta. Každý používateľ vidí iba svoje údaje.</p>
+ <h2 class="rv">Začnite <em>ešte dnes.</em></h2>
+ <p class="cta-sub rv rv-d1">Gerlach otvoríte v prehliadači a za pár minút budete mať prehľad o tom, ako je vaša domácnosť pripravená.</p>
+ <div class="rv rv-d2" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem">
+ <a class="btn btn-lg btn-red js-when-open" href="./app.html">Spustiť zadarmo</a>
+ <a class="js-when-open" href="./app.html" style="color:rgba(255,255,255,0.4);font-size:0.85rem">alebo vyskúšajte demo bez registrácie</a>
+ </div>
+ <!-- CTA Waitlist (visible only when beta full) -->
+ <div class="cta-waitlist js-when-full" role="form" aria-label="Čakací zoznam">
+ <p style="font-size:0.95rem;margin-bottom:0.625rem;color:rgba(255,255,255,0.75)">Beta je plná. Nechajte email — dáme vedieť.</p>
+ <div class="waitlist-row">
+ <input class="waitlist-input" type="email" placeholder="vas@email.sk" aria-label="Váš email" required/>
+ <button class="btn btn-sm btn-red" type="button" onclick="submitWaitlist(this)">Zapísať sa</button>
+ </div>
+ <p class="waitlist-micro">Bez spamu. Email ukladáme iba na zaslanie pozvánky (<a href="./pravne-info.html#ochrana-udajov" style="color:inherit;text-decoration:underline">ochrana údajov</a>).</p>
+ <div class="waitlist-success" role="status">Ďakujeme! Ozveme sa.</div>
+ <div style="margin-top:0.75rem"><a href="./app.html" style="color:rgba(255,255,255,0.45);font-size:0.85rem">Medzitým vyskúšajte demo</a></div>
+ </div>
+ <p class="cta-note rv rv-d3">Vaše dáta sa uložia do vášho konta. Každý používateľ vidí iba svoje údaje.</p>
 </div></div>
 </section>
 <div class="flag-line" aria-hidden="true"></div>
 
 <!-- ═══════ FOOTER ═══════ -->
 <footer role="contentinfo"><div class="footer-inner">
-  <span class="footer-text">🇸🇰 Mámeplán.sk © <span id="fy"></span> — Zadarmo pre verejnosť</span>
-  <div class="footer-links"><a class="footer-link" href="./app.html">Aplikácia</a><a class="footer-link" href="./pravne-info.html">Právne informácie</a><a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a><a class="footer-link js-ce" href="#">Kontakt</a></div>
+ <span class="footer-text">🇸🇰 Mámeplán.sk © <span id="fy"></span> — Zadarmo pre verejnosť</span>
+ <div class="footer-links"><a class="footer-link" href="./app.html">Aplikácia</a><a class="footer-link" href="./pravne-info.html">Právne informácie</a><a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a><a class="footer-link js-ce" href="#">Kontakt</a></div>
 </div></footer>
 
 <!-- ═══════ STICKY MOBILE CTA BAR ═══════ -->
 <div class="sticky-bar" id="stickyBar" aria-label="Rýchle akcie">
-  <div class="sticky-bar-inner">
-    <a class="btn btn-outline" href="./app.html">Demo</a>
-    <a class="btn btn-red js-when-open" href="./app.html">Spustiť</a>
-  </div>
+ <div class="sticky-bar-inner">
+ <a class="btn btn-outline" href="./app.html">Demo</a>
+ <a class="btn btn-red js-when-open" href="./app.html">Spustiť</a>
+ </div>
 </div>
 
 <!-- ═══════ COOKIE BANNER ═══════ -->
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informácia o cookies">
-  <div class="cookie-banner-inner">
-    <div class="cookie-banner-text">
-      Používame <strong>nevyhnutné cookies</strong> na prihlásenie a <strong>analytické cookies</strong> (Firebase Analytics) na zlepšovanie služby. Analytické cookies aktivujeme len s vaším súhlasom.
-      <a href="./pravne-info.html#cookies">Podrobnosti</a>
-    </div>
-    <div class="cookie-actions">
-      <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Prijať všetko</button>
-      <button class="cookie-btn cookie-btn-necessary" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
-    </div>
-  </div>
+ <div class="cookie-banner-inner">
+ <div class="cookie-banner-text">
+ Používame <strong>nevyhnutné cookies</strong> na prihlásenie a <strong>analytické cookies</strong> (Firebase Analytics) na zlepšovanie služby. Analytické cookies aktivujeme len s vaším súhlasom.
+ <a href="./pravne-info.html#cookies">Podrobnosti</a>
+ </div>
+ <div class="cookie-actions">
+ <button class="cookie-btn cookie-btn-accept" onclick="acceptAllCookies()">Prijať všetko</button>
+ <button class="cookie-btn cookie-btn-necessary" onclick="acceptNecessaryOnly()">Len nevyhnutné</button>
+ </div>
+ </div>
 </div>
 
 <script>
@@ -844,16 +875,16 @@ window.addEventListener('scroll',()=>{mainNav.classList.toggle('solid',scrollY>4
 function toggleMod(el){document.querySelectorAll('.mod-card.open').forEach(c=>{if(c!==el)c.classList.remove('open')});el.classList.toggle('open')}
 // Sticky mobile CTA bar
 (function(){
-  const sticky=document.getElementById('stickyBar');
-  if(!sticky)return;
-  let shown=false;
-  window.addEventListener('scroll',function(){
-    if(!shown&&scrollY>innerHeight*0.5){sticky.classList.add('show');shown=true;}
-  },{passive:true});
-  const heroCtas=document.querySelector('.hero-ctas');
-  if(heroCtas){new IntersectionObserver(function(entries){
-    sticky.classList.toggle('show',!entries[0].isIntersecting&&shown);
-  }).observe(heroCtas);}
+ const sticky=document.getElementById('stickyBar');
+ if(!sticky)return;
+ let shown=false;
+ window.addEventListener('scroll',function(){
+ if(!shown&&scrollY>innerHeight*0.5){sticky.classList.add('show');shown=true;}
+ },{passive:true});
+ const heroCtas=document.querySelector('.hero-ctas');
+ if(heroCtas){new IntersectionObserver(function(entries){
+ sticky.classList.toggle('show',!entries[0].isIntersecting&&shown);
+ }).observe(heroCtas);}
 })();
 // Cookie consent
 (function(){if(!localStorage.getItem('gerlach_cookie_consent')){setTimeout(function(){document.getElementById('cookieBanner').classList.add('show');},1200);}})();
