@@ -804,7 +804,7 @@
       width: 36px; height: 36px; border-radius: 50%;
       background: var(--c-bg); border: 1.5px solid var(--c-border);
       display: flex; align-items: center; justify-content: center;
-      font-size: 1rem; flex-shrink: 0;
+      font-size: 0; flex-shrink: 0;
     }
     .scenario-row.done .sc-icon {
       background: var(--c-success-bg);
@@ -4572,7 +4572,7 @@
               if (!groupEntries.length) return "";
               const groupTotal = groupEntries.reduce((s, e) => s + (e.value||0)*(e.qty||1), 0);
               return `<div style="margin-bottom:0.5rem;">
-                <div style="font-size:0.7rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">${emoji} ${label} — ${groupTotal.toFixed(2)} €</div>
+                <div style="font-size:0.7rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">${label} — ${groupTotal.toFixed(2)} €</div>
                 ${groupEntries.map((e, ei) => {
                   const realIdx = entries.indexOf(e);
                   const totalE = (e.value||0)*(e.qty||1);
@@ -4904,7 +4904,7 @@
       card.className = "scenario-row" + (filled ? " done" : "");
 
       card.innerHTML = `
-        <div class="sc-icon">${def.emoji}</div>
+        <div class="sc-icon" style="font-size:0; border-color:${def.border};"><div class="cat-dot" style="background:${def.color};"></div></div>
         <div class="sc-title">${def.title}</div>
         <span class="sc-status ${filled ? 'done' : 'todo'}">${filled ? '✓ Hotovo' : 'Nastaviť →'}</span>`;
       card.onclick = () => openScenarioModal(def.id);
@@ -5018,7 +5018,7 @@
   function openScenarioModal(scenarioId) {
     const def = SCENARIO_DEFS.find(d => d.id === scenarioId);
     const s = state.plans.scenarios[scenarioId];
-    document.getElementById("scenarioModalTitle").textContent = def.emoji + " " + def.title;
+    document.getElementById("scenarioModalTitle").textContent = def.title;
     document.getElementById("scenarioModalSubtitle").textContent = def.subtitle;
     const content = document.getElementById("scenarioModalContent");
 
@@ -5828,8 +5828,8 @@
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-label", item.title + " – zobraziť postup prvej pomoci");
       card.innerHTML = `
-        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1rem;">
-          ${item.emoji}
+        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:0.8rem; font-weight:700; color:var(--c-muted);">
+          ${item.title.charAt(0)}
         </div>
         <div class="fa-card-label">${item.title}</div>`;
       card.onclick = () => openFirstAidModal(item);
@@ -5910,7 +5910,10 @@
 
     icon.style.background = item.iconBg;
     icon.style.border = `1.5px solid ${item.iconBorder}`;
-    icon.textContent = item.emoji;
+    icon.textContent = item.title.charAt(0);
+    icon.style.fontSize = "1rem";
+    icon.style.fontWeight = "700";
+    icon.style.color = "var(--c-muted)";
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
@@ -5992,7 +5995,7 @@
       card.className = "ec-card";
       card.title = line.desc;
       card.innerHTML = `
-        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border}; font-size:1rem;">${line.emoji}</div>
+        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border}; font-size:0.7rem; font-weight:800; color:${line.color}; font-family:'Lexend',sans-serif; letter-spacing:-0.02em;">${line.number.replace(/\s/g,"")}</div>
         <div class="ec-card-label">${line.label}</div>
         <div class="ec-card-number" style="color:${line.color};">${line.number}</div>`;
       linesGrid.appendChild(card);
@@ -6026,7 +6029,7 @@
         if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">Web</a>`;
         itemsHtml += `
           <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
-            <div class="data-icon">${inst.emoji}</div>
+            <div class="data-icon" style="font-weight:700; font-size:0.75rem; color:var(--c-muted);">${inst.name.charAt(0)}</div>
             <div style="flex:1; min-width:0;">
               <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
@@ -6122,7 +6125,7 @@
         const phone2Clean = (c.phone2||"").replace(/[^+0-9]/g, "");
         html += `
           <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem; cursor:pointer; transition:background 0.15s;" tabindex="0" role="button" aria-label="${esc(c.name||'')} – ${cat.label}" onclick="openPersonalContactModal(${c._idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPersonalContactModal(${c._idx})}" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='var(--c-bg)'">
-            <div class="data-icon">${cat.emoji}</div>
+            <div class="data-icon" style="font-weight:700; font-size:0.75rem; color:var(--c-muted);">${cat.label.charAt(0)}</div>
             <div style="flex:1; min-width:0;">
               <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
                 <span style="font-weight:700; font-size:0.85rem; line-height:1.3;">${esc(c.name||"")}</span>
@@ -6171,7 +6174,7 @@
     if (!box) return;
     box.innerHTML = PC_CATEGORIES.map(cat => {
       const sel = pcSelectedCategoryId === cat.id;
-      return `<button type="button" data-pccat="${cat.id}" style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.3rem 0.5rem; border-radius:0.5rem; font-size:0.72rem; font-weight:600; font-family:'Lexend',sans-serif; cursor:pointer; transition:all 0.15s; border:1.5px solid ${sel ? '#2a7a4b' : 'var(--c-border)'}; background:${sel ? '#eaf4ee' : 'var(--c-surface)'}; color:${sel ? '#2a7a4b' : 'var(--c-muted)'};" title="${cat.label}">${cat.emoji} ${cat.label}</button>`;
+      return `<button type="button" data-pccat="${cat.id}" style="display:inline-flex; align-items:center; gap:0.25rem; padding:0.3rem 0.5rem; border-radius:0.5rem; font-size:0.72rem; font-weight:600; font-family:'Lexend',sans-serif; cursor:pointer; transition:all 0.15s; border:1.5px solid ${sel ? '#2a7a4b' : 'var(--c-border)'}; background:${sel ? '#eaf4ee' : 'var(--c-surface)'}; color:${sel ? '#2a7a4b' : 'var(--c-muted)'};" title="${cat.label}">${cat.label}</button>`;
     }).join("");
     box.querySelectorAll("[data-pccat]").forEach(btn => {
       btn.onclick = () => {
@@ -6539,7 +6542,7 @@
       html += `
         <div onclick="openEvacBagModal('${bagId}')" tabindex="0" role="button" aria-label="${esc(bag.label)} – ${prog.done} z ${prog.total}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEvacBagModal('${bagId}')}" style="background:${cardBg}; border:1.5px solid ${cardBorder}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.75rem;">
-            <div style="width:40px; height:40px; border-radius:50%; background:${prog.pct === 100 ? 'white' : 'var(--c-bg)'}; border:1.5px solid ${cardBorder}; display:flex; align-items:center; justify-content:center; font-size:1.125rem; flex-shrink:0;">${t.emoji}</div>
+            <div style="width:40px; height:40px; border-radius:50%; background:${prog.pct === 100 ? 'white' : 'var(--c-bg)'}; border:1.5px solid ${cardBorder}; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; color:${t.color}; font-family:'Lexend',sans-serif;">${t.label.charAt(0)}</div>
             <div>
               <div style="font-weight:700; font-size:0.9rem; color:${titleColor};">${esc(bag.label)}</div>
               <div style="font-size:0.68rem; color:var(--c-muted);">max ${t.maxKg} kg</div>
@@ -6571,7 +6574,10 @@
     const icon = document.getElementById("evacBagModalIcon");
     icon.style.background = t.bg;
     icon.style.border = `1.5px solid ${t.border}`;
-    icon.textContent = t.emoji;
+    icon.textContent = t.label.charAt(0);
+    icon.style.fontSize = "1rem";
+    icon.style.fontWeight = "700";
+    icon.style.color = t.color;
     document.getElementById("evacBagModalTitle").textContent = bag.label;
     document.getElementById("evacBagModalSubtitle").textContent = `Max ${t.maxKg} kg · ${t.kcalDay} kcal/deň · ${prog.done}/${prog.total} položiek`;
 
@@ -6815,7 +6821,7 @@
   }
 
   function openSirenModal(siren) {
-    document.getElementById("sirenModalTitle").textContent = "\ud83d\udd14 " + siren.title;
+    document.getElementById("sirenModalTitle").textContent = siren.title;
     let html = `
       <div style="background:${siren.bg}; border:1.5px solid ${siren.border}; border-radius:1rem; padding:1rem; margin-bottom:1rem;">
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
@@ -6829,7 +6835,7 @@
 
     // Meaning section
     html += `<div class="modal-section">
-      <div class="modal-section-header">\ud83d\udcd6 V\u00fdznam</div>
+      <div class="modal-section-header">Význam</div>
       <div class="modal-section-steps">
         <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.meaning}</div>
       </div>
@@ -6837,7 +6843,7 @@
 
     if (siren.howToRecognize) {
       html += `<div class="modal-section">
-        <div class="modal-section-header">\ud83d\udd0a Ako rozozna\u0165</div>
+        <div class="modal-section-header">Ako rozoznať</div>
         <div class="modal-section-steps">
           <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.howToRecognize}</div>
         </div>
@@ -6848,7 +6854,7 @@
     if (Array.isArray(siren.actions)) {
       // Convert siren actions to steps format and use shared renderer
       const stepsForRender = [];
-      stepsForRender.push({ header: "\u2705 \u010co robi\u0165" });
+      stepsForRender.push({ header: "Čo robiť" });
       siren.actions.forEach(item => {
         if (item.header) stepsForRender.push({ header: item.header });
         else if (item.warn) stepsForRender.push({ warn: item.warn });
@@ -6858,7 +6864,7 @@
       html += renderStepsHTML(stepsForRender);
     } else if (siren.action) {
       html += `<div class="modal-section">
-        <div class="modal-section-header">\u2705 \u010co robi\u0165</div>
+        <div class="modal-section-header">Čo robiť</div>
         <div class="modal-section-steps">
           <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.action}</div>
         </div>
@@ -6962,7 +6968,7 @@
         : "";
       card.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.625rem;">
-          <span style="font-size:1.25rem;">${radio.emoji}</span>
+          <span style="font-size:0.7rem; font-weight:800; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.2rem 0.4rem; color:var(--c-muted); letter-spacing:0.05em;">FM</span>
           <div>
             <div style="font-weight:700; font-size:0.875rem;">${radio.name}${priorityBadge}</div>
             <div style="font-size:0.7rem; color:var(--c-muted); line-height:1.4; margin-top:0.1rem;">${radio.desc}</div>
@@ -7694,8 +7700,8 @@
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", item.title + " – zobraziť postup");
         card.innerHTML = `
-          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1rem;">
-            ${item.emoji}
+          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:0.8rem; font-weight:700; color:var(--c-muted);">
+            ${item.title.charAt(0)}
           </div>
           <div class="mu-card-label">${item.title}</div>`;
         card.onclick = () => openEmergencyProcModal(item);
@@ -7713,7 +7719,10 @@
 
     icon.style.background = item.iconBg;
     icon.style.border = `1.5px solid ${item.iconBorder}`;
-    icon.textContent = item.emoji;
+    icon.textContent = item.title.charAt(0);
+    icon.style.fontSize = "1rem";
+    icon.style.fontWeight = "700";
+    icon.style.color = "var(--c-muted)";
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
