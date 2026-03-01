@@ -35,7 +35,19 @@
       --c-green-light: #eaf4ee;
       --c-amber: #b45309;
       --c-amber-light: #fef3c7;
-      /* ── Design tokens ── */
+  
+    /* ── Professional icon system (replaces emojis) ── */
+    .cat-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+    .cat-bar { width:3px; height:100%; border-radius:2px; flex-shrink:0; min-height:1.5rem; }
+    .section-icon { display:inline-flex; align-items:center; justify-content:center; width:1.75rem; height:1.75rem; border-radius:0.5rem; font-size:0.8rem; font-weight:700; flex-shrink:0; }
+    .tip-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef3c7; border:1.5px solid #fcd34d; font-size:0.6rem; font-weight:800; color:#92400e; flex-shrink:0; margin-right:0.375rem; }
+    .tip-indicator::after { content:"i"; }
+    .warn-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef2f2; border:1.5px solid #fecaca; font-size:0.65rem; font-weight:800; color:#dc2626; flex-shrink:0; margin-right:0.375rem; }
+    .warn-indicator::after { content:"!"; }
+    .data-icon { font-size:0.875rem; width:2rem; height:2rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.5rem; flex-shrink:0; line-height:1; }
+    .data-icon-sm { font-size:0.75rem; width:1.5rem; height:1.5rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; flex-shrink:0; line-height:1; }
+
+    /* ── Design tokens ── */
       --c-info: #475569;
       --c-info-bg: #f1f5f9;
       --c-info-border: #cbd5e1;
@@ -337,7 +349,7 @@
       background: var(--c-surface);
       box-shadow: 0 1px 3px rgba(26,23,20,0.08), 0 1px 2px rgba(26,23,20,0.06);
     }
-    .header-tab-btn .tab-emoji { font-size: 0.82rem; }
+    /* tab-emoji removed */
     .app-logo-sm {
       width: 32px; height: 32px;
       background: var(--c-accent);
@@ -1081,7 +1093,7 @@
       color: var(--c-accent);
       background: transparent;
     }
-    .tab-btn .tab-emoji { font-size: 0.9rem; }
+    /* tab-emoji removed */
     .tab-pane { display: none; }
     .tab-pane.active { display: grid; grid-template-columns: 1fr; gap: 1rem; }
 
@@ -1172,7 +1184,7 @@
       padding: 0.4rem 0.125rem; border-radius: 0.75rem;
     }
     .bottom-nav .tab-btn::after { display: none; }
-    .bottom-nav .tab-btn .tab-emoji { font-size: 1.125rem; }
+    /* tab-emoji removed */
     .bottom-nav .tab-btn.active {
       background: var(--c-accent-light); color: var(--c-accent);
     }
@@ -1274,7 +1286,7 @@
 
     @media (min-width: 641px) and (max-width: 900px) {
       .header-tab-btn { font-size: 0.72rem; padding: 0.3rem 0.625rem; }
-      .header-tab-btn .tab-emoji { font-size: 0.75rem; }
+      /* tab-emoji removed */
     }
 
     /* ═══════════════════════════════════════════
@@ -1497,7 +1509,7 @@
     </div>
 
     <button class="btn-google" id="btnDemoLogin" style="margin-top:1rem; border-color:#f59e0b; background:#fffbeb;">
-      🔍 Vyskúšať demo
+      Vyskúšať demo
     </button>
     <div style="text-align:center; margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.4;">
       dáta sa vymažú po zatvorení prehliadača
@@ -1528,7 +1540,7 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span>🔍 <strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Dáta sa zmažú po zatvorení karty. <strong>Tip:</strong> Exportujte si dáta cez Profil → Správa dát.</span>
+    <span><strong>Demo režim</strong> — skúšate si Gerlach bez registrácie. Dáta sa zmažú po zatvorení karty. <strong>Tip:</strong> Exportujte si dáta cez Profil → Správa dát.</span>
     <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo</a>
   </div>
 
@@ -1543,17 +1555,17 @@
       <!-- Segment tabs (desktop/tablet only, hidden on mobile via CSS) -->
       <nav class="header-tabs" id="headerTabs" aria-label="Hlavná navigácia">
         <button class="header-tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
-          <span class="tab-emoji">🎒</span> Príprava
+          Príprava
           <span class="notif-dot" id="headerAlertDot" style="display:none;"></span>
         </button>
         <button class="header-tab-btn" data-tab="plan" onclick="switchTab('plan')">
-          <span class="tab-emoji">📋</span> Plán
+          Plán
         </button>
         <button class="header-tab-btn" data-tab="knowledge" onclick="switchTab('knowledge')">
-          <span class="tab-emoji">📖</span> Vedomosti
+          Vedomosti
         </button>
         <button class="header-tab-btn" data-tab="contacts" onclick="switchTab('contacts')">
-          <span class="tab-emoji">📞</span> Kontakty
+          Kontakty
         </button>
       </nav>
 
@@ -1570,7 +1582,7 @@
           <div id="userMenu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:white; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.5rem; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:200;">
             <div id="userMenuName" style="font-size:0.8rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
             <button onclick="document.getElementById('userMenu').classList.remove('open'); document.getElementById('btnLogout').click();" style="width:100%; text-align:left; background:none; border:none; padding:0.5rem 0.75rem; font-size:0.875rem; cursor:pointer; border-radius:0.625rem; color:#dc2626; font-family:'Lexend',sans-serif; font-weight:500;">
-              🚪 Odhlásiť sa
+              Odhlásiť sa
             </button>
           </div>
         </div>
@@ -1582,17 +1594,17 @@
   <div class="tab-bar top-tabs" style="position:sticky; top:48px; z-index:49;">
     <div class="tab-bar-inner">
     <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
-      <span class="tab-emoji">🎒</span> Príprava
+      Príprava
       <span class="notif-dot" id="mobileAlertDot" style="display:none;"></span>
     </button>
     <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
-      <span class="tab-emoji">📋</span> Plán
+      Plán
     </button>
     <button class="tab-btn" data-tab="knowledge" onclick="switchTab('knowledge')">
-      <span class="tab-emoji">📖</span> Vedomosti
+      Vedomosti
     </button>
     <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">
-      <span class="tab-emoji">📞</span> Kontakty
+      Kontakty
     </button>
     </div>
   </div>
@@ -1608,7 +1620,7 @@
       <!-- Onboarding (for new users without profile) -->
       <div id="onboardingCard" style="display:none;">
         <div class="onboarding-card">
-          <div style="font-size:3rem; margin-bottom:1rem;">🏔️</div>
+          <div style="font-size:1.5rem; margin-bottom:1rem; font-weight:800; color:var(--c-primary); letter-spacing:-0.02em;">Gerlach</div>
           <h2>Vitajte v Gerlachu</h2>
           <p>Začneme tým, že si nastavíme váš profil domácnosti.<br>Podľa neho vypočítame, čo presne potrebujete pripraviť.</p>
           <button class="btn-primary" onclick="openProfileEditor()">Nastaviť domácnosť →</button>
@@ -1621,7 +1633,7 @@
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem; flex-wrap:wrap; gap:0.5rem;">
           <div style="display:flex; align-items:center; gap:0.5rem;">
             <div id="alertPulse" style="width:10px; height:10px; border-radius:50%; background:#ef4444; animation:alertPulseAnim 2s ease-in-out infinite; flex-shrink:0;"></div>
-            <h2 style="font-size:1rem; font-weight:700; margin:0;">⚠️ Upozornenia</h2>
+            <h2 style="font-size:1rem; font-weight:700; margin:0;">Upozornenia</h2>
             <span id="alertCount" class="badge badge-red" style="font-size:0.68rem;"></span>
           </div>
         </div>
@@ -1632,7 +1644,7 @@
       <!-- Categories Grid -->
       <div id="onboardingTip" style="display:none; margin-bottom:0.75rem;">
         <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:1.5px solid #6ee7b7; border-radius:1rem; padding:1rem 1.25rem; display:flex; align-items:center; gap:0.875rem; animation:tipSlideIn 0.4s ease-out; cursor:pointer;" onclick="this.parentElement.style.display='none'">
-          <span style="font-size:1.5rem; flex-shrink:0;">🎯</span>
+          <span style="font-size:1rem; flex-shrink:0; font-weight:800; color:var(--c-primary);">→</span>
           <div>
             <div style="font-size:0.85rem; font-weight:700; color:#065f46; line-height:1.3;">Výborne! Profil je nastavený.</div>
             <div style="font-size:0.75rem; color:#047857; margin-top:0.2rem; line-height:1.4;">Teraz kliknite na ľubovoľnú kategóriu nižšie a začnite pridávať položky. Začnite tam, kde vám to dáva najväčší zmysel.</div>
@@ -1656,10 +1668,10 @@
       <div class="card" id="evacBagsSection">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">🎒 Evakuačné batohy</h2>
+            <h2 style="font-size:1.2rem; font-weight:700;">Evakuačné batohy</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený a skontrolovaný</p>
           </div>
-          <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">🔄 Pregenerovať</button>
+          <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">Pregenerovať</button>
         </div>
         <div id="evacBagsContainer"></div>
       </div>
@@ -1667,12 +1679,12 @@
       <!-- Rodinný krízový plán -->
       <div class="card">
         <div style="margin-bottom:1rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">📋 Rodinný krízový plán</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Rodinný krízový plán</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
           <button class="info-collapse-toggle" style="color:#991b1b;" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Prečo potrebujete krízový plán</span>
+            <span><span class="tip-indicator"></span>Prečo potrebujete krízový plán</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
@@ -1684,7 +1696,7 @@
           <div class="section-label">Krízové scenáre – kto, čo, kam?</div>
           <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
             <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-              <span>💡 Ako pracovať so scenármi</span>
+              <span><span class="tip-indicator"></span>Ako pracovať so scenármi</span>
               <span class="info-collapse-arrow">▼</span>
             </button>
             <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
@@ -1695,7 +1707,7 @@
         </div>
         <div class="info-collapse" style="background:#eff6ff; border:1px solid #bfdbfe; margin-top:1rem;">
           <button class="info-collapse-toggle" style="color:#1e40af;" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>📱 Komunikačný plán (ak telefóny nefungujú)</span>
+            <span>Komunikačný plán (ak telefóny nefungujú)</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.7;">
@@ -1719,12 +1731,12 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">🏥 Prvá pomoc</h2>
+            <h2 style="font-size:1.2rem; font-weight:700;">Prvá pomoc</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Základné postupy prvej pomoci, keď ide o minúty</p>
           </div>
           <div style="display:flex; gap:0.5rem; align-items:center;">
-            <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">📞 112</a>
-            <a href="tel:155" style="display:inline-flex; align-items:center; gap:0.375rem; background:#1e40af; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">🚑 155</a>
+            <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">112</a>
+            <a href="tel:155" style="display:inline-flex; align-items:center; gap:0.375rem; background:#1e40af; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">155</a>
           </div>
         </div>
         <div id="firstAidGrid" class="fa-grid"></div>
@@ -1734,7 +1746,7 @@
       <!-- Prírodné hrozby -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">🌊 Prírodné hrozby</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Prírodné hrozby</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Čo robiť pri povodniach, zemetrasení, búrkach a ďalších živloch</p>
         </div>
         <div id="procGridNature" class="mu-grid"></div>
@@ -1743,7 +1755,7 @@
       <!-- Havárie a ohrozenia -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">🔥 Havárie a ohrozenia</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Havárie a ohrozenia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Požiare, výpadky, úniky plynu, chemické a radiačné havárie</p>
         </div>
         <div id="procGridHazards" class="mu-grid"></div>
@@ -1752,7 +1764,7 @@
       <!-- Ozbrojený konflikt -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">⚔️ Ozbrojený konflikt</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Ozbrojený konflikt</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Teroristický útok a vojenský konflikt – ako sa chrániť</p>
         </div>
         <div id="procGridConflict" class="mu-grid"></div>
@@ -1761,7 +1773,7 @@
       <!-- Pripravenosť a podpora -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">🛡️ Pripravenosť a podpora</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Pripravenosť a podpora</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">72-hodinová sebestačnosť, evakuácia, pomoc susedom, deti v kríze</p>
         </div>
         <div id="procGridSupport" class="mu-grid"></div>
@@ -1770,12 +1782,12 @@
       <!-- Varovné signály sirén -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">🔔 Varovné signály sirén</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Varovné signály sirén</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
           <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Čo robiť keď zaznie siréna</span>
+            <span><span class="tip-indicator"></span>Čo robiť keď zaznie siréna</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
@@ -1784,7 +1796,7 @@
         </div>
         <div class="info-collapse" id="sirensCollapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.5rem;">
           <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>🔔 Typy signálov (kliknutím rozbaľte)</span>
+            <span>Typy signálov (kliknutím rozbaľte)</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body">
@@ -1793,7 +1805,7 @@
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-top:0.75rem;">
           <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Skúška sirén a ďalšie informácie</span>
+            <span><span class="tip-indicator"></span>Skúška sirén a ďalšie informácie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
@@ -1806,12 +1818,12 @@
       <!-- Núdzové vysielanie rádia -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">📻 Núdzové vysielanie rádia</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Núdzové vysielanie rádia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
           <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Prečo rádio na batérie</span>
+            <span><span class="tip-indicator"></span>Prečo rádio na batérie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
@@ -1820,7 +1832,7 @@
         </div>
         <div class="info-collapse" id="radioCollapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.5rem;">
           <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>📻 Frekvencie podľa regiónov (kliknutím rozbaľte)</span>
+            <span>Frekvencie podľa regiónov (kliknutím rozbaľte)</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body">
@@ -1829,7 +1841,7 @@
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-top:0.75rem;">
           <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Tipy pre núdzové rádio</span>
+            <span><span class="tip-indicator"></span>Tipy pre núdzové rádio</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
@@ -1847,7 +1859,7 @@
       <!-- Tiesňové linky (6 hlavných) -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">📞 Tiesňové kontakty</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Tiesňové kontakty</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky SR – fungujú aj bez kreditu</p>
         </div>
         <div class="ec-grid" id="emergencyLinesGrid"></div>
@@ -1856,7 +1868,7 @@
       <!-- Inštitúcie, krízové linky a poruchové služby -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">🏛️ Inštitúcie, krízové linky a poruchové služby</h2>
+          <h2 style="font-size:1.2rem; font-weight:700;">Inštitúcie, krízové linky a poruchové služby</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Kliknite na kategóriu pre zobrazenie kontaktov</p>
         </div>
         <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
@@ -1866,7 +1878,7 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">👤 Osobné kontakty</h2>
+            <h2 style="font-size:1.2rem; font-weight:700;">Osobné kontakty</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Lekári, poisťovne, služby a ľudia, na ktorých sa spoľahnete</p>
           </div>
           <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.78rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
@@ -1881,23 +1893,23 @@
   <!-- Bottom Nav (Mobile) -->
   <div class="bottom-nav" id="bottomNav">
     <button class="tab-btn active" data-tab="preparation" onclick="switchTab('preparation')" style="position:relative;">
-      <span class="tab-emoji">🎒</span> Príprava
+      Príprava
       <span class="notif-dot" id="bottomAlertDot" style="display:none;"></span>
     </button>
     <button class="tab-btn" data-tab="plan" onclick="switchTab('plan')">
-      <span class="tab-emoji">📋</span> Plán
+      Plán
     </button>
     <button class="tab-btn" data-tab="knowledge" onclick="switchTab('knowledge')">
-      <span class="tab-emoji">📖</span> Vedomosti
+      Vedomosti
     </button>
     <button class="tab-btn" data-tab="contacts" onclick="switchTab('contacts')">
-      <span class="tab-emoji">📞</span> Kontakty
+      Kontakty
     </button>
   </div>
 
   <!-- SOS Floating Button (quick access to First Aid) -->
   <button class="sos-fab" id="sosFab" onclick="switchTab('knowledge'); setTimeout(() => { const fa = document.getElementById('firstAidGrid'); if(fa) fa.scrollIntoView({behavior:'smooth', block:'start'}); }, 150);" aria-label="SOS – Prvá pomoc">
-    <span class="sos-fab-icon">🆘</span>
+    <span class="sos-fab-icon" style="font-size:0.875rem; font-weight:900; letter-spacing:0.05em;">SOS</span>
   </button>
 
 </div><!-- end appScreen -->
@@ -1919,7 +1931,7 @@
 
       <!-- Počet osôb -->
       <div class="card-section">
-        <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">👨‍👩‍👧‍👦 Počet osôb v domácnosti</div>
+        <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">Počet osôb v domácnosti</div>
         <div class="persons-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dospelí (13–64)</label>
@@ -1952,7 +1964,7 @@
       <div class="profile-days-housing" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
         <!-- Počet dní sebestačnosti -->
         <div class="prepdays-row" class="card-section">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">📅 Počet dní sebestačnosti</div>
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Počet dní sebestačnosti</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; margin-bottom:0.75rem; line-height:1.4;">Minimum 3 dni. Pre väčší pocit istoty odporúčame 7 dní.</div>
           <input name="prepDays" type="number" min="1" max="30" value="3"
             onfocus="if(this.value==='3' && !this._touched)this.value=''"
@@ -1962,7 +1974,7 @@
 
         <!-- Typ bývania -->
         <div class="card-section">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🏠 Typ bývania</div>
+          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Typ bývania</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Ovplyvňuje niektoré odporúčania.</div>
           <div style="display:flex; flex-direction:column; gap:0.5rem;">
             <label style="display:flex; align-items:center; gap:0.625rem; padding:0.5rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
@@ -1984,7 +1996,7 @@
       <!-- ── POKROČILÉ NASTAVENIA (collapsible) ── -->
       <div id="profileAdvanced">
         <button type="button" id="profileAdvancedToggle" style="width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.75rem 1rem; cursor:pointer; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:600; color:var(--c-muted); transition:background 0.15s, border-color 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">
-          <span>⚙️ Pokročilé nastavenia</span>
+          <span>Pokročilé nastavenia</span>
           <span id="profileAdvancedArrow" style="font-size:0.7rem; transition:transform 0.25s;">▼</span>
         </button>
         <div id="profileAdvancedContent" style="display:none; margin-top:0.75rem; gap:0.75rem;">
@@ -1993,7 +2005,7 @@
           <div class="profile-3col" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
             <!-- Úroveň pripravenosti -->
             <div class="card-section">
-              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">🛡️ Úroveň zásob</div>
+              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Úroveň zásob</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Určuje výsledný komfort v čase krízy.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
@@ -2015,7 +2027,7 @@
 
             <!-- Nákladovosť -->
             <div class="card-section">
-              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">💰 Nákladovosť</div>
+              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Nákladovosť</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
@@ -2038,7 +2050,7 @@
 
           <!-- Nastavenia: Sledovanie expirácie -->
           <div class="card-section">
-            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">⏰ Sledovanie expirácie</div>
+            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Sledovanie expirácie</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Upozorníme vás na položky, ktorým sa blíži dátum spotreby.</div>
             <div style="display:flex; flex-wrap:wrap; gap:0.625rem;">
               <div style="display:flex; align-items:center; gap:0.375rem; background:#fef2f2; border:1px solid #fecaca; border-radius:0.625rem; padding:0.375rem 0.625rem;">
@@ -2051,7 +2063,7 @@
                 </select>
               </div>
               <div style="display:flex; align-items:center; gap:0.375rem; background:#eff6ff; border:1px solid #bfdbfe; border-radius:0.625rem; padding:0.375rem 0.625rem;">
-                <span style="font-size:0.75rem; font-weight:600; color:#1e40af;">🥫 Potraviny a voda</span>
+                <span style="font-size:0.75rem; font-weight:600; color:#1e40af;">Potraviny a voda</span>
                 <select id="alertDaysFood" style="width:auto; font-size:0.75rem; padding:0.2rem 0.4rem; border-radius:0.375rem; border:1px solid #bfdbfe; background:white; color:#1e40af; font-weight:600;">
                   <option value="270">9 mesiacov</option>
                   <option value="180">6 mesiacov</option>
@@ -2066,7 +2078,7 @@
           <div class="card-section">
             <div style="display:flex; align-items:center; gap:0.5rem;">
               <div>
-                <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">🔔 Upozornenia na expirácie</div>
+                <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Upozornenia na expirácie</div>
                 <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; line-height:1.4;">Aktívne — upozornenia sa zobrazujú priamo v aplikácii pri každom otvorení. Skontrolujte kartu „Upozornenia" na úvodnej obrazovke.</div>
               </div>
             </div>
@@ -2082,14 +2094,14 @@
 
     <!-- ═══════ SPRÁVA DÁT ═══════ -->
     <div class="data-mgmt" id="dataMgmtSection">
-      <div class="data-mgmt-title">📦 Správa dát</div>
+      <div class="data-mgmt-title">Správa dát</div>
 
       <!-- Export -->
       <div style="margin-bottom:1rem;">
         <div style="font-size:0.75rem; font-weight:600; color:var(--c-text); margin-bottom:0.375rem;">Export dát</div>
         <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Stiahnite si kópiu všetkých svojich dát vo formáte JSON. Súbor môžete použiť ako zálohu.</div>
         <div class="data-mgmt-row">
-          <button class="btn-data" onclick="exportUserData()">📥 Exportovať dáta</button>
+          <button class="btn-data" onclick="exportUserData()">Exportovať dáta</button>
         </div>
       </div>
 
@@ -2098,7 +2110,7 @@
         <div style="font-size:0.75rem; font-weight:600; color:#dc2626; margin-bottom:0.375rem;">Vymazanie dát</div>
         <div class="data-mgmt-desc" style="margin-bottom:0.5rem;">Natrvalo vymažte všetky dáta spojené s vaším účtom. Táto akcia je <strong>nezvratná</strong>.</div>
         <div class="data-mgmt-row">
-          <button class="btn-data btn-data-danger" onclick="showDeleteConfirm()">🗑️ Vymazať všetky moje dáta</button>
+          <button class="btn-data btn-data-danger" onclick="showDeleteConfirm()">Vymazať všetky moje dáta</button>
         </div>
         <div class="delete-confirm" id="deleteConfirm">
           <p><strong>Pozor:</strong> Táto akcia natrvalo vymaže všetky vaše dáta vrátane profilu, zásob, plánov, kontaktov a nastavení. Dáta nie je možné obnoviť.</p>
@@ -2116,7 +2128,7 @@
       </div>
 
       <div class="data-mgmt-note" id="dataMgmtNote">
-        💡 Export vytvorí JSON súbor, ktorý si môžete uložiť na disk ako zálohu.
+        Export vytvorí JSON súbor, ktorý si môžete uložiť na disk ako zálohu.
       </div>
     </div>
     <!-- ═══════ /SPRÁVA DÁT ═══════ -->
@@ -2181,7 +2193,7 @@
 <!-- Modal: Delete Item Confirmation -->
 <div class="modal-overlay" id="modalDeleteItem">
   <div class="modal-box" style="max-width:420px; text-align:center;">
-    <div style="font-size:2.5rem; margin-bottom:0.75rem;">🗑️</div>
+    
     <h3 id="deleteItemTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0 0 0.5rem;">Odstrániť položku?</h3>
     <p id="deleteItemText" style="font-size:0.85rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
     <div style="display:flex; gap:0.625rem; justify-content:center;">
@@ -2195,7 +2207,7 @@
 <div class="modal-overlay" id="modalFoodEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť jedlo</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť jedlo</h3>
       <button data-close="modalFoodEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="foodEditForm" style="display:grid; gap:0.75rem;">
@@ -2231,7 +2243,7 @@
 <div class="modal-overlay" id="modalWaterEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť vodu</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť vodu</h3>
       <button data-close="modalWaterEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="waterEditForm" style="display:grid; gap:0.75rem;">
@@ -2267,7 +2279,7 @@
 <div class="modal-overlay" id="modalCashEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">✏️ Upraviť hotovosť</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť hotovosť</h3>
       <button data-close="modalCashEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="cashEditForm" style="display:grid; gap:0.75rem;">
@@ -2278,7 +2290,7 @@
         <div>
           <label class="item-label-light">Typ</label>
           <select name="ce_type" style="font-size:0.9rem; padding:0.625rem 0.875rem;">
-            <option value="bankovka">💶 Bankovka</option>
+            <option value="bankovka">Bankovka</option>
             <option value="minca">🪙 Minca</option>
           </select>
         </div>
@@ -2301,7 +2313,7 @@
 <!-- Modal: Validation Warning -->
 <div class="modal-overlay" id="modalValidation">
   <div class="modal-box" style="max-width:400px; text-align:center;">
-    <div style="font-size:2.5rem; margin-bottom:0.75rem;">⚠️</div>
+    
     <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0 0 0.5rem;">Chýbajúce údaje</h3>
     <p id="validationText" style="font-size:0.85rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
     <button data-close="modalValidation" class="btn-primary" style="padding:0.625rem 2rem; font-size:0.85rem;">Rozumiem</button>
@@ -2362,7 +2374,7 @@
   <div class="modal-box" style="max-width:500px;">
     <div class="modal-header">
       <div>
-        <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">👤 Nový kontakt</h3>
+        <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">Nový kontakt</h3>
         <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Uložte si dôležité číslo pre prípad núdze</p>
       </div>
       <button data-close="modalPersonalContact" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
@@ -2409,7 +2421,7 @@
   <div class="modal-box" style="max-width:560px;">
     <div class="modal-header">
       <div>
-        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">📍 Miesto stretnutia</h3>
+        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">Miesto stretnutia</h3>
         <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Kde sa stretnete, keď nebude signál ani internet?</p>
       </div>
       <button data-close="modalMeetingPoint" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
@@ -2434,7 +2446,7 @@
       </div>
 
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:1rem; padding:1rem;">
-        <div style="font-size:0.8rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">⏰ Časy stretávania</div>
+        <div style="font-size:0.8rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">Časy stretávania</div>
         <div style="font-size:0.72rem; color:#2563eb; margin-bottom:0.625rem; line-height:1.5;">Kedy sa budete na mieste hľadať? Napr. každé 4 hodiny. Ak tam druhý nie je, príďte o ďalší interval.</div>
         <div id="meetingTimesEditor" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;"></div>
         <div style="display:flex; gap:0.5rem; align-items:center;">
@@ -2566,13 +2578,13 @@
 
   // ── App state ────────────────────────────────────────────────────
   const CATEGORIES = [
-    { id: "water", name: "Voda", emoji: "💧", weight: 1.2 },
-    { id: "food", name: "Jedlo", emoji: "🥫", weight: 1.0 },
-    { id: "medkit", name: "Lekárnička", emoji: "🩺", weight: 1.1 },
-    { id: "cash", name: "Peniaze", emoji: "💵", weight: 0.9 },
-    { id: "gear", name: "Vybavenie", emoji: "🔦", weight: 1.0 },
-    { id: "hygiene", name: "Hygiena", emoji: "🧼", weight: 0.8 },
-    { id: "docs", name: "Doklady", emoji: "📄", weight: 0.3 },
+    { id: "water", name: "Voda", emoji: "💧", color: "#3b82f6", weight: 1.2 },
+    { id: "food", name: "Jedlo", emoji: "🥫", color: "#f59e0b", weight: 1.0 },
+    { id: "medkit", name: "Lekárnička", emoji: "🩺", color: "#ef4444", weight: 1.1 },
+    { id: "cash", name: "Peniaze", emoji: "💵", color: "#10b981", weight: 0.9 },
+    { id: "gear", name: "Vybavenie", emoji: "🔦", color: "#6366f1", weight: 1.0 },
+    { id: "hygiene", name: "Hygiena", emoji: "🧼", color: "#8b5cf6", weight: 0.8 },
+    { id: "docs", name: "Doklady", emoji: "📄", color: "#78716c", weight: 0.3 },
   ];
 
   // ── Zdroje odporúčaní pre kategórie ──────────────────────────
@@ -3207,7 +3219,7 @@
     const btnLO = document.getElementById('btnLogout');
     if (btnLO) { btnLO.textContent = 'Ukončiť demo'; btnLO.style.display = ''; }
     const mobileLO = document.querySelector('.mobile-logout-btn');
-    if (mobileLO) { mobileLO.textContent = '🔍 Ukončiť demo'; }
+    if (mobileLO) { mobileLO.textContent = 'Ukončiť demo'; }
 
     showScreen('app');
     state._profileWasSet = !!state.profile;
@@ -3226,7 +3238,7 @@
       emailSection.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.5rem;">
           <div>
-            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">✉️ Emailové pripomienky</div>
+            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Emailové pripomienky</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;">V demo režime nie sú dostupné. Ukončite demo a vytvorte si účet pre emailové upozornenia na expirácie.</div>
           </div>
         </div>`;
@@ -3393,10 +3405,10 @@
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
 
-      showToast('✅ Dáta exportované');
+      showToast('Dáta exportované');
     } catch (e) {
       console.error('Export error:', e);
-      showToast('❌ Export sa nepodaril');
+      showToast('Export sa nepodaril');
     }
   }
 
@@ -3430,7 +3442,7 @@
     const uid = currentUser.uid;
 
     try {
-      showToast('⏳ Mazanie dát...');
+      showToast('Mazanie dát...');
 
       // 2. Delete main data document (try delete first, fallback to overwrite)
       try {
@@ -3445,17 +3457,17 @@
       if (deleteAccount && auth.currentUser) {
         try {
           await deleteUser(auth.currentUser);
-          showToast('✅ Účet a všetky dáta boli vymazané');
+          showToast('Účet a všetky dáta boli vymazané');
         } catch (e) {
           if (e.code === 'auth/requires-recent-login') {
-            showToast('⚠️ Dáta vymazané. Pre zrušenie účtu sa znovu prihláste a skúste znova.');
+            showToast('Dáta vymazané. Pre zrušenie účtu sa znovu prihláste a skúste znova.');
           } else {
             console.error('Auth delete error:', e);
-            showToast('⚠️ Dáta vymazané, ale účet sa nepodarilo zrušiť.');
+            showToast('Dáta vymazané, ale účet sa nepodarilo zrušiť.');
           }
         }
       } else {
-        showToast('✅ Všetky dáta boli vymazané');
+        showToast('Všetky dáta boli vymazané');
       }
 
       // 4. Reset local state and sign out
@@ -3469,7 +3481,7 @@
 
     } catch (e) {
       console.error('Delete all data error:', e);
-      showToast('❌ Mazanie sa nepodarilo: ' + (e.message || 'neznáma chyba'));
+      showToast('Mazanie sa nepodarilo: ' + (e.message || 'neznáma chyba'));
     }
   }
 
@@ -3964,7 +3976,7 @@
         <div class="hero-rank"><span>${rank}</span></div>
         <div style="display:flex; align-items:center; gap:0.75rem;">
           <span class="hero-pct" style="color:${col};">${Math.round(pct)}%</span>
-          <button class="btn-ghost" id="btnEditProfile" style="font-size:0.78rem; padding:0.375rem 0.75rem;">Upraviť ⚙️</button>
+          <button class="btn-ghost" id="btnEditProfile" style="font-size:0.78rem; padding:0.375rem 0.75rem;">Upraviť</button>
         </div>
       </div>
       <div class="progress-bar" style="height:10px; position:relative; z-index:1;">
@@ -3972,10 +3984,10 @@
       </div>
       ${getMilestoneHtml(pct)}
       <div class="hero-meta">
-        <span class="hero-tag">👥 ${totalPersons} ${totalPersons === 1 ? "osoba" : totalPersons < 5 ? "osoby" : "osôb"}</span>
-        <span class="hero-tag">📅 ${d} ${d === 1 ? "deň" : d < 5 ? "dni" : "dní"}</span>
-        <span class="hero-tag">🏠 ${housingMap[p.housing] || "–"}</span>
-        <span class="hero-tag">💰 ${budgetMap[p.budget] || "–"}</span>
+        <span class="hero-tag">${totalPersons} ${totalPersons === 1 ? "osoba" : totalPersons < 5 ? "osoby" : "osôb"}</span>
+        <span class="hero-tag">${d} ${d === 1 ? "deň" : d < 5 ? "dni" : "dní"}</span>
+        <span class="hero-tag">${housingMap[p.housing] || "–"}</span>
+        <span class="hero-tag">${budgetMap[p.budget] || "–"}</span>
       </div>`;
 
     // Re-bind edit profile button
@@ -4015,7 +4027,7 @@
       card.style.cssText = `background:${cardBg}; border-color:${cardBorder}; box-shadow:${cardShadow};`;
       card.innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-          <div style="font-size:1.375rem;">${c.emoji}</div>
+          <div class="cat-dot" style="background:${c.color || 'var(--c-muted)'}"></div>
           <span style="font-size:1.125rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
         </div>
         <div style="font-weight:700; font-size:0.9375rem; margin-bottom:0.2rem; color:var(--c-text);">${c.name}</div>
@@ -4065,7 +4077,7 @@
     if (modalHeader) {
       modalHeader.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.875rem;">
-          <div style="font-size:1.5rem;">${cat.emoji}</div>
+          <div class="cat-dot" style="width:12px; height:12px; background:${cat.color || 'var(--c-muted)'}"></div>
           <div>
             <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
             <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
@@ -4097,30 +4109,30 @@
       banner.innerHTML = `
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
           <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>💡 Kde uchovávať dokumenty?</span>
+            <span><span class="tip-indicator"></span>Kde uchovávať dokumenty?</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.5;">
             <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
               <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
-                <strong>📁 Originál</strong><br>
+                <strong>Originál</strong><br>
                 <span style="color:var(--c-muted);">Doma v bezpečnom mieste (trezor, ohnivzdorná schránka)</span>
               </div>
               <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
-                <strong>📄 Kópia</strong><br>
+                <strong>Kópia</strong><br>
                 <span style="color:var(--c-muted);">Papierová kópia v evakuačnom batohu + u príbuzných</span>
               </div>
               <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
-                <strong>💾 USB</strong><br>
+                <strong>USB</strong><br>
                 <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batohu – scany všetkých dokumentov</span>
               </div>
               <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
-                <strong>☁️ Cloud</strong><br>
+                <strong>Cloud</strong><br>
                 <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
               </div>
             </div>
             <div style="margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.5; font-style:italic;">
-              ⚠️ Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
+              Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
             </div>
           </div>
         </div>`;
@@ -4133,12 +4145,12 @@
       const src = CATEGORY_SOURCES[catId];
       srcBannerEl = document.createElement("div");
       const linksHtml = src.sources.map(s =>
-        `<div style="padding:0.125rem 0;">→ <a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a></div>`
+        `<div style="padding:0.125rem 0;"><a href="${s.url}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${s.label}</a></div>`
       ).join("");
       srcBannerEl.innerHTML = `
         <div style="margin-top:1rem;">
           <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''">
-            💡 Zdroje odporúčaní <span class="arrow">▼</span>
+            Zdroje odporúčaní <span class="arrow">▼</span>
           </button>
           <div class="source-body">
             <div style="padding:0.375rem 0; line-height:1.5;">
@@ -4157,10 +4169,10 @@
         // Group headers for docs category
         if (catId === "docs" && it.docGroup && it.docGroup !== lastDocGroup) {
           lastDocGroup = it.docGroup;
-          const groupEmojis = { "Osobné dokumenty": "🪪", "Majetok a bývanie": "🏠", "Auto a doprava": "🚗", "Vzdelanie a práca": "🎓", "Financie": "💰", "Zdravotné dokumenty": "🏥", "Krízové dokumenty": "🚨" };
+          const groupEmojis = {};
           const gh = document.createElement("div");
           gh.style.cssText = "padding:0.625rem 0 0.25rem; margin-top:0.375rem;";
-          gh.innerHTML = `<div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em;">${groupEmojis[it.docGroup]||"📋"} ${esc(it.docGroup)}</div>`;
+          gh.innerHTML = `<div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.05em;">${groupEmojis[it.docGroup]||""} ${esc(it.docGroup)}</div>`;
           list.appendChild(gh);
         }
         if (it.isWaterItem && state.profile) {
@@ -4225,7 +4237,7 @@
                     ${e.qty||1}× ${(e.liters||0)} l = <strong>${totalE.toFixed(1)} l</strong>${e.expiry ? " • " + esc(e.expiry) : ""}
                   </div>
                 </div>
-                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-water-edit="${idx}:${ei}">✏️</button>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-water-edit="${idx}:${ei}">Upraviť</button>
                 <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-water-del="${idx}:${ei}">✕</button>
               </div>`;
             }).join("");
@@ -4236,7 +4248,7 @@
           const missing = Math.max(0, total - current);
           row.innerHTML = `
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
-              <div style="font-weight:700; font-size:1rem;">💧 ${esc(it.name)}</div>
+              <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
               <span style="font-size:0.95rem; font-weight:700; color:${wCol}; flex-shrink:0;">${Math.round(wpct)}%</span>
             </div>
 
@@ -4297,7 +4309,7 @@
             <!-- Source (collapsible) -->
             <div style="margin-top:0.75rem;">
               <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''">
-                💡 Zdroj výpočtu <span class="arrow">▼</span>
+                Zdroj výpočtu <span class="arrow">▼</span>
               </button>
               <div class="source-body">
                 <a href="${WATER_SOURCE_URL}" target="_blank" rel="noopener" style="color:#2563eb; text-decoration:underline;">${WATER_SOURCE_LABEL}</a>
@@ -4413,7 +4425,7 @@
                     ${e.qty||1}× ${(e.kcal||0).toLocaleString()} kcal = <strong>${totalE.toLocaleString()} kcal</strong>${e.expiry ? " • " + esc(e.expiry) : ""}
                   </div>
                 </div>
-                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-food-edit="${idx}:${ei}">✏️</button>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-food-edit="${idx}:${ei}">Upraviť</button>
                 <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-food-del="${idx}:${ei}">✕</button>
               </div>`;
             }).join("");
@@ -4424,7 +4436,7 @@
           const missingKcal = Math.max(0, totalNeeded - currentKcal);
           row.innerHTML = `
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
-              <div style="font-weight:700; font-size:1rem;">🍽️ ${esc(it.name)}</div>
+              <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
               <span style="font-size:0.95rem; font-weight:700; color:${fCol}; flex-shrink:0;">${Math.round(fpct)}%</span>
             </div>
 
@@ -4485,7 +4497,7 @@
             <!-- Source (collapsible) -->
             <div style="margin-top:0.75rem;">
               <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''">
-                💡 Zdroj výpočtu <span class="arrow">▼</span>
+                Zdroj výpočtu <span class="arrow">▼</span>
               </button>
               <div class="source-body">
                 <a href="${KCAL_SOURCE_URL}" target="_blank" rel="noopener" style="color:#b45309; text-decoration:underline;">${KCAL_SOURCE_LABEL}</a>
@@ -4569,20 +4581,20 @@
                       <div style="font-weight:600; font-size:0.78rem; color:var(--c-text);">${(e.value||0)} € × ${e.qty||1}</div>
                       <div style="font-size:0.68rem; color:var(--c-muted);">= ${totalE.toFixed(2)} €</div>
                     </div>
-                    <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-cash-edit="${idx}:${realIdx}">✏️</button>
+                    <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-cash-edit="${idx}:${realIdx}">Upraviť</button>
                     <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-cash-del="${idx}:${realIdx}">✕</button>
                   </div>`;
                 }).join("")}
               </div>`;
             };
-            cEntriesHtml = renderGroup(bankovky, "Bankovky", "💶") + renderGroup(mince, "Mince", "🪙");
+            cEntriesHtml = renderGroup(bankovky, "Bankovky", "") + renderGroup(mince, "Mince", "");
           }
 
           const row = document.createElement("div");
           row.style.cssText = "background:linear-gradient(135deg, #eaf4ee 0%, #d1fae5 100%); border:1.5px solid #86efac; border-radius:1rem; padding:1.25rem;";
           row.innerHTML = `
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; gap:0.75rem;">
-              <div style="font-weight:700; font-size:1rem;">💵 ${esc(it.name)}</div>
+              <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
               <span style="font-size:0.95rem; font-weight:700; color:${cCol}; flex-shrink:0;">${Math.round(cpct)}%</span>
             </div>
 
@@ -4606,7 +4618,7 @@
             <!-- Source (collapsible) -->
             <div style="margin-bottom:0.875rem;">
               <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''" style="font-size:0.7rem;">
-                💡 Prečo hotovosť? <span class="arrow">▼</span>
+                Prečo hotovosť? <span class="arrow">▼</span>
               </button>
               <div class="source-body">
                 <div style="padding:0.375rem 0; font-size:0.7rem; color:#166534; line-height:1.6;">
@@ -4629,7 +4641,7 @@
                   <div>
                     <label class="item-sublabel">Typ</label>
                     <select id="ce_type_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
-                      <option value="bankovka">💶 Bankovka</option>
+                      <option value="bankovka">Bankovka</option>
                       <option value="minca">🪙 Minca</option>
                     </select>
                   </div>
@@ -4715,7 +4727,7 @@
             : `<span class="badge badge-gray">za ${exp} dní</span>`)
           : "";
         const linkBtn = (it.link && isValidUrl(it.link))
-          ? `<a href="${esc(it.link)}" target="_blank" rel="noopener" class="btn-ghost" style="padding:0.375rem 0.625rem; text-decoration:none;">🔗</a>`
+          ? `<a href="${esc(it.link)}" target="_blank" rel="noopener" class="btn-ghost" style="padding:0.375rem 0.625rem; text-decoration:none;">Odkaz</a>`
           : "";
 
         const row = document.createElement("div");
@@ -4782,7 +4794,7 @@
       box.innerHTML = `
         <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" tabindex="0" role="button" aria-label="Nastaviť miesto stretnutia" onclick="openMeetingPointModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMeetingPointModal()}" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;">📍</div>
+            <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:#fff; letter-spacing:0.05em;">MP</div>
             <div style="flex:1;">
               <div style="font-weight:700; font-size:0.95rem; color:#92400e;">Nastavte miesto stretnutia</div>
               <div style="font-size:0.78rem; color:#854d0e; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
@@ -4814,20 +4826,20 @@
       <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #bfdbfe; border-radius:1rem; padding:1.25rem;">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:0.75rem;">
           <div style="display:flex; align-items:flex-start; gap:0.75rem; flex:1; min-width:0;">
-            <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0; color:white;">📍</div>
+            <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:white; letter-spacing:0.05em;">MP</div>
             <div style="flex:1; min-width:0;">
               <div style="font-size:0.68rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
               <div style="font-weight:800; font-size:1.0625rem; color:var(--c-text); margin-top:0.125rem;">${esc(mp.name)}</div>
-              ${mp.address ? `<div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.125rem;">📌 ${esc(mp.address)}</div>` : ""}
+              ${mp.address ? `<div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.125rem;">${esc(mp.address)}</div>` : ""}
               ${mp.note ? `<div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
-              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">⏰ ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
+              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
             </div>
           </div>
           <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.78rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
         </div>
         ${backupHtml}
         <div style="background:rgba(255,255,255,0.6); border-radius:0.625rem; padding:0.625rem 0.75rem; margin-top:0.75rem; font-size:0.75rem; color:#1e40af; line-height:1.5;">
-          💡 <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval. Ak sa nestretnete ani na 3. pokus – prejdite na <strong>záložné miesto</strong>.
+          <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval. Ak sa nestretnete ani na 3. pokus – prejdite na <strong>záložné miesto</strong>.
         </div>
       </div>`;
   }
@@ -5015,7 +5027,7 @@
         <form id="scenarioHomeForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Celá rodina je doma keď nastane kríza (siréna, výbuch, zemetrasenie). Prepíšte alebo doplňte kroky podľa vašej domácnosti.
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Kde máte hlavný istič? Plynový uzáver? Batoh? Zapíšte si to \u2013 v strese si nepamätáte ani jednoduché veci.</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Kde máte hlavný istič? Plynový uzáver? Batoh? Zapíšte si to \u2013 v strese si nepamätáte ani jednoduché veci.</em></div>
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
@@ -5051,7 +5063,7 @@
         <form id="scenarioNightForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Je 3:00 v noci, zaznie siréna alebo vás zobudí zemetrasenie. Je tma, ste dezorientovaní.
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Mať čelovku a topánky pri posteli nie je paranoia – je to pripravenosť. V tme na rozbité sklo stúpite skôr než si to uvedomíte.</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Mať čelovku a topánky pri posteli nie je paranoia – je to pripravenosť. V tme na rozbité sklo stúpite skôr než si to uvedomíte.</em></div>
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
@@ -5087,7 +5099,7 @@
         <form id="scenarioTravelForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Jeden člen rodiny je na služobnej ceste alebo na dovolenke – koordinácia na diaľku.
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Dohodnite si kontaktnú osobu mimo ohrozeného regiónu (napr. príbuzní v inom meste). Cez ňu sa rodina navzájom nájde aj keď lokálne siete zlyhajú.</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Dohodnite si kontaktnú osobu mimo ohrozeného regiónu (napr. príbuzní v inom meste). Cez ňu sa rodina navzájom nájde aj keď lokálne siete zlyhajú.</em></div>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
@@ -5170,8 +5182,8 @@
         <form id="scenarioSepForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Rodičia sú v práci, deti v škole/škôlke/krúžkoch. Kto ide pre koho?
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Školy majú vlastné krízové plány \u2013 deti sú v bezpečí. Nepanikárte, ale majte jasné: kto ide kam, v akom poradí, a čo ak primárna osoba nemôže. Dohodnite záložného vyzberača!</em></div>
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Školy majú vlastné krízové plány – deti nevydajú neautorizovaným osobám. Overte vopred, kto je oprávnený vyzdvihnúť vaše dieťa (a zapíšte to aj v škole).</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Školy majú vlastné krízové plány \u2013 deti sú v bezpečí. Nepanikárte, ale majte jasné: kto ide kam, v akom poradí, a čo ak primárna osoba nemôže. Dohodnite záložného vyzberača!</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Školy majú vlastné krízové plány – deti nevydajú neautorizovaným osobám. Overte vopred, kto je oprávnený vyzdvihnúť vaše dieťa (a zapíšte to aj v škole).</em></div>
           </div>
           <div>
             <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.5rem;">Rozdelenie úloh</div>
@@ -5260,7 +5272,7 @@
         <form id="scenarioPartForm" style="display:grid; gap:1rem;">
           <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Jeden z partnerov je doma s deťmi, druhý je v práci. Čo robí každý?
-            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;">💡 <em>Dohodnite si jasné pravidlo: ak sa nedá spojiť do X minút, každý koná podľa plánu a smeruje na miesto stretnutia. Nečakajte na potvrdenie – konajte.</em></div>
+            <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Dohodnite si jasné pravidlo: ak sa nedá spojiť do X minút, každý koná podľa plánu a smeruje na miesto stretnutia. Nečakajte na potvrdenie – konajte.</em></div>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
@@ -5617,7 +5629,7 @@
         { header: "Otvorená zlomenina (kosť prečnieva)" },
         { text: "<strong>Ranu voľne prikryte</strong> čistou tkaninou. S kosťou nemanipulujte – nesnažte sa ju vtlačiť späť." },
         { text: "<strong>Ak silne krváca</strong> – zastavte krvácanie tlakom okolo (nie na) kosť. Volajte 155." },
-        { header: "⚠️ Podozrenie na poranenie chrbtice" },
+        { header: "Podozrenie na poranenie chrbtice" },
         { text: "<strong>Kedy podozrievať:</strong> pád z výšky, dopravná nehoda, skok do vody, priamy úder do chrbta, športový úraz." },
         { text: "<strong>NEHÝBTE osobou</strong> pokiaľ to nie je absolútne nevyhnutné (priame ohrozenie života). Čakajte na záchranárov." },
         { text: "<strong>Ak musíte presunúť:</strong> udržujte hlavu, krk a chrbát v jednej línii. Ideálne viacerí ľudia koordinovane." },
@@ -5771,7 +5783,7 @@
       iconBg: "#fef2f2",
       iconBorder: "#fecaca",
       steps: [
-        { header: "⚠️ BEZPEČNOSŤ NAJPRV" },
+        { header: "BEZPEČNOSŤ NAJPRV" },
         { text: "<strong>Nikdy nepomáhajte pod paľbou.</strong> Vaša smrť neznamenáa viac záchrancov. Počkajte kým je bezpečne, alebo prenášajte zraneného do úkrytu." },
         { text: "<strong>Ak je zranený pri vedomí</strong> – komunikujte: „Som tu, pomôžem ti. Musíš sa presunúť ku mne.” Navigujte ho do bezpečia." },
         { header: "Protokol M.A.R.C.H. (NATO / UA štandard)" },
@@ -5816,7 +5828,7 @@
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-label", item.title + " – zobraziť postup prvej pomoci");
       card.innerHTML = `
-        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder};">
+        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1rem;">
           ${item.emoji}
         </div>
         <div class="fa-card-label">${item.title}</div>`;
@@ -5852,11 +5864,11 @@
       }
 
       if (step.note) {
-        html += `<div class="modal-note-box"><strong>💡</strong> ${step.note}</div>`;
+        html += `<div class="modal-note-box"><span class="tip-indicator"></span> ${step.note}</div>`;
         return;
       }
       if (step.warn) {
-        html += `<div class="modal-warn-box"><strong>⚠️</strong> ${step.warn}</div>`;
+        html += `<div class="modal-warn-box"><span class="warn-indicator"></span> ${step.warn}</div>`;
         return;
       }
       if (step.text) {
@@ -5884,7 +5896,7 @@
     }
     return `<div style="margin-top:1rem; border-top:1px solid var(--c-border); padding-top:0.5rem;">
       <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''">
-        💡 Zdroje <span class="arrow">▼</span>
+        Zdroje <span class="arrow">▼</span>
       </button>
       <div class="source-body">${linksHtml}</div>
     </div>`;
@@ -5902,7 +5914,7 @@
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
-    let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Záchranka: <a href="tel:155">155</a></div>`;
+    let html = `<div class="fa-emergency-bar">Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Záchranka: <a href="tel:155">155</a></div>`;
 
     // Count real steps for quick-view limit
     const QUICK_VIEW_LIMIT = 3;
@@ -5919,16 +5931,16 @@
 
       // Warning/info/source in hidden section
       let extraHtml = '';
-      if (item.warning) extraHtml += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) extraHtml += `<div class="fa-info"><strong>💡 Tip:</strong> ${item.info}</div>`;
+      if (item.warning) extraHtml += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
+      if (item.info) extraHtml += `<div class="fa-info"><strong>Tip:</strong> ${item.info}</div>`;
       extraHtml += renderSourcesCollapsible(item.sources, item.source);
 
       html += `<div id="faExtraContent" style="display:none;">${extraHtml}</div>`;
-      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">⚠️ Dôležité upozornenia a zdroje →</button>`;
+      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Dôležité upozornenia a zdroje →</button>`;
     } else {
       html += allStepsHtml;
-      if (item.warning) html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) html += `<div class="fa-info"><strong>💡 Tip:</strong> ${item.info}</div>`;
+      if (item.warning) html += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
+      if (item.info) html += `<div class="fa-info"><strong>Tip:</strong> ${item.info}</div>`;
       html += renderSourcesCollapsible(item.sources, item.source);
     }
 
@@ -5980,7 +5992,7 @@
       card.className = "ec-card";
       card.title = line.desc;
       card.innerHTML = `
-        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border};">${line.emoji}</div>
+        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border}; font-size:1rem;">${line.emoji}</div>
         <div class="ec-card-label">${line.label}</div>
         <div class="ec-card-number" style="color:${line.color};">${line.number}</div>`;
       linesGrid.appendChild(card);
@@ -5992,11 +6004,11 @@
     instGrid.innerHTML = "";
     
     const instGroups = [
-      { label: "🏥 Zdravie a toxikológia", indices: [0, 1] },
-      { label: "💚 Krízové a psychologické linky", indices: [2, 3, 4] },
-      { label: "🛡️ Civilná ochrana a počasie", indices: [5, 6] },
-      { label: "✚ Humanitárna pomoc", indices: [7] },
-      { label: "⚡ Poruchové linky – energie (24/7)", indices: [8, 9, 10, 11] },
+      { label: "Zdravie a toxikológia", indices: [0, 1] },
+      { label: "Krízové a psychologické linky", indices: [2, 3, 4] },
+      { label: "Civilná ochrana a počasie", indices: [5, 6] },
+      { label: "Humanitárna pomoc", indices: [7] },
+      { label: "Poruchové linky – energie (24/7)", indices: [8, 9, 10, 11] },
     ];
     
     instGroups.forEach(group => {
@@ -6009,12 +6021,12 @@
         const inst = INSTITUTIONS[idx];
         if (!inst) return;
         let actions = "";
-        if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone}</a> `;
-        if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${inst.phone2}</a> `;
-        if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">🔗 Web</a>`;
+        if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone}</a> `;
+        if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone2}</a> `;
+        if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">Web</a>`;
         itemsHtml += `
           <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
-            <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${inst.emoji}</div>
+            <div class="data-icon">${inst.emoji}</div>
             <div style="flex:1; min-width:0;">
               <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
@@ -6110,7 +6122,7 @@
         const phone2Clean = (c.phone2||"").replace(/[^+0-9]/g, "");
         html += `
           <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.75rem 0.875rem; background:var(--c-bg); border-radius:0.875rem; cursor:pointer; transition:background 0.15s;" tabindex="0" role="button" aria-label="${esc(c.name||'')} – ${cat.label}" onclick="openPersonalContactModal(${c._idx})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openPersonalContactModal(${c._idx})}" onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background='var(--c-bg)'">
-            <div style="font-size:1.25rem; flex-shrink:0; margin-top:0.125rem;">${cat.emoji}</div>
+            <div class="data-icon">${cat.emoji}</div>
             <div style="flex:1; min-width:0;">
               <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
                 <span style="font-weight:700; font-size:0.85rem; line-height:1.3;">${esc(c.name||"")}</span>
@@ -6118,12 +6130,12 @@
               </div>
               ${c.note ? `<div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.4;">${esc(c.note)}</div>` : ""}
               <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;" onclick="event.stopPropagation()">
-                <a href="tel:${phoneClean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${esc(c.phone||"")}</a>
-                ${c.phone2 ? `<a href="tel:${phone2Clean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">📞 ${esc(c.phone2)}</a>` : ""}
-                ${c.address ? `<span style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; font-family:'Lexend',sans-serif; white-space:nowrap;">📌 ${esc(c.address)}</span>` : ""}
+                <a href="tel:${phoneClean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone||"")}</a>
+                ${c.phone2 ? `<a href="tel:${phone2Clean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone2)}</a>` : ""}
+                ${c.address ? `<span style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.address)}</span>` : ""}
               </div>
             </div>
-            <div style="color:var(--c-muted); font-size:0.8rem; flex-shrink:0; margin-top:0.25rem;">✏️</div>
+            <div style="color:var(--c-muted); font-size:0.7rem; flex-shrink:0; margin-top:0.25rem; font-weight:500;">Upraviť</div>
           </div>`;
       });
     });
@@ -6137,7 +6149,7 @@
     const isEdit = editIndex >= 0 && editIndex < (state.personalContacts||[]).length;
     const c = isEdit ? state.personalContacts[editIndex] : {};
 
-    document.getElementById("pcModalTitle").textContent = isEdit ? "✏️ Upraviť kontakt" : "👤 Nový kontakt";
+    document.getElementById("pcModalTitle").textContent = isEdit ? "Upraviť kontakt" : "Nový kontakt";
     f.elements["pc_editIndex"].value = editIndex;
     f.elements["pc_name"].value = c.name || "";
     f.elements["pc_phone"].value = c.phone || "";
@@ -6477,7 +6489,7 @@
     if (!state.profile) {
       container.innerHTML = `
         <div style="background:var(--c-bg); border-radius:1rem; padding:1.25rem; text-align:center;">
-          <div style="font-size:2rem; margin-bottom:0.5rem;">🎒</div>
+          
           <div style="font-weight:600; font-size:0.9rem; margin-bottom:0.25rem;">Najprv vyplňte profil domácnosti</div>
           <div style="font-size:0.78rem; color:var(--c-muted);">Batožiny sa vygenerujú podľa počtu a typu členov vašej rodiny.</div>
         </div>`;
@@ -6498,7 +6510,7 @@
     let html = `
       <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
         <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-          <span>💡 Prečo evakuačný batoh a pravidlá</span>
+          <span><span class="tip-indicator"></span>Prečo evakuačný batoh a pravidlá</span>
           <span class="info-collapse-arrow">▼</span>
         </button>
         <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.6;">
@@ -6560,7 +6572,7 @@
     icon.style.background = t.bg;
     icon.style.border = `1.5px solid ${t.border}`;
     icon.textContent = t.emoji;
-    document.getElementById("evacBagModalTitle").textContent = "🎒 " + bag.label;
+    document.getElementById("evacBagModalTitle").textContent = bag.label;
     document.getElementById("evacBagModalSubtitle").textContent = `Max ${t.maxKg} kg · ${t.kcalDay} kcal/deň · ${prog.done}/${prog.total} položiek`;
 
     let html = `
@@ -6854,7 +6866,7 @@
     }
 
     if (siren.note) {
-      html += `<div class="fa-info"><strong>💡 Pozn\u00e1mka:</strong> ${siren.note}</div>`;
+      html += `<div class="fa-info"><strong>Poznámka:</strong> ${siren.note}</div>`;
     }
 
     html += renderSourcesCollapsible(siren.sources, null);
@@ -7682,7 +7694,7 @@
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", item.title + " – zobraziť postup");
         card.innerHTML = `
-          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder};">
+          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1rem;">
             ${item.emoji}
           </div>
           <div class="mu-card-label">${item.title}</div>`;
@@ -7705,13 +7717,13 @@
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
-    let html = `<div class="fa-emergency-bar">📞 Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Hasiči: <a href="tel:150">150</a> &nbsp;|&nbsp; Polícia: <a href="tel:158">158</a></div>`;
+    let html = `<div class="fa-emergency-bar">Tiesňové číslo: <a href="tel:112">112</a> &nbsp;|&nbsp; Hasiči: <a href="tel:150">150</a> &nbsp;|&nbsp; Polícia: <a href="tel:158">158</a></div>`;
 
     const housing = (state.profile && state.profile.housing) || "flat";
     html += renderStepsHTML(item.steps, { housing });
 
     if (item.warning) {
-      html += `<div class="fa-warning"><strong>⚠️ Dôležité:</strong> ${item.warning}</div>`;
+      html += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
     }
 
     html += renderSourcesCollapsible(item.sources, item.source);
@@ -7856,9 +7868,9 @@
     // Title
     const catLabels = { docs: "doklad", cash: "položku", medkit: "položku", food: "položku", water: "položku", hygiene: "položku", gear: "položku" };
     if (isDocs) {
-      document.getElementById("itemModalTitle").textContent = isEdit ? "✏️ Upraviť doklad" : "➕ Pridať doklad";
+      document.getElementById("itemModalTitle").textContent = isEdit ? "Upraviť doklad" : "Pridať doklad";
     } else {
-      document.getElementById("itemModalTitle").textContent = isEdit ? "✏️ Upraviť položku" : "➕ Pridať položku";
+      document.getElementById("itemModalTitle").textContent = isEdit ? "Upraviť položku" : "Pridať položku";
     }
     document.getElementById("btnItemSubmit").textContent = isEdit ? "Uložiť" : "Pridať";
 
@@ -7956,7 +7968,7 @@
     scheduleSave(); renderAll();
 
     // Show undo toast
-    showUndoToast(`🗑️ ${esc(deletedItem.name)} odstránené`, () => {
+    showUndoToast(`${esc(deletedItem.name)} odstránené`, () => {
       state.items[deletedCatId].splice(deletedIdx, 0, deletedItem);
     });
   }
