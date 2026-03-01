@@ -463,7 +463,13 @@
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
       box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      scrollbar-width: thin;
+      scrollbar-color: var(--c-border) transparent;
     }
+    .modal-box::-webkit-scrollbar { width: 6px; }
+    .modal-box::-webkit-scrollbar-track { background: transparent; margin: 1.5rem 0; }
+    .modal-box::-webkit-scrollbar-thumb { background: var(--c-border); border-radius: 3px; }
+    .modal-box::-webkit-scrollbar-thumb:hover { background: var(--c-muted); }
 
     input[type="text"], input[type="number"], input[type="date"], input[type="url"], select, textarea {
       width: 100%;
@@ -1294,16 +1300,15 @@
     ═══════════════════════════════════════════ */
     .ec-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 0.625rem;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
     }
     .ec-card {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 1rem 0.625rem;
-      border-radius: 1rem;
+      align-items: flex-start;
+      padding: 0.75rem 0.875rem;
+      border-radius: 0.875rem;
       background: var(--c-surface);
       border: 1.5px solid var(--c-border);
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -1313,29 +1318,22 @@
       cursor: pointer;
     }
     .ec-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.10);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
     }
     .ec-card:active { transform: translateY(-1px); }
-    .ec-icon {
-      width: 48px; height: 48px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.375rem;
-      margin-bottom: 0.5rem;
-      flex-shrink: 0;
+    .ec-card-number {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
     .ec-card-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--c-text);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--c-muted);
       line-height: 1.3;
-    }
-    .ec-card-number {
-      font-size: 1rem;
-      font-weight: 800;
-      margin-top: 0.2rem;
-      letter-spacing: -0.01em;
+      margin-top: 0.125rem;
     }
 
     /* Sirény - vizualizácia */
@@ -1419,11 +1417,10 @@
     }
 
     @media (max-width: 640px) {
-      .ec-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-      .ec-icon { width: 40px; height: 40px; font-size: 1.125rem; }
-      .ec-card { padding: 0.75rem 0.375rem; }
-      .ec-card-label { font-size: 0.65rem; }
-      .ec-card-number { font-size: 0.85rem; }
+      .ec-grid { grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
+      .ec-card { padding: 0.625rem 0.75rem; }
+      .ec-card-label { font-size: 0.6rem; }
+      .ec-card-number { font-size: 1rem; }
       .mu-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
       .mu-icon { width: 44px; height: 44px; font-size: 1.25rem; }
       .mu-card { padding: 0.75rem 0.375rem; }
@@ -1935,25 +1932,25 @@
         <div class="persons-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dospelí (13–64)</label>
-            <input name="adults" type="number" min="0" value="0"
+            <input name="adults" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
               onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Deti (1–12)</label>
-            <input name="kids" type="number" min="0" value="0"
+            <input name="kids" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
               onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dojčatá (0–1)</label>
-            <input name="infants" type="number" min="0" value="0"
+            <input name="infants" type="number" min="0" max="10" value="0"
               onfocus="if(this.value==='0')this.value=''"
               onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Seniori (65+)</label>
-            <input name="seniors" type="number" min="0" value="0"
+            <input name="seniors" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
               onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
           </div>
@@ -2115,7 +2112,7 @@
         <div class="delete-confirm" id="deleteConfirm">
           <p><strong>Pozor:</strong> Táto akcia natrvalo vymaže všetky vaše dáta vrátane profilu, zásob, plánov, kontaktov a nastavení. Dáta nie je možné obnoviť.</p>
           <p>Pre potvrdenie napíšte <strong>VYMAZAŤ</strong> do poľa nižšie:</p>
-          <input type="text" class="delete-confirm-input" id="deleteConfirmInput" placeholder="Napíšte VYMAZAŤ" oninput="checkDeleteConfirmation(this)" autocomplete="off" />
+          <input type="text" class="delete-confirm-input" id="deleteConfirmInput" placeholder="Napíšte VYMAZAŤ" maxlength="20" oninput="checkDeleteConfirmation(this)" autocomplete="off" />
           <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; color:#991b1b; margin-bottom:0.75rem; cursor:pointer;">
             <input type="checkbox" id="deleteAccountCheckbox" style="accent-color:#dc2626;" />
             Vymazať aj Google prihlásenie z tejto aplikácie (zruší prístup)
@@ -2142,7 +2139,7 @@
       <div id="modalCatHeader" style="flex:1; min-width:0;"></div>
       <button data-close="modalCategory" class="modal-close">✕</button>
     </div>
-    <div id="categoryDetail" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+    <div id="categoryDetail"></div>
     <div style="display:flex; align-items:center; justify-content:space-between; padding-top:1rem; margin-top:0.5rem; border-top:1px solid var(--c-border);">
       <span id="modalCatProgress" style="font-size:0.8rem; color:var(--c-muted);"></span>
       <button class="btn-primary" id="btnAddItem" style="display:flex; align-items:center; gap:0.5rem;">
@@ -2163,12 +2160,12 @@
       <input type="hidden" name="editIndex" value="-1" />
       <div>
         <label id="itemLabelName" class="item-label-light">Názov *</label>
-        <input name="name" type="text" required />
+        <input name="name" type="text" required maxlength="100" />
       </div>
       <div id="itemFieldQtyRow" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div id="itemFieldQty">
           <label id="itemLabelQty" class="item-label-light">Množstvo</label>
-          <input name="qty" type="text" placeholder="napr. 5 ks" />
+          <input name="qty" type="text" placeholder="napr. 5 ks" maxlength="50" />
         </div>
         <div id="itemFieldExpiry">
           <label class="item-label-light">Expirácia</label>
@@ -2177,11 +2174,11 @@
       </div>
       <div id="itemFieldDocs" style="display:none;">
         <label class="item-label-light">Typ uloženia</label>
-        <input name="qty_docs" type="text" placeholder="napr. Originál + scan Cloud + USB kľúč" />
+        <input name="qty_docs" type="text" placeholder="napr. Originál + scan Cloud + USB kľúč" maxlength="200" />
       </div>
       <div id="itemFieldLink">
         <label class="item-label-light">Odkaz (URL)</label>
-        <input name="link" type="url" placeholder="https://..." />
+        <input name="link" type="url" placeholder="https://..." maxlength="500" />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
         <button type="submit" id="btnItemSubmit" class="btn-primary" style="padding:0.75rem 2rem;">Pridať</button>
@@ -2216,16 +2213,16 @@
       <input type="hidden" name="fe_entryIdx" />
       <div>
         <label class="item-label-light">Názov *</label>
-        <input name="fe_name" type="text" required />
+        <input name="fe_name" type="text" required maxlength="100" />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
           <label class="item-label-light">kcal / kus *</label>
-          <input name="fe_kcal" type="number" min="0" required />
+          <input name="fe_kcal" type="number" min="0" max="99999" required />
         </div>
         <div>
           <label class="item-label-light">Počet</label>
-          <input name="fe_qty" type="number" min="1" value="1" />
+          <input name="fe_qty" type="number" min="1" max="999" value="1" />
         </div>
       </div>
       <div>
@@ -2252,16 +2249,16 @@
       <input type="hidden" name="we_entryIdx" />
       <div>
         <label class="item-label-light">Názov *</label>
-        <input name="we_name" type="text" required />
+        <input name="we_name" type="text" required maxlength="100" />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
           <label class="item-label-light">Litrov / kus *</label>
-          <input name="we_liters" type="number" min="0" step="0.1" required />
+          <input name="we_liters" type="number" min="0" max="9999" step="0.1" required />
         </div>
         <div>
           <label class="item-label-light">Počet</label>
-          <input name="we_qty" type="number" min="1" value="1" />
+          <input name="we_qty" type="number" min="1" max="999" value="1" />
         </div>
       </div>
       <div>
@@ -2291,17 +2288,17 @@
           <label class="item-label-light">Typ</label>
           <select name="ce_type" style="font-size:0.9rem; padding:0.625rem 0.875rem;">
             <option value="bankovka">Bankovka</option>
-            <option value="minca">🪙 Minca</option>
+            <option value="minca">Minca</option>
           </select>
         </div>
         <div>
           <label class="item-label-light">Hodnota (€) *</label>
-          <input name="ce_value" type="number" min="0" step="0.01" required />
+          <input name="ce_value" type="number" min="0" max="99999" step="0.01" required />
         </div>
       </div>
       <div>
         <label class="item-label-light">Počet kusov</label>
-        <input name="ce_qty" type="number" min="1" value="1" />
+        <input name="ce_qty" type="number" min="1" max="999" value="1" />
       </div>
       <div style="display:flex; justify-content:flex-end; padding-top:0.5rem;">
         <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -2333,7 +2330,7 @@
       </div>
       <button data-close="modalEmergencyProc" class="modal-close">✕</button>
     </div>
-    <div id="muModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+    <div id="muModalContent"></div>
   </div>
 </div>
 
@@ -2344,7 +2341,7 @@
       <h3 id="sirenModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
       <button data-close="modalSiren" class="modal-close">✕</button>
     </div>
-    <div id="sirenModalContent" style="max-height:65vh; overflow-y:auto;"></div>
+    <div id="sirenModalContent"></div>
   </div>
 </div>
 
@@ -2365,7 +2362,7 @@
       </div>
       <button data-close="modalEvacBag" class="modal-close">✕</button>
     </div>
-    <div id="evacBagModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+    <div id="evacBagModalContent"></div>
   </div>
 </div>
 
@@ -2384,29 +2381,29 @@
       <div>
         <label class="item-label">Typ kontaktu *</label>
         <div id="pcCategoryPicker" style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-bottom:0.5rem;"></div>
-        <input name="pc_customType" type="text" id="pcCustomTypeInput" placeholder="Vlastný typ (napr. Susedka Mária)" style="display:none;" />
+        <input name="pc_customType" type="text" id="pcCustomTypeInput" placeholder="Vlastný typ (napr. Susedka Mária)" style="display:none;" maxlength="50" />
       </div>
       <div>
         <label class="item-label">Meno / Názov *</label>
-        <input name="pc_name" type="text" required placeholder="napr. MUDr. Kováč, Allianz, Matka..." />
+        <input name="pc_name" type="text" required placeholder="napr. MUDr. Kováč, Allianz, Matka..." maxlength="100" />
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
         <div>
           <label class="item-label">Telefón *</label>
-          <input name="pc_phone" type="tel" required placeholder="+421..." />
+          <input name="pc_phone" type="tel" required placeholder="+421..." maxlength="25" />
         </div>
         <div>
           <label class="item-label">Telefón 2 (záložný)</label>
-          <input name="pc_phone2" type="tel" placeholder="" />
+          <input name="pc_phone2" type="tel" placeholder="" maxlength="25" />
         </div>
       </div>
       <div>
         <label class="item-label">Adresa</label>
-        <input name="pc_address" type="text" placeholder="napr. Hlavná 15, Bratislava" />
+        <input name="pc_address" type="text" placeholder="napr. Hlavná 15, Bratislava" maxlength="200" />
       </div>
       <div>
         <label class="item-label">Poznámka</label>
-        <input name="pc_note" type="text" placeholder="napr. Ordinačné hodiny, číslo zmluvy..." />
+        <input name="pc_note" type="text" placeholder="napr. Ordinačné hodiny, číslo zmluvy..." maxlength="300" />
       </div>
       <div style="display:flex; justify-content:flex-end; gap:0.5rem;">
         <button type="button" id="btnDeletePC" class="btn-ghost" style="padding:0.625rem 1.25rem; color:#dc2626; display:none;">Odstrániť</button>
@@ -2432,15 +2429,15 @@
         <div style="display:grid; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Názov miesta *</label>
-            <input name="mp_name" type="text" placeholder="napr. Hodiny na námestí, Kostol sv. Martina..." required />
+            <input name="mp_name" type="text" placeholder="napr. Hodiny na námestí, Kostol sv. Martina..." required maxlength="100" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Adresa / popis polohy</label>
-            <input name="mp_address" type="text" placeholder="napr. Hlavné námestie 1, pri fontáne" />
+            <input name="mp_address" type="text" placeholder="napr. Hlavné námestie 1, pri fontáne" maxlength="200" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Poznámka</label>
-            <input name="mp_note" type="text" placeholder="napr. Vchod od parkoviska, pri lavičkách" />
+            <input name="mp_note" type="text" placeholder="napr. Vchod od parkoviska, pri lavičkách" maxlength="300" />
           </div>
         </div>
       </div>
@@ -2461,11 +2458,11 @@
         <div style="display:grid; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Názov záložného miesta</label>
-            <input name="mp_backup_name" type="text" placeholder="napr. Dom starej mamy, škola..." />
+            <input name="mp_backup_name" type="text" placeholder="napr. Dom starej mamy, škola..." maxlength="100" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Adresa</label>
-            <input name="mp_backup_address" type="text" placeholder="" />
+            <input name="mp_backup_address" type="text" placeholder="" maxlength="200" />
           </div>
         </div>
       </div>
@@ -2502,7 +2499,7 @@
       </div>
       <button data-close="modalFirstAid" class="modal-close">✕</button>
     </div>
-    <div id="faModalContent" style="max-height:65vh; overflow-y:auto; padding-right:0.25rem;"></div>
+    <div id="faModalContent"></div>
   </div>
 </div>
 
@@ -3121,6 +3118,18 @@
       return;
     }
     if (!currentUser) return;
+    // Per-array item count limits (defense-in-depth for Firestore rules)
+    if (state.personalContacts && state.personalContacts.length > 50) state.personalContacts = state.personalContacts.slice(0, 50);
+    if (state.items) {
+      Object.keys(state.items).forEach(k => {
+        if (Array.isArray(state.items[k]) && state.items[k].length > 200) state.items[k] = state.items[k].slice(0, 200);
+        state.items[k]?.forEach(item => {
+          if (item.waterEntries && item.waterEntries.length > 100) item.waterEntries = item.waterEntries.slice(0, 100);
+          if (item.foodEntries && item.foodEntries.length > 100) item.foodEntries = item.foodEntries.slice(0, 100);
+          if (item.cashEntries && item.cashEntries.length > 100) item.cashEntries = item.cashEntries.slice(0, 100);
+        });
+      });
+    }
     // Ochrana pred príliš veľkým dokumentom (Firestore limit 1 MB)
     try {
       const stateSize = new Blob([JSON.stringify(state)]).size;
@@ -3503,6 +3512,10 @@
   function esc(s) {
     return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
   }
+
+  // Input validation helpers (defense-in-depth: maxlength can be bypassed)
+  function clampStr(v, max) { return String(v||"").trim().slice(0, max); }
+  function clampNum(v, min, max) { return Math.min(max, Math.max(min, Number(v)||0)); }
 
   function daysUntil(d) {
     const ms = new Date(d + "T00:00:00") - new Date();
@@ -4026,12 +4039,10 @@
       card.className = "cat-card" + (isSel ? " selected" : "");
       card.style.cssText = `background:${cardBg}; border-color:${cardBorder}; box-shadow:${cardShadow};`;
       card.innerHTML = `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-          <div class="cat-dot" style="background:${c.color || 'var(--c-muted)'}"></div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.75rem;">
+          <div style="font-weight:700; font-size:0.9375rem; color:var(--c-text);">${c.name}</div>
           <span style="font-size:1.125rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
         </div>
-        <div style="font-weight:700; font-size:0.9375rem; margin-bottom:0.2rem; color:var(--c-text);">${c.name}</div>
-        <div style="font-size:0.72rem; color:${pct === 0 ? 'var(--c-muted)' : col}; margin-bottom:0.625rem; font-weight:500;">splnené na ${Math.round(pct)}%</div>
         <div class="progress-bar" style="height:6px;">
           <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${col};"></div>
         </div>`;
@@ -4077,7 +4088,6 @@
     if (modalHeader) {
       modalHeader.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.875rem;">
-          <div class="cat-dot" style="width:12px; height:12px; background:${cat.color || 'var(--c-muted)'}"></div>
           <div>
             <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
             <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
@@ -4287,15 +4297,15 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #93c5fd;">
               <div style="font-size:0.75rem; font-weight:600; color:#1e40af; margin-bottom:0.5rem;">+ Pridať vodu</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
+                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required maxlength="100" />
                 <div class="tracker-form-grid">
                   <div>
                     <label class="item-sublabel">Litrov / kus *</label>
-                    <input type="number" min="0" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="number" min="0" max="9999" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                   <div>
                     <label class="item-sublabel">Počet</label>
-                    <input type="number" min="1" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
+                    <input type="number" min="1" max="999" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
                   </div>
                   <div class="tracker-form-full">
                     <label class="item-sublabel">Expirácia *</label>
@@ -4326,16 +4336,16 @@
               const litersInp = document.getElementById(`we_liters_${idx}`);
               const qtyInp = document.getElementById(`we_qty_${idx}`);
               const expInp = document.getElementById(`we_exp_${idx}`);
-              const eName = (nameInp.value||"").trim();
-              const eLiters = Number(litersInp.value)||0;
-              const eExpiry = (expInp.value||"").trim();
+              const eName = clampStr(nameInp.value, 100);
+              const eLiters = clampNum(litersInp.value, 0, 9999);
+              const eExpiry = clampStr(expInp.value, 20);
               if (!eName || !eLiters || !eExpiry) { showValidation("Vyplňte všetky povinné polia: názov, litrov a expiráciu."); return; }
               if (!state.items[catId][idx].waterEntries) state.items[catId][idx].waterEntries = [];
               state.items[catId][idx].waterEntries.push({
                 name: eName,
                 liters: eLiters,
-                qty: Number(qtyInp.value)||1,
-                expiry: expInp.value||""
+                qty: clampNum(qtyInp.value, 1, 999),
+                expiry: eExpiry
               });
               scheduleSave(); renderAll();
             };
@@ -4475,15 +4485,15 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #fbbf24;">
               <div style="font-size:0.75rem; font-weight:600; color:#92400e; margin-bottom:0.5rem;">+ Pridať jedlo</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required />
+                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required maxlength="100" />
                 <div class="tracker-form-grid">
                   <div>
                     <label class="item-sublabel">kcal / kus *</label>
-                    <input type="number" min="0" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="number" min="0" max="99999" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                   <div>
                     <label class="item-sublabel">Počet</label>
-                    <input type="number" min="1" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
+                    <input type="number" min="1" max="999" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
                   </div>
                   <div class="tracker-form-full">
                     <label class="item-sublabel">Expirácia *</label>
@@ -4514,16 +4524,16 @@
               const kcalInp = document.getElementById(`fe_kcal_${idx}`);
               const qtyInp = document.getElementById(`fe_qty_${idx}`);
               const expInp = document.getElementById(`fe_exp_${idx}`);
-              const eName = (nameInp.value||"").trim();
-              const eKcal = Number(kcalInp.value)||0;
-              const eExpiry = (expInp.value||"").trim();
+              const eName = clampStr(nameInp.value, 100);
+              const eKcal = clampNum(kcalInp.value, 0, 99999);
+              const eExpiry = clampStr(expInp.value, 20);
               if (!eName || !eKcal || !eExpiry) { showValidation("Vyplňte všetky povinné polia: názov, kalórie a expiráciu."); return; }
               if (!state.items[catId][idx].foodEntries) state.items[catId][idx].foodEntries = [];
               state.items[catId][idx].foodEntries.push({
                 name: eName,
                 kcal: eKcal,
-                qty: Number(qtyInp.value)||1,
-                expiry: expInp.value||""
+                qty: clampNum(qtyInp.value, 1, 999),
+                expiry: eExpiry
               });
               scheduleSave(); renderAll();
             };
@@ -4642,7 +4652,7 @@
                     <label class="item-sublabel">Typ</label>
                     <select id="ce_type_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
                       <option value="bankovka">Bankovka</option>
-                      <option value="minca">🪙 Minca</option>
+                      <option value="minca">Minca</option>
                     </select>
                   </div>
                   <div>
@@ -4671,7 +4681,7 @@
                 </div>
                 <div>
                   <label class="item-sublabel">Počet kusov</label>
-                  <input type="number" min="1" value="1" id="ce_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  <input type="number" min="1" max="999" value="1" id="ce_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
                 </div>
                 <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="ce_add_${idx}">Pridať do zásob</button>
               </div>
@@ -4904,7 +4914,7 @@
       card.className = "scenario-row" + (filled ? " done" : "");
 
       card.innerHTML = `
-        <div class="sc-icon" style="font-size:0; border-color:${def.border};"><div class="cat-dot" style="background:${def.color};"></div></div>
+        <div class="sc-icon" style="font-size:0; border-color:${filled ? 'var(--c-success-border)' : '#fecaca'};"><div class="cat-dot" style="background:${filled ? '#22c55e' : '#ef4444'};"></div></div>
         <div class="sc-title">${def.title}</div>
         <span class="sc-status ${filled ? 'done' : 'todo'}">${filled ? '✓ Hotovo' : 'Nastaviť →'}</span>`;
       card.onclick = () => openScenarioModal(def.id);
@@ -5001,13 +5011,13 @@
     e.preventDefault();
     const fd = new FormData(e.target);
     state.plans.meetingPoint = {
-      name: String(fd.get("mp_name")||"").trim(),
-      address: String(fd.get("mp_address")||"").trim(),
-      note: String(fd.get("mp_note")||"").trim(),
+      name: clampStr(fd.get("mp_name"), 100),
+      address: clampStr(fd.get("mp_address"), 200),
+      note: clampStr(fd.get("mp_note"), 300),
       times: [...tempMeetingTimes],
       backup: {
-        name: String(fd.get("mp_backup_name")||"").trim(),
-        address: String(fd.get("mp_backup_address")||"").trim()
+        name: clampStr(fd.get("mp_backup_name"), 100),
+        address: clampStr(fd.get("mp_backup_address"), 200)
       }
     };
     closeModal("modalMeetingPoint");
@@ -5031,15 +5041,15 @@
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
-            <textarea name="steps" rows="8" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
+            <textarea name="steps" rows="8" maxlength="2000" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Kam evakuujete? (ak treba opustiť dom)</label>
-            <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. K starým rodičom, na chatu, na miesto stretnutia..." />
+            <input name="evacPlace" type="text" maxlength="200" value="${esc(s.evacPlace||"")}" placeholder="napr. K starým rodičom, na chatu, na miesto stretnutia..." />
           </div>
           <div>
             <label class="item-label">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kto vezme mačku, kto uzamkne dom, kde sú kľúče..." />
+            <input name="note" type="text" maxlength="300" value="${esc(s.note||"")}" placeholder="napr. Kto vezme mačku, kto uzamkne dom, kde sú kľúče..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -5049,9 +5059,9 @@
         e.preventDefault();
         const fd = new FormData(e.target);
         state.plans.scenarios.home = {
-          steps: String(fd.get("steps")||"").trim(),
-          evacPlace: String(fd.get("evacPlace")||"").trim(),
-          note: String(fd.get("note")||"").trim()
+          steps: clampStr(fd.get("steps"), 2000),
+          evacPlace: clampStr(fd.get("evacPlace"), 200),
+          note: clampStr(fd.get("note"), 300)
         };
         closeModal("modalScenario");
         scheduleSave(); renderPlans();
@@ -5067,15 +5077,15 @@
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
-            <textarea name="steps" rows="7" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
+            <textarea name="steps" rows="7" maxlength="2000" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Kam evakuujete v noci?</label>
-            <input name="evacPlace" type="text" value="${esc(s.evacPlace||"")}" placeholder="napr. Rovnaké miesto ako cez deň, alebo najbližší úkryt..." />
+            <input name="evacPlace" type="text" maxlength="200" value="${esc(s.evacPlace||"")}" placeholder="napr. Rovnaké miesto ako cez deň, alebo najbližší úkryt..." />
           </div>
           <div>
             <label class="item-label">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Čelovka v nočnom stolíku, topánky pod posteľou..." />
+            <input name="note" type="text" maxlength="300" value="${esc(s.note||"")}" placeholder="napr. Čelovka v nočnom stolíku, topánky pod posteľou..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -5085,9 +5095,9 @@
         e.preventDefault();
         const fd = new FormData(e.target);
         state.plans.scenarios.night = {
-          steps: String(fd.get("steps")||"").trim(),
-          evacPlace: String(fd.get("evacPlace")||"").trim(),
-          note: String(fd.get("note")||"").trim()
+          steps: clampStr(fd.get("steps"), 2000),
+          evacPlace: clampStr(fd.get("evacPlace"), 200),
+          note: clampStr(fd.get("note"), 300)
         };
         closeModal("modalScenario");
         scheduleSave(); renderPlans();
@@ -5104,28 +5114,28 @@
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
               <label class="item-label">Kto cestuje?</label>
-              <input name="whoTravels" type="text" value="${esc(s.whoTravels||"")}" placeholder="napr. Ocko, Mama..." />
+              <input name="whoTravels" type="text" maxlength="100" value="${esc(s.whoTravels||"")}" placeholder="napr. Ocko, Mama..." />
             </div>
             <div>
               <label class="item-label">Kontaktná osoba mimo regiónu</label>
-              <input name="contactPerson" type="text" value="${esc(s.contactPerson||"")}" placeholder="napr. Strýko Jano v Prahe" />
+              <input name="contactPerson" type="text" maxlength="100" value="${esc(s.contactPerson||"")}" placeholder="napr. Strýko Jano v Prahe" />
             </div>
           </div>
           <div>
             <label class="item-label">Telefón kontaktnej osoby</label>
-            <input name="contactPhone" type="text" value="${esc(s.contactPhone||"")}" placeholder="napr. +421 9XX XXX XXX" />
+            <input name="contactPhone" type="text" maxlength="25" value="${esc(s.contactPhone||"")}" placeholder="napr. +421 9XX XXX XXX" />
           </div>
           <div>
             <label class="item-label">Čo robí rodina doma?</label>
-            <textarea name="stepsHome" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
+            <textarea name="stepsHome" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Čo robí ten, kto je preč?</label>
-            <textarea name="stepsAway" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
+            <textarea name="stepsAway" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Číslo ambasády, poistenie na cestu..." />
+            <input name="note" type="text" maxlength="300" value="${esc(s.note||"")}" placeholder="napr. Číslo ambasády, poistenie na cestu..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -5135,12 +5145,12 @@
         e.preventDefault();
         const fd = new FormData(e.target);
         state.plans.scenarios.travel = {
-          whoTravels: String(fd.get("whoTravels")||"").trim(),
-          contactPerson: String(fd.get("contactPerson")||"").trim(),
-          contactPhone: String(fd.get("contactPhone")||"").trim(),
-          stepsHome: String(fd.get("stepsHome")||"").trim(),
-          stepsAway: String(fd.get("stepsAway")||"").trim(),
-          note: String(fd.get("note")||"").trim()
+          whoTravels: clampStr(fd.get("whoTravels"), 100),
+          contactPerson: clampStr(fd.get("contactPerson"), 100),
+          contactPhone: clampStr(fd.get("contactPhone"), 25),
+          stepsHome: clampStr(fd.get("stepsHome"), 1000),
+          stepsAway: clampStr(fd.get("stepsAway"), 1000),
+          note: clampStr(fd.get("note"), 300)
         };
         closeModal("modalScenario");
         scheduleSave(); renderPlans();
@@ -5160,19 +5170,19 @@
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
               <div>
                 <label class="item-sublabel">Kto ide?</label>
-                <input name="task_person_${i}" type="text" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" />
+                <input name="task_person_${i}" type="text" maxlength="100" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Vyzdvihne koho?</label>
-                <input name="task_picksUp_${i}" type="text" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" />
+                <input name="task_picksUp_${i}" type="text" maxlength="100" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Odkiaľ?</label>
-                <input name="task_from_${i}" type="text" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" />
+                <input name="task_from_${i}" type="text" maxlength="100" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Poznámka</label>
-                <input name="task_note_${i}" type="text" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.85rem;" />
+                <input name="task_note_${i}" type="text" maxlength="200" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.85rem;" />
               </div>
             </div>
           </div>`;
@@ -5193,16 +5203,16 @@
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
               <label class="item-label">Kde sa všetci stretnete?</label>
-              <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
+              <input name="meetPlace" type="text" maxlength="200" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
             </div>
             <div>
               <label class="item-label">O koľkej najneskôr?</label>
-              <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, o 15:00..." />
+              <input name="meetTime" type="text" maxlength="20" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, o 15:00..." />
             </div>
           </div>
           <div>
             <label class="item-label">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Ak sa nedá vyzdvihnúť do 1h, volať babku..." />
+            <input name="note" type="text" maxlength="300" value="${esc(s.note||"")}" placeholder="napr. Ak sa nedá vyzdvihnúť do 1h, volať babku..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -5223,10 +5233,10 @@
             <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-            <div><label class="item-sublabel">Kto ide?</label><input name="task_person_${i}" type="text" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Odkiaľ?</label><input name="task_from_${i}" type="text" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Poznámka</label><input name="task_note_${i}" type="text" placeholder="" style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Kto ide?</label><input name="task_person_${i}" type="text" maxlength="100" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" maxlength="100" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Odkiaľ?</label><input name="task_from_${i}" type="text" maxlength="100" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Poznámka</label><input name="task_note_${i}" type="text" maxlength="200" placeholder="" style="font-size:0.85rem;" /></div>
           </div>`;
         tasksList.appendChild(row);
         bindRemoveButtons();
@@ -5248,19 +5258,19 @@
           const inputs = row.querySelectorAll("input");
           if (inputs.length >= 2) {
             const task = {
-              person: (inputs[0]?.value||"").trim(),
-              picksUp: (inputs[1]?.value||"").trim(),
-              from: (inputs[2]?.value||"").trim(),
-              note: (inputs[3]?.value||"").trim()
+              person: clampStr(inputs[0]?.value, 100),
+              picksUp: clampStr(inputs[1]?.value, 100),
+              from: clampStr(inputs[2]?.value, 100),
+              note: clampStr(inputs[3]?.value, 200)
             };
             if (task.person || task.picksUp) newTasks.push(task);
           }
         });
         state.plans.scenarios.separated = {
           tasks: newTasks,
-          meetPlace: String(fd.get("meetPlace")||"").trim(),
-          meetTime: String(fd.get("meetTime")||"").trim(),
-          note: String(fd.get("note")||"").trim()
+          meetPlace: clampStr(fd.get("meetPlace"), 200),
+          meetTime: clampStr(fd.get("meetTime"), 20),
+          note: clampStr(fd.get("note"), 300)
         };
         closeModal("modalScenario");
         scheduleSave(); renderPlans();
@@ -5277,34 +5287,34 @@
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
               <label class="item-label">Kto je doma?</label>
-              <input name="whoHome" type="text" value="${esc(s.whoHome||"")}" placeholder="napr. Mama, Mišo..." />
+              <input name="whoHome" type="text" maxlength="100" value="${esc(s.whoHome||"")}" placeholder="napr. Mama, Mišo..." />
             </div>
             <div>
               <label class="item-label">Kto je v práci?</label>
-              <input name="whoWork" type="text" value="${esc(s.whoWork||"")}" placeholder="napr. Ocko, Katka..." />
+              <input name="whoWork" type="text" maxlength="100" value="${esc(s.whoWork||"")}" placeholder="napr. Ocko, Katka..." />
             </div>
           </div>
           <div>
             <label class="item-label">Čo robí ten doma?</label>
-            <textarea name="homeSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
+            <textarea name="homeSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Čo robí ten v práci?</label>
-            <textarea name="workSteps" rows="3" style="line-height:1.6; font-size:0.85rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
+            <textarea name="workSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
               <label class="item-label">Kde sa stretnete?</label>
-              <input name="meetPlace" type="text" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
+              <input name="meetPlace" type="text" maxlength="200" value="${esc(s.meetPlace||"")}" placeholder="napr. Doma, alebo miesto stretnutia" />
             </div>
             <div>
               <label class="item-label">O koľkej najneskôr?</label>
-              <input name="meetTime" type="text" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, ASAP..." />
+              <input name="meetTime" type="text" maxlength="20" value="${esc(s.meetTime||"")}" placeholder="napr. Do 2 hodín, ASAP..." />
             </div>
           </div>
           <div>
             <label class="item-label">Poznámka</label>
-            <input name="note" type="text" value="${esc(s.note||"")}" placeholder="napr. Kľúče od auta – v šuflíku v chodbe..." />
+            <input name="note" type="text" maxlength="300" value="${esc(s.note||"")}" placeholder="napr. Kľúče od auta – v šuflíku v chodbe..." />
           </div>
           <div style="display:flex; justify-content:flex-end;">
             <button type="submit" class="btn-primary" style="padding:0.75rem 2rem;">Uložiť</button>
@@ -5314,13 +5324,13 @@
         e.preventDefault();
         const fd = new FormData(e.target);
         state.plans.scenarios.partial = {
-          whoHome: String(fd.get("whoHome")||"").trim(),
-          whoWork: String(fd.get("whoWork")||"").trim(),
-          homeSteps: String(fd.get("homeSteps")||"").trim(),
-          workSteps: String(fd.get("workSteps")||"").trim(),
-          meetPlace: String(fd.get("meetPlace")||"").trim(),
-          meetTime: String(fd.get("meetTime")||"").trim(),
-          note: String(fd.get("note")||"").trim()
+          whoHome: clampStr(fd.get("whoHome"), 100),
+          whoWork: clampStr(fd.get("whoWork"), 100),
+          homeSteps: clampStr(fd.get("homeSteps"), 1000),
+          workSteps: clampStr(fd.get("workSteps"), 1000),
+          meetPlace: clampStr(fd.get("meetPlace"), 200),
+          meetTime: clampStr(fd.get("meetTime"), 20),
+          note: clampStr(fd.get("note"), 300)
         };
         closeModal("modalScenario");
         scheduleSave(); renderPlans();
@@ -5828,8 +5838,8 @@
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-label", item.title + " – zobraziť postup prvej pomoci");
       card.innerHTML = `
-        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:0.8rem; font-weight:700; color:var(--c-muted);">
-          ${item.title.charAt(0)}
+        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.125rem;">
+          ${item.emoji}
         </div>
         <div class="fa-card-label">${item.title}</div>`;
       card.onclick = () => openFirstAidModal(item);
@@ -5910,10 +5920,7 @@
 
     icon.style.background = item.iconBg;
     icon.style.border = `1.5px solid ${item.iconBorder}`;
-    icon.textContent = item.title.charAt(0);
-    icon.style.fontSize = "1rem";
-    icon.style.fontWeight = "700";
-    icon.style.color = "var(--c-muted)";
+    icon.textContent = item.emoji;
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
@@ -5995,9 +6002,8 @@
       card.className = "ec-card";
       card.title = line.desc;
       card.innerHTML = `
-        <div class="ec-icon" style="background:${line.bg}; border:1.5px solid ${line.border}; font-size:0.7rem; font-weight:800; color:${line.color}; font-family:'Lexend',sans-serif; letter-spacing:-0.02em;">${line.number.replace(/\s/g,"")}</div>
-        <div class="ec-card-label">${line.label}</div>
-        <div class="ec-card-number" style="color:${line.color};">${line.number}</div>`;
+        <div class="ec-card-number" style="color:${line.color};">${line.number}</div>
+        <div class="ec-card-label">${line.label}</div>`;
       linesGrid.appendChild(card);
     });
 
@@ -6028,13 +6034,10 @@
         if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone2}</a> `;
         if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">Web</a>`;
         itemsHtml += `
-          <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
-            <div class="data-icon" style="font-weight:700; font-size:0.75rem; color:var(--c-muted);">${inst.name.charAt(0)}</div>
-            <div style="flex:1; min-width:0;">
-              <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
-              <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
-              <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
-            </div>
+          <div style="padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
+            <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
           </div>`;
       });
       
@@ -6200,12 +6203,12 @@
     const idx = parseInt(fd.get("pc_editIndex"));
     const contact = {
       categoryId: pcSelectedCategoryId,
-      customType: pcSelectedCategoryId === "other" ? String(fd.get("pc_customType")||"").trim() : "",
-      name: String(fd.get("pc_name")||"").trim(),
-      phone: String(fd.get("pc_phone")||"").trim(),
-      phone2: String(fd.get("pc_phone2")||"").trim(),
-      address: String(fd.get("pc_address")||"").trim(),
-      note: String(fd.get("pc_note")||"").trim()
+      customType: pcSelectedCategoryId === "other" ? clampStr(fd.get("pc_customType"), 50) : "",
+      name: clampStr(fd.get("pc_name"), 100),
+      phone: clampStr(fd.get("pc_phone"), 25),
+      phone2: clampStr(fd.get("pc_phone2"), 25),
+      address: clampStr(fd.get("pc_address"), 200),
+      note: clampStr(fd.get("pc_note"), 300)
     };
     if (!state.personalContacts) state.personalContacts = [];
     if (idx >= 0 && idx < state.personalContacts.length) {
@@ -7700,8 +7703,8 @@
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", item.title + " – zobraziť postup");
         card.innerHTML = `
-          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:0.8rem; font-weight:700; color:var(--c-muted);">
-            ${item.title.charAt(0)}
+          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.125rem;">
+            ${item.emoji}
           </div>
           <div class="mu-card-label">${item.title}</div>`;
         card.onclick = () => openEmergencyProcModal(item);
@@ -7719,10 +7722,7 @@
 
     icon.style.background = item.iconBg;
     icon.style.border = `1.5px solid ${item.iconBorder}`;
-    icon.textContent = item.title.charAt(0);
-    icon.style.fontSize = "1rem";
-    icon.style.fontWeight = "700";
-    icon.style.color = "var(--c-muted)";
+    icon.textContent = item.emoji;
     title.textContent = item.title;
     subtitle.textContent = item.subtitle;
 
@@ -7997,7 +7997,7 @@
   document.getElementById("addItemForm").onsubmit = (e) => {
     e.preventDefault();
     const fd = new FormData(e.target);
-    const name = String(fd.get("name")||"").trim();
+    const name = clampStr(fd.get("name"), 100);
     if (!name) return;
     const cid = state.selectedCategoryId;
     const idx = parseInt(fd.get("editIndex"));
@@ -8006,10 +8006,10 @@
     const hasLink = (cid === "food" || cid === "water" || cid === "medkit" || cid === "hygiene" || cid === "gear");
 
     const itemData = {
-      name,
-      qty: isDocs ? String(fd.get("qty_docs")||"").trim() : String(fd.get("qty")||"").trim(),
-      expiry: hasExpiry ? String(fd.get("expiry")||"").trim() : "",
-      link: hasLink ? String(fd.get("link")||"").trim() : "",
+      name: clampStr(name, 100),
+      qty: isDocs ? clampStr(fd.get("qty_docs"), 200) : clampStr(fd.get("qty"), 50),
+      expiry: hasExpiry ? clampStr(fd.get("expiry"), 20) : "",
+      link: hasLink ? clampStr(fd.get("link"), 500) : "",
     };
 
     state.items[cid] = state.items[cid] || [];
@@ -8055,10 +8055,10 @@
     const entryIdx = parseInt(fd.get("fe_entryIdx"));
     const entry = state.items[catId]?.[itemIdx]?.foodEntries?.[entryIdx];
     if (!entry) return;
-    entry.name = String(fd.get("fe_name")||"").trim();
-    entry.kcal = Number(fd.get("fe_kcal"))||0;
-    entry.qty = Number(fd.get("fe_qty"))||1;
-    entry.expiry = String(fd.get("fe_expiry")||"").trim();
+    entry.name = clampStr(fd.get("fe_name"), 100);
+    entry.kcal = clampNum(fd.get("fe_kcal"), 0, 99999);
+    entry.qty = clampNum(fd.get("fe_qty"), 1, 999);
+    entry.expiry = clampStr(fd.get("fe_expiry"), 20);
     closeModal("modalFoodEdit");
     scheduleSave(); renderAll();
   };
@@ -8084,10 +8084,10 @@
     const entryIdx = parseInt(fd.get("we_entryIdx"));
     const entry = state.items[catId]?.[itemIdx]?.waterEntries?.[entryIdx];
     if (!entry) return;
-    entry.name = String(fd.get("we_name")||"").trim();
-    entry.liters = Number(fd.get("we_liters"))||0;
-    entry.qty = Number(fd.get("we_qty"))||1;
-    entry.expiry = String(fd.get("we_expiry")||"").trim();
+    entry.name = clampStr(fd.get("we_name"), 100);
+    entry.liters = clampNum(fd.get("we_liters"), 0, 9999);
+    entry.qty = clampNum(fd.get("we_qty"), 1, 999);
+    entry.expiry = clampStr(fd.get("we_expiry"), 20);
     closeModal("modalWaterEdit");
     scheduleSave(); renderAll();
   };
@@ -8113,8 +8113,8 @@
     const entry = state.items[catId]?.[itemIdx]?.cashEntries?.[entryIdx];
     if (!entry) return;
     entry.type = String(fd.get("ce_type")||"bankovka");
-    entry.value = Number(fd.get("ce_value"))||0;
-    entry.qty = Number(fd.get("ce_qty"))||1;
+    entry.value = clampNum(fd.get("ce_value"), 0, 99999);
+    entry.qty = clampNum(fd.get("ce_qty"), 1, 999);
     closeModal("modalCashEdit");
     scheduleSave(); renderAll();
   };
