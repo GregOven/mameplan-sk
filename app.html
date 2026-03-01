@@ -5039,7 +5039,7 @@
     let timesHtml = "";
     if (hasTimes) {
       timesHtml = `<div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.625rem;">` +
-        mp.times.sort().map(t => `<span style="background:#eff6ff; border:1px solid #bfdbfe; color:#1e40af; border-radius:0.5rem; padding:0.2rem 0.5rem; font-size:0.75rem; font-weight:700; font-family:'Lexend',sans-serif;">${t}</span>`).join("") +
+        mp.times.sort().map(t => `<span style="background:#eff6ff; border:1px solid #bfdbfe; color:#1e40af; border-radius:0.5rem; padding:0.2rem 0.5rem; font-size:0.75rem; font-weight:700; font-family:'Lexend',sans-serif;">${esc(t)}</span>`).join("") +
         `</div>`;
     }
 
@@ -5205,7 +5205,7 @@
     if (!box) return;
     box.innerHTML = tempMeetingTimes.sort().map((t, i) => `
       <span style="display:inline-flex; align-items:center; gap:0.25rem; background:white; border:1.5px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.375rem 0.25rem 0.5rem; font-size:0.8rem; font-weight:700; color:#1e40af; font-family:'Lexend',sans-serif;">
-        ${t}
+        ${esc(t)}
         <button type="button" onclick="removeMeetingTime(${i})" style="background:none; border:none; cursor:pointer; color:#93c5fd; font-size:1rem; line-height:1; padding:0 0.125rem;" title="Odstrániť">✕</button>
       </span>
     `).join("");
