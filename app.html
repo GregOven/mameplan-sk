@@ -39,16 +39,28 @@
     /* ── Professional icon system (replaces emojis) ── */
     .cat-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
     .cat-bar { width:3px; height:100%; border-radius:2px; flex-shrink:0; min-height:1.5rem; }
-    .section-icon { display:inline-flex; align-items:center; justify-content:center; width:1.75rem; height:1.75rem; border-radius:0.5rem; font-size:0.8rem; font-weight:700; flex-shrink:0; }
-    .tip-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef3c7; border:1.5px solid #fcd34d; font-size:0.6rem; font-weight:800; color:#92400e; flex-shrink:0; margin-right:0.375rem; }
+    .section-icon { display:inline-flex; align-items:center; justify-content:center; width:1.75rem; height:1.75rem; border-radius:0.5rem; font-size:0.8125rem; font-weight:700; flex-shrink:0; }
+    .tip-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef3c7; border:1.5px solid #fcd34d; font-size:0.625rem; font-weight:800; color:#92400e; flex-shrink:0; margin-right:0.375rem; }
     .tip-indicator::after { content:"i"; }
-    .warn-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef2f2; border:1.5px solid #fecaca; font-size:0.65rem; font-weight:800; color:#dc2626; flex-shrink:0; margin-right:0.375rem; }
+    .warn-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#fef2f2; border:1.5px solid #fecaca; font-size:0.72rem; font-weight:800; color:#dc2626; flex-shrink:0; margin-right:0.375rem; }
     .warn-indicator::after { content:"!"; }
     .data-icon { font-size:0.875rem; width:2rem; height:2rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.5rem; flex-shrink:0; line-height:1; }
     .data-icon-sm { font-size:0.75rem; width:1.5rem; height:1.5rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; flex-shrink:0; line-height:1; }
 
     /* ── Design tokens ── */
       --c-info: #475569;
+      /* ── Typography scale (11 steps) ── */
+      --fs-micro: 0.625rem;     /* 11px – badges, indicators */
+      --fs-caption: 0.72rem;    /* 12.7px – meta, hints, timestamps */
+      --fs-small: 0.75rem;      /* 13.2px – secondary text, subtitles */
+      --fs-body-sm: 0.8125rem;  /* 14.3px – descriptions, card text */
+      --fs-body: 0.875rem;      /* 15.4px – main text, paragraphs */
+      --fs-input: 0.9375rem;    /* 16.5px – form inputs, emphasized */
+      --fs-base: 1rem;          /* 17.6px – base reference */
+      --fs-lead: 1.0625rem;     /* 18.7px – card titles, numbers */
+      --fs-title: 1.25rem;      /* 22px – section/modal titles */
+      --fs-display: 1.5rem;     /* 26.4px – page titles */
+      --fs-hero: 1.75rem;       /* 30.8px – hero numbers */
       --c-info-bg: #f1f5f9;
       --c-info-border: #cbd5e1;
       --c-success: #2a7a4b;
@@ -77,7 +89,7 @@
       color: white;
       padding: 0.75rem 1.5rem;
       border-radius: 0 0 0.75rem 0.75rem;
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 600;
       z-index: 10001;
       text-decoration: none;
@@ -162,7 +174,7 @@
       letter-spacing: -0.02em;
     }
     .easter-tatry-sub {
-      color: rgba(255,255,255,0.6); font-size: 0.85rem;
+      color: rgba(255,255,255,0.6); font-size: 0.875rem;
       margin-top: 1rem; font-family: 'Lexend', sans-serif;
     }
 
@@ -187,7 +199,7 @@
       border-bottom: 1px solid #f59e0b;
       padding: 0.5rem 1rem;
       text-align: center;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       font-weight: 500;
       color: #92400e;
       /* Statický banner — scrolluje preč. Verzia badge v headeri ostáva. */
@@ -204,33 +216,33 @@
 
     /* ── Data management ── */
     .data-mgmt { margin-top:1.5rem; padding-top:1.5rem; border-top:1.5px solid var(--c-border); }
-    .data-mgmt-title { font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.5rem; }
+    .data-mgmt-title { font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.5rem; }
     .data-mgmt-desc { font-size:0.72rem; color:var(--c-muted); margin-bottom:1rem; line-height:1.5; }
     .data-mgmt-row { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem; }
-    .btn-data { display:inline-flex; align-items:center; gap:0.375rem; padding:0.5rem 0.875rem; font-size:0.78rem; font-weight:600; font-family:'Lexend',sans-serif; border-radius:0.625rem; cursor:pointer; transition:all 0.15s; border:1.5px solid var(--c-border); background:white; color:var(--c-text); }
+    .btn-data { display:inline-flex; align-items:center; gap:0.375rem; padding:0.5rem 0.875rem; font-size:0.75rem; font-weight:600; font-family:'Lexend',sans-serif; border-radius:0.625rem; cursor:pointer; transition:all 0.15s; border:1.5px solid var(--c-border); background:white; color:var(--c-text); }
     .btn-data:hover { background:var(--c-bg); border-color:#ccc; }
     .btn-data-danger { border-color:#fca5a5; color:#dc2626; background:#fef2f2; }
     .btn-data-danger:hover { background:#fee2e2; border-color:#f87171; }
-    .data-mgmt-note { font-size:0.68rem; color:var(--c-muted); line-height:1.5; margin-top:0.5rem; }
+    .data-mgmt-note { font-size:0.72rem; color:var(--c-muted); line-height:1.5; margin-top:0.5rem; }
 
 
     /* Delete confirmation */
     .delete-confirm { display:none; margin-top:0.75rem; padding:1rem; background:#fef2f2; border:1.5px solid #fca5a5; border-radius:0.875rem; }
     .delete-confirm.open { display:block; }
-    .delete-confirm p { font-size:0.78rem; color:#991b1b; line-height:1.6; margin-bottom:0.75rem; }
-    .delete-confirm-input { width:100%; padding:0.5rem 0.75rem; font-size:0.82rem; border:1.5px solid #fca5a5; border-radius:0.5rem; font-family:'Lexend',sans-serif; margin-bottom:0.75rem; }
+    .delete-confirm p { font-size:0.75rem; color:#991b1b; line-height:1.6; margin-bottom:0.75rem; }
+    .delete-confirm-input { width:100%; padding:0.5rem 0.75rem; font-size:0.8125rem; border:1.5px solid #fca5a5; border-radius:0.5rem; font-family:'Lexend',sans-serif; margin-bottom:0.75rem; }
     .delete-confirm-input:focus { outline:none; border-color:#dc2626; }
     .delete-confirm-actions { display:flex; gap:0.5rem; justify-content:flex-end; }
-    .btn-delete-final { padding:0.5rem 1rem; font-size:0.78rem; font-weight:700; font-family:'Lexend',sans-serif; border-radius:0.5rem; cursor:pointer; border:none; background:#dc2626; color:white; opacity:0.5; pointer-events:none; transition:all 0.15s; }
+    .btn-delete-final { padding:0.5rem 1rem; font-size:0.75rem; font-weight:700; font-family:'Lexend',sans-serif; border-radius:0.5rem; cursor:pointer; border:none; background:#dc2626; color:white; opacity:0.5; pointer-events:none; transition:all 0.15s; }
     .btn-delete-final.enabled { opacity:1; pointer-events:auto; }
     .btn-delete-final.enabled:hover { background:#b91c1c; }
 
     /* General toast */
-    .app-toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:#1a1612; color:white; padding:0.625rem 1.25rem; border-radius:0.75rem; font-size:0.82rem; font-weight:500; font-family:'Lexend',sans-serif; z-index:9999; opacity:0; transition:opacity 0.3s; pointer-events:none; max-width:90vw; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.25); }
+    .app-toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:#1a1612; color:white; padding:0.625rem 1.25rem; border-radius:0.75rem; font-size:0.8125rem; font-weight:500; font-family:'Lexend',sans-serif; z-index:9999; opacity:0; transition:opacity 0.3s; pointer-events:none; max-width:90vw; text-align:center; box-shadow:0 4px 16px rgba(0,0,0,0.25); }
     .app-toast.visible { opacity:1; }
     .version-badge {
       display: inline-flex; align-items: center; gap: 0.375rem;
-      font-size: 0.65rem; font-weight: 600;
+      font-size: 0.72rem; font-weight: 600;
       padding: 0.15rem 0.5rem;
       border-radius: 99px;
       letter-spacing: 0.04em;
@@ -332,7 +344,7 @@
       background: transparent;
       color: var(--c-muted);
       font-family: 'DM Sans', 'Lexend', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       cursor: pointer;
       border-radius: 999px;
@@ -407,7 +419,7 @@
       display: inline-flex; align-items: center;
       padding: 0.2rem 0.6rem;
       border-radius: 999px;
-      font-size: 0.7rem; font-weight: 600;
+      font-size: 0.72rem; font-weight: 600;
       border: 1px solid;
     }
     .badge-red { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
@@ -429,7 +441,7 @@
       border: 1px solid #fecaca;
       border-radius: 0.75rem;
       padding: 0.5rem 0.875rem;
-      font-size: 0.8rem; font-weight: 500;
+      font-size: 0.8125rem; font-weight: 500;
       cursor: pointer; transition: background 0.15s;
       font-family: 'Lexend', sans-serif;
     }
@@ -439,7 +451,7 @@
       border: 1px solid var(--c-border);
       border-radius: 0.75rem;
       padding: 0.5rem 0.875rem;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       cursor: pointer; transition: all 0.15s;
       font-family: 'Lexend', sans-serif;
     }
@@ -478,7 +490,7 @@
       border-radius: 0.75rem;
       padding: 0.625rem 0.875rem;
       font-family: 'Lexend', sans-serif;
-      font-size: 0.9rem;
+      font-size: 0.9375rem;
       color: var(--c-text);
       transition: border-color 0.15s;
       outline: none;
@@ -580,7 +592,7 @@
       border-radius: 0 0.5rem 0.5rem 0;
       margin: 1rem 0 0.5rem;
       font-family: 'DM Sans', 'Lexend', sans-serif;
-      font-size: 0.88rem;
+      font-size: 0.875rem;
       font-weight: 700;
       color: var(--c-text);
       letter-spacing: -0.01em;
@@ -610,12 +622,12 @@
       background: var(--c-accent);
       color: white;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.68rem; font-weight: 700;
+      font-size: 0.72rem; font-weight: 700;
       flex-shrink: 0;
       margin-top: 0.1rem;
     }
     .fa-step-text {
-      font-size: 0.82rem;
+      font-size: 0.8125rem;
       line-height: 1.6;
       color: var(--c-text);
     }
@@ -625,7 +637,7 @@
       border: 1px solid var(--c-error-border);
       border-radius: 0.75rem;
       padding: 0.625rem 0.75rem;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       color: #991b1b;
       line-height: 1.55;
       margin: 0.375rem 0 0.375rem 0.875rem;
@@ -635,7 +647,7 @@
       border: 1px solid var(--c-warning-border);
       border-radius: 0.75rem;
       padding: 0.625rem 0.75rem;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       color: #854d0e;
       line-height: 1.55;
       margin: 0.375rem 0 0.375rem 0.875rem;
@@ -646,7 +658,7 @@
       border: 1px solid var(--c-error-border);
       border-radius: 0.75rem;
       padding: 0.75rem 1rem;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       color: #991b1b;
       line-height: 1.5;
       margin-top: 0.75rem;
@@ -656,13 +668,13 @@
       border: 1px solid var(--c-info-border);
       border-radius: 0.75rem;
       padding: 0.75rem 1rem;
-      font-size: 0.8rem;
+      font-size: 0.8125rem;
       color: var(--c-info);
       line-height: 1.5;
       margin-top: 0.75rem;
     }
     .fa-source {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--c-muted);
       margin-top: 1rem;
       padding-top: 0.75rem;
@@ -678,7 +690,7 @@
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1rem;
-      font-size: 0.85rem;
+      font-size: 0.875rem;
       font-weight: 600;
       flex-wrap: wrap;
     }
@@ -695,7 +707,7 @@
     /* Modal close button */
     .modal-close {
       background: none; border: none; cursor: pointer;
-      color: var(--c-muted); font-size: 1.375rem;
+      color: var(--c-muted); font-size: 1.5rem;
       flex-shrink: 0; margin-left: 1rem;
       width: 32px; height: 32px;
       display: flex; align-items: center; justify-content: center;
@@ -712,7 +724,7 @@
 
     /* Section heading (uppercase muted) */
     .section-label {
-      font-size: 0.78rem; font-weight: 700;
+      font-size: 0.75rem; font-weight: 700;
       color: var(--c-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -728,18 +740,18 @@
 
     /* Item form label (bold) — used in category/bag item rows */
     .item-label {
-      font-size: 0.78rem; color: var(--c-muted);
+      font-size: 0.75rem; color: var(--c-muted);
       display: block; margin-bottom: 0.375rem;
       font-weight: 600;
     }
     /* Item form sublabel */
     .item-sublabel {
-      font-size: 0.68rem; color: var(--c-muted);
+      font-size: 0.72rem; color: var(--c-muted);
       display: block; margin-bottom: 0.2rem;
     }
     /* Item form label (regular) */
     .item-label-light {
-      font-size: 0.8rem; color: var(--c-muted);
+      font-size: 0.8125rem; color: var(--c-muted);
       display: block; margin-bottom: 0.375rem;
     }
 
@@ -752,7 +764,7 @@
       padding: 0.75rem 1.25rem;
       border-radius: 1rem;
       font-family: 'Lexend', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.8125rem;
       display: flex; align-items: center; gap: 0.75rem;
       box-shadow: 0 8px 32px rgba(0,0,0,0.24);
       z-index: 200;
@@ -762,7 +774,7 @@
       background: none; border: none;
       color: #60a5fa; font-weight: 700;
       font-family: 'Lexend', sans-serif;
-      font-size: 0.82rem; cursor: pointer;
+      font-size: 0.8125rem; cursor: pointer;
       padding: 0.25rem 0.5rem;
       border-radius: 0.375rem;
       transition: background 0.15s;
@@ -776,18 +788,18 @@
     /* ── Source collapsible (minimal) ── */
     .source-toggle {
       background: none; border: none; cursor: pointer;
-      font-size: 0.65rem; color: var(--c-muted);
+      font-size: 0.72rem; color: var(--c-muted);
       padding: 0.25rem 0; display: inline-flex;
       align-items: center; gap: 0.25rem;
       font-family: 'Lexend', sans-serif;
       opacity: 0.7; transition: opacity 0.15s;
     }
     .source-toggle:hover { opacity: 1; }
-    .source-toggle .arrow { transition: transform 0.2s; font-size: 0.5rem; }
+    .source-toggle .arrow { transition: transform 0.2s; font-size: 0.625rem; }
     .source-body {
       max-height: 0; overflow: hidden;
       transition: max-height 0.3s ease;
-      font-size: 0.65rem; color: var(--c-muted); line-height: 1.5;
+      font-size: 0.72rem; color: var(--c-muted); line-height: 1.5;
     }
     .source-body.open { max-height: 200px; }
 
@@ -818,10 +830,10 @@
     }
     .scenario-row .sc-title {
       flex: 1; min-width: 0;
-      font-weight: 600; font-size: 0.88rem;
+      font-weight: 600; font-size: 0.875rem;
     }
     .scenario-row .sc-status {
-      font-size: 0.68rem; font-weight: 700;
+      font-size: 0.72rem; font-weight: 700;
       padding: 0.2rem 0.5rem;
       border-radius: 999px; white-space: nowrap;
       flex-shrink: 0;
@@ -847,16 +859,16 @@
       text-align: center;
     }
     .tracker-stat-label {
-      font-size: 0.62rem; font-weight: 600;
+      font-size: 0.625rem; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.04em;
       margin-bottom: 0.2rem; opacity: 0.8;
     }
     .tracker-stat-value {
-      font-size: 0.95rem; font-weight: 800;
+      font-size: 0.9375rem; font-weight: 800;
       line-height: 1.2;
     }
     .tracker-stat-unit {
-      font-size: 0.62rem; opacity: 0.7;
+      font-size: 0.625rem; opacity: 0.7;
       margin-top: 0.1rem;
     }
 
@@ -892,13 +904,13 @@
         grid-template-columns: 1fr 1fr 1fr;
         gap: 0.375rem;
       }
-      .tracker-stat-value { font-size: 0.82rem; }
+      .tracker-stat-value { font-size: 0.8125rem; }
 
       /* Prvá pomoc */
       .fa-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
       .fa-icon { width: 44px; height: 44px; font-size: 1.25rem; }
       .fa-card { padding: 0.75rem 0.375rem; }
-      .fa-card-label { font-size: 0.65rem; }
+      .fa-card-label { font-size: 0.72rem; }
 
       /* Header */
       .app-header-inner {
@@ -962,7 +974,7 @@
       }
       /* Category modal items need breathing room on mobile */
       #categoryDetail {
-        font-size: 0.88rem;
+        font-size: 0.875rem;
         line-height: 1.6;
       }
       #categoryDetail .item-row {
@@ -1026,10 +1038,10 @@
       .alerts-header { flex-wrap: wrap; gap: 0.5rem; }
 
       /* Nadpis Kategórie */
-      .cats-heading { font-size: 1.1rem !important; }
+      .cats-heading { font-size: 1.0625rem !important; }
 
       /* Overall % číslo menšie */
-      #overallPct { font-size: 1.6rem !important; }
+      #overallPct { font-size: 1.5rem !important; }
 
       /* Plán karty - zmenšiť padding */
       .plan-card { padding: 0.875rem !important; }
@@ -1083,7 +1095,7 @@
       background: transparent;
       color: var(--c-muted);
       font-family: 'DM Sans', 'Lexend', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.8125rem;
       font-weight: 600;
       cursor: pointer;
       border-radius: 0;
@@ -1129,7 +1141,7 @@
       display: flex; align-items: center; justify-content: space-between;
       gap: 1rem; margin-bottom: 0.75rem; position: relative; z-index: 1;
     }
-    .hero-rank { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.125rem; font-family: 'DM Sans', sans-serif; }
+    .hero-rank { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 1.25rem; font-family: 'DM Sans', sans-serif; }
     .hero-pct { font-size: 1.75rem; font-weight: 800; font-family: 'DM Sans', sans-serif; letter-spacing: -0.03em; }
     .hero-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; position: relative; z-index: 1; }
     .hero-tag {
@@ -1159,35 +1171,36 @@
       padding: 2rem 1.5rem; text-align: center;
     }
     .onboarding-card h2 { font-size: 1.5rem; font-weight: 800; color: #92400e; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif; letter-spacing: -0.03em; }
-    .onboarding-card p { color: #854d0e; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .onboarding-card p { color: #854d0e; font-size: 0.9375rem; line-height: 1.6; margin-bottom: 1.5rem; }
     .onboarding-card .btn-primary { padding: 0.875rem 2rem; font-size: 1rem; background: #92400e; }
     .onboarding-card .btn-primary:hover { background: #78350f; }
 
     /* Procedure groups */
     .proc-group-heading {
-      font-size: 0.78rem; font-weight: 700; color: var(--c-muted);
+      font-size: 0.75rem; font-weight: 700; color: var(--c-muted);
       text-transform: uppercase; letter-spacing: 0.05em;
       padding: 0.25rem 0; margin-top: 0.5rem; grid-column: 1 / -1;
     }
     .proc-group-heading:first-child { margin-top: 0; }
 
-    .zone-intro { font-size: 0.85rem; color: var(--c-muted); line-height: 1.6; padding: 0.25rem 0 0.5rem; }
+    .zone-intro { font-size: 0.875rem; color: var(--c-muted); line-height: 1.6; padding: 0.25rem 0 0.5rem; }
 
     /* ═══════════════════════════════════════════
        MOBILE BOTTOM NAV
     ═══════════════════════════════════════════ */
     .bottom-nav {
       display: none; position: fixed; bottom: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid var(--c-border);
-      z-index: 50; padding: 0.25rem 0.5rem calc(0.25rem + env(safe-area-inset-bottom, 0px));
+      z-index: 50; padding: 0.375rem 0.375rem calc(0.375rem + env(safe-area-inset-bottom, 0px));
     }
     .bottom-nav .tab-btn {
       flex: 1;
-      flex-direction: column; gap: 0.15rem; font-size: 0.6rem;
-      padding: 0.4rem 0.125rem; border-radius: 0.75rem;
+      flex-direction: column; gap: 0.125rem; font-size: 0.72rem;
+      padding: 0.625rem 0.25rem; border-radius: 0.875rem;
+      min-height: 48px;
     }
     .bottom-nav .tab-btn::after { display: none; }
     /* tab-emoji removed */
@@ -1202,7 +1215,7 @@
       display: none;
       position: fixed;
       z-index: 48;
-      bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+      bottom: calc(80px + env(safe-area-inset-bottom, 0px));
       right: 1rem;
       width: 56px;
       height: 56px;
@@ -1225,7 +1238,7 @@
     }
     .sos-fab:active { transform: scale(0.95); }
     .sos-fab-icon { font-size: 1.25rem; line-height: 1; }
-    .sos-fab-label { font-size: 0.5rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1; }
+    .sos-fab-label { font-size: 0.625rem; font-weight: 800; letter-spacing: 0.04em; line-height: 1; }
 
     /* ═══ Collapsible Info Panel ═══ */
     .info-collapse {
@@ -1243,7 +1256,7 @@
       background: none;
       cursor: pointer;
       font-family: 'Lexend', sans-serif;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
       line-height: 1.3;
       text-align: left;
@@ -1251,7 +1264,7 @@
     }
     .info-collapse-toggle:hover { opacity: 0.8; }
     .info-collapse-arrow {
-      font-size: 0.6rem;
+      font-size: 0.625rem;
       transition: transform 0.25s;
       flex-shrink: 0;
       margin-left: auto;
@@ -1275,12 +1288,12 @@
       .tab-bar.top-tabs { display: none !important; }
       .bottom-nav { display: flex; gap: 0.125rem; }
       .sos-fab { display: flex; }
-      .app-main-padding { padding-bottom: 80px !important; }
+      .app-main-padding { padding-bottom: 88px !important; }
       .hero-pct { font-size: 1.5rem !important; }
       .hero-rank { font-size: 1rem !important; }
       .hero-banner { padding: 1rem !important; }
       .hero-meta { gap: 0.375rem !important; }
-      .hero-tag { font-size: 0.68rem !important; padding: 0.2rem 0.5rem !important; }
+      .hero-tag { font-size: 0.72rem !important; padding: 0.2rem 0.5rem !important; }
     }
     @media (min-width: 641px) {
       .sos-fab {
@@ -1329,7 +1342,7 @@
       line-height: 1.2;
     }
     .ec-card-label {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 500;
       color: var(--c-muted);
       line-height: 1.3;
@@ -1419,12 +1432,12 @@
     @media (max-width: 640px) {
       .ec-grid { grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
       .ec-card { padding: 0.625rem 0.75rem; }
-      .ec-card-label { font-size: 0.6rem; }
+      .ec-card-label { font-size: 0.625rem; }
       .ec-card-number { font-size: 1rem; }
       .mu-grid { grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
       .mu-icon { width: 44px; height: 44px; font-size: 1.25rem; }
       .mu-card { padding: 0.75rem 0.375rem; }
-      .mu-card-label { font-size: 0.65rem; }
+      .mu-card-label { font-size: 0.72rem; }
     }
 
     /* ═══════════════════════════════════════════
@@ -1448,14 +1461,14 @@
     }
     .cookie-banner-text {
       flex: 1; min-width: 220px;
-      font-size: 0.78rem; font-weight: 300; line-height: 1.6;
+      font-size: 0.75rem; font-weight: 300; line-height: 1.6;
       font-family: 'DM Sans', 'Lexend', sans-serif;
     }
     .cookie-banner-text a { color: #c94f1a; text-decoration: underline; }
     .cookie-banner-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
     .cookie-btn {
       font-family: 'DM Sans', 'Lexend', sans-serif;
-      font-size: 0.78rem; font-weight: 600;
+      font-size: 0.75rem; font-weight: 600;
       padding: 0.5rem 1.125rem;
       border-radius: 99px;
       cursor: pointer; border: none;
@@ -1488,14 +1501,14 @@
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
     <h1 style="font-size:1.75rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1>
-    <p style="color:var(--c-muted); font-size:0.9rem; margin-bottom:2rem; line-height:1.6;">
+    <p style="color:var(--c-muted); font-size:0.9375rem; margin-bottom:2rem; line-height:1.6;">
       Pomáha domácnostiam na Slovensku<br>pripraviť sa na krízové situácie.
     </p>
     <button class="btn-google" id="btnGoogleLogin">
       <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
       Pokračovať cez Google
     </button>
-    <div style="text-align:center; margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.4;">
+    <div style="text-align:center; margin-top:0.5rem; font-size:0.72rem; color:var(--c-muted); line-height:1.4;">
       údaje sa uložia do vášho účtu a budú dostupné na každom zariadení
     </div>
 
@@ -1508,16 +1521,16 @@
     <button class="btn-google" id="btnDemoLogin" style="margin-top:1rem; border-color:#f59e0b; background:#fffbeb;">
       Vyskúšať demo
     </button>
-    <div style="text-align:center; margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.4;">
+    <div style="text-align:center; margin-top:0.5rem; font-size:0.72rem; color:var(--c-muted); line-height:1.4;">
       dáta sa vymažú po zatvorení prehliadača
     </div>
 
-    <div id="loginError" style="margin-top:1rem; color:#991b1b; font-size:0.85rem; display:none;"></div>
+    <div id="loginError" style="margin-top:1rem; color:#991b1b; font-size:0.875rem; display:none;"></div>
   </div>
   <p style="margin-top:1.5rem; font-size:0.75rem; color:var(--c-muted);">
     Gerlach © <span class="js-year"></span> – Zadarmo pre verejnosť
   </p>
-  <p style="margin-top:0.375rem; font-size:0.65rem; color:var(--c-muted);">
+  <p style="margin-top:0.375rem; font-size:0.72rem; color:var(--c-muted);">
     <a href="./pravne-info.html" style="color:var(--c-muted); text-decoration:underline; text-underline-offset:2px;">Podmienky používania</a>
     &nbsp;·&nbsp;
     <a href="./pravne-info.html#ochrana-udajov" style="color:var(--c-muted); text-decoration:underline; text-underline-offset:2px;">Ochrana údajov</a>
@@ -1527,7 +1540,7 @@
 <!-- REGISTRATION CLOSED SCREEN -->
 <div id="closedScreen" style="display:none;" class="login-screen">
     <h1 style="font-size:1.5rem; font-weight:800; margin-bottom:0.5rem;">Registrácia uzavretá</h1>
-    <p style="color:var(--c-muted); font-size:0.9rem; line-height:1.6;">
+    <p style="color:var(--c-muted); font-size:0.9375rem; line-height:1.6;">
       Momentálne sme dosiahli maximálny počet používateľov v beta verzii. Skús to znova neskôr.
     </p>
 </div>
@@ -1546,7 +1559,7 @@
     <div class="app-header-inner">
       <div class="app-header-logo">
         <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
-        <span class="version-badge beta" id="versionBadge" style="font-size:0.55rem; padding:0.1rem 0.4rem;">Beta</span>
+        <span class="version-badge beta" id="versionBadge" style="font-size:0.625rem; padding:0.1rem 0.4rem;">Beta</span>
       </div>
 
       <!-- Segment tabs (desktop/tablet only, hidden on mobile via CSS) -->
@@ -1573,11 +1586,11 @@
         </span>
         <div style="display:flex; align-items:center; gap:0.5rem; position:relative;">
           <div class="user-avatar" id="userAvatar" onclick="document.getElementById('userMenu').classList.toggle('open')" style="cursor:pointer;">?</div>
-          <button class="btn-ghost" id="btnLogout" style="padding:0.3rem 0.625rem; font-size:0.78rem;">Odhlásiť</button>
+          <button class="btn-ghost" id="btnLogout" style="padding:0.3rem 0.625rem; font-size:0.75rem;">Odhlásiť</button>
           <button class="mobile-logout-btn" onclick="document.getElementById('btnLogout').click();" style="display:none; background:none; border:1px solid var(--c-border); border-radius:0.5rem; padding:0.375rem 0.75rem; font-size:0.875rem; cursor:pointer; color:var(--c-muted); font-family:'Lexend',sans-serif; align-items:center; gap:0.375rem; font-weight:500;">Odhlásiť</button>
           <!-- Mobile user menu -->
           <div id="userMenu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:white; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.5rem; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:200;">
-            <div id="userMenuName" style="font-size:0.8rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
+            <div id="userMenuName" style="font-size:0.8125rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
             <button onclick="document.getElementById('userMenu').classList.remove('open'); document.getElementById('btnLogout').click();" style="width:100%; text-align:left; background:none; border:none; padding:0.5rem 0.75rem; font-size:0.875rem; cursor:pointer; border-radius:0.625rem; color:#dc2626; font-family:'Lexend',sans-serif; font-weight:500;">
               Odhlásiť sa
             </button>
@@ -1631,7 +1644,7 @@
           <div style="display:flex; align-items:center; gap:0.5rem;">
             <div id="alertPulse" style="width:10px; height:10px; border-radius:50%; background:#ef4444; animation:alertPulseAnim 2s ease-in-out infinite; flex-shrink:0;"></div>
             <h2 style="font-size:1rem; font-weight:700; margin:0;">Upozornenia</h2>
-            <span id="alertCount" class="badge badge-red" style="font-size:0.68rem;"></span>
+            <span id="alertCount" class="badge badge-red" style="font-size:0.72rem;"></span>
           </div>
         </div>
         <p style="font-size:0.75rem; color:#92400e; margin-bottom:0.75rem;">Položky s blížiacou sa expiráciou — spotrebujte ich alebo vymeňte za čerstvé</p>
@@ -1643,15 +1656,15 @@
         <div style="background:linear-gradient(135deg, #ecfdf5, #d1fae5); border:1.5px solid #6ee7b7; border-radius:1rem; padding:1rem 1.25rem; display:flex; align-items:center; gap:0.875rem; animation:tipSlideIn 0.4s ease-out; cursor:pointer;" onclick="this.parentElement.style.display='none'">
           <span style="font-size:1rem; flex-shrink:0; font-weight:800; color:var(--c-primary);">→</span>
           <div>
-            <div style="font-size:0.85rem; font-weight:700; color:#065f46; line-height:1.3;">Výborne! Profil je nastavený.</div>
+            <div style="font-size:0.875rem; font-weight:700; color:#065f46; line-height:1.3;">Výborne! Profil je nastavený.</div>
             <div style="font-size:0.75rem; color:#047857; margin-top:0.2rem; line-height:1.4;">Teraz kliknite na ľubovoľnú kategóriu nižšie a začnite pridávať položky. Začnite tam, kde vám to dáva najväčší zmysel.</div>
           </div>
-          <span style="font-size:0.7rem; color:#6ee7b7; flex-shrink:0;">✕</span>
+          <span style="font-size:0.72rem; color:#6ee7b7; flex-shrink:0;">✕</span>
         </div>
       </div>
       <div id="categoriesSection">
-        <h2 class="cats-heading" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.275rem; margin-bottom:0.25rem;">Čo mať doma pripravené?</h2>
-        <p style="font-size:0.78rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Nakupujte postupne, odškrtávajte priebežne.</p>
+        <h2 class="cats-heading" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem; margin-bottom:0.25rem;">Čo mať doma pripravené?</h2>
+        <p style="font-size:0.75rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Nakupujte postupne, odškrtávajte priebežne.</p>
         <div id="categoriesGrid" class="categories-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:0.75rem;"></div>
       </div>
 
@@ -1665,7 +1678,7 @@
       <div class="card" id="evacBagsSection">
         <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">Evakuačné batohy</h2>
+            <h2 style="font-size:1.25rem; font-weight:700;">Evakuačné batohy</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený a skontrolovaný</p>
           </div>
           <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">Pregenerovať</button>
@@ -1676,7 +1689,7 @@
       <!-- Rodinný krízový plán -->
       <div class="card">
         <div style="margin-bottom:1rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Rodinný krízový plán</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Rodinný krízový plán</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
@@ -1684,7 +1697,7 @@
             <span><span class="tip-indicator"></span>Prečo potrebujete krízový plán</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.6;">
             Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
           </div>
         </div>
@@ -1707,7 +1720,7 @@
             <span>Komunikačný plán (ak telefóny nefungujú)</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.7;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.7;">
             <p style="margin:0 0 0.375rem;"><strong>1)</strong> Pošlite <strong>SMS</strong> – prechádza aj pri slabom signáli, keď hovory neprechádzajú.</p>
             <p style="margin:0 0 0.375rem;"><strong>2)</strong> Vyberte si <strong>jednu osobu v inom meste</strong> (príbuzný, kamarát), ktorej sa každý člen rodiny ozve – slúži ako „ústredňa” keď sa nemôžete spojiť priamo.</p>
             <p style="margin:0 0 0.375rem;"><strong>3)</strong> Nechajte <strong>lístok na dverách</strong> s informáciou kedy a kam ste odišli.</p>
@@ -1728,12 +1741,12 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">Prvá pomoc</h2>
+            <h2 style="font-size:1.25rem; font-weight:700;">Prvá pomoc</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Základné postupy prvej pomoci, keď ide o minúty</p>
           </div>
           <div style="display:flex; gap:0.5rem; align-items:center;">
-            <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">112</a>
-            <a href="tel:155" style="display:inline-flex; align-items:center; gap:0.375rem; background:#1e40af; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.78rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">155</a>
+            <a href="tel:112" style="display:inline-flex; align-items:center; gap:0.375rem; background:#dc2626; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.75rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">112</a>
+            <a href="tel:155" style="display:inline-flex; align-items:center; gap:0.375rem; background:#1e40af; color:white; border-radius:0.625rem; padding:0.4rem 0.75rem; font-size:0.75rem; font-weight:700; text-decoration:none; font-family:'Lexend',sans-serif;">155</a>
           </div>
         </div>
         <div id="firstAidGrid" class="fa-grid"></div>
@@ -1743,7 +1756,7 @@
       <!-- Prírodné hrozby -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Prírodné hrozby</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Prírodné hrozby</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Čo robiť pri povodniach, zemetrasení, búrkach a ďalších živloch</p>
         </div>
         <div id="procGridNature" class="mu-grid"></div>
@@ -1752,7 +1765,7 @@
       <!-- Havárie a ohrozenia -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Havárie a ohrozenia</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Havárie a ohrozenia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Požiare, výpadky, úniky plynu, chemické a radiačné havárie</p>
         </div>
         <div id="procGridHazards" class="mu-grid"></div>
@@ -1761,7 +1774,7 @@
       <!-- Ozbrojený konflikt -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Ozbrojený konflikt</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Ozbrojený konflikt</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Teroristický útok a vojenský konflikt – ako sa chrániť</p>
         </div>
         <div id="procGridConflict" class="mu-grid"></div>
@@ -1770,7 +1783,7 @@
       <!-- Pripravenosť a podpora -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Pripravenosť a podpora</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Pripravenosť a podpora</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">72-hodinová sebestačnosť, evakuácia, pomoc susedom, deti v kríze</p>
         </div>
         <div id="procGridSupport" class="mu-grid"></div>
@@ -1779,7 +1792,7 @@
       <!-- Varovné signály sirén -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Varovné signály sirén</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Varovné signály sirén</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
@@ -1787,7 +1800,7 @@
             <span><span class="tip-indicator"></span>Čo robiť keď zaznie siréna</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.6;">
             Ak zaznie siréna a nie je oznámená skúška – berte to vážne. Vojdite do budovy a zapnite rádio.
           </div>
         </div>
@@ -1805,7 +1818,7 @@
             <span><span class="tip-indicator"></span>Skúška sirén a ďalšie informácie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-muted); line-height:1.6;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
             <p style="margin:0 0 0.5rem;"><strong style="color:var(--c-text);">Skúška sirén:</strong> Každý <strong>druhý piatok v mesiaci o 12:00</strong> prebieha pravidelná skúška (2 min stály tón). O skúškach informujú vopred médiá. Ak počujete sirénu mimo tohto termínu – <strong>nie je to skúška</strong>.</p>
             <p style="margin:0; font-size:0.72rem;">Rozoznajte typ tónu: kolísavý = všeobecné ohrozenie, stály = koniec ohrozenia. Pri kolísavom tóne vojdite do budovy, zatvorte okná, zapnite rádio.</p>
           </div>
@@ -1815,7 +1828,7 @@
       <!-- Núdzové vysielanie rádia -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Núdzové vysielanie rádia</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Núdzové vysielanie rádia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
         </div>
         <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
@@ -1823,7 +1836,7 @@
             <span><span class="tip-indicator"></span>Prečo rádio na batérie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.6;">
             Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
           </div>
         </div>
@@ -1841,7 +1854,7 @@
             <span><span class="tip-indicator"></span>Tipy pre núdzové rádio</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.6;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.6;">
             <p style="margin:0 0 0.5rem;">Zapíšte si frekvenciu pre váš región na papier a vložte ho k rádiu na batérie. V krízovej situácii nemusíte nič hľadať.</p>
             <p style="margin:0;"><strong>Rádio Slovensko</strong> a <strong>Rádio Regina</strong> sú prioritné stanice pre núdzové hlásenia podľa Zákona o civilnej ochrane. Mobilná sieť a internet môžu zlyhať – rádio vysiela vždy.</p>
           </div>
@@ -1856,7 +1869,7 @@
       <!-- Tiesňové linky (6 hlavných) -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Tiesňové kontakty</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Tiesňové kontakty</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Tiesňové linky SR – fungujú aj bez kreditu</p>
         </div>
         <div class="ec-grid" id="emergencyLinesGrid"></div>
@@ -1865,7 +1878,7 @@
       <!-- Inštitúcie, krízové linky a poruchové služby -->
       <div class="card">
         <div style="margin-bottom:0.875rem;">
-          <h2 style="font-size:1.2rem; font-weight:700;">Inštitúcie, krízové linky a poruchové služby</h2>
+          <h2 style="font-size:1.25rem; font-weight:700;">Inštitúcie, krízové linky a poruchové služby</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Kliknite na kategóriu pre zobrazenie kontaktov</p>
         </div>
         <div id="institutionsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
@@ -1875,10 +1888,10 @@
       <div class="card">
         <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.875rem; flex-wrap:wrap; gap:0.5rem;">
           <div>
-            <h2 style="font-size:1.2rem; font-weight:700;">Osobné kontakty</h2>
+            <h2 style="font-size:1.25rem; font-weight:700;">Osobné kontakty</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Lekári, poisťovne, služby a ľudia, na ktorých sa spoľahnete</p>
           </div>
-          <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.78rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
+          <button class="btn-ghost" id="btnAddPersonalContact" style="font-size:0.75rem; padding:0.375rem 0.75rem;">+ Pridať kontakt</button>
         </div>
         <div id="personalContactsGrid" style="display:flex; flex-direction:column; gap:0.5rem;"></div>
       </div>
@@ -1917,7 +1930,7 @@
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
       <div>
         <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Vaša domácnosť</h3>
-        <p style="font-size:0.8rem; color:var(--c-muted); margin:0.25rem 0 0;">Podľa týchto údajov vypočítame, čo má pre vašu domácnosť zmysel pripraviť.</p>
+        <p style="font-size:0.8125rem; color:var(--c-muted); margin:0.25rem 0 0;">Podľa týchto údajov vypočítame, čo má pre vašu domácnosť zmysel pripraviť.</p>
       </div>
       <button data-close="modalProfile" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
@@ -1928,31 +1941,31 @@
 
       <!-- Počet osôb -->
       <div class="card-section">
-        <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">Počet osôb v domácnosti</div>
+        <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.75rem;">Počet osôb v domácnosti</div>
         <div class="persons-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dospelí (13–64)</label>
             <input name="adults" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
-              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9375rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Deti (1–12)</label>
             <input name="kids" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
-              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9375rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Dojčatá (0–1)</label>
             <input name="infants" type="number" min="0" max="10" value="0"
               onfocus="if(this.value==='0')this.value=''"
-              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9375rem;" />
           </div>
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.3rem; white-space:nowrap;">Seniori (65+)</label>
             <input name="seniors" type="number" min="0" max="20" value="0"
               onfocus="if(this.value==='0')this.value=''"
-              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9rem;" />
+              onblur="if(this.value==='')this.value='0'" style="text-align:center; font-weight:600; font-size:0.9375rem;" />
           </div>
         </div>
       </div>
@@ -1961,30 +1974,30 @@
       <div class="profile-days-housing" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
         <!-- Počet dní sebestačnosti -->
         <div class="prepdays-row" class="card-section">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Počet dní sebestačnosti</div>
+          <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text);">Počet dní sebestačnosti</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; margin-bottom:0.75rem; line-height:1.4;">Minimum 3 dni. Pre väčší pocit istoty odporúčame 7 dní.</div>
           <input name="prepDays" type="number" min="1" max="30" value="3"
             onfocus="if(this.value==='3' && !this._touched)this.value=''"
             onblur="if(this.value===''){this.value='3'} this._touched=true;"
-            style="width:100%; text-align:center; font-weight:600; font-size:0.9rem;" />
+            style="width:100%; text-align:center; font-weight:600; font-size:0.9375rem;" />
         </div>
 
         <!-- Typ bývania -->
         <div class="card-section">
-          <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Typ bývania</div>
+          <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Typ bývania</div>
           <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Ovplyvňuje niektoré odporúčania.</div>
           <div style="display:flex; flex-direction:column; gap:0.5rem;">
             <label style="display:flex; align-items:center; gap:0.625rem; padding:0.5rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
               <input type="radio" name="housing" value="flat" style="accent-color:var(--c-accent); flex-shrink:0;" />
-              <div style="font-size:0.78rem; font-weight:600; line-height:1.3;">Byt <span style="font-weight:400; color:var(--c-muted);">– panelák / bytovka</span></div>
+              <div style="font-size:0.75rem; font-weight:600; line-height:1.3;">Byt <span style="font-weight:400; color:var(--c-muted);">– panelák / bytovka</span></div>
             </label>
             <label style="display:flex; align-items:center; gap:0.625rem; padding:0.5rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
               <input type="radio" name="housing" value="rd" style="accent-color:var(--c-accent); flex-shrink:0;" />
-              <div style="font-size:0.78rem; font-weight:600; line-height:1.3;">Rodinný dom</div>
+              <div style="font-size:0.75rem; font-weight:600; line-height:1.3;">Rodinný dom</div>
             </label>
             <label style="display:flex; align-items:center; gap:0.625rem; padding:0.5rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
               <input type="radio" name="housing" value="rd_cellar" style="accent-color:var(--c-accent); flex-shrink:0;" />
-              <div style="font-size:0.78rem; font-weight:600; line-height:1.3;">RD + pivnica <span style="font-weight:400; color:var(--c-muted);">/ garáž</span></div>
+              <div style="font-size:0.75rem; font-weight:600; line-height:1.3;">RD + pivnica <span style="font-weight:400; color:var(--c-muted);">/ garáž</span></div>
             </label>
           </div>
         </div>
@@ -1992,9 +2005,9 @@
 
       <!-- ── POKROČILÉ NASTAVENIA (collapsible) ── -->
       <div id="profileAdvanced">
-        <button type="button" id="profileAdvancedToggle" style="width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.75rem 1rem; cursor:pointer; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:600; color:var(--c-muted); transition:background 0.15s, border-color 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">
+        <button type="button" id="profileAdvancedToggle" style="width:100%; display:flex; align-items:center; justify-content:space-between; background:none; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.75rem 1rem; cursor:pointer; font-family:'Lexend',sans-serif; font-size:0.8125rem; font-weight:600; color:var(--c-muted); transition:background 0.15s, border-color 0.15s;" onmouseover="this.style.background='var(--c-bg)'" onmouseout="this.style.background='none'">
           <span>Pokročilé nastavenia</span>
-          <span id="profileAdvancedArrow" style="font-size:0.7rem; transition:transform 0.25s;">▼</span>
+          <span id="profileAdvancedArrow" style="font-size:0.72rem; transition:transform 0.25s;">▼</span>
         </button>
         <div id="profileAdvancedContent" style="display:none; margin-top:0.75rem; gap:0.75rem;">
 
@@ -2002,21 +2015,21 @@
           <div class="profile-3col" style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; align-items:start;">
             <!-- Úroveň pripravenosti -->
             <div class="card-section">
-              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Úroveň zásob</div>
+              <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Úroveň zásob</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Určuje výsledný komfort v čase krízy.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
                   <input type="radio" name="readiness" value="standard" style="accent-color:var(--c-accent); flex-shrink:0;" />
                   <div>
-                    <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Odporúčaná</div>
-                    <div style="font-size:0.7rem; color:var(--c-muted);">Podľa príručiek</div>
+                    <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Odporúčaná</div>
+                    <div style="font-size:0.72rem; color:var(--c-muted);">Podľa príručiek</div>
                   </div>
                 </label>
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
                   <input type="radio" name="readiness" value="enhanced" style="accent-color:var(--c-accent); flex-shrink:0;" />
                   <div>
-                    <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Zvýšená</div>
-                    <div style="font-size:0.7rem; color:var(--c-muted);">+30% viac zásob</div>
+                    <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Zvýšená</div>
+                    <div style="font-size:0.72rem; color:var(--c-muted);">+30% viac zásob</div>
                   </div>
                 </label>
               </div>
@@ -2024,21 +2037,21 @@
 
             <!-- Nákladovosť -->
             <div class="card-section">
-              <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Nákladovosť</div>
+              <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Nákladovosť</div>
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
                   <input type="radio" name="budget" value="mid" style="accent-color:var(--c-accent); flex-shrink:0;" />
                   <div>
-                    <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Základná</div>
-                    <div style="font-size:0.7rem; color:var(--c-muted);">Kvalita za rozumnú cenu</div>
+                    <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Základná</div>
+                    <div style="font-size:0.72rem; color:var(--c-muted);">Kvalita za rozumnú cenu</div>
                   </div>
                 </label>
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
                   <input type="radio" name="budget" value="premium" style="accent-color:var(--c-accent); flex-shrink:0;" />
                   <div>
-                    <div style="font-size:0.8rem; font-weight:600; line-height:1.2;">Prémiová</div>
-                    <div style="font-size:0.7rem; color:var(--c-muted);">Bez kompromisov</div>
+                    <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Prémiová</div>
+                    <div style="font-size:0.72rem; color:var(--c-muted);">Bez kompromisov</div>
                   </div>
                 </label>
               </div>
@@ -2047,7 +2060,7 @@
 
           <!-- Nastavenia: Sledovanie expirácie -->
           <div class="card-section">
-            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Sledovanie expirácie</div>
+            <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text); margin-bottom:0.2rem;">Sledovanie expirácie</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Upozorníme vás na položky, ktorým sa blíži dátum spotreby.</div>
             <div style="display:flex; flex-wrap:wrap; gap:0.625rem;">
               <div style="display:flex; align-items:center; gap:0.375rem; background:#fef2f2; border:1px solid #fecaca; border-radius:0.625rem; padding:0.375rem 0.625rem;">
@@ -2075,7 +2088,7 @@
           <div class="card-section">
             <div style="display:flex; align-items:center; gap:0.5rem;">
               <div>
-                <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Upozornenia na expirácie</div>
+                <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text);">Upozornenia na expirácie</div>
                 <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem; line-height:1.4;">Aktívne — upozornenia sa zobrazujú priamo v aplikácii pri každom otvorení. Skontrolujte kartu „Upozornenia" na úvodnej obrazovke.</div>
               </div>
             </div>
@@ -2141,9 +2154,9 @@
     </div>
     <div id="categoryDetail"></div>
     <div style="display:flex; align-items:center; justify-content:space-between; padding-top:1rem; margin-top:0.5rem; border-top:1px solid var(--c-border);">
-      <span id="modalCatProgress" style="font-size:0.8rem; color:var(--c-muted);"></span>
+      <span id="modalCatProgress" style="font-size:0.8125rem; color:var(--c-muted);"></span>
       <button class="btn-primary" id="btnAddItem" style="display:flex; align-items:center; gap:0.5rem;">
-        <span style="font-size:1.1rem; line-height:1;">+</span> Pridať položku
+        <span style="font-size:1.0625rem; line-height:1;">+</span> Pridať položku
       </button>
     </div>
   </div>
@@ -2153,7 +2166,7 @@
 <div class="modal-overlay" id="modalAddItem">
   <div class="modal-box" style="max-width:480px;">
     <div class="modal-header">
-      <h3 id="itemModalTitle" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Pridať položku</h3>
+      <h3 id="itemModalTitle" style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem;">Pridať položku</h3>
       <button data-close="modalAddItem" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="addItemForm" style="display:grid; gap:0.75rem;">
@@ -2191,11 +2204,11 @@
 <div class="modal-overlay" id="modalDeleteItem">
   <div class="modal-box" style="max-width:420px; text-align:center;">
     
-    <h3 id="deleteItemTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0 0 0.5rem;">Odstrániť položku?</h3>
-    <p id="deleteItemText" style="font-size:0.85rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
+    <h3 id="deleteItemTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0 0 0.5rem;">Odstrániť položku?</h3>
+    <p id="deleteItemText" style="font-size:0.875rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
     <div style="display:flex; gap:0.625rem; justify-content:center;">
-      <button data-close="modalDeleteItem" class="btn-ghost" style="padding:0.625rem 1.5rem; font-size:0.85rem;">Zrušiť</button>
-      <button id="btnConfirmDelete" class="btn-primary" style="padding:0.625rem 1.5rem; font-size:0.85rem; background:#dc2626;">Odstrániť</button>
+      <button data-close="modalDeleteItem" class="btn-ghost" style="padding:0.625rem 1.5rem; font-size:0.875rem;">Zrušiť</button>
+      <button id="btnConfirmDelete" class="btn-primary" style="padding:0.625rem 1.5rem; font-size:0.875rem; background:#dc2626;">Odstrániť</button>
     </div>
   </div>
 </div>
@@ -2204,7 +2217,7 @@
 <div class="modal-overlay" id="modalFoodEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť jedlo</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem;">Upraviť jedlo</h3>
       <button data-close="modalFoodEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="foodEditForm" style="display:grid; gap:0.75rem;">
@@ -2240,7 +2253,7 @@
 <div class="modal-overlay" id="modalWaterEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť vodu</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem;">Upraviť vodu</h3>
       <button data-close="modalWaterEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="waterEditForm" style="display:grid; gap:0.75rem;">
@@ -2276,7 +2289,7 @@
 <div class="modal-overlay" id="modalCashEdit">
   <div class="modal-box" style="max-width:440px;">
     <div class="modal-header">
-      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.125rem;">Upraviť hotovosť</h3>
+      <h3 style="font-family:'Lexend',sans-serif; font-weight:700; font-size:1.25rem;">Upraviť hotovosť</h3>
       <button data-close="modalCashEdit" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem;">✕</button>
     </div>
     <form id="cashEditForm" style="display:grid; gap:0.75rem;">
@@ -2286,7 +2299,7 @@
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
         <div>
           <label class="item-label-light">Typ</label>
-          <select name="ce_type" style="font-size:0.9rem; padding:0.625rem 0.875rem;">
+          <select name="ce_type" style="font-size:0.9375rem; padding:0.625rem 0.875rem;">
             <option value="bankovka">Bankovka</option>
             <option value="minca">Minca</option>
           </select>
@@ -2311,9 +2324,9 @@
 <div class="modal-overlay" id="modalValidation">
   <div class="modal-box" style="max-width:400px; text-align:center;">
     
-    <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0 0 0.5rem;">Chýbajúce údaje</h3>
-    <p id="validationText" style="font-size:0.85rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
-    <button data-close="modalValidation" class="btn-primary" style="padding:0.625rem 2rem; font-size:0.85rem;">Rozumiem</button>
+    <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0 0 0.5rem;">Chýbajúce údaje</h3>
+    <p id="validationText" style="font-size:0.875rem; color:var(--c-muted); margin:0 0 1.25rem; line-height:1.5;"></p>
+    <button data-close="modalValidation" class="btn-primary" style="padding:0.625rem 2rem; font-size:0.875rem;">Rozumiem</button>
   </div>
 </div>
 
@@ -2324,8 +2337,8 @@
       <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
         <div class="mu-icon" id="muModalIcon" style="flex-shrink:0;"></div>
         <div>
-          <h3 id="muModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
-          <p id="muModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+          <h3 id="muModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;"></h3>
+          <p id="muModalSubtitle" style="font-size:0.75rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
       <button data-close="modalEmergencyProc" class="modal-close">✕</button>
@@ -2338,7 +2351,7 @@
 <div class="modal-overlay" id="modalSiren">
   <div class="modal-box" style="max-width:500px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
-      <h3 id="sirenModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
+      <h3 id="sirenModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;"></h3>
       <button data-close="modalSiren" class="modal-close">✕</button>
     </div>
     <div id="sirenModalContent"></div>
@@ -2354,10 +2367,10 @@
   <div class="modal-box" style="max-width:560px;">
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
       <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
-        <div id="evacBagModalIcon" style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.375rem; flex-shrink:0;"></div>
+        <div id="evacBagModalIcon" style="width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;"></div>
         <div>
-          <h3 id="evacBagModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
-          <p id="evacBagModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+          <h3 id="evacBagModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;"></h3>
+          <p id="evacBagModalSubtitle" style="font-size:0.75rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
       <button data-close="modalEvacBag" class="modal-close">✕</button>
@@ -2371,8 +2384,8 @@
   <div class="modal-box" style="max-width:500px;">
     <div class="modal-header">
       <div>
-        <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">Nový kontakt</h3>
-        <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Uložte si dôležité číslo pre prípad núdze</p>
+        <h3 id="pcModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Nový kontakt</h3>
+        <p style="font-size:0.75rem; color:var(--c-muted); margin:0.25rem 0 0;">Uložte si dôležité číslo pre prípad núdze</p>
       </div>
       <button data-close="modalPersonalContact" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
@@ -2418,14 +2431,14 @@
   <div class="modal-box" style="max-width:560px;">
     <div class="modal-header">
       <div>
-        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;">Miesto stretnutia</h3>
-        <p style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;">Kde sa stretnete, keď nebude signál ani internet?</p>
+        <h3 style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;">Miesto stretnutia</h3>
+        <p style="font-size:0.75rem; color:var(--c-muted); margin:0.25rem 0 0;">Kde sa stretnete, keď nebude signál ani internet?</p>
       </div>
       <button data-close="modalMeetingPoint" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
     <form id="meetingPointForm" style="display:grid; gap:1rem;">
       <div class="card-section">
-        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.625rem;">Hlavné miesto</div>
+        <div style="font-size:0.8125rem; font-weight:700; margin-bottom:0.625rem;">Hlavné miesto</div>
         <div style="display:grid; gap:0.625rem;">
           <div>
             <label style="font-size:0.72rem; color:var(--c-muted); display:block; margin-bottom:0.25rem;">Názov miesta *</label>
@@ -2443,17 +2456,17 @@
       </div>
 
       <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:1rem; padding:1rem;">
-        <div style="font-size:0.8rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">Časy stretávania</div>
+        <div style="font-size:0.8125rem; font-weight:700; color:#1e40af; margin-bottom:0.25rem;">Časy stretávania</div>
         <div style="font-size:0.72rem; color:#2563eb; margin-bottom:0.625rem; line-height:1.5;">Kedy sa budete na mieste hľadať? Napr. každé 4 hodiny. Ak tam druhý nie je, príďte o ďalší interval.</div>
         <div id="meetingTimesEditor" style="display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.5rem;"></div>
         <div style="display:flex; gap:0.5rem; align-items:center;">
-          <input type="time" id="newMeetingTime" style="width:auto; font-size:0.85rem; padding:0.4rem 0.625rem;" />
-          <button type="button" id="btnAddMeetingTime" class="btn-ghost" style="font-size:0.78rem; padding:0.4rem 0.75rem; white-space:nowrap;">+ Pridať čas</button>
+          <input type="time" id="newMeetingTime" style="width:auto; font-size:0.875rem; padding:0.4rem 0.625rem;" />
+          <button type="button" id="btnAddMeetingTime" class="btn-ghost" style="font-size:0.75rem; padding:0.4rem 0.75rem; white-space:nowrap;">+ Pridať čas</button>
         </div>
       </div>
 
       <div class="card-section">
-        <div style="font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">Záložné miesto</div>
+        <div style="font-size:0.8125rem; font-weight:700; margin-bottom:0.25rem;">Záložné miesto</div>
         <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.625rem;">Ak hlavné miesto nie je prístupné.</div>
         <div style="display:grid; gap:0.625rem;">
           <div>
@@ -2479,8 +2492,8 @@
   <div class="modal-box" style="max-width:600px;">
     <div class="modal-header">
       <div>
-        <h3 id="scenarioModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
-        <p id="scenarioModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.25rem 0 0;"></p>
+        <h3 id="scenarioModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;"></h3>
+        <p id="scenarioModalSubtitle" style="font-size:0.75rem; color:var(--c-muted); margin:0.25rem 0 0;"></p>
       </div>
       <button data-close="modalScenario" style="background:none;border:none;cursor:pointer;color:var(--c-muted);font-size:1.25rem; flex-shrink:0; margin-left:1rem;">✕</button>
     </div>
@@ -2493,8 +2506,8 @@
       <div style="display:flex; align-items:center; gap:0.75rem; flex:1; min-width:0;">
         <div class="fa-icon" id="faModalIcon" style="flex-shrink:0;"></div>
         <div>
-          <h3 id="faModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.125rem; margin:0;"></h3>
-          <p id="faModalSubtitle" style="font-size:0.78rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
+          <h3 id="faModalTitle" style="font-family:'Lexend',sans-serif; font-weight:800; font-size:1.25rem; margin:0;"></h3>
+          <p id="faModalSubtitle" style="font-size:0.75rem; color:var(--c-muted); margin:0.125rem 0 0;"></p>
         </div>
       </div>
       <button data-close="modalFirstAid" class="modal-close">✕</button>
@@ -3258,7 +3271,7 @@
       emailSection.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.5rem;">
           <div>
-            <div style="font-size:0.8rem; font-weight:700; color:var(--c-text);">Emailové pripomienky</div>
+            <div style="font-size:0.8125rem; font-weight:700; color:var(--c-text);">Emailové pripomienky</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.2rem;">V demo režime nie sú dostupné. Ukončite demo a vytvorte si účet pre emailové upozornenia na expirácie.</div>
           </div>
         </div>`;
@@ -4000,7 +4013,7 @@
         <div class="hero-rank"><span>${rank}</span></div>
         <div style="display:flex; align-items:center; gap:0.75rem;">
           <span class="hero-pct" style="color:${col};">${Math.round(pct)}%</span>
-          <button class="btn-ghost" id="btnEditProfile" style="font-size:0.78rem; padding:0.375rem 0.75rem;">Upraviť</button>
+          <button class="btn-ghost" id="btnEditProfile" style="font-size:0.75rem; padding:0.375rem 0.75rem;">Upraviť</button>
         </div>
       </div>
       <div class="progress-bar" style="height:10px; position:relative; z-index:1;">
@@ -4052,7 +4065,7 @@
       card.innerHTML = `
         <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:0.75rem;">
           <div style="font-weight:700; font-size:0.9375rem; color:var(--c-text);">${c.name}</div>
-          <span style="font-size:1.125rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
+          <span style="font-size:1.25rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
         </div>
         <div class="progress-bar" style="height:6px;">
           <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${col};"></div>
@@ -4100,12 +4113,12 @@
       modalHeader.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.875rem;">
           <div>
-            <div style="font-size:1.125rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
-            <div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
+            <div style="font-size:1.25rem; font-weight:800; letter-spacing:-0.01em; line-height:1.2;">${cat.name}</div>
+            <div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">${items.filter(i=>i.isWaterItem ? calcWaterCompletion(i)>=100 : i.isFoodItem ? calcFoodCompletion(i)>=100 : i.isCashItem ? calcCashCompletion(i)>=100 : i.done).length} / ${items.length} hotovo</div>
           </div>
           <div style="margin-left:auto; text-align:right; padding-right:0.5rem; line-height:1.1;">
             <div style="font-size:0.72rem; color:var(--c-muted);">splnené na</div>
-            <div style="font-size:1.625rem; font-weight:800; color:${colorForPct(pct)}; letter-spacing:-0.03em;">${Math.round(pct)}%</div>
+            <div style="font-size:1.5rem; font-weight:800; color:${colorForPct(pct)}; letter-spacing:-0.03em;">${Math.round(pct)}%</div>
           </div>
         </div>
         <div style="margin-top:0.75rem;">
@@ -4133,7 +4146,7 @@
             <span><span class="tip-indicator"></span>Kde uchovávať dokumenty?</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
-          <div class="info-collapse-body" style="font-size:0.78rem; color:var(--c-text); line-height:1.5;">
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.5;">
             <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
               <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
                 <strong>Originál</strong><br>
@@ -4152,7 +4165,7 @@
                 <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
               </div>
             </div>
-            <div style="margin-top:0.5rem; font-size:0.7rem; color:var(--c-muted); line-height:1.5; font-style:italic;">
+            <div style="margin-top:0.5rem; font-size:0.72rem; color:var(--c-muted); line-height:1.5; font-style:italic;">
               Crypto seed / recovery frázy NIKDY nescanovať a neukladať digitálne! Iba papier na 2 odlišných miestach.
             </div>
           </div>
@@ -4175,7 +4188,7 @@
           </button>
           <div class="source-body">
             <div style="padding:0.375rem 0; line-height:1.5;">
-              <div style="margin-bottom:0.25rem; font-size:0.65rem; color:var(--c-muted);">${src.note}</div>
+              <div style="margin-bottom:0.25rem; font-size:0.72rem; color:var(--c-muted);">${src.note}</div>
               ${linksHtml}
             </div>
           </div>
@@ -4238,28 +4251,28 @@
           // Water entries HTML
           let wEntriesHtml = "";
           if (entries.length === 0) {
-            wEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadna voda. Pridajte prvú položku nižšie.</div>`;
+            wEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.8125rem;">Zatiaľ žiadna voda. Pridajte prvú položku nižšie.</div>`;
           } else {
             wEntriesHtml = entries.map((e, ei) => {
               const eExp = e.expiry ? daysUntil(e.expiry) : null;
               const catAD = getAlertDaysForCategory("food");
               const eExpBadge = e.expiry
-                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
-                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
-                  : `<span class="badge badge-gray" style="font-size:0.62rem;">${eExp}d</span>`)
+                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.625rem;">EXP</span>`
+                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.625rem;">${eExp}d</span>`
+                  : `<span class="badge badge-gray" style="font-size:0.625rem;">${eExp}d</span>`)
                 : "";
               const totalE = (e.liters||0)*(e.qty||1);
               return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.625rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(59,130,246,0.15);">
                 <div style="flex:1; min-width:0;">
-                  <div style="font-weight:600; font-size:0.8rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
+                  <div style="font-weight:600; font-size:0.8125rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
                     ${esc(e.name)} ${eExpBadge}
                   </div>
-                  <div style="font-size:0.7rem; color:var(--c-muted); margin-top:0.125rem;">
+                  <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">
                     ${e.qty||1}× ${(e.liters||0)} l = <strong>${totalE.toFixed(1)} l</strong>${e.expiry ? " • " + esc(e.expiry) : ""}
                   </div>
                 </div>
-                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-water-edit="${idx}:${ei}">Upraviť</button>
-                <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-water-del="${idx}:${ei}">✕</button>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.72rem;" data-water-edit="${idx}:${ei}">Upraviť</button>
+                <button style="background:none; border:none; cursor:pointer; font-size:0.875rem; padding:0.25rem; color:#991b1b;" data-water-del="${idx}:${ei}">✕</button>
               </div>`;
             }).join("");
           }
@@ -4270,7 +4283,7 @@
           row.innerHTML = `
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
               <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
-              <span style="font-size:0.95rem; font-weight:700; color:${wCol}; flex-shrink:0;">${Math.round(wpct)}%</span>
+              <span style="font-size:0.9375rem; font-weight:700; color:${wCol}; flex-shrink:0;">${Math.round(wpct)}%</span>
             </div>
 
             <div class="tracker-summary">
@@ -4294,7 +4307,7 @@
             <div class="progress-bar" style="margin-bottom:0.5rem; height:10px;">
               <div class="progress-fill" style="width:${Math.min(100,wpct)}%; background:${colorForPct(wpct)};"></div>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.875rem; font-size:0.68rem; color:var(--c-muted);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.875rem; font-size:0.72rem; color:var(--c-muted);">
               <span>Vydrží na: <strong style="color:${durColor};">${durText}</strong></span>
               <span>${dailyNeed.toFixed(1)} l/deň (${waterBreakdown.join(", ")})</span>
             </div>
@@ -4308,22 +4321,22 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #93c5fd;">
               <div style="font-size:0.75rem; font-weight:600; color:#1e40af; margin-bottom:0.5rem;">+ Pridať vodu</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required maxlength="100" />
+                <input type="text" placeholder="Názov (napr. Fľaša 1,5 l, Kanister 5 l)" id="we_name_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.75rem;" required maxlength="100" />
                 <div class="tracker-form-grid">
                   <div>
                     <label class="item-sublabel">Litrov / kus *</label>
-                    <input type="number" min="0" max="9999" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="number" min="0" max="9999" step="0.1" placeholder="1.5" id="we_liters_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                   <div>
                     <label class="item-sublabel">Počet</label>
-                    <input type="number" min="1" max="999" value="1" id="we_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
+                    <input type="number" min="1" max="999" value="1" id="we_qty_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" />
                   </div>
                   <div class="tracker-form-full">
                     <label class="item-sublabel">Expirácia *</label>
-                    <input type="date" id="we_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="date" id="we_exp_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                 </div>
-                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="we_add_${idx}">Pridať do zásob</button>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.8125rem; width:100%;" id="we_add_${idx}">Pridať do zásob</button>
               </div>
             </div>
 
@@ -4426,28 +4439,28 @@
           // Food entries HTML
           let entriesHtml = "";
           if (entries.length === 0) {
-            entriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadne jedlo. Pridajte prvú položku nižšie.</div>`;
+            entriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.8125rem;">Zatiaľ žiadne jedlo. Pridajte prvú položku nižšie.</div>`;
           } else {
             entriesHtml = entries.map((e, ei) => {
               const eExp = e.expiry ? daysUntil(e.expiry) : null;
               const catAD = getAlertDaysForCategory("food");
               const eExpBadge = e.expiry
-                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.62rem;">EXP</span>`
-                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.62rem;">${eExp}d</span>`
-                  : `<span class="badge badge-gray" style="font-size:0.62rem;">${eExp}d</span>`)
+                ? (eExp < 0 ? `<span class="badge badge-red" style="font-size:0.625rem;">EXP</span>`
+                  : eExp <= catAD ? `<span class="badge badge-amber" style="font-size:0.625rem;">${eExp}d</span>`
+                  : `<span class="badge badge-gray" style="font-size:0.625rem;">${eExp}d</span>`)
                 : "";
               const totalE = (e.kcal||0)*(e.qty||1);
               return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0.625rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(234,124,27,0.15);">
                 <div style="flex:1; min-width:0;">
-                  <div style="font-weight:600; font-size:0.8rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
+                  <div style="font-weight:600; font-size:0.8125rem; color:var(--c-text); display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
                     ${esc(e.name)} ${eExpBadge}
                   </div>
-                  <div style="font-size:0.7rem; color:var(--c-muted); margin-top:0.125rem;">
+                  <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">
                     ${e.qty||1}× ${(e.kcal||0).toLocaleString()} kcal = <strong>${totalE.toLocaleString()} kcal</strong>${e.expiry ? " • " + esc(e.expiry) : ""}
                   </div>
                 </div>
-                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-food-edit="${idx}:${ei}">Upraviť</button>
-                <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-food-del="${idx}:${ei}">✕</button>
+                <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.72rem;" data-food-edit="${idx}:${ei}">Upraviť</button>
+                <button style="background:none; border:none; cursor:pointer; font-size:0.875rem; padding:0.25rem; color:#991b1b;" data-food-del="${idx}:${ei}">✕</button>
               </div>`;
             }).join("");
           }
@@ -4458,7 +4471,7 @@
           row.innerHTML = `
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
               <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
-              <span style="font-size:0.95rem; font-weight:700; color:${fCol}; flex-shrink:0;">${Math.round(fpct)}%</span>
+              <span style="font-size:0.9375rem; font-weight:700; color:${fCol}; flex-shrink:0;">${Math.round(fpct)}%</span>
             </div>
 
             <div class="tracker-summary">
@@ -4482,7 +4495,7 @@
             <div class="progress-bar" style="margin-bottom:0.5rem; height:10px;">
               <div class="progress-fill" style="width:${Math.min(100,fpct)}%; background:${colorForPct(fpct)};"></div>
             </div>
-            <div style="display:flex; justify-content:space-between; margin-bottom:0.875rem; font-size:0.68rem; color:var(--c-muted);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.875rem; font-size:0.72rem; color:var(--c-muted);">
               <span>Vydrží na: <strong style="color:${fDurColor};">${fDurText}</strong></span>
               <span>${dailyKcal.toLocaleString()} kcal/deň</span>
             </div>
@@ -4496,22 +4509,22 @@
             <div style="background:rgba(255,255,255,0.7); border-radius:0.75rem; padding:0.75rem; border:1px dashed #fbbf24;">
               <div style="font-size:0.75rem; font-weight:600; color:#92400e; margin-bottom:0.5rem;">+ Pridať jedlo</div>
               <div style="display:grid; grid-template-columns:1fr; gap:0.5rem;">
-                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.82rem; padding:0.5rem 0.75rem;" required maxlength="100" />
+                <input type="text" placeholder="Názov (napr. Fazuľa v konzerve)" id="fe_name_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.75rem;" required maxlength="100" />
                 <div class="tracker-form-grid">
                   <div>
                     <label class="item-sublabel">kcal / kus *</label>
-                    <input type="number" min="0" max="99999" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="number" min="0" max="99999" placeholder="350" id="fe_kcal_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                   <div>
                     <label class="item-sublabel">Počet</label>
-                    <input type="number" min="1" max="999" value="1" id="fe_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" />
+                    <input type="number" min="1" max="999" value="1" id="fe_qty_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" />
                   </div>
                   <div class="tracker-form-full">
                     <label class="item-sublabel">Expirácia *</label>
-                    <input type="date" id="fe_exp_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem; width:100%;" required />
+                    <input type="date" id="fe_exp_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem; width:100%;" required />
                   </div>
                 </div>
-                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="fe_add_${idx}">Pridať do zásob</button>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.8125rem; width:100%;" id="fe_add_${idx}">Pridať do zásob</button>
               </div>
             </div>
 
@@ -4584,7 +4597,7 @@
           // Entries HTML
           let cEntriesHtml = "";
           if (entries.length === 0) {
-            cEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.82rem;">Zatiaľ žiadna hotovosť. Pridajte bankovky a mince nižšie.</div>`;
+            cEntriesHtml = `<div style="text-align:center; padding:1rem 0; color:var(--c-muted); font-size:0.8125rem;">Zatiaľ žiadna hotovosť. Pridajte bankovky a mince nižšie.</div>`;
           } else {
             // Group by type
             const bankovky = entries.filter(e => e.type === "bankovka");
@@ -4593,17 +4606,17 @@
               if (!groupEntries.length) return "";
               const groupTotal = groupEntries.reduce((s, e) => s + (e.value||0)*(e.qty||1), 0);
               return `<div style="margin-bottom:0.5rem;">
-                <div style="font-size:0.7rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">${label} — ${groupTotal.toFixed(2)} €</div>
+                <div style="font-size:0.72rem; font-weight:700; color:var(--c-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">${label} — ${groupTotal.toFixed(2)} €</div>
                 ${groupEntries.map((e, ei) => {
                   const realIdx = entries.indexOf(e);
                   const totalE = (e.value||0)*(e.qty||1);
                   return `<div style="display:flex; align-items:center; gap:0.5rem; padding:0.375rem 0.5rem; background:rgba(255,255,255,0.6); border-radius:0.5rem; border:1px solid rgba(42,122,75,0.15); margin-bottom:0.25rem;">
                     <div style="flex:1; min-width:0;">
-                      <div style="font-weight:600; font-size:0.78rem; color:var(--c-text);">${(e.value||0)} € × ${e.qty||1}</div>
-                      <div style="font-size:0.68rem; color:var(--c-muted);">= ${totalE.toFixed(2)} €</div>
+                      <div style="font-weight:600; font-size:0.75rem; color:var(--c-text);">${(e.value||0)} € × ${e.qty||1}</div>
+                      <div style="font-size:0.72rem; color:var(--c-muted);">= ${totalE.toFixed(2)} €</div>
                     </div>
-                    <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.7rem;" data-cash-edit="${idx}:${realIdx}">Upraviť</button>
-                    <button style="background:none; border:none; cursor:pointer; font-size:0.85rem; padding:0.25rem; color:#991b1b;" data-cash-del="${idx}:${realIdx}">✕</button>
+                    <button class="btn-ghost" style="padding:0.25rem 0.5rem; font-size:0.72rem;" data-cash-edit="${idx}:${realIdx}">Upraviť</button>
+                    <button style="background:none; border:none; cursor:pointer; font-size:0.875rem; padding:0.25rem; color:#991b1b;" data-cash-del="${idx}:${realIdx}">✕</button>
                   </div>`;
                 }).join("")}
               </div>`;
@@ -4616,19 +4629,19 @@
           row.innerHTML = `
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:0.875rem; gap:0.75rem;">
               <div style="font-weight:700; font-size:1rem;">${esc(it.name)}</div>
-              <span style="font-size:0.95rem; font-weight:700; color:${cCol}; flex-shrink:0;">${Math.round(cpct)}%</span>
+              <span style="font-size:0.9375rem; font-weight:700; color:${cCol}; flex-shrink:0;">${Math.round(cpct)}%</span>
             </div>
 
             <div class="water-info-grid" style="display:grid; grid-template-columns:1fr auto; gap:0.625rem; margin-bottom:0.875rem; align-items:stretch;">
               <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.75rem;">
-                <div style="font-size:0.7rem; color:var(--c-green); font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Vaša hotovosť</div>
-                <div style="font-size:0.9rem; font-weight:700; color:#14532d;">${currentCash.toFixed(2)} €</div>
+                <div style="font-size:0.72rem; color:var(--c-green); font-weight:600; margin-bottom:0.2rem; text-transform:uppercase; letter-spacing:0.04em;">Vaša hotovosť</div>
+                <div style="font-size:0.9375rem; font-weight:700; color:#14532d;">${currentCash.toFixed(2)} €</div>
                 <div style="font-size:0.72rem; color:var(--c-green);">z odporúčaných ${recommended} € (${totalPersons} ${totalPersons === 1 ? "osoba" : totalPersons < 5 ? "osoby" : "osôb"} × ${CASH_PER_PERSON} €)</div>
               </div>
               <div style="background:rgba(255,255,255,0.7); border-radius:0.625rem; padding:0.625rem 0.875rem; min-width:0;">
-                <div style="font-size:0.68rem; color:var(--c-green); font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Odporúčanie</div>
-                <div style="font-size:0.82rem; font-weight:700; color:#14532d; line-height:1.3;">€70–100 / osobu</div>
-                <div style="font-size:0.68rem; color:var(--c-green); opacity:0.75; margin-top:0.2rem;">v malých nomináloch</div>
+                <div style="font-size:0.72rem; color:var(--c-green); font-weight:600; margin-bottom:0.25rem; text-transform:uppercase; letter-spacing:0.04em;">Odporúčanie</div>
+                <div style="font-size:0.8125rem; font-weight:700; color:#14532d; line-height:1.3;">€70–100 / osobu</div>
+                <div style="font-size:0.72rem; color:var(--c-green); opacity:0.75; margin-top:0.2rem;">v malých nomináloch</div>
               </div>
             </div>
 
@@ -4638,13 +4651,13 @@
 
             <!-- Source (collapsible) -->
             <div style="margin-bottom:0.875rem;">
-              <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''" style="font-size:0.7rem;">
+              <button class="source-toggle" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.arrow').style.transform = this.nextElementSibling.classList.contains('open') ? 'rotate(180deg)' : ''" style="font-size:0.72rem;">
                 Prečo hotovosť? <span class="arrow">▼</span>
               </button>
               <div class="source-body">
-                <div style="padding:0.375rem 0; font-size:0.7rem; color:#166534; line-height:1.6;">
+                <div style="padding:0.375rem 0; font-size:0.72rem; color:#166534; line-height:1.6;">
                   Pri výpadku elektriny, kybernetických útokoch alebo živelných pohromách platobné terminály nefungujú. ECB odporúča mať doma €70–100 na osobu v malých bankovkách a minciach.
-                  <br><a href="${CASH_SOURCE_URL}" target="_blank" rel="noopener" style="color:var(--c-green); text-decoration:underline; font-size:0.65rem;">${CASH_SOURCE_LABEL}</a>
+                  <br><a href="${CASH_SOURCE_URL}" target="_blank" rel="noopener" style="color:var(--c-green); text-decoration:underline; font-size:0.72rem;">${CASH_SOURCE_LABEL}</a>
                 </div>
               </div>
             </div>
@@ -4661,14 +4674,14 @@
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
                   <div>
                     <label class="item-sublabel">Typ</label>
-                    <select id="ce_type_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
+                    <select id="ce_type_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem;">
                       <option value="bankovka">Bankovka</option>
                       <option value="minca">Minca</option>
                     </select>
                   </div>
                   <div>
                     <label class="item-sublabel">Hodnota (€)</label>
-                    <select id="ce_value_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;">
+                    <select id="ce_value_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem;">
                       <optgroup label="Bankovky">
                         <option value="5">5 €</option>
                         <option value="10" selected>10 €</option>
@@ -4692,9 +4705,9 @@
                 </div>
                 <div>
                   <label class="item-sublabel">Počet kusov</label>
-                  <input type="number" min="1" max="999" value="1" id="ce_qty_${idx}" style="font-size:0.82rem; padding:0.5rem 0.625rem;" />
+                  <input type="number" min="1" max="999" value="1" id="ce_qty_${idx}" style="font-size:0.8125rem; padding:0.5rem 0.625rem;" />
                 </div>
-                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.82rem; width:100%;" id="ce_add_${idx}">Pridať do zásob</button>
+                <button class="btn-primary" style="padding:0.5rem 1rem; font-size:0.8125rem; width:100%;" id="ce_add_${idx}">Pridať do zásob</button>
               </div>
             </div>`;
           list.appendChild(row);
@@ -4817,8 +4830,8 @@
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:#fff; letter-spacing:0.05em;">MP</div>
             <div style="flex:1;">
-              <div style="font-weight:700; font-size:0.95rem; color:#92400e;">Nastavte miesto stretnutia</div>
-              <div style="font-size:0.78rem; color:#854d0e; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
+              <div style="font-weight:700; font-size:0.9375rem; color:#92400e;">Nastavte miesto stretnutia</div>
+              <div style="font-size:0.75rem; color:#854d0e; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
             </div>
             <div style="font-size:1.25rem; color:#854d0e; flex-shrink:0;">→</div>
           </div>
@@ -4838,7 +4851,7 @@
       backupHtml = `
         <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px dashed #bfdbfe;">
           <div style="font-size:0.72rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.25rem;">Záložné miesto</div>
-          <div style="font-weight:600; font-size:0.85rem;">${esc(mp.backup.name)}</div>
+          <div style="font-weight:600; font-size:0.875rem;">${esc(mp.backup.name)}</div>
           ${mp.backup.address ? `<div style="font-size:0.75rem; color:var(--c-muted);">${esc(mp.backup.address)}</div>` : ""}
         </div>`;
     }
@@ -4849,14 +4862,14 @@
           <div style="display:flex; align-items:flex-start; gap:0.75rem; flex:1; min-width:0;">
             <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:white; letter-spacing:0.05em;">MP</div>
             <div style="flex:1; min-width:0;">
-              <div style="font-size:0.68rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
+              <div style="font-size:0.72rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
               <div style="font-weight:800; font-size:1.0625rem; color:var(--c-text); margin-top:0.125rem;">${esc(mp.name)}</div>
-              ${mp.address ? `<div style="font-size:0.8rem; color:var(--c-muted); margin-top:0.125rem;">${esc(mp.address)}</div>` : ""}
-              ${mp.note ? `<div style="font-size:0.78rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
-              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.68rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
+              ${mp.address ? `<div style="font-size:0.8125rem; color:var(--c-muted); margin-top:0.125rem;">${esc(mp.address)}</div>` : ""}
+              ${mp.note ? `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
+              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.72rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
             </div>
           </div>
-          <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.78rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
+          <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.75rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
         </div>
         ${backupHtml}
         <div style="background:rgba(255,255,255,0.6); border-radius:0.625rem; padding:0.625rem 0.75rem; margin-top:0.75rem; font-size:0.75rem; color:#1e40af; line-height:1.5;">
@@ -4994,7 +5007,7 @@
     const box = document.getElementById("meetingTimesEditor");
     if (!box) return;
     box.innerHTML = tempMeetingTimes.sort().map((t, i) => `
-      <span style="display:inline-flex; align-items:center; gap:0.25rem; background:white; border:1.5px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.375rem 0.25rem 0.5rem; font-size:0.8rem; font-weight:700; color:#1e40af; font-family:'Lexend',sans-serif;">
+      <span style="display:inline-flex; align-items:center; gap:0.25rem; background:white; border:1.5px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.375rem 0.25rem 0.5rem; font-size:0.8125rem; font-weight:700; color:#1e40af; font-family:'Lexend',sans-serif;">
         ${esc(t)}
         <button type="button" onclick="removeMeetingTime(${i})" style="background:none; border:none; cursor:pointer; color:#93c5fd; font-size:1rem; line-height:1; padding:0 0.125rem;" title="Odstrániť">✕</button>
       </span>
@@ -5046,13 +5059,13 @@
     if (scenarioId === "home") {
       content.innerHTML = `
         <form id="scenarioHomeForm" style="display:grid; gap:1rem;">
-          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.75rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Celá rodina je doma keď nastane kríza (siréna, výbuch, zemetrasenie). Prepíšte alebo doplňte kroky podľa vašej domácnosti.
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Kde máte hlavný istič? Plynový uzáver? Batoh? Zapíšte si to \u2013 v strese si nepamätáte ani jednoduché veci.</em></div>
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
-            <textarea name="steps" rows="8" maxlength="2000" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
+            <textarea name="steps" rows="8" maxlength="2000" style="line-height:1.6; font-size:0.875rem;" placeholder="1. Zostaňte pokojní – panika je najväčší nepriateľ&#10;2. Zapnite rádio (Rádio Slovensko 96,6 FM)&#10;3. Skontrolujte zásoby a evakuačné batohy&#10;4. Zabezpečte dom: okná, dvere, plyn&#10;5. Ak treba evakuovať: batoh + doklady → miesto stretnutia&#10;6. Nechajte lístok na dverách kam idete">${esc(s.steps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Kam evakuujete? (ak treba opustiť dom)</label>
@@ -5082,13 +5095,13 @@
     else if (scenarioId === "night") {
       content.innerHTML = `
         <form id="scenarioNightForm" style="display:grid; gap:1rem;">
-          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.75rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Je 3:00 v noci, zaznie siréna alebo vás zobudí zemetrasenie. Je tma, ste dezorientovaní.
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Mať čelovku a topánky pri posteli nie je paranoia – je to pripravenosť. V tme na rozbité sklo stúpite skôr než si to uvedomíte.</em></div>
           </div>
           <div>
             <label class="item-label">Postup krok za krokom</label>
-            <textarea name="steps" rows="7" maxlength="2000" style="line-height:1.6; font-size:0.85rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
+            <textarea name="steps" rows="7" maxlength="2000" style="line-height:1.6; font-size:0.875rem;" placeholder="1. Zobuďte všetkých – pokojne ale rázne&#10;2. Čelovka/baterka + topánky (HNEĎ)&#10;3. Oblečte sa teplé oblečenie&#10;4. Zapnite rádio na batérie&#10;5. Vezmite batoh od dverí&#10;6. Ak treba evakuovať: deti neste/veďte">${esc(s.steps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Kam evakuujete v noci?</label>
@@ -5118,7 +5131,7 @@
     else if (scenarioId === "travel") {
       content.innerHTML = `
         <form id="scenarioTravelForm" style="display:grid; gap:1rem;">
-          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.75rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Jeden člen rodiny je na služobnej ceste alebo na dovolenke – koordinácia na diaľku.
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Dohodnite si kontaktnú osobu mimo ohrozeného regiónu (napr. príbuzní v inom meste). Cez ňu sa rodina navzájom nájde aj keď lokálne siete zlyhajú.</em></div>
           </div>
@@ -5138,11 +5151,11 @@
           </div>
           <div>
             <label class="item-label">Čo robí rodina doma?</label>
-            <textarea name="stepsHome" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
+            <textarea name="stepsHome" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.875rem;" placeholder="Zabezpečí dom, ide na miesto stretnutia, ohlási sa kontaktnej osobe...">${esc(s.stepsHome||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Čo robí ten, kto je preč?</label>
-            <textarea name="stepsAway" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
+            <textarea name="stepsAway" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.875rem;" placeholder="Ohlási sa kontaktnej osobe, smeruje domov ak to je možné, kontaktuje ambasádu ak je v zahraničí...">${esc(s.stepsAway||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Poznámka</label>
@@ -5175,25 +5188,25 @@
         tasksHtml += `
           <div class="sep-task-row" style="background:white; border:1.5px solid ${def.border}; border-radius:0.875rem; padding:0.875rem; position:relative;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-              <div style="font-weight:700; font-size:0.8rem; color:${def.color};">Úloha ${i+1}</div>
-              <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
+              <div style="font-weight:700; font-size:0.8125rem; color:${def.color};">Úloha ${i+1}</div>
+              <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8125rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
               <div>
                 <label class="item-sublabel">Kto ide?</label>
-                <input name="task_person_${i}" type="text" maxlength="100" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" />
+                <input name="task_person_${i}" type="text" maxlength="100" value="${esc(t.person||"")}" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.875rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Vyzdvihne koho?</label>
-                <input name="task_picksUp_${i}" type="text" maxlength="100" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" />
+                <input name="task_picksUp_${i}" type="text" maxlength="100" value="${esc(t.picksUp||"")}" placeholder="napr. Jakub, Ema..." style="font-size:0.875rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Odkiaľ?</label>
-                <input name="task_from_${i}" type="text" maxlength="100" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" />
+                <input name="task_from_${i}" type="text" maxlength="100" value="${esc(t.from||"")}" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.875rem;" />
               </div>
               <div>
                 <label class="item-sublabel">Poznámka</label>
-                <input name="task_note_${i}" type="text" maxlength="200" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.85rem;" />
+                <input name="task_note_${i}" type="text" maxlength="200" value="${esc(t.note||"")}" placeholder="napr. Bočný vchod, trieda 3.A" style="font-size:0.875rem;" />
               </div>
             </div>
           </div>`;
@@ -5201,15 +5214,15 @@
 
       content.innerHTML = `
         <form id="scenarioSepForm" style="display:grid; gap:1rem;">
-          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.75rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Rodičia sú v práci, deti v škole/škôlke/krúžkoch. Kto ide pre koho?
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Školy majú vlastné krízové plány \u2013 deti sú v bezpečí. Nepanikárte, ale majte jasné: kto ide kam, v akom poradí, a čo ak primárna osoba nemôže. Dohodnite záložného vyzberača!</em></div>
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Školy majú vlastné krízové plány – deti nevydajú neautorizovaným osobám. Overte vopred, kto je oprávnený vyzdvihnúť vaše dieťa (a zapíšte to aj v škole).</em></div>
           </div>
           <div>
-            <div style="font-size:0.78rem; font-weight:700; margin-bottom:0.5rem;">Rozdelenie úloh</div>
+            <div style="font-size:0.75rem; font-weight:700; margin-bottom:0.5rem;">Rozdelenie úloh</div>
             <div id="sepTasksList" style="display:flex; flex-direction:column; gap:0.625rem;">${tasksHtml}</div>
-            <button type="button" id="btnAddSepTask" class="btn-ghost" style="margin-top:0.625rem; font-size:0.78rem; padding:0.5rem 1rem; width:100%; text-align:center;">+ Pridať úlohu (kto ide pre koho)</button>
+            <button type="button" id="btnAddSepTask" class="btn-ghost" style="margin-top:0.625rem; font-size:0.75rem; padding:0.5rem 1rem; width:100%; text-align:center;">+ Pridať úlohu (kto ide pre koho)</button>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
@@ -5240,14 +5253,14 @@
         row.style.cssText = `background:white; border:1.5px solid ${def.border}; border-radius:0.875rem; padding:0.875rem; position:relative;`;
         row.innerHTML = `
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem;">
-            <div style="font-weight:700; font-size:0.8rem; color:${def.color};">Úloha ${i+1}</div>
-            <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
+            <div style="font-weight:700; font-size:0.8125rem; color:${def.color};">Úloha ${i+1}</div>
+            <button type="button" data-removetask="${i}" style="background:none; border:none; cursor:pointer; color:#dc2626; font-size:0.8125rem; font-weight:600; font-family:'Lexend',sans-serif;">Odstrániť</button>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-            <div><label class="item-sublabel">Kto ide?</label><input name="task_person_${i}" type="text" maxlength="100" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" maxlength="100" placeholder="napr. Jakub, Ema..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Odkiaľ?</label><input name="task_from_${i}" type="text" maxlength="100" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.85rem;" /></div>
-            <div><label class="item-sublabel">Poznámka</label><input name="task_note_${i}" type="text" maxlength="200" placeholder="" style="font-size:0.85rem;" /></div>
+            <div><label class="item-sublabel">Kto ide?</label><input name="task_person_${i}" type="text" maxlength="100" placeholder="napr. Mama, Ocko, Babka..." style="font-size:0.875rem;" /></div>
+            <div><label class="item-sublabel">Vyzdvihne koho?</label><input name="task_picksUp_${i}" type="text" maxlength="100" placeholder="napr. Jakub, Ema..." style="font-size:0.875rem;" /></div>
+            <div><label class="item-sublabel">Odkiaľ?</label><input name="task_from_${i}" type="text" maxlength="100" placeholder="napr. ZŠ Partizánska, MŠ Lúčka..." style="font-size:0.875rem;" /></div>
+            <div><label class="item-sublabel">Poznámka</label><input name="task_note_${i}" type="text" maxlength="200" placeholder="" style="font-size:0.875rem;" /></div>
           </div>`;
         tasksList.appendChild(row);
         bindRemoveButtons();
@@ -5291,7 +5304,7 @@
     else if (scenarioId === "partial") {
       content.innerHTML = `
         <form id="scenarioPartForm" style="display:grid; gap:1rem;">
-          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.78rem; color:${def.color}; line-height:1.6;">
+          <div style="background:${def.bg}; border:1px solid ${def.border}; border-radius:0.75rem; padding:0.75rem 1rem; font-size:0.75rem; color:${def.color}; line-height:1.6;">
             <strong>Situácia:</strong> Jeden z partnerov je doma s deťmi, druhý je v práci. Čo robí každý?
             <div style="margin-top:0.375rem; font-size:0.72rem; opacity:0.8;"><em>Dohodnite si jasné pravidlo: ak sa nedá spojiť do X minút, každý koná podľa plánu a smeruje na miesto stretnutia. Nečakajte na potvrdenie – konajte.</em></div>
           </div>
@@ -5307,11 +5320,11 @@
           </div>
           <div>
             <label class="item-label">Čo robí ten doma?</label>
-            <textarea name="homeSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
+            <textarea name="homeSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.875rem;" placeholder="Pripraví batoh, zabezpečí deti, ide na miesto stretnutia...">${esc(s.homeSteps||"")}</textarea>
           </div>
           <div>
             <label class="item-label">Čo robí ten v práci?</label>
-            <textarea name="workSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.85rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
+            <textarea name="workSteps" rows="3" maxlength="1000" style="line-height:1.6; font-size:0.875rem;" placeholder="Bezpečne opustí pracovisko, smeruje domov alebo na miesto stretnutia...">${esc(s.workSteps||"")}</textarea>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.625rem;">
             <div>
@@ -5409,7 +5422,7 @@
       return `
       <div style="display:flex; align-items:center; justify-content:space-between; padding:0.625rem 0.5rem; border-bottom:1px solid rgba(0,0,0,0.06); border-radius:0.5rem; background:${bgColor}; margin-bottom:0.125rem;">
         <div style="min-width:0;">
-          <div style="font-weight:600; font-size:0.85rem; ${isExpired ? 'color:#dc2626;' : ''}">${esc(a.name)}</div>
+          <div style="font-weight:600; font-size:0.875rem; ${isExpired ? 'color:#dc2626;' : ''}">${esc(a.name)}</div>
           <div style="font-size:0.72rem; color:#92400e;">${esc(a.catName)} • ${esc(a.expiry)}</div>
         </div>
         <span class="badge ${isExpired ? 'badge-red' : 'badge-amber'}" style="flex-shrink:0; margin-left:0.5rem;">${isExpired ? 'EXPIROVANÉ' : 'za ' + a.days + ' dní'}</span>
@@ -5849,7 +5862,7 @@
       card.setAttribute("tabindex", "0");
       card.setAttribute("aria-label", item.title + " – zobraziť postup prvej pomoci");
       card.innerHTML = `
-        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.125rem;">
+        <div class="fa-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.25rem;">
           ${item.emoji}
         </div>
         <div class="fa-card-label">${item.title}</div>`;
@@ -5957,7 +5970,7 @@
       extraHtml += renderSourcesCollapsible(item.sources, item.source);
 
       html += `<div id="faExtraContent" style="display:none;">${extraHtml}</div>`;
-      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.82rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Dôležité upozornenia a zdroje →</button>`;
+      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.8125rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Dôležité upozornenia a zdroje →</button>`;
     } else {
       html += allStepsHtml;
       if (item.warning) html += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
@@ -6041,12 +6054,12 @@
         const inst = INSTITUTIONS[idx];
         if (!inst) return;
         let actions = "";
-        if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone}</a> `;
-        if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone2}</a> `;
-        if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">Web</a>`;
+        if (inst.phone) actions += `<a href="tel:${inst.phone.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:${inst.highlight ? '#fef2f2' : '#eaf4ee'}; color:${inst.highlight ? '#dc2626' : '#2a7a4b'}; border:1px solid ${inst.highlight ? '#fecaca' : '#86efac'}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone}</a> `;
+        if (inst.phone2) actions += `<a href="tel:${inst.phone2.replace(/\s/g, "")}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${inst.phone2}</a> `;
+        if (inst.url) actions += `<a href="${inst.url}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">Web</a>`;
         itemsHtml += `
           <div style="padding:0.625rem 0; border-bottom:1px solid var(--c-border);">
-            <div style="font-weight:700; font-size:0.85rem; line-height:1.3;">${inst.name}</div>
+            <div style="font-weight:700; font-size:0.875rem; line-height:1.3;">${inst.name}</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.5;">${inst.desc}</div>
             <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;">${actions}</div>
           </div>`;
@@ -6054,7 +6067,7 @@
       
       collapse.innerHTML = `
         <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-          <span>${group.label} <span style="font-size:0.68rem; color:var(--c-muted); font-weight:400;">(${group.indices.length})</span></span>
+          <span>${group.label} <span style="font-size:0.72rem; color:var(--c-muted); font-weight:400;">(${group.indices.length})</span></span>
           <span class="info-collapse-arrow">▼</span>
         </button>
         <div class="info-collapse-body" style="padding-top:0;">${itemsHtml}</div>`;
@@ -6110,7 +6123,7 @@
           <div style="display:flex; align-items:center; gap:0.75rem;">
             <div style="width:44px; height:44px; border-radius:50%; background:#86efac; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0;">+</div>
             <div>
-              <div style="font-weight:700; font-size:0.9rem; color:#166534;">Pridajte si osobné kontakty</div>
+              <div style="font-weight:700; font-size:0.9375rem; color:#166534;">Pridajte si osobné kontakty</div>
               <div style="font-size:0.75rem; color:#22c55e; line-height:1.5; margin-top:0.125rem;">Lekár, rodina, sused, poisťovňa, elektrikár, škola – všetko na jednom mieste, offline prístupné aj bez internetu a signálu.</div>
             </div>
           </div>
@@ -6142,17 +6155,17 @@
             <div class="data-icon" style="font-weight:700; font-size:0.75rem; color:var(--c-muted);">${cat.label.charAt(0)}</div>
             <div style="flex:1; min-width:0;">
               <div style="display:flex; align-items:center; gap:0.375rem; flex-wrap:wrap;">
-                <span style="font-weight:700; font-size:0.85rem; line-height:1.3;">${esc(c.name||"")}</span>
-                <span style="font-size:0.65rem; font-weight:600; color:var(--c-muted); background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.1rem 0.375rem;">${cat.label}${c.customType ? " – " + esc(c.customType) : ""}</span>
+                <span style="font-weight:700; font-size:0.875rem; line-height:1.3;">${esc(c.name||"")}</span>
+                <span style="font-size:0.72rem; font-weight:600; color:var(--c-muted); background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.1rem 0.375rem;">${cat.label}${c.customType ? " – " + esc(c.customType) : ""}</span>
               </div>
               ${c.note ? `<div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.15rem; line-height:1.4;">${esc(c.note)}</div>` : ""}
               <div style="display:flex; flex-wrap:wrap; gap:0.375rem; margin-top:0.5rem;" onclick="event.stopPropagation()">
-                <a href="tel:${phoneClean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone||"")}</a>
-                ${c.phone2 ? `<a href="tel:${phone2Clean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone2)}</a>` : ""}
-                ${c.address ? `<span style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.7rem; font-weight:600; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.address)}</span>` : ""}
+                <a href="tel:${phoneClean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone||"")}</a>
+                ${c.phone2 ? `<a href="tel:${phone2Clean}" style="display:inline-flex; align-items:center; gap:0.25rem; background:#eaf4ee; color:#2a7a4b; border:1px solid #86efac; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; text-decoration:none; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.phone2)}</a>` : ""}
+                ${c.address ? `<span style="display:inline-flex; align-items:center; gap:0.25rem; background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:600; font-family:'Lexend',sans-serif; white-space:nowrap;">${esc(c.address)}</span>` : ""}
               </div>
             </div>
-            <div style="color:var(--c-muted); font-size:0.7rem; flex-shrink:0; margin-top:0.25rem; font-weight:500;">Upraviť</div>
+            <div style="color:var(--c-muted); font-size:0.72rem; flex-shrink:0; margin-top:0.25rem; font-weight:500;">Upraviť</div>
           </div>`;
       });
     });
@@ -6507,8 +6520,8 @@
       container.innerHTML = `
         <div style="background:var(--c-bg); border-radius:1rem; padding:1.25rem; text-align:center;">
           
-          <div style="font-weight:600; font-size:0.9rem; margin-bottom:0.25rem;">Najprv vyplňte profil domácnosti</div>
-          <div style="font-size:0.78rem; color:var(--c-muted);">Batožiny sa vygenerujú podľa počtu a typu členov vašej rodiny.</div>
+          <div style="font-weight:600; font-size:0.9375rem; margin-bottom:0.25rem;">Najprv vyplňte profil domácnosti</div>
+          <div style="font-size:0.75rem; color:var(--c-muted);">Batožiny sa vygenerujú podľa počtu a typu členov vašej rodiny.</div>
         </div>`;
       if (regenBtn) regenBtn.style.display = "none";
       return;
@@ -6535,7 +6548,7 @@
           <p style="margin:0 0 0.5rem; font-weight:500;"><strong>Pravidlá:</strong> 1) Ideálne batoh <strong>pri dverách</strong> – ale lepšie v skrini ako vôbec. 2) <strong>Vedzte, aké topánky si beriete</strong> pri evakuácii (pevné, rýchlo obuvateľné). 3) Každý člen rodiny musí <strong>vedieť kde batoh je</strong>. 4) Deti od 6 r. – <strong>vedieť batoh otvoriť a niesť</strong>. 5) <strong>Kartička s kontaktom</strong> vo vrecku kabáta.</p>
           <p style="margin:0 0 0.5rem;">Bez pripraveného batohu zabudnete lieky, doklady alebo vodu. Batoh by mal byť <strong>samostatný</strong> – nebalte veci, ktoré denne používate.</p>
           <p style="margin:0 0 0.375rem; font-weight:600; color:#92400e;">Max. hmotnosť: Dospelý 25 kg &nbsp;|  Senior 20 kg &nbsp;|  Dieťa 15 kg &nbsp;|  Bábätko 5 kg (nosí rodič)</p>
-          <p style="margin:0; font-size:0.68rem;">Zdroj: CZ 72h (MV ČR, 2025), SK MINV, UA DSNS, SE MSB (2024)</p>
+          <p style="margin:0; font-size:0.72rem;">Zdroj: CZ 72h (MV ČR, 2025), SK MINV, UA DSNS, SE MSB (2024)</p>
         </div>
       </div>`;
 
@@ -6556,10 +6569,10 @@
       html += `
         <div onclick="openEvacBagModal('${bagId}')" tabindex="0" role="button" aria-label="${esc(bag.label)} – ${prog.done} z ${prog.total}" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEvacBagModal('${bagId}')}" style="background:${cardBg}; border:1.5px solid ${cardBorder}; border-radius:1rem; padding:1rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
           <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.75rem;">
-            <div style="width:40px; height:40px; border-radius:50%; background:${prog.pct === 100 ? 'white' : 'var(--c-bg)'}; border:1.5px solid ${cardBorder}; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; color:${t.color}; font-family:'Lexend',sans-serif;">${t.label.charAt(0)}</div>
+            <div style="width:40px; height:40px; border-radius:50%; background:${prog.pct === 100 ? 'white' : 'var(--c-bg)'}; border:1.5px solid ${cardBorder}; display:flex; align-items:center; justify-content:center; font-size:0.8125rem; font-weight:700; flex-shrink:0; color:${t.color}; font-family:'Lexend',sans-serif;">${t.label.charAt(0)}</div>
             <div>
-              <div style="font-weight:700; font-size:0.9rem; color:${titleColor};">${esc(bag.label)}</div>
-              <div style="font-size:0.68rem; color:var(--c-muted);">max ${t.maxKg} kg</div>
+              <div style="font-weight:700; font-size:0.9375rem; color:${titleColor};">${esc(bag.label)}</div>
+              <div style="font-size:0.72rem; color:var(--c-muted);">max ${t.maxKg} kg</div>
             </div>
           </div>
           <div style="display:flex; align-items:center; gap:0.5rem;">
@@ -6600,7 +6613,7 @@
         <div class="progress-bar" style="flex:1; height:8px; margin:0;">
           <div class="progress-fill" style="width:${prog.pct}%; background:${colorForPct(prog.pct)}; transition:width 0.3s;"></div>
         </div>
-        <span style="font-size:0.9rem; font-weight:800; color:${colorForPct(prog.pct)};">${prog.pct}%</span>
+        <span style="font-size:0.9375rem; font-weight:800; color:${colorForPct(prog.pct)};">${prog.pct}%</span>
       </div>`;
 
     sections.forEach(sec => {
@@ -6614,7 +6627,7 @@
               ${checked ? '<span style="color:white; font-size:0.75rem; font-weight:700;">✓</span>' : ''}
             </div>
             <div style="flex:1; min-width:0;">
-              <div style="font-size:0.85rem; font-weight:600; ${checked ? 'text-decoration:line-through; color:var(--c-muted);' : 'color:var(--c-text);'}">${esc(item.name)}</div>
+              <div style="font-size:0.875rem; font-weight:600; ${checked ? 'text-decoration:line-through; color:var(--c-muted);' : 'color:var(--c-text);'}">${esc(item.name)}</div>
               ${item.note ? `<div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.1rem; line-height:1.4;">${esc(item.note)}</div>` : ""}
             </div>
           </div>`;
@@ -6814,10 +6827,10 @@
       card.innerHTML = `
         <div style="display:flex; align-items:center; justify-content:space-between; gap:0.5rem;">
           <div>
-            <div style="font-weight:700; font-size:0.9rem; color:${siren.color};">${siren.title}</div>
+            <div style="font-weight:700; font-size:0.9375rem; color:${siren.color};">${siren.title}</div>
             <div style="font-size:0.72rem; color:var(--c-muted); margin-top:0.125rem;">${siren.duration} – ${siren.type}</div>
           </div>
-          <div style="background:${siren.bg}; border:1px solid ${siren.border}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.68rem; font-weight:700; color:${siren.color}; white-space:nowrap;">${siren.duration}</div>
+          <div style="background:${siren.bg}; border:1px solid ${siren.border}; border-radius:0.5rem; padding:0.25rem 0.5rem; font-size:0.72rem; font-weight:700; color:${siren.color}; white-space:nowrap;">${siren.duration}</div>
         </div>
         <div class="siren-wave ${siren.wave === 'steady' ? 'siren-wave-steady' : ''}" style="background:${siren.bg}; border:1px solid ${siren.border};">${bars}</div>`;
       card.onclick = () => openSirenModal(siren);
@@ -6841,7 +6854,7 @@
         <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
           <div style="font-size:1.75rem; font-weight:800; color:${siren.color};">${siren.duration}</div>
           <div>
-            <div style="font-weight:700; color:${siren.color}; font-size:0.9rem;">${siren.type.charAt(0).toUpperCase() + siren.type.slice(1)}</div>
+            <div style="font-weight:700; color:${siren.color}; font-size:0.9375rem;">${siren.type.charAt(0).toUpperCase() + siren.type.slice(1)}</div>
             <div style="font-size:0.75rem; color:var(--c-muted);">trvanie sign\u00e1lu</div>
           </div>
         </div>
@@ -6851,7 +6864,7 @@
     html += `<div class="modal-section">
       <div class="modal-section-header">Význam</div>
       <div class="modal-section-steps">
-        <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.meaning}</div>
+        <div style="font-size:0.875rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.meaning}</div>
       </div>
     </div>`;
 
@@ -6859,7 +6872,7 @@
       html += `<div class="modal-section">
         <div class="modal-section-header">Ako rozoznať</div>
         <div class="modal-section-steps">
-          <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.howToRecognize}</div>
+          <div style="font-size:0.875rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.howToRecognize}</div>
         </div>
       </div>`;
     }
@@ -6880,7 +6893,7 @@
       html += `<div class="modal-section">
         <div class="modal-section-header">Čo robiť</div>
         <div class="modal-section-steps">
-          <div style="font-size:0.85rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.action}</div>
+          <div style="font-size:0.875rem; color:var(--c-text); line-height:1.6; padding:0.375rem;">${siren.action}</div>
         </div>
       </div>`;
     }
@@ -6971,21 +6984,21 @@
       card.style.cssText = `background:${radio.bg}; border:1.5px solid ${radio.border}; border-radius:1rem; padding:1rem;`;
       let freqHtml = radio.frequencies.map(f =>
         `<div style="display:flex; justify-content:space-between; align-items:center; padding:0.3rem 0; border-bottom:1px solid ${radio.border};">
-          <span style="font-size:0.78rem; color:var(--c-muted);">${f.region}</span>
+          <span style="font-size:0.75rem; color:var(--c-muted);">${f.region}</span>
           <div style="display:flex; align-items:center; gap:0.375rem;">
-            <span style="font-size:0.82rem; font-weight:700; color:var(--c-text); font-family:'Lexend',sans-serif;">${f.fm}</span>
+            <span style="font-size:0.8125rem; font-weight:700; color:var(--c-text); font-family:'Lexend',sans-serif;">${f.fm}</span>
           </div>
         </div>`
       ).join("");
       const priorityBadge = radio.priority
-        ? `<span style="display:inline-block; background:#dc2626; color:#fff; font-size:0.6rem; font-weight:700; padding:0.1rem 0.375rem; border-radius:0.25rem; vertical-align:middle; margin-left:0.375rem;">PRIORITA</span>`
+        ? `<span style="display:inline-block; background:#dc2626; color:#fff; font-size:0.625rem; font-weight:700; padding:0.1rem 0.375rem; border-radius:0.25rem; vertical-align:middle; margin-left:0.375rem;">PRIORITA</span>`
         : "";
       card.innerHTML = `
         <div style="display:flex; align-items:center; gap:0.625rem; margin-bottom:0.625rem;">
-          <span style="font-size:0.7rem; font-weight:800; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.2rem 0.4rem; color:var(--c-muted); letter-spacing:0.05em;">FM</span>
+          <span style="font-size:0.72rem; font-weight:800; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; padding:0.2rem 0.4rem; color:var(--c-muted); letter-spacing:0.05em;">FM</span>
           <div>
             <div style="font-weight:700; font-size:0.875rem;">${radio.name}${priorityBadge}</div>
-            <div style="font-size:0.7rem; color:var(--c-muted); line-height:1.4; margin-top:0.1rem;">${radio.desc}</div>
+            <div style="font-size:0.72rem; color:var(--c-muted); line-height:1.4; margin-top:0.1rem;">${radio.desc}</div>
           </div>
         </div>
         <div>${freqHtml}</div>`;
@@ -7714,7 +7727,7 @@
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", item.title + " – zobraziť postup");
         card.innerHTML = `
-          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.125rem;">
+          <div class="mu-icon" style="background:${item.iconBg}; border:1.5px solid ${item.iconBorder}; font-size:1.25rem;">
             ${item.emoji}
           </div>
           <div class="mu-card-label">${item.title}</div>`;
