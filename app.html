@@ -3141,7 +3141,18 @@
     } catch(e) { /* Blob not available — pokračuj */ }
     setSyncStatus("syncing");
     try {
-      await setDoc(userDocRef(currentUser.uid), state);
+      // Only save whitelisted keys (strip runtime-only fields like _profileWasSet)
+      const saveData = {
+        profile: state.profile,
+        selectedCategoryId: state.selectedCategoryId,
+        alertDaysMeds: state.alertDaysMeds,
+        alertDaysFood: state.alertDaysFood,
+        items: state.items,
+        plans: state.plans,
+        personalContacts: state.personalContacts,
+        evacuationBags: state.evacuationBags
+      };
+      await setDoc(userDocRef(currentUser.uid), saveData);
       setSyncStatus("synced");
     } catch(e) {
       console.error("Save error", e);
