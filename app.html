@@ -40,10 +40,10 @@
     .cat-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
     .cat-bar { width:3px; height:100%; border-radius:2px; flex-shrink:0; min-height:1.5rem; }
     .section-icon { display:inline-flex; align-items:center; justify-content:center; width:1.75rem; height:1.75rem; border-radius:0.5rem; font-size:0.8125rem; font-weight:700; flex-shrink:0; }
-    .tip-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#ca8a04; font-size:0.625rem; font-weight:800; color:#fff; flex-shrink:0; margin-right:0.375rem; }
-    .tip-indicator::after { content:"i"; }
-    .warn-indicator { display:inline-flex; align-items:center; justify-content:center; width:1.25rem; height:1.25rem; border-radius:50%; background:#dc2626; font-size:0.72rem; font-weight:800; color:#fff; flex-shrink:0; margin-right:0.375rem; }
-    .warn-indicator::after { content:"!"; }
+    .tip-indicator { font-size:0.75rem; font-weight:700; color:#854d0e; margin-right:0.25rem; }
+    .tip-indicator::after { content:"Dôležité:"; }
+    .warn-indicator { font-size:0.75rem; font-weight:700; color:#991b1b; margin-right:0.25rem; }
+    .warn-indicator::after { content:"Dôležité:"; }
     .data-icon { font-size:0.875rem; width:2rem; height:2rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.5rem; flex-shrink:0; line-height:1; }
     .data-icon-sm { font-size:0.75rem; width:1.5rem; height:1.5rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; flex-shrink:0; line-height:1; }
 
@@ -634,9 +634,6 @@
     }
     .fa-step-text strong { color: var(--c-text); font-weight: 700; }
     .modal-warn-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
       background: var(--c-error-bg);
       border: 1px solid var(--c-error-border);
       border-radius: 0.5rem;
@@ -646,25 +643,7 @@
       line-height: 1.55;
       margin: 0.375rem 0;
     }
-    .modal-warn-box::before {
-      content: '!';
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #dc2626;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
     .modal-note-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
       background: var(--c-warning-bg);
       border: 1px solid var(--c-warning-border);
       border-radius: 0.5rem;
@@ -674,26 +653,8 @@
       line-height: 1.55;
       margin: 0.375rem 0;
     }
-    .modal-note-box::before {
-      content: 'i';
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #ca8a04;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
     /* Legacy aliases — keep for backward compat */
     .fa-warning {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
       background: var(--c-error-bg);
       border: 1px solid var(--c-error-border);
       border-radius: 0.5rem;
@@ -703,25 +664,7 @@
       line-height: 1.5;
       margin-top: 0.75rem;
     }
-    .fa-warning::before {
-      content: '!';
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #dc2626;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
     .fa-info {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
       background: var(--c-info-bg);
       border: 1px solid var(--c-info-border);
       border-radius: 0.5rem;
@@ -730,21 +673,6 @@
       color: var(--c-info);
       line-height: 1.5;
       margin-top: 0.75rem;
-    }
-    .fa-info::before {
-      content: 'i';
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: #475569;
-      color: #fff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
     }
     .fa-source {
       font-size: 0.72rem;
@@ -5974,11 +5902,11 @@
       }
 
       if (step.note) {
-        html += `<div class="modal-note-box"><span class="tip-indicator"></span> ${step.note}</div>`;
+        html += `<div class="modal-note-box"><strong>Dôležité:</strong> ${step.note}</div>`;
         return;
       }
       if (step.warn) {
-        html += `<div class="modal-warn-box"><span class="warn-indicator"></span> ${step.warn}</div>`;
+        html += `<div class="modal-warn-box"><strong>Dôležité:</strong> ${step.warn}</div>`;
         return;
       }
       if (step.text) {
@@ -6042,7 +5970,7 @@
       // Warning/info/source in hidden section
       let extraHtml = '';
       if (item.warning) extraHtml += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) extraHtml += `<div class="fa-info"><strong>Tip:</strong> ${item.info}</div>`;
+      if (item.info) extraHtml += `<div class="fa-info"><strong>Dôležité:</strong> ${item.info}</div>`;
       extraHtml += renderSourcesCollapsible(item.sources, item.source);
 
       html += `<div id="faExtraContent" style="display:none;">${extraHtml}</div>`;
@@ -6050,7 +5978,7 @@
     } else {
       html += allStepsHtml;
       if (item.warning) html += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
-      if (item.info) html += `<div class="fa-info"><strong>Tip:</strong> ${item.info}</div>`;
+      if (item.info) html += `<div class="fa-info"><strong>Dôležité:</strong> ${item.info}</div>`;
       html += renderSourcesCollapsible(item.sources, item.source);
     }
 
@@ -6975,7 +6903,7 @@
     }
 
     if (siren.note) {
-      html += `<div class="fa-info"><strong>Poznámka:</strong> ${siren.note}</div>`;
+      html += `<div class="fa-info"><strong>Dôležité:</strong> ${siren.note}</div>`;
     }
 
     html += renderSourcesCollapsible(siren.sources, null);
