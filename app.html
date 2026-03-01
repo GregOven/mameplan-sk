@@ -2515,7 +2515,7 @@
 
 <!-- EmailJS SDK -->
 <!-- Anti-clickjacking (GitHub Pages nemá HTTP header support) -->
-<script>if (self !== top) { top.location = self.location; }</script>
+<script>try{if(self!==top){top.location=self.location;}}catch(e){}</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js" crossorigin="anonymous"></script>
 <!-- TODO: Pridať integrity="sha384-..." hash — vygeneruj na https://www.srihash.org/ -->
@@ -3408,9 +3408,6 @@
   const EXPORT_VERSION = 1;
   const EXPORT_MAX_SIZE = 1 * 1024 * 1024; // 1 MB
 
-  // ── Required keys in valid state object
-  const VALID_STATE_KEYS = ['profile', 'items', 'plans', 'personalContacts', 'evacuationBags', 'alertDaysMeds', 'alertDaysFood', 'selectedCategoryId'];
-
   function exportUserData() {
     try {
       const exportData = {
@@ -3423,6 +3420,7 @@
       // Remove any transient UI state that shouldn't be exported
       delete exportData.data._dirty;
       delete exportData.data._lastSync;
+      delete exportData.data._profileWasSet;
 
       const json = JSON.stringify(exportData, null, 2);
       const blob = new Blob([json], { type: 'application/json' });
@@ -3510,10 +3508,19 @@
         // Sanitize: deep-clone to prevent prototype pollution
         const safeData = JSON.parse(JSON.stringify(importedData));
 
+        // SECURITY: whitelist only allowed state keys (prevents __proto__ pollution, state injection)
+        const ALLOWED_STATE_KEYS = ['profile', 'items', 'plans', 'personalContacts', 'evacuationBags', 'alertDaysMeds', 'alertDaysFood', 'selectedCategoryId'];
+        const filteredData = {};
+        for (const key of ALLOWED_STATE_KEYS) {
+          if (key in safeData) {
+            filteredData[key] = safeData[key];
+          }
+        }
+
         // Confirm with user
-        const itemCount = Object.values(safeData.items || {}).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
-        const profileInfo = safeData.profile ? `${safeData.profile.adults || 0} dospelí, ${safeData.profile.kids || 0} deti` : 'bez profilu';
-        const contactCount = (safeData.personalContacts || []).length;
+        const itemCount = Object.values(filteredData.items || {}).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+        const profileInfo = filteredData.profile ? `${filteredData.profile.adults || 0} dospelí, ${filteredData.profile.kids || 0} deti` : 'bez profilu';
+        const contactCount = (filteredData.personalContacts || []).length;
 
         const msg = `Importovať dáta?\n\n` +
           `• Profil: ${profileInfo}\n` +
@@ -3525,13 +3532,13 @@
 
         // Apply import using the same merge logic as loadUserData
         const mergedState = freshState();
-        Object.assign(mergedState, safeData);
+        Object.assign(mergedState, filteredData);
 
         // Ensure critical fields have correct types
-        mergedState.personalContacts = Array.isArray(safeData.personalContacts) ? safeData.personalContacts : [];
-        mergedState.evacuationBags = (safeData.evacuationBags && typeof safeData.evacuationBags === 'object' && !Array.isArray(safeData.evacuationBags)) ? safeData.evacuationBags : {};
-        mergedState.alertDaysMeds = typeof safeData.alertDaysMeds === 'number' ? safeData.alertDaysMeds : 180;
-        mergedState.alertDaysFood = typeof safeData.alertDaysFood === 'number' ? safeData.alertDaysFood : 30;
+        mergedState.personalContacts = Array.isArray(filteredData.personalContacts) ? filteredData.personalContacts : [];
+        mergedState.evacuationBags = (filteredData.evacuationBags && typeof filteredData.evacuationBags === 'object' && !Array.isArray(filteredData.evacuationBags)) ? filteredData.evacuationBags : {};
+        mergedState.alertDaysMeds = typeof filteredData.alertDaysMeds === 'number' ? filteredData.alertDaysMeds : 180;
+        mergedState.alertDaysFood = typeof filteredData.alertDaysFood === 'number' ? filteredData.alertDaysFood : 30;
 
         // Load into app
         state = mergedState;
@@ -3560,7 +3567,12 @@
 
     // If items exist, each category must be an array
     if (data.items) {
+      // SECURITY: only allow known category keys
+      const ALLOWED_CATEGORIES = ['water', 'food', 'medkit', 'cash', 'gear', 'hygiene', 'docs'];
       for (const [key, val] of Object.entries(data.items)) {
+        if (!ALLOWED_CATEGORIES.includes(key)) {
+          return { ok: false, error: `Neznáma kategória "${key}"` };
+        }
         if (!Array.isArray(val)) {
           return { ok: false, error: `Kategória "${key}" nie je pole` };
         }
@@ -3710,6 +3722,14 @@
       deleteSection.style.display = isDemo ? 'none' : 'block';
     }
   }
+
+  // Expose data management functions to global scope (needed for inline onclick handlers)
+  window.exportUserData = exportUserData;
+  window.importUserData = importUserData;
+  window.showDeleteConfirm = showDeleteConfirm;
+  window.hideDeleteConfirm = hideDeleteConfirm;
+  window.checkDeleteConfirmation = checkDeleteConfirmation;
+  window.executeDeleteAllData = executeDeleteAllData;
 
   function esc(s) {
     return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -8562,6 +8582,9 @@
       menu.classList.remove("open");
     }
   });
+
+  // Expose to window (needed for inline onclick in profile)
+  window.sendTestNotification = sendTestNotification;
 
   // Dynamic year
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
