@@ -381,7 +381,8 @@
     .card:hover {
       box-shadow: 0 2px 8px rgba(26,23,20,0.06), 0 4px 16px rgba(26,23,20,0.04);
     }
-    .card > h2, .card > h3, .card h2, .card h3, .hero-banner h2, .hero-banner h3 { margin-top: 0; }
+    .card > h2, .card > h3, .card h2, .card h3, .hero-banner h2, .hero-banner h3 { margin-top: 0; margin-bottom: 0; }
+    .card h2 + p, .card h3 + p { margin-top: 0.125rem; margin-bottom: 0; }
 
     .progress-bar { height: 8px; border-radius: 999px; background: #ede9e3; overflow: hidden; }
     .progress-fill { height: 100%; border-radius: 999px; transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative; overflow: hidden; }
@@ -1722,8 +1723,8 @@
           <h2 style="font-size:1.25rem; font-weight:700;">Krízové scenáre</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál, budete vedieť čo robiť.</p>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Prečo potrebujete krízový plán</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1731,8 +1732,8 @@
             Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
           </div>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Ako pracovať so scenármi</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1821,8 +1822,8 @@
           <h2 style="font-size:1.25rem; font-weight:700;">Varovné signály sirén</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Rozoznajte signály, pochopte ich význam a vedzte čo robiť</p>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Čo robiť keď zaznie siréna</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1839,8 +1840,8 @@
             <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:0.625rem;"></div>
           </div>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-top:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-top:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Skúška sirén a ďalšie informácie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1857,8 +1858,8 @@
           <h2 style="font-size:1.25rem; font-weight:700;">Núdzové vysielanie rádia</h2>
           <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Frekvencie pre príjem krízových informácií – fungujú aj bez internetu a mobilnej siete</p>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Prečo rádio na batérie</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1875,8 +1876,8 @@
             <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
           </div>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-top:0.75rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-top:0.75rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Tipy pre núdzové rádio</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -4223,26 +4224,26 @@
     if (catId === "docs") {
       const banner = document.createElement("div");
       banner.innerHTML = `
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:1rem;">
+          <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Kde uchovávať dokumenty?</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
           <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-text); line-height:1.5;">
             <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:0.375rem; font-size:0.72rem; line-height:1.5;">
-              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-warning-border);">
                 <strong>Originál</strong><br>
                 <span style="color:var(--c-muted);">Doma v bezpečnom mieste (trezor, ohnivzdorná schránka)</span>
               </div>
-              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-warning-border);">
                 <strong>Kópia</strong><br>
                 <span style="color:var(--c-muted);">Papierová kópia v evakuačnom batohu + u príbuzných</span>
               </div>
-              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-warning-border);">
                 <strong>USB</strong><br>
                 <span style="color:var(--c-muted);">Šifrovaný USB kľúč v batohu – scany všetkých dokumentov</span>
               </div>
-              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-info-border);">
+              <div style="background:white; border-radius:0.5rem; padding:0.5rem 0.625rem; border:1px solid var(--c-warning-border);">
                 <strong>Cloud</strong><br>
                 <span style="color:var(--c-muted);">Šifrované úložisko (Google Drive, iCloud) – prístup odkiaľkoľvek</span>
               </div>
@@ -6072,7 +6073,7 @@
       extraHtml += renderSourcesCollapsible(item.sources, item.source);
 
       html += `<div id="faExtraContent" style="display:none;">${extraHtml}</div>`;
-      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-info-bg); border:1.5px solid var(--c-info-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.8125rem; font-weight:700; color:var(--c-info); cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Dôležité upozornenia a zdroje →</button>`;
+      html += `<button id="faExpandBtn" onclick="document.getElementById('faExtraContent').style.display='block'; this.style.display='none';" style="width:100%; margin-top:0.5rem; padding:0.75rem; background:var(--c-warning-bg); border:1.5px solid var(--c-warning-border); border-radius:0.875rem; font-family:'Lexend',sans-serif; font-size:0.8125rem; font-weight:700; color:#854d0e; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.06)'" onmouseout="this.style.transform='';this.style.boxShadow=''">Dôležité upozornenia a zdroje →</button>`;
     } else {
       html += allStepsHtml;
       if (item.warning) html += `<div class="fa-warning"><strong>Dôležité:</strong> ${item.warning}</div>`;
@@ -6640,8 +6641,8 @@
 
     // BYOB info - all collapsible
     let html = `
-      <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
-        <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+      <div class="info-collapse" style="background:var(--c-warning-bg); border:1px solid var(--c-warning-border); margin-bottom:1rem;">
+        <button class="info-collapse-toggle" style="color:#854d0e;" onclick="this.closest('.info-collapse').classList.toggle('open')">
           <span><span class="tip-indicator"></span>Prečo evakuačný batoh a pravidlá</span>
           <span class="info-collapse-arrow">▼</span>
         </button>
