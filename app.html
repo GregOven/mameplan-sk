@@ -42,7 +42,7 @@
     .section-icon { display:inline-flex; align-items:center; justify-content:center; width:1.75rem; height:1.75rem; border-radius:0.5rem; font-size:0.8125rem; font-weight:700; flex-shrink:0; }
     .tip-indicator { font-size:0.75rem; font-weight:700; color:#854d0e; margin-right:0.25rem; }
     .tip-indicator::after { content:"Dôležité:"; }
-    .warn-indicator { font-size:0.75rem; font-weight:700; color:#991b1b; margin-right:0.25rem; }
+    .warn-indicator { font-size:0.75rem; font-weight:700; color:#854d0e; margin-right:0.25rem; }
     .warn-indicator::after { content:"Dôležité:"; }
     .data-icon { font-size:0.875rem; width:2rem; height:2rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.5rem; flex-shrink:0; line-height:1; }
     .data-icon-sm { font-size:0.75rem; width:1.5rem; height:1.5rem; display:flex; align-items:center; justify-content:center; background:var(--c-surface); border:1px solid var(--c-border); border-radius:0.375rem; flex-shrink:0; line-height:1; }
@@ -638,12 +638,12 @@
     }
     .fa-step-text strong { color: var(--c-text); font-weight: 700; }
     .modal-warn-box {
-      background: var(--c-error-bg);
-      border: 1px solid var(--c-error-border);
+      background: var(--c-warning-bg);
+      border: 1px solid var(--c-warning-border);
       border-radius: 0.5rem;
       padding: 0.625rem 0.75rem;
       font-size: 0.8125rem;
-      color: #991b1b;
+      color: #854d0e;
       line-height: 1.55;
       margin: 0.375rem 0;
     }
@@ -659,12 +659,12 @@
     }
     /* Legacy aliases — keep for backward compat */
     .fa-warning {
-      background: var(--c-error-bg);
-      border: 1px solid var(--c-error-border);
+      background: var(--c-warning-bg);
+      border: 1px solid var(--c-warning-border);
       border-radius: 0.5rem;
       padding: 0.75rem 1rem;
       font-size: 0.8125rem;
-      color: #991b1b;
+      color: #854d0e;
       line-height: 1.5;
       margin-top: 0.75rem;
     }
@@ -889,9 +889,15 @@
         max-height: 1200px !important;
         padding: 0 0.875rem 0.75rem !important;
       }
-      #sirensCollapse .info-collapse-arrow,
-      #radioCollapse .info-collapse-arrow {
-        transform: rotate(180deg);
+      #sirensCollapse .siren-freq-arrow,
+      #radioCollapse .siren-freq-arrow {
+        display: none;
+      }
+      #sirensCollapse .siren-freq-toggle,
+      #radioCollapse .siren-freq-toggle {
+        cursor: default;
+        pointer-events: none;
+        font-weight: 700;
       }
     }
 
@@ -1652,15 +1658,18 @@
 
       <!-- Alerts -->
       <div class="card" id="alertsSection" style="display:none; border:1.5px solid #f59e0b; background:linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); position:relative; overflow:hidden;">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem; flex-wrap:wrap; gap:0.5rem;">
+        <div onclick="document.getElementById('alertsDetail').style.display = document.getElementById('alertsDetail').style.display === 'none' ? 'block' : 'none'; this.querySelector('.alert-arrow').style.transform = document.getElementById('alertsDetail').style.display === 'none' ? '' : 'rotate(180deg)';" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
           <div style="display:flex; align-items:center; gap:0.5rem;">
             <div id="alertPulse" style="width:10px; height:10px; border-radius:50%; background:#ef4444; animation:alertPulseAnim 2s ease-in-out infinite; flex-shrink:0;"></div>
             <h2 style="font-size:1rem; font-weight:700; margin:0;">Upozornenia</h2>
             <span id="alertCount" class="badge badge-red" style="font-size:0.72rem;"></span>
           </div>
+          <span class="alert-arrow" style="font-size:0.72rem; color:#92400e; transition:transform 0.25s;">▼</span>
         </div>
-        <p style="font-size:0.75rem; color:#92400e; margin-bottom:0.75rem;">Položky s blížiacou sa expiráciou — spotrebujte ich alebo vymeňte za čerstvé</p>
-        <div id="alertsBox"></div>
+        <div id="alertsDetail" style="display:none;">
+          <p style="font-size:0.75rem; color:#92400e; margin:0.5rem 0 0.75rem;">Položky s blížiacou sa expiráciou — spotrebujte ich alebo vymeňte za čerstvé</p>
+          <div id="alertsBox"></div>
+        </div>
       </div>
 
       <!-- Categories Grid -->
@@ -1698,14 +1707,23 @@
         <div id="evacBagsContainer"></div>
       </div>
 
-      <!-- Rodinný krízový plán -->
+      <!-- Miesto stretnutia -->
       <div class="card">
         <div style="margin-bottom:1rem;">
-          <h2 style="font-size:1.25rem; font-weight:700;">Rodinný krízový plán</h2>
-          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál a internet, budete vedieť čo robiť a kde sa nájsť.</p>
+          <h2 style="font-size:1.25rem; font-weight:700;">Miesto stretnutia</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Kde sa stretnete, keď vypadne signál a internet?</p>
         </div>
-        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:1rem;">
-          <button class="info-collapse-toggle" style="color:#991b1b;" onclick="this.closest('.info-collapse').classList.toggle('open')">
+        <div id="meetingPointBox"></div>
+      </div>
+
+      <!-- Krízové scenáre -->
+      <div class="card">
+        <div style="margin-bottom:1rem;">
+          <h2 style="font-size:1.25rem; font-weight:700;">Krízové scenáre</h2>
+          <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Dohodnite sa vopred. Keď vypadne signál, budete vedieť čo robiť.</p>
+        </div>
+        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span><span class="tip-indicator"></span>Prečo potrebujete krízový plán</span>
             <span class="info-collapse-arrow">▼</span>
           </button>
@@ -1713,20 +1731,16 @@
             Mobilná sieť je preťažená do <strong>15–30 minút</strong> od začiatku krízy. Bez plánu sa rodina nemusí nájsť. <strong>Vytlačte</strong> a dajte kópiu každému členovi rodiny.
           </div>
         </div>
-        <div id="meetingPointBox"></div>
-        <div style="margin-top:1rem;">
-          <div class="section-label">Krízové scenáre – kto, čo, kam?</div>
-          <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
-            <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-              <span><span class="tip-indicator"></span>Ako pracovať so scenármi</span>
-              <span class="info-collapse-arrow">▼</span>
-            </button>
-            <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
-              Prejdite si každý scenár a doplňte konkrétne mená, miesta a úlohy. Krízový plán funguje len ak ho <strong>poznajú všetci členovia rodiny</strong> – vrátane detí od 6 rokov. Ideálne si plán <strong>raz za rok precvičte</strong> (napr. pri skúške sirén).
-            </div>
+        <div class="info-collapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.75rem;">
+          <button class="info-collapse-toggle" style="color:var(--c-info);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span><span class="tip-indicator"></span>Ako pracovať so scenármi</span>
+            <span class="info-collapse-arrow">▼</span>
+          </button>
+          <div class="info-collapse-body" style="font-size:0.75rem; color:var(--c-muted); line-height:1.6;">
+            Prejdite si každý scenár a doplňte konkrétne mená, miesta a úlohy. Krízový plán funguje len ak ho <strong>poznajú všetci členovia rodiny</strong> – vrátane detí od 6 rokov. Ideálne si plán <strong>raz za rok precvičte</strong> (napr. pri skúške sirén).
           </div>
-          <div id="scenariosBox" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
         </div>
+        <div id="scenariosBox" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
         <div class="info-collapse" style="background:#eff6ff; border:1px solid #bfdbfe; margin-top:1rem;">
           <button class="info-collapse-toggle" style="color:#1e40af;" onclick="this.closest('.info-collapse').classList.toggle('open')">
             <span>Komunikačný plán (ak telefóny nefungujú)</span>
@@ -1816,10 +1830,10 @@
             Ak zaznie siréna a nie je oznámená skúška – berte to vážne. Vojdite do budovy a zapnite rádio.
           </div>
         </div>
-        <div class="info-collapse" id="sirensCollapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.5rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>Typy signálov (kliknutím rozbaľte)</span>
-            <span class="info-collapse-arrow">▼</span>
+        <div class="info-collapse" id="sirensCollapse" style="background:var(--c-bg); border:1px solid var(--c-border); margin-bottom:0.5rem;">
+          <button class="info-collapse-toggle siren-freq-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>Typy signálov</span>
+            <span class="info-collapse-arrow siren-freq-arrow">▼</span>
           </button>
           <div class="info-collapse-body">
             <div id="sirensGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(250px, 1fr)); gap:0.625rem;"></div>
@@ -1852,10 +1866,10 @@
             Pri výpadku elektriny a internetu je FM rádio na batérie jediný spoľahlivý zdroj informácií. <strong>Rádio na batérie patrí do každej domácnosti.</strong>
           </div>
         </div>
-        <div class="info-collapse" id="radioCollapse" style="background:var(--c-info-bg); border:1px solid var(--c-info-border); margin-bottom:0.5rem;">
-          <button class="info-collapse-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
-            <span>Frekvencie podľa regiónov (kliknutím rozbaľte)</span>
-            <span class="info-collapse-arrow">▼</span>
+        <div class="info-collapse" id="radioCollapse" style="background:var(--c-bg); border:1px solid var(--c-border); margin-bottom:0.5rem;">
+          <button class="info-collapse-toggle siren-freq-toggle" style="color:var(--c-text);" onclick="this.closest('.info-collapse').classList.toggle('open')">
+            <span>Frekvencie podľa regiónov</span>
+            <span class="info-collapse-arrow siren-freq-arrow">▼</span>
           </button>
           <div class="info-collapse-body">
             <div id="radioGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:0.625rem;"></div>
@@ -4894,15 +4908,10 @@
 
     if (!hasData) {
       box.innerHTML = `
-        <div style="background:linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%); border:1.5px solid #fcd34d; border-radius:1rem; padding:1.25rem; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s;" tabindex="0" role="button" aria-label="Nastaviť miesto stretnutia" onclick="openMeetingPointModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMeetingPointModal()}" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 18px rgba(0,0,0,0.08)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
-          <div style="display:flex; align-items:center; gap:0.75rem;">
-            <div style="width:48px; height:48px; border-radius:50%; background:#fbbf24; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:#fff; letter-spacing:0.05em;">MP</div>
-            <div style="flex:1;">
-              <div style="font-weight:700; font-size:0.9375rem; color:#92400e;">Nastavte miesto stretnutia</div>
-              <div style="font-size:0.75rem; color:#854d0e; line-height:1.5; margin-top:0.2rem;">Kde sa stretnete, keď vypadne signál a internet? Vyberte miesto, ktoré: <strong>všetci poznajú</strong> (kostol, pamätník, škola), je <strong>pešo do 30 min</strong>, na <strong>otvorenom priestranstve</strong> (nie v budove), a <strong>ďaleko od rizík</strong> (nie most, nie pod svahom, nie v údolí). Nastavte aj <strong>záložné miesto</strong> pre prípad, že primárne je nedostupné.</div>
-            </div>
-            <div style="font-size:1.25rem; color:#854d0e; flex-shrink:0;">→</div>
-          </div>
+        <div class="scenario-row" onclick="openMeetingPointModal()" tabindex="0" role="button" aria-label="Nastaviť miesto stretnutia" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMeetingPointModal()}" style="border-color:#fecaca;">
+          <div class="sc-icon" style="font-size:0; border-color:#fecaca;"><div class="cat-dot" style="background:#ef4444;"></div></div>
+          <div class="sc-title">Miesto stretnutia</div>
+          <span class="sc-status todo">Nastaviť →</span>
         </div>`;
       return;
     }
@@ -4925,24 +4934,13 @@
     }
 
     box.innerHTML = `
-      <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border:1.5px solid #bfdbfe; border-radius:1rem; padding:1.25rem;">
-        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:0.75rem;">
-          <div style="display:flex; align-items:flex-start; gap:0.75rem; flex:1; min-width:0;">
-            <div style="width:48px; height:48px; border-radius:50%; background:#3b82f6; display:flex; align-items:center; justify-content:center; font-size:0.875rem; font-weight:700; flex-shrink:0; color:white; letter-spacing:0.05em;">MP</div>
-            <div style="flex:1; min-width:0;">
-              <div style="font-size:0.72rem; font-weight:600; color:#2563eb; text-transform:uppercase; letter-spacing:0.04em;">Miesto stretnutia</div>
-              <div style="font-weight:800; font-size:1.0625rem; color:var(--c-text); margin-top:0.125rem;">${esc(mp.name)}</div>
-              ${mp.address ? `<div style="font-size:0.8125rem; color:var(--c-muted); margin-top:0.125rem;">${esc(mp.address)}</div>` : ""}
-              ${mp.note ? `<div style="font-size:0.75rem; color:var(--c-muted); margin-top:0.25rem; font-style:italic;">${esc(mp.note)}</div>` : ""}
-              ${hasTimes ? `<div style="margin-top:0.5rem;"><div style="font-size:0.72rem; font-weight:600; color:#2563eb; margin-bottom:0.25rem;">ČASY STRETÁVANIA</div>${timesHtml}</div>` : ""}
-            </div>
-          </div>
-          <button class="btn-ghost" onclick="openMeetingPointModal()" style="font-size:0.75rem; padding:0.375rem 0.75rem; flex-shrink:0;">Upraviť</button>
+      <div class="scenario-row done" onclick="openMeetingPointModal()" tabindex="0" role="button" aria-label="Miesto stretnutia – nastavené" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openMeetingPointModal()}" style="border-color:var(--c-success-border);">
+        <div class="sc-icon" style="font-size:0; border-color:var(--c-success-border);"><div class="cat-dot" style="background:#22c55e;"></div></div>
+        <div style="flex:1; min-width:0;">
+          <div class="sc-title" style="margin:0;">${esc(mp.name)}</div>
+          ${mp.address ? `<div style="font-size:0.72rem; color:var(--c-muted);">${esc(mp.address)}</div>` : ""}
         </div>
-        ${backupHtml}
-        <div style="background:rgba(255,255,255,0.6); border-radius:0.625rem; padding:0.625rem 0.75rem; margin-top:0.75rem; font-size:0.75rem; color:#1e40af; line-height:1.5;">
-          <strong>Pravidlo:</strong> Ak tam ten druhý nie je, počkajte 30 minút a príďte znova o ďalší interval. Ak sa nestretnete ani na 3. pokus – prejdite na <strong>záložné miesto</strong>.
-        </div>
+        <span class="sc-status done">✓ Hotovo</span>
       </div>`;
   }
 
