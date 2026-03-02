@@ -30,4 +30,4 @@ Obsah tohto webu má **výlučne informačný a vzdelávací charakter**. Mámep
 
 ## Kontakt
 
-Pre otázky týkajúce sa licencie, spolupráce alebo komerčného použitia: [váš kontaktný email]
+Pre otázky týkajúce sa licencie, spolupráce alebo komerčného použitia: app.gerlach@gmail.com
