@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Krízový plán pre rodinu — ako ho vytvoriť | Mámeplán</title>
+<meta name="description" content="Ako vytvoriť jednoduchý krízový plán pre rodinu: miesto stretnutia, komunikácia bez telefónu, evakuačná cesta. Podľa MSB, BBK a českej 72 hodín."/>
+<link rel="canonical" href="https://mameplan.sk/clanky/krizovy-plan-pre-rodinu.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Krízový plán pre rodinu — ako ho vytvoriť"/>
+<meta property="og:description" content="Ako vytvoriť jednoduchý krízový plán pre rodinu: miesto stretnutia, komunikácia bez telefónu, evakuačná cesta. Podľa MSB, BBK a českej 72 hodín."/>
+<meta property="og:locale" content="sk_SK"/>
+<meta property="og:site_name" content="Mámeplán"/>
+<meta property="article:published_time" content="2026-03-02"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
+  --accent:#be2d3e;--accent-soft:#fdf0f1;--primary:#1e3a5f;--border:#e0ddd6;
+  --r:0.875rem;--r-lg:1.25rem;
+  --serif:'Fraunces',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:800;color:var(--accent);text-decoration:none}
+.nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
+.nav-back:hover{color:var(--ink)}
+.wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
+.article-header{padding:3rem 0 2rem;text-align:center}
+.article-tag{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.article-h1{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.25rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.article-meta{font-size:0.78rem;color:var(--muted)}
+.article-body{padding:0 0 2rem}
+.article-body p{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
+.article-body h2{font-family:var(--serif);font-size:1.375rem;font-weight:700;margin:2.5rem 0 0.75rem;color:var(--ink)}
+.article-body h3{font-weight:700;font-size:1rem;margin:1.75rem 0 0.5rem;color:var(--ink)}
+.article-body strong{font-weight:600;color:var(--ink)}
+.steps-box{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.steps-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.step-row{display:flex;gap:0.75rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:flex-start}
+.step-row:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;margin-top:0.1rem}
+.step-content{flex:1}
+.step-content strong{display:block;margin-bottom:0.15rem;font-size:0.92rem}
+.step-content p{margin:0;font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+.warn-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#991b1b}
+.warn-box strong{color:#7f1d1d}
+.tip-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#1e40af}
+.tip-box strong{color:#1e3a8a}
+.table-wrap{margin:1.5rem 0;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.88rem}
+th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem;letter-spacing:0.03em}
+td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even){background:var(--bg)}
+.sources{margin:2rem 0;padding:1.25rem;background:var(--bg2);border-radius:var(--r-lg)}
+.sources-title{font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;color:var(--ink)}
+.sources ol{padding-left:1.25rem;font-size:0.78rem;color:var(--muted);line-height:1.7}
+.sources a{color:var(--primary);text-decoration:underline;text-underline-offset:2px}
+.cta-box{margin:2.5rem 0;padding:2rem;background:var(--ink);border-radius:var(--r-lg);text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(190,45,62,0.15),transparent 65%);top:-150px;right:-50px;pointer-events:none}
+.cta-box h3{font-family:var(--serif);font-size:1.25rem;font-weight:800;margin-bottom:0.5rem;position:relative}
+.cta-box p{font-size:0.88rem;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:1.25rem;position:relative}
+.cta-box .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 2rem;border-radius:999px;font-weight:600;font-size:0.92rem;text-decoration:none;transition:all 0.2s;position:relative}
+.cta-box .btn-primary{background:var(--accent);color:#fff}
+.cta-box .btn-primary:hover{background:#a12535;text-decoration:none}
+.cta-box .btn-secondary{color:rgba(255,255,255,0.45);font-size:0.82rem;margin-top:0.5rem;display:inline-block}
+.cta-box .btn-secondary:hover{color:#fff;text-decoration:none}
+.more-articles{padding:2rem 0 3rem}
+.more-articles h3{font-family:var(--serif);font-weight:700;font-size:1.125rem;margin-bottom:1rem}
+.more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+.more-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s}
+.more-card:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
+.more-card-tag{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent);margin-bottom:0.2rem}
+.more-card-title{font-weight:600;font-size:0.88rem;line-height:1.35}
+footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);text-align:center;font-size:0.75rem;color:var(--muted)}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+@media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
+  <a class="nav-back" href="/#clanky"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+</div></nav>
+
+<div class="wrap">
+<header class="article-header">
+  <div class="article-tag">Krízový plán</div>
+  <h1 class="article-h1">Krízový plán pre rodinu — ako ho vytvoriť</h1>
+  <div class="article-meta">Aktualizované marec 2026 · 5 min čítania</div>
+</header>
+
+<article class="article-body">
+
+<p>Väčšina rodín nemá žiadny krízový plán. A pritom stačí <strong>jedna konverzácia a jeden list papiera</strong>, aby ste v kritickej situácii nemuseli improvizovať. Nie je to o paranoji — je to o tom, aby každý člen rodiny vedel, čo robiť, aj keď vy nie ste nablízku.</p>
+
+<p>Tento článok vychádza z odporúčaní <strong>švédskej MSB, nemeckého BBK, českej príručky 72 hodín a slovenského MV SR</strong>.</p>
+
+<h2>Prečo krízový plán?</h2>
+
+<p>Krízová situácia môže nastať kedykoľvek — povodeň, dlhší výpadok elektriny, priemyselná havária, prírodná katastrofa alebo ozbrojený konflikt. Švédska MSB upozorňuje: <strong>pri väčšine kríz nefungujú telefóny, internet ani platobné karty</strong>. Nemôžete zavolať manželke, napísať deťom správu ani zistiť, kde sú vaši blízki. Krízový plán rieši práve toto.</p>
+
+<h2>5 vecí, ktoré musí obsahovať</h2>
+
+<div class="steps-box">
+<div class="steps-label">Základ krízového plánu</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Miesto stretnutia</strong><p>Dohodnite si jedno konkrétne miesto, kde sa stretnete, ak nefungujú telefóny. Ideálne blízko domova (napríklad park, škola, kostol) + záložné miesto mimo mesta (u príbuzných). Švédska MSB odporúča mať miesto stretnutia známe všetkým členom rodiny vrátane detí.</p></div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Kontaktná osoba mimo regiónu</strong><p>Dohodnite si jednu osobu (príbuzný, priateľ) mimo vášho regiónu ako komunikačný uzol. Ak nemôžete volať priamo sebe, skúste sa obe strany spojiť cez túto osobu. Funguje to aj keď miestna sieť padne, ale diaľková ešte áno.</p></div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Telefónne čísla na papieri</strong><p>Napíšte najdôležitejšie čísla (rodina, škola, práca, lekár, poisťovňa, 112) na papier. Kópia u každého člena rodiny. Ak nemáte telefón alebo je vybitý, môžete použiť cudzie zariadenie. MSB aj BBK toto uvádzajú ako prioritu č. 1.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Kto zabezpečí koho</strong><p>Jasne si rozdeľte: kto vyzdvihne deti zo školy? Kto sa postará o starších rodičov? Kto zavolá susedovi? Ak obaja rodičia pracujú ďaleko od domova, musí byť jasné, kto koná prvý.</p></div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Evakuačná cesta a cieľ</strong><p>Ak by ste museli opustiť domov — kam pôjdete? Poznajte minimálne 2 trasy z vášho bydliska (hlavná a záložná). Dohodnite si cieľ — u príbuzných, na chate, v konkrétnom meste. Česká príručka 72 hodín odporúča mať túto informáciu aj v evakuačnom batohu.</p></div></div>
+</div>
+
+<h2>Ako plán vytvoriť</h2>
+
+<p>Nemusí to byť komplikovaný dokument. Stačí <strong>jeden hárok papiera formátu A4</strong> s nasledujúcimi údajmi: mená a dátumy narodenia všetkých členov domácnosti, adresy bydliska a pracovísk, školy detí, miesto stretnutia (hlavné + záložné), kontaktná osoba mimo regiónu, telefónne čísla (rodina, lekár, škola, poisťovňa, tiesňové čísla), krvné skupiny členov rodiny, dôležité zdravotné informácie (alergie, chronické ochorenia, lieky).</p>
+
+<p>Vytlačte 2 — 3 kópie: jednu doma na viditeľnom mieste, jednu v evakuačnom batohu, jednu u kontaktnej osoby.</p>
+
+<div class="tip-box"><strong>Tip:</strong> Prejdite plán s celou rodinou — vrátane detí. Deti, ktoré vedia čo robiť a kam ísť, zvládajú stresové situácie výrazne lepšie. Pre malé deti pripravte informačný lístok do vrecka alebo batoha s menom, dátumom narodenia a kontaktom na rodiča.</div>
+
+<h2>Komunikácia bez telefónu</h2>
+
+<p>Švédska MSB upozorňuje, že <strong>mobilné siete sú pri veľkých krízach preťažené alebo nefunkčné</strong> v priebehu hodín. Preto:</p>
+
+<p><strong>SMS je spoľahlivejšia ako hovor</strong> — SMS potrebuje menej kapacity siete a má väčšiu šancu na doručenie. <strong>Rádio na batérie</strong> — Slovenský rozhlas (Rádio Slovensko, 96.6 FM) je primárny zdroj informácií v krízach. <strong>Pevná linka</strong> — ak ju máte, v mnohých prípadoch funguje dlhšie ako mobilná sieť. <strong>Dohodnutý čas kontroly</strong> — ak ste odlúčení a nemôžete sa spojiť, skúšajte volať v dohodnutom čase (napr. každú celú hodinu na 5 minút).</p>
+
+<h2>Špeciálne potreby</h2>
+
+<p>Ak máte v rodine <strong>bábätko</strong> — pripravte zásoby plienok, dojčenského mlieka, destilovanej vody. Ak máte <strong>seniora</strong> — záloha liekov, okuliare, naslúchadlá, kontakt na ošetrujúceho lekára. Ak máte <strong>domáce zviera</strong> — prepravka, zásoby krmiva a vody na 3 — 5 dní. Ak je člen rodiny <strong>imobilný</strong> — dohodnite pomoc so susedmi alebo miestnymi zložkami.</p>
+
+<div class="warn-box"><strong>Dôležité:</strong> Krízový plán nie je jednorazová záležitosť. Aktualizujte ho minimálne raz ročne — keď sa zmenia čísla, adresy, školy, zdravotný stav alebo lieky.</div>
+
+</article>
+
+<div class="sources">
+  <div class="sources-title">Zdroje a odporúčania</div>
+  <ol><li><a href="https://www.msb.se/en/advice-for-individuals/home-preparedness--prepping-for-at-least-a-week/access-to-communication-during-a-crisis/" target="_blank" rel="noopener">MSB (Švédsko) — Komunikácia v kríze</a></li>
+<li><a href="https://www.mcf.se/en/advice-for-individuals/home-preparedness--prepping-for-at-least-a-week/basics-of-home-emergency-preparedness/" target="_blank" rel="noopener">MSB (Švédsko) — Základy domácej pripravenosti</a></li>
+<li><a href="https://www.bbk.bund.de/EN/Prepare-for-disasters/Personal-Preparedness/personal-preparedness_node.html" target="_blank" rel="noopener">BBK (Nemecko) — Persönliche Notfallvorsorge</a></li>
+<li><a href="https://www.72hodin.cz/" target="_blank" rel="noopener">Česká príručka 72 hodín — Krízový plán rodiny</a></li>
+<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener">MV SR — Ochrana obyvateľstva</a></li>
+<li><a href="https://www.krisinformation.se/en/hazards-and-risks/home-preparedness/" target="_blank" rel="noopener">Krisinformation.se — Domáca pripravenosť</a></li></ol>
+</div>
+
+<div class="cta-box">
+  <h3>Gerlach vám pomôže vytvoriť krízový plán</h3>
+  <p>Zadajte členov domácnosti a dostanete personalizovaný plán — vrátane kontaktov, zásob a evakuačnej cesty.</p>
+  <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
+  <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
+</div>
+
+<div class="more-articles">
+  <h3>Ďalšie články</h3>
+  <div class="more-grid">
+    <a class="more-card" href="kolko-vody-potrebujem.html">
+      <div class="more-card-tag">Zásoby</div>
+      <div class="more-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
+    </a>
+    <a class="more-card" href="co-mat-doma-pri-vypadku-elektriny.html">
+      <div class="more-card-tag">Výpadok elektriny</div>
+      <div class="more-card-title">Čo mať doma pri výpadku elektriny?</div>
+    </a>
+    <a class="more-card" href="prva-pomoc-kpr-postup.html">
+      <div class="more-card-tag">Prvá pomoc</div>
+      <div class="more-card-title">KPR postup krok po kroku</div>
+    </a>
+    <a class="more-card" href="domaca-lekarnicka-co-nesmie-chybat.html">
+      <div class="more-card-tag">Lekárnička</div>
+      <div class="more-card-title">Domáca lekárnička — čo v nej nesmie chýbať?</div>
+    </a>
+
+  </div>
+</div>
+</div>
+
+<footer>
+  <span>🇸🇰 Mámeplán.sk © 2026 — bezplatné pre verejnosť</span> ·
+  <a href="/">Domov</a> · <a href="../pravne-info.html">Právne informácie</a>
+</footer>
+</body>
+</html>
