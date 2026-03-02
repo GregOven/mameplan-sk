@@ -388,12 +388,15 @@
     .cat-card {
       background: var(--c-surface);
       border: 2px solid var(--c-border);
-      border-radius: 1.25rem;
-      padding: 1rem;
+      border-radius: 1rem;
+      padding: 0.75rem;
       cursor: pointer;
       transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
       transform: translateY(0);
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .cat-card:hover {
       transform: translateY(-5px);
@@ -1685,7 +1688,7 @@
             <h2 style="font-size:1.25rem; font-weight:700;">Evakuačné batohy</h2>
             <p style="font-size:0.75rem; color:var(--c-muted); margin-top:0.125rem;">Osobný evakuačný batoh pre každého člena domácnosti – pripravený a skontrolovaný</p>
           </div>
-          <button class="btn-ghost" id="btnRegenBags" style="font-size:0.72rem; padding:0.3rem 0.6rem; display:none;">Pregenerovať</button>
+          <button class="btn-ghost" id="btnRegenBags" style="display:none;"></button>
         </div>
         <div id="evacBagsContainer"></div>
       </div>
@@ -2023,7 +2026,7 @@
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Určuje výsledný komfort v čase krízy.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
-                  <input type="radio" name="readiness" value="standard" style="accent-color:var(--c-accent); flex-shrink:0;" />
+                  <input type="radio" name="readiness" value="standard" style="accent-color:var(--c-accent); flex-shrink:0;" checked />
                   <div>
                     <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Odporúčaná</div>
                     <div style="font-size:0.72rem; color:var(--c-muted);">Podľa príručiek</div>
@@ -2045,7 +2048,7 @@
               <div style="font-size:0.72rem; color:var(--c-muted); margin-bottom:0.75rem; line-height:1.4;">Cenová kategória odporúčaných produktov.</div>
               <div style="display:flex; flex-direction:column; gap:0.5rem;">
                 <label style="display:flex; align-items:center; gap:0.625rem; padding:0.625rem 0.75rem; border-radius:0.75rem; border:1.5px solid var(--c-border); background:white; cursor:pointer;">
-                  <input type="radio" name="budget" value="mid" style="accent-color:var(--c-accent); flex-shrink:0;" />
+                  <input type="radio" name="budget" value="mid" style="accent-color:var(--c-accent); flex-shrink:0;" checked />
                   <div>
                     <div style="font-size:0.8125rem; font-weight:600; line-height:1.2;">Základná</div>
                     <div style="font-size:0.72rem; color:var(--c-muted);">Kvalita za rozumnú cenu</div>
@@ -3598,11 +3601,17 @@
   }
 
   function rankForPct(p) {
-    if (p <= 20) return "Ste ešte na začiatku";
-    if (p <= 40) return "Už máte základ";
-    if (p <= 60) return "Dobrý základ";
-    if (p <= 80) return "Veľmi slušne";
-    return "Výborne pripravení";
+    if (p < 10) return "Parkujete v Tatranskej Polianke (1005 m)";
+    if (p < 20) return "Kráčate Velickou dolinou k Velickému mostu";
+    if (p < 30) return "Stúpate na Velickú poľanu (1560 m)";
+    if (p < 40) return "Sliezsky dom (1670 m) — krátka pauza";
+    if (p < 50) return "Na Kvetnici začína nástup na Gerlach";
+    if (p < 60) return "Velická próba — ruky na skale, vodca istí";
+    if (p < 70) return "Žľab do Sedielka nad Kotlom";
+    if (p < 80) return "Traverz Gerlachovským kotlom";
+    if (p < 90) return "Sme na hrebeni — vrchol je na dosah";
+    if (p < 100) return "Posledné kroky na Gerlach (2655 m)";
+    return "Na vrchole Gerlachu! 🇸🇰";
   }
 
   function emojiForPct(p) {
@@ -3882,13 +3891,19 @@
 
   // ── Slovak Progress Milestones ─────────────────────────────
   function getMilestoneHtml(pct) {
+    if (pct < 5) return "";
     let msg = "";
-    if (pct <= 5) return "";
-    if (pct < 25) msg = "Každý krok sa počíta";
-    else if (pct < 50) msg = "Prvý krok na Rysy — základ stojí";
-    else if (pct < 75) msg = "Pol cesty na Kriváň — ste ďalej než väčšina";
-    else if (pct < 100) msg = "Sedlo pod Gerlachom — už len kúsok";
-    else msg = "Na vrchole Gerlachu! 🇸🇰";
+    if (pct < 10) msg = "Vyrážate po zelenej značke";
+    else if (pct < 20) msg = "Pri rázcestníku — tempo je dobré";
+    else if (pct < 30) msg = "Tempo je svižné, stúpate vyššie";
+    else if (pct < 40) msg = "Kofola a ideme ďalej?";
+    else if (pct < 50) msg = "Klasický nástup — polovica cesty";
+    else if (pct < 60) msg = "Vodca vás istí, držíte sa";
+    else if (pct < 70) msg = "Cítite únavu — prekonáme ju?";
+    else if (pct < 80) msg = "Výhľady sú úchvatné";
+    else if (pct < 90) msg = "Vrchol je na dosah";
+    else if (pct < 100) msg = "Posledné metre!";
+    else msg = "Gratulujem! 🇸🇰";
     return `<div class="hero-milestone">${msg}</div>`;
   }
 
@@ -4095,7 +4110,6 @@
       const pct = categoryScore(c.id);
       const isSel = state.selectedCategoryId === c.id;
       const col = colorForPct(pct);
-      // Dynamická farba karty podľa % - jemný tint pozadia a border
       const hue = Math.round((Math.min(100, Math.max(0, pct)) / 100) * 120);
       const cardBg = pct === 0 ? "var(--c-surface)" : `hsl(${hue} 60% 97%)`;
       const cardBorder = isSel
@@ -4109,15 +4123,15 @@
       card.className = "cat-card" + (isSel ? " selected" : "");
       card.style.cssText = `background:${cardBg}; border-color:${cardBorder}; box-shadow:${cardShadow};`;
       card.innerHTML = `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
-          <div style="display:flex; align-items:center; gap:0.5rem;">
-            <div style="width:12px; height:12px; border-radius:50%; background:${col}; flex-shrink:0; box-shadow:0 0 0 3px ${col}22;"></div>
-            <div style="font-weight:700; font-size:0.9375rem; color:var(--c-text);">${c.name}</div>
-          </div>
-          <span style="font-size:1.25rem; font-weight:800; color:${col}; letter-spacing:-0.02em;">${Math.round(pct)}%</span>
+        <div style="display:flex; align-items:center; gap:0.375rem; margin-bottom:0.5rem;">
+          <div style="width:10px; height:10px; border-radius:50%; background:${col}; flex-shrink:0;"></div>
+          <div style="font-weight:700; font-size:0.8125rem; color:var(--c-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${c.name}</div>
         </div>
-        <div class="progress-bar" style="height:6px;">
-          <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${col};"></div>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <div class="progress-bar" style="flex:1; height:5px;">
+            <div class="progress-fill" style="width:${Math.min(100,pct)}%; background:${col};"></div>
+          </div>
+          <span style="font-size:0.75rem; font-weight:800; color:${col}; min-width:2rem; text-align:right;">${Math.round(pct)}%</span>
         </div>`;
       card.onclick = () => {
         state.selectedCategoryId = c.id;
@@ -6583,7 +6597,7 @@
       generateEvacBags();
       scheduleSave();
     }
-    if (regenBtn) regenBtn.style.display = "inline-flex";
+    if (regenBtn) regenBtn.style.display = "none";
 
     // BYOB info - all collapsible
     let html = `
@@ -6601,9 +6615,19 @@
         </div>
       </div>`;
 
-    // Bag cards — compact row layout
+    // Bag cards — compact row layout (sorted ascending)
     html += `<div style="display:flex; flex-direction:column; gap:0.5rem;">`;
-    Object.keys(state.evacuationBags).forEach(bagId => {
+    const sortedBagIds = Object.keys(state.evacuationBags).sort((a, b) => {
+      // Natural sort: adult_1 before adult_2, kid_1 before kid_2, etc.
+      const typeOrder = { adult: 0, senior: 1, kid: 2, infant: 3, pet: 4 };
+      const bagA = state.evacuationBags[a];
+      const bagB = state.evacuationBags[b];
+      const tA = typeOrder[bagA.type] ?? 9;
+      const tB = typeOrder[bagB.type] ?? 9;
+      if (tA !== tB) return tA - tB;
+      return a.localeCompare(b, undefined, { numeric: true });
+    });
+    sortedBagIds.forEach(bagId => {
       // Sanitize bagId — only alphanumeric + underscore allowed
       if (!/^[a-zA-Z0-9_]+$/.test(bagId)) return;
       const bag = state.evacuationBags[bagId];
