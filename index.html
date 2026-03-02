@@ -455,6 +455,18 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 .articles-toggle button:hover{border-color:var(--primary);background:rgba(30,58,95,0.04)}
 .articles-toggle button svg{transition:transform 0.3s}
 .articles-toggle button.is-open svg{transform:rotate(180deg)}
+.showcase-toggle{text-align:center;margin-top:var(--sp-4);display:none}
+.showcase-toggle button{background:none;border:1px solid var(--border);border-radius:999px;padding:0.5rem 1.5rem;font-family:var(--sans);font-size:0.85rem;font-weight:600;color:var(--primary);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.showcase-toggle button:hover{border-color:var(--primary);background:rgba(30,58,95,0.04)}
+.showcase-toggle button svg{transition:transform 0.3s}
+.showcase-toggle button.is-open svg{transform:rotate(180deg)}
+@media(max-width:640px){
+ .showcase-toggle{display:block}
+ .showcase.mobile-hide{display:none}
+ .showcase.mobile-hide.is-open{display:block}
+ .articles-grid .article-card:nth-child(n+4){display:none}
+ .articles-grid.mobile-expanded .article-card:nth-child(n+4){display:flex}
+}
 .article-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;text-decoration:none;color:inherit}
 .article-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);border-color:var(--border2)}
 .article-card-tag{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent);margin-bottom:var(--sp-2)}
@@ -478,6 +490,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  .story-row{grid-template-columns:1fr;gap:var(--sp-8)}
  .steps-row{grid-template-columns:1fr;max-width:480px;margin-left:auto;margin-right:auto}
  .nav-links{display:none}
+ .nav-right{display:none}
 }
 @media(max-width:640px){
  .section{padding:var(--sp-12) 0}
@@ -525,7 +538,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  <span class="beta-pill-of">voľných miest z 200</span>
  </div>
  <h1 class="rv rv-d2">Krízový plán domácnosti, ktorý máte <em>po ruke.</em></h1>
- <p class="hero-sub rv rv-d3">Aplikácia Gerlach vám <strong>odporučí zásoby</strong> vody, jedla a liekov podľa špecifikácie vašej domácnosti, <strong>postráži expirácie</strong> a ponúkne jasné postupy pre krízové situácie. Všetko pohodlne na jednom mieste.</p>
+ <p class="hero-sub rv rv-d3">Aplikácia <strong>Gerlach</strong> vám <strong>odporučí zásoby</strong> vody, jedla a liekov podľa špecifikácie vašej domácnosti, <strong>postráži expirácie</strong> a ponúkne jasné postupy pre krízové situácie. Všetko pohodlne na jednom mieste.</p>
  <div class="hero-ctas rv rv-d4">
  <a class="btn btn-lg btn-red js-when-open" href="./app.html">Otvoriť Gerlach</a>
  <a class="btn btn-lg btn-outline" href="./app.html">Vyskúšať demo</a>
@@ -797,7 +810,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  </div>
 
 <!-- SHOWCASE 2: Checklisty -->
- <div class="showcase rv">
+ <div class="showcase rv mobile-hide">
    <div class="showcase-full">
      <div class="showcase-text">
        <div class="showcase-label">Checklisty</div>
@@ -829,7 +842,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  </div>
 
  <!-- SHOWCASE 3: Krízové postupy -->
- <div class="showcase rv">
+ <div class="showcase rv mobile-hide">
    <div class="showcase-full">
      <div class="showcase-text">
        <div class="showcase-label">Krízové postupy</div>
@@ -888,6 +901,13 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
           </div>
         </div>
    </div>
+ </div>
+
+ <div class="showcase-toggle">
+  <button onclick="var els=document.querySelectorAll('.showcase.mobile-hide');var open=els[0].classList.toggle('is-open');els.forEach(function(e){e.classList.toggle('is-open',open)});this.classList.toggle('is-open',open);this.querySelector('span').textContent=open?'Skryť':'Ďalšie funkcie'">
+   <span>Ďalšie funkcie</span>
+   <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+  </button>
  </div>
 
 </div>
@@ -972,7 +992,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
   </a>
  </div>
  <div class="articles-toggle">
-  <button onclick="var e=document.getElementById('articles-extra');var o=e.classList.toggle('is-open');this.classList.toggle('is-open',o);this.querySelector('span').textContent=o?'Skryť články':'Ďalšie články'">
+  <button onclick="var e=document.getElementById('articles-extra');var g=document.querySelector('.articles-grid');var o=e.classList.toggle('is-open');g.classList.toggle('mobile-expanded',o);this.classList.toggle('is-open',o);this.querySelector('span').textContent=o?'Skryť články':'Ďalšie články'">
    <span>Ďalšie články</span>
    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
   </button>
