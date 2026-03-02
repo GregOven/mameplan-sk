@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Varovné sirény — čo znamenajú a čo robiť? | Mámeplán</title>
+<meta name="description" content="4 typy varovných signálov na Slovensku: kedy je to skúška a kedy treba konať."/>
+<link rel="canonical" href="https://mameplan.sk/clanky/varovne-sireny-co-znamenaju.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Varovné sirény — čo znamenajú a čo robiť?"/>
+<meta property="og:description" content="4 typy varovných signálov na Slovensku: kedy je to skúška a kedy treba konať."/>
+<meta property="og:locale" content="sk_SK"/>
+<meta property="og:site_name" content="Mámeplán"/>
+<meta property="article:published_time" content="2026-03-02"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
+  --accent:#be2d3e;--accent-soft:#fdf0f1;--primary:#1e3a5f;--border:#e0ddd6;
+  --r:0.875rem;--r-lg:1.25rem;
+  --serif:'Fraunces',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:800;color:var(--accent);text-decoration:none}
+.nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
+.nav-back:hover{color:var(--ink)}
+.wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
+.article-header{padding:3rem 0 2rem;text-align:center}
+.article-tag{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.article-h1{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.25rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.article-meta{font-size:0.78rem;color:var(--muted)}
+.article-body{padding:0 0 2rem}
+.article-body p{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
+.article-body h2{font-family:var(--serif);font-size:1.375rem;font-weight:700;margin:2.5rem 0 0.75rem;color:var(--ink)}
+.article-body h3{font-weight:700;font-size:1rem;margin:1.75rem 0 0.5rem;color:var(--ink)}
+.article-body strong{font-weight:600;color:var(--ink)}
+.steps-box{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.steps-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.step-row{display:flex;gap:0.75rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:flex-start}
+.step-row:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;margin-top:0.1rem}
+.step-content{flex:1}
+.step-content strong{display:block;margin-bottom:0.15rem;font-size:0.92rem}
+.step-content p{margin:0;font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+.warn-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#991b1b}
+.warn-box strong{color:#7f1d1d}
+.tip-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#1e40af}
+.tip-box strong{color:#1e3a8a}
+.table-wrap{margin:1.5rem 0;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.88rem}
+th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem;letter-spacing:0.03em}
+td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even){background:var(--bg)}
+.sources{margin:2rem 0;padding:1.25rem;background:var(--bg2);border-radius:var(--r-lg)}
+.sources-title{font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;color:var(--ink)}
+.sources ol{padding-left:1.25rem;font-size:0.78rem;color:var(--muted);line-height:1.7}
+.sources a{color:var(--primary);text-decoration:underline;text-underline-offset:2px}
+.cta-box{margin:2.5rem 0;padding:2rem;background:var(--ink);border-radius:var(--r-lg);text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(190,45,62,0.15),transparent 65%);top:-150px;right:-50px;pointer-events:none}
+.cta-box h3{font-family:var(--serif);font-size:1.25rem;font-weight:800;margin-bottom:0.5rem;position:relative}
+.cta-box p{font-size:0.88rem;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:1.25rem;position:relative}
+.cta-box .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 2rem;border-radius:999px;font-weight:600;font-size:0.92rem;text-decoration:none;transition:all 0.2s;position:relative}
+.cta-box .btn-primary{background:var(--accent);color:#fff}
+.cta-box .btn-primary:hover{background:#a12535;text-decoration:none}
+.cta-box .btn-secondary{color:rgba(255,255,255,0.45);font-size:0.82rem;margin-top:0.5rem;display:inline-block}
+.cta-box .btn-secondary:hover{color:#fff;text-decoration:none}
+.more-articles{padding:2rem 0 3rem}
+.more-articles h3{font-family:var(--serif);font-weight:700;font-size:1.125rem;margin-bottom:1rem}
+.more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+.more-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s}
+.more-card:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
+.more-card-tag{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent);margin-bottom:0.2rem}
+.more-card-title{font-weight:600;font-size:0.88rem;line-height:1.35}
+footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);text-align:center;font-size:0.75rem;color:var(--muted)}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+@media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
+  <a class="nav-back" href="/"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+</div></nav>
+
+<div class="wrap">
+<header class="article-header">
+  <div class="article-tag">Varovné signály</div>
+  <h1 class="article-h1">Varovné sirény — čo znamenajú a čo robiť?</h1>
+  <div class="article-meta">Aktualizované marec 2026 · 3 min čítania</div>
+</header>
+
+<article class="article-body">
+<p>Ak ste niekedy počuli sirény a nevedeli ste, čo znamenajú — nie ste sami. Na Slovensku existujú <strong>4 varovné signály sirén</strong>. Jediné, čo si potrebujete zapamätať: <strong>ak zaznie siréna (mimo pravidelnej skúšky), zapnite rádio a počúvajte pokyny</strong>.</p>
+<h2>4 typy signálov</h2>
+<div class="table-wrap"><table><thead><tr><th>Signál</th><th>Zvuk</th><th>Trvanie</th><th>Čo robiť</th></tr></thead><tbody><tr><td><strong>Všeobecné ohrozenie</strong></td><td>Kolísavý tón</td><td>2 minúty</td><td>Zapnite rádio, zavrite okná, konajte podľa pokynov</td></tr>
+<tr><td><strong>Ohrozenie vodou</strong></td><td>Stály tón</td><td>6 minút</td><td>Okamžite opustite záplavovú oblasť, chóďte vyššie</td></tr>
+<tr><td><strong>Koniec ohrozenia</strong></td><td>Stály tón</td><td>2 minúty</td><td>Ohrozenie pominulo, sledujte médiá</td></tr>
+<tr><td><strong>Skúška sirén</strong></td><td>Stály 2-min. tón</td><td>2 minúty</td><td>Nekonajte. Každý 2. piatok o 12:00</td></tr>
+</tbody></table></div>
+<h2>Čo robiť, keď zaznie siréna</h2>
+<div class="steps-box">
+<div class="steps-label">Prvé kroky pri varovnom signáli</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Zapnite rádio alebo televíziu</strong><p>Slovenský rozhlas (Rádio Slovensko, 96.6 FM) alebo RTVS — v krízách vysielajú nepretržite.</p></div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Zatvorte okná a dvere</strong><p>Pri chemickej alebo radiačnej havárii uzavretie okien výrazne znižuje riziko.</p></div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Sledujte pokyny</strong><p>Nepodliehajte panike. Pokyny vám povedia, či zostať vnútri alebo sa evakuovať.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Kontaktujte rodinu</strong><p>Overte, že vaši blízki sú v bezpečí. Ak máte krízový plán, aktivujte ho.</p></div></div>
+</div>
+<h2>Pravidelná skúška sirén</h2>
+<p>Na Slovensku sa sirény testujú <strong>každý druhý piatok v mesiaci o 12:00 dvojminútovým stálym tónom</strong>. Ak počujete sirény v piatok napoludnie — s najväčšou pravdepodobnosťou ide o skúšku.</p>
+<div class="tip-box"><strong>Tip:</strong> Vysvetlite význam sirén aj deťom — jednoducho a bez strachu. Deti, ktoré rozumejú čo sa deje, zvládajú stresové situácie oveľa lepšie.</div>
+</article>
+
+<div class="sources">
+  <div class="sources-title">Zdroje a odporúčania</div>
+  <ol><li><a href="https://www.minv.sk/?varovanie-obyvatelstva" target="_blank" rel="noopener">MV SR — Varovanie obyvateľstva: sirény a signály</a></li>
+<li><a href="https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/1994/42/" target="_blank" rel="noopener">Zákon č. 42/1994 Z.z. o civilnej ochrane</a></li>
+<li><a href="https://www.shmu.sk/" target="_blank" rel="noopener">SHMÚ — Výstražný systém a varovanie</a></li></ol>
+</div>
+
+<div class="cta-box">
+  <h3>V Gerlachu máte sirény vysvetlené aj offline</h3>
+  <p>Postupy pre každý typ ohrozenia — od povodní cez chemickú haváriu po ozbrojený konflikt.</p>
+  <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
+  <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
+</div>
+
+<div class="more-articles">
+  <h3>Ďalšie články</h3>
+  <div class="more-grid">
+    <a class="more-card" href="kolko-vody-potrebujem.html">
+      <div class="more-card-tag">Zásoby</div>
+      <div class="more-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
+    </a>
+    <a class="more-card" href="co-mat-doma-pri-vypadku-elektriny.html">
+      <div class="more-card-tag">Výpadok elektriny</div>
+      <div class="more-card-title">Čo mať doma pri výpadku elektriny?</div>
+    </a>
+    <a class="more-card" href="prva-pomoc-kpr-postup.html">
+      <div class="more-card-tag">Prvá pomoc</div>
+      <div class="more-card-title">KPR postup krok po kroku</div>
+    </a>
+    <a class="more-card" href="domaca-lekarnicka-co-nesmie-chybat.html">
+      <div class="more-card-tag">Lekárnička</div>
+      <div class="more-card-title">Domáca lekárnička — čo v nej nesmie chýbať?</div>
+    </a>
+
+  </div>
+</div>
+</div>
+
+<footer>
+  <span>🇸🇰 Mámeplán.sk © 2026 — bezplatné pre verejnosť</span> ·
+  <a href="/">Domov</a> · <a href="../pravne-info.html">Právne informácie</a>
+</footer>
+</body>
+</html>
