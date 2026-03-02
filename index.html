@@ -445,6 +445,13 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 
 /* Articles */
 .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6);margin-top:var(--sp-8)}
+.articles-extra{display:none;margin-top:var(--sp-6)}
+.articles-extra.is-open{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-6)}
+.articles-toggle{text-align:center;margin-top:var(--sp-6)}
+.articles-toggle button{background:none;border:1px solid var(--border);border-radius:999px;padding:0.5rem 1.5rem;font-family:var(--sans);font-size:0.85rem;font-weight:600;color:var(--primary);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
+.articles-toggle button:hover{border-color:var(--primary);background:rgba(30,58,95,0.04)}
+.articles-toggle button svg{transition:transform 0.3s}
+.articles-toggle button.is-open svg{transform:rotate(180deg)}
 .article-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:var(--sp-6);display:flex;flex-direction:column;transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s;text-decoration:none;color:inherit}
 .article-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);border-color:var(--border2)}
 .article-card-tag{font-size:0.7rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent);margin-bottom:var(--sp-2)}
@@ -454,8 +461,8 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 .article-card-read svg{transition:transform 0.2s}
 .article-card:hover .article-card-read svg{transform:translateX(3px)}
 .articles-more{text-align:center;margin-top:var(--sp-8)}
-@media(max-width:900px){.articles-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:640px){.articles-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.articles-grid{grid-template-columns:repeat(2,1fr)}.articles-extra.is-open{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.articles-grid{grid-template-columns:1fr}.articles-extra.is-open{grid-template-columns:1fr}}
 
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .btn:focus-visible{outline-offset:4px}
@@ -904,34 +911,34 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  <h2 class="sec-title text-center rv rv-d1">Praktické rady pre situácie, na ktoré sa oplatí pripraviť.</h2>
  <p class="sec-sub text-center mx-auto rv rv-d2">Stručné a zrozumiteľné články o pripravenosti domácnosti. Bez paniky, s rozumom.</p>
  <div class="articles-grid">
-  <a class="article-card rv" href="./clanky/kolko-vody-potrebujem.html">
-   <div class="article-card-tag">Zásoby</div>
-   <div class="article-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
-   <div class="article-card-desc">Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie a expirácie.</div>
+  <a class="article-card rv" href="./clanky/ako-sa-pripravit-na-ozbrojeny-konflikt.html">
+   <div class="article-card-tag">Ozbrojený konflikt</div>
+   <div class="article-card-title">Ako sa pripraviť na ozbrojený konflikt</div>
+   <div class="article-card-desc">Praktický návod vychádzajúci zo skúseností ukrajinskej DSNS, švédskej MSB a nemeckého BBK. Kryty, zásoby, ochrana bytu.</div>
    <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
   </a>
-  <a class="article-card rv rv-d1" href="./clanky/co-mat-doma-pri-vypadku-elektriny.html">
+  <a class="article-card rv rv-d1" href="./clanky/krizovy-plan-pre-rodinu.html">
+   <div class="article-card-tag">Krízový plán</div>
+   <div class="article-card-title">Krízový plán pre rodinu — ako ho vytvoriť</div>
+   <div class="article-card-desc">Miesto stretnutia, komunikácia bez telefónu, evakuačná cesta. 5 vecí, ktoré musí obsahovať každý rodinný plán.</div>
+   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+  </a>
+  <a class="article-card rv rv-d2" href="./clanky/potraviny-s-dlhou-trvanlivostou.html">
+   <div class="article-card-tag">Zásoby potravín</div>
+   <div class="article-card-title">Potraviny s dlhou trvanlivosťou — čo skladovať</div>
+   <div class="article-card-desc">Tabuľka potravín na 10 dní podľa BBK: koľko čoho, na ako dlho vydrží a koľko to stojí. Princíp rotujúcej zásoby.</div>
+   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+  </a>
+  <a class="article-card rv" href="./clanky/co-mat-doma-pri-vypadku-elektriny.html">
    <div class="article-card-tag">Výpadok elektriny</div>
    <div class="article-card-title">Čo mať doma pri výpadku elektriny?</div>
    <div class="article-card-desc">Praktický zoznam vecí pre dlhší blackout: svetlo, komunikácia, jedlo, teplo. Na čo sa pripraviť a čomu sa vyhnúť.</div>
    <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
   </a>
-  <a class="article-card rv rv-d2" href="./clanky/prva-pomoc-kpr-postup.html">
+  <a class="article-card rv rv-d1" href="./clanky/prva-pomoc-kpr-postup.html">
    <div class="article-card-tag">Prvá pomoc</div>
    <div class="article-card-title">KPR postup krok po kroku</div>
    <div class="article-card-desc">Kardiopulmonálna resuscitácia podľa ERC 2025: kedy volať 155, ako stláčať hrudník, kedy dýchať z úst do úst.</div>
-   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
-  </a>
-  <a class="article-card rv" href="./clanky/domaca-lekarnicka-co-nesmie-chybat.html">
-   <div class="article-card-tag">Lekárnička</div>
-   <div class="article-card-title">Domáca lekárnička — čo v nej nesmie chýbať?</div>
-   <div class="article-card-desc">Zoznam liekov, obväzov a pomôcok pre domácu lekárničku. Čo kontrolovať a ako strážiť expirácie.</div>
-   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
-  </a>
-  <a class="article-card rv rv-d1" href="./clanky/evakuacny-batoh-co-zabalit.html">
-   <div class="article-card-tag">Evakuácia</div>
-   <div class="article-card-title">Evakuačný batoh — čo do neho zabaliť?</div>
-   <div class="article-card-desc">Zoznam vecí do evakuačného batoha pre dospelého, dieťa a seniora. Čo zbaliť ako prvé a koľko toho unesiete.</div>
    <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
   </a>
   <a class="article-card rv rv-d2" href="./clanky/varovne-sireny-co-znamenaju.html">
@@ -940,6 +947,32 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
    <div class="article-card-desc">4 typy varovných signálov na Slovensku: kedy je to skúška a kedy treba konať.</div>
    <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
   </a>
+ </div>
+ <div class="articles-extra" id="articles-extra">
+  <a class="article-card" href="./clanky/kolko-vody-potrebujem.html">
+   <div class="article-card-tag">Zásoby</div>
+   <div class="article-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
+   <div class="article-card-desc">Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie.</div>
+   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+  </a>
+  <a class="article-card" href="./clanky/domaca-lekarnicka-co-nesmie-chybat.html">
+   <div class="article-card-tag">Lekárnička</div>
+   <div class="article-card-title">Domáca lekárnička — čo v nej nesmie chýbať?</div>
+   <div class="article-card-desc">Kompletný zoznam liekov (účinné látky dostupné na Slovensku), obväzov a pomôcok. Vrátane detskej lekárničky.</div>
+   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+  </a>
+  <a class="article-card" href="./clanky/evakuacny-batoh-co-zabalit.html">
+   <div class="article-card-tag">Evakuácia</div>
+   <div class="article-card-title">Evakuačný batoh — čo do neho zabaliť?</div>
+   <div class="article-card-desc">Zoznam vecí do evakuačného batoha pre dospelého, dieťa a seniora. Čo zbaliť ako prvé a koľko toho unesiete.</div>
+   <div class="article-card-read">Čítať článok <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></div>
+  </a>
+ </div>
+ <div class="articles-toggle">
+  <button onclick="var e=document.getElementById('articles-extra');var o=e.classList.toggle('is-open');this.classList.toggle('is-open',o);this.querySelector('span').textContent=o?'Skryť články':'Ďalšie články'">
+   <span>Ďalšie články</span>
+   <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6l4 4 4-4"/></svg>
+  </button>
  </div>
 </div>
 </section>
