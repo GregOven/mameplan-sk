@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Koľko vody potrebujem na 3 dni pre rodinu? | Mámeplán</title>
+<meta name="description" content="Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie a expirácie."/>
+<link rel="canonical" href="https://mameplan.sk/clanky/kolko-vody-potrebujem.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Koľko vody potrebujem na 3 dni pre rodinu?"/>
+<meta property="og:description" content="Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie a expirácie."/>
+<meta property="og:locale" content="sk_SK"/>
+<meta property="og:site_name" content="Mámeplán"/>
+<meta property="article:published_time" content="2026-03-02"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
+  --accent:#be2d3e;--accent-soft:#fdf0f1;--primary:#1e3a5f;--border:#e0ddd6;
+  --r:0.875rem;--r-lg:1.25rem;
+  --serif:'Fraunces',Georgia,serif;--sans:'Outfit',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
+.nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:var(--serif);font-size:1.2rem;font-weight:800;color:var(--accent);text-decoration:none}
+.nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
+.nav-back:hover{color:var(--ink)}
+.wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
+.article-header{padding:3rem 0 2rem;text-align:center}
+.article-tag{font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.5rem}
+.article-h1{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.25rem);font-weight:800;line-height:1.15;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.article-meta{font-size:0.78rem;color:var(--muted)}
+.article-body{padding:0 0 2rem}
+.article-body p{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
+.article-body h2{font-family:var(--serif);font-size:1.375rem;font-weight:700;margin:2.5rem 0 0.75rem;color:var(--ink)}
+.article-body h3{font-weight:700;font-size:1rem;margin:1.75rem 0 0.5rem;color:var(--ink)}
+.article-body strong{font-weight:600;color:var(--ink)}
+.steps-box{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.steps-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.step-row{display:flex;gap:0.75rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:flex-start}
+.step-row:last-child{border-bottom:none}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;flex-shrink:0;margin-top:0.1rem}
+.step-content{flex:1}
+.step-content strong{display:block;margin-bottom:0.15rem;font-size:0.92rem}
+.step-content p{margin:0;font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6}
+.warn-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#fef2f2;border:1px solid #fecaca;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#991b1b}
+.warn-box strong{color:#7f1d1d}
+.tip-box{margin:1.5rem 0;padding:0.875rem 1.25rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:var(--r);font-size:0.88rem;line-height:1.65;color:#1e40af}
+.tip-box strong{color:#1e3a8a}
+.table-wrap{margin:1.5rem 0;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:0.88rem}
+th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem;letter-spacing:0.03em}
+td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border)}
+tr:nth-child(even){background:var(--bg)}
+.sources{margin:2rem 0;padding:1.25rem;background:var(--bg2);border-radius:var(--r-lg)}
+.sources-title{font-weight:700;font-size:0.82rem;margin-bottom:0.5rem;color:var(--ink)}
+.sources ol{padding-left:1.25rem;font-size:0.78rem;color:var(--muted);line-height:1.7}
+.sources a{color:var(--primary);text-decoration:underline;text-underline-offset:2px}
+.cta-box{margin:2.5rem 0;padding:2rem;background:var(--ink);border-radius:var(--r-lg);text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(190,45,62,0.15),transparent 65%);top:-150px;right:-50px;pointer-events:none}
+.cta-box h3{font-family:var(--serif);font-size:1.25rem;font-weight:800;margin-bottom:0.5rem;position:relative}
+.cta-box p{font-size:0.88rem;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:1.25rem;position:relative}
+.cta-box .btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 2rem;border-radius:999px;font-weight:600;font-size:0.92rem;text-decoration:none;transition:all 0.2s;position:relative}
+.cta-box .btn-primary{background:var(--accent);color:#fff}
+.cta-box .btn-primary:hover{background:#a12535;text-decoration:none}
+.cta-box .btn-secondary{color:rgba(255,255,255,0.45);font-size:0.82rem;margin-top:0.5rem;display:inline-block}
+.cta-box .btn-secondary:hover{color:#fff;text-decoration:none}
+.more-articles{padding:2rem 0 3rem}
+.more-articles h3{font-family:var(--serif);font-weight:700;font-size:1.125rem;margin-bottom:1rem}
+.more-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+.more-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.25rem;text-decoration:none;color:inherit;transition:border-color 0.2s,transform 0.2s}
+.more-card:hover{border-color:var(--accent);transform:translateY(-2px);text-decoration:none}
+.more-card-tag{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent);margin-bottom:0.2rem}
+.more-card-title{font-weight:600;font-size:0.88rem;line-height:1.35}
+footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);text-align:center;font-size:0.75rem;color:var(--muted)}
+footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+@media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
+  <a class="nav-back" href="/"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+</div></nav>
+
+<div class="wrap">
+<header class="article-header">
+  <div class="article-tag">Zásoby</div>
+  <h1 class="article-h1">Koľko vody potrebujem na 3 dni pre rodinu?</h1>
+  <div class="article-meta">Aktualizované marec 2026 · 3 min čítania</div>
+</header>
+
+<article class="article-body">
+<p>Väčšina európskych príručiek pre krízovú pripravenosť odporúča mať doma zásoby na minimálne <strong>72 hodín</strong> (3 dni). Voda je pritom úplný základ — bez jedla vydržíte týždne, bez vody len niekoľko dní.</p>
+<h2>Koľko vody na osobu a deň?</h2>
+<p>Svetová zdravotnícka organizácia (WHO) uvádza pre núdzové situácie minimum <strong>2,5 – 3 litre pitnej vody</strong> na osobu denne. Nemecký Spolkový úrad pre ochranu obyvateľstva (BBK) odporúča <strong>2 litre na pitie + 0,5 litra na hygienu</strong>. Slovenská Civilná ochrana (MV SR) hovorí o <strong>2 litroch pitnej vody na osobu a deň</strong>.</p>
+<p>Pre praktický výpočet počítame s <strong>3 litrami na dospelého</strong> (pitie + základná hygiena), <strong>2 litrami na dieťa</strong> a <strong>1,5 litra na batoľa</strong> denne.</p>
+<h2>Tabuľka: zásoby vody na 3 dni</h2>
+<div class="table-wrap"><table><thead><tr><th>Domácnosť</th><th>Na deň</th><th>Na 3 dni</th></tr></thead><tbody><tr><td>1 dospelý</td><td>3 l</td><td>9 l</td></tr>
+<tr><td>2 dospelí</td><td>6 l</td><td>18 l</td></tr>
+<tr><td>2 dospelí + 1 dieťa</td><td>8 l</td><td>24 l</td></tr>
+<tr><td>2 dospelí + 2 deti</td><td>10 l</td><td>30 l</td></tr>
+<tr><td>2 dospelí + 2 deti + senior</td><td>13 l</td><td>39 l</td></tr>
+</tbody></table></div>
+<h2>Ako vodu skladovať</h2>
+<p>Najjednoduchšie sú <strong>balené vody z obchodu</strong> — majú dlhú expiráciu (často 12 – 24 mesiacov) a sú hygienicky bezpečné. Skladujte na tmavom a chladnom mieste. Nemusíte kupovať všetko naraz — stačí pri každom nákupe pridať jedno-dve balenia navyše.</p>
+<div class="tip-box"><strong>Tip:</strong> Rotujte zásoby — staršie fľaše spotrebujte a nahraďte novými. Tak sa vyhnete plytovaniu a máte vždy čerstvú vodu.</div>
+<h2>Na čo ľudia zabúdajú</h2>
+<p>Pri výpadku vody nefungujú toalety, nemôžete sa osprchovať a nebudete mať čím umyť riad. Okrem pitnej vody zvážte aj <strong>zásobu úžitkovej vody</strong> — napríklad plné vedro alebo vaňu napustenú vopred. Nezabudnite na <strong>domáce zvieraťá</strong> — pes alebo mačka potrebujú denne 50 – 100 ml na kilogram hmotnosti.</p>
+<div class="warn-box"><strong>Dôležité:</strong> Nikdy nepite vodu z neprevereného zdroja bez úpravy. V núdzi ju prevaríte (min. 1 minútu v silnom vare) alebo použite tablety na dezinfekciu vody.</div>
+</article>
+
+<div class="sources">
+  <div class="sources-title">Zdroje a odporúčania</div>
+  <ol><li><a href="https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health" target="_blank" rel="noopener">WHO — Voda, sanitácia a hygiena v núdzových situáciách</a></li>
+<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener">BBK (Nemecko) — Ratgeber: Checkliste Trinkwasser</a></li>
+<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener">MV SR — V prípade ohrozenia</a></li>
+<li><a href="https://www.72hodin.cz/" target="_blank" rel="noopener">Česká príručka 72 hodin</a></li></ol>
+</div>
+
+<div class="cta-box">
+  <h3>Spočítajte si zásoby vody za pár sekúnd</h3>
+  <p>V Gerlachu zadáte počet osôb a dní — a hneď vidíte, koľko vody potrebujete a koľko vám chýba.</p>
+  <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
+  <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
+</div>
+
+<div class="more-articles">
+  <h3>Ďalšie články</h3>
+  <div class="more-grid">
+    <a class="more-card" href="co-mat-doma-pri-vypadku-elektriny.html">
+      <div class="more-card-tag">Výpadok elektriny</div>
+      <div class="more-card-title">Čo mať doma pri výpadku elektriny?</div>
+    </a>
+    <a class="more-card" href="prva-pomoc-kpr-postup.html">
+      <div class="more-card-tag">Prvá pomoc</div>
+      <div class="more-card-title">KPR postup krok po kroku</div>
+    </a>
+    <a class="more-card" href="domaca-lekarnicka-co-nesmie-chybat.html">
+      <div class="more-card-tag">Lekárnička</div>
+      <div class="more-card-title">Domáca lekárnička — čo v nej nesmie chýbať?</div>
+    </a>
+    <a class="more-card" href="evakuacny-batoh-co-zabalit.html">
+      <div class="more-card-tag">Evakuácia</div>
+      <div class="more-card-title">Evakuačný batoh — čo do neho zabaliť?</div>
+    </a>
+
+  </div>
+</div>
+</div>
+
+<footer>
+  <span>🇸🇰 Mámeplán.sk © 2026 — bezplatné pre verejnosť</span> ·
+  <a href="/">Domov</a> · <a href="../pravne-info.html">Právne informácie</a>
+</footer>
+</body>
+</html>
