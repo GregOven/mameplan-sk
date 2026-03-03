@@ -8,6 +8,7 @@
 <title>Ako sa pripraviť na ozbrojený konflikt | Mámeplán</title>
 <meta name="description" content="Praktický návod na prípravu civilistov na vojnový konflikt. Vychádza zo skúseností Ukrajiny, švédskej MSB a nemeckého BBK."/>
 <link rel="canonical" href="https://mameplan.sk/clanky/ako-sa-pripravit-na-ozbrojeny-konflikt.html"/>
+<link rel="alternate" hreflang="sk" href="https://mameplan.sk/clanky/ako-sa-pripravit-na-ozbrojeny-konflikt.html"/>/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Ako sa pripraviť na ozbrojený konflikt"/>
 <meta property="og:description" content="Praktický návod na prípravu civilistov na vojnový konflikt. Vychádza zo skúseností Ukrajiny, švédskej MSB a nemeckého BBK."/>
@@ -24,11 +25,14 @@
 <meta name="twitter:title" content="Ako sa pripraviť na ozbrojený konflikt"/>
 <meta name="twitter:description" content="Praktický návod na prípravu civilistov na vojnový konflikt. Vychádza zo skúseností Ukrajiny, švédskej MSB a nemeckého BBK."/>
 <meta name="keywords" content="ozbrojený konflikt, príprava na vojnu, civilná ochrana, krízová situácia, Slovensko"/>
+<meta name="geo.region" content="SK"/>
+<meta name="geo.placename" content="Slovensko"/>
+<meta name="content-language" content="sk"/>
 <meta name="theme-color" content="#f5f3ee"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" fetchpriority="high"/>
 <style>
 :root {
   --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
@@ -97,11 +101,21 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
 .disclaimer-box{margin:2rem 0;padding:0.875rem 1.25rem;background:var(--bg2);border-radius:var(--r);font-size:0.78rem;line-height:1.65;color:var(--muted);display:flex;gap:0.625rem;align-items:flex-start}
 .disclaimer-box strong{color:var(--ink2);font-weight:600}
+
+.breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:wrap}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--ink);text-decoration:underline}
+.breadcrumb-sep{color:var(--border);font-size:0.7rem}
+.breadcrumb-current{color:var(--ink2);font-weight:500}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-h1", ".article-body p:first-of-type"]
+  },
   "headline": "Ako sa pripraviť na ozbrojený konflikt",
   "description": "Praktický návod na prípravu civilistov na vojnový konflikt. Vychádza zo skúseností Ukrajiny, švédskej MSB a nemeckého BBK.",
   "url": "https://mameplan.sk/clanky/ako-sa-pripravit-na-ozbrojeny-konflikt.html",
@@ -141,7 +155,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
-  <a class="nav-back" href="/#clanky"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Ozbrojeny konflikt</span></nav>
 </div></nav>
 
 <div class="wrap">
@@ -161,7 +175,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <p>Prvé hodiny ozbrojeného konfliktu sú najkritickejšie. Podľa skúseností z Ukrajiny: <strong>mobilná sieť a internet fungujú obmedzene</strong> (záložné batérie BTS staníc vydržia 4 — 8 hodín). Elektrická sieť môže byť poškodená alebo odpojená. Obchody sa zatvoria alebo budú vypredané v priebehu hodín. Bankomaty prestanú fungovať. Doprava môže byť prerušená alebo obmedzená. Sirény varujú obyvateľstvo — a nie každý vie, čo robiť.</p>
 
-<div class="warn-box"><strong>Dôležité:</strong> Ukrajinská DSNS opakovane zdôrazňuje: nikdy neignorujte signál leteckého poplachu. Aj po mesiacoch vojny zostáva najčastejšou príčinou civilných obetí ignorovanie varovných signálov.</div>
+<div class="warn-box"><strong>Dôležité:</strong> Ukrajinská DSNS opakovane zdôrazňuje: nikdy neignorujte <a href="varovne-sireny-co-znamenaju.html">signál leteckého poplachu</a>. Aj po mesiacoch vojny zostáva najčastejšou príčinou civilných obetí ignorovanie varovných signálov.</div>
 
 <h2>Kryt a úkryt — kde sa skryť</h2>
 
@@ -179,7 +193,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <h2>Čo mať pripravené vopred</h2>
 
-<p>Ukrajinská Národná bezpečnostná rada aj DSNS odporúčajú mať pripravený <strong>evakuačný batoh</strong> (podrobnosti nájdete v našom článku o evakuačnom batohu). Okrem toho:</p>
+<p>Ukrajinská Národná bezpečnostná rada aj DSNS odporúčajú mať pripravený <strong><a href="evakuacny-batoh-co-zabalit.html">evakuačný batoh</a></strong> (podrobnosti nájdete v našom článku o evakuačnom batohu). Okrem toho:</p>
 
 <p><strong>Dokumenty</strong> — fotokópie občianskeho preukazu, pasu, rodných listov, poistiek, katastrálnych listov. Uložte digitálne aj fyzicky v nepremokavom obale. <strong>Hotovosť</strong> — malé bankovky a mince, minimálne na 5 — 7 dní bežných výdavkov. <strong>Zásoby vody a jedla</strong> — na minimálne 72 hodín, ideálne 7 — 10 dní (BBK Nemecko odporúča 10 dní). <strong>Lekárnička a chronické lieky</strong> — záloha na minimálne 4 týždne. <strong>Plán komunikácie</strong> — dohodnuté miesto stretnutia s rodinou, kontaktné čísla na papieri.</p>
 
