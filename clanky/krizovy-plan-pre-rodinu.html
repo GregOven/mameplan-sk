@@ -8,6 +8,7 @@
 <title>Krízový plán pre rodinu — ako ho vytvoriť | Mámeplán</title>
 <meta name="description" content="Ako vytvoriť jednoduchý krízový plán pre rodinu: miesto stretnutia, komunikácia bez telefónu, evakuačná cesta. Podľa MSB, BBK a českej 72 hodín."/>
 <link rel="canonical" href="https://mameplan.sk/clanky/krizovy-plan-pre-rodinu.html"/>
+<link rel="alternate" hreflang="sk" href="https://mameplan.sk/clanky/krizovy-plan-pre-rodinu.html"/>/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Krízový plán pre rodinu — ako ho vytvoriť"/>
 <meta property="og:description" content="Ako vytvoriť jednoduchý krízový plán pre rodinu: miesto stretnutia, komunikácia bez telefónu, evakuačná cesta. Podľa MSB, BBK a českej 72 hodín."/>
@@ -24,11 +25,14 @@
 <meta name="twitter:title" content="Krízový plán pre rodinu — 5 vecí, ktoré musíte mať dohodnuté"/>
 <meta name="twitter:description" content="Ako vytvoriť krízový plán pre rodinu: stretávacie miesto, kontaktná osoba, telefónne čísla na papieri. Podľa MSB a BBK."/>
 <meta name="keywords" content="krízový plán, rodina, evakuácia, stretávacie miesto, krízová komunikácia"/>
+<meta name="geo.region" content="SK"/>
+<meta name="geo.placename" content="Slovensko"/>
+<meta name="content-language" content="sk"/>
 <meta name="theme-color" content="#f5f3ee"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" fetchpriority="high"/>
 <style>
 :root {
   --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
@@ -97,11 +101,21 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
 .disclaimer-box{margin:2rem 0;padding:0.875rem 1.25rem;background:var(--bg2);border-radius:var(--r);font-size:0.78rem;line-height:1.65;color:var(--muted);display:flex;gap:0.625rem;align-items:flex-start}
 .disclaimer-box strong{color:var(--ink2);font-weight:600}
+
+.breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:wrap}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--ink);text-decoration:underline}
+.breadcrumb-sep{color:var(--border);font-size:0.7rem}
+.breadcrumb-current{color:var(--ink2);font-weight:500}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-h1", ".article-body p:first-of-type"]
+  },
   "headline": "Krízový plán pre rodinu — 5 vecí, ktoré musíte mať dohodnuté",
   "description": "Ako vytvoriť krízový plán pre rodinu: stretávacie miesto, kontaktná osoba, telefónne čísla na papieri. Podľa MSB a BBK.",
   "url": "https://mameplan.sk/clanky/krizovy-plan-pre-rodinu.html",
@@ -137,11 +151,51 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Krizovy plan pre rodinu - 5 veci ktore musite mat dohodnute",
+  "description": "Ako vytvorit krizovy plan pre rodinu v 5 krokoch.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Dohodnite stretavacie miesto",
+      "text": "Vyberte jedno hlavne a jedno nahradne miesto stretnutia rodiny."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Urcite kontaktnu osobu",
+      "text": "Vyberte niekoho mimo vaseho mesta ako centralny kontakt."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Napisze cisla na papier",
+      "text": "Vytlacte zoznam dolezitych cisel pre kazdeho clena rodiny."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Pripravte evakuacny plan",
+      "text": "Naplanujtesi unikove cesty z domu a z okolia."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Precvicte plan s rodinou",
+      "text": "Raz za rok si plan prejdite spolu, vratane deti od 6 rokov."
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
-  <a class="nav-back" href="/#clanky"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Krizovy plan</span></nav>
 </div></nav>
 
 <div class="wrap">
@@ -159,7 +213,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <h2>Prečo krízový plán?</h2>
 
-<p>Krízová situácia môže nastať kedykoľvek — povodeň, dlhší výpadok elektriny, priemyselná havária, prírodná katastrofa alebo ozbrojený konflikt. Švédska MSB upozorňuje: <strong>pri väčšine kríz nefungujú telefóny, internet ani platobné karty</strong>. Nemôžete zavolať manželke, napísať deťom správu ani zistiť, kde sú vaši blízki. Krízový plán rieši práve toto.</p>
+<p>Krízová situácia môže nastať kedykoľvek — povodeň, dlhší <a href="co-mat-doma-pri-vypadku-elektriny.html">výpadok elektriny</a>, priemyselná havária, prírodná katastrofa alebo <a href="ako-sa-pripravit-na-ozbrojeny-konflikt.html">ozbrojený konflikt</a>. Švédska MSB upozorňuje: <strong>pri väčšine kríz nefungujú telefóny, internet ani platobné karty</strong>. Nemôžete zavolať manželke, napísať deťom správu ani zistiť, kde sú vaši blízki. Krízový plán rieši práve toto.</p>
 
 <h2>5 vecí, ktoré musí obsahovať</h2>
 
@@ -169,7 +223,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Kontaktná osoba mimo regiónu</strong><p>Dohodnite si jednu osobu (príbuzný, priateľ) mimo vášho regiónu ako komunikačný uzol. Ak nemôžete volať priamo sebe, skúste sa obe strany spojiť cez túto osobu. Funguje to aj keď miestna sieť padne, ale diaľková ešte áno.</p></div></div>
 <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Telefónne čísla na papieri</strong><p>Napíšte najdôležitejšie čísla (rodina, škola, práca, lekár, poisťovňa, 112) na papier. Kópia u každého člena rodiny. Ak nemáte telefón alebo je vybitý, môžete použiť cudzie zariadenie. MSB aj BBK toto uvádzajú ako prioritu č. 1.</p></div></div>
 <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Kto zabezpečí koho</strong><p>Jasne si rozdeľte: kto vyzdvihne deti zo školy? Kto sa postará o starších rodičov? Kto zavolá susedovi? Ak obaja rodičia pracujú ďaleko od domova, musí byť jasné, kto koná prvý.</p></div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Evakuačná cesta a cieľ</strong><p>Ak by ste museli opustiť domov — kam pôjdete? Poznajte minimálne 2 trasy z vášho bydliska (hlavná a záložná). Dohodnite si cieľ — u príbuzných, na chate, v konkrétnom meste. Česká príručka 72 hodín odporúča mať túto informáciu aj v evakuačnom batohu.</p></div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Evakuačná cesta a cieľ</strong><p>Ak by ste museli opustiť domov — kam pôjdete? Poznajte minimálne 2 trasy z vášho bydliska (hlavná a záložná). Dohodnite si cieľ — u príbuzných, na chate, v konkrétnom meste. Česká príručka 72 hodín odporúča mať túto informáciu aj v <a href="evakuacny-batoh-co-zabalit.html">evakuačnom batohu</a>.</p></div></div>
 </div>
 
 <h2>Ako plán vytvoriť</h2>
