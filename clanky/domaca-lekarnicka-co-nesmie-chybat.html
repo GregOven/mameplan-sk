@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8CG5KPWS0V"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-8CG5KPWS0V')</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Domáca lekárnička — čo v nej nesmie chýbať? | Mámeplán</title>
@@ -82,6 +84,18 @@ tr:nth-child(even){background:var(--bg)}
 footer{padding:1.25rem 1.5rem;border-top:1px solid var(--border);text-align:center;font-size:0.75rem;color:var(--muted)}
 footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @media(max-width:640px){.more-grid{grid-template-columns:1fr}.article-header{padding:2rem 0 1.25rem}.cta-box{padding:1.5rem}}
+.disclaimer-box{margin:2rem 0;padding:0.875rem 1.25rem;background:var(--bg2);border-radius:var(--r);font-size:0.78rem;line-height:1.65;color:var(--muted);display:flex;gap:0.625rem;align-items:flex-start}
+.disclaimer-box strong{color:var(--ink2);font-weight:600}
+.card-list{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.card-list-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.card-item{padding:0.875rem 1.25rem;border-bottom:1px solid var(--border)}
+.card-item:last-child{border-bottom:none}
+.card-item-title{font-weight:700;font-size:0.92rem;color:var(--ink);margin-bottom:0.2rem}
+.card-item-sub{font-size:0.82rem;font-weight:600;color:var(--primary);margin-bottom:0.25rem}
+.card-item-desc{font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6;margin:0}
+.card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
+.card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
+.card-item-meta strong{color:var(--ink2);font-weight:600}
 </style>
 </head>
 <body>
@@ -110,50 +124,80 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <p>Toto sú najzákladnejšie lieky, ktoré by nemali chýbať v žiadnej domácnosti. Na Slovensku sú dostupné bez receptu.</p>
 
-<div class="table-wrap"><table>
-<thead><tr><th>Účinná látka</th><th>Na čo slúži</th><th>Poznámka</th></tr></thead>
-<tbody>
-<tr><td><strong>Paracetamol</strong></td><td>Bolesť, horúčka</td><td>Vhodný aj pre deti (existuje sirup). Nedráždi žalúdok. Dodržujte max. dennú dávku — predávkovanie poškodzuje pečeň.</td></tr>
-<tr><td><strong>Ibuprofén</strong></td><td>Bolesť, horúčka, zápal</td><td>Protizápalový účinok. Neužívať nalačno. Existuje aj detská forma (sirup, čapíky). Nepoužívajte súčasne s inými protizápalovými liekmi.</td></tr>
-</tbody>
-</table></div>
+<div class="card-list">
+<div class="card-list-label">Lieky na bolesť a horúčku</div>
+<div class="card-item">
+  <div class="card-item-title">Paracetamol</div>
+  <div class="card-item-sub">Bolesť, horúčka</div>
+  <p class="card-item-desc">Vhodný aj pre deti (existuje sirup). Nedráždi žalúdok. Dodržujte max. dennú dávku — predávkovanie poškodzuje pečeň.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Ibuprofén</div>
+  <div class="card-item-sub">Bolesť, horúčka, zápal</div>
+  <p class="card-item-desc">Protizápalový účinok. Neužívať nalačno. Existuje aj detská forma (sirup, čapíky). Nepoužívajte súčasne s inými protizápalovými liekmi.</p>
+</div>
+</div>
 
 <p>Pre domácnosť s deťmi je <strong>detský sirup alebo čapíky</strong> s paracetamolom alebo ibuprofénom nevyhnutnosťou — dávkovanie sa riadi podľa hmotnosti dieťaťa (nie veku), preto si vždy overte správnu dávku v príbalovom letáku alebo u lekárnika.</p>
 
-<h2>Lieky na tráviace ťažkosti</h2>
+<div class="card-list">
+<div class="card-list-label">Lieky na tráviace ťažkosti</div>
+<div class="card-item">
+  <div class="card-item-title">Aktívne (medicinálne) uhlie</div>
+  <div class="card-item-sub">Otrava, hnačka, nadúvanie</div>
+  <p class="card-item-desc">Prvá pomoc pri podozrení na otravu — podajte čo najskôr. V lekárni dostupné ako tablety.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Loperamid</div>
+  <div class="card-item-sub">Akútna hnačka</div>
+  <p class="card-item-desc">Len pre dospelých a deti nad 12 rokov. Nepoužívajte pri horúčke alebo krvavej hnačke — vtedy vyhľadajte lekára.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Perorálny rehydratačný roztok (ORS)</div>
+  <div class="card-item-sub">Dehydratácia pri hnačke / vracaní</div>
+  <p class="card-item-desc">Mimoriadne dôležitý pre deti a seniorov. Dostupné ako sáčky na prípravu s vodou. WHO ho považuje za jeden z najdôležitejších liekov.</p>
+</div>
+</div>
 
-<div class="table-wrap"><table>
-<thead><tr><th>Účinná látka</th><th>Na čo slúži</th><th>Poznámka</th></tr></thead>
-<tbody>
-<tr><td><strong>Aktívne (medicinálne) uhlie</strong></td><td>Otrava, hnačka, nadúvanie</td><td>Prvá pomoc pri podozrení na otravu — podajte čo najskôr. V lekárni dostupné ako tablety.</td></tr>
-<tr><td><strong>Loperamid</strong></td><td>Akútná hnačka</td><td>Len pre dospelých a deti nad 12 rokov. Nepoužívajte pri horúčke alebo krvavej hnačke — vtedy vyhľadajte lekára.</td></tr>
-<tr><td><strong>Perorálny rehydratačný roztok (ORS)</strong></td><td>Dehydratácia pri hnačke/vracaní</td><td>Mimoriadne dôležitý pre deti a seniorov. Dostupné ako sáčky na prípravu s vodou. WHO ho považuje za jeden z najdôležitejších liekov.</td></tr>
-</tbody>
-</table></div>
-
-<h2>Lieky proti alergii</h2>
-
-<div class="table-wrap"><table>
-<thead><tr><th>Účinná látka</th><th>Na čo slúži</th><th>Poznámka</th></tr></thead>
-<tbody>
-<tr><td><strong>Cetirízín</strong></td><td>Alergia (peľ, prach, hmyz)</td><td>Antihistaminikum 2. generácie — nespôsobuje výraznú ospalosť. Účinkuje do 1 hodiny, pôsobí 24 hodín. Tablety aj kvapky (pre deti od 2 rokov).</td></tr>
-<tr><td><strong>Loratadín</strong></td><td>Alergia (peľ, prach, hmyz)</td><td>Rovnako antihistaminikum 2. generácie. Alternatíva k cetirízínu. Tablety a sirup pre deti.</td></tr>
-</tbody>
-</table></div>
+<div class="card-list">
+<div class="card-list-label">Lieky proti alergii</div>
+<div class="card-item">
+  <div class="card-item-title">Cetirizín</div>
+  <div class="card-item-sub">Alergia (peľ, prach, hmyz)</div>
+  <p class="card-item-desc">Antihistaminikum 2. generácie — nespôsobuje výraznú ospalosť. Účinkuje do 1 hodiny, pôsobí 24 hodín. Tablety aj kvapky (pre deti od 2 rokov).</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Loratadín</div>
+  <div class="card-item-sub">Alergia (peľ, prach, hmyz)</div>
+  <p class="card-item-desc">Rovnako antihistaminikum 2. generácie. Alternatíva k cetirizínu. Tablety a sirup pre deti.</p>
+</div>
+</div>
 
 <p>Stačí mať jednu z týchto dvoch účinných látok. Ak má niekto v domácnosti <strong>známu silnú alergiu (anafylaxia)</strong> — napríklad na bodnutie hmyzom alebo potraviny — poraďte sa s lekárom o predpísaní <strong>adrenalínového autoinjektora</strong>. Ten si vyžaduje lekársky predpis a pravidelnú kontrolu expirácie.</p>
 
-<h2>Dezinfekcia a starostlivosť o rany</h2>
-
-<div class="table-wrap"><table>
-<thead><tr><th>Prípravok</th><th>Na čo slúži</th><th>Poznámka</th></tr></thead>
-<tbody>
-<tr><td><strong>Dezinfekčný roztok na rany</strong> (účinná látka: octenidín alebo povidón-jód)</td><td>Čistenie a dezinfekcia rán</td><td>Octenidín (bezfarebný) nepáli a je vhodný aj pre deti. Povidón-jód (hnedý) je klasická jódová dezinfekcia — nedávajte na veľké plochy a nepoužívajte pri alergii na jód.</td></tr>
-<tr><td><strong>Fyziologický roztok (0,9% NaCl)</strong></td><td>Výplach rán, očí</td><td>Na preplachovanie rán, čistenie očí od nečistôt. Nedráždi tkanivo. Dostupný v ampulkách alebo fľaši.</td></tr>
-<tr><td><strong>Masť na popáleniny</strong> (účinná látka: dexpantenol)</td><td>Drobné popáleniny, odreniny</td><td>Podporuje hojenie a zmierňuje bolesť. Pri popáleninách najprv chlaďte prúdom vody min. 10 minút.</td></tr>
-<tr><td><strong>Dezinfekčný gél na ruky</strong></td><td>Hygiena rúk v núdzi</td><td>Min. 60% alkohol. Užitočný, ak nemáte prístup k tečúcej vode.</td></tr>
-</tbody>
-</table></div>
+<div class="card-list">
+<div class="card-list-label">Dezinfekcia a starostlivosť o rany</div>
+<div class="card-item">
+  <div class="card-item-title">Dezinfekčný roztok na rany</div>
+  <div class="card-item-sub">Čistenie a dezinfekcia rán · účinná látka: octenidín alebo povidón-jód</div>
+  <p class="card-item-desc">Octenidín (bezfarebný) nepáli a je vhodný aj pre deti. Povidón-jód (hnedý) je klasická jódová dezinfekcia — nedávajte na veľké plochy a nepoužívajte pri alergii na jód.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Fyziologický roztok (0,9% NaCl)</div>
+  <div class="card-item-sub">Výplach rán, očí</div>
+  <p class="card-item-desc">Na preplachovanie rán, čistenie očí od nečistôt. Nedráždi tkanivo. Dostupný v ampulkách alebo fľaši.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Masť na popáleniny (dexpantenol)</div>
+  <div class="card-item-sub">Drobné popáleniny, odreniny</div>
+  <p class="card-item-desc">Podporuje hojenie a zmierňuje bolesť. Pri popáleninách najprv chlaďte prúdom vody min. 10 minút.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Dezinfekčný gél na ruky</div>
+  <div class="card-item-sub">Hygiena rúk v núdzi</div>
+  <p class="card-item-desc">Min. 60% alkohol. Užitočný, ak nemáte prístup k tečúcej vode.</p>
+</div>
+</div>
 
 <h2>Obväzový materiál</h2>
 
@@ -211,6 +255,12 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <p><strong>Slnečný krém</strong> (SPF 30+) — popáleniny od slnka sú v krízovej situácii vonku reálne riziko. <strong>Repelent proti hmyzu</strong> — najmä v lete. <strong>Kvapky do očí</strong> (umelé slzy) — pri podráždení prachom alebo dymom. <strong>Náhradné okuliare alebo kontaktné šošovky</strong> — ak ich nosíte, nemať náhradný pár je vážne riziko. <strong>Zásobný recept</strong> — ak beriete lieky pravidelne, požiadajte lekára o zásobný predpis, ktorý môžete použiť kedykoľvek.</p>
 
+<div class="disclaimer-box">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;margin-top:2px"><circle cx="10" cy="10" r="9"/><path d="M10 6v5M10 13.5v.5"/></svg>
+<div>
+<strong>Upozornenie:</strong> Tento článok má výlučne informačný a vzdelávací charakter. Mámeplán.sk nie je orgánom štátnej správy, záchrannou službou ani zdravotníckym zariadením. Uvedené informácie nepredstavujú odbornú radu a nemôžu nahradiť pokyny príslušných úradov, záchranných zložiek alebo zdravotníckych pracovníkov. Pred prijatím akýchkoľvek opatrení si overte aktuálnosť informácií u oficiálnych autorít a postupujte podľa vlastného úsudku a konkrétnej situácie.
+</div>
+</div>
 </article>
 
 <div class="sources">
