@@ -8,6 +8,7 @@
 <title>Varovné sirény — čo znamenajú a čo robiť? | Mámeplán</title>
 <meta name="description" content="4 varovné signály sirén na Slovensku: všeobecné ohrozenie, ohrozenie vodou, koniec ohrozenia a skúška. Čo robiť pri každom type signálu."/>
 <link rel="canonical" href="https://mameplan.sk/clanky/varovne-sireny-co-znamenaju.html"/>
+<link rel="alternate" hreflang="sk" href="https://mameplan.sk/clanky/varovne-sireny-co-znamenaju.html"/>/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Varovné sirény — čo znamenajú a čo robiť?"/>
 <meta property="og:description" content="4 varovné signály sirén na Slovensku: všeobecné ohrozenie, ohrozenie vodou, koniec ohrozenia a skúška. Čo robiť pri každom type signálu."/>
@@ -24,11 +25,14 @@
 <meta name="twitter:title" content="Varovné sirény — čo znamenajú a čo robiť?"/>
 <meta name="twitter:description" content="4 varovné signály sirén na Slovensku: všeobecné ohrozenie, ohrozenie vodou, koniec ohrozenia a skúška. Čo robiť pri každom type signálu. Vizuálny prehľad."/>
 <meta name="keywords" content="varovné sirény, Slovensko, signály, civilná ochrana, skúška sirén"/>
+<meta name="geo.region" content="SK"/>
+<meta name="geo.placename" content="Slovensko"/>
+<meta name="content-language" content="sk"/>
 <meta name="theme-color" content="#f5f3ee"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" fetchpriority="high"/>
 <style>
 :root {
   --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
@@ -123,11 +127,21 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 @keyframes sirenSteady{0%,100%{transform:scaleY(0.85)}50%{transform:scaleY(1)}}
 .siren-action{font-size:0.82rem;color:var(--ink2);font-weight:400;line-height:1.55}
 .siren-action strong{font-weight:600;color:var(--ink)}
+
+.breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:wrap}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--ink);text-decoration:underline}
+.breadcrumb-sep{color:var(--border);font-size:0.7rem}
+.breadcrumb-current{color:var(--ink2);font-weight:500}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-h1", ".article-body p:first-of-type"]
+  },
   "headline": "Varovné sirény — čo znamenajú a čo robiť?",
   "description": "4 varovné signály sirén na Slovensku: všeobecné ohrozenie, ohrozenie vodou, koniec ohrozenia a skúška. Čo robiť pri každom type signálu. Vizuálny prehľad.",
   "url": "https://mameplan.sk/clanky/varovne-sireny-co-znamenaju.html",
@@ -167,7 +181,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
-  <a class="nav-back" href="/#clanky"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Varovne sireny</span></nav>
 </div></nav>
 
 <div class="wrap">
@@ -223,7 +237,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Zapnite rádio alebo televíziu</strong><p>Slovenský rozhlas (Rádio Slovensko, 96.6 FM) alebo RTVS — v krízách vysielajú nepretržite.</p></div></div>
 <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Zatvorte okná a dvere</strong><p>Pri chemickej alebo radiačnej havárii uzavretie okien výrazne znižuje riziko.</p></div></div>
 <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Sledujte pokyny</strong><p>Nepodliehajte panike. Pokyny vám povedia, či zostať vnútri alebo sa evakuovať.</p></div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Kontaktujte rodinu</strong><p>Overte, že vaši blízki sú v bezpečí. Ak máte krízový plán, aktivujte ho.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Kontaktujte rodinu</strong><p>Overte, že vaši blízki sú v bezpečí. Ak máte <a href="krizovy-plan-pre-rodinu.html">krízový plán</a>, aktivujte ho.</p></div></div>
 </div>
 <h2>Pravidelná skúška sirén</h2>
 <p>Na Slovensku sa sirény testujú <strong>každý druhý piatok v mesiaci o 12:00 dvojminútovým stálym tónom</strong>. Ak počujete sirény v piatok napoludnie — s najväčšou pravdepodobnosťou ide o skúšku.</p>
@@ -245,7 +259,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <div class="cta-box">
   <h3>V Gerlachu máte sirény vysvetlené aj offline</h3>
-  <p>Postupy pre každý typ ohrozenia — od povodní cez chemickú haváriu po ozbrojený konflikt.</p>
+  <p>Postupy pre každý typ ohrozenia — od povodní cez chemickú haváriu po <a href="ako-sa-pripravit-na-ozbrojeny-konflikt.html">ozbrojený konflikt</a>.</p>
   <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
   <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
 </div>
