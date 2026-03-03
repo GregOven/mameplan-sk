@@ -8,6 +8,7 @@
 <title>Domáca lekárnička — čo v nej nesmie chýbať? | Mámeplán</title>
 <meta name="description" content="Zoznam liekov, obväzov a pomôcok pre domácu lekárničku. Účinné látky dostupné v SK lekárňach, detská lekárnička, skladovanie a kontrola expirácií."/>
 <link rel="canonical" href="https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html"/>
+<link rel="alternate" hreflang="sk" href="https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html"/>/>
 <meta property="og:type" content="article"/>
 <meta property="og:title" content="Domáca lekárnička — čo v nej nesmie chýbať?"/>
 <meta property="og:description" content="Zoznam liekov, obväzov a pomôcok pre domácu lekárničku. Účinné látky dostupné v SK lekárňach, detská lekárnička, skladovanie a kontrola expirácií."/>
@@ -24,11 +25,14 @@
 <meta name="twitter:title" content="Domáca lekárnička — čo v nej nesmie chýbať?"/>
 <meta name="twitter:description" content="Kompletný zoznam liekov, obväzového materiálu a pomôcok. Účinné látky dostupné na Slovensku, detská lekárnička."/>
 <meta name="keywords" content="domáca lekárnička, lieky, obväzový materiál, paracetamol, ibuprofén, prvá pomoc"/>
+<meta name="geo.region" content="SK"/>
+<meta name="geo.placename" content="Slovensko"/>
+<meta name="content-language" content="sk"/>
 <meta name="theme-color" content="#f5f3ee"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" fetchpriority="high"/>
 <style>
 :root {
   --bg:#f5f3ee;--bg2:#eceae4;--surface:#fff;--ink:#1a1816;--ink2:#3a3733;--muted:#635e57;
@@ -107,11 +111,21 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
 .card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
 .card-item-meta strong{color:var(--ink2);font-weight:600}
+
+.breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:wrap}
+.breadcrumb a{color:var(--muted);text-decoration:none}
+.breadcrumb a:hover{color:var(--ink);text-decoration:underline}
+.breadcrumb-sep{color:var(--border);font-size:0.7rem}
+.breadcrumb-current{color:var(--ink2);font-weight:500}
 </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Article",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".article-h1", ".article-body p:first-of-type"]
+  },
   "headline": "Domáca lekárnička — čo v nej nesmie chýbať?",
   "description": "Kompletný zoznam liekov, obväzového materiálu a pomôcok. Účinné látky dostupné na Slovensku, detská lekárnička.",
   "url": "https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html",
@@ -151,7 +165,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/">Mámeplán | Gerlach</a>
-  <a class="nav-back" href="/#clanky"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4L5 8l6 4"/></svg> Späť</a>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Lekarnicka</span></nav>
 </div></nav>
 
 <div class="wrap">
@@ -164,7 +178,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <article class="article-body">
 
-<p>Domáca lekárnička nie je luxus — je to <strong>základná výbava každej domácnosti</strong>. Problém však býva v tom, že lieky sú dávno po expirácii, obväzy chýbajú a nožnice nefungujú. Podľa prieskumov len zlomok domácností má lekárničku skutočne skontrolovanú a aktuálnu.</p>
+<p>Domáca lekárnička nie je luxus — je to <strong>základná výbava každej domácnosti, podobne ako znalosť <a href="prva-pomoc-kpr-postup.html">prvej pomoci</a></strong>. Problém však býva v tom, že lieky sú dávno po expirácii, obväzy chýbajú a nožnice nefungujú. Podľa prieskumov len zlomok domácností má lekárničku skutočne skontrolovanú a aktuálnu.</p>
 
 <p>Tento článok vychádza z odporúčaní <strong>Slovenského Červeného kríža, nemeckého Spolkového úradu pre ochranu obyvateľstva (BBK) a Medzinárodného Červeného kríža (ICRC)</strong>. Všetko, čo tu uvádzame, je bežne dostupné v slovenských lekárňach bez lekárskeho predpisu, pokiaľ nie je uvedené inak.</p>
 
@@ -192,7 +206,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <h2>Lieky na tráviace ťažkosti</h2>
 
-<p>Hnačka, vracanie a dehydratácia patria medzi najčastejšie zdravotné komplikácie v krízových situáciách — najmä pri obmedzenom prístupe k čistej vode alebo pri zmene stravy.</p>
+<p>Hnačka, vracanie a dehydratácia patria medzi najčastejšie zdravotné komplikácie v krízových situáciách — najmä pri obmedzenom prístupe k <a href="kolko-vody-potrebujem.html">čistej vode</a> alebo pri zmene stravy.</p>
 
 <div class="card-list">
 <div class="card-list-label">Trávenie a dehydratácia</div>
