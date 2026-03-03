@@ -96,6 +96,22 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
 .card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
 .card-item-meta strong{color:var(--ink2);font-weight:600}
+
+.siren-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem;margin:1.5rem 0}
+@media(max-width:640px){.siren-grid{grid-template-columns:1fr}}
+.siren-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:1rem;transition:transform 0.2s,box-shadow 0.2s}
+.siren-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.08)}
+.siren-head{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;margin-bottom:0.35rem}
+.siren-title{font-weight:700;font-size:0.92rem}
+.siren-badge{border-radius:0.4rem;padding:0.2rem 0.5rem;font-size:0.7rem;font-weight:700;white-space:nowrap}
+.siren-type{font-size:0.78rem;color:var(--muted);margin-bottom:0.4rem}
+.siren-wave{height:28px;border-radius:0.375rem;overflow:hidden;position:relative;margin-bottom:0.5rem}
+.siren-bar{position:absolute;bottom:0;width:3px;border-radius:2px;opacity:0.6;animation:sirenPulse 1.5s ease-in-out infinite}
+.siren-wave-steady .siren-bar{animation:sirenSteady 2s ease-in-out infinite}
+@keyframes sirenPulse{0%,100%{transform:scaleY(0.3)}50%{transform:scaleY(1)}}
+@keyframes sirenSteady{0%,100%{transform:scaleY(0.85)}50%{transform:scaleY(1)}}
+.siren-action{font-size:0.82rem;color:var(--ink2);font-weight:400;line-height:1.55}
+.siren-action strong{font-weight:600;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -113,27 +129,42 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <article class="article-body">
 <p>Ak ste niekedy počuli sirény a nevedeli ste, čo znamenajú — nie ste sami. Na Slovensku existujú <strong>4 varovné signály sirén</strong>. Jediné, čo si potrebujete zapamätať: <strong>ak zaznie siréna (mimo pravidelnej skúšky), zapnite rádio a počúvajte pokyny</strong>.</p>
-<div class="card-list">
-<div class="card-list-label">4 typy varovných signálov</div>
-<div class="card-item">
-  <div class="card-item-title">Všeobecné ohrozenie</div>
-  <div class="card-item-meta"><span>Zvuk: <strong>Kolísavý tón</strong></span><span>Trvanie: <strong>2 minúty</strong></span></div>
-  <p class="card-item-desc">Zapnite rádio, zavrite okná, konajte podľa pokynov</p>
+<div class="siren-grid">
+<div class="siren-card">
+  <div class="siren-head">
+    <div class="siren-title" style="color:#dc2626">Všeobecné ohrozenie</div>
+    <div class="siren-badge" style="background:#fef2f2;border:1px solid #fecaca;color:#dc2626">2 minúty</div>
+  </div>
+  <div class="siren-type">Kolísavý tón</div>
+  <div class="siren-wave" style="background:#fef2f2;border:1px solid #fecaca"><div class="siren-bar" style="left:0.0%;height:40%;background:#dc2626;animation-delay:0.3s"></div><div class="siren-bar" style="left:4.2%;height:65%;background:#dc2626;animation-delay:0.53s"></div><div class="siren-bar" style="left:8.3%;height:75%;background:#dc2626;animation-delay:0.67s"></div><div class="siren-bar" style="left:12.5%;height:64%;background:#dc2626;animation-delay:0.69s"></div><div class="siren-bar" style="left:16.7%;height:38%;background:#dc2626;animation-delay:0.57s"></div><div class="siren-bar" style="left:20.8%;height:14%;background:#dc2626;animation-delay:0.36s"></div><div class="siren-bar" style="left:25.0%;height:5%;background:#dc2626;animation-delay:0.12s"></div><div class="siren-bar" style="left:29.2%;height:18%;background:#dc2626;animation-delay:-0.05s"></div><div class="siren-bar" style="left:33.3%;height:44%;background:#dc2626;animation-delay:-0.1s"></div><div class="siren-bar" style="left:37.5%;height:68%;background:#dc2626;animation-delay:-0.01s"></div><div class="siren-bar" style="left:41.7%;height:75%;background:#dc2626;animation-delay:0.19s"></div><div class="siren-bar" style="left:45.8%;height:60%;background:#dc2626;animation-delay:0.42s"></div><div class="siren-bar" style="left:50.0%;height:34%;background:#dc2626;animation-delay:0.62s"></div><div class="siren-bar" style="left:54.2%;height:11%;background:#dc2626;animation-delay:0.7s"></div><div class="siren-bar" style="left:58.3%;height:6%;background:#dc2626;animation-delay:0.64s"></div><div class="siren-bar" style="left:62.5%;height:21%;background:#dc2626;animation-delay:0.46s"></div><div class="siren-bar" style="left:66.7%;height:48%;background:#dc2626;animation-delay:0.23s"></div><div class="siren-bar" style="left:70.8%;height:70%;background:#dc2626;animation-delay:0.02s"></div><div class="siren-bar" style="left:75.0%;height:74%;background:#dc2626;animation-delay:-0.09s"></div><div class="siren-bar" style="left:79.2%;height:57%;background:#dc2626;animation-delay:-0.07s"></div><div class="siren-bar" style="left:83.3%;height:30%;background:#dc2626;animation-delay:0.09s"></div><div class="siren-bar" style="left:87.5%;height:9%;background:#dc2626;animation-delay:0.31s"></div><div class="siren-bar" style="left:91.7%;height:7%;background:#dc2626;animation-delay:0.54s"></div><div class="siren-bar" style="left:95.8%;height:25%;background:#dc2626;animation-delay:0.68s"></div></div>
+  <div class="siren-action"><strong>Vojdite do budovy</strong>, zatvorte okná, zapnite rádio a počúvajte pokyny</div>
 </div>
-<div class="card-item">
-  <div class="card-item-title">Ohrozenie vodou</div>
-  <div class="card-item-meta"><span>Zvuk: <strong>Stály tón</strong></span><span>Trvanie: <strong>6 minút</strong></span></div>
-  <p class="card-item-desc">Okamžite opustite záplavovú oblasť, choďte vyššie</p>
+<div class="siren-card">
+  <div class="siren-head">
+    <div class="siren-title" style="color:#1e40af">Ohrozenie vodou</div>
+    <div class="siren-badge" style="background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af">6 minút</div>
+  </div>
+  <div class="siren-type">Stály tón</div>
+  <div class="siren-wave siren-wave-steady" style="background:#eff6ff;border:1px solid #bfdbfe"><div class="siren-bar" style="left:0.0%;height:70%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:4.2%;height:72%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:8.3%;height:74%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:12.5%;height:76%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:16.7%;height:77%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:20.8%;height:78%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:25.0%;height:79%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:29.2%;height:80%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:33.3%;height:80%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:37.5%;height:80%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:41.7%;height:79%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:45.8%;height:78%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:50.0%;height:77%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:54.2%;height:75%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:58.3%;height:73%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:62.5%;height:71%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:66.7%;height:69%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:70.8%;height:67%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:75.0%;height:66%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:79.2%;height:64%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:83.3%;height:62%;background:#1e40af;animation-delay:0.2s"></div><div class="siren-bar" style="left:87.5%;height:61%;background:#1e40af;animation-delay:0.0s"></div><div class="siren-bar" style="left:91.7%;height:60%;background:#1e40af;animation-delay:0.1s"></div><div class="siren-bar" style="left:95.8%;height:60%;background:#1e40af;animation-delay:0.2s"></div></div>
+  <div class="siren-action"><strong>Okamžite choďte vyššie</strong> — opustite záplavovú oblasť, nikdy nie do pivnice</div>
 </div>
-<div class="card-item">
-  <div class="card-item-title">Koniec ohrozenia</div>
-  <div class="card-item-meta"><span>Zvuk: <strong>Stály tón</strong></span><span>Trvanie: <strong>2 minúty</strong></span></div>
-  <p class="card-item-desc">Ohrozenie pominulo, sledujte médiá</p>
+<div class="siren-card">
+  <div class="siren-head">
+    <div class="siren-title" style="color:#2a7a4b">Koniec ohrozenia</div>
+    <div class="siren-badge" style="background:#eaf4ee;border:1px solid #86efac;color:#2a7a4b">2 minúty</div>
+  </div>
+  <div class="siren-type">Stály tón (bez opakovania)</div>
+  <div class="siren-wave siren-wave-steady" style="background:#eaf4ee;border:1px solid #86efac"><div class="siren-bar" style="left:0.0%;height:70%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:4.2%;height:72%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:8.3%;height:74%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:12.5%;height:76%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:16.7%;height:77%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:20.8%;height:78%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:25.0%;height:79%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:29.2%;height:80%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:33.3%;height:80%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:37.5%;height:80%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:41.7%;height:79%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:45.8%;height:78%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:50.0%;height:77%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:54.2%;height:75%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:58.3%;height:73%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:62.5%;height:71%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:66.7%;height:69%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:70.8%;height:67%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:75.0%;height:66%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:79.2%;height:64%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:83.3%;height:62%;background:#2a7a4b;animation-delay:0.2s"></div><div class="siren-bar" style="left:87.5%;height:61%;background:#2a7a4b;animation-delay:0.0s"></div><div class="siren-bar" style="left:91.7%;height:60%;background:#2a7a4b;animation-delay:0.1s"></div><div class="siren-bar" style="left:95.8%;height:60%;background:#2a7a4b;animation-delay:0.2s"></div></div>
+  <div class="siren-action">Ohrozenie pominulo. <strong>Vyvetrajte</strong>, sledujte médiá, skontrolujte blízkych</div>
 </div>
-<div class="card-item">
-  <div class="card-item-title">Skúška sirén</div>
-  <div class="card-item-meta"><span>Zvuk: <strong>Stály 2-min. tón</strong></span><span>Trvanie: <strong>2 minúty</strong></span></div>
-  <p class="card-item-desc">Nekonajte. Každý 2. piatok o 12:00</p>
+<div class="siren-card">
+  <div class="siren-head">
+    <div class="siren-title" style="color:#6b6560">Skúška sirén</div>
+    <div class="siren-badge" style="background:#f5f3ee;border:1px solid #e2ddd5;color:#6b6560">2 minúty</div>
+  </div>
+  <div class="siren-type">Stály tón</div>
+  <div class="siren-wave siren-wave-steady" style="background:#f5f3ee;border:1px solid #e2ddd5"><div class="siren-bar" style="left:0.0%;height:70%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:4.2%;height:72%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:8.3%;height:74%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:12.5%;height:76%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:16.7%;height:77%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:20.8%;height:78%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:25.0%;height:79%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:29.2%;height:80%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:33.3%;height:80%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:37.5%;height:80%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:41.7%;height:79%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:45.8%;height:78%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:50.0%;height:77%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:54.2%;height:75%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:58.3%;height:73%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:62.5%;height:71%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:66.7%;height:69%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:70.8%;height:67%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:75.0%;height:66%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:79.2%;height:64%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:83.3%;height:62%;background:#6b6560;animation-delay:0.2s"></div><div class="siren-bar" style="left:87.5%;height:61%;background:#6b6560;animation-delay:0.0s"></div><div class="siren-bar" style="left:91.7%;height:60%;background:#6b6560;animation-delay:0.1s"></div><div class="siren-bar" style="left:95.8%;height:60%;background:#6b6560;animation-delay:0.2s"></div></div>
+  <div class="siren-action"><strong>Žiadna akcia.</strong> Každý 2. piatok v mesiaci o 12:00</div>
 </div>
 </div>
 <h2>Čo robiť, keď zaznie siréna</h2>
