@@ -1518,7 +1518,7 @@
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
-    <h1 style="font-size:1.75rem; font-weight:800; margin-bottom:0.5rem; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1>
+    <div style="display:flex; align-items:center; justify-content:center; gap:0.625rem; margin-bottom:0.5rem;"><svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#2a7a4b" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="24" fill="#f5f3ee"/></svg><h1 style="font-size:1.75rem; font-weight:800; margin:0; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1></div>
     <p style="color:var(--c-muted); font-size:0.9375rem; margin-bottom:2rem; line-height:1.6;">
       Pomáha domácnostiam na Slovensku<br>pripraviť sa na krízové situácie.
     </p>
@@ -1578,6 +1578,7 @@
   <header class="app-header">
     <div class="app-header-inner">
       <div class="app-header-logo">
+        <svg width="28" height="28" viewBox="0 0 512 512" aria-hidden="true" style="flex-shrink:0"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#2a7a4b" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="24" fill="#f5f3ee"/></svg>
         <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
         <span class="version-badge beta" id="versionBadge" style="font-size:0.625rem; padding:0.1rem 0.4rem;">Beta</span>
       </div>
@@ -1650,7 +1651,7 @@
       <!-- Onboarding (for new users without profile) -->
       <div id="onboardingCard" style="display:none;">
         <div class="onboarding-card">
-          <div style="font-size:1.5rem; margin-bottom:1rem; font-weight:800; color:var(--c-primary); letter-spacing:-0.02em;">Gerlach</div>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;"><svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#2a7a4b" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="24" fill="#f5f3ee"/></svg><span style="font-size:1.5rem; font-weight:800; color:var(--c-primary); letter-spacing:-0.02em;">Gerlach</span></div>
           <h2>Vitajte v Gerlachu</h2>
           <p>Začneme tým, že si nastavíme váš profil domácnosti.<br>Podľa neho vypočítame, čo presne potrebujete pripraviť.</p>
           <button class="btn-primary" onclick="openProfileEditor()">Nastaviť domácnosť →</button>
