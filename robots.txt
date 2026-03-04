@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://mameplan.sk/sitemap.xml
+
+# Blocked: app is client-side, no value indexing it
+Disallow: /app.html
