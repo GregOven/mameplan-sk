@@ -37,7 +37,7 @@
 <meta property="article:tag" content="zásoby domácnosť"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Čo mať doma pri výpadku elektriny (blackout) — kompletný zoznam"/>
-<meta name="twitter:description" content="Čo mať doma pri výpadku elektriny? Zásoby na 14 dní podľa MV SR: svetlo, voda, jedlo, teplo, komunikácia."/>
+<meta name="twitter:description" content="Čo mať doma pri výpadku elektriny? MV SR odporúča zásoby na 14 dní. Kompletný zoznam: svetlo, voda, jedlo, teplo, komunikácia — praktický návod pre slovenské domácnosti."/>
 <meta name="keywords" content="čo mať doma pri výpadku elektriny, blackout príprava, výpadok elektriny zásoby, čo robiť pri blackoute, výpadok prúdu domácnosť, blackout checklist, zásoby pri výpadku elektriny, ako sa pripraviť na blackout"/>
 <meta name="geo.region" content="SK"/>
 <meta name="geo.placename" content="Slovensko"/>
@@ -65,11 +65,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16p
 a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0}
+.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0;transition:opacity 0.2s}
+.nav-logo:hover{text-decoration:none;opacity:0.75}
 .nav-logo-icon{flex-shrink:0}
 .nav-logo-wm{white-space:nowrap}
 .nav-logo-sep{width:1.5px;height:20px;background:var(--border);flex-shrink:0}
-.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
+.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap;line-height:1;vertical-align:middle;position:relative;top:2px;transition:opacity 0.2s}
 .nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
 .nav-back:hover{color:var(--ink)}
 .wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
@@ -147,8 +148,18 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
   .supply-table th,.supply-table td{padding:0.4rem 0.625rem}
   .supply-table td:first-child{white-space:normal}
   .supply-table th:last-child,.supply-table td:last-child{display:none}
-  .supply-table-wrap{border-radius:var(--r)}
-}
+  .supply-table-wrap{border-radius:var(--r)} .step-num{width:24px;height:24px;font-size:0.72rem} }
+.card-list{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.card-list-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.card-item{padding:0.875rem 1.25rem;border-bottom:1px solid var(--border)}
+.card-item:last-child{border-bottom:none}
+.card-item-title{font-weight:700;font-size:0.92rem;color:var(--ink);margin-bottom:0.2rem}
+.card-item-sub{font-size:0.82rem;font-weight:600;color:var(--primary);margin-bottom:0.25rem}
+.card-item-desc{font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6;margin:0}
+.card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
+.card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
+.card-item-meta strong{color:var(--ink2);font-weight:600}
+.faq-answer{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
 .breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:nowrap;overflow:hidden;min-width:0}
 .breadcrumb a{color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0}
 .breadcrumb a:hover{color:var(--ink);text-decoration:underline}
@@ -164,7 +175,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "cssSelector": [".article-h1", ".article-body h3 + p", ".faq-answer"]
   },
   "headline": "Čo mať doma pri výpadku elektriny (blackout) — kompletný zoznam",
-  "description": "Čo mať doma pri výpadku elektriny? MV SR odporúča zásoby na 14 dní. Kompletný zoznam: svetlo, voda, jedlo, teplo, komunikácia.",
+  "description": "Čo mať doma pri výpadku elektriny? MV SR odporúča zásoby na 14 dní. Kompletný zoznam: svetlo, voda, jedlo, teplo, komunikácia — praktický návod pre slovenské domácnosti.",
   "keywords": ["čo mať doma pri výpadku elektriny", "blackout príprava", "výpadok elektriny zásoby", "čo robiť pri blackoute", "blackout checklist"],
   "url": "https://mameplan.sk/clanky/co-mat-doma-pri-vypadku-elektriny.html",
   "datePublished": "2026-03-02",
@@ -179,7 +190,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mameplan.sk/"},
       {"@type": "ListItem", "position": 2, "name": "Články", "item": "https://mameplan.sk/clanky/"},
-      {"@type": "ListItem", "position": 3, "name": "Čo mať doma pri výpadku elektriny (blackout)"}
+      {"@type": "ListItem", "position": 3, "name": "Čo mať doma pri výpadku elektriny?", "item": "https://mameplan.sk/clanky/co-mat-doma-pri-vypadku-elektriny.html"}
     ]
   }
 }
@@ -209,6 +220,22 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
       "name": "Čo robiť pri výpadku elektriny?",
       "acceptedAnswer": {"@type": "Answer", "text": "1. Overte, či je výpadok lokálny (susedia) alebo rozsiahly — zavolajte poruchu. 2. Odstavte citlivé spotrebiče (PC, TV). 3. Zapnite rádio na batérie — Rádio Slovensko 96.6 FM. 4. Otvorte chladničku čo najmenej. 5. Ak je zima, zhromaždite rodinu v jednej miestnosti."}
     }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Ako sa pripraviť na výpadok elektriny",
+  "description": "Postup krok za krokom, ako zabezpečiť domácnosť pri výpadku elektriny podľa odporúčaní MV SR a BBK.",
+  "totalTime": "PT60M",
+  "step": [
+    {"@type": "HowToStep", "position": 1, "name": "Svetlo a záložné zdroje", "text": "Zabezpečte čelovky s náhradnými batériami a sviečky pre každého člena domácnosti."},
+    {"@type": "HowToStep", "position": 2, "name": "Komunikácia", "text": "Nabite powerbank a majte rádio na batérie — pri výpadku internetu je rádio hlavným zdrojom informácií."},
+    {"@type": "HowToStep", "position": 3, "name": "Voda", "text": "Naplňte vaňu a vedrá ihneď po oznámení výpadku — vodárne môžu zlyhať."},
+    {"@type": "HowToStep", "position": 4, "name": "Jedlo", "text": "Spotrebujte čerstvé potraviny z chladničky ako prvé, potom mrazeničky, nakoniec trvanlivé zásoby."},
+    {"@type": "HowToStep", "position": 5, "name": "Kúrenie", "text": "Zatvorte dvere miestností a zhrňte ľudí do jednej izby. Oblečte sa do vrstiev."}
   ]
 }
 </script>
