@@ -5,6 +5,25 @@
 <meta content="width=device-width,initial-scale=1.0" name="viewport"/>
 <title>Právne informácie — Mámeplán.sk</title>
 <meta name="description" content="Podmienky používania, zásady ochrany osobných údajov a cookies politika projektu Mámeplán / Gerlach."/>
+<link rel="alternate" hreflang="sk" href="https://mameplan.sk/pravne-info.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Právne informácie — Mámeplán.sk"/>
+<meta property="og:description" content="Podmienky používania, zásady ochrany osobných údajov a cookies politika projektu Mámeplán / Gerlach."/>
+<meta property="og:url" content="https://mameplan.sk/pravne-info.html"/>
+<meta property="og:locale" content="sk_SK"/>
+<meta property="og:site_name" content="Mámeplán"/>
+<meta property="og:image" content="https://mameplan.sk/og-image.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Právne informácie — Mámeplán.sk"/>
+<meta name="twitter:description" content="Podmienky používania, ochrana osobných údajov a cookies politika."/>
+<meta name="twitter:image" content="https://mameplan.sk/og-image.png"/>
+<meta name="geo.region" content="SK"/>
+<meta name="geo.placename" content="Slovensko"/>
+<meta name="content-language" content="sk"/>
+<meta name="theme-color" content="#faf8f4"/>
+<meta name="robots" content="noindex, follow"/>
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
   script-src 'self' 'unsafe-inline';
@@ -22,6 +41,8 @@
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"/>
 <link rel="canonical" href="https://mameplan.sk/pravne-info.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,400&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -65,13 +86,20 @@
     max-width: 780px; margin: 0 auto;
     height: 56px; display: flex;
     align-items: center; justify-content: space-between;
+    gap: 1rem;
   }
   .nav-logo {
+    display: inline-flex; align-items: center; gap: 0.5rem;
     font-family: 'Fraunces', serif;
-    font-size: 1.15rem; font-weight: 700;
-    color: var(--ink); text-decoration: none;
+    font-size: 1.15rem; font-weight: 800;
     letter-spacing: -0.02em;
+    color: var(--ink); text-decoration: none;
+    flex-shrink: 0;
   }
+  .nav-logo-icon { flex-shrink: 0; }
+  .nav-logo-wm { white-space: nowrap; }
+  .nav-logo-sep { width: 1.5px; height: 20px; background: var(--border); flex-shrink: 0; }
+  .nav-logo-app { font-family: 'Lexend', sans-serif; font-size: 0.88rem; font-weight: 600; color: #2a7a4b; white-space: nowrap; }
   .nav-back {
     font-size: 0.82rem; font-weight: 500;
     color: var(--muted); text-decoration: none;
@@ -194,6 +222,11 @@
     font-size: 0.75rem; color: var(--muted); font-weight: 300;
   }
 
+  @media (max-width: 480px) {
+    .nav-logo-wm { display: none; }
+    .nav-logo-sep { display: none; }
+  }
+
   /* ── Mobile ── */
   @media (max-width: 640px) {
     .wrap { padding: 2rem 1.25rem 3rem; }
@@ -206,21 +239,41 @@
     .doc-table th, .doc-table td { padding: 0.5rem 0.5rem; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Právne informácie — Mámeplán.sk",
+  "description": "Podmienky používania, zásady ochrany osobných údajov a cookies politika projektu Mámeplán / Gerlach.",
+  "url": "https://mameplan.sk/pravne-info.html",
+  "inLanguage": "sk",
+  "dateModified": "2026-03-04",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Mámeplán",
+    "url": "https://mameplan.sk"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "STOM — Sven the Ordinary Man"
+  }
+}
+</script>
 </head>
 <body>
 
 <!-- Nav -->
 <nav class="nav">
   <div class="nav-inner">
-    <a class="nav-logo" href="./index.html">Mámeplán.sk</a>
-    <a class="nav-back" href="./index.html">← Späť na hlavnú stránku</a>
+    <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="26" height="26" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
+    <a class="nav-back" href="/">← Späť na hlavnú stránku</a>
   </div>
 </nav>
 
 <div class="wrap">
 
 <h1 class="page-title">Právne informácie</h1>
-<p class="page-meta">Posledná aktualizácia: 28. februára 2026 · Prevádzkovateľ: STOM — Sven the Ordinary Man</p>
+<p class="page-meta">Posledná aktualizácia: 4. marca 2026 · Prevádzkovateľ: STOM — Sven the Ordinary Man</p>
 
 <!-- TOC -->
 <div class="doc-nav">
@@ -238,28 +291,36 @@
 <h2>Podmienky používania</h2>
 
 <h3>1. Úvodné ustanovenia</h3>
-<p>Tieto Podmienky používania (ďalej len „Podmienky") upravujú vzťah medzi prevádzkovateľom webovej stránky mameplan.sk a webovej aplikácie Gerlach (ďalej spoločne len „Služba") a každou fyzickou osobou, ktorá Službu používa (ďalej len „Používateľ").</p>
+<p>Tieto Podmienky používania (ďalej len „Podmienky") upravujú vzťah medzi prevádzkovateľom webovej stránky mameplan.sk a webových aplikácií prevádzkovaných pod značkou Mámeplán (ďalej spoločne len „Služba") a každou fyzickou osobou, ktorá Službu používa (ďalej len „Používateľ").</p>
+<p>Pod pojmom „Služba" sa rozumie webová stránka mameplan.sk a všetky webové aplikácie prevádzkované Prevádzkovateľom pod značkou Mámeplán, a to najmä: <strong>Gerlach</strong> (plánovanie krízových zásob domácnosti), <strong>Kriváň</strong> a <strong>Chopok</strong> (pripravované aplikácie), ako aj prípadné ďalšie aplikácie, ktoré Prevádzkovateľ v budúcnosti sprístupní pod značkou Mámeplán.</p>
 <p>Prevádzkovateľom Služby je <strong>STOM — Sven the Ordinary Man</strong>, fyzická osoba – nepodnikateľ, kontaktný email: <strong class="js-email-text">[načítavam…]</strong> (ďalej len „Prevádzkovateľ").</p>
-<p>Služba je nekomerčný osobný projekt sprístupnený verejnosti bezodplatne. Nie je prevádzkovaná podnikateľským subjektom, neziskovou organizáciou ani štátnou inštitúciou.</p>
+<p>Služba je nekomerčný osobný projekt sprístupnený verejnosti bezodplatne. Nie je prevádzkovaná podnikateľským subjektom, neziskovou organizáciou ani štátnou inštitúciou. <strong>Ide o hobby projekt jednotlivca, ktorý môže obsahovať nepresnosti, neúplné informácie alebo technické chyby.</strong></p>
+<p><strong>Dobrovoľné príspevky.</strong> Služba umožňuje zasielanie dobrovoľných finančných príspevkov prostredníctvom externej platobnej služby (PayPal). Tieto príspevky sú výlučne dobrovoľné, nemajú vplyv na rozsah, kvalitu ani dostupnosť poskytovanej Služby a nezakladajú žiadny zmluvný vzťah, nárok na protiplnenie ani nárok na prednostné poskytovanie Služby. Prijímanie dobrovoľných príspevkov nemení nekomerčný charakter projektu.</p>
 
 <div class="doc-highlight">
-<p><strong>Používaním Služby (vrátane režimu demo) Používateľ potvrdzuje, že si tieto Podmienky prečítal, porozumel im a súhlasí s nimi v plnom rozsahu.</strong> Ak s Podmienkami nesúhlasíte, Službu nepoužívajte.</p>
+<p><strong>Používaním Služby Používateľ potvrdzuje, že si tieto Podmienky prečítal, porozumel im a súhlasí s nimi v plnom rozsahu.</strong> Súhlas s Podmienkami je vyjadrený: (a) pri registrácii — potvrdením súhlasu pred vytvorením účtu; (b) pri demo režime — vstupom do demo režimu po zobrazení odkazu na tieto Podmienky. Ak s Podmienkami nesúhlasíte, Službu nepoužívajte.</p>
 </div>
 
 <p><strong>Veková hranica:</strong> Služba je určená osobám starším ako 16 rokov. Osoby mladšie ako 16 rokov môžu Službu používať výlučne pod dohľadom a so súhlasom zákonného zástupcu. Zákonný zástupca preberá plnú zodpovednosť za používanie Služby maloletou osobou a súhlasí s týmito Podmienkami v jej mene. Prevádzkovateľ nenesie žiadnu zodpovednosť za používanie Služby maloletými osobami.</p>
 
 <h3>2. Predmet a charakter Služby</h3>
-<p>Služba Gerlach je informačný nástroj, ktorý pomáha domácnostiam orientačne plánovať zásoby pre prípad núdzových situácií. Služba poskytuje najmä: orientačné výpočty zásob vody, jedla a liekov podľa veľkosti domácnosti; sledovanie dátumov expirácie s upozorneniami priamo v aplikácii; uloženie núdzového plánu a kontaktov; informácie o prvej pomoci a postupoch v krízových situáciách.</p>
+<p>Služba Gerlach je informačný nástroj, ktorý pomáha domácnostiam orientačne plánovať zásoby pre prípad núdzových situácií. Služba poskytuje najmä: orientačné výpočty zásob vody, jedla a liekov podľa veľkosti domácnosti; sledovanie dátumov expirácie s upozorneniami priamo v aplikácii; uloženie núdzového plánu a kontaktov; informácie o prvej pomoci a postupoch v krízových situáciách. Súčasťou projektu je aj webová stránka mameplan.sk s informačnými článkami o krízovej pripravenosti. Celý obsah (aplikácia aj články) má výlučne informatívny charakter.</p>
 
 <div class="doc-highlight">
 <p><strong>Služba je vo fáze obmedzeného prístupu (beta / early access).</strong> Prevádzkovateľ môže kedykoľvek zmeniť, obmedziť alebo ukončiť dostupnosť Služby, jej funkcie alebo kapacitu bez predchádzajúceho upozornenia. Počet registrovaných Používateľov môže byť obmedzený.</p>
 </div>
 
 <div class="doc-highlight">
-<p><strong>Služba má výlučne informatívny a pomocný charakter.</strong> Nie je odborným poradenstvom v oblasti civilnej ochrany, zdravotníctva, bezpečnosti ani výživy. Výpočty a odporúčania sú orientačné a nemôžu nahradiť individuálne posúdenie odborníkom.</p>
+<p><strong>Služba má výlučne informatívny a pomocný charakter.</strong> Nie je odborným poradenstvom v oblasti civilnej ochrany, zdravotníctva, bezpečnosti ani výživy. Prevádzkovateľ nie je orgánom štátnej správy, zdravotníckym zariadením, certifikovaným školiteľom prvej pomoci ani odborníkom na krízovú pripravenosť. Výpočty a odporúčania sú orientačné a nemôžu nahradiť individuálne posúdenie odborníkom.</p>
 </div>
 
-<p><strong>Informácie o prvej pomoci a núdzových postupoch</strong> uvedené v Službe majú výlučne vzdelávací charakter. Nie sú lekárskym poradenstvom, zdravotnou starostlivosťou ani certifikovaným školením prvej pomoci. V prípade zdravotného ohrozenia volajte <strong>155</strong> (záchranná služba) alebo <strong>112</strong> (tiesňová linka). Prevádzkovateľ nie je zdravotnícky pracovník a nenesie zodpovednosť za následky aplikovania týchto informácií.</p>
+<div class="doc-highlight">
+<p><strong>Používateľ je povinný si všetky informácie zo Služby overiť z oficiálnych zdrojov</strong> a v krízových situáciách sa riadiť výlučne pokynmi príslušných orgánov (Civilná ochrana SR, HaZZ, Polícia SR, záchranné zložky, Úrad verejného zdravotníctva SR). Služba nenahrádza a nemôže nahradiť oficiálne postupy, predpisy ani odporúčania štátnych orgánov.</p>
+</div>
+
+<div class="doc-highlight">
+<p><strong>Služba nie je zdravotníckym zariadením a neposkytuje zdravotnú starostlivosť.</strong> Prevádzkovateľ nie je lekár, záchranár, zdravotnícky pracovník ani iná medicínska autorita. Informácie o prvej pomoci a núdzových postupoch uvedené v Službe (vrátane článkov na webovej stránke) majú výlučne vzdelávací a informatívny charakter. Nie sú lekárskym poradenstvom, diagnostikou, liečbou ani certifikovaným školením prvej pomoci. <strong>Prevádzkovateľ neručí za správnosť, úplnosť ani aktuálnosť týchto informácií a nenesie zodpovednosť za následky ich aplikovania.</strong> V prípade zdravotného ohrozenia volajte <strong>155</strong> (záchranná služba) alebo <strong>112</strong> (tiesňová linka).</p>
+</div>
 
 <h3>3. Vylúčenie zodpovednosti</h3>
 <p><strong>Služba je poskytovaná „tak ako je" (as is) a „tak ako je dostupná" (as available), bez akýchkoľvek záruk, výslovných alebo implicitných.</strong> Prevádzkovateľ najmä nezaručuje:</p>
@@ -272,18 +333,19 @@
 
 <p><strong>Prevádzkovateľ nenesie žiadnu zodpovednosť za škody</strong> (priame, nepriame, následné, náhodné, špeciálne alebo sankčné), ktoré vzniknú v súvislosti s používaním Služby alebo nemožnosťou jej použitia, a to vrátane, nie však výlučne:</p>
 <ul>
-  <li>škôd vzniknutých spoľahnutím sa na informácie, výpočty alebo odporúčania poskytnuté Službou;</li>
+  <li>škôd vzniknutých spoľahnutím sa na informácie, výpočty alebo odporúčania poskytnuté Službou alebo článkami na webovej stránke mameplan.sk;</li>
+  <li>zdravotnej ujmy spôsobenej aplikovaním informácií o prvej pomoci, núdzových postupov alebo akýchkoľvek iných informácií uvedených v Službe alebo na webovej stránke;</li>
   <li>straty dát, vrátane dát uložených v Službe alebo v prehliadači Používateľa;</li>
   <li>škôd vzniknutých výpadkom Služby, chybou v softvéri alebo neoprávneným prístupom tretích strán;</li>
   <li>škôd vzniknutých nesprávnym rozhodnutím Používateľa v krízovej alebo núdzovej situácii;</li>
-  <li>zdravotnej ujmy spôsobenej aplikovaním informácií o prvej pomoci alebo núdzových postupov.</li>
+  <li>škôd vzniknutých nepresnosťou, neúplnosťou alebo zastaralosťou informácií poskytovaných Službou.</li>
 </ul>
 
-<p><strong>Používateľ používa Službu výlučne na vlastnú zodpovednosť a vlastné riziko.</strong> Používateľ berie na vedomie, že v reálnej krízovej situácii je nevyhnutné riadiť sa pokynmi príslušných orgánov (Civilná ochrana SR, HaZZ, polícia, záchranné zložky) a nie výlučne informáciami zo Služby.</p>
+<p><strong>Používateľ používa Službu a webovú stránku výlučne na vlastnú zodpovednosť a vlastné riziko.</strong> Používateľ berie na vedomie, že v reálnej krízovej situácii je nevyhnutné riadiť sa pokynmi príslušných orgánov (Civilná ochrana SR, HaZZ, polícia, záchranné zložky) a nie výlučne informáciami zo Služby alebo z webovej stránky. Prevádzkovateľ nie je autorita v žiadnej z oblastí, ktorých sa obsah Služby dotýka.</p>
 
 <h3>4. Vzdanie sa nárokov</h3>
 <p>Používateľ sa v maximálnom rozsahu povolenom platnými právnymi predpismi Slovenskej republiky vzdáva akýchkoľvek nárokov voči Prevádzkovateľovi súvisiacich s používaním Služby, vrátane nárokov na náhradu škody, ušlého zisku, nemajetkovej ujmy alebo akýchkoľvek iných strát.</p>
-<p>Ak príslušné právne predpisy neumožňujú úplné vylúčenie zodpovednosti, celková zodpovednosť Prevádzkovateľa voči Používateľovi za akékoľvek nároky súvisiace so Službou je obmedzená na sumu <strong>0 EUR</strong> (nula eur), keďže Služba je poskytovaná bezodplatne.</p>
+<p>Ak príslušné právne predpisy neumožňujú úplné vylúčenie zodpovednosti, celková zodpovednosť Prevádzkovateľa voči Používateľovi za akékoľvek nároky súvisiace so Službou je obmedzená na <strong>maximálny rozsah povolený platnými právnymi predpismi Slovenskej republiky</strong>, keďže Služba je poskytovaná bezodplatne. Toto obmedzenie sa nevzťahuje na škodu spôsobenú úmyselne alebo z hrubej nedbanlivosti Prevádzkovateľa.</p>
 
 <h3>5. Povinnosti Používateľa</h3>
 <p>Používateľ sa zaväzuje:</p>
@@ -300,7 +362,7 @@
 
 <p><strong>5b. Primerané používanie (fair use).</strong> Služba je navrhnutá pre bežné osobné používanie domácnosťami. Prevádzkovateľ si vyhradzuje právo obmedziť alebo pozastaviť prístup Používateľovi, ktorý Službu zaťažuje neprimeraným spôsobom, a to bez predchádzajúceho upozornenia a bez povinnosti uviesť dôvod.</p>
 
-<p><strong>5c. Informačný obsah a zdroje.</strong> Časť informačného obsahu Služby (napr. texty o prvej pomoci, krízových postupoch, právnych predpisoch) bola vytvorená alebo spracovaná s podporou nástrojov umelej inteligencie a následne kontrolovaná Prevádzkovateľom. Napriek vynaloženiu primeraného úsilia na overenie správnosti Prevádzkovateľ nezaručuje absolútnu presnosť, úplnosť ani aktuálnosť týchto informácií. Používateľ je povinný si kritické informácie (najmä zdravotné a bezpečnostné) overiť z oficiálnych zdrojov.</p>
+<p><strong>5c. Informačný obsah a zdroje.</strong> Služba a sprievodný webový obsah (články na webovej stránke mameplan.sk) sú výsledkom osobného hobby projektu. Časť informačného obsahu (napr. texty o prvej pomoci, krízových postupoch, právnych predpisoch) bola vytvorená alebo spracovaná s podporou nástrojov umelej inteligencie a následne kontrolovaná Prevádzkovateľom. <strong>Napriek vynaloženiu primeraného úsilia Prevádzkovateľ nezaručuje presnosť, úplnosť, aktuálnosť ani správnosť akýchkoľvek informácií uvedených v Službe alebo na webovej stránke.</strong> Informácie môžu obsahovať nepresnosti, chyby alebo zastaralé údaje. Používateľ je povinný si kritické informácie (najmä zdravotné, bezpečnostné a právne) vždy overiť z oficiálnych a autoritatívnych zdrojov.</p>
 
 <h3>6. Odškodnenie (indemnifikácia)</h3>
 <p>Používateľ sa zaväzuje odškodniť a chrániť Prevádzkovateľa pred akýmikoľvek nárokmi, žalobami, škodami, nákladmi (vrátane primeraných nákladov na právne zastúpenie) a stratami, ktoré vzniknú v dôsledku:</p>
@@ -326,10 +388,10 @@
 <p>Všetok obsah Služby (zdrojový kód, dizajn, texty, grafika, logá) je chránený autorským právom podľa zákona č. 185/2015 Z. z. (Autorský zákon). Používateľ nesmie obsah Služby kopírovať, distribuovať, upravovať ani komerčne využívať bez písomného súhlasu Prevádzkovateľa.</p>
 
 <h3>10. Zmeny, prerušenie a ukončenie Služby</h3>
-<p>Prevádzkovateľ si vyhradzuje právo kedykoľvek a bez predchádzajúceho upozornenia:</p>
+<p>Prevádzkovateľ si vyhradzuje právo:</p>
 <ul>
-  <li>zmeniť, obmedziť alebo úplne ukončiť poskytovanie Služby;</li>
-  <li>zmeniť tieto Podmienky (aktuálne znenie bude vždy dostupné na tejto stránke);</li>
+  <li>zmeniť, obmedziť alebo úplne ukončiť poskytovanie Služby kedykoľvek a bez predchádzajúceho upozornenia;</li>
+  <li>zmeniť tieto Podmienky — zmeny budú oznámené na tejto stránke s uvedením dátumu aktualizácie a nadobúdajú účinnosť 14 dní od zverejnenia, ak nie je uvedené inak; pokračovaním v používaní Služby po tomto dátume Používateľ vyjadruje súhlas so zmenenými Podmienkami;</li>
   <li>odstrániť účet alebo dáta Používateľa, ak poruší tieto Podmienky;</li>
   <li>zmazať neaktívne účty a súvisiace dáta po období dlhšom ako 12 mesiacov bez prihlásenia.</li>
 </ul>
@@ -343,7 +405,7 @@
 <p>Ak sa akékoľvek ustanovenie týchto Podmienok stane neplatným alebo nevymáhateľným, ostatné ustanovenia zostávajú v platnosti a účinnosti v plnom rozsahu.</p>
 
 <h3>13. Účinnosť</h3>
-<p>Tieto Podmienky nadobúdajú účinnosť dňom 28. februára 2026.</p>
+<p>Tieto Podmienky nadobúdajú účinnosť dňom 4. marca 2026. Predchádzajúce znenie zo dňa 28. februára 2026 sa týmto nahrádza.</p>
 </section>
 
 <div class="doc-divider"></div>
@@ -414,13 +476,13 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
   <tbody>
     <tr>
       <td>Prihlásenie a identifikácia Používateľa</td>
-      <td>Čl. 6 ods. 1 písm. b) — plnenie zmluvy</td>
-      <td>Nevyhnutné na poskytnutie Služby (priradenie dát k účtu)</td>
+      <td>Čl. 6 ods. 1 písm. f) — oprávnený záujem</td>
+      <td>Oprávnený záujem Prevádzkovateľa umožniť používanie Služby a priradiť dáta k účtu. Používateľ sa prihlasuje dobrovoľne a môže účet kedykoľvek vymazať.</td>
     </tr>
     <tr>
       <td>Ukladanie a zobrazovanie dát domácnosti</td>
-      <td>Čl. 6 ods. 1 písm. b) — plnenie zmluvy</td>
-      <td>Hlavná funkcia Služby</td>
+      <td>Čl. 6 ods. 1 písm. f) — oprávnený záujem</td>
+      <td>Oprávnený záujem Prevádzkovateľa poskytnúť hlavnú funkciu Služby. Dáta zadáva Používateľ dobrovoľne a môže ich kedykoľvek vymazať.</td>
     </tr>
     <tr>
       <td>Čakací zoznam (waitlist)</td>
@@ -440,6 +502,10 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
   </tbody>
 </table>
 
+<div class="doc-highlight">
+<p><strong>Balančný test oprávneného záujmu (čl. 6 ods. 1 písm. f) GDPR):</strong> Prevádzkovateľ posúdil, že spracúvanie údajov na účely prihlásenia a ukladania dát domácnosti je primerané a nepredstavuje neprimeraný zásah do práv Používateľa, a to z dôvodov: (1) Služba je bezplatná a dobrovoľná — Používateľ sa prihlasuje z vlastnej vôle; (2) rozsah spracúvaných údajov je minimálny (meno, email, UID z Google účtu); (3) údaje sú prístupné výlučne Používateľovi a nie sú zdieľané s tretími stranami na komerčné účely; (4) Používateľ môže kedykoľvek vymazať všetky svoje údaje aj celý účet. Používateľ má právo namietať proti spracúvaniu podľa čl. 21 GDPR.</p>
+</div>
+
 <h3>4. Príjemcovia a sprostredkovatelia</h3>
 <p>Osobné údaje sú spracúvané prostredníctvom služieb tretích strán:</p>
 <ul>
@@ -453,7 +519,7 @@ Prevádzkovateľ nemá povinnosť vymenovať zodpovednú osobu (DPO) podľa čl.
 <h3>6. Doba uchovávania</h3>
 <ul>
   <li><strong>Údaje prihláseného Používateľa</strong> (účet + dáta domácnosti): po dobu existencie účtu. Po vymazaní účtu alebo po 12 mesiacoch neaktivity budú dáta vymazané.</li>
-  <li><strong>Waitlist email</strong>: uložený na serveri Prevádzkovateľa (cloudová databáza). Uchovávaný do naplnenia účelu (odoslanie pozvánky) alebo do odvolania súhlasu, najdlhšie 12 mesiacov od zápisu. Používateľ môže požiadať o vymazanie kedykoľvek na <a class="js-email" href="#">[načítavam…]</a>.</li>
+  <li><strong>Waitlist email</strong>: uložený na serveri Prevádzkovateľa (cloudová databáza). Uchovávaný do naplnenia účelu (odoslanie pozvánky) alebo do odvolania súhlasu, najdlhšie však <strong>12 mesiacov</strong> od zápisu, po ktorých bude automaticky vymazaný. Používateľ môže súhlas kedykoľvek odvolať a požiadať o vymazanie zaslaním emailu na <a class="js-email" href="#">[načítavam…]</a> — email bude vymazaný bez zbytočného odkladu, najneskôr do 30 dní.</li>
   <li><strong>Demo režim</strong>: dáta existujú výlučne v prehliadači Používateľa a automaticky sa vymažú po zatvorení karty/prehliadača.</li>
 </ul>
 
