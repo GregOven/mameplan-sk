@@ -472,15 +472,14 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 .articles-toggle button:hover{border-color:var(--primary);background:rgba(30,58,95,0.04)}
 .articles-toggle button svg{transition:transform 0.3s}
 .articles-toggle button.is-open svg{transform:rotate(180deg)}
-.showcase-toggle{text-align:center;margin-top:var(--sp-4);display:none}
+.showcase-toggle{text-align:center;margin-top:var(--sp-4);display:block}
 .showcase-toggle button{background:none;border:1px solid var(--border);border-radius:999px;padding:0.5rem 1.5rem;font-family:var(--sans);font-size:0.85rem;font-weight:600;color:var(--primary);cursor:pointer;transition:all 0.2s;display:inline-flex;align-items:center;gap:0.4rem}
 .showcase-toggle button:hover{border-color:var(--primary);background:rgba(30,58,95,0.04)}
 .showcase-toggle button svg{transition:transform 0.3s}
 .showcase-toggle button.is-open svg{transform:rotate(180deg)}
+.showcase.mobile-hide{display:none}
+.showcase.mobile-hide.is-open{display:block}
 @media(max-width:640px){
- .showcase-toggle{display:block}
- .showcase.mobile-hide{display:none}
- .showcase.mobile-hide.is-open{display:block}
  .articles-grid .article-card:nth-child(n+4){display:none}
  .articles-grid.mobile-expanded .article-card:nth-child(n+4){display:flex}
 }
