@@ -1518,7 +1518,7 @@
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="login-screen">
   <div class="login-card">
-    <div style="display:flex; align-items:center; justify-content:center; gap:0.625rem; margin-bottom:0.5rem;"><svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="28" fill="#1a1714"/><circle cx="290" cy="130" r="24" fill="#2a7a4b"/></svg><h1 style="font-size:1.75rem; font-weight:800; margin:0; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1></div>
+    <div style="display:flex; align-items:center; justify-content:center; gap:0.625rem; margin-bottom:0.5rem;"><svg width="36" height="36" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1714"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><h1 style="font-size:1.75rem; font-weight:800; margin:0; letter-spacing:-0.03em; font-family:'DM Sans','Lexend',sans-serif;">Gerlach</h1></div>
     <p style="color:var(--c-muted); font-size:0.9375rem; margin-bottom:2rem; line-height:1.6;">
       Pomáha domácnostiam na Slovensku<br>pripraviť sa na krízové situácie.
     </p>
@@ -1578,7 +1578,7 @@
   <header class="app-header">
     <div class="app-header-inner">
       <div class="app-header-logo">
-        <svg width="28" height="28" viewBox="0 0 512 512" aria-hidden="true" style="flex-shrink:0"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="28" fill="#1a1714"/><circle cx="290" cy="130" r="24" fill="#2a7a4b"/></svg>
+        <svg width="28" height="28" viewBox="0 0 512 512" aria-hidden="true" style="flex-shrink:0"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1714"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg>
         <span style="font-family:'DM Sans','Lexend',sans-serif; font-weight:700; font-size:1rem; letter-spacing:-0.02em; cursor:pointer;" id="headerLogo" title="Gerlach">Gerlach</span>
         <span class="version-badge beta" id="versionBadge" style="font-size:0.625rem; padding:0.1rem 0.4rem;">Beta</span>
       </div>
@@ -1651,7 +1651,7 @@
       <!-- Onboarding (for new users without profile) -->
       <div id="onboardingCard" style="display:none;">
         <div class="onboarding-card">
-          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;"><svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="28" fill="#1a1714"/><circle cx="290" cy="130" r="24" fill="#2a7a4b"/></svg><span style="font-size:1.5rem; font-weight:800; color:var(--c-primary); letter-spacing:-0.02em;">Gerlach</span></div>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:1rem;"><svg width="32" height="32" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1714"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1714"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span style="font-size:1.5rem; font-weight:800; color:var(--c-primary); letter-spacing:-0.02em;">Gerlach</span></div>
           <h2>Vitajte v Gerlachu</h2>
           <p>Začneme tým, že si nastavíme váš profil domácnosti.<br>Podľa neho vypočítame, čo presne potrebujete pripraviť.</p>
           <button class="btn-primary" onclick="openProfileEditor()">Nastaviť domácnosť →</button>
@@ -3623,17 +3623,17 @@
   }
 
   function rankForPct(p) {
-    if (p < 10) return "Parkujete v Tatranskej Polianke (1005 m)";
-    if (p < 20) return "Kráčate Velickou dolinou k Velickému mostu";
-    if (p < 30) return "Stúpate na Velickú poľanu (1560 m)";
-    if (p < 40) return "Sliezsky dom (1670 m) — krátka pauza";
-    if (p < 50) return "Na Kvetnici začína nástup na Gerlach";
-    if (p < 60) return "Velická próba — ruky na skale, vodca istí";
-    if (p < 70) return "Žľab do Sedielka nad Kotlom";
-    if (p < 80) return "Traverz Gerlachovským kotlom";
-    if (p < 90) return "Sme na hrebeni — vrchol je na dosah";
-    if (p < 100) return "Posledné kroky na Gerlach (2655 m)";
-    return "Na vrchole Gerlachu! 🇸🇰";
+    if (p < 10) return "Ešte sedíš na parkovisku. Ale motor beží!";
+    if (p < 20) return "Prvé kroky sú najťažšie — zvyšok je len kopec";
+    if (p < 30) return "Lepšie ako 80 % Slovákov. A to si ešte len začal!";
+    if (p < 40) return "Sliezsky dom v dohľade — daj si kakao, zaslúžiš si";
+    if (p < 50) return "Polovica! Odtiaľto to ide z kopca… vlastne nie, ale drž sa";
+    if (p < 60) return "Tvoj sused ešte ani nezačal. Ty si frajer";
+    if (p < 70) return "Solidný základ — pokračuj ďalej!";
+    if (p < 80) return "Toto je už seriózna pripravenosť. Rešpekt";
+    if (p < 90) return "Skoro na vrchole! Ešte kúsok a si ready na čokoľvek";
+    if (p < 100) return "Posledné metre — už ťa vidno z Popradu";
+    return "Na vrchole Gerlachu! Si legenda";
   }
 
   function emojiForPct(p) {
