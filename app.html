@@ -199,20 +199,19 @@
       display: none;
       background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
       border-bottom: 1px solid #f59e0b;
-      padding: 0.5rem 1rem;
+      padding: 0.375rem 1rem;
       text-align: center;
-      font-size: 0.8125rem;
+      font-size: 0.75rem;
       font-weight: 500;
       color: #92400e;
-      /* Statický banner — scrolluje preč. Verzia badge v headeri ostáva. */
     }
-    .demo-banner.visible { display: flex; align-items: center; justify-content: center; gap: 0.75rem; flex-wrap: wrap; }
+    .demo-banner.visible { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
     .demo-banner a {
       display: inline-flex; align-items: center; gap: 0.25rem;
       background: #92400e; color: #fff;
-      padding: 0.25rem 0.75rem; border-radius: 99px;
-      font-size: 0.72rem; font-weight: 700;
-      text-decoration: none; transition: background 0.15s;
+      padding: 0.2rem 0.625rem; border-radius: 99px;
+      font-size: 0.6875rem; font-weight: 700;
+      text-decoration: none; transition: background 0.15s; white-space: nowrap;
     }
     .demo-banner a:hover { background: #78350f; }
 
@@ -1570,10 +1569,12 @@
 
   <!-- Demo banner: viditeľný len v demo režime -->
   <div class="demo-banner" id="demoBanner" role="alert">
-    <span><strong>Demo režim</strong> — dáta zostávajú len vo vašom prehliadači. Kedykoľvek si ich môžete exportovať a neskôr importovať späť.</span>
-    <a href="#" onclick="event.preventDefault();exportUserData()" style="background:#92400e">Exportovať dáta</a>
-    <a href="#" onclick="event.preventDefault();importUserData()" style="background:#92400e">Importovať dáta</a>
-    <a href="#" id="demoBannerCreateAccount">Vytvoriť účet zadarmo</a>
+    <span><strong>Demo režim</strong> — dáta zostávajú len vo vašom prehliadači.</span>
+    <span style="display:inline-flex; gap:0.375rem; flex-wrap:wrap;">
+      <a href="#" onclick="event.preventDefault();exportUserData()" style="background:#92400e">Export</a>
+      <a href="#" onclick="event.preventDefault();importUserData()" style="background:#92400e">Import</a>
+      <a href="#" id="demoBannerCreateAccount">Vytvoriť účet</a>
+    </span>
   </div>
 
   <!-- Header -->
@@ -1614,6 +1615,11 @@
           <!-- Mobile user menu -->
           <div id="userMenu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:white; border:1.5px solid var(--c-border); border-radius:0.875rem; padding:0.5rem; min-width:160px; box-shadow:0 8px 24px rgba(0,0,0,0.12); z-index:200;">
             <div id="userMenuName" style="font-size:0.8125rem; font-weight:600; padding:0.5rem 0.75rem; color:var(--c-muted); border-bottom:1px solid var(--c-border); margin-bottom:0.375rem;"></div>
+            <a href="https://paypal.me/MamePlan" target="_blank" rel="noopener" onclick="document.getElementById('userMenu').classList.remove('open');" style="display:flex; align-items:center; gap:0.5rem; width:100%; text-align:left; background:none; border:none; padding:0.5rem 0.75rem; font-size:0.875rem; cursor:pointer; border-radius:0.625rem; color:var(--c-text); font-family:'Lexend',sans-serif; font-weight:500; text-decoration:none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Podporiť
+            </a>
+            <div style="border-top:1px solid var(--c-border); margin:0.25rem 0;"></div>
             <button onclick="document.getElementById('userMenu').classList.remove('open'); document.getElementById('btnLogout').click();" style="width:100%; text-align:left; background:none; border:none; padding:0.5rem 0.75rem; font-size:0.875rem; cursor:pointer; border-radius:0.625rem; color:#dc2626; font-family:'Lexend',sans-serif; font-weight:500;">
               Odhlásiť sa
             </button>
