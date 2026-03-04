@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <circle cx="256" cy="256" r="256" fill="#be2d3e"/>
+  <g fill="#f5f3ee">
+    <!-- Left vertical -->
+    <rect x="117" y="128" width="33" height="256" rx="0"/>
+    <!-- Right vertical -->
+    <rect x="362" y="128" width="33" height="256" rx="0"/>
+    <!-- Left diagonal (thin) -->
+    <polygon points="147,128 163,128 259,365 247,365"/>
+    <!-- Right diagonal (thin) -->
+    <polygon points="349,128 365,128 265,365 253,365"/>
+    <!-- Top-left serif -->
+    <rect x="101" y="128" width="65" height="11" rx="1"/>
+    <!-- Top-right serif -->
+    <rect x="346" y="128" width="65" height="11" rx="1"/>
+    <!-- Bottom-left serif -->
+    <rect x="101" y="373" width="65" height="11" rx="1"/>
+    <!-- Bottom-right serif -->
+    <rect x="346" y="373" width="65" height="11" rx="1"/>
+  </g>
+</svg>
