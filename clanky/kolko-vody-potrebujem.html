@@ -29,10 +29,10 @@
 <meta property="og:site_name" content="Mámeplán"/>
 <meta property="article:published_time" content="2026-03-02"/>
 <meta property="og:url" content="https://mameplan.sk/clanky/kolko-vody-potrebujem.html"/>
-<meta property="article:modified_time" content="2026-03-03"/>
+<meta property="article:modified_time" content="2026-03-04"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Koľko vody potrebujem na 3 dni pre rodinu?"/>
-<meta name="twitter:description" content="Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tipy na skladovanie."/>
+<meta name="twitter:description" content="Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie a expirácie."/>
 <meta name="keywords" content="zásoby vody, koľko vody, 72 hodín, WHO, pitná voda, núdzová zásoba"/>
 <meta name="geo.region" content="SK"/>
 <meta name="geo.placename" content="Slovensko"/>
@@ -60,11 +60,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16p
 a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0}
+.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0;transition:opacity 0.2s}
+.nav-logo:hover{text-decoration:none;opacity:0.75}
 .nav-logo-icon{flex-shrink:0}
 .nav-logo-wm{white-space:nowrap}
 .nav-logo-sep{width:1.5px;height:20px;background:var(--border);flex-shrink:0}
-.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
+.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap;line-height:1;vertical-align:middle;position:relative;top:2px;transition:opacity 0.2s}
 .nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
 .nav-back:hover{color:var(--ink)}
 .wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
@@ -133,6 +134,22 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
 .card-item-meta strong{color:var(--ink2);font-weight:600}
 
+.toc{margin:1.5rem 0;padding:1.25rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+.toc-title{font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.75rem}
+.toc ol{padding-left:1.25rem;margin:0}
+.toc li{font-size:0.88rem;line-height:1.7;color:var(--primary)}
+.toc a{color:var(--primary);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.supply-table-wrap{margin:1.5rem 0;overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border)}
+.supply-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.supply-table th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem}
+.supply-table td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border);vertical-align:top;background:var(--surface)}
+.supply-table tr:last-child td{border-bottom:none}
+.supply-table tr:nth-child(even){background:var(--surface)}
+.supply-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.faq-answer{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
+@media(max-width:640px){ .toc{padding:1rem} .toc ol{padding-left:1rem} .supply-table{font-size:0.78rem} .supply-table th,.supply-table td{padding:0.4rem 0.625rem} .supply-table td:first-child{white-space:normal} .supply-table th:last-child,.supply-table td:last-child{display:none} .supply-table-wrap{border-radius:var(--r)} .step-num{width:24px;height:24px;font-size:0.72rem} }
+
 .breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:nowrap;overflow:hidden;min-width:0}
 .breadcrumb a{color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0}
 .breadcrumb a:hover{color:var(--ink);text-decoration:underline}
@@ -148,10 +165,10 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "cssSelector": [".article-h1", ".article-body p:first-of-type"]
   },
   "headline": "Koľko vody potrebujem na 3 dni pre rodinu?",
-  "description": "Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tipy na skladovanie.",
+  "description": "Výpočet zásob pitnej vody pre 1–6 osôb na 72 hodín podľa odporúčaní WHO. Tabuľka, tipy na skladovanie a expirácie.",
   "url": "https://mameplan.sk/clanky/kolko-vody-potrebujem.html",
   "datePublished": "2026-03-02",
-  "dateModified": "2026-03-03",
+  "dateModified": "2026-03-04",
   "inLanguage": "sk",
   "author": {
     "@type": "Organization",
@@ -177,9 +194,90 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mameplan.sk/"},
       {"@type": "ListItem", "position": 2, "name": "Články", "item": "https://mameplan.sk/clanky/"},
-      {"@type": "ListItem", "position": 3, "name": "Koľko vody potrebujem na 3 dni pre rodinu?"}
+      {"@type": "ListItem", "position": 3, "name": "Koľko vody potrebujem na 3 dni pre rodinu?", "item": "https://mameplan.sk/clanky/kolko-vody-potrebujem.html"}
     ]
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Koľko vody potrebujem na 3 dni pre rodinu 4 osoby?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pre rodinu s 2 dospelými a 2 deťmi odporúčame zásobu 30 litrov na 3 dni (10 litrov denne: 3 l na dospelého, 2 l na dieťa). Toto pokrýva pitie a základnú hygienu. Ak máte domáce zvieratá, pripočítajte 50–100 ml na kilogram ich hmotnosti denne."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ako dlho vydrží balená voda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Balená voda z obchodu vydrží zvyčajne 12–24 mesiacov podľa dátumu spotreby na etikete. Skladujte ju na tmavom, chladnom mieste ďalej od priameho slnečného žiarenia a chemikálií. Otvorenú fľašu spotrebujte do 1–3 dní."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Čo robiť, keď nemám dostatok pitnej vody?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "V núdzi môžete vodu upraviť: prevarte ju silným varom minimálne 1 minútu (vo výške nad 2000 m minimálne 3 minúty). Alternatívne použite dezinfekčné tablety s chlórom alebo jódom dostupné v lekárňach a outdoorových predajniach. Nikdy nepite vodu z neprevereného zdroja bez úpravy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Koľko vody denne potrebuje človek?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WHO odporúča v núdzových situáciách minimum 2,5–3 litre pitnej vody na osobu denne na prežitie. Pre reálne podmienky (pitie aj základná hygiena) počítajte s 3 litrami pre dospelého, 2 litrami pre dieťa a 1,5 litra pre batoľa denne. BBK (Nemecko) odporúča 2 litre na pitie a 0,5 litra na hygienu."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Ako si vybudovať zásobu pitnej vody doma",
+  "description": "Postup krok za krokom, ako si vybudovať 72-hodinovú zásobu pitnej vody pre domácnosť.",
+  "totalTime": "PT30M",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Spočítajte spotrebu vašej domácnosti",
+      "text": "Počítajte 3 litre na dospelého, 2 litre na dieťa a 1,5 litra na batoľa denne. Nezabudnite na domáce zvieratá (50–100 ml/kg/deň). Vynásobte počtom dní zásoby."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Vyberte vhodné nádoby",
+      "text": "Najjednoduchšia možnosť sú balené vody z obchodu (1,5 l alebo 6 l fľaše). Pre dlhodobú zásobu zvážte špeciálne PET nádoby na vodu (20–60 litrov) dostupné v outdoorových predajniach."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Nakúpte zásobu postupne",
+      "text": "Nemusíte kupovať všetko naraz. Pri každom nákupe v supermarkete pridajte 2–3 fľaše navyše. Za mesiac máte zásobu bez výrazného zaťaženia rozpočtu."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Uložte vodu správne",
+      "text": "Skladujte na tmavom, chladnom mieste (ideálne 10–15 °C) — špajza, pivnica alebo chodba. Nie priamo na slnku, nie vedľa čistiacich prostriedkov alebo pohonných hmôt."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Rotujte zásoby",
+      "text": "Každých 6–12 mesiacov skontrolujte expirácie. Staršie fľaše spotrebujte a nahraďte novými. Označte každú skupinu fľaší dátumom nákupu."
+    }
+  ]
 }
 </script>
 <script>try{if(self!==top){top.location=self.location;}}catch(e){}</script>
@@ -187,50 +285,215 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="26" height="26" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
-  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Zasoby vody</span></nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Zásoby vody</span></nav>
 </div></nav>
 
 <div class="wrap">
 <header class="article-header">
   <div class="article-tag">Zásoby</div>
   <h1 class="article-h1">Koľko vody potrebujem na 3 dni pre rodinu?</h1>
-  <div class="article-meta">Aktualizované marec 2026 · 3 min čítania</div>
+  <div class="article-meta">Aktualizované marec 2026 · 8 min čítania</div>
 </header>
 
 <article class="article-body">
-<p>Väčšina európskych príručiek pre krízovú pripravenosť odporúča mať doma zásoby na minimálne <strong>72 hodín</strong> (3 dni). Voda je pritom úplný základ — bez <a href="potraviny-s-dlhou-trvanlivostou.html">jedla</a> vydržíte týždne, bez vody len niekoľko dní.</p>
-<h2>Koľko vody na osobu a deň?</h2>
-<p>Svetová zdravotnícka organizácia (WHO) uvádza pre núdzové situácie minimum <strong>2,5 – 3 litre pitnej vody</strong> na osobu denne. Nemecký Spolkový úrad pre ochranu obyvateľstva (BBK) odporúča <strong>2 litre na pitie + 0,5 litra na hygienu</strong>. Slovenská Civilná ochrana (MV SR) hovorí o <strong>2 litroch pitnej vody na osobu a deň</strong>.</p>
-<p>Pre praktický výpočet počítame s <strong>3 litrami na dospelého</strong> (pitie + základná hygiena), <strong>2 litrami na dieťa</strong> a <strong>1,5 litra na batoľa</strong> denne.</p>
+
+<p>V septembri 2024 zasiahli rozsiahle záplavy stredné a severné Slovensko — tisíce domácností v Banskobystrickom a Žilinskom kraji zostali bez prístupu k pitnej vode na niekoľko dní. Nie kvôli nedostatku vody v prírode, ale kvôli znečisteniu a poruche vodovodnej siete.</p>
+
+<p>Slovenský vodárenský podnik hlási každoročne stovky porúch, pri ktorých je prívod vody prerušený na hodiny až dni. <strong>Väčšina domácností v tom momente nemá doma ani liter zásoby.</strong></p>
+
+<p>Tento článok vychádza z odporúčaní <strong>WHO, nemeckého BBK (príručka „Vorsorgen für Krisen und Katastrophen", október 2025), MV SR a českej príručky „72 hodín" (MV ČR, 2025)</strong>. Všetky odporúčané množstvá sú minimá — ak máte priestor, viac je vždy lepšie.</p>
+
+<nav class="toc" aria-label="Obsah článku">
+  <div class="toc-title">Obsah článku</div>
+  <ol>
+    <li><a href="#kolko-litrov">Koľko litrov na osobu a deň?</a></li>
+    <li><a href="#tabulka">Tabuľka zásob podľa veľkosti domácnosti</a></li>
+    <li><a href="#zvierata">Domáce zvieratá</a></li>
+    <li><a href="#skladovanie">Ako vodu skladovať</a></li>
+    <li><a href="#nadoby">Typy nádob</a></li>
+    <li><a href="#cistenie">Čistenie vody v núdzi</a></li>
+    <li><a href="#dlhodoba">Dlhodobá zásoba (7 a 14 dní)</a></li>
+    <li><a href="#postup">Ako si zásobu vybudovať — krok za krokom</a></li>
+    <li><a href="#zabudaju">Na čo ľudia zabúdajú</a></li>
+    <li><a href="#faq">Časté otázky</a></li>
+  </ol>
+</nav>
+
+<h2 id="kolko-litrov">Koľko litrov na osobu a deň?</h2>
+
+<p>Svetová zdravotnícka organizácia (WHO) uvádza pre núdzové situácie minimum <strong>2,5–3 litre pitnej vody</strong> na osobu denne. Nemecký Spolkový úrad BBK odporúča <strong>2 litre na pitie + 0,5 litra na hygienu</strong>. Slovenská Civilná ochrana (MV SR) uvádza <strong>2 litre pitnej vody na osobu a deň</strong> ako absolútne minimum prežitia.</p>
+
+<p>Pre praktické plánovanie počítame s vyššími hodnotami, ktoré pokrývajú aj základné umývanie rúk a varenie:</p>
+
 <div class="card-list">
-<div class="card-list-label">Zásoby vody na 3 dni</div>
+<div class="card-list-label">Denná spotreba vody — odporúčané minimum</div>
 <div class="card-item">
-  <div class="card-item-title">1 dospelý</div>
-  <div class="card-item-meta"><span>Na deň: <strong>3 l</strong></span><span>Na 3 dni: <strong>9 l</strong></span></div>
-</div>
-<div class="card-item">
-  <div class="card-item-title">2 dospelí</div>
-  <div class="card-item-meta"><span>Na deň: <strong>6 l</strong></span><span>Na 3 dni: <strong>18 l</strong></span></div>
+  <div class="card-item-title">Dospelý</div>
+  <div class="card-item-meta"><span>Na deň: <strong>3 l</strong></span><span>Pitie: 2 l · Hygiena + varenie: 1 l</span></div>
 </div>
 <div class="card-item">
-  <div class="card-item-title">2 dospelí + 1 dieťa</div>
-  <div class="card-item-meta"><span>Na deň: <strong>8 l</strong></span><span>Na 3 dni: <strong>24 l</strong></span></div>
+  <div class="card-item-title">Dieťa (3–12 rokov)</div>
+  <div class="card-item-meta"><span>Na deň: <strong>2 l</strong></span><span>Pitie: 1,5 l · Hygiena: 0,5 l</span></div>
 </div>
 <div class="card-item">
-  <div class="card-item-title">2 dospelí + 2 deti</div>
-  <div class="card-item-meta"><span>Na deň: <strong>10 l</strong></span><span>Na 3 dni: <strong>30 l</strong></span></div>
+  <div class="card-item-title">Batoľa (do 3 rokov)</div>
+  <div class="card-item-meta"><span>Na deň: <strong>1,5 l</strong></span><span>Pitie: 1 l · Príprava stravy: 0,5 l</span></div>
 </div>
 <div class="card-item">
-  <div class="card-item-title">2 dospelí + 2 deti + senior</div>
-  <div class="card-item-meta"><span>Na deň: <strong>13 l</strong></span><span>Na 3 dni: <strong>39 l</strong></span></div>
+  <div class="card-item-title">Senior alebo chorý</div>
+  <div class="card-item-meta"><span>Na deň: <strong>3–4 l</strong></span><span>Vyššia potreba hydratácie, možné lieky</span></div>
 </div>
 </div>
-<h2>Ako vodu skladovať</h2>
-<p>Najjednoduchšie sú <strong>balené vody z obchodu</strong> — majú dlhú expiráciu (často 12 – 24 mesiacov) a sú hygienicky bezpečné. Skladujte na tmavom a chladnom mieste. Nemusíte kupovať všetko naraz — stačí pri každom nákupe pridať jedno-dve balenia navyše.</p>
-<div class="tip-box"><strong>Tip:</strong> Rotujte zásoby — staršie fľaše spotrebujte a nahraďte novými. Tak sa vyhnete plytovaniu a máte vždy čerstvú vodu.</div>
-<h2>Na čo ľudia zabúdajú</h2>
-<p>Pri <a href="co-mat-doma-pri-vypadku-elektriny.html">výpadku</a> vody nefungujú toalety, nemôžete sa osprchovať a nebudete mať čím umyť riad. Okrem pitnej vody zvážte aj <strong>zásobu úžitkovej vody</strong> — napríklad plné vedro alebo vaňu napustenú vopred. Nezabudnite na <strong>domáce zvieraťá</strong> — pes alebo mačka potrebujú denne 50 – 100 ml na kilogram hmotnosti.</p>
-<div class="warn-box"><strong>Dôležité:</strong> Nikdy nepite vodu z neprevereného zdroja bez úpravy. V núdzi ju prevaríte (min. 1 minútu v silnom vare) alebo použite tablety na dezinfekciu vody.</div>
+
+<div class="tip-box"><strong>Horúčava a fyzická aktivita:</strong> Pri teplote nad 30 °C alebo pri fyzickej námahe sa spotreba zvyšuje o 0,5–1 liter na osobu denne. Tehotné a dojčiace ženy potrebujú o 0,5–1 liter viac denne.</div>
+
+<h2 id="tabulka">Tabuľka zásob podľa veľkosti domácnosti</h2>
+
+<p>Podľa odporúčaní BBK, WHO a MV SR:</p>
+
+<div class="supply-table-wrap">
+<table class="supply-table">
+<thead><tr><th>Domácnosť</th><th>Na deň</th><th>Na 3 dni (72 h)</th><th>Na 7 dní</th><th>Na 14 dní</th></tr></thead>
+<tbody>
+<tr><td>1 dospelý</td><td>3 l</td><td>9 l</td><td>21 l</td><td>42 l</td></tr>
+<tr><td>2 dospelí</td><td>6 l</td><td>18 l</td><td>42 l</td><td>84 l</td></tr>
+<tr><td>2 dospelí + batoľa</td><td>7,5 l</td><td>23 l</td><td>53 l</td><td>105 l</td></tr>
+<tr><td>2 dospelí + 1 dieťa</td><td>8 l</td><td>24 l</td><td>56 l</td><td>112 l</td></tr>
+<tr><td>2 dospelí + 2 deti</td><td>10 l</td><td>30 l</td><td>70 l</td><td>140 l</td></tr>
+<tr><td>2 dospelí + 2 deti + senior</td><td>13 l</td><td>39 l</td><td>91 l</td><td>182 l</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Tieto čísla pokrývajú <strong>len pitnú vodu a základnú hygienu</strong>. Na splachovaním toalety, umývanie riadu a sprchovanie je potrebných oveľa viac — preto je dôležité mať aj zásobu úžitkovej vody (pozri nižšie).</p>
+
+<h2 id="zvierata">Domáce zvieratá</h2>
+
+<p>Na domáce zvieratá sa pri plánovaní zásob najčastejšie zabúda. Orientačné denné potreby:</p>
+
+<div class="card-list">
+<div class="card-list-label">Denná spotreba vody — domáce zvieratá</div>
+<div class="card-item">
+  <div class="card-item-title">Pes (malé plemeno, do 10 kg)</div>
+  <div class="card-item-meta"><span>Na deň: <strong>0,5–1 l</strong></span><span>50–100 ml na kg hmotnosti</span></div>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Pes (stredné/veľké plemeno, 20–40 kg)</div>
+  <div class="card-item-meta"><span>Na deň: <strong>1–4 l</strong></span><span>50–100 ml na kg hmotnosti</span></div>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Mačka</div>
+  <div class="card-item-meta"><span>Na deň: <strong>0,2–0,4 l</strong></span><span>Pri mokrom krmive menej</span></div>
+</div>
+</div>
+
+<h2 id="skladovanie">Ako vodu skladovať</h2>
+
+<p>Najjednoduchšie a najpraktickejšie sú <strong>balené vody z obchodu</strong> — majú dlhú expiráciu (zvyčajne 12–24 mesiacov) a sú hygienicky bezpečné. Niekoľko pravidiel:</p>
+
+<div class="card-list">
+<div class="card-list-label">Zásady správneho skladovania</div>
+<div class="card-item">
+  <div class="card-item-title">Teplota a svetlo</div>
+  <p class="card-item-desc">Skladujte na tmavom, chladnom mieste (ideálne 10–15 °C) — špajza, pivnica alebo chodba. Priame slnečné žiarenie urýchľuje rast baktérií a degradáciu PET obalu.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Oddelene od chemikálií</div>
+  <p class="card-item-desc">Neskladujte vodu vedľa benzínu, čistiacich prostriedkov alebo pesticídov — pachy a výpary môžu preniknúť cez PET.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Rotácia zásob</div>
+  <p class="card-item-desc">Každých 6–12 mesiacov skontrolujte expirácie. Staršie fľaše spotrebujte a nahraďte novými — tak máte vždy čerstvú zásobu bez plytvaniu.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Označenie</div>
+  <p class="card-item-desc">Na každú skupinu fľaší napíšte dátum nákupu fixou. Uľahčí to rotáciu a kontrolu.</p>
+</div>
+</div>
+
+<h2 id="nadoby">Typy nádob</h2>
+
+<p>Okrem bežných fliaš z obchodu existujú aj ďalšie možnosti, zvlášť pri väčšej zásoby:</p>
+
+<div class="card-list">
+<div class="card-list-label">Možnosti skladovania vody</div>
+<div class="card-item">
+  <div class="card-item-title">Balené fľaše (1,5 l / 6 l)</div>
+  <p class="card-item-desc">Najdostupnejšia a najjednoduchšia možnosť. Dlhá expirácia, ľahko rotovateľné. Nevýhoda: veľa plastového obalu.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Špeciálne PET nádoby na vodu (20–60 l)</div>
+  <p class="card-item-desc">Dostupné v outdoorových predajniach a internetových obchodoch. Potravinársky plast, uzatvárateľné výpustky. Vhodné pre zásobu na 7+ dní. Naplňte z vodovodu a vymeňte každých 6 mesiacov.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Vaňa / vedro (úžitková voda)</div>
+  <p class="card-item-desc">Ak je oznámený výpadok vopred, naplňte vaňu a vedrá. Nie je vhodná na pitie bez úpravy, ale postačí na splachovanie toalety a hrubú hygienu.</p>
+</div>
+</div>
+
+<div class="warn-box"><strong>Čo nepoužívať:</strong> Nikdy neskladujte pitnú vodu v nádobách, ktoré predtým obsahovali chemikálie, olej alebo mlieko. Neskladujte ani v sklenených nádobách — riziko rozbitia. Farebné plastové nádoby (napr. modré) sú lepšie ako číre — spomaľujú rast rias.</div>
+
+<h2 id="cistenie">Čistenie vody v núdzi</h2>
+
+<p>Ak vám zásoby dôjdu alebo máte pochybnosti o kvalite vody, existujú overené metódy úpravy:</p>
+
+<div class="card-list">
+<div class="card-list-label">Metódy úpravy vody</div>
+<div class="card-item">
+  <div class="card-item-title">Varenie — najspoľahlivejšia metóda</div>
+  <p class="card-item-desc">Priveďte vodu do plného varu a nechajte vrieť minimálne <strong>1 minútu</strong> (nad 2000 m n. m. minimálne 3 minúty). Ničí baktérie, vírusy aj prvoky. Nevýhoda: odstraňuje len biologické znečistenie, nie chemické.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Dezinfekčné tablety (chlór alebo jód)</div>
+  <p class="card-item-desc">Dostupné v lekárňach a outdoorových predajniach. Účinné proti baktériám a väčšine vírusov. Postupujte presne podľa návodu. Nevhodné pre tehotné a pri alergii na jód.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Prenosné filtre (napr. LifeStraw, Sawyer)</div>
+  <p class="card-item-desc">Filtrujú baktérie a prvoky, niektoré aj vírusy. Vhodné do evakuačného batoha. Nenahradzujú varenie pri silno znečistenej vode.</p>
+</div>
+</div>
+
+<div class="warn-box"><strong>Dôležité:</strong> Žiadna metóda neodstráni chemické znečistenie (ropné produkty, pesticídy, ťažké kovy). Pri podozrení na chemické znečistenie vodu vôbec nepoužívajte — čakajte na pokyny úradov.</div>
+
+<h2 id="dlhodoba">Dlhodobá zásoba (7 a 14 dní)</h2>
+
+<p>Väčšina európskych príručiek odporúča minimum 72 hodín, ale <strong>Švédsko (MSB) a Fínsko odporúčajú 72 hodín ako absolútne minimum a ideálne 1–2 týždne</strong>. BBK (Nemecko, 2025) tiež odporúča myslieť na dlhší horizont pri vážnejších krízach.</p>
+
+<p>Pre zásobu na 7 dní a viac je kúpa špeciálnych 20–60 litrových PET nádob ekonomickejšia a praktickejšia ako hromady malých fliaš. Pre 4-člennú rodinu potrebujete na 7 dní cca 70 litrov — čo je 3–4 väčšie nádoby.</p>
+
+<div class="tip-box"><strong>Postupujte v krokoch:</strong> Najprv zabezpečte 72-hodinovú zásobu (priorita). Potom ju rozšírte na 7 dní. Nakoniec, ak máte kapacitu, na 14 dní. Každý krok vás robí odolnejšími.</div>
+
+<h2 id="postup">Ako si zásobu vybudovať — krok za krokom</h2>
+
+<div class="steps-box">
+<div class="steps-label">Postup — 5 krokov k zásoby vody doma</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Spočítajte dennú spotrebu domácnosti</strong><p>3 l × dospelí + 2 l × deti + 1,5 l × batolatá + spotreba domácich zvierat. Vynásobte počtom dní (min. 3).</p></div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Začnite s balenou vodou z obchodu</strong><p>Pri každom nákupe pridajte 2–3 fľaše navyše. Za 2–3 týždne máte 72-hodinovú zásobu bez zaťaženia rozpočtu.</p></div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Nájdite vhodné miesto na skladovanie</strong><p>Tmavé, chladné miesto (špajza, pivnica, chodba). Ďalej od chemikálií a priameho slnka.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Označte fľaše a nastavte rotáciu</strong><p>Napíšte dátum nákupu. Každých 6–12 mesiacov skontrolujte expirácie a doplňte.</p></div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Rozšírte zásobu na 7 dní</strong><p>Keď máte 72 h zaistené, investujte do 2–3 väčších PET nádob (20–60 l) a zásobu zdvojnásobte.</p></div></div>
+</div>
+
+<h2 id="zabudaju">Na čo ľudia zabúdajú</h2>
+
+<p>Pri <a href="co-mat-doma-pri-vypadku-elektriny.html">výpadku</a> vody nefungujú toalety, nemôžete sa osprchovať a nebudete mať čím umyť riad. Okrem pitnej vody zvážte aj <strong>zásobu úžitkovej vody</strong> — napríklad plné vedro alebo vaňu napustenú vopred (cca 150–200 litrov). Stačí na splachovanie toalety niekoľko dní.</p>
+
+<p>Pri plánovaní zásob tiež nezabudnite na <a href="potraviny-s-dlhou-trvanlivostou.html">potraviny s dlhou trvanlivosťou</a> — voda a jedlo sa navzájom dopĺňajú. Ďalší častý omyl: ľudia si myslia, že stačí mať vodu doma v záhradnom jazierku alebo studni. <strong>Studňa môže byť kontaminovaná</strong> pri povodni alebo seizmickej udalosti — vždy si overte kvalitu pred použitím. Podobne dažďová voda je bez čistenia nevhodná na pitie.</p>
+
+<h2 id="faq">Časté otázky</h2>
+
+<h3>Koľko vody potrebujem na 3 dni pre rodinu 4 osoby?</h3>
+<p class="faq-answer">Pre rodinu s 2 dospelými a 2 deťmi odporúčame zásobu <strong>30 litrov</strong> (10 litrov denne: 3 l na dospelého, 2 l na dieťa). Ak máte domáce zvieratá, pripočítajte ich dennú spotrebu. Toto pokrýva pitie a základnú hygienu — na splachovanie toalety a sprchu je potrebné výrazne viac.</p>
+
+<h3>Ako dlho vydrží balená voda?</h3>
+<p class="faq-answer">Balená voda z obchodu vydrží zvyčajne <strong>12–24 mesiacov</strong> podľa dátumu spotreby na etikete. Skladujte na tmavom, chladnom mieste ďalej od priameho slnka a chemikálií. Otvorenú fľašu spotrebujte do 1–3 dní.</p>
+
+<h3>Čo robiť, keď nemám dostatok pitnej vody?</h3>
+<p class="faq-answer">V núdzi môžete vodu upraviť: prevarte ju silným varom <strong>minimálne 1 minútu</strong>. Alternatívne použite dezinfekčné tablety s chlórom alebo jódom dostupné v lekárňach. Nikdy nepite vodu z neprevereného zdroja bez úpravy — chemické znečistenie varením neodstránite.</p>
+
+<h3>Koľko vody denne potrebuje človek?</h3>
+<p class="faq-answer">WHO odporúča v núdzových situáciách minimum <strong>2,5–3 litre</strong> pitnej vody na osobu denne. Pre reálne podmienky (pitie aj základná hygiena) počítajte s 3 litrami pre dospelého, 2 litrami pre dieťa a 1,5 litra pre batoľa denne. Pri horúčave alebo fyzickej aktivite pridajte 0,5–1 liter.</p>
+
 <div class="disclaimer-box">
 <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;margin-top:2px"><circle cx="10" cy="10" r="9"/><path d="M10 6v5M10 13.5v.5"/></svg>
 <div>
@@ -241,15 +504,15 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <div class="sources">
   <div class="sources-title">Zdroje a odporúčania</div>
-  <ol><li><a href="https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health" target="_blank" rel="noopener">WHO — Voda, sanitácia a hygiena v núdzových situáciách</a></li>
-<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener">BBK (Nemecko) — Ratgeber: Checkliste Trinkwasser</a></li>
-<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener">MV SR — V prípade ohrozenia</a></li>
-<li><a href="https://www.72hodin.cz/" target="_blank" rel="noopener">Česká príručka 72 hodin</a></li></ol>
+  <ol><li><a href="https://www.who.int/teams/environment-climate-change-and-health/water-sanitation-and-health" target="_blank" rel="noopener noreferrer">WHO — Voda, sanitácia a hygiena v núdzových situáciách</a></li>
+<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener noreferrer">BBK (Nemecko) — Ratgeber: Checkliste Trinkwasser</a></li>
+<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener noreferrer">MV SR — V prípade ohrozenia</a></li>
+<li><a href="https://www.72h.gov.cz/public/files/2025-09/72-hodin-Jak-se-pripravit-na-krizove-situace-a-spolecne-je-zvladnout_.pdf" target="_blank" rel="noopener noreferrer">MV ČR — Príručka „72 hodín": Jak se připravit na krizové situace (2025)</a></li></ol>
 </div>
 
 <div class="cta-box">
-  <h3>Spočítajte si zásoby vody za pár sekúnd</h3>
-  <p>V Gerlachu zadáte počet osôb a dní — a hneď vidíte, koľko vody potrebujete a koľko vám chýba.</p>
+  <h3>Sledujte zásoby vody v Gerlachu</h3>
+  <p>V našej aplikácii Gerlach zadáte počet osôb — a hneď vidíte, koľko vody máte a koľko je nutné doplniť pre vašu domácu sebestačnosť a pripravenosť.</p>
   <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
   <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
 </div>
