@@ -1174,6 +1174,19 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       Podporiť cez PayPal
     </a>
+    <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border);">
+      <p style="font-size:0.8125rem; color:var(--muted); margin-bottom:0.625rem;">Našli ste chybu alebo máte nápad? Napíšte nám.</p>
+      <div style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap;">
+        <a class="js-fb-bug" href="#" style="display:inline-flex; align-items:center; gap:0.3rem; padding:0.35rem 0.875rem; border-radius:999px; border:1px solid var(--border); background:var(--bg); color:var(--ink2); font-size:0.75rem; font-weight:500; text-decoration:none; transition:all 0.2s;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Nahlásiť chybu
+        </a>
+        <a class="js-fb-idea" href="#" style="display:inline-flex; align-items:center; gap:0.3rem; padding:0.35rem 0.875rem; border-radius:999px; border:1px solid var(--border); background:var(--bg); color:var(--ink2); font-size:0.75rem; font-weight:500; text-decoration:none; transition:all 0.2s;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Návrh / komentár
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 </section>
@@ -1235,7 +1248,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.getElementById('fy').textContent=new Date().getFullYear();
-(function(){var u='app.gerlach',d='gmail.com',f=u+'@'+d;document.querySelectorAll('.js-ce').forEach(function(e){e.href='mai'+'lto:'+f;});})();
+(function(){var u='app.gerlach',d='gmail.com',f=u+'@'+d;var ml='mai'+'lto:'+f;document.querySelectorAll('.js-ce').forEach(function(e){e.href=ml;});document.querySelectorAll('.js-fb-bug').forEach(function(e){e.href=ml+'?subject='+encodeURIComponent('[Bug] Gerlach — Nahlásenie chyby')+'&body='+encodeURIComponent('Popis chyby:\n\n\nKroky na zopakovanie:\n1. \n2. \n3. \n\nPrehliadač / zariadenie: \n');});document.querySelectorAll('.js-fb-idea').forEach(function(e){e.href=ml+'?subject='+encodeURIComponent('[Návrh] Gerlach — Spätná väzba')+'&body='+encodeURIComponent('Váš návrh alebo komentár:\n\n\n');});})();
 const ro=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');ro.unobserve(x.target);}});},{threshold:0.1});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 // Nav: transparent → solid on scroll
