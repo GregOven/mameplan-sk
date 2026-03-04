@@ -1949,6 +1949,22 @@
         </a>
       </div>
 
+      <!-- Spätná väzba -->
+      <div class="card" style="text-align:center; padding:1.25rem;">
+        <p style="font-size:0.8rem; font-weight:700; margin-bottom:0.25rem;">Napíšte nám</p>
+        <p style="font-size:0.75rem; color:var(--c-muted); line-height:1.5; margin-bottom:0.75rem;">Našli ste chybu? Máte nápad na vylepšenie?<br>Vaša spätná väzba nám pomáha zlepšovať Gerlach.</p>
+        <div style="display:flex; justify-content:center; gap:0.5rem; flex-wrap:wrap;">
+          <a href="#" class="js-feedback-bug" style="display:inline-flex; align-items:center; gap:0.35rem; padding:0.4rem 1rem; border-radius:999px; border:1.5px solid #fecaca; background:#fef2f2; color:#991b1b; font-family:var(--f-sans); font-size:0.75rem; font-weight:600; text-decoration:none; transition:all 0.2s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Nahlásiť chybu
+          </a>
+          <a href="#" class="js-feedback-idea" style="display:inline-flex; align-items:center; gap:0.35rem; padding:0.4rem 1rem; border-radius:999px; border:1.5px solid #bfdbfe; background:#eff6ff; color:#1e40af; font-family:var(--f-sans); font-size:0.75rem; font-weight:600; text-decoration:none; transition:all 0.2s;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Návrh / komentár
+          </a>
+        </div>
+      </div>
+
     </div><!-- end tabContacts -->
 
   </div><!-- end app-main-padding -->
@@ -8366,6 +8382,20 @@
 
   // Dynamic year
   document.querySelectorAll('.js-year').forEach(el => { el.textContent = new Date().getFullYear(); });
+
+  // Feedback mailto links (anti-scraping)
+  (function() {
+    var u = 'app.gerlach', d = 'gmail.com', full = u + '@' + d;
+    var ml = 'mai' + 'lto:' + full;
+    document.querySelectorAll('.js-feedback-bug').forEach(function(el) {
+      el.href = ml + '?subject=' + encodeURIComponent('[Bug] Gerlach — Nahlásenie chyby') +
+        '&body=' + encodeURIComponent('Popis chyby:\n\n\nKroky na zopakovanie:\n1. \n2. \n3. \n\nPrehliadač / zariadenie: \n');
+    });
+    document.querySelectorAll('.js-feedback-idea').forEach(function(el) {
+      el.href = ml + '?subject=' + encodeURIComponent('[Návrh] Gerlach — Spätná väzba') +
+        '&body=' + encodeURIComponent('Váš návrh alebo komentár:\n\n\n');
+    });
+  })();
 
 </script>
 
