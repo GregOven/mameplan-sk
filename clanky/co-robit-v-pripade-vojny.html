@@ -37,7 +37,7 @@
 <meta property="og:image:alt" content="Mámeplán — príprava na krízu a ozbrojený konflikt"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Čo robiť v prípade vojny a ozbrojeného konfliktu"/>
-<meta name="twitter:description" content="Čo robiť v prípade vojny alebo ozbrojeného konfliktu? Zásoby, úkryt, evakuačný batoh a krízový plán — praktický návod pre slovenské domácnosti."/>
+<meta name="twitter:description" content="Čo robiť v prípade vojny alebo ozbrojeného konfliktu? Zásoby na 3–10 dní, úkryt, evakuačný batoh a krízový plán — praktický návod podľa MV SR, DSNS Ukrajiny, MSB a BBK."/>
 <meta name="keywords" content="čo robiť v prípade vojny, čo robiť v prípade krízy, čo mať doma v prípade vojny, ozbrojený konflikt príprava, krízová situácia Slovensko, civilná ochrana, evakuačný batoh, zásoby pre prípad vojny"/>
 <meta name="geo.region" content="SK"/>
 <meta name="geo.placename" content="Slovensko"/>
@@ -152,6 +152,17 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .supply-table tr:last-child td{border-bottom:none}
 .supply-table tr:nth-child(even){background:var(--surface)}
 .supply-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.card-list{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.card-list-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.card-item{padding:0.875rem 1.25rem;border-bottom:1px solid var(--border)}
+.card-item:last-child{border-bottom:none}
+.card-item-title{font-weight:700;font-size:0.92rem;color:var(--ink);margin-bottom:0.2rem}
+.card-item-sub{font-size:0.82rem;font-weight:600;color:var(--primary);margin-bottom:0.25rem}
+.card-item-desc{font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6;margin:0}
+.card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
+.card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
+.card-item-meta strong{color:var(--ink2);font-weight:600}
+.faq-answer{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
 .breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:nowrap;overflow:hidden;min-width:0}
 .breadcrumb a{color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0}
 .breadcrumb a:hover{color:var(--ink);text-decoration:underline}
@@ -197,7 +208,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mameplan.sk/"},
       {"@type": "ListItem", "position": 2, "name": "Články", "item": "https://mameplan.sk/clanky/"},
-      {"@type": "ListItem", "position": 3, "name": "Čo robiť v prípade vojny a ozbrojeného konfliktu"}
+      {"@type": "ListItem", "position": 3, "name": "Čo robiť v prípade vojny a ozbrojeného konfliktu?", "item": "https://mameplan.sk/clanky/co-robit-v-pripade-vojny.html"}
     ]
   }
 }
@@ -301,7 +312,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <p>Téma, o ktorej nikto nechce premýšľať — ale po februári 2022 si ju uvedomili milióny Európanov. Ozbrojený konflikt nie je abstraktná hrozba z učebníc dejepisu. Je to reálna situácia, na ktorú sa dá <strong>konkrétne a prakticky pripraviť</strong>.</p>
 
-<p>Tento článok vychádza z <strong>reálnych skúseností ukrajinskej Štátnej služby pre mimoriadne situácie (DSNS)</strong>, z oficiálnej príručky <strong>Ministerstva vnútra SR</strong> „Čo robiť v prípade krízy alebo ozbrojeného konfliktu" (október 2025), zo švédskej príručky MSB (2024) a z aktualizovanej nemeckej príručky BBK z roku 2025, ktorá po 35 rokoch opäť explicitne zmieňuje vojnový scenár.</p>
+<p>Tento článok vychádza z <strong>reálnych skúseností ukrajinskej Štátnej služby pre mimoriadne situácie (DSNS)</strong> a z oficiálnej príručky <strong>Ministerstva vnútra SR</strong> „Čo robiť v prípade krízy alebo ozbrojeného konfliktu" (október 2025). Ďalšími zdrojmi sú švédska príručka MSB (2024) a aktualizovaná nemecká príručka BBK z roku 2025 — tá po 35 rokoch opäť explicitne zmieňuje vojnový scenár.</p>
 
 <nav class="toc" aria-label="Obsah článku">
   <div class="toc-title">Obsah článku</div>
@@ -327,7 +338,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <h2 id="ukryt">Kryt a úkryt — kde sa skryť</h2>
 
-<p>Na Slovensku existujú <strong>objekty civilnej ochrany</strong> — kryty a úkryty. Ich zoznam vedie miestny úrad civilnej ochrany. Dôležité je vedieť: podľa údajov Ministerstva vnútra SR existuje na Slovensku takmer 312-tisíc ochranných úkrytov — no viac než 99 % z nich sú jednoduché objekty ako <strong>pivnice, suteréne a garáže</strong>. Klasické vystužené bunkre sú výnimkou. To však neznamená, že nemáte možnosť sa ukryť — práve naopak: vaša pivnica alebo suterén sú reálnou ochranou.</p>
+<p>Na Slovensku existujú <strong>objekty civilnej ochrany</strong> — kryty a úkryty. Ich zoznam vedie miestny úrad civilnej ochrany. Dôležité je vedieť: podľa údajov Ministerstva vnútra SR existuje na Slovensku takmer 312-tisíc ochranných úkrytov — no viac ako 99 % z nich sú jednoduché objekty ako <strong>pivnice, suteréne a garáže</strong>. Klasické vystužené bunkre sú výnimkou. To však neznamená, že nemáte možnosť sa ukryť — práve naopak: vaša pivnica alebo suterén sú reálnou ochranou.</p>
 
 <p>Podľa ukrajinskej DSNS platí: ak sa nedostanete do oficiálneho krytu, <strong>najlepšou ochranou je suterén alebo pivnica</strong> železobetónovej budovy. Podzemné parkoviská a stanice metra sú tiež vhodné. Vyhnite sa horným poschodiam, skleneným výplniam, autám a kioskom — tie sa pri detonácii stávajú zdrojom sekundárnych úlomkov.</p>
 
