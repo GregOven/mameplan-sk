@@ -233,11 +233,11 @@ a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
 .nav{position:sticky;top:0;z-index:100;background:transparent;transition:background 0.25s,border-color 0.25s,box-shadow 0.25s;border-bottom:1px solid transparent}
 .nav.solid{background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-inner{max-width:1120px;margin:0 auto;padding:0 var(--sp-6);height:56px;display:flex;align-items:center;justify-content:space-between;position:relative}
-.nav-logo{display:inline-flex;align-items:center;gap:0.45rem;font-family:var(--serif);font-size:1.05rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none}
+.nav-logo{display:inline-flex;align-items:center;gap:0.55rem;font-family:var(--serif);font-size:1.25rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none}
 .nav-logo-icon{flex-shrink:0}
 .nav-logo-wm{white-space:nowrap}
-.nav-logo-sep{width:1px;height:18px;background:var(--border);flex-shrink:0}
-.nav-logo-app{font-family:var(--sans);font-size:0.82rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
+.nav-logo-sep{width:1.5px;height:22px;background:var(--border);flex-shrink:0}
+.nav-logo-app{font-family:var(--sans);font-size:0.95rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
 .nav-links{display:flex;gap:var(--sp-6)}
 .nav-link{font-size:0.82rem;font-weight:500;color:var(--muted);transition:color 0.15s;padding:0.25rem 0}
 .nav-link:hover{color:var(--ink)}
@@ -510,6 +510,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 }
 @media(max-width:480px){
  .nav-logo-wm{display:none}
+ .nav-logo-sep{display:none}
 }
 @media(max-width:640px){
  .section{padding:var(--sp-12) 0}
@@ -612,7 +613,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 <!-- ═══════ NAV ═══════ -->
 <nav class="nav" id="mainNav" aria-label="Navigácia">
 <div class="nav-inner">
- <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="24" height="24" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="28" fill="#1a1816"/><circle cx="290" cy="130" r="24" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
+ <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="28" height="28" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
  <div class="nav-links"><a class="nav-link" href="#funkcie">Funkcie</a><a class="nav-link" href="#ako">Ako to funguje</a><a class="nav-link" href="#clanky">Čo robiť, keď…</a><a class="nav-link" href="#faq">FAQ</a></div>
  <div class="nav-right"><a class="btn btn-sm btn-outline" href="./app.html">Vyskúšať demo</a><a class="btn btn-sm btn-red" href="./app.html">Otvoriť Gerlach</a></div>
 </div>
@@ -1156,7 +1157,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 
 <!-- ═══════ FOOTER ═══════ -->
 <footer role="contentinfo"><div class="footer-inner">
- <span class="footer-text"><svg width="18" height="18" viewBox="0 0 512 512" aria-hidden="true" style="vertical-align:-3px;margin-right:4px"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="28" fill="#1a1816"/><circle cx="290" cy="130" r="24" fill="#2a7a4b"/></svg>Mámeplán.sk © <span id="fy"></span> — bezplatné pre verejnosť</span>
+ <span class="footer-text"><svg width="18" height="18" viewBox="0 0 512 512" aria-hidden="true" style="vertical-align:-3px;margin-right:4px"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg>Mámeplán.sk © <span id="fy"></span> — bezplatné pre verejnosť</span>
  <div class="footer-links"><a class="footer-link" href="./app.html">Gerlach</a><a class="footer-link" href="./pravne-info.html">Právne informácie</a><a class="footer-link" href="./pravne-info.html#ochrana-udajov">Ochrana údajov</a><a class="footer-link js-ce" href="#">Kontakt</a></div>
 </div></footer>
 
