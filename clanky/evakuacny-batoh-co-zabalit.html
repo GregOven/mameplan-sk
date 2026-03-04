@@ -29,10 +29,10 @@
 <meta property="og:site_name" content="Mámeplán"/>
 <meta property="article:published_time" content="2026-03-02"/>
 <meta property="og:url" content="https://mameplan.sk/clanky/evakuacny-batoh-co-zabalit.html"/>
-<meta property="article:modified_time" content="2026-03-03"/>
+<meta property="article:modified_time" content="2026-03-04"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Evakuačný batoh — čo do neho zabaliť?"/>
-<meta name="twitter:description" content="Čo si zbaliť do evakuačného batoha pre rodinu. Kompletný checklist podľa BBK a MSB."/>
+<meta name="twitter:description" content="Zoznam vecí do evakuačného batoha pre dospelého, dieťa a seniora. Čo zbaliť ako prvé a koľko toho unesiete."/>
 <meta name="keywords" content="evakuačný batoh, bug out bag, čo zbaliť, evakuácia, checklist"/>
 <meta name="geo.region" content="SK"/>
 <meta name="geo.placename" content="Slovensko"/>
@@ -60,11 +60,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16p
 a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0}
+.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0;transition:opacity 0.2s}
+.nav-logo:hover{text-decoration:none;opacity:0.75}
 .nav-logo-icon{flex-shrink:0}
 .nav-logo-wm{white-space:nowrap}
 .nav-logo-sep{width:1.5px;height:20px;background:var(--border);flex-shrink:0}
-.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
+.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap;line-height:1;vertical-align:middle;position:relative;top:2px;transition:opacity 0.2s}
 .nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
 .nav-back:hover{color:var(--ink)}
 .wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
@@ -123,6 +124,32 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .disclaimer-box{margin:2rem 0;padding:0.875rem 1.25rem;background:var(--bg2);border-radius:var(--r);font-size:0.78rem;line-height:1.65;color:var(--muted);display:flex;gap:0.625rem;align-items:flex-start}
 .disclaimer-box strong{color:var(--ink2);font-weight:600}
 
+.toc{margin:1.5rem 0;padding:1.25rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+.toc-title{font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.75rem}
+.toc ol{padding-left:1.25rem;margin:0}
+.toc li{font-size:0.88rem;line-height:1.7;color:var(--primary)}
+.toc a{color:var(--primary);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.supply-table-wrap{margin:1.5rem 0;overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border)}
+.supply-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.supply-table th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem}
+.supply-table td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border);vertical-align:top;background:var(--surface)}
+.supply-table tr:last-child td{border-bottom:none}
+.supply-table tr:nth-child(even){background:var(--surface)}
+.supply-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+.card-list{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.card-list-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
+.card-item{padding:0.875rem 1.25rem;border-bottom:1px solid var(--border)}
+.card-item:last-child{border-bottom:none}
+.card-item-title{font-weight:700;font-size:0.92rem;color:var(--ink);margin-bottom:0.2rem}
+.card-item-sub{font-size:0.82rem;font-weight:600;color:var(--primary);margin-bottom:0.25rem}
+.card-item-desc{font-size:0.85rem;color:var(--muted);font-weight:300;line-height:1.6;margin:0}
+.card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
+.card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
+.card-item-meta strong{color:var(--ink2);font-weight:600}
+.faq-answer{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
+@media(max-width:640px){ .toc{padding:1rem} .toc ol{padding-left:1rem} .supply-table{font-size:0.78rem} .supply-table th,.supply-table td{padding:0.4rem 0.625rem} .supply-table td:first-child{white-space:normal} .supply-table th:last-child,.supply-table td:last-child{display:none} .supply-table-wrap{border-radius:var(--r)} .step-num{width:24px;height:24px;font-size:0.72rem} }
+
 .breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:nowrap;overflow:hidden;min-width:0}
 .breadcrumb a{color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0}
 .breadcrumb a:hover{color:var(--ink);text-decoration:underline}
@@ -138,10 +165,10 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "cssSelector": [".article-h1", ".article-body p:first-of-type"]
   },
   "headline": "Evakuačný batoh — čo do neho zabaliť?",
-  "description": "Čo si zbaliť do evakuačného batoha pre rodinu. Kompletný checklist podľa BBK a MSB.",
+  "description": "Zoznam vecí do evakuačného batoha pre dospelého, dieťa a seniora. Čo zbaliť ako prvé a koľko toho unesiete.",
   "url": "https://mameplan.sk/clanky/evakuacny-batoh-co-zabalit.html",
   "datePublished": "2026-03-02",
-  "dateModified": "2026-03-03",
+  "dateModified": "2026-03-04",
   "inLanguage": "sk",
   "author": {
     "@type": "Organization",
@@ -167,7 +194,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mameplan.sk/"},
       {"@type": "ListItem", "position": 2, "name": "Články", "item": "https://mameplan.sk/clanky/"},
-      {"@type": "ListItem", "position": 3, "name": "Evakuačný batoh — čo do neho zabaliť?"}
+      {"@type": "ListItem", "position": 3, "name": "Evakuačný batoh — čo do neho zabaliť?", "item": "https://mameplan.sk/clanky/evakuacny-batoh-co-zabalit.html"}
     ]
   }
 }
@@ -175,57 +202,98 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Čo patrí do evakuačného batoha?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Do evakuačného batoha patria: kópie dokladov (OP, pas, poistenie) vo vodotesnom obale, voda (1,5–2 l) a tablety na dezinfekciu, potraviny na 72 hodín (tyčinky, oriešky, konzerva), lieky na 5–7 dní, náhradné oblečenie, čelovka s batériami, nabitá powerbank, hotovosť v malých bankovkách, základná hygiena a zápisník s kontaktnými číslami."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Koľko má vážiť evakuačný batoh?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evakuačný batoh by nemal presiahnuť 10–15 % telesnej hmotnosti nositeľa. Pre dospelého s hmotnosťou 70 kg je to maximálne 7–10 kg. Deti by mali niesť maximálne 10 % svojej hmotnosti — pri dieťati 30 kg je to 3 kg."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Aký batoh zvoliť pre evakuáciu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Odporúčame batoh s objemom 30–40 litrov s pevnými popruhmi a bedrovým pásom. Ideálne vodeodolný alebo s pršiplášťom. Obsah uskladnite vo vodeodolných vreciach (zip-lock alebo dry bag). Každý dospelý člen domácnosti by mal mať vlastný batoh — nenechávajte všetko v jednom."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kde mať evakuačný batoh uložený?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Evakuačný batoh uložte pri vstupných dverách alebo na ľahko dostupnom mieste — nie v pivnici ani na pôjde. V prípade evakuácie máte typicky len niekoľko minút. Každý dospelý v domácnosti musí vedieť, kde batoh je. Obsah skontrolujte každých 6 mesiacov — lieky expirujú, potraviny tiež."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "Evakuacny batoh - co do neho zabalit",
-  "description": "Ako pripravit evakuacny batoh pre rodinu podla BBK a MSB.",
+  "name": "Ako pripraviť evakuačný batoh pre rodinu",
+  "description": "Postup krok za krokom, ako zbaliť evakuačný batoh podľa odporúčaní BBK (Nemecko), MSB (Švédsko) a MV SR.",
+  "totalTime": "PT60M",
   "step": [
     {
       "@type": "HowToStep",
       "position": 1,
-      "name": "Vyberte batoh",
-      "text": "Zvolte odolny batoh 30-40 litrov s pohodlnymi popruhmi."
+      "name": "Vyberte správny batoh",
+      "text": "Zvoľte odolný batoh 30–40 litrov s pohodlnými popruhmi a bedrovým pásom. Vodeodolný alebo s pršiplášťom. Každý dospelý člen domácnosti má mať vlastný batoh."
     },
     {
       "@type": "HowToStep",
       "position": 2,
       "name": "Doklady a dokumenty",
-      "text": "Obciansky preukaz, cestovny pas, poistne zmluvy vo vodotesnom obale."
+      "text": "Kópie občianskeho preukazu, cestovného pasu, poistných zmlúv a rodných listov vo vodotesnom obale. Originály ponechajte na bezpečnom mieste, kópie do batoha."
     },
     {
       "@type": "HowToStep",
       "position": 3,
       "name": "Voda a jedlo",
-      "text": "1,5 litra vody na osobu a energeticke tycinky alebo konzervy."
+      "text": "1,5–2 litre vody na osobu a tablety na dezinfekciu vody. Potraviny na 72 hodín: energetické tyčinky, oriešky, sušené ovocie, konzervy."
     },
     {
       "@type": "HowToStep",
       "position": 4,
-      "name": "Oblecenie",
-      "text": "Nahradne oblecenie, termopradlo, prsiplast, pevna obuv."
+      "name": "Oblečenie",
+      "text": "Náhradné oblečenie: spodné prádlo, ponožky, nepremokavá bunda, čiapka. Pevná uzavretá obuv na nohách — nie šľapky ani sandále."
     },
     {
       "@type": "HowToStep",
       "position": 5,
       "name": "Hygiena",
-      "text": "Zubna kefka, mydlo, toaletny papier, vlhcene utierky."
+      "text": "Zubná kefka, mydlo, toaletný papier, vlhčené utierky. Kompaktné balenie — nie plné fľaše."
     },
     {
       "@type": "HowToStep",
       "position": 6,
-      "name": "Lieky a lekarnicka",
-      "text": "Predpisane lieky na 7 dni, zakladna lekarnicka."
+      "name": "Lieky a lekárnička",
+      "text": "Predpísané lieky na 5–7 dní, základná lekárnička (paracetamol, náplaste, dezinfekcia). Kópia receptov a zoznam liekov s dávkovaním."
     },
     {
       "@type": "HowToStep",
       "position": 7,
-      "name": "Nastroje a technika",
-      "text": "Baterka, radio na baterky, nabijacka, hotovost v malych bankach."
+      "name": "Nástroje a technika",
+      "text": "Čelovka s náhradnými batériami, rádio na batérie, nabitá powerbank, nabíjačka na mobil. Zápisník s kontaktnými číslami — batéria môže dôjsť."
     },
     {
       "@type": "HowToStep",
       "position": 8,
-      "name": "Osobne veci",
-      "text": "Kontaktne cisla na papieri, kluce, mapa okolia."
+      "name": "Hotovosť a osobné veci",
+      "text": "50–100 € v malých bankovkách a minciach. Kľúče od auta a náhradné. Mapa okolia v papierovej forme — GPS nemusí fungovať."
     }
   ]
 }
@@ -235,36 +303,280 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="26" height="26" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
-  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Evakuacny batoh</span></nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Evakuačný batoh</span></nav>
 </div></nav>
 
 <div class="wrap">
 <header class="article-header">
   <div class="article-tag">Evakuácia</div>
   <h1 class="article-h1">Evakuačný batoh — čo do neho zabaliť?</h1>
-  <div class="article-meta">Aktualizované marec 2026 · 4 min čítania</div>
+  <div class="article-meta">Aktualizované marec 2026 · 9 min čítania</div>
 </header>
 
 <article class="article-body">
-<p>Evakuačný batoh je taška pripravená na okamžitý odchod z domova. <strong>Švédska vláda, české ministerstvo vnútra aj slovenská civilná ochrana</strong> odporúčajú mať takýto batoh pre každého člena domácnosti.</p>
-<p>Princíp: ak budete musieť odísť z domu do 10 minút, chcete mať so sebou to, čo <strong>potrebujete na prežitie 72 hodín mimo domova</strong>.</p>
-<h2>Základ — pre dospelého</h2>
-<div class="steps-box">
-<div class="steps-label">Čo do batoha</div>
-<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Doklady (kópie)</strong><p>OP, pas, poistenie, rodný list, recepty na lieky. Fotokópie v uzatvárateľnom sáčku.</p></div></div>
-<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Voda (1,5 – 2 l)</strong><p>Fľaša balenej vody + tablety na dezinfekciu.</p></div></div>
-<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong><a href="potraviny-s-dlhou-trvanlivostou.html">Potraviny na 3 dni</a></strong><p>Energetické tyčinky, oriešky, sušené ovocie, konzerva.</p></div></div>
-<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Lieky</strong><p>Vaše bežné lieky na 5–7 dní + paracetamol, náplaste, dezinfekcia.</p></div></div>
-<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Oblečenie</strong><p>1× náhradné spodné prádlo, ponožky, nepremokavá bunda, čiapka.</p></div></div>
-<div class="step-row"><div class="step-num">6</div><div class="step-content"><strong>Svetlo a komunikácia</strong><p>Čelovka, nabitá powerbank, zápisník s kontaktnými číslami.</p></div></div>
-<div class="step-row"><div class="step-num">7</div><div class="step-content"><strong>Hotovosť</strong><p>50–100 € v malých bankovkách a minciach.</p></div></div>
-<div class="step-row"><div class="step-num">8</div><div class="step-content"><strong>Hygiena</strong><p>Zubná kefka, mydlo, toaletný papier, vlhčené utierky.</p></div></div>
+
+<p>Evakuácia nie je hypotetická situácia. Hasičský a záchranný zbor SR vykonáva núdzové evakuácie každoročne — pri povodniach, požiaroch, úniku nebezpečných látok aj iných mimoriadnych udalostiach. Podľa MV SR musia byť obce na Slovensku pripravené na evakuáciu obyvateľov kedykoľvek. <strong>Väčšina domácností na to pripravená nie je.</strong></p>
+
+<p>Evakuačný batoh je taška pripravená na <strong>okamžitý odchod z domova</strong>. Švédska vláda (MSB), nemecký BBK aj slovenská civilná ochrana (MV SR) odporúčajú mať takýto batoh pre každého člena domácnosti — pripravený, pri dverách, bez hľadania. <strong>Na odchod máte zvyčajne menej času, ako by ste potrebovali — batoh musí byť pripravený vopred.</strong></p>
+
+<nav class="toc" aria-label="Obsah článku">
+  <div class="toc-title">Obsah článku</div>
+  <ol>
+    <li><a href="#aka-taska">Aký batoh zvoliť?</a></li>
+    <li><a href="#zaklad">Základ — pre každého dospelého</a></li>
+    <li><a href="#doklady">Doklady a peniaze</a></li>
+    <li><a href="#voda-jedlo">Voda a jedlo</a></li>
+    <li><a href="#oblecenie">Oblečenie a obuv</a></li>
+    <li><a href="#technika">Svetlo, technika a komunikácia</a></li>
+    <li><a href="#lieky">Lieky a lekárnička</a></li>
+    <li><a href="#deti">Pre deti</a></li>
+    <li><a href="#seniori">Pre seniorov</a></li>
+    <li><a href="#hmotnost">Hmotnosť a prioritizácia</a></li>
+    <li><a href="#kontrola">Kontrola a údržba</a></li>
+    <li><a href="#faq">Časté otázky</a></li>
+  </ol>
+</nav>
+
+<h2 id="aka-taska">Aký batoh zvoliť?</h2>
+
+<p>Nie každý ruksak je vhodný. Pre evakuáciu potrebujete niečo, čo unesie zásobu na 72 hodín, zostane pohodlné aj po dlhšej chôdzi a nezničí sa v daždi.</p>
+
+<div class="card-list">
+<div class="card-list-label">Parametre vhodného evakuačného batoha</div>
+<div class="card-item">
+  <div class="card-item-title">Dostatočný objem</div>
+  <p class="card-item-desc">Batoh musí pojať zásobu na 72 hodín pre jednu osobu a zostať nositeľný. BBK aj MSB odporúčajú samostatný batoh pre každého dospelého člena domácnosti.</p>
 </div>
-<h2>Pre dieťa</h2>
-<p>Pridajte: <strong>obľúbenú hračku</strong> (psychická pohoda), prebaľovacie potreby (ak je batoľa), náhradné oblečenie a <strong>informačný lístok</strong> s menom dieťaťa, dátumom narodenia a kontaktom na rodiča.</p>
-<h2>Pre seniora</h2>
-<p>Dôraz na <strong>lieky s návodom na dávkovanie</strong>, náhradné okuliare, naslúchadlá (s batériami), pohodlnú obuv a <strong>kontaktné údaje ošetrujúceho lekára</strong>.</p>
-<div class="tip-box"><strong>Tip:</strong> Batoh by nemal vážiť viac ako 10–15 % vašej hmotnosti. Uložte ho blízko dverí a raz za 6 mesiacov skontrolujte obsah.</div>
+<div class="card-item">
+  <div class="card-item-title">Popruh a bedrový pás</div>
+  <p class="card-item-desc">Bedrový pás prenáša váhu z ramien na boky — kľúčové pri dlhšej chôdzi. Bez neho vás ťažký batoh za hodinu odstaví.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Vodeodolnosť</div>
+  <p class="card-item-desc">Ideálne vodeodolný materiál alebo aspoň pršiplášť v priečinku. Doklady a elektronika sa nesmú zničiť pri daždi.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Viacero priečinkov</div>
+  <p class="card-item-desc">Umožní rozdeliť obsah logicky — doklady vpredu, jedlo vzadu, lieky ľahko dostupné. V strese nechcete hrabať cez celý batoh.</p>
+</div>
+</div>
+
+<div class="tip-box"><strong>Tip:</strong> Obsah batoha ukladajte do vodotesných vreciek (zip-lock alebo dry bag). Aj "vodeodolný" batoh prepúšťa pri silnom daždi.</div>
+
+<h2 id="zaklad">Základ — pre každého dospelého</h2>
+
+<p>Toto je minimálny obsah, ktorý odporúčajú BBK, MSB aj MV SR. Každý dospelý člen domácnosti má mať vlastný batoh — nenechávajte všetko v jednom.</p>
+
+<div class="supply-table-wrap">
+<table class="supply-table">
+<thead><tr><th>Čo</th><th>Množstvo</th><th>Poznámka</th></tr></thead>
+<tbody>
+<tr><td>Kópie dokladov</td><td>1 sada</td><td>OP, pas, poistenie, rodný list — vo vodotesnom obale</td></tr>
+<tr><td>Voda</td><td>1,5–2 l</td><td>Balená + tablety na dezinfekciu</td></tr>
+<tr><td><a href="potraviny-s-dlhou-trvanlivostou.html">Potraviny na 72 h</a></td><td>Podľa potreby</td><td>Tyčinky, oriešky, sušené ovocie, konzerva s kľúčom</td></tr>
+<tr><td>Lieky</td><td>5–7 dní</td><td>Predpísané + paracetamol, náplaste, dezinfekcia</td></tr>
+<tr><td>Oblečenie</td><td>1 sada</td><td>Spodné prádlo, ponožky, nepremokavá bunda, čiapka</td></tr>
+<tr><td>Čelovka</td><td>1 ks + batérie</td><td>Náhradné batérie nevynechajte</td></tr>
+<tr><td>Powerbank (nabitý)</td><td>1 ks</td><td>Ideálne aspoň 10 000 mAh, s káblom pre váš telefón</td></tr>
+<tr><td>Hotovosť</td><td>Podľa potreby</td><td>Malé bankovky a mince — terminály nemusia fungovať</td></tr>
+<tr><td>Hygiena</td><td>kompakt</td><td>Zubná kefka, mydlo, toaletný papier, vlhčené utierky</td></tr>
+<tr><td>Zápisník s číslami</td><td>1 ks</td><td>Rodina, lekár, záchranné zložky — batéria môže dôjsť</td></tr>
+<tr><td>Mapa okolia</td><td>1 ks</td><td>Papierová — GPS a internet nemusia fungovať</td></tr>
+<tr><td>Záchranná fólia</td><td>1 ks</td><td>Prevencia podchladenia, svetelný signál</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 id="doklady">Doklady a peniaze</h2>
+
+<p>Doklady sú <strong>najprioritnejšia časť batoha</strong> — bez nich neviete preukázať totožnosť, dostať sa k bankátu ani vycestovať. Dávajte pozor na niekoľko vecí:</p>
+
+<div class="card-list">
+<div class="card-list-label">Čo zabaliť — doklady</div>
+<div class="card-item">
+  <div class="card-item-title">Kópie, nie originály</div>
+  <p class="card-item-desc">Originály dokladov uložte doma v trezore alebo bezpečnej schránke. Do batoha dávajte fotokópie — ak batoh stratíte, nestratíte originál. Kópie ulaminujte alebo zabalte do vodotesného sáčku.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Digitálna záloha</div>
+  <p class="card-item-desc">Odfotografujte všetky doklady a uložte do šifrovaného cloudu (Google Drive, iCloud). Prístupné z akéhokoľvek zariadenia — ak stratíte batoh aj telefón.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Hotovosť v malých bankovkách</div>
+  <p class="card-item-desc">Hotovosť v malých bankovkách a minciach. Platobné terminály a bankomaty nemusia fungovať pri výpadku elektriny.</p>
+</div>
+</div>
+
+<h2 id="voda-jedlo">Voda a jedlo</h2>
+
+<p>Do batoha nedáte veľkú zásobu — váha je obmedzená. Prioritou je <strong>1,5–2 litre vody na osobu</strong> a ľahké, kaloricky husté potraviny:</p>
+
+<div class="card-list">
+<div class="card-list-label">Potraviny do evakuačného batoha</div>
+<div class="card-item">
+  <div class="card-item-title">Energetické a proteínové tyčinky</div>
+  <p class="card-item-desc">Ľahké, kaloricky husté, dlhá trvanlivosť. Sú dobrým doplnkom — nie jediným zdrojom energie.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Oriešky a sušené ovocie</div>
+  <p class="card-item-desc">Výborný pomer kalórií na gram. Mandle, kešu, hrozienka. Skontrolujte dátum spotreby na obale.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Konzerva s integrovaným kľúčom</div>
+  <p class="card-item-desc">Tuniak, sardinky, fazuľa. Nič na zahrievanie nepotrebuje. Nevyberte varianty, ktoré vyžadujú otvárač.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Tablety na dezinfekciu vody</div>
+  <p class="card-item-desc">Ak vám balená voda dôjde — dezinfekčné tablety umožnia použiť prameň alebo studňu. Dostupné v lekárňach a outdoorových predajniach.</p>
+</div>
+</div>
+
+<div class="tip-box"><strong>Rotujte zásoby:</strong> Potraviny v batohu expirujú — skontrolujte ich každých 6 mesiacov a vymeňte za čerstvé. Expirované nevyhadzujte — skonzumujte a doplňte.</div>
+
+<h2 id="oblecenie">Oblečenie a obuv</h2>
+
+<p>Cieľom nie je mať všetko oblečenie, ale <strong>prežiť 72 hodín v akomkoľvek počasí</strong>. Priorita: nepremokavosť, teplo, pohodlnosť pri chôdzi.</p>
+
+<div class="card-list">
+<div class="card-list-label">Oblečenie — minimum</div>
+<div class="card-item">
+  <div class="card-item-title">Nepremokavá bunda / pláštenka</div>
+  <p class="card-item-desc">Najdôležitejší kus. Mokrý a studený je oveľa horšia kombinácia ako len studený. Ľahká skladacia bunda zaberá minimum miesta.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Náhradné spodné prádlo a ponožky</div>
+  <p class="card-item-desc">1× zmena. Mokré ponožky = pľuzgiere = obmedzená mobilita. Vlnené ponožky hrejú aj mokré.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Čiapka a rukavice</div>
+  <p class="card-item-desc">Aj v lete — noci môžu byť studené, výškové podmienky premenlivé.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Pevná uzavretá obuv</div>
+  <p class="card-item-desc"><strong>Nie šľapky ani sandále.</strong> V momente, keď zaznie signál evakuácie, si obujte pevnú obuv — a do batoha vložte náhradné ponožky, nie topánky.</p>
+</div>
+</div>
+
+<h2 id="technika">Svetlo, technika a komunikácia</h2>
+
+<div class="card-list">
+<div class="card-list-label">Technika a komunikácia</div>
+<div class="card-item">
+  <div class="card-item-title">Čelovka + náhradné batérie</div>
+  <p class="card-item-desc">Čelovka má voľné ruky — baterka nie. Vždy vložte náhradné batérie. Pri evakuácii v noci alebo v zadymenom priestore je svetlo kritické.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Nabitá powerbank</div>
+  <p class="card-item-desc">S káblom pre váš telefón. Telefón je navigácia, komunikácia aj svietidlo — nenechajte ho vybíjať.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Rádio na batérie alebo klikové</div>
+  <p class="card-item-desc">Jedinou spoľahlivou informáciou pri výpadku internetu a mobilnej siete je AM/FM rádio. Slovenský rozhlas (Rádio Slovensko) vysiela krízové informácie — frekvenciu pre váš región nájdete na rtvs.sk.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Zápisník s kontaktnými číslami</div>
+  <p class="card-item-desc">Rodina, susedia, lekár, záchranné zložky (112, 155, 150, 158). Papierová záloha — batéria môže dôjsť, telefón sa môže zničiť.</p>
+</div>
+</div>
+
+<h2 id="lieky">Lieky a lekárnička</h2>
+
+<p>Lieky sú jedna z <strong>najčastejšie zabudnutých</strong> položiek — a pri evakuácii aj jedna z najkritickejších, keďže v núdzovom centre alebo u príbuzných ich nezohnáte.</p>
+
+<div class="card-list">
+<div class="card-list-label">Lieky a zdravotnícky materiál</div>
+<div class="card-item">
+  <div class="card-item-title">Predpísané lieky na 5–7 dní</div>
+  <p class="card-item-desc">Každý člen domácnosti, ktorý berie lieky na predpis, má mať zálohu v batohu. Kópia receptu a zoznam liekov s dávkovaním na papieri.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Základná lekárnička</div>
+  <p class="card-item-desc">Paracetamol, náplaste rôznych veľkostí, dezinfekcia (octenidín), sterilné gázy, elastický obväz. Kompaktné — nie celá <a href="domaca-lekarnicka-co-nesmie-chybat.html">domáca lekárnička</a>.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Náhradné okuliare / kontaktné šošovky</div>
+  <p class="card-item-desc">Staré okuliare do batoha — strata jediných okuliarov v krízovej situácii je vážny handicap.</p>
+</div>
+</div>
+
+<h2 id="deti">Pre deti</h2>
+
+<p>Deti majú osobitné potreby — fyzické aj psychologické. Staršie deti môžu niesť <strong>vlastný malý batoh</strong> s vybranými vecami.</p>
+
+<div class="card-list">
+<div class="card-list-label">Navyše pre domácnosti s deťmi</div>
+<div class="card-item">
+  <div class="card-item-title">Informačný lístok</div>
+  <p class="card-item-desc">Meno dieťaťa, dátum narodenia, kontakty na rodičov a lekára — v laminovanej karte pri dieťati alebo zašitej v oblečení. Pri oddelení od rodiča záchranári musia vedieť, komu dieťa patrí.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Obľúbená hračka / predmet</div>
+  <p class="card-item-desc">Jeden malý obľúbený predmet dramaticky znižuje stres u detí pri evakuácii. Psychická pohoda dieťaťa je praktická záležitosť — zúfalé dieťa spomaľuje celú rodinu.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Prebaľovacie potreby (batolatá)</div>
+  <p class="card-item-desc">Plienky, vlhčené utierky, náhradné oblečenie. Zásobu prispôsobte veku a potrebám dieťaťa.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Detské lieky</div>
+  <p class="card-item-desc">Detský paracetamol (sirup alebo čapíky), rehydratačné sáčky ORS, detské antihistaminikum.</p>
+</div>
+</div>
+
+<h2 id="seniori">Pre seniorov</h2>
+
+<div class="card-list">
+<div class="card-list-label">Navyše pre seniorov</div>
+<div class="card-item">
+  <div class="card-item-title">Lieky s návodom na dávkovanie</div>
+  <p class="card-item-desc">Podrobný zoznam liekov, dávkovania a frekvencii na papieri. Záchranné zložky a iný lekár musia vedieť, čo senior užíva — pamäť pod stresom zlyháva.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Náhradné naslúchadlá + batérie</div>
+  <p class="card-item-desc">Senior bez naslúchadla nepočuje pokyny záchranárov ani príbuzných. Batérie do naslúchadiel sú špecifické — nezabudnite na zásobu.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Kontakt na ošetrujúceho lekára</div>
+  <p class="card-item-desc">Meno, adresa, telefón — v núdzovom centre môžu potrebovať konzultáciu o liekoch alebo zdravotnom stave.</p>
+</div>
+<div class="card-item">
+  <div class="card-item-title">Pohodlná pevná obuv vopred oblečená</div>
+  <p class="card-item-desc">Seniori by mali mať batoh čo najľahší. Prioritizujte lieky a doklady nad oblečením.</p>
+</div>
+</div>
+
+<h2 id="hmotnost">Hmotnosť a prioritizácia</h2>
+
+<p>Batoh, ktorý neunesiate, je nanič. BBK a MSB odporúčajú, aby hmotnosť batoha nepresahovala <strong>10–15 % telesnej hmotnosti</strong> nositeľa. Pre dospelého s hmotnosťou 70 kg je to 7–10 kg. Pre deti a seniorov platí pravidlo: čím menej, tým lepšie — prioritou sú lieky a doklady.</p>
+
+<div class="warn-box"><strong>Prioritizácia pri preťažení:</strong> Ak je batoh príliš ťažký, vyraďte v tomto poradí — najprv oblečenie navyše, potom jedlo (znesiete 72 h bez jedla), potom hygienu. <strong>Nikdy nevyraďte doklady, lieky a vodu.</strong></div>
+
+<h2 id="kontrola">Kontrola a údržba</h2>
+
+<div class="steps-box">
+<div class="steps-label">Kontrola evakuačného batoha — každých 6 mesiacov</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Skontrolujte expirácie potravín a liekov</strong><p>Expirované spotrebujte a doplňte. Potraviny v batohu majú zvyčajne kratšiu trvanlivosť ako v obchode — teplo a svetlo urýchľujú degradáciu.</p></div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Dobite powerbank a skontrolujte batérie</strong><p>Powerbank sa vybíja aj v sklade. Raz za 6 mesiacov dobite na 100 %. Batérie do čelovky a rádia vymeňte ak sú staršie ako rok.</p></div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Aktualizujte doklady a kontakty</strong><p>Platnosť OP a pasu, nové telefónne čísla, zmena liekov. Digitálnu zálohu v cloude tiež aktualizujte.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Prispôsobte obsah ročnému obdobiu</strong><p>V zime pridajte teplé vrstvy, v lete sunscreen a repelent. Batoh nie je statický — sezónne úpravy sú normálne.</p></div></div>
+</div>
+
+<div class="tip-box"><strong>Termín kontroly:</strong> Rovnako ako pri <a href="domaca-lekarnicka-co-nesmie-chybat.html">domácej lekárničke</a> — pri zmene letného a zimného času (október a marec). Ľahko zapamätateľné a pravidelné.</div>
+
+<h2 id="faq">Časté otázky</h2>
+
+<h3>Čo patrí do evakuačného batoha?</h3>
+<p class="faq-answer">Do evakuačného batoha patria: kópie dokladov vo vodotesnom obale, voda (1,5–2 l) a tablety na dezinfekciu, potraviny na 72 hodín (tyčinky, oriešky, konzerva), lieky na 5–7 dní, náhradné oblečenie, čelovka s batériami, nabitá powerbank, hotovosť v malých bankovkách, základná hygiena a zápisník s kontaktnými číslami.</p>
+
+<h3>Koľko má vážiť evakuačný batoh?</h3>
+<p class="faq-answer">Evakuačný batoh by nemal presiahnuť <strong>10–15 % telesnej hmotnosti</strong> nositeľa. Pre dospelého s hmotnosťou 70 kg je to maximálne 7–10 kg. U detí a seniorov platí: čo najmenej — prioritou sú vždy lieky a doklady.</p>
+
+<h3>Aký batoh zvoliť pre evakuáciu?</h3>
+<p class="faq-answer">Odporúčame batoh s dostatočným objemom pre 72-hodinovú zásobu, s pevnými popruhmi a bedrovým pásom. Ideálne vodeodolný alebo s pršiplášťom v priečinku. Obsah ukladajte do vodotesných vreciek. Každý dospelý člen domácnosti má mať vlastný batoh — nikdy neskladujte zásoby len do jedného.</p>
+
+<h3>Kde mať evakuačný batoh uložený?</h3>
+<p class="faq-answer">Evakuačný batoh uložte <strong>pri vstupných dverách</strong> alebo na inom ľahko dostupnom mieste — nie v pivnici ani na pôjde. Na odchod máte zvyčajne menej času, ako by ste predpokladali. Každý dospelý v domácnosti musí vedieť, kde batoh je. Obsah skontrolujte každých 6 mesiacov.</p>
+
 <div class="disclaimer-box">
 <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;margin-top:2px"><circle cx="10" cy="10" r="9"/><path d="M10 6v5M10 13.5v.5"/></svg>
 <div>
@@ -275,10 +587,10 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <div class="sources">
   <div class="sources-title">Zdroje a odporúčania</div>
-  <ol><li><a href="https://www.msb.se/sv/amnesomraden/krisberedskap--civilt-forsvar/om-krisen-eller-kriget-kommer/" target="_blank" rel="noopener">MSB (Švédsko) — Om krisen eller kriget kommer</a></li>
-<li><a href="https://www.72hodin.cz/" target="_blank" rel="noopener">Česká príručka 72 hodin — Evakuační zavazadlo</a></li>
-<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener">MV SR — Evakuácia: ako sa pripraviť</a></li>
-<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener">BBK (Nemecko) — Notgepäck</a></li></ol>
+  <ol><li><a href="https://www.msb.se/sv/amnesomraden/krisberedskap--civilt-forsvar/om-krisen-eller-kriget-kommer/" target="_blank" rel="noopener noreferrer">MSB (Švédsko) — Om krisen eller kriget kommer</a></li>
+<li><a href="https://www.72h.gov.cz/public/files/2025-09/72-hodin-Jak-se-pripravit-na-krizove-situace-a-spolecne-je-zvladnout_.pdf" target="_blank" rel="noopener noreferrer">MV ČR — Príručka „72 hodín": Jak se připravit na krizové situace (2025)</a></li>
+<li><a href="https://www.minv.sk/?ochrana-obyvatelstva" target="_blank" rel="noopener noreferrer">MV SR — Evakuácia: ako sa pripraviť</a></li>
+<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener noreferrer">BBK (Nemecko) — Notgepäck</a></li></ol>
 </div>
 
 <div class="cta-box">
