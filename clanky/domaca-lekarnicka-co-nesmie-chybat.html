@@ -29,10 +29,10 @@
 <meta property="og:site_name" content="Mámeplán"/>
 <meta property="article:published_time" content="2026-03-02"/>
 <meta property="og:url" content="https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html"/>
-<meta property="article:modified_time" content="2026-03-03"/>
+<meta property="article:modified_time" content="2026-03-04"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Domáca lekárnička — čo v nej nesmie chýbať?"/>
-<meta name="twitter:description" content="Kompletný zoznam liekov, obväzového materiálu a pomôcok. Účinné látky dostupné na Slovensku, detská lekárnička."/>
+<meta name="twitter:description" content="Zoznam liekov, obväzov a pomôcok pre domácu lekárničku. Účinné látky dostupné v SK lekárňach, detská lekárnička, skladovanie a kontrola expirácií."/>
 <meta name="keywords" content="domáca lekárnička, lieky, obväzový materiál, paracetamol, ibuprofén, prvá pomoc"/>
 <meta name="geo.region" content="SK"/>
 <meta name="geo.placename" content="Slovensko"/>
@@ -60,11 +60,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--ink);font-size:16p
 a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .nav{position:sticky;top:0;z-index:100;background:rgba(245,243,238,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-inner{max-width:720px;margin:0 auto;padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
-.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0}
+.nav-logo{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--serif);font-size:1.15rem;font-weight:800;letter-spacing:-0.02em;color:var(--accent);text-decoration:none;flex-shrink:0;transition:opacity 0.2s}
+.nav-logo:hover{text-decoration:none;opacity:0.75}
 .nav-logo-icon{flex-shrink:0}
 .nav-logo-wm{white-space:nowrap}
 .nav-logo-sep{width:1.5px;height:20px;background:var(--border);flex-shrink:0}
-.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap}
+.nav-logo-app{font-family:var(--sans);font-size:0.88rem;font-weight:600;color:#2a7a4b;white-space:nowrap;line-height:1;vertical-align:middle;position:relative;top:2px;transition:opacity 0.2s}
 .nav-back{font-size:0.82rem;color:var(--muted);display:flex;align-items:center;gap:0.35rem;text-decoration:none}
 .nav-back:hover{color:var(--ink)}
 .wrap{max-width:720px;margin:0 auto;padding:0 1.5rem}
@@ -77,6 +78,7 @@ a{color:var(--primary);text-decoration:none}a:hover{text-decoration:underline}
 .article-body h2{font-family:var(--serif);font-size:1.375rem;font-weight:700;margin:2.5rem 0 0.75rem;color:var(--ink)}
 .article-body h3{font-weight:700;font-size:1rem;margin:1.75rem 0 0.5rem;color:var(--ink)}
 .article-body strong{font-weight:600;color:var(--ink)}
+.faq-answer{margin-bottom:1.25rem;font-weight:300;line-height:1.8;color:var(--ink2)}
 .steps-box{margin:1.5rem 0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
 .steps-label{background:var(--ink);color:#fff;padding:0.625rem 1.25rem;font-size:0.82rem;font-weight:600}
 .step-row{display:flex;gap:0.75rem;padding:0.875rem 1.25rem;border-bottom:1px solid var(--border);align-items:flex-start}
@@ -132,6 +134,20 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 .card-item-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.3rem}
 .card-item-meta span{font-size:0.78rem;color:var(--muted);font-weight:400}
 .card-item-meta strong{color:var(--ink2);font-weight:600}
+.toc{margin:1.5rem 0;padding:1.25rem 1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg)}
+.toc-title{font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--muted);margin-bottom:0.75rem}
+.toc ol{padding-left:1.25rem;margin:0}
+.toc li{font-size:0.88rem;line-height:1.7;color:var(--primary)}
+.toc a{color:var(--primary);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+.supply-table-wrap{margin:1.5rem 0;overflow-x:auto;border-radius:var(--r-lg);border:1px solid var(--border)}
+.supply-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.supply-table th{background:var(--ink);color:#fff;padding:0.5rem 0.875rem;text-align:left;font-weight:600;font-size:0.78rem}
+.supply-table td{padding:0.5rem 0.875rem;border-bottom:1px solid var(--border);vertical-align:top;background:var(--surface)}
+.supply-table tr:last-child td{border-bottom:none}
+.supply-table tr:nth-child(even){background:var(--surface)}
+.supply-table td:first-child{font-weight:600;color:var(--ink);white-space:nowrap}
+@media(max-width:640px){ .toc{padding:1rem} .toc ol{padding-left:1rem} .supply-table{font-size:0.78rem} .supply-table th,.supply-table td{padding:0.4rem 0.625rem} .supply-table td:first-child{white-space:normal} .supply-table th:last-child,.supply-table td:last-child{display:none} .supply-table-wrap{border-radius:var(--r)} .step-num{width:24px;height:24px;font-size:0.72rem} }
 
 .breadcrumb{display:flex;align-items:center;gap:0.35rem;font-size:0.78rem;color:var(--muted);flex-wrap:nowrap;overflow:hidden;min-width:0}
 .breadcrumb a{color:var(--muted);text-decoration:none;white-space:nowrap;flex-shrink:0}
@@ -148,10 +164,10 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "cssSelector": [".article-h1", ".article-body p:first-of-type"]
   },
   "headline": "Domáca lekárnička — čo v nej nesmie chýbať?",
-  "description": "Kompletný zoznam liekov, obväzového materiálu a pomôcok. Účinné látky dostupné na Slovensku, detská lekárnička.",
+  "description": "Zoznam liekov, obväzov a pomôcok pre domácu lekárničku. Účinné látky dostupné v SK lekárňach, detská lekárnička, skladovanie a kontrola expirácií.",
   "url": "https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html",
   "datePublished": "2026-03-02",
-  "dateModified": "2026-03-03",
+  "dateModified": "2026-03-04",
   "inLanguage": "sk",
   "author": {
     "@type": "Organization",
@@ -177,17 +193,97 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
     "itemListElement": [
       {"@type": "ListItem", "position": 1, "name": "Domov", "item": "https://mameplan.sk/"},
       {"@type": "ListItem", "position": 2, "name": "Články", "item": "https://mameplan.sk/clanky/"},
-      {"@type": "ListItem", "position": 3, "name": "Domáca lekárnička — čo v nej nesmie chýbať?"}
+      {"@type": "ListItem", "position": 3, "name": "Domáca lekárnička — čo v nej nesmie chýbať?", "item": "https://mameplan.sk/clanky/domaca-lekarnicka-co-nesmie-chybat.html"}
     ]
   }
 }
 </script>
 <script>try{if(self!==top){top.location=self.location;}}catch(e){}</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Čo má byť v domácej lekárničke?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Základ domácej lekárničky tvorí: paracetamol a ibuprofén (bolesť a horúčka), loperamid a perorálny rehydratačný roztok (hnačka a dehydratácia), antihistaminikum (cetirizín alebo loratadín), dezinfekčný roztok na rany (octenidín alebo povidón-jód), sterilné gázové štvorce, elastické obväzy, náplasti rôznych veľkostí, digitálny teplomer, jednorazové rukavice a záchranná izotermická fólia. Podľa odporúčaní BBK (Nemecko, 2025) a Slovenského Červeného kríža treba obsah prispôsobiť zloženiu domácnosti — najmä pri deťoch a senioroch."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kde uložiť domácu lekárničku?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lekárničku uložte na suchom, tmavom a chladnom mieste — ideálne v spálni alebo na chodbe. Nikdy nie v kúpeľni, kde vlhkosť a teplo skracujú životnosť liekov. Lekárnička musí byť uzamykateľná a mimo dosahu detí, no zároveň všetci dospelí v domácnosti musia vedieť, kde presne sa nachádza."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ako často kontrolovať domácu lekárničku?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Domácu lekárničku skontrolujte minimálne raz za 6 mesiacov — napríklad pri zmene letného a zimného času, čo je ľahko zapamätateľný termín. Pri každej kontrole overte expirácie, doplňte spotrebovaný materiál a skontrolujte stav: sterilné obväzy nesmú byť otvorené, tekutiny nesmú byť zakalené, masti nesmú byť zaschnuté. Expirované lieky nikdy nevyhadzujte do koša — odneste ich do lekárne, ktorá ich bezplatne prevezme."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Čo nesmiem podať dieťaťu z bežnej lekárničky?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deťom do 16 rokov nikdy nepodávajte kyselinu acetylsalicylovú (aspirín) — môže spôsobiť závažný Reyeov syndróm. Loperamid (na hnačku) nie je vhodný pre deti do 12 rokov. Dávkovanie paracetamolu a ibuprofénu sa u detí určuje podľa hmotnosti, nie veku — vždy overte správnu dávku v príbalovom letáku alebo u lekárnika. Deťom nikdy nepodávajte lieky určené pre dospelých bez konzultácie s lekárom."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Ako skontrolovať domácu lekárničku — 5 krokov",
+  "description": "Postup pravidelnej kontroly domácej lekárničky podľa odporúčaní BBK (Nemecko, 2025) a Slovenského Červeného kríža.",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Skontrolujte expirácie",
+      "text": "Prezrite každý liek a každý obväzový materiál. Expirované lieky odložte do vreca — odneste ich do lekárne, nie do komunálneho odpadu."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Overte stav materiálu",
+      "text": "Sterilné obväzy a gázy nesmú byť otvorené ani poškodené. Tekuté dezinfekčné prostriedky nesmú byť zakalené. Masti a krémy nesmú byť zaschnuté ani s oddelenou vrstvou."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Skontrolujte úplnosť",
+      "text": "Porovnajte obsah lekárničky s referenčným zoznamom. Doplňte všetko spotrebované alebo expirované."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Overte zálohu chronických liekov",
+      "text": "Každý člen domácnosti, ktorý berie lieky na predpis, má mať zálohu aspoň na 4 týždne. Ak záloha chýba, požiadajte lekára o predpis vopred — v krízovej situácii to nemusí byť možné."
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Zaznačte dátum ďalšej kontroly",
+      "text": "Zapíšte si dátum ďalšej kontroly — najneskôr o 6 mesiacov. Praktický termín: zmena letného a zimného času (október a marec)."
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
   <a class="nav-logo" href="/"><span class="nav-logo-wm">Mámeplán</span><span class="nav-logo-sep"></span><svg class="nav-logo-icon" width="26" height="26" viewBox="0 0 512 512" aria-hidden="true"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="115,298 212,362 290,140 406,362" fill="none" stroke="#f5f3ee" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="290" cy="130" r="18" fill="#1a1816"/><circle cx="290" cy="130" r="14" fill="#2a7a4b"/></svg><span class="nav-logo-app">Gerlach</span></a>
-  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Lekarnicka</span></nav>
+  <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">Domov</a><span class="breadcrumb-sep">›</span><a href="/clanky/">Články</a><span class="breadcrumb-sep">›</span><span class="breadcrumb-current">Domáca lekárnička</span></nav>
 </div></nav>
 
 <div class="wrap">
@@ -200,13 +296,31 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <article class="article-body">
 
-<p>Domáca lekárnička nie je luxus — je to <strong>základná výbava každej domácnosti, podobne ako znalosť <a href="prva-pomoc-kpr-postup.html">prvej pomoci</a></strong>. Problém však býva v tom, že lieky sú dávno po expirácii, obväzy chýbajú a nožnice nefungujú. Podľa prieskumov len zlomok domácností má lekárničku skutočne skontrolovanú a aktuálnu.</p>
+<p>V roku 2025 chýbalo na slovenskom trhu viac ako <strong>1 000 druhov liekov</strong>. Prezident Slovenskej lekárnickej komory Ondrej Sukeľ potvrdil, že lekárnici trávia hľadaním nedostupných liekov v priemere <strong>11 hodín týždenne</strong> — trikrát viac ako pred desiatimi rokmi. V decembri 2025 chýbali chrípkové vakcíny, niektoré inzulíny a lieky na zápalové ochorenia čriev. A to hovoríme o bežnom čase — nie o kríze. Pri blackoute, povodni alebo ozbrojenom konflikte sa situácia násobí: lekárne zatvoria, doručenie zlyhá, záchranné zložky budú preťažené.</p>
 
-<p>Tento článok vychádza z odporúčaní <strong>Slovenského Červeného kríža, nemeckého Spolkového úradu pre ochranu obyvateľstva (BBK) a Medzinárodného Červeného kríža (ICRC)</strong>. Všetko, čo tu uvádzame, je bežne dostupné v slovenských lekárňach bez lekárskeho predpisu, pokiaľ nie je uvedené inak.</p>
+<p>Domáca lekárnička nie je luxus — je to <strong>základná výbava každej domácnosti, podobne ako znalosť <a href="prva-pomoc-kpr-postup.html">prvej pomoci</a></strong>. Tento článok vychádza z odporúčaní <strong>Slovenského Červeného kríža, nemeckého Spolkového úradu BBK (príručka „Vorsorgen für Krisen und Katastrophen", október 2025), Medzinárodného Červeného kríža (ICRC) a českej príručky „72 hodín" (MV ČR, 2025)</strong>. Všetko, čo tu uvádzame, je bežne dostupné v slovenských lekárňach bez lekárskeho predpisu, pokiaľ nie je uvedené inak.</p>
 
-<div class="tip-box"><strong>Účinná látka vs. obchodný názov:</strong> V celom článku uvádzame <strong>účinné látky</strong> (nie obchodné názvy liekov). To znamená, že keď napíšeme „paracetamol", neodporúčame konkrétnu značku — v lekárni si môžete vybrať akýkoľvek liek s touto účinnou látkou. Lekárnik vám poradí s výberom.</div>
+<div class="tip-box"><strong>Účinná látka vs. obchodný názov:</strong> V celom článku uvádzame <strong>účinné látky</strong> (nie obchodné názvy liekov). Keď napíšeme „paracetamol", neodporúčame konkrétnu značku — v lekárni si môžete vybrať akýkoľvek liek s touto účinnou látkou. Lekárnik vám poradí s výberom.</div>
 
-<h2>Lieky proti bolesti a horúčke</h2>
+<nav class="toc" aria-label="Obsah článku">
+  <div class="toc-title">Obsah článku</div>
+  <ol>
+    <li><a href="#bolest-horucka">Lieky proti bolesti a horúčke</a></li>
+    <li><a href="#travenie">Lieky na tráviace ťažkosti</a></li>
+    <li><a href="#alergia">Lieky proti alergii</a></li>
+    <li><a href="#dezinfekcia">Dezinfekcia a starostlivosť o rany</a></li>
+    <li><a href="#obvazy">Obväzový materiál</a></li>
+    <li><a href="#pomucky">Pomôcky a nástroje</a></li>
+    <li><a href="#detska">Detská lekárnička</a></li>
+    <li><a href="#chronicke">Chronické a predpísané lieky</a></li>
+    <li><a href="#kompletny-zoznam">Kompletný zoznam</a></li>
+    <li><a href="#skladovanie">Skladovanie</a></li>
+    <li><a href="#kontrola">Kontrola a rotácia</a></li>
+    <li><a href="#faq">Časté otázky</a></li>
+  </ol>
+</nav>
+
+<h2 id="bolest-horucka">Lieky proti bolesti a horúčke</h2>
 
 <p>Toto sú najzákladnejšie lieky, ktoré by nemali chýbať v žiadnej domácnosti. Na Slovensku sú dostupné bez receptu.</p>
 
@@ -226,7 +340,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <p>Pre domácnosť s deťmi je <strong>detský sirup alebo čapíky</strong> s paracetamolom alebo ibuprofénom nevyhnutnosťou — dávkovanie sa riadi podľa hmotnosti dieťaťa (nie veku), preto si vždy overte správnu dávku v príbalovom letáku alebo u lekárnika.</p>
 
-<h2>Lieky na tráviace ťažkosti</h2>
+<h2 id="travenie">Lieky na tráviace ťažkosti</h2>
 
 <p>Hnačka, vracanie a dehydratácia patria medzi najčastejšie zdravotné komplikácie v krízových situáciách — najmä pri obmedzenom prístupe k <a href="kolko-vody-potrebujem.html">čistej vode</a> alebo pri zmene stravy.</p>
 
@@ -249,7 +363,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 </div>
 
-<h2>Lieky proti alergii</h2>
+<h2 id="alergia">Lieky proti alergii</h2>
 
 <p>Alergická reakcia na peľ, hmyz alebo potraviny môže byť v krízovej situácii vážnejšia ako inokedy — lekár nemusí byť dostupný. Stačí mať doma jednu z dvoch účinných látok.</p>
 
@@ -269,7 +383,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <div class="warn-box"><strong>Anafylaxia:</strong> Ak má niekto v domácnosti známu silnú alergiu (napríklad na bodnutie hmyzom alebo potraviny), poraďte sa s lekárom o predpísaní <strong>adrenalínového autoinjektora</strong>. Vyžaduje lekársky predpis a pravidelnú kontrolu expirácie.</div>
 
-<h2>Dezinfekcia a starostlivosť o rany</h2>
+<h2 id="dezinfekcia">Dezinfekcia a starostlivosť o rany</h2>
 
 <p>Správna dezinfekcia a ošetrenie rán je v núdzovej situácii kľúčové — bez prístupu k lekárovi sa aj drobná rana môže infikovať.</p>
 
@@ -281,7 +395,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
   <p class="card-item-desc">Octenidín (bezfarebný) nepáli a je vhodný aj pre deti. Povidón-jód (hnedý) je klasická jódová dezinfekcia — nedávajte na veľké plochy a nepoužívajte pri alergii na jód.</p>
 </div>
 <div class="card-item">
-  <div class="card-item-title">Fyziologický roztok (0,9% NaCl)</div>
+  <div class="card-item-title">Fyziologický roztok (0,9 % NaCl)</div>
   <div class="card-item-sub">Výplach rán, očí</div>
   <p class="card-item-desc">Na preplachovanie rán, čistenie očí od nečistôt. Nedráždi tkanivo. Dostupný v ampulkách alebo fľaši.</p>
 </div>
@@ -293,19 +407,19 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 <div class="card-item">
   <div class="card-item-title">Dezinfekčný gél na ruky</div>
   <div class="card-item-sub">Hygiena rúk v núdzi</div>
-  <p class="card-item-desc">Min. 60% alkohol. Užitočný, ak nemáte prístup k tečúcej vode.</p>
+  <p class="card-item-desc">Min. 60 % alkohol. Užitočný, ak nemáte prístup k tečúcej vode.</p>
 </div>
 </div>
 
-<h2>Obväzový materiál</h2>
+<h2 id="obvazy">Obväzový materiál</h2>
 
-<p>Základ pre ošetrenie rán, zastavenie krvácania a fixáciu. Odporúčané množstvá sú pre domácnosť 2 — 4 osoby.</p>
+<p>Základ pre ošetrenie rán, zastavenie krvácania a fixáciu. Odporúčané množstvá sú pre domácnosť 2–4 osoby.</p>
 
 <div class="card-list">
 <div class="card-list-label">Obväzy a krytie rán</div>
 <div class="card-item">
   <div class="card-item-title">Sterilné gázové štvorce (10×10 cm)</div>
-  <div class="card-item-sub">Minimálne 5 — 10 kusov</div>
+  <div class="card-item-sub">Minimálne 5–10 kusov</div>
   <p class="card-item-desc">Na prekrytie rán a zastavenie krvácania. Sterilné — neotvárajte vopred.</p>
 </div>
 <div class="card-item">
@@ -334,7 +448,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 </div>
 
-<h2>Pomôcky a nástroje</h2>
+<h2 id="pomucky">Pomôcky a nástroje</h2>
 
 <p>Okrem liekov a obväzov potrebujete aj základné nástroje na ošetrenie a diagnostiku.</p>
 
@@ -359,7 +473,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 <div class="card-item">
   <div class="card-item-title">Záchranná izotermická fólia</div>
-  <div class="card-item-sub">1 — 2 kusy</div>
+  <div class="card-item-sub">1–2 kusy</div>
   <p class="card-item-desc">Zabraňuje podchladeniu pri úrazoch a šoku. Strieborná strana k telu = hrejú, zlatá strana k telu = chladí.</p>
 </div>
 <div class="card-item">
@@ -368,7 +482,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 </div>
 
-<h2>Detská lekárnička</h2>
+<h2 id="detska">Detská lekárnička</h2>
 
 <p>Detský organizmus reaguje na lieky inak ako dospelý. Preto je dôležité mať <strong>osobitné formy liekov prispôsobené deťom</strong>.</p>
 
@@ -388,7 +502,7 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 <div class="card-item">
   <div class="card-item-title">Rehydratačné sáčky (ORS)</div>
-  <p class="card-item-desc">Pri hnačke a vracaní deti dehydratujú omnoho rýchlejšie ako dospelí. Vždy majte zásobu doma.</p>
+  <p class="card-item-desc">Pri hnačke a vracaní deti dehydratujú oveľa rýchlejšie ako dospelí. Vždy majte zásobu doma.</p>
 </div>
 <div class="card-item">
   <div class="card-item-title">Nosné kvapky s fyziologickým roztokom</div>
@@ -398,25 +512,88 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 
 <div class="warn-box"><strong>Dôležité:</strong> Nikdy nepodávajte deťom lieky určené pre dospelých bez konzultácie s lekárom alebo lekárnikom. Nikdy nepodávajte deťom kyselinu acetylsalicylovú (aspirín) — u detí do 16 rokov môže spôsobiť závažný Reyeov syndróm.</div>
 
-<h2>Chronické a predpísané lieky</h2>
+<h2 id="chronicke">Chronické a predpísané lieky</h2>
 
-<p>Ak ktokoľvek v domácnosti pravidelne užíva lieky na predpis (vysoký tlak, cukrovka, astma, epilepsia, duševné zdravie a pod.), <strong>majte vždy zálohu minimálne na 2 — 4 týždne</strong>. V krízovej situácii nemusí byť lekár dostupný na vystavenie nového receptu a lekárne môžu byť zatvorené alebo bez zásob.</p>
+<p>Ak ktokoľvek v domácnosti pravidelne užíva lieky na predpis (vysoký tlak, cukrovka, astma, epilepsia, duševné zdravie a pod.), majte vždy zálohu minimálne na <strong>4 týždne</strong>. Pri výpadku, evakuácii alebo krízovej situácii nemusí byť lekár dostupný na vystavenie nového receptu a lekárne môžu byť zatvorené alebo bez zásob. Toto odporúčanie potvrdzujú MV SR, BBK (Nemecko, 2025) aj česká príručka „72 hodín" (MV ČR, 2025).</p>
 
 <div class="tip-box"><strong>Tip:</strong> Odfotografujte si aktuálne recepty a príbalové letáky. Uložte si zoznam liekov (účinná látka, dávkovanie, frekvencia) do telefónu aj na papier. V núdzi to výrazne uľahčí komunikáciu s akýmkoľvek lekárom.</div>
 
-<h2>Skladovanie</h2>
+<h2 id="kompletny-zoznam">Kompletný zoznam — čo mať v domácej lekárničke</h2>
+
+<p>Podľa odporúčaní BBK (Nemecko, 2025), Slovenského Červeného kríža, ICRC a českej príručky „72 hodín" (MV ČR, 2025):</p>
+
+<div class="supply-table-wrap">
+<table class="supply-table">
+<thead><tr><th>Čo</th><th>Množstvo / poznámka</th><th>Na čo</th></tr></thead>
+<tbody>
+<tr><td>Paracetamol</td><td>Tablety + detský sirup/čapíky</td><td>Bolesť, horúčka — vhodný aj pre deti</td></tr>
+<tr><td>Ibuprofén</td><td>Tablety + detský sirup/čapíky</td><td>Bolesť, horúčka, zápal</td></tr>
+<tr><td>Loperamid</td><td>Tablety (len dospelí a deti 12+)</td><td>Akútna hnačka</td></tr>
+<tr><td>Perorálny rehydratačný roztok (ORS)</td><td>Aspoň 5–10 sáčkov</td><td>Dehydratácia pri hnačke / vracaní</td></tr>
+<tr><td>Aktívne uhlie</td><td>Tablety</td><td>Podozrenie na otravu, hnačka</td></tr>
+<tr><td>Cetirizín alebo loratadín</td><td>Tablety + kvapky pre deti</td><td>Alergická reakcia, peľ, hmyz</td></tr>
+<tr><td>Dezinfekčný roztok na rany (octenidín)</td><td>1 fľaša</td><td>Čistenie a dezinfekcia rán</td></tr>
+<tr><td>Fyziologický roztok (0,9 % NaCl)</td><td>Ampulky alebo fľaša</td><td>Výplach rán a očí</td></tr>
+<tr><td>Masť s dexpantenolom</td><td>1 tuba</td><td>Drobné popáleniny, odreniny, hojenie</td></tr>
+<tr><td>Dezinfekčný gél na ruky (min. 60 % alkohol)</td><td>1 fľaša</td><td>Hygiena rúk bez tečúcej vody</td></tr>
+<tr><td>Sterilné gázové štvorce (10×10 cm)</td><td>Aspoň 10 kusov</td><td>Krytie rán, zastavenie krvácania</td></tr>
+<tr><td>Elastické obväzy (8 cm a 10 cm)</td><td>2 kusy</td><td>Fixácia obväzov, tlakový obväz</td></tr>
+<tr><td>Náplasti — rôzne veľkosti</td><td>Balenie aspoň 20 kusov</td><td>Drobné rany a odreniny</td></tr>
+<tr><td>Sterilný obväz na popáleniny</td><td>1 kus</td><td>Popáleniny — gáza sa môže prilepiť</td></tr>
+<tr><td>Trojrohá šatka</td><td>1 kus</td><td>Záves ruky, improvizovaný obväz</td></tr>
+<tr><td>Fixačná páska (leukoplast)</td><td>1 kotúč</td><td>Upevnenie gázy a obväzov</td></tr>
+<tr><td>Digitálny teplomer</td><td>1 kus</td><td>Meranie teploty</td></tr>
+<tr><td>Jednorazové rukavice (nitrilové)</td><td>Aspoň 5 párov</td><td>Ochrana pri ošetrovaní</td></tr>
+<tr><td>Záchranná izotermická fólia</td><td>1–2 kusy</td><td>Prevencia podchladenia pri úraze</td></tr>
+<tr><td>Nožnice s tupým koncom</td><td>1 kus</td><td>Strihanie obväzov a náplastí</td></tr>
+<tr><td>Pinzeta</td><td>1 kus</td><td>Kliešte, triesky, cudzie telesá</td></tr>
+<tr><td>Kliešťový nástroj</td><td>1 kus</td><td>Bezpečné odstránenie kliešťa</td></tr>
+<tr><td>Záloha chronických liekov</td><td>Minimálne 4 týždne</td><td>Pri krízovej situácii lekárne nemusia fungovať</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="tip-box"><strong>Tip Gerlach:</strong> Ak chcete lieky a obväzový materiál prehľadne evidovať vrátane dátumov expirácie a dostávať upozornenia na doplnenie, môžete využiť našu aplikáciu <a href="../app.html">Gerlach</a> — navrhnutú presne na toto.</div>
+
+<h2 id="skladovanie">Skladovanie</h2>
+
 
 <p>Lekárničku uložte <strong>na suchom, tmavom a chladnom mieste</strong> — nie v kúpeľni (vlhkosť a teplo skracujú životnosť liekov). Ideálna je spálňa alebo chodba. Ak máte malé deti, uložte lekárničku <strong>mimo ich dosahu</strong> — buď vysoko, alebo v uzamykateľnom boxe. Všetci členovia domácnosti by však mali vedieť, kde presne sa lekárnička nachádza.</p>
 
-<h2>Kontrola a rotácia</h2>
+<h2 id="kontrola">Kontrola a rotácia</h2>
 
 <p>Najčastejšia chyba: lekárničku raz zložíte a potom na ňu roky nesiahate. Odporúčame <strong>kontrolu minimálne raz za 6 mesiacov</strong> — napríklad pri zmene letného/zimného času, čo je ľahko zapamätateľný termín.</p>
 
 <p>Pri kontrole overte tri veci: <strong>Expirácie</strong> — expirované lieky odovzdajte v lekárni (nie do bežného odpadu). <strong>Úplnosť</strong> — doplňte spotrebovaný materiál. <strong>Stav</strong> — sterilné obväzy nesmú byť otvorené, tekutiny nesmú byť zakalené, masti nesmú byť zaschnuté.</p>
 
-<div class="warn-box"><strong>Dôležité:</strong> Expirované lieky nikdy nevyhadzujte do bežného komunálneho odpadu ani do toalety. Odneste ich do lekárne — lekárne na Slovensku sú povinné ich bezplatne prevziať na ekologickú likvidáciu.</div>
+<div class="steps-box">
+<div class="steps-label">Kontrola lekárničky — 5 krokov (každých 6 mesiacov)</div>
+<div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Skontrolujte expirácie</strong><p>Prezrite každý liek. Expirované odložte — odneste do lekárne, nie do koša. Lekárne na Slovensku sú povinné lieky bezplatne prevziať.</p></div></div>
+<div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Overte stav materiálu</strong><p>Sterilné obväzy nesmú byť otvorené ani poškodené. Tekuté dezinfekčné prostriedky nesmú byť zakalené. Masti nesmú byť zaschnuté.</p></div></div>
+<div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Doplňte spotrebované položky</strong><p>Porovnajte obsah s referenčným zoznamom. Doplňte všetko, čo chýba alebo čo ste spotrebovali od poslednej kontroly.</p></div></div>
+<div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Skontrolujte zálohu chronických liekov</strong><p>Každý člen domácnosti beriaci lieky na predpis má mať zálohu aspoň na 4 týždne. Ak chýba — požiadajte lekára o predpis vopred.</p></div></div>
+<div class="step-row"><div class="step-num">5</div><div class="step-content"><strong>Zaznačte dátum ďalšej kontroly</strong><p>Praktický termín: zmena letného a zimného času (október a marec). Zapíšte priamo na lekárničku alebo do kalendára.</p></div></div>
+</div>
 
-<h2>Na čo ľudia často zabúdajú</h2>
+<h2 id="faq">Časté otázky</h2>
+
+<h3>Čo má byť v domácej lekárničke?</h3>
+<p class="faq-answer">Základ tvorí: paracetamol a ibuprofén (bolesť a horúčka), loperamid a perorálny rehydratačný roztok ORS (hnačka a dehydratácia), antihistaminikum (cetirizín alebo loratadín), dezinfekčný roztok na rany (octenidín), sterilné gázové štvorce, elastické obväzy, náplasti rôznych veľkostí, digitálny teplomer, jednorazové rukavice a záchranná izotermická fólia. Podľa odporúčaní BBK (Nemecko, 2025) obsah prispôsobte zloženiu domácnosti — najmä pri deťoch a senioroch.</p>
+
+<h3>Kde uložiť domácu lekárničku?</h3>
+<p class="faq-answer">Lekárničku uložte na suchom, tmavom a chladnom mieste — ideálne v spálni alebo na chodbe. Nikdy nie v kúpeľni, kde vlhkosť a teplo skracujú životnosť liekov. Lekárnička musí byť uzamykateľná a mimo dosahu detí, no zároveň každý dospelý v domácnosti musí vedieť, kde presne sa nachádza.</p>
+
+<h3>Ako často kontrolovať domácu lekárničku?</h3>
+<p class="faq-answer">Domácu lekárničku skontrolujte minimálne raz za 6 mesiacov — praktický termín je zmena letného a zimného času (október a marec). Pri každej kontrole overte expirácie, doplňte spotrebovaný materiál a skontrolujte stav: sterilné obväzy nesmú byť otvorené, tekutiny nesmú byť zakalené, masti nesmú byť zaschnuté. Expirované lieky odneste do lekárne.</p>
+
+<h3>Čo nesmiem podať dieťaťu z bežnej lekárničky?</h3>
+<p class="faq-answer">Deťom do 16 rokov nikdy nepodávajte kyselinu acetylsalicylovú (aspirín) — môže spôsobiť závažný Reyeov syndróm. Loperamid nie je vhodný pre deti do 12 rokov. Dávkovanie paracetamolu a ibuprofénu sa u detí určuje podľa hmotnosti, nie podľa veku — vždy overte správnu dávku v príbalovom letáku alebo u lekárnika.</p>
+
+
+
+<div class="warn-box"><strong>Expirované lieky:</strong> Nikdy ich nevyhadzujte do komunálneho odpadu ani do toalety — môžu znečistiť vodné zdroje. Odneste ich do lekárne. Lekárne na Slovensku sú povinné expirované lieky bezplatne prevziať na ekologickú likvidáciu.</div>
+
+<h2 id="zabudaju">Na čo ľudia často zabúdajú</h2>
 
 <div class="card-list">
 <div class="card-list-label">Často prehliadané položky</div>
@@ -442,21 +619,30 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
 </div>
 </div>
 
+<div class="disclaimer-box">
+<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;margin-top:2px"><circle cx="10" cy="10" r="9"/><path d="M10 6v5M10 13.5v.5"/></svg>
+<div>
+<strong>Upozornenie:</strong> Tento článok má výlučne informačný a vzdelávací charakter. Mámeplán.sk nie je orgánom štátnej správy, záchrannou službou ani zdravotníckym zariadením. Uvedené informácie nepredstavujú odbornú radu a nemôžu nahradiť pokyny príslušných úradov, záchranných zložiek alebo zdravotníckych pracovníkov. Pred prijatím akýchkoľvek opatrení si overte aktuálnosť informácií u oficiálnych autorít a postupujte podľa vlastného úsudku a konkrétnej situácie.
+</div>
+</div>
+</article>
+
 <div class="sources">
   <div class="sources-title">Zdroje a odporúčania</div>
   <ol>
-<li><a href="https://www.icrc.org/en/publication/first-aid" target="_blank" rel="noopener">ICRC / Medzinárodný Červený kríž — Prvá pomoc: príručka pre verejnosť</a></li>
-<li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/Ratgeber-Checkliste/ratgeber-checkliste_node.html" target="_blank" rel="noopener">BBK (Nemecko) — Hausapotheke: Was gehört hinein?</a></li>
-<li><a href="https://www.sukl.sk/" target="_blank" rel="noopener">ŠÚKL SR — Štátny ústav pre kontrolu liečiv</a></li>
-<li><a href="https://www.redcross.sk/" target="_blank" rel="noopener">Slovenský Červený kríž — odporúčania pre prvú pomoc</a></li>
-<li><a href="https://www.who.int/publications/i/item/WHO-MHP-HPS-EML-2023.02" target="_blank" rel="noopener">WHO — Model List of Essential Medicines (2023)</a></li>
-<li><a href="https://www.72hodin.cz/" target="_blank" rel="noopener">Česká príručka 72 hodín — Lékárnička</a></li>
-</ol>
+    <li><a href="https://www.sukl.sk/" target="_blank" rel="noopener noreferrer">ŠÚKL SR — Štátny ústav pre kontrolu liečiv: Výročná správa 2024</a></li>
+    <li><a href="https://www.redcross.sk/" target="_blank" rel="noopener noreferrer">Slovenský Červený kríž — odporúčania pre prvú pomoc a domácu lekárničku</a></li>
+    <li><a href="https://www.icrc.org/en/publication/first-aid" target="_blank" rel="noopener noreferrer">ICRC — Medzinárodný Červený kríž: Prvá pomoc — príručka pre verejnosť</a></li>
+    <li><a href="https://www.bbk.bund.de/DE/Warnung-Vorsorge/Vorsorge/vorsorge_node.html" target="_blank" rel="noopener noreferrer">BBK (Nemecko) — Vorsorgen für Krisen und Katastrophen: Hausapotheke (október 2025)</a></li>
+    <li><a href="https://www.72h.gov.cz/public/files/2025-09/72-hodin-Jak-se-pripravit-na-krizove-situace-a-spolecne-je-zvladnout_.pdf" target="_blank" rel="noopener noreferrer">MV ČR — Príručka „72 hodín": Jak se připravit na krizové situace (2025)</a></li>
+    <li><a href="https://www.who.int/publications/i/item/WHO-MHP-HPS-EML-2023.02" target="_blank" rel="noopener noreferrer">WHO — Model List of Essential Medicines (2023)</a></li>
+    <li><a href="https://spravy.pravda.sk/domace/clanok/778483-prazdne-sklady-s-vakcinami-nove-uz-nebudu-pacienti-pocituju-nedostatok-aj-pri-liekoch/" target="_blank" rel="noopener noreferrer">Pravda — Nedostatok liekov na Slovensku: lekárnici trávia hľadaním 11 hodín týždenne (december 2025)</a></li>
+  </ol>
 </div>
 
 <div class="cta-box">
-  <h3>Prehľad lekárničky priamo v mobile</h3>
-  <p>V Gerlachu si pridáte lieky aj s expiráciami — a dostanete upozornenie 180 dní vopred. Vidíte čo máte, čo chýba a čo treba vymeniť.</p>
+  <h3>Pridajte si lekárničku do Gerlachu</h3>
+  <p>V našej aplikácii Gerlach si pridáte lieky aj s expiráciami — a dostanete upozornenie 180 dní vopred. Vidíte čo máte, čo chýba a čo treba vymeniť.</p>
   <a class="btn btn-primary" href="../app.html">Otvoriť Gerlach</a><br/>
   <a class="btn-secondary" href="../app.html">alebo si vyskúšajte demo bez registrácie</a>
 </div>
@@ -466,19 +652,19 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
   <div class="more-grid">
     <a class="more-card" href="kolko-vody-potrebujem.html">
       <div class="more-card-tag">Zásoby</div>
-      <div class="more-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
+      <div class="more-card-title">Koľko vody potrebujem na 3 dni pre rodinu?</div>
     </a>
     <a class="more-card" href="co-mat-doma-pri-vypadku-elektriny.html">
       <div class="more-card-tag">Výpadok elektriny</div>
-      <div class="more-card-title">Čo mať doma pri výpadku elektriny?</div>
+      <div class="more-card-title">Čo mať doma pri výpadku elektriny?</div>
     </a>
     <a class="more-card" href="prva-pomoc-kpr-postup.html">
       <div class="more-card-tag">Prvá pomoc</div>
-      <div class="more-card-title">KPR postup krok po kroku</div>
+      <div class="more-card-title">KPR postup krok po kroku</div>
     </a>
     <a class="more-card" href="evakuacny-batoh-co-zabalit.html">
       <div class="more-card-tag">Evakuácia</div>
-      <div class="more-card-title">Evakuačný batoh — čo do neho zabaliť?</div>
+      <div class="more-card-title">Evakuačný batoh — čo do neho zabaliť?</div>
     </a>
   </div>
 </div>
