@@ -446,11 +446,11 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 .footer-links{display:flex;gap:var(--sp-5)}
 .footer-link{font-size:0.75rem;color:var(--muted);transition:color 0.15s}
 .footer-link:hover{color:var(--ink)}
-/* ── Support / Donate ── */
-.support-strip{text-align:center;padding:var(--sp-10) var(--sp-6) var(--sp-8);position:relative}
-.support-strip::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:48px;height:1.5px;background:var(--border)}
-.support-text{font-size:0.875rem;color:var(--muted);font-weight:300;line-height:1.7;max-width:400px;margin:0 auto 0.875rem}
-.support-btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.5rem 1.25rem;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink2);font-family:var(--sans);font-size:0.8125rem;font-weight:600;text-decoration:none;transition:all 0.3s ease;letter-spacing:0.01em}
+/* ── Support Section ── */
+.support-section{}
+.support-card{max-width:540px;margin:0 auto;text-align:center;background:var(--surface);border:1.5px dashed var(--border);border-radius:var(--r-xl);padding:var(--sp-8) var(--sp-6)}
+.support-card-text{font-size:0.9375rem;color:var(--ink2);font-weight:300;line-height:1.75;margin-bottom:var(--sp-5)}
+.support-btn{display:inline-flex;align-items:center;gap:0.45rem;padding:0.6rem 1.5rem;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--ink2);font-family:var(--sans);font-size:0.875rem;font-weight:600;text-decoration:none;transition:all 0.3s ease;letter-spacing:0.01em}
 .support-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);transform:translateY(-2px);box-shadow:0 4px 16px rgba(190,45,62,0.08)}
 .support-btn svg{transition:transform 0.3s ease}
 .support-btn:hover svg{transform:scale(1.15)}
@@ -1119,7 +1119,7 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
  <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Z akých zdrojov vychádzajú odporúčania?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Vychádzame z verejne dostupných odporúčaní autorít (napr. Civilná ochrana SR / MV SR, WHO, Červený kríž, ERC, ILCOR a ďalšie). Každá sekcia v aplikácii uvádza konkrétne zdroje.</div></div></div>
  <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Aké cookies používate?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Používame len nevyhnutné cookies na prihlásenie. Voliteľne aj analytiku na zlepšenie aplikácie — iba ak s tým súhlasíte. Žiadne reklamné cookies.</div></div></div>
  <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Pre koho je Gerlach určený?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Pre každú domácnosť, ktorá chce mať prehľad a pokoj. Nemusíte byť „prepper“ — stačí začať postupne a bez stresu.</div></div></div>
- <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Ako môžete projekt podporiť?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Najviac pomôžete zdieľaním s rodinou, priateľmi alebo susedmi. Veríme, že každá pripravená domácnosť posilňuje celú spoločnosť.</div></div></div>
+ <div class="faq-item rv"><button class="faq-q" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">Ako môžete projekt podporiť?<svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-a"><div class="faq-a-inner">Najviac pomôžete zdieľaním s rodinou, priateľmi alebo susedmi. Veríme, že každá pripravená domácnosť posilňuje celú spoločnosť. Ak vám Gerlach pomohol a chcete podporiť jeho ďalší vývoj, môžete prispieť dobrovoľným finančným darom cez <a href="https://paypal.me/MamePlan" target="_blank" rel="noopener" style="color:var(--primary);font-weight:500;text-decoration:underline;text-underline-offset:2px">PayPal</a>. Každý príspevok pomáha udržať aplikáciu bezplatnú a bez reklám.</div></div></div>
  </div>
 </div>
 </section>
@@ -1144,14 +1144,20 @@ footer{padding:var(--sp-5) var(--sp-6);border-top:1px solid var(--border)}
 </div>
 </section>
 
-<!-- ═══════ SUPPORT STRIP ═══════ -->
-<div class="support-strip rv">
-  <p class="support-text">Gerlach je bezplatný a bez reklám. Ak vám pomáha, môžete jeho vývoj podporiť.</p>
-  <a class="support-btn" href="https://paypal.me/MamePlan" target="_blank" rel="noopener">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    Podporiť projekt
-  </a>
+<!-- ═══════ PODPORA ═══════ -->
+<section class="section section-alt support-section" id="podpora">
+<div class="wrap">
+  <p class="sec-overline text-center rv">Podpora</p>
+  <h2 class="sec-title text-center rv rv-d1">Gerlach je bezplatný a bez reklám.</h2>
+  <div class="support-card rv rv-d2">
+    <p class="support-card-text">Ak vám Gerlach pomohol, budem rád, keď zvážite jeho finančnú podporu, čím uľahčíte jeho dostupnosť ďalším používateľom a vývoj budúcich aktualizácií. Ďakujem.</p>
+    <a class="support-btn" href="https://paypal.me/MamePlan" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Podporiť cez PayPal
+    </a>
+  </div>
 </div>
+</section>
 
 <!-- ═══════ CTA ═══════ -->
 <div class="flag-line" aria-hidden="true"></div>
