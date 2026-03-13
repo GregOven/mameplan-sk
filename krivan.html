@@ -577,7 +577,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 }
 
 /* ── PANELS ── */
-.panel{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:26px;position:relative;overflow:hidden;margin-bottom:20px}
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:26px;position:relative;overflow:hidden}
 .panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
 /* Úroveň 3 — Inputs panels fade back so results breathe */
 .inputs-panel{border-color:rgba(28,29,46,.5)}
@@ -593,7 +593,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .layout.stretch .col{display:flex;flex-direction:column}
 .layout.stretch .col > .panel:last-child,
 .layout.stretch .col > div:last-child{flex:1}
-.col{display:flex;flex-direction:column;gap:0}
+.col{display:flex;flex-direction:column;gap:20px}
 
 /* ── SECTION DIVIDERS within panels ── */
 .sec-hdr{display:flex;align-items:center;gap:10px;margin:28px 0 18px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);opacity:.5}
@@ -1524,7 +1524,7 @@ body {
 .g3 { gap: 20px; }
 .g4 { gap: 18px; }
 .layout { gap: 20px; grid-template-columns: min(400px,40%) 1fr; }
-.col { gap: 0; }
+.col { gap: 20px; }
 
 /* ── SLIDERS ── */
 .ig { margin-bottom: 22px; }
