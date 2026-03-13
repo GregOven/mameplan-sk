@@ -505,11 +505,15 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 /* Column widths: Name=auto, Type=90px, Balance=110px, Rate=80px, Monthly=110px, Term=72px, Del=32px */
 .debt-table th:nth-child(1),.debt-table td:nth-child(1){width:auto;min-width:80px;}
 .debt-table th:nth-child(2),.debt-table td:nth-child(2){width:90px;}
-.debt-table th:nth-child(3),.debt-table td:nth-child(3){width:110px;}
-.debt-table th:nth-child(4),.debt-table td:nth-child(4){width:80px;}
-.debt-table th:nth-child(5),.debt-table td:nth-child(5){width:110px;}
-.debt-table th:nth-child(6),.debt-table td:nth-child(6){width:72px;}
-.debt-table th:nth-child(7),.debt-table td:nth-child(7){width:32px;}
+.debt-table th:nth-child(3),.debt-table td:nth-child(3){width:100px;}
+.debt-table th:nth-child(4),.debt-table td:nth-child(4){width:72px;}
+.debt-table th:nth-child(5),.debt-table td:nth-child(5){width:100px;}
+.debt-table th:nth-child(6),.debt-table td:nth-child(6){width:60px;}
+.debt-table th:nth-child(7),.debt-table td:nth-child(7){width:72px;}
+.debt-table th:nth-child(8),.debt-table td:nth-child(8){width:64px;}
+.debt-table th:nth-child(9),.debt-table td:nth-child(9){width:32px;}
+.debt-mort-row{display:none;}.debt-mort-row.visible{display:table-row;}
+.debt-fix-badge{display:inline-block;font-size:11px;font-family:'Source Code Pro',monospace;background:rgba(200,168,75,.12);border:1px solid rgba(200,168,75,.25);color:var(--amber2);border-radius:4px;padding:1px 5px;margin-left:4px;}
 .debt-inp{background:var(--bg3);border:1px solid transparent;color:var(--text);font-family: var(--ff-ui);font-size:var(--fs-base);border-radius:6px;padding:4px 6px;width:100%;outline:none;transition:border-color .15s;min-width:0;box-sizing:border-box;}
 .debt-inp:focus{border-color:rgba(244,63,94,.4);}
 .debt-inp::-webkit-outer-spin-button,.debt-inp::-webkit-inner-spin-button{-webkit-appearance:none;}
@@ -1922,7 +1926,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
       <!-- ══ T13 · FINANČNÁ DIAGNOSTIKA ══ -->
       <div class="src-calc-block visible" data-tab="t13">
         <div class="src-calc-title">T13 · Finančná diagnostika</div>
-        <div class="src-calc-desc">Celkový prehľad finančného zdravia — 8 ukazovateľov s hodnotením zelená/žltá/červená. Čerpá živé dáta z T9 (Cashflow), T11 (Dlhy), T10 (Núdzový fond) a T1 (portfólio).</div>
+        <div class="src-calc-desc">Celkový prehľad finančného zdravia — 8 ukazovateľov s hodnotením zelená/žltá/červená. Čerpá živé dáta z T9 (Cashflow), T11 (Dlhy), T10 (Rezervný fond) a T1 (portfólio).</div>
         <div class="src-item">
           <span class="src-tag src-tag-nbs">NBS / EBA</span>
           <div class="src-ref">DSTI — mesačná záťaž dlhov
@@ -1944,7 +1948,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
         </div>
         <div class="src-item">
           <span class="src-tag src-tag-method">CFP Board</span>
-          <div class="src-ref">Núdzový fond — odporúčaný počet mesiacov výdavkov
+          <div class="src-ref">Rezervný fond — odporúčaný počet mesiacov výdavkov
             <div class="src-formula"><strong>EF pokrytie</strong> = Nasporené ÷ Mesačné výdavky<br>🟢 ≥6 mes.  ·  🟡 3–6 mes.  ·  🔴 &lt;3 mes.</div>
             <small>Štandard odporúčaný CFP Board a NBS v publikáciách finančnej gramotnosti.</small>
           </div>
@@ -4038,7 +4042,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <!-- Integrate with Tab 1 -->
     <button class="integrate-btn" id="mort-integrate-btn" onclick="mortIntegrateWithCalc()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Použiť zostatok <strong id="mort-integrate-val">—</strong> ako mesačný vklad v Kalkulačke
+      Použiť zostatok <strong id="mort-integrate-val">—</strong> ako mesačný vklad v Rast portfólia
     </button>
   </div>
 
@@ -4297,14 +4301,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané<div class='tt-hr'></div>
-<strong>Rast portfólia</strong> — mesačný vklad, ktorý sa automaticky nastaví v T1 (Kalkulačka investovania) na základe vašej investičnej miery.<br>
+<strong>Rast portfólia</strong> — mesačný vklad, ktorý sa automaticky nastaví v záložke Rast portfólia na základe vašej investičnej miery.<br>
 <strong>Rezervný fond</strong> — celkové mesačné výdavky posielané do T10 ako cieľ fondu.<br>
-<strong>EF príspevok</strong> — koľko mesačne odkladáte na núdzový fond.<br>
+<strong>EF príspevok</strong> — koľko mesačne odkladáte na rezervný fond.<br>
 <strong>Hypo splátka</strong> — mesačná splátka hypotéky z T8, automaticky zarátaná do výdavkov.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný vklad v Kalkulačke (T1)">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
+  <span class="sync-badge fresh dot" title="Mesačný vklad v Rast portfólia">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
   <button id="t1-cf-sync-hint" style="display:none;font-size:12px;font-family:'Source Code Pro',monospace;padding:3px 9px;border-radius:100px;border:1px solid rgba(200,168,75,.35);background:rgba(200,168,75,.1);color:var(--gold2);cursor:pointer;align-items:center;gap:4px;transition:all .2s;" onmouseover="this.style.background='rgba(200,168,75,.18)'" onmouseout="this.style.background='rgba(200,168,75,.1)'"></button>
-  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Núdzový fond: <strong id="sync-ef-expenses">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong></span>
+  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Rezervný fond: <strong id="sync-ef-expenses">—</strong></span>
+  <span class="sync-badge fresh dot" title="Príspevok do Rezervného fondu">Rez. fond: <strong id="sync-ef-contrib">—</strong></span>
   <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
 </div>
 
@@ -4328,7 +4332,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   </div>
   <button class="integrate-btn" onclick="cfIntegrateWithCalc()" style="padding:8px 14px;font-size:13.2px;">
     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    Použiť investície ako vklad v Kalkulačke
+    Použiť investície ako vklad v Rast portfólia
   </button>
 </div>
 
@@ -4356,7 +4360,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
   <button class="integrate-btn" onclick="cfIntegrateWithEF()" id="cf-to-ef-btn" style="width:100%;justify-content:center;background:rgba(34,211,238,.06);border-color:rgba(34,211,238,.25);color:var(--cyan2);">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Vložiť <strong id="cf-to-ef-val">—</strong> /mes. do Núdzového fondu
+    Vložiť <strong id="cf-to-ef-val">—</strong> /mes. do Rezervného fondu
   </button>
 
 </div><!-- end right col -->
@@ -4380,8 +4384,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <div style="background:rgba(34,211,238,.03);border:1px solid rgba(34,211,238,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
   <div>
-    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Núdzový fond — finančný vankúš pre neočakávané situácie</div>
-    <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Núdzový fond by mal pokryť 3 až 6 mesiacov vašich výdavkov. Bez neho hrozí, že pri výpadku príjmu siahate na investície alebo sa zadlžíte.</div>
+    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Rezervný fond — finančný vankúš pre neočakávané situácie</div>
+    <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Rezervný fond by mal pokryť 3 až 6 mesiacov vašich výdavkov. Bez neho hrozí, že pri výpadku príjmu siahate na investície alebo sa zadlžíte.</div>
   </div>
 </div>
 
@@ -4389,12 +4393,12 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <!-- LEFT: INPUTS -->
 <div class="col">
   <div class="panel inputs-panel">
-    <p class="plbl" style="margin-bottom:16px;">Parametre núdzového fondu</p>
+    <p class="plbl" style="margin-bottom:16px;">Parametre rezervného fondu</p>
 
     <div class="sec-hdr">Mesačné výdavky</div>
     <div class="ig primary">
       <div class="il">Celkové mesačné výdavky <span class="val" id="ef-l-expenses">€1 200</span>
-        <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky pre núdzový fond</div>Zadajte <strong>skutočné mesačné výdavky</strong> — nie príjem. Núdzový fond má pokryť výdavky (nájom, jedlo, energie, splátky) keby ste prišli o prácu.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, môžete použiť číslo odtiaľ tlačidlom nižšie.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky pre rezervný fond</div>Zadajte <strong>skutočné mesačné výdavky</strong> — nie príjem. Rezervný fond má pokryť výdavky (nájom, jedlo, energie, splátky) keby ste prišli o prácu.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, môžete použiť číslo odtiaľ tlačidlom nižšie.">?</span>
       </div>
       <input type="range" id="ef-expenses" min="200" max="5000" step="50" value="1200" oninput="calcEF()" aria-label="Mesačné výdavky">
       <div class="rbnd"><span>€200</span><span>€5 000</span></div>
@@ -4425,7 +4429,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="sec-hdr">Mesačný príspevok do fondu</div>
     <div class="ig">
       <div class="il">Sporím každý mesiac <span class="val" id="ef-l-monthly">€100</span>
-        <span class="tip" data-tip="<div class='tt-title'>Mesačný príspevok</div>Koľko každý mesiac odkladáte na núdzový fond. Núdzový fond by mal byť v <strong>ľahko dostupnom nástroji</strong>: sporiaci účet, termínovaný vklad.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, tlačidlo 'Vložiť do Núdzového fondu' vloží toto číslo automaticky.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Mesačný príspevok</div>Koľko každý mesiac odkladáte na rezervný fond. Rezervný fond by mal byť v <strong>ľahko dostupnom nástroji</strong>: sporiaci účet, termínovaný vklad.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, tlačidlo 'Vložiť do Rezervného fondu' vloží toto číslo automaticky.">?</span>
       </div>
       <input type="range" id="ef-monthly" min="0" max="2000" step="25" value="50" oninput="calcEF()" aria-label="Mesačný príspevok do rezervy">
       <div class="rbnd"><span>€0</span><span>€2 000</span></div>
@@ -4434,7 +4438,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="sec-hdr">Úrok na sporiacom účte</div>
     <div class="ig">
       <div class="il">Úroková sadzba <span class="val" id="ef-l-rate">2,5%</span>
-        <span class="tip" data-tip="<div class='tt-title'>Kde uchovávať núdzový fond v SR</div><strong>Fio konto:</strong> 1,8% p.a. do €10k, 1,5% nad €10k — okamžitá likvidita<br><strong>Krátkodobé dlhopisy PRAB:</strong> ~2–2,5% p.a. — cez IBKR<br><strong>Ostatné SK banky:</strong> 0,5–1,5% p.a.<div class='tt-hr'></div>Núdzový fond <strong>neinvestujte</strong> do ETF — pri výpadku príjmu môžu byť trhy dole práve vtedy, keď peniaze potrebujete.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Kde uchovávať rezervný fond v SR</div><strong>Fio konto:</strong> 1,8% p.a. do €10k, 1,5% nad €10k — okamžitá likvidita<br><strong>Krátkodobé dlhopisy PRAB:</strong> ~2–2,5% p.a. — cez IBKR<br><strong>Ostatné SK banky:</strong> 0,5–1,5% p.a.<div class='tt-hr'></div>Rezervný fond <strong>neinvestujte</strong> do ETF — pri výpadku príjmu môžu byť trhy dole práve vtedy, keď peniaze potrebujete.">?</span>
       </div>
       <input type="range" id="ef-rate" min="0" max="8" step="0.25" value="2.5" oninput="calcEF()" aria-label="Výnos sporenia rezervy">
       <div class="rbnd"><span>0%</span><span>8%</span></div>
@@ -4448,7 +4452,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <!-- HERO: cieľ a stav -->
   <div style="background:var(--bg2);border:1px solid rgba(167,139,250,.3);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;margin-bottom:20px;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);"></div>
-    <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:#c4b5fd;opacity:.8;margin-bottom:6px;">Cieľ núdzového fondu</div>
+    <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:#c4b5fd;opacity:.8;margin-bottom:6px;">Cieľ rezervného fondu</div>
     <div style="font-family:'Spectral',serif;font-size:clamp(40px,6vw,72px);font-weight:700;font-style:italic;color:#c4b5fd;line-height:1;text-shadow:0 0 40px rgba(167,139,250,.3),0 2px 20px rgba(167,139,250,.15);" id="ef-target">—</div>
     <div style="font-size:15.6px;color:var(--muted2);margin-top:6px;" id="ef-target-sub">—</div>
 
@@ -4493,7 +4497,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
   <!-- ODPORÚČANIA + kde uložiť -->
   <div class="panel">
-    <p class="plbl" style="margin-bottom:4px;">Kde uložiť núdzový fond v SR?</p>
+    <p class="plbl" style="margin-bottom:4px;">Kde uložiť rezervný fond v SR?</p>
     <p style="font-size:var(--fs-sm);color:var(--muted2);margin-bottom:14px;">Aby bol aspoň sčasti chránený pred infláciou — bez toho aby si stratil rýchly prístup.</p>
     <div style="display:flex;flex-direction:column;gap:22px;" id="ef-vehicles">
 
@@ -4530,9 +4534,9 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
       <!-- ETF varovanie -->
       <div style="background:rgba(240,82,82,.04);border:1px solid rgba(240,82,82,.15);border-radius:12px;padding:14px 16px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-          <span style="font-size:var(--fs-base);font-weight:500;color:var(--red);">Akciové ETF — nie pre núdzový fond</span>
+          <span style="font-size:var(--fs-base);font-weight:500;color:var(--red);">Akciové ETF — nie pre rezervný fond</span>
         </div>
-        <div style="font-size:var(--fs-sm);color:var(--muted2);line-height:1.6;">Pri výpadku príjmu môžu byť trhy práve dole o 30–50%. Predaj v poklese by zničil roky rastu. Núdzový fond musí byť <strong>stabilný a okamžite dostupný</strong>. Krátkodobé dlhopisové ETF (KROK 3) sú v poriadku — akciové nie.</div>
+        <div style="font-size:var(--fs-sm);color:var(--muted2);line-height:1.6;">Pri výpadku príjmu môžu byť trhy práve dole o 30–50%. Predaj v poklese by zničil roky rastu. Rezervný fond musí byť <strong>stabilný a okamžite dostupný</strong>. Krátkodobé dlhopisové ETF (KROK 3) sú v poriadku — akciové nie.</div>
       </div>
 
     </div>
@@ -4615,6 +4619,9 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <!-- Odporúčanie -->
   <div id="debt-rec-box"></div>
 
+  <!-- Hypotekárna analýza (zobrazí sa len ak je typ=Hypotéka) -->
+  <div id="debt-mort-analysis" class="panel" style="display:none;margin-top:14px;border-color:rgba(200,168,75,.2);"></div>
+
 </div>
 </div>
 </div><!-- end tab11 -->
@@ -4678,11 +4685,11 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 Diagnostika čerpá z:<br>
 <strong>Cashflow T9</strong> — príjmy, výdavky, savings rate<br>
 <strong>Dlhy T11</strong> — DSTI, DTI, celková záťaž<br>
-<strong>Núdzový fond T10</strong> — koľko mesiacov výdavkov máte pokrytých<br>
+<strong>Rezervný fond</strong> — koľko mesiacov výdavkov máte pokrytých<br>
 <strong>Kalkulačka T1</strong> — investičná miera, portfólio">?</span>
   <span class="sync-badge fresh dot">Cashflow T9</span>
   <span class="sync-badge fresh dot">Dlhy T11</span>
-  <span class="sync-badge fresh dot">Núdzový fond T10</span>
+  <span class="sync-badge fresh dot">Rezervný fond</span>
   <span class="sync-badge fresh dot">Kalkulačka T1</span>
   <span style="margin-left:auto;font-size:14.4px;color:var(--muted);opacity:.5;">ŠÚ SR 2024 · NBS · MSCI World</span>
 </div>
@@ -7850,7 +7857,7 @@ const STATE_INPUT_IDS = [
   'cf-rent','cf-energy','cf-insur','cf-loans','cf-subs',
   'cf-food','cf-transport','cf-dining','cf-fun','cf-clothes','cf-health','cf-misc',
   'cf-invest-pct','cf-ef-pct','cf-free-pct',
-  /* Tab 10 – Núdzový fond */
+  /* Tab 10 – Rezervný fond */
   'ef-expenses','ef-saved','ef-monthly','ef-rate',
   /* Iné number inputs */
   'n-port','n-sy','_vei',
@@ -8034,7 +8041,7 @@ const CF2_CATS_DEFAULT = [
    ]},
   {id:'savings',  label:'Úspory',                   rgb:'192,132,252', type:'savings',
    items:[
-     {name:'Núdzový fond ucet',      val:50},
+     {name:'Rezervný fond - účet',      val:50},
      {name:'Zelená rezerva hotovosť',val:0},
      {name:'Zlato fyzické',          val:0},
      {name:'Zlato ETF',              val:0},
@@ -8259,7 +8266,7 @@ function updateCF2Recs(income, housing, fixedNec, fixed, voluntary, luxury, inve
   // Zostatok
   if(balance<0)          recs.push({t:'bad',  m:`Výdavky presahujú príjmy o ${fmt(Math.abs(Math.round(balance)))} — treba znížiť náklady alebo zvýšiť príjem.`});
   else if(balance<100)   recs.push({t:'warn', m:`Zostatok iba ${fmt(Math.round(balance))} — prakticky žiadny vankúš. Znížte niektoré kategórie.`});
-  else if(balance>0 && savings===0) recs.push({t:'info', m:`Zostatok ${fmt(Math.round(balance))} nejde do úspor. Zvážte presunúť časť do Núdzového fondu.`});
+  else if(balance>0 && savings===0) recs.push({t:'info', m:`Zostatok ${fmt(Math.round(balance))} nejde do úspor. Zvážte presunúť časť do Rezervného fondu.`});
 
   // Celková miera
   const sp = (invest+savings)/income;
@@ -8287,7 +8294,7 @@ function cfIntegrateWithCalc(){
 
 function cfIntegrateWithEF(){
   const amt = window._cfEFAmt || 0;
-  if(amt<=0){ showToast('Suma pre núdzový fond je nulová.', 'var(--amber2)'); return; }
+  if(amt<=0){ showToast('Suma pre rezervný fond je nulová.', 'var(--amber2)'); return; }
   const slider = $el('ef-monthly'); if(!slider) return;
   slider.value = Math.min(amt, +slider.max);
   fillSlider(slider);
@@ -8295,7 +8302,7 @@ function cfIntegrateWithEF(){
   calcEF();
   const t10btn = document.querySelector('.tg-finance .tab:last-child');
   if(t10btn) showTab('t10', t10btn);
-  showToast('Mesačný príspevok do núdzového fondu nastavený na '+fmt(amt), 'var(--cyan)');
+  showToast('Mesačný príspevok do rezervného fondu nastavený na '+fmt(amt), 'var(--cyan)');
 }
 
 /* ══════════════════════════════════════════════
@@ -8319,7 +8326,7 @@ const DIAG = {
   DSTI_MAX:              0.40,   // NBS záväzná hranica DSTI
   SAVINGS_TARGET:        0.20,   // CFP štandard ≥20% čistého
   INVEST_MIN:       0.15,    // Bogle/Vanguard ≥15% čistého
-  EF_MIN_MONTHS:    3,       // minimum núdzového fondu
+  EF_MIN_MONTHS:    3,       // minimum rezervného fondu
   EF_TARGET_MONTHS: 6,       // štandard pre zamestnancov
   REFI_THRESHOLD:   0.04,    // refi sa oplatí zvážiť ak sadzba >4%
   REFI_BEST_NOW:    0.034,   // najlepšie dostupné sadzby SK mar 2025 (5r fix)
@@ -8514,10 +8521,10 @@ function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon,
   const efGap = Math.max(0, efTarget - efCurrent);
   const efMonCov = expenses > 0 ? efCurrent / expenses : 0;
 
-  // Pravidlo 1: Najprv núdzový fond (aspoň 1 mesiac)
+  // Pravidlo 1: Najprv rezervný fond (aspoň 1 mesiac)
   if(efMonCov < 1){
     items.push({ color:'var(--red)', icon:'!',
-      title:'Vytvorte si núdzový polštár — URGENTNÉ',
+      title:'Vytvorte si rezervný fond — URGENTNÉ',
       detail:`Nemáte ani mesačnú rezervu. Každý nečakaný výdavok (oprava auta, lekár, výpadok príjmu) by vás prinútil ísť do dlhu. Otvorte sporiaci účet a vkladajte naň ${fmt(expenses)}/mes. kým nemáte aspoň 1 mesiac výdavkov v zálohe.`,
       impact:`Cieľ (3 mes.): ${fmt(expenses*3)}. Pri ${fmt(Math.max(savings,balance*0.3))}/mes. dosiahnuteľné za ${Math.ceil((expenses*3-efCurrent)/Math.max(savings,balance*0.3,1))} mes.`
     });
@@ -8535,7 +8542,7 @@ function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon,
     });
   }
 
-  // Pravidlo 3: Núdzový fond na 3 mesiace
+  // Pravidlo 3: Rezervný fond na 3 mesiace
   if(efMonCov >= 1 && efMonCov < 3){
     const needed = expenses * 3 - efCurrent;
     const monthsToGo = savings > 0 ? Math.ceil(needed/savings) : '?';
@@ -8558,7 +8565,7 @@ function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon,
     });
   }
 
-  // Pravidlo 5: Núdzový fond na 6 mesiacov
+  // Pravidlo 5: Rezervný fond na 6 mesiacov
   if(efMonCov >= 3 && efMonCov < 6){
     items.push({ color:'var(--cyan2)', icon: items.length+1+'',
       title:'Navýšte rezervu na 6 mesiacov — úplná finančná bezpečnosť',
@@ -8611,7 +8618,7 @@ function calcTimeline(income, invest, savings, balance, debtBal, debtMon, efCurr
   const events = [];
   const today = new Date();
 
-  // Núdzový fond
+  // Rezervný fond
   if(expenses > 0){
     const ef3needed = Math.max(0, expenses*3 - efCurrent);
     const ef6needed = Math.max(0, expenses*6 - efCurrent);
@@ -9086,7 +9093,7 @@ function calcEF(){
   // Status box
   const sb = $el('ef-status-box');
   if(pct >= 100){
-    sb.innerHTML = `<div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;"><div style="font-size:19.2px;"></div><div style="font-size:15.6px;color:var(--emerald);font-weight:500;">Cieľ splnený! Núdzový fond je kompletný — prebytok môžete investovať do ETF.</div></div>`;
+    sb.innerHTML = `<div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.3);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;"><div style="font-size:19.2px;"></div><div style="font-size:15.6px;color:var(--emerald);font-weight:500;">Cieľ splnený! Rezervný fond je kompletný — prebytok môžete investovať do ETF.</div></div>`;
   } else if(pct >= 50){
     sb.innerHTML = `<div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px 16px;font-size:15.6px;color:var(--amber2);">Na pol ceste — zostáva ${fmt(missing)} do cieľa.</div>`;
   } else {
@@ -9164,7 +9171,7 @@ const DEBT_TYPES = ['Hypotéka','Spotrebný úver','Leasing','Kreditná karta','
 let debtRows = [];
 
 function debtAddRow(){
-  debtRows.push({name:'Nový dlh', type:'Spotrebný úver', balance:0, rate:5, monthly:0, term:5});
+  debtRows.push({name:'Nový dlh', type:'Spotrebný úver', balance:0, rate:5, monthly:0, term:5, fixRate:0, fixYears:0});
   renderDebtList(); calcDebt();
 }
 function debtRemoveRow(i){ debtRows.splice(i,1); renderDebtList(); calcDebt(); }
@@ -9181,7 +9188,29 @@ function renderDebtList(){
     return;
   }
   const typeOpts = (sel) => DEBT_TYPES.map(t=>`<option value="${t}" ${sel===t?'selected':''}>${t}</option>`).join('');
-  const rows = debtRows.map((d,i) => `
+  const rows = debtRows.map((d,i) => {
+    const isMort = d.type === 'Hypotéka';
+    const fixBadge = isMort && d.fixYears > 0 ? `<span class="debt-fix-badge">fix ${d.fixYears}r.</span>` : '';
+    const mortExtra = isMort ? `
+      <tr class="debt-mort-row visible" style="background:rgba(200,168,75,.03);">
+        <td colspan="2" style="padding:4px 8px;font-size:12px;color:var(--amber2);font-family:'Source Code Pro',monospace;letter-spacing:1px;opacity:.7;">↳ HYPOTÉKA</td>
+        <td colspan="2" style="padding:4px 6px;">
+          <div style="display:flex;align-items:center;gap:2px;" title="Sadzba po refixácii (plánovaná)">
+            <span class="debt-unit" style="font-size:11px;">refix%</span>
+            <input class="debt-inp" type="number" value="${d.fixRate||0}" min="0" max="15" step="0.1" style="font-size:12px;" oninput="debtUpdate(${i},'fixRate',this.value)" placeholder="0">
+            <span class="debt-unit" style="font-size:11px;">%</span>
+          </div>
+        </td>
+        <td colspan="2" style="padding:4px 6px;">
+          <div style="display:flex;align-items:center;gap:2px;" title="Zostatok fixačného obdobia v rokoch">
+            <span class="debt-unit" style="font-size:11px;">fixácia</span>
+            <input class="debt-inp" type="number" value="${d.fixYears||0}" min="0" max="10" step="1" style="font-size:12px;" oninput="debtUpdate(${i},'fixYears',this.value)" placeholder="0">
+            <span class="debt-unit" style="font-size:11px;">r.</span>
+          </div>
+        </td>
+        <td colspan="3"></td>
+      </tr>` : '';
+    return `
     <tr>
       <td><input class="debt-inp" value="${(d.name||'').replace(/"/g,'&quot;')}" onchange="debtUpdate(${i},'name',this.value)"></td>
       <td><select class="debt-sel" onchange="debtUpdate(${i},'type',this.value)">${typeOpts(d.type)}</select></td>
@@ -9189,15 +9218,17 @@ function renderDebtList(){
       <td><div style="display:flex;align-items:center;gap:2px;"><input class="debt-inp" type="number" value="${d.rate||0}" min="0" max="30" step="0.1" oninput="debtUpdate(${i},'rate',this.value)"><span class="debt-unit">%</span></div></td>
       <td><div style="display:flex;align-items:center;gap:2px;"><span class="debt-unit">€</span><input class="debt-inp" type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)"></div></td>
       <td><div style="display:flex;align-items:center;gap:2px;"><input class="debt-inp" type="number" value="${d.term||0}" min="0" max="40" step="1" oninput="debtUpdate(${i},'term',this.value)"><span class="debt-unit">r.</span></div></td>
+      <td colspan="2" style="font-size:12px;color:var(--muted2);">${isMort ? '🏠' : ''} ${fixBadge}</td>
       <td><button class="cf2-del-btn" onclick="debtRemoveRow(${i})" style="opacity:.4;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.4">×</button></td>
-    </tr>`).join('');
+    </tr>${mortExtra}`;
+  }).join('');
   const total = debtRows.reduce((s,d)=>s+(+d.balance||0),0);
   const totalMon = debtRows.reduce((s,d)=>s+(+d.monthly||0),0);
   wrap.innerHTML = `
     <div class="debt-table-wrap" style="margin-bottom:12px;">
       <table class="debt-table">
         <thead><tr>
-          <th>Názov</th><th>Typ</th><th>Zostatok</th><th>Sadzba</th><th>Splátka /mes.</th><th>Roky</th><th></th>
+          <th>Názov</th><th>Typ</th><th>Zostatok</th><th>Sadzba</th><th>Splátka /mes.</th><th>Roky</th><th colspan="2" style="font-size:11px;opacity:.5;">Hyp. detail</th><th></th>
         </tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr>
@@ -9205,7 +9236,7 @@ function renderDebtList(){
           <td style="padding:8px 10px;font-family:'Source Code Pro',monospace;font-size:14.4px;font-weight:600;color:rgba(244,63,94,.8);">${fmt(total)}</td>
           <td></td>
           <td style="padding:8px 10px;font-family:'Source Code Pro',monospace;font-size:14.4px;font-weight:600;color:rgba(244,63,94,.6);">${fmt(totalMon)}/mes.</td>
-          <td colspan="2"></td>
+          <td colspan="4"></td>
         </tr></tfoot>
       </table>
     </div>`;
@@ -9345,6 +9376,112 @@ function calcDebt(){
     rb.innerHTML = `<div class="cf2-rec ${recType}" style="margin-top:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">${recText}</div></div>`;
   }
 
+  // ── HYPOTEKÁRNA ANALÝZA ──
+  const mortDebts = debtRows.filter(d => d.type === 'Hypotéka' && +d.balance > 0);
+  const mortBox = $el('debt-mort-analysis');
+  if(mortBox){
+    if(mortDebts.length === 0){
+      mortBox.style.display = 'none';
+    } else {
+      mortBox.style.display = 'block';
+      const analyses = mortDebts.map(m => {
+        const bal     = +m.balance || 0;
+        const rate    = +m.rate    || 0;
+        const mon     = +m.monthly || 0;
+        const term    = +m.term    || 0;
+        const fixRate = +m.fixRate || 0;
+        const fixYrs  = +m.fixYears|| 0;
+        const mr      = rate / 100 / 12;
+
+        // Zostatok po fixácii
+        let balAtFix = bal;
+        if(fixYrs > 0 && mon > 0 && mr > 0){
+          for(let m2=0; m2 < fixYrs*12; m2++){
+            balAtFix = Math.max(0, balAtFix * (1 + mr) - mon);
+          }
+        }
+
+        // Mesačná splátka po refixácii
+        const termLeft = term - fixYrs;
+        let newPayment = mon;
+        if(fixRate > 0 && termLeft > 0 && balAtFix > 0){
+          const mr2 = fixRate / 100 / 12;
+          newPayment = mr2 > 0
+            ? Math.round(balAtFix * mr2 / (1 - Math.pow(1 + mr2, -(termLeft * 12))))
+            : Math.round(balAtFix / (termLeft * 12));
+        }
+        const paymentDiff = newPayment - mon;
+        const paymentDiffAbs = Math.abs(paymentDiff);
+
+        // Celkové úroky pri súčasnej sadzbe
+        let b = bal, totalInt = 0;
+        if(mr > 0 && mon > 0){
+          for(let m2=0; m2 < term*12 && b > 0; m2++){
+            const interest = b * mr;
+            totalInt += interest;
+            b = Math.max(0, b + interest - mon);
+          }
+        }
+
+        // Odporúčania
+        const recs = [];
+
+        // 1. Refixácia analýza
+        if(fixRate > 0 && fixYrs > 0){
+          const diff = fixRate - rate;
+          if(diff > 0.5){
+            recs.push({type:'bad', text:`⚠️ Refixácia za ${fixYrs} r. na ${fixRate}% zvýši splátku o <strong style="color:var(--red);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Zvážte mimoriadne splácanie teraz, kým je sadzba nižšia.`});
+          } else if(diff < -0.3){
+            recs.push({type:'ok', text:`✅ Refixácia za ${fixYrs} r. na ${fixRate}% zníži splátku o <strong style="color:var(--emerald);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Dobrá vyhliadka.`});
+          } else {
+            recs.push({type:'info', text:`Refixácia za ${fixYrs} r. na ${fixRate}% — splátka sa zmení minimálne (±${fmt(paymentDiffAbs)}/mes.).`});
+          }
+        } else if(fixYrs > 0){
+          recs.push({type:'info', text:`Fixácia ešte ${fixYrs} r. — vyplňte plánovanú sadzbu po refixácii pre analýzu dopadu na splátku.`});
+        }
+
+        // 2. Celkové úroky
+        if(totalInt > 0){
+          recs.push({type:'info', text:`Pri sadze ${rate}% zaplatíte za ${term} rokov na úrokoch celkovo <strong style="color:var(--amber2);">${fmt(Math.round(totalInt))}</strong> — teda ${Math.round(totalInt/bal*100)}% z istiny navyše.`});
+        }
+
+        // 3. Sadzba benchmark
+        if(rate > 4.5){
+          recs.push({type:'bad', text:`Sadzba ${rate}% je nad aktuálnym trhom (SK priemer 2025: ~3.5–4.2%). Ak máte fixáciu do 1 roka, aktívne kontaktujte banky — refinancovanie môže ušetriť desiatky € mesačne.`});
+        } else if(rate < 3.0){
+          recs.push({type:'ok', text:`Sadzba ${rate}% je výborne pod trhom. Mimoriadne splácanie je menej prioritné — každé voľné euro investované do ETF pravdepodobne prinesie vyšší výnos.`});
+        }
+
+        // 4. LTV check (ak máme cenu z hypotéky)
+        const propVal = +($el('mr-price')?.value || 0);
+        if(propVal > 0 && bal > 0){
+          const ltv = bal / propVal * 100;
+          if(ltv < 60){
+            recs.push({type:'ok', text:`LTV ~${ltv.toFixed(0)}% — ste pod 60%. Banky ponúkajú najlepšie sadzby pri LTV < 60%, môžete sa pokúsiť o výhodnejšiu refinancovanie.`});
+          }
+        }
+
+        const recsHtml = recs.map(r =>
+          `<div class="cf2-rec ${r.type}" style="margin-bottom:8px;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);line-height:1.6;">${r.text}</div></div>`
+        ).join('');
+
+        return `
+          <div style="border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:14px;">
+            <div style="font-size:14.4px;font-weight:600;color:var(--text);margin-bottom:10px;">
+              🏠 ${esc(m.name)}
+              <span style="font-family:'Source Code Pro',monospace;font-size:12px;color:var(--muted);font-weight:400;margin-left:8px;">${fmt(bal)} zostatok · ${rate}% · ${term} r.</span>
+              ${fixYrs > 0 ? `<span class="debt-fix-badge">fixácia ${fixYrs} r.</span>` : ''}
+            </div>
+            ${recsHtml || `<div style="font-size:14.4px;color:var(--muted);">Vyplňte sadzbu a dobu fixácie pre podrobnú analýzu.</div>`}
+          </div>`;
+      }).join('');
+
+      mortBox.innerHTML = `
+        <p class="plbl" style="margin-bottom:12px;">Hypotekárna analýza</p>
+        ${analyses}`;
+    }
+  }
+
   // ── AUTO SYNC T11 → T12: dlhy do net worth ──
   crossSync_Debt_to_Assets();
 }
@@ -9442,7 +9579,7 @@ function calcAssets(){
 }
 
 
-/* ── Import výdavkov z Cashflow do Núdzového fondu ── */
+/* ── Import výdavkov z Cashflow do Rezervného fondu ── */
 function efImportFromCF(){
   const exp = window._cfExpenses;
   if(!exp || exp <= 0){ showToast('Najprv vyplňte Cashflow kalkulačku.', 'var(--amber2)'); return; }
