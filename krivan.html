@@ -90,7 +90,7 @@
   .panel{border:1px solid #ccc!important;background:#fff!important;break-inside:avoid}
   .wrap{padding:20px!important}
   .hero-block,.hero-real-box,.sc,.ambox{background:#f8f9ff!important;border-color:#ccc!important}
-  -webkit-print-color-adjust:exact;print-color-adjust:exact
+*{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -1627,6 +1627,36 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   max-width: 560px !important;
 }
 
+
+/* ── Editovateľný number input vedľa labelu slidera ── */
+.il-edit{display:inline-flex;align-items:center;gap:0;}
+.il-edit .val{cursor:default;}
+.editable-val{
+  display:inline-block;
+  background:transparent;
+  border:none;
+  border-bottom:1px dashed rgba(255,255,255,.2);
+  color:var(--gold2);
+  font-family:'Source Code Pro',monospace;
+  font-size:var(--fs-base);
+  font-weight:600;
+  width:auto;
+  min-width:3ch;
+  max-width:8ch;
+  text-align:right;
+  outline:none;
+  padding:0 2px;
+  cursor:text;
+  transition:border-color .15s,background .15s;
+  -moz-appearance:textfield;
+}
+.editable-val::-webkit-outer-spin-button,
+.editable-val::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.editable-val:focus{
+  border-bottom-color:var(--gold);
+  background:rgba(200,168,75,.07);
+  border-radius:3px 3px 0 0;
+}
 </style>
 </head>
 <body>
@@ -1686,27 +1716,30 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <!-- Tab filter bar -->
     <div class="src-filter-bar" id="src-filter-bar">
       <button class="src-ftab active" data-filter="all" onclick="srcFilter('all',this)" style="background:var(--muted);border-color:var(--muted);">Všetko</button>
-      <button class="src-ftab" data-filter="t1"  onclick="srcFilter('t1',this)">T1 · Kalkulačka</button>
-      <button class="src-ftab" data-filter="t2"  onclick="srcFilter('t2',this)">T2 · Porovnanie</button>
-      <button class="src-ftab" data-filter="t3"  onclick="srcFilter('t3',this)">T3 · Dôchodok</button>
-      <button class="src-ftab" data-filter="t4"  onclick="srcFilter('t4',this)">T4 · Cieľový výber</button>
-      <button class="src-ftab" data-filter="t5"  onclick="srcFilter('t5',this)">T5 · FIRE</button>
-      <button class="src-ftab" data-filter="t6"  onclick="srcFilter('t6',this)">T6 · Backtest</button>
-      <button class="src-ftab" data-filter="t7"  onclick="srcFilter('t7',this)">T7 · Piliere</button>
-      <button class="src-ftab" data-filter="t8"  onclick="srcFilter('t8',this)">T8 · Hypotéka</button>
-      <button class="src-ftab" data-filter="t13" onclick="srcFilter('t13',this)">T13 · Diagnostika</button>
+      <button class="src-ftab" data-filter="t1"  onclick="srcFilter('t1',this)">Rast portfólia</button>
+      <button class="src-ftab" data-filter="t2"  onclick="srcFilter('t2',this)">Scenáre A vs. B</button>
+      <button class="src-ftab" data-filter="t3"  onclick="srcFilter('t3',this)">Výber z portfólia</button>
+      <button class="src-ftab" data-filter="t4"  onclick="srcFilter('t4',this)">Koľko investovať?</button>
+      <button class="src-ftab" data-filter="t5"  onclick="srcFilter('t5',this)">⚡ FIRE</button>
+      <button class="src-ftab" data-filter="t6"  onclick="srcFilter('t6',this)">Historický test</button>
+      <button class="src-ftab" data-filter="t7"  onclick="srcFilter('t7',this)">Piliere II. / III.</button>
+      <button class="src-ftab" data-filter="t8"  onclick="srcFilter('t8',this)">Hypotéka</button>
+      <button class="src-ftab" data-filter="t9"  onclick="srcFilter('t9',this)">Príjmy a výdavky</button>
+      <button class="src-ftab" data-filter="t10" onclick="srcFilter('t10',this)">Rezervný fond</button>
+      <button class="src-ftab" data-filter="t11" onclick="srcFilter('t11',this)">Moje dlhy</button>
+      <button class="src-ftab" data-filter="t13" onclick="srcFilter('t13',this)">Finančná diagnostika</button>
     </div>
 
     <div id="sources-box-body">
 
       <!-- ══ T1 · KALKULAČKA INVESTOVANIA ══ -->
       <div class="src-calc-block visible" data-tab="t1">
-        <div class="src-calc-title">T1 · Kalkulačka investovania</div>
+        <div class="src-calc-title">Rast portfólia</div>
         <div class="src-calc-desc">Projektuje rast portfólia pri pravidelných a jednorazových vkladoch. Zobrazuje nominálne aj reálne hodnoty, kalkuluje daň podľa SK legislatívy a zobrazuje 3 scenáre (optimistický / stredný / pesimistický).</div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
           <div class="src-ref">Zložené úrokovanie + pravidelný vklad (anuita)
-            <div class="src-formula"><strong>FV</strong> = P × (1+r)ⁿ  +  PMT × [(1+r)ⁿ − 1] / r<br><em>P = počiatočný vklad  ·  r = mesačný výnos (ročný÷12)  ·  n = mesiace  ·  PMT = mesačný vklad</em></div>
+            <div class="src-formula"><strong>FV</strong> = P × (1+r)ⁿ  +  PMT × [(1+r)ⁿ − 1] / r<br><em>P = počiatočný vklad  ·  r = mesačný výnos (ročný÷12)  ·  n = mesiace  ·  PMT = mesačne investovaná suma</em></div>
             <small>Štandardná finančná matematika. Jednorazové vklady (lump-sum) sa pridávajú v príslušnom mesiaci a ďalej úrokujú rovnakou sadzbou.</small>
           </div>
         </div>
@@ -1746,7 +1779,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
       <!-- ══ T2 · POROVNANIE SCENÁROV ══ -->
       <div class="src-calc-block visible" data-tab="t2">
-        <div class="src-calc-title">T2 · Porovnanie scenárov A vs. B</div>
+        <div class="src-calc-title">Scenáre A vs. B</div>
         <div class="src-calc-desc">Porovnáva dva ľubovoľné investičné scenáre (rozdielne vklady, výnosy, TER, horizont) vedľa seba. Zobrazuje rozdiel konečných hodnôt a vplyv ročného rastu vkladu.</div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
@@ -1765,7 +1798,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
       <!-- ══ T3 · DÔCHODOK / 4% PRAVIDLO ══ -->
       <div class="src-calc-block visible" data-tab="t3">
-        <div class="src-calc-title">T3 · Dôchodok / 4% pravidlo</div>
+        <div class="src-calc-title">Výber z portfólia</div>
         <div class="src-calc-desc">Vypočíta mesačný výber z portfólia tak, aby peniaze vydržali po celú dobu dôchodku. Implementuje FIFO metódu pre daňovo optimálny predaj ETF pozícií.</div>
         <div class="src-item">
           <span class="src-tag src-tag-study">Bengen 1994</span>
@@ -1785,20 +1818,20 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
       <!-- ══ T4 · CIEĽOVÝ VÝBER (REVERSE CALCULATOR) ══ -->
       <div class="src-calc-block visible" data-tab="t4">
-        <div class="src-calc-title">T4 · Cieľový výber — koľko musím investovať?</div>
-        <div class="src-calc-desc">Obrátená kalkulačka: zadáte cieľový mesačný výber v dnešných eurách a horizont, kalkulačka vypočíta potrebný mesačný vklad. Zohľadňuje infláciu, výnos a daňové oslobodenie.</div>
+        <div class="src-calc-title">Koľko investovať?</div>
+        <div class="src-calc-desc">Obrátená kalkulačka: zadáte cieľový mesačný výber v dnešných eurách a horizont, kalkulačka vypočíta potrebná mesačne investovanú sumu. Zohľadňuje infláciu, výnos a daňové oslobodenie.</div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
-          <div class="src-ref">Požadovaný mesačný vklad (inverzná anuita)
+          <div class="src-ref">Požadovaná mesačne investovaná suma (inverzná anuita)
             <div class="src-formula"><strong>Cieľové portfólio</strong> = (Výber/mes. × 12) ÷ SWR × (1+i)ⁿ<br><strong>PMT</strong> = Cieľové portfólio × r ÷ [(1+r)ⁿ − 1]<br><em>i = inflácia  ·  n = roky  ·  r = mesačný výnos  ·  SWR = 4%</em></div>
-            <small>Cieľové portfólio sa prepočíta do budúcich nominálnych eur (×inflácia). Potom sa inverznou anuitou nájde potrebný mesačný vklad.</small>
+            <small>Cieľové portfólio sa prepočíta do budúcich nominálnych eur (×inflácia). Potom sa inverznou anuitou nájde potrebná mesačne investovanú sumu.</small>
           </div>
         </div>
       </div>
 
       <!-- ══ T5 · FIRE SIMULÁTOR ══ -->
       <div class="src-calc-block visible" data-tab="t5">
-        <div class="src-calc-title">T5 · FIRE simulátor</div>
+        <div class="src-calc-title">⚡ FIRE simulátor</div>
         <div class="src-calc-desc">Vypočíta FIRE číslo (cieľové portfólio pre finančnú nezávislosť) a odhadovaný dátum FIRE. Varuje pri príliš vysokej miere výberu pri dlhom horizonte.</div>
         <div class="src-item">
           <span class="src-tag src-tag-study">Trinity Study</span>
@@ -1824,7 +1857,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
       <!-- ══ T6 · HISTORICKÝ BACKTEST ══ -->
       <div class="src-calc-block visible" data-tab="t6">
-        <div class="src-calc-title">T6 · Historický backtest</div>
+        <div class="src-calc-title">Historický test</div>
         <div class="src-calc-desc">Simuluje výsledok portfólia ak by ste začali investovať v konkrétnom historickom roku. Používa reálne ročné výnosy MSCI World vrátane kríz (2000–02, 2008–09, 2020).</div>
         <div class="src-item">
           <span class="src-tag src-tag-stat">MSCI World</span>
@@ -1843,27 +1876,48 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
       <!-- ══ T7 · II. A III. PILIER ══ -->
       <div class="src-calc-block visible" data-tab="t7">
-        <div class="src-calc-title">T7 · II. a III. pilier</div>
-        <div class="src-calc-desc">Projektuje úspory v II. pilieri (DSS) a III. pilieri (DDS). Pre II. pilier počíta aktuársku doživotnú anuitu podľa štatistických životnostných tabuliek ŠÚ SR.</div>
+        <div class="src-calc-title">Piliere II. / III.</div>
+        <div class="src-calc-desc">Projektuje úspory v II. pilieri (DSS) a III. pilieri (DDS). Porovnáva ich s ETF stratégiou zo záložky Rast portfólia. Pre II. pilier počíta aktuársku doživotnú anuitu podľa životnostných tabuliek ŠÚ SR 2022.</div>
         <div class="src-item">
-          <span class="src-tag src-tag-law">Zákon 43/2004</span>
-          <div class="src-ref">Zákon č. 43/2004 Z.z. o starobnom dôchodkovom sporení
-            <div class="src-formula"><strong>Príspevok</strong> = 4% hrubej mzdy (od 2022)<br><strong>Zostatok DSS</strong> = Σ príspevkov × (1 + výnos_fondu)ⁿ</div>
-            <small>Zákonná sadzba príspevku a pravidlá spravovania DSS fondov.</small>
+          <span class="src-tag src-tag-law">Zákon 461/2003</span>
+          <div class="src-ref">Zákon č. 461/2003 Z.z. o sociálnom poistení — §20 (v znení novely platnej od 1.1.2022)
+            <div class="src-formula"><strong>Príspevok sporiteľa</strong> = 4% hrubej mzdy<br><strong>Zostatok DSS</strong> = zostatok × (1 + r_mes)ⁿ + Σ príspevkov × [(1+r_mes)ⁿ − 1] / r_mes<br><em>r_mes = (1 + ročný výnos)^(1/12) − 1  ·  n = mesiace sporenia</em></div>
+            <small>Pred 1.1.2022 bola sadzba 4,75%. Novela zákonom č. 461/2003 ju znížila na 4%. Kalkulačka používa aktuálnu sadzbu 4%.</small>
           </div>
         </div>
         <div class="src-item">
-          <span class="src-tag src-tag-stat">ŠÚ SR 2021</span>
-          <div class="src-ref">Životnostné tabuľky ŠÚ SR 2021 — aktuárska anuita
-            <div class="src-formula"><strong>Anuita/mes.</strong> = Zostatok ÷ Σ [vₜ × ₜpₓ] ÷ 12<br><em>vₜ = (1/(1+i))ᵗ  ·  i = 1% tech. sadzba  ·  ₜpₓ = pravd. dožitia veku x+t</em></div>
-            <small>Muž 60r.: stredná dĺžka života +18,4 roka. Žena 60r.: +22,8 roka. Technická sadzba 1% = konzervatívny štandard SK poisťovní.</small>
+          <span class="src-tag src-tag-law">Zákon 650/2004</span>
+          <div class="src-ref">Zákon č. 650/2004 Z.z. o doplnkovom dôchodkovom sporení (III. pilier)
+            <div class="src-formula"><strong>Zostatok DDS</strong> = zostatok × (1 + r_mes)ⁿ + Σ (vlastný + zamestnávateľ) × [(1+r_mes)ⁿ − 1] / r_mes</div>
+            <small>III. pilier je dobrovoľný. Zamestnávateľský príspevok nie je zákonnou povinnosťou — závisí od kolektívnej zmluvy alebo dohody.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-law">Zákon 595/2003 §11</span>
+          <div class="src-ref">Zákon č. 595/2003 Z.z. o dani z príjmov — §11 ods. 13 (v znení zákona č. 530/2023 Z.z., účinnosť od 1.1.2024)
+            <div class="src-formula"><strong>Nezdaniteľná časť</strong> = min(vlastné príspevky za rok, <strong>€1 800</strong>)<br><strong>Daňová úspora</strong> = nezdaniteľná časť × sadzba dane (19% alebo 25%)</div>
+            <small>Pred rokom 2024 bol limit €180/rok. Od 1.1.2024 je limit €1 800/rok. Uplatňuje sa len na vlastné (nie zamestnávateľské) príspevky.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-stat">ŠÚ SR 2022</span>
+          <div class="src-ref">Životnostné tabuľky ŠÚ SR 2022 — aktuárska anuita pre II. pilier
+            <div class="src-formula"><strong>PMT/mes.</strong> = PV × r_mes ÷ [1 − (1 + r_mes)^(−n)]<br><em>PV = zostatok DSS  ·  r_mes = technická sadzba ÷ 12 = 1% ÷ 12  ·  n = dĺžka dožitia × 12</em></div>
+            <small>ŠÚ SR 2022: muž 65r. → ďalších 15,3 roka; žena 65r. → ďalších 19,1 roka. Technická sadzba 1% p.a. = konzervatívny štandard SK poisťovní (NBS vyhláška 261/2012 max. 1,9%).</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Metodológia</span>
+          <div class="src-ref">Výplatný mechanizmus: II. pilier vs. ETF a III. pilier
+            <div class="src-formula">II. pilier → <strong>doživotná anuita</strong> cez poisťovňu (zákon 43/2004 §32–47)<br>III. pilier + ETF → <strong>4% pravidlo</strong> (slobodný výber): mesačný výber = portfólio × 4% ÷ 12</div>
+            <small>II. pilier nevypláca slobodný výber — poisťovňa vypočíta fixnú mesačnú anuitu na základe zostatku a veku. ETF a III. pilier môžete vyberať ľubovoľne (simulujeme 4% pravidlom Trinity Study).</small>
           </div>
         </div>
       </div>
 
       <!-- ══ T8 · HYPOTÉKA ══ -->
       <div class="src-calc-block visible" data-tab="t8">
-        <div class="src-calc-title">T8 · Hypotekárna kalkulačka</div>
+        <div class="src-calc-title">Hypotéka</div>
         <div class="src-calc-desc">Mesačná splátka, amortizačný plán, NBS regulačné limity (DSTI, DTI, LTV), stresový test, predčasné splatenie, refixácia, RPMN a porovnanie kúpa vs. nájom.</div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
@@ -1923,9 +1977,90 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
         </div>
       </div>
 
+      <!-- ══ T9 · PRÍJMY A VÝDAVKY ══ -->
+      <div class="src-calc-block visible" data-tab="t9">
+        <div class="src-calc-title">Príjmy a výdavky</div>
+        <div class="src-calc-desc">Cashflow analýza domácnosti — kategorizované príjmy a výdavky, výpočet miery úspor (savings rate) a investovateľného prebytku. Výsledky sa automaticky prenášajú do záložiek Rast portfólia, Rezervný fond a Hypotéka.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Miera úspor</span>
+          <div class="src-ref">Savings rate — základ finančného zdravia
+            <div class="src-formula"><strong>Savings rate</strong> = (Príjmy − Výdavky) ÷ Príjmy × 100<br><strong>Investovateľný prebytok</strong> = Príjmy − Výdavky − Rezervný fond príspevok</div>
+            <small>Štandard: savings rate ≥ 20% = zdravá domácnosť. ≥ 30% = na FIRE trase. Pod 10% = kritické. Kalkulačka zobrazuje váš aktuálny savings rate a jeho dosah na FIRE dátum.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">50/30/20</span>
+          <div class="src-ref">Pravidlo 50/30/20 — orientačný benchmark výdavkov
+            <div class="src-formula">≤ 50% príjmu → <strong>nevyhnutné výdavky</strong> (bývanie, jedlo, doprava)<br>≤ 30% príjmu → <strong>voľný čas a komfort</strong><br>≥ 20% príjmu → <strong>úspory a investície</strong></div>
+            <small>Pravidlo pochádza z knihy All Your Worth (Warren &amp; Tyagi, 2005). Slúži ako orientačný benchmark — nie zákon. SK domácnosti mávajú vyšší podiel nevyhnutných výdavkov kvôli cenám nehnuteľností.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ T10 · REZERVNÝ FOND ══ -->
+      <div class="src-calc-block visible" data-tab="t10">
+        <div class="src-calc-title">Rezervný fond</div>
+        <div class="src-calc-desc">Simulácia budovania rezervného fondu (emergency fund) — výpočet cieľovej sumy, doby naplnenia a sledovanie pokrytia výdavkov v mesiacoch.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Štandard</span>
+          <div class="src-ref">Odporúčaná veľkosť rezervného fondu
+            <div class="src-formula"><strong>Cieľ (minimum)</strong> = mesačné výdavky × 3<br><strong>Cieľ (štandard)</strong> = mesačné výdavky × 6<br><strong>Pokrytie</strong> = aktuálny zostatok ÷ mesačné výdavky</div>
+            <small>Konsenzus finančných plánovačov: 3 mesiace pre stabilné príjmy (zamestnanec), 6 mesiacov pre nestabilné (živnostník, freelancer). Fond by mal byť na okamžite dostupnom nástroji (sporiaci účet).</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">FV vzorec</span>
+          <div class="src-ref">Simulácia rastu rezervného fondu
+            <div class="src-formula"><strong>FV</strong> = zostatok × (1 + r_mes)ⁿ + PMT × [(1+r_mes)ⁿ − 1] / r_mes<br><em>r_mes = ročný výnos sporiaceho účtu ÷ 12  ·  PMT = mesačný príspevok</em></div>
+            <small>Rezervný fond sa modeluje rovnakým vzorcom ako investičné portfólio, ale s konzervatívnym výnosom sporiaceho účtu (0–2% p.a.).</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ T11 · MOJE DLHY ══ -->
+      <div class="src-calc-block visible" data-tab="t11">
+        <div class="src-calc-title">Moje dlhy</div>
+        <div class="src-calc-desc">Prehľad a analýza všetkých dlhov domácnosti. Počíta DSTI, porovnáva stratégie splácania (avalanche vs. investovanie) a pre hypotéky poskytuje analýzu refixácie a dopadu ročnej extra splátky.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-nbs">NBS §3 ods.1</span>
+          <div class="src-ref">NBS Opatrenie č. 10/2021 — DSTI (Debt Service to Income)
+            <div class="src-formula"><strong>DSTI</strong> = Σ mesačné splátky ÷ Čistý mesačný príjem ≤ <strong>40%</strong><br><em>SK priemer domácností: ~22% príjmu na splátky</em></div>
+            <small>NBS stanovuje maximálny DSTI 40% pre nové úvery. Kalkulačka ho vyhodnocuje pre váš celkový dlhový košík a upozorní ak ste nad odporúčanou hranicou 30%.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Avalanche</span>
+          <div class="src-ref">Avalanche metóda splácania dlhov (matematicky optimálna)
+            <div class="src-formula"><strong>Poradie splácania</strong> = dlhy zoradené od najvyššej po najnižšiu úrokovú sadzbu<br><strong>Úspora vs. investovanie</strong>: ak výnos ETF &gt; sadzba dlhu → investuj; ak sadzba &gt; výnos → splácaj</div>
+            <small>Break-even: pri Acc ETF (§9 ods.1 písm.e ZDP, časový test &gt;1 rok) = 0% daň → porovnávame priamo hrubý výnos ETF so sadzbou dlhu. Pri distribučnom ETF alebo krátkom horizonte sa odpočíta 19% daň z výnosu.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Amortizácia</span>
+          <div class="src-ref">Doba splácania dlhu — výpočet pri extra splátkach
+            <div class="src-formula"><strong>n</strong> = −ln(1 − r × P ÷ PMT) ÷ ln(1 + r)<br><em>P = zostatok  ·  r = mesačná sadzba  ·  PMT = mesačná splátka + extra</em></div>
+            <small>Mesiac-po-mesiaci simulácia: úrok = zostatok × r_mes, istina = PMT − úrok, nový zostatok = zostatok − istina. Ročná extra splátka sa aplikuje vždy po 12. splátke.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Refixácia</span>
+          <div class="src-ref">Výpočet novej splátky po refixácii hypotéky
+            <div class="src-formula"><strong>Zostatok pri refixácii</strong> = simulácia amortizácie počas fixácie<br><strong>Nová PMT</strong> = zostatok × r_mes_nový ÷ [1 − (1 + r_mes_nový)^(−n_zostatok)]<br><em>n_zostatok = (celková doba − roky fixácie) × 12</em></div>
+            <small>Kalkulačka porovná vašu plánovanú sadzbu po refixácii s aktuálnym trhom (SK priemer 2025: 3,5–4,2%) a vypočíta dopad na mesačnú splátku.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Ročná extra splátka</span>
+          <div class="src-ref">Dopad jednorazovej ročnej splátky na hypotéku vs. investovanie
+            <div class="src-formula"><strong>Úspora na úrokoch</strong> = Σ úrokov (štandard) − Σ úrokov (s extra splátkou)<br><strong>ETF alternatíva</strong> = extra × [(1 + r_etf)ⁿ − 1] ÷ r_etf  (anuita, ročné vklady)<br><em>0% daň pre Acc ETF pri horizonte &gt;1 rok (§9 ods.1 písm.e ZDP)</em></div>
+            <small>Extra splátka znižuje istinu, z ktorej sa počítajú úroky — efekt sa každý rok kumuluje. Verdikt závisí od rozdielu medzi sadzbou hypotéky a očakávaným výnosom ETF.</small>
+          </div>
+        </div>
+      </div>
+
       <!-- ══ T13 · FINANČNÁ DIAGNOSTIKA ══ -->
       <div class="src-calc-block visible" data-tab="t13">
-        <div class="src-calc-title">T13 · Finančná diagnostika</div>
+        <div class="src-calc-title">Finančná diagnostika</div>
         <div class="src-calc-desc">Celkový prehľad finančného zdravia — 8 ukazovateľov s hodnotením zelená/žltá/červená. Čerpá živé dáta z T9 (Cashflow), T11 (Dlhy), T10 (Rezervný fond) a T1 (portfólio).</div>
         <div class="src-item">
           <span class="src-tag src-tag-nbs">NBS / EBA</span>
@@ -2090,7 +2225,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
       <div class="rbnd"><span style="font-size:14.4px;">€0</span><span>€300 000</span></div>
     </div>
     <div class="ig primary">
-      <div class="il">Mesačný vklad <span class="val" id="l-mon">€575</span></div>
+      <div class="il">Mesačne investovaná suma <input type="number" class="editable-val" id="ei-mon" value="200" step="1" min="0" max="5000" aria-label="Mesačne investovaná suma"> €</div>
       <input type="range" id="r-mon" min="0" max="5000" step="25" value="200" oninput="sync()" aria-label="Mesačný príspevok">
       <div class="rbnd"><span>€0</span><span>€5 000</span></div>
     </div>
@@ -2101,7 +2236,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     </div>
     <div class="ig primary">
       <div class="il">
-        Celkový výnos p.a.<span class="tip" data-tip="<div class='tt-title'>Celkový ročný výnos (p.a.)</div>Pre <strong>akumulačné ETF</strong> tento výnos zahŕňa <em>všetko</em> — rast cien akcií aj dividendy, ktoré fond automaticky reinvestuje späť do seba.<div class='tt-hr'></div><strong>Prečo default 9%?</strong><br>MSCI World historicky (1987–2024) rástol priemerne ~10% ročne. Po odrátaní TER 0.2% dostaneme realistických ~9%. Pre konzervatívne plánovanie je 9% rozumný stred.<div class='tt-hr'></div><strong>Pravidlo 72:</strong> Pri 9% ročne sa vaše peniaze zdvojnásobia každých ~8 rokov.">?</span>
+        Priemerný ročný výnos ETF<span class="tip" data-tip="<div class='tt-title'>Celkový ročný výnos (p.a.)</div>Pre <strong>akumulačné ETF</strong> tento výnos zahŕňa <em>všetko</em> — rast cien akcií aj dividendy, ktoré fond automaticky reinvestuje späť do seba.<div class='tt-hr'></div><strong>Prečo default 9%?</strong><br>MSCI World historicky (1987–2024) rástol priemerne ~10% ročne. Po odrátaní TER 0.2% dostaneme realistických ~9%. Pre konzervatívne plánovanie je 9% rozumný stred.<div class='tt-hr'></div><strong>Pravidlo 72:</strong> Pri 9% ročne sa vaše peniaze zdvojnásobia každých ~8 rokov.">?</span>
         <span class="val" id="l-ret">9,0%</span>
       </div>
       <input type="range" id="r-ret" min="1" max="20" step="0.5" value="9" oninput="sync()" aria-label="Očakávaný ročný výnos">
@@ -2120,7 +2255,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
     <div class="ig">
       <div class="il">Ročný rast vkladu
-        <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačnú investíciu o toto percento — modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%, štart €575):</strong><br>Rok 1: €575 · Rok 3: €634 · Rok 5: €699 · Rok 10: €892 · Rok 20: €1 526<div class='tt-hr'></div>Aj malý ročný rast má obrovský dopad na finálne portfólio. Tabulka vkladov nižšie zobrazuje celý plán.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačne investovanú sumu o toto percento — modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%, štart €575):</strong><br>Rok 1: €575 · Rok 3: €634 · Rok 5: €699 · Rok 10: €892 · Rok 20: €1 526<div class='tt-hr'></div>Aj malý ročný rast má obrovský dopad na finálne portfólio. Tabulka vkladov nižšie zobrazuje celý plán.">?</span>
         <span class="val" id="l-inc">5,0%</span>
       </div>
       <input type="range" id="r-inc" min="0" max="15" step="0.5" value="5" oninput="sync()" aria-label="Ročný rast príspevkov">
@@ -2143,7 +2278,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="ig">
       <div class="il">
         TER poplatky ETF<span class="tip" data-tip="<div class='tt-title'>TER — Total Expense Ratio</div>Ročný poplatok, ktorý si ETF fond strhne automaticky z vašich aktív. <strong>Neplatíte ho manuálne</strong> — je zahrnutý v cene fondu.<div class='tt-hr'></div><strong>Populárne MSCI World Acc fondy:</strong><br>• iShares Core MSCI World (IWDA) — <strong>0.20%</strong><br>• Vanguard FTSE All-World Acc (VWCE) — <strong>0.22%</strong><br>• Xtrackers MSCI World Swap (XDWD) — <strong>0.19%</strong><div class='tt-hr'></div>Rozdiel 0.1% ročne = za 32 rokov na €2M portfóliu ~€80 000 rozdiel vďaka zloženému úročeniu.">?</span>
-        <span class="val" id="l-fee">0,20%</span>
+        <input type="number" class="editable-val" id="ei-fee" value="0.20" step="0.01" min="0" max="2" aria-label="TER poplatok ETF"> %
       </div>
       <input type="range" id="r-fee" min="0" max="2" step="0.05" value="0.2" oninput="sync()" aria-label="Ročný poplatok TER">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
@@ -2270,7 +2405,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <!-- PRIMARY: Nominálna — full prominence -->
     <div style="margin-bottom:6px;">
       <div id="hero-sentence"></div>
-      <div id="hero-empty-state">Zadajte počiatočnú investíciu alebo mesačný vklad</div>
+      <div id="hero-empty-state">Zadajte počiatočnú investíciu alebo mesačne investovanú sumu</div>
       <div class="slbl">Nominálna hodnota portfólia</div>
       <div class="hero-nom" id="s-nom">—</div>
       <div style="font-size:14.4px;color:var(--muted);margin-top:6px;" id="s-nom-s">—</div>
@@ -2612,14 +2747,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <div class="panel scen-a inputs-panel">
     <div class="scen-label">Scenár A</div>
       <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="al-ini">€23 000</span></div><input type="range" id="ar-ini" min="0" max="300000" step="1000" value="5000" oninput="syncCmp()" aria-label="Portfólio A – Počiatočná investícia"><div class="rbnd"><span>€0</span><span>€300k</span></div></div>
-      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="al-mon">€575</span></div><input type="range" id="ar-mon" min="0" max="5000" step="25" value="200" oninput="syncCmp()" aria-label="Portfólio A – Mesačný príspevok"><div class="rbnd"><span>€0</span><span>€5 000</span></div></div>
+      <div class="ig"><div class="il">Mesačne investovaná suma <input type="number" class="editable-val" id="ei-ar-mon" value="200" step="1" min="0" max="5000" aria-label="Scenár A – mesačná investícia"> €</div><input type="range" id="ar-mon" min="0" max="5000" step="25" value="200" oninput="syncCmp()" aria-label="Portfólio A – Mesačný príspevok"><div class="rbnd"><span>€0</span><span>€5 000</span></div></div>
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="al-ret">9,0%</span></div><input type="range" id="ar-ret" min="1" max="20" step="0.5" value="9" oninput="syncCmp()" aria-label="Portfólio A – Ročný výnos"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="al-yr">32</span></div><input type="range" id="ar-yr" min="5" max="50" step="1" value="30" oninput="syncCmp()" aria-label="Portfólio A – Počet rokov"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2a-adv" open>
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="al-inc">5,0%</span></div><input type="range" id="ar-inc" min="0" max="15" step="0.5" value="5" oninput="syncCmp()" aria-label="Portfólio A – Ročný rast príspevkov"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
-          <div class="ig"><div class="il">TER <span class="val" id="al-fee">0,20%</span></div><input type="range" id="ar-fee" min="0" max="2" step="0.05" value="0.2" oninput="syncCmp()" aria-label="Portfólio A – Ročný poplatok TER"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
+          <div class="ig"><div class="il">TER <input type="number" class="editable-val" id="ei-ar-fee" value="0.20" step="0.01" min="0" max="2" aria-label="Scenár A – TER"> %</div><input type="range" id="ar-fee" min="0" max="2" step="0.05" value="0.2" oninput="syncCmp()" aria-label="Portfólio A – Ročný poplatok TER"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
         </div>
       </details>
   </div>
@@ -2627,14 +2762,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <div class="panel scen-b inputs-panel">
     <div class="scen-label">Scenár B</div>
       <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="bl-ini">€5 000</span></div><input type="range" id="br-ini" min="0" max="300000" step="1000" value="5000" oninput="syncCmp()" aria-label="Portfólio B – Počiatočná investícia"><div class="rbnd"><span>€0</span><span>€300k</span></div></div>
-      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="bl-mon">€800</span></div><input type="range" id="br-mon" min="0" max="5000" step="25" value="400" oninput="syncCmp()" aria-label="Portfólio B – Mesačný príspevok"><div class="rbnd"><span>€0</span><span>€5 000</span></div></div>
+      <div class="ig"><div class="il">Mesačne investovaná suma <input type="number" class="editable-val" id="ei-br-mon" value="400" step="1" min="0" max="5000" aria-label="Scenár B – mesačná investícia"> €</div><input type="range" id="br-mon" min="0" max="5000" step="25" value="400" oninput="syncCmp()" aria-label="Portfólio B – Mesačný príspevok"><div class="rbnd"><span>€0</span><span>€5 000</span></div></div>
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="bl-ret">7,0%</span></div><input type="range" id="br-ret" min="1" max="20" step="0.5" value="7" oninput="syncCmp()" aria-label="Portfólio B – Ročný výnos"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="bl-yr">32</span></div><input type="range" id="br-yr" min="5" max="50" step="1" value="30" oninput="syncCmp()" aria-label="Portfólio B – Počet rokov"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2b-adv" open>
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="bl-inc">3,0%</span></div><input type="range" id="br-inc" min="0" max="15" step="0.5" value="3" oninput="syncCmp()" aria-label="Portfólio B – Ročný rast príspevkov"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
-          <div class="ig"><div class="il">TER <span class="val" id="bl-fee">0,50%</span></div><input type="range" id="br-fee" min="0" max="2" step="0.05" value="0.5" oninput="syncCmp()" aria-label="Portfólio B – Ročný poplatok TER"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
+          <div class="ig"><div class="il">TER <input type="number" class="editable-val" id="ei-br-fee" value="0.50" step="0.01" min="0" max="2" aria-label="Scenár B – TER"> %</div><input type="range" id="br-fee" min="0" max="2" step="0.05" value="0.5" oninput="syncCmp()" aria-label="Portfólio B – Ročný poplatok TER"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
         </div>
       </details>
   </div>
@@ -2691,8 +2826,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané — hodnota je čerstvá a aktuálna<div class='tt-hr'></div>
-<strong>Portfólio T1</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
-  <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong></span>
+<strong>Portfólio z Rast portfólia</strong> — celková hodnota ETF portfólia zo záložky <em>Rast portfólia</em> pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
+  <span class="sync-badge fresh dot" title="Hodnota portfólia zo záložky Rast portfólia">Portfólio zo záložky Rast portfólia: <strong id="sync-t3-port">—</strong></span>
   <span id="t3-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
 
@@ -2936,7 +3071,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <div style="font-size:33.6px;flex-shrink:0;">◎</div>
   <div>
     <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Chcem mať na dôchodku ekvivalent dnešných €2 000/mes. — koľko musím od dnes mesačne investovať, aby sa mi to podarilo?</div>
-    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadáte <em>želaný mesačný výber v dnešných eurách</em> a dobu investovania. Kalkulačka vypočíta požadovaný mesačný vklad — vrátane efektu inflácie, výnosov a daňového oslobodenia.</div>
+    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadáte <em>želaný mesačný výber v dnešných eurách</em> a dobu investovania. Kalkulačka vypočíta požadovaná mesačne investovanú sumu — vrátane efektu inflácie, výnosov a daňového oslobodenia.</div>
   </div>
 </div>
 
@@ -2964,7 +3099,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
     <div class="ig">
       <div class="il">Počiatočná investícia (jednorazovo)
-        <span class="tip" data-tip="<div class='tt-title'>Jednorazový počiatočný vklad</div>Ak máte k dispozícii nejakú sumu hneď (napr. úspory, dedičstvo, bonus), zadajte ju tu. Táto suma okamžite začne pracovať a <strong>zníži požadovaný mesačný vklad</strong>.<div class='tt-hr'></div>Ponechajte na €0 ak chcete počítať len s mesačnými vkladmi.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Jednorazový počiatočný vklad</div>Ak máte k dispozícii nejakú sumu hneď (napr. úspory, dedičstvo, bonus), zadajte ju tu. Táto suma okamžite začne pracovať a <strong>zníži požadovaná mesačne investovanú sumu</strong>.<div class='tt-hr'></div>Ponechajte na €0 ak chcete počítať len s mesačnými vkladmi.">?</span>
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€</div>
@@ -2976,7 +3111,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
     <div class="ig">
       <div class="il">
-        Očakávaný výnos p.a.
+        Priemerný ročný výnos ETF
         <span class="tip" data-tip="<div class='tt-title'>Ročný výnos počas investovania</div>MSCI World Acc historicky ~10% p.a. Po TER 0.20% zostatok ~9.8%. Pre konzervatívne plánovanie použite 7–8%, pre stred 9%.">?</span>
         <span class="val" id="rvl-ret">9,0%</span>
       </div>
@@ -2985,7 +3120,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     </div>
 
     <div class="ig">
-      <div class="il">TER poplatky ETF <span class="val" id="rvl-fee">0,20%</span></div>
+      <div class="il">TER poplatky ETF <input type="number" class="editable-val" id="ei-rvr-fee" value="0.20" step="0.01" min="0" max="2" aria-label="TER poplatok (spätný výpočet)"> %</div>
       <input type="range" id="rvr-fee" min="0" max="2" step="0.05" value="0.2" oninput="calcReverse()" aria-label="Ročný poplatok TER (spätný výpočet)">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
     </div>
@@ -3004,7 +3139,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="ig">
       <div class="il">
         Miera výberu na dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study): portfólio pri 4% výbere prežije 30+ rokov v 95% scenárov.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — portfólio skoro určite nikdy nevyčerpáte, zostatok pre dedičov<br><strong>4% = štandard</strong> — odporúčaný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study): portfólio pri 4% výbere prežije 30+ rokov v 95% scenárov.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — portfólio skoro určite nikdy nevyčerpáte, zostatok pre dedičov<br><strong>4% = štandard</strong> — odporúčaný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačne investovaná suma dnes.">?</span>
         <span class="val" id="rvl-wr">4,0%</span>
       </div>
       <input type="range" id="rvr-wr" min="2" max="8" step="0.1" value="4" oninput="calcReverse()" aria-label="Miera výberu (spätný výpočet)">
@@ -3025,7 +3160,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
     <div class="ig">
       <div class="il">Ročný rast mesačného vkladu
-        <span class="tip" data-tip="<div class='tt-title'>Indexácia vkladu podľa inflácie alebo mzdy</div>Každý rok zvýšite mesačný vklad o toto percento — napríklad keď dostanete pridanie. Výsledok: aj váš vklad rastie a portfólio sa akumuluje rýchlejšie.<div class='tt-hr'></div>Pri 0% investujete rovnakú sumu každý rok. Pri 5% po 10 rokoch investujete 1.63× viac ako dnes.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Indexácia vkladu podľa inflácie alebo mzdy</div>Každý rok zvýšite mesačne investovanú sumu o toto percento — napríklad keď dostanete pridanie. Výsledok: aj váš vklad rastie a portfólio sa akumuluje rýchlejšie.<div class='tt-hr'></div>Pri 0% investujete rovnakú sumu každý rok. Pri 5% po 10 rokoch investujete 1.63× viac ako dnes.">?</span>
         <span class="val" id="rvl-inc">0,0%</span>
       </div>
       <input type="range" id="rvr-inc" min="0" max="15" step="0.5" value="0" oninput="calcReverse()" aria-label="Ročný rast príspevkov (spätný výpočet)">
@@ -3063,7 +3198,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <!-- HERO: Required monthly investment -->
   <div style="background:var(--bg2);border:1px solid rgba(200,168,75,.35);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;text-align:center;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
-    <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:14px;">Potrebný mesačný vklad (dnes)</div>
+    <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:14px;">Potrebný mesačne investovaná suma (dnes)</div>
     <div style="font-family:'Spectral',serif;font-size:clamp(52px,8vw,88px);font-weight:700;color:var(--gold2);line-height:1;transition:color .3s;text-shadow:0 0 40px rgba(200,168,75,.3),0 2px 20px rgba(200,168,75,.15)" id="rv-monthly">—</div>
     <div style="font-size:15.6px;color:var(--muted2);margin-top:10px;line-height:1.6;" id="rv-monthly-sub">—</div>
 
@@ -3139,7 +3274,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
   <!-- Sensitivity table: different return scenarios -->
   <div class="panel">
-    <p class="plbl">Citlivostná analýza — vplyv výnosu na mesačný vklad</p>
+    <p class="plbl">Citlivostná analýza — vplyv výnosu na mesačne investovanú sumu</p>
     <div style="font-size:15.6px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">
       Rovnaký cieľ (€<span id="rv-tbl-target">2 000</span>/mes. v dnešných €), rovnaká doba (<span id="rv-tbl-yr">35</span> rokov) — ale rôzne predpoklady ročného výnosu:
     </div>
@@ -3188,7 +3323,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="sec-hdr">Základné vstupy</div>
 
     <div style="margin-bottom:18px;">
-      <div class="il" style="margin-bottom:9px;">Mesačné výdavky v dôchodku (dnes €)
+      <div class="il" style="margin-bottom:9px;">Mesačne chcem na dôchodku vyberať (dnes €)
         <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky — základ FIRE čísla</div>Koľko potrebujete mesačne na život v <strong>dnešných cenách</strong>. Kalkulačka toto číslo automaticky inflačne nafúkne na nominálne hodnoty budúcnosti.<div class='tt-hr'></div><strong>FIRE číslo</strong> = mesačné výdavky × 12 ÷ miera výberu<br>Príklad: €2 000/mes. × 12 ÷ 4% = <strong>€600 000 (v dnešných €)</strong><div class='tt-hr'></div>Toto je suma, ktorú musíte dosiahnuť aby ste mohli odísť do dôchodku. Portfólio sa od tohto bodu samo živí.">?</span>
       </div>
       <div class="ni-wrap">
@@ -3220,12 +3355,12 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="sec-hdr">Trhové parametre</div>
 
     <div class="ig">
-      <div class="il">Mesačný vklad <span class="val" id="firel-mon">€575</span></div>
+      <div class="il">Mesačne investovaná suma <input type="number" class="editable-val" id="ei-firer-mon" value="200" step="1" min="0" max="5000" aria-label="FIRE – mesačná investícia"> €</div>
       <input type="range" id="firer-mon" min="0" max="5000" step="25" value="200" oninput="calcFIRE()" aria-label="FIRE – Mesačný príspevok">
       <div class="rbnd"><span>€0</span><span>€5 000</span></div>
     </div>
     <div class="ig">
-      <div class="il">Výnos p.a. (realistický) <span class="val" id="firel-ret">9,0%</span></div>
+      <div class="il">Priemerný ročný výnos ETF <span class="val" id="firel-ret">9,0%</span></div>
       <input type="range" id="firer-ret" min="1" max="20" step="0.5" value="9" oninput="calcFIRE()" aria-label="FIRE – Ročný výnos">
       <div class="rbnd"><span>1%</span><span>20%</span></div>
     </div>
@@ -3236,14 +3371,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 
     <div class="ig">
       <div class="il">Ročný rast vkladu
-        <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačnú investíciu o toto percento. Modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%):</strong><br>Rok 1: €575/mes. → Rok 2: €604 → Rok 5: €699 → Rok 10: €937<div class='tt-hr'></div>Aj malý ročný rast vkladu má obrovský vplyv na finálne portfólio vďaka zloženému úročeniu. Nižšia tabuľka ukazuje presný plán vkladov.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačne investovanú sumu o toto percento. Modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%):</strong><br>Rok 1: €575/mes. → Rok 2: €604 → Rok 5: €699 → Rok 10: €937<div class='tt-hr'></div>Aj malý ročný rast vkladu má obrovský vplyv na finálne portfólio vďaka zloženému úročeniu. Nižšia tabuľka ukazuje presný plán vkladov.">?</span>
         <span class="val" id="firel-inc">5,0%</span>
       </div>
       <input type="range" id="firer-inc" min="0" max="15" step="0.5" value="5" oninput="calcFIRE()" aria-label="FIRE – Ročný rast príspevkov">
       <div class="rbnd"><span>0%</span><span>15%</span></div>
     </div>
     <div class="ig">
-      <div class="il">TER poplatky ETF <span class="val" id="firel-fee">0,20%</span></div>
+      <div class="il">TER poplatky ETF <input type="number" class="editable-val" id="ei-firer-fee" value="0.20" step="0.01" min="0" max="2" aria-label="FIRE – TER"> %</div>
       <input type="range" id="firer-fee" min="0" max="2" step="0.05" value="0.2" oninput="calcFIRE()" aria-label="FIRE – Ročný poplatok TER">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
     </div>
@@ -3398,7 +3533,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
       <div class="rbnd"><span>€0</span><span>€300 000</span></div>
     </div>
     <div class="ig primary">
-      <div class="il">Mesačný vklad <span class="val" id="bt-l-mon">€575</span></div>
+      <div class="il">Mesačne investovaná suma <input type="number" class="editable-val" id="ei-bt-mon" value="200" step="1" min="0" max="5000" aria-label="Backtest – mesačná investícia"> €</div>
       <input type="range" id="bt-r-mon" min="0" max="5000" step="25" value="200" oninput="calcBacktest()" aria-label="Backtest – Mesačný príspevok">
       <div class="rbnd"><span>€0</span><span>€5 000</span></div>
     </div>
@@ -3406,7 +3541,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
       <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
       <div class="pd-body">
         <div class="ig">
-          <div class="il">TER poplatky ETF <span class="val" id="bt-l-fee">0,20%</span></div>
+          <div class="il">TER poplatky ETF <input type="number" class="editable-val" id="ei-bt-fee" value="0.20" step="0.01" min="0" max="2" aria-label="Backtest – TER"> %</div>
           <input type="range" id="bt-r-fee" min="0" max="2" step="0.05" value="0.2" oninput="calcBacktest()" aria-label="Backtest – Ročný poplatok TER">
           <div class="rbnd"><span>0%</span><span>2%</span></div>
         </div>
@@ -3500,10 +3635,10 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká — záložka ešte nebola prepočítaná<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané a odoslané ďalej<div class='tt-hr'></div>
-<strong>Výber / Dôchodok</strong> — mesačná suma, ktorú dostanete z II.+III. piliera (posielaná do T3).<br>
-<strong>Portfólio T1</strong> — hodnota ETF portfólia z Kalkulačky (záložka 1), zobrazená tu pre kontext celkového majetku.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov pri dôchodku (T3)">Výber / Dôchodok: <strong id="sync-t3-pilier">—</strong>/mes.</span>
-  <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong></span>
+<strong>Príjem z piliérov</strong> — mesačný príjem z II. a III. piliera odoslaný do záložky <em>Výber z portfólia</em>.<br>
+<strong>Portfólio z Rast portfólia</strong> — hodnota ETF portfólia zo záložky <em>Rast portfólia</em>, zobrazená tu pre kontext celkového majetku.">?</span>
+  <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov odoslaný do záložky Výber z portfólia">Príjem z piliérov do Výber z portfólia: <strong id="sync-t3-pilier">—</strong>/mes.</span>
+  <span class="sync-badge fresh dot" title="Hodnota ETF portfólia zo záložky Rast portfólia">Portfólio zo záložky Rast portfólia: <strong id="sync-t7-etf">—</strong></span>
 </div>
 
 <div style="background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
@@ -4042,7 +4177,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <!-- Integrate with Tab 1 -->
     <button class="integrate-btn" id="mort-integrate-btn" onclick="mortIntegrateWithCalc()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      Použiť zostatok <strong id="mort-integrate-val">—</strong> ako mesačný vklad v Rast portfólia
+      Použiť zostatok <strong id="mort-integrate-val">—</strong> ako mesačne investovanú sumu v Rast portfólia
     </button>
   </div>
 
@@ -4301,15 +4436,15 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané<div class='tt-hr'></div>
-<strong>Rast portfólia</strong> — mesačný vklad, ktorý sa automaticky nastaví v záložke Rast portfólia na základe vašej investičnej miery.<br>
-<strong>Rezervný fond</strong> — celkové mesačné výdavky posielané do T10 ako cieľ fondu.<br>
-<strong>EF príspevok</strong> — koľko mesačne odkladáte na rezervný fond.<br>
-<strong>Hypo splátka</strong> — mesačná splátka hypotéky z T8, automaticky zarátaná do výdavkov.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný vklad v Rast portfólia">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
+<strong>Vklad do Rast portfólia</strong> — mesačná suma, ktorú investujete, odoslaná do záložky <em>Rast portfólia</em> na základe vašej vypočítanej investičnej miery.<br>
+<strong>Výdavky do Rezervného fondu</strong> — celkové mesačné výdavky odoslané do záložky <em>Rezervný fond</em> ako cieľová suma vankúša.<br>
+<strong>Príspevok do Rezervného fondu</strong> — koľko mesačne aktívne dopĺňate záložku <em>Rezervný fond</em>.<br>
+<strong>Splátka zo záložky Hypotéka</strong> — mesačná splátka z vašej hypotéky, automaticky zarátaná do výdavkov.">?</span>
+  <span class="sync-badge fresh dot" title="Mesačne investovaná suma odoslaná do záložky Rast portfólia">Vklad do záložky Rast portfólia: <strong id="sync-t1-invest">—</strong></span>
   <button id="t1-cf-sync-hint" style="display:none;font-size:12px;font-family:'Source Code Pro',monospace;padding:3px 9px;border-radius:100px;border:1px solid rgba(200,168,75,.35);background:rgba(200,168,75,.1);color:var(--gold2);cursor:pointer;align-items:center;gap:4px;transition:all .2s;" onmouseover="this.style.background='rgba(200,168,75,.18)'" onmouseout="this.style.background='rgba(200,168,75,.1)'"></button>
-  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Rezervný fond: <strong id="sync-ef-expenses">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok do Rezervného fondu">Rez. fond: <strong id="sync-ef-contrib">—</strong></span>
-  <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
+  <span class="sync-badge fresh dot" title="Celkové výdavky odoslané do záložky Rezervný fond">Výdavky do záložky Rezervný fond: <strong id="sync-ef-expenses">—</strong></span>
+  <span class="sync-badge fresh dot" title="Mesačný príspevok odoslaný do záložky Rezervný fond">Príspevok do záložky Rezervný fond: <strong id="sync-ef-contrib">—</strong></span>
+  <span class="sync-badge fresh dot" title="Mesačná splátka hypotéky zo záložky Hypotéka">Splátka zo záložky Hypotéka: <strong id="sync-cf-mort">—</strong></span>
 </div>
 
 <!-- Household + CTA bar -->
@@ -4375,10 +4510,10 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = čaká na prepočet z Cashflow (T9)<br>
 <strong style='color:#34d399'>● Zelená</strong> = hodnoty sú čerstvé<div class='tt-hr'></div>
-<strong>Výdavky z CF</strong> — vaše celkové mesačné výdavky z Cashflow. Cieľ fondu = tieto výdavky × počet mesiacov (štandard: 6).<br>
-<strong>Príspevok</strong> — koľko mesačne dopĺňate fond (z CF → T10).">?</span>
-  <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong></span>
+<strong>Výdavky zo záložky Príjmy a výdavky</strong> — vaše celkové mesačné výdavky. Cieľ fondu = tieto výdavky × počet mesiacov (štandard: 6 mesiacov).<br>
+<strong>Príspevok zo záložky Príjmy a výdavky</strong> — koľko mesačne aktívne dopĺňate rezervný fond.">?</span>
+  <span class="sync-badge fresh dot" title="Celkové výdavky zo záložky Príjmy a výdavky">Výdavky zo záložky Príjmy a výdavky: <strong id="sync-ef-expenses-show">—</strong></span>
+  <span class="sync-badge fresh dot" title="Mesačný príspevok zo záložky Príjmy a výdavky">Príspevok zo záložky Príjmy a výdavky: <strong id="sync-ef-contrib-show">—</strong></span>
 </div>
 
 <div style="background:rgba(34,211,238,.03);border:1px solid rgba(34,211,238,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
@@ -4555,8 +4690,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <span class="sync-bar-lbl">Sync</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = Net Worth v T12 ešte nie je prepočítaný<br>
 <strong style='color:#34d399'>● Zelená</strong> = dlhy sú zohľadnené v celkovom majetku<div class='tt-hr'></div>
-<strong>Net Worth</strong> — váš čistý majetok: celkové aktíva mínus všetky dlhy zadané v tomto zozname. Táto hodnota sa živoukazuje v T12 (Prehľad majetku).">?</span>
-  <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong></span>
+<strong>Čistý majetok</strong> — celkové aktíva mínus všetky vaše dlhy. Táto hodnota sa automaticky premietne do záložky <em>Ostatný majetok</em>.">?</span>
+  <span class="sync-badge fresh dot" title="Váš čistý majetok po odčítaní dlhov — zobrazené v záložke Ostatný majetok">Čistý majetok v záložke Ostatný majetok: <strong id="sync-assets-debt">—</strong></span>
   <span id="debt-cf-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
 
@@ -4620,6 +4755,22 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   <div id="debt-rec-box"></div>
 
   <!-- Hypotekárna analýza (zobrazí sa len ak je typ=Hypotéka) -->
+  <!-- Ročná extra splátka hypotéky (zobrazí sa len ak je typ=Hypotéka) -->
+  <div id="debt-annual-panel" class="panel" style="display:none;margin-top:14px;border-color:rgba(200,168,75,.2);">
+    <p class="plbl" style="margin-bottom:6px;">Ročná mimoriadna splátka hypotéky</p>
+    <div style="font-size:14.4px;color:var(--muted2);margin-bottom:14px;line-height:1.7;">Koľko raz ročne navyše dokážete vložiť do hypotéky? Kalkulačka ukáže úsporu na úrokoch, skrátenie doby splácania a porovnanie s investovaním tej istej sumy.</div>
+    <div class="ig primary">
+      <div class="il">Ročná extra splátka <span class="val" id="debt-annual-lbl">€1 000</span></div>
+      <input type="range" id="debt-annual-extra" min="0" max="10000" step="100" value="1000" oninput="calcDebt()" aria-label="Ročná mimoriadna splátka hypotéky">
+      <div class="rbnd"><span>€0</span><span>€10 000</span></div>
+    </div>
+    <div class="ig">
+      <div class="il">Výnos ETF pre porovnanie (p.a.) <span class="val" id="debt-annual-etf-lbl">9,0%</span></div>
+      <input type="range" id="debt-annual-etf" min="3" max="15" step="0.5" value="9" oninput="calcDebt()" aria-label="Výnos ETF pre porovnanie s extra splátkou">
+      <div class="rbnd"><span>3%</span><span>15%</span></div>
+    </div>
+  </div>
+
   <div id="debt-mort-analysis" class="panel" style="display:none;margin-top:14px;border-color:rgba(200,168,75,.2);"></div>
 
 </div>
@@ -4683,14 +4834,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <strong style='color:#fbbf24'>● Žltá</strong> = záložka, z ktorej pochádza hodnota, ešte nebola otvorená<br>
 <strong style='color:#34d399'>● Zelená</strong> = všetky zdroje sú aktuálne prepočítané<div class='tt-hr'></div>
 Diagnostika čerpá z:<br>
-<strong>Cashflow T9</strong> — príjmy, výdavky, savings rate<br>
-<strong>Dlhy T11</strong> — DSTI, DTI, celková záťaž<br>
+<strong>Príjmy a výdavky</strong> — príjmy, výdavky, miera úspor<br>
+<strong>Moje dlhy</strong> — DSTI, DTI, celková dlhová záťaž<br>
 <strong>Rezervný fond</strong> — koľko mesiacov výdavkov máte pokrytých<br>
-<strong>Kalkulačka T1</strong> — investičná miera, portfólio">?</span>
-  <span class="sync-badge fresh dot">Cashflow T9</span>
-  <span class="sync-badge fresh dot">Dlhy T11</span>
+<strong>Rast portfólia</strong> — investičná miera a hodnota portfólia">?</span>
+  <span class="sync-badge fresh dot">Príjmy a výdavky</span>
+  <span class="sync-badge fresh dot">Moje dlhy</span>
   <span class="sync-badge fresh dot">Rezervný fond</span>
-  <span class="sync-badge fresh dot">Kalkulačka T1</span>
+  <span class="sync-badge fresh dot">Rast portfólia</span>
   <span style="margin-left:auto;font-size:14.4px;color:var(--muted);opacity:.5;">ŠÚ SR 2024 · NBS · MSCI World</span>
 </div>
 
@@ -4998,6 +5149,7 @@ function syncSy(){
    TAB SWITCHING
 ═══════════════════════════════════════════════ */
 function showTab(id,btn){
+  window._activeTab = id;
   document.querySelectorAll('.tab-panel').forEach(p=>{
     p.classList.remove('active');
   });
@@ -5115,13 +5267,13 @@ function sync(){
   pdApplyLumpsState(); // B: restore lump section if previously opened
   const p=getP();
   $el('l-ini').textContent='€'+p.ini.toLocaleString('sk-SK');
-  $el('l-mon').textContent='€'+p.mon.toLocaleString('sk-SK');
+  if($el('ei-mon') && document.activeElement!=$el('ei-mon')) $el('ei-mon').value=p.mon;
   $el('l-inc').textContent=fmtP(p.inc*100);
   $el('l-yr').textContent=p.yr;
   $el('l-ret').textContent=fmtP(p.stockRet*100); // show stock ret in slider label
   $el('l-div').textContent=fmtP(p.divYield*100);
   $el('l-inf').textContent=fmtP(p.inf*100);
-  $el('l-fee').textContent=fmtP(p.fee*100);
+  if($el('ei-fee') && document.activeElement!=$el('ei-fee')) $el('ei-fee').value=(p.fee*100).toFixed(2);
   if($el('l-stk')) $el('l-stk').textContent=Math.round(p.stkPct*100)+'%';
   // Show blended return badge if not 100% stocks
   const retLabel=$el('l-ret');
@@ -5328,7 +5480,7 @@ function renderTable(){
 function exportCSV(){
   if(!window._lastRows) return;
   const rows=window._lastRows,p=window._lastP;
-  let csv='Rok;Kalendárny rok;Mesačný vklad (€);Lump-sum (€);Celkové vklady (€);Nominálna (€);Reálna (€);Výnosy (€);Daň (€)\n';
+  let csv='Rok;Kalendárny rok;Mesačne investovaná suma (€);Lump-sum (€);Celkové vklady (€);Nominálna (€);Reálna (€);Výnosy (€);Daň (€)\n';
   rows.forEach(r=>{
     const g=Math.max(0,r.gains);
     const t=!p.timeTest?Math.round(skTax(g,p.useZP)):0;
@@ -5350,10 +5502,11 @@ function syncCmp(){
     const inc=+$el(rp+'inc').value,ret=+$el(rp+'ret').value;
     const fee=+$el(rp+'fee').value,yr=+$el(rp+'yr').value;
     $el(lp+'ini').textContent='€'+ini.toLocaleString('sk-SK');
-    $el(lp+'mon').textContent='€'+mon.toLocaleString('sk-SK');
+    // mon a fee sú teraz editable number inputs — updateujeme len ak nie sú active
+    const monEl=$el('ei-'+rp+'mon'); if(monEl&&document.activeElement!==monEl) monEl.value=mon;
+    const feeEl=$el('ei-'+rp+'fee'); if(feeEl&&document.activeElement!==feeEl) feeEl.value=fee.toFixed(2);
     $el(lp+'inc').textContent=fmtP(inc);
     $el(lp+'ret').textContent=fmtP(ret);
-    $el(lp+'fee').textContent=fmtP(fee);
     $el(lp+'yr').textContent=yr;
     [rp+'ini',rp+'mon',rp+'inc',rp+'ret',rp+'fee',rp+'yr'].forEach(id=>{
       const el=$el(id);if(el) fillSlider(el);
@@ -5717,7 +5870,7 @@ function calcReverse(){
   // Update labels
   $el('rvl-yr').textContent=yr;
   $el('rvl-ret').textContent=fmtP(ret*100);
-  $el('rvl-fee').textContent=fmtP(fee*100);
+  if($el('ei-rvr-fee') && document.activeElement!=$el('ei-rvr-fee')) $el('ei-rvr-fee').value=(fee*100).toFixed(2);
   $el('rvl-wr').textContent=fmtP(wr*100);
   $el('rvl-inc').textContent=fmtP(inc*100);
   // Dynamic retirement return
@@ -5763,7 +5916,7 @@ function calcReverse(){
   // Update DOM
   $el('rv-monthly').textContent=fmt(monthlyPMT)+'/mes.';
   $el('rv-monthly-sub').textContent=
-    `Prvý mesačný vklad dnes. Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) dosiahnete portfólio ${fmt(reqPortfolio)} `+
+    `Prvá mesačne investovaná suma dnes. Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) dosiahnete portfólio ${fmt(reqPortfolio)} `+
     (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
   $el('rv-portfolio').textContent=fmt(reqPortfolio);
   $el('rv-portfolio-sub').textContent=`nominálne v roku ${new Date().getFullYear()+yr}`;
@@ -5988,7 +6141,7 @@ function renderIncTable(tbodyId, startMon, inc, years, fireYear){
 
    Col 3: rozdiel finálneho portfólia vs. štart dnes
           (= ušlé príspevky + ich celý rast)
-   Col 4: extra mesačný vklad na dorovnanie tohto
+   Col 4: extra mesačne investovaná suma na dorovnanie tohto
           rozdielu za zostávajúce obdobie (PMT)
 ═══════════════════════════════════════════════ */
 function renderDelay(p, rows){
@@ -6148,10 +6301,10 @@ function calcFIRE(){
   const effRet   = ret - fee;
 
   // Update labels
-  $el('firel-mon').textContent = '€'+mon.toLocaleString('sk-SK');
+  if($el('ei-firer-mon') && document.activeElement!=$el('ei-firer-mon')) $el('ei-firer-mon').value=mon;
   $el('firel-inc').textContent = fmtP(inc*100);
   $el('firel-ret').textContent = fmtP(ret*100);
-  $el('firel-fee').textContent = fmtP(fee*100);
+  if($el('ei-firer-fee') && document.activeElement!=$el('ei-firer-fee')) $el('ei-firer-fee').value=(fee*100).toFixed(2);
   $el('firel-wr').textContent  = fmtP(wr*100);
   if($el('firel-gyr')) $el('firel-gyr').textContent = gyr;
 
@@ -6222,7 +6375,7 @@ function calcFIRE(){
   } else {
     $el('fire-result-main').textContent = '50+ rokov';
     $el('fire-result-sub').textContent =
-      'Pri týchto parametroch FIRE do 50 rokov nedosiahnete. Zvýšte mesačný vklad alebo výnos.';
+      'Pri týchto parametroch FIRE do 50 rokov nedosiahnete. Zvýšte mesačne investovanú sumu alebo výnos.';
     $el('fire-result-main').style.color = 'var(--red)';
   }
 
@@ -6307,7 +6460,7 @@ function calcFIRE(){
                <div style="color:var(--muted);font-size:14.4px;">${syCtx}</div>`;
               })()
             : `<div style="color:var(--red);">Cieľ nedosiahnutý za 50 rokov</div>
-               <div style="color:var(--muted);margin-top:6px;">Zvýšte mesačný vklad alebo výnos.</div>`
+               <div style="color:var(--muted);margin-top:6px;">Zvýšte mesačne investovaná suma alebo výnos.</div>`
           }
         </div>
       </div>`;
@@ -6698,8 +6851,8 @@ function calcBacktest(){
   const mon=+document.getElementById('bt-r-mon').value;
   const fee=+document.getElementById('bt-r-fee').value;
   document.getElementById('bt-l-ini').textContent='€'+ini.toLocaleString('sk-SK');
-  document.getElementById('bt-l-mon').textContent='€'+mon.toLocaleString('sk-SK');
-  document.getElementById('bt-l-fee').textContent=fmtP(fee);
+  const _btmonEl=document.getElementById('ei-bt-mon'); if(_btmonEl && document.activeElement!==_btmonEl) _btmonEl.value=mon;
+  const _btfeeEl=document.getElementById('ei-bt-fee'); if(_btfeeEl && document.activeElement!==_btfeeEl) _btfeeEl.value=parseFloat(fee).toFixed(2);
   fillSlider(document.getElementById('bt-r-ini'));
   fillSlider(document.getElementById('bt-r-mon'));
   fillSlider(document.getElementById('bt-r-fee'));
@@ -8289,7 +8442,7 @@ function cfIntegrateWithCalc(){
   fillSlider(slider); sync();
   const t1btn = document.querySelector('.tg-invest .tab');
   if(t1btn) showTab('t1', t1btn);
-  showToast('Mesačný vklad nastavený na '+fmt(invest)+' · Kalkulačka aktualizovaná', 'var(--violet)');
+  showToast('Mesačne investovaná suma nastavená na '+fmt(invest)+' · Kalkulačka aktualizovaná', 'var(--violet)');
 }
 
 function cfIntegrateWithEF(){
@@ -9245,7 +9398,10 @@ function renderDebtList(){
 function calcDebt(){
   if($el('debt-l-extra')) $el('debt-l-extra').textContent = '€'+Math.round(+($el('debt-extra')?.value||200)).toLocaleString('sk-SK');
   if($el('debt-l-ret'))   $el('debt-l-ret').textContent   = (+($el('debt-ret')?.value||9)).toFixed(1).replace('.',',')+'%';
-  ['debt-extra','debt-ret'].forEach(id=>{const e=$el(id);if(e)fillSlider(e);});
+  // Ročná extra splátka sliders
+  if($el('debt-annual-lbl'))     $el('debt-annual-lbl').textContent     = '€'+Math.round(+($el('debt-annual-extra')?.value||1000)).toLocaleString('sk-SK');
+  if($el('debt-annual-etf-lbl')) $el('debt-annual-etf-lbl').textContent = (+($el('debt-annual-etf')?.value||9)).toFixed(1).replace('.',',')+'%';
+  ['debt-extra','debt-ret','debt-annual-extra','debt-annual-etf'].forEach(id=>{const e=$el(id);if(e)fillSlider(e);});
 
   const totalBal = debtRows.reduce((s,d)=>s+(+d.balance||0),0);
   const totalMon = debtRows.reduce((s,d)=>s+(+d.monthly||0),0);
@@ -9379,26 +9535,30 @@ function calcDebt(){
   // ── HYPOTEKÁRNA ANALÝZA ──
   const mortDebts = debtRows.filter(d => d.type === 'Hypotéka' && +d.balance > 0);
   const mortBox = $el('debt-mort-analysis');
+  const annualPanel = $el('debt-annual-panel');
+  if(annualPanel) annualPanel.style.display = mortDebts.length > 0 ? 'block' : 'none';
   if(mortBox){
     if(mortDebts.length === 0){
       mortBox.style.display = 'none';
     } else {
       mortBox.style.display = 'block';
+      const annualExtra  = +($el('debt-annual-extra')?.value  || 1000);
+      const annualEtfRet = +($el('debt-annual-etf')?.value    || 9) / 100;
+
       const analyses = mortDebts.map(m => {
-        const bal     = +m.balance || 0;
-        const rate    = +m.rate    || 0;
-        const mon     = +m.monthly || 0;
-        const term    = +m.term    || 0;
-        const fixRate = +m.fixRate || 0;
-        const fixYrs  = +m.fixYears|| 0;
+        const bal     = +m.balance  || 0;
+        const rate    = +m.rate     || 0;
+        const mon     = +m.monthly  || 0;
+        const term    = +m.term     || 0;
+        const fixRate = +m.fixRate  || 0;
+        const fixYrs  = +m.fixYears || 0;
         const mr      = rate / 100 / 12;
 
         // Zostatok po fixácii
         let balAtFix = bal;
         if(fixYrs > 0 && mon > 0 && mr > 0){
-          for(let m2=0; m2 < fixYrs*12; m2++){
+          for(let m2=0; m2 < fixYrs*12; m2++)
             balAtFix = Math.max(0, balAtFix * (1 + mr) - mon);
-          }
         }
 
         // Mesačná splátka po refixácii
@@ -9410,56 +9570,99 @@ function calcDebt(){
             ? Math.round(balAtFix * mr2 / (1 - Math.pow(1 + mr2, -(termLeft * 12))))
             : Math.round(balAtFix / (termLeft * 12));
         }
-        const paymentDiff = newPayment - mon;
-        const paymentDiffAbs = Math.abs(paymentDiff);
+        const paymentDiffAbs = Math.abs(newPayment - mon);
 
-        // Celkové úroky pri súčasnej sadzbe
-        let b = bal, totalInt = 0;
+        // Celkové úroky — štandardná trasa (trackujeme aj monthsStd)
+        let b = bal, totalInt = 0, monthsStd = 0;
         if(mr > 0 && mon > 0){
           for(let m2=0; m2 < term*12 && b > 0; m2++){
             const interest = b * mr;
             totalInt += interest;
             b = Math.max(0, b + interest - mon);
+            monthsStd++;
           }
         }
 
-        // Odporúčania
-        const recs = [];
+        // ── ROČNÁ EXTRA SPLÁTKA ──
+        let annualHtml = '';
+        if(annualExtra > 0 && bal > 0 && mon > 0 && mr > 0){
+          let bEx = bal, totalIntEx = 0, monthsEx = 0;
+          for(let m2=0; m2 < term*12 && bEx > 0; m2++){
+            const interest = bEx * mr;
+            totalIntEx += interest;
+            bEx = Math.max(0, bEx + interest - mon);
+            monthsEx++;
+            if((m2+1) % 12 === 0 && bEx > 0) bEx = Math.max(0, bEx - annualExtra);
+          }
+          const intSaved    = Math.max(0, totalInt - totalIntEx);
+          const monthsSaved = Math.max(0, monthsStd - monthsEx);
+          const yearsSaved  = Math.floor(monthsSaved / 12);
+          const remMonths   = monthsSaved % 12;
+          const horizonYrs  = Math.max(1, Math.round(monthsStd / 12));
 
-        // 1. Refixácia analýza
+          // ETF alternatíva — ročné vklady, zložený výnos
+          let etfFV = 0;
+          for(let y=1; y<=horizonYrs; y++) etfFV = (etfFV + annualExtra) * (1 + annualEtfRet);
+          const taxFree  = horizonYrs > 1; // Acc ETF §9/1/e ZDP
+          const etfFVNet = taxFree ? etfFV : etfFV * 0.81; // 19% z výnosu
+
+          const timeSavedStr = yearsSaved > 0
+            ? `${yearsSaved} r.${remMonths > 0 ? ' '+remMonths+' mes.' : ''}`
+            : (monthsSaved > 0 ? `${monthsSaved} mes.` : '< 1 mes.');
+
+          // Verdikt: extra splátka vs ETF
+          let verdikt, verdiktColor;
+          if(annualEtfRet*100 > rate + 1){
+            verdikt = `Investovanie do ETF vychádza matematicky výhodnejšie — výnos ETF ${(annualEtfRet*100).toFixed(1)}% výrazne prevyšuje sadzbu hypotéky ${rate}%. Odporúčame štandardné splátky nechať plynúť a ${fmt(annualExtra)}/rok zainvestovať.`;
+            verdiktColor = 'var(--emerald)';
+          } else if(rate > annualEtfRet*100 + 0.5){
+            verdikt = `Extra splátka hypotéky vychádza výhodnejšie — úspora na úrokoch ${rate}% je garantovaná, zatiaľ čo výnos ETF ${(annualEtfRet*100).toFixed(1)}% je neistý. Prioritne splácajte.`;
+            verdiktColor = 'var(--amber2)';
+          } else {
+            verdikt = `Obidve možnosti sú matematicky veľmi blízko (rozdiel < 1%). Rozhodnutie závisí od vášho rizikového profilu: extra splátka = istá úspora bez rizika, ETF = potenciálne vyšší výnos s výkyvmi.`;
+            verdiktColor = 'var(--blue2)';
+          }
+
+          annualHtml = `
+            <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(200,168,75,.15);">
+              <div style="font-size:12px;font-family:'Source Code Pro',monospace;letter-spacing:2px;text-transform:uppercase;color:var(--amber2);opacity:.8;margin-bottom:12px;">Ročná extra splátka ${fmt(annualExtra)}</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;">
+                <div style="background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center;">
+                  <div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;">Úspora na úrokoch</div>
+                  <div style="font-family:'Spectral',serif;font-size:22px;font-weight:700;color:#fda4af;line-height:1.1;">${fmt(Math.round(intSaved))}</div>
+                </div>
+                <div style="background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center;">
+                  <div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;">Skrátenie doby</div>
+                  <div style="font-family:'Spectral',serif;font-size:22px;font-weight:700;color:var(--amber2);line-height:1.1;">${timeSavedStr}</div>
+                </div>
+                <div style="background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:10px 12px;text-align:center;">
+                  <div style="font-size:11px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:1px;">ETF alternatíva</div>
+                  <div style="font-family:'Spectral',serif;font-size:22px;font-weight:700;color:var(--gold2);line-height:1.1;">${fmt(Math.round(etfFVNet))}</div>
+                  <div style="font-size:11px;color:var(--muted);margin-top:2px;">${taxFree ? '0% daň (§9 ZDP)' : 'po dani'} · ${horizonYrs} r.</div>
+                </div>
+              </div>
+              <div style="font-size:13.2px;color:var(--muted2);line-height:1.7;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:10px;padding:10px 14px;margin-bottom:10px;">
+                <strong style="color:var(--text);">Ako to funguje:</strong> Extra splátka znižuje istinu, z ktorej sa počítajú úroky. Každý rok sa efekt kumuluje — splácate stále väčší podiel istiny a menší podiel úrokov. Splátka zostáva rovnaká, no hypotéka sa splatí skôr o ${timeSavedStr}.
+              </div>
+              <div class="cf2-rec info" style="margin-bottom:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);line-height:1.6;"><strong style="color:${verdiktColor};">Odporúčanie:</strong> ${verdikt}</div></div>
+            </div>`;
+        }
+
+        // ── OSTATNÉ ODPORÚČANIA (refixácia, benchmark, LTV) ──
+        const recs = [];
         if(fixRate > 0 && fixYrs > 0){
           const diff = fixRate - rate;
-          if(diff > 0.5){
-            recs.push({type:'bad', text:`⚠️ Refixácia za ${fixYrs} r. na ${fixRate}% zvýši splátku o <strong style="color:var(--red);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Zvážte mimoriadne splácanie teraz, kým je sadzba nižšia.`});
-          } else if(diff < -0.3){
-            recs.push({type:'ok', text:`✅ Refixácia za ${fixYrs} r. na ${fixRate}% zníži splátku o <strong style="color:var(--emerald);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Dobrá vyhliadka.`});
-          } else {
-            recs.push({type:'info', text:`Refixácia za ${fixYrs} r. na ${fixRate}% — splátka sa zmení minimálne (±${fmt(paymentDiffAbs)}/mes.).`});
-          }
+          if(diff > 0.5)       recs.push({type:'bad',  text:`⚠️ Refixácia za ${fixYrs} r. na ${fixRate}% zvýši splátku o <strong style="color:var(--red);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Zvážte mimoriadne splácanie teraz, kým je sadzba nižšia.`});
+          else if(diff < -0.3) recs.push({type:'ok',   text:`✅ Refixácia za ${fixYrs} r. na ${fixRate}% zníži splátku o <strong style="color:var(--emerald);">${fmt(paymentDiffAbs)}/mes.</strong> (z ${fmt(mon)} na ${fmt(newPayment)}). Dobrá vyhliadka.`});
+          else                 recs.push({type:'info',  text:`Refixácia za ${fixYrs} r. na ${fixRate}% — splátka sa zmení minimálne (±${fmt(paymentDiffAbs)}/mes.).`});
         } else if(fixYrs > 0){
           recs.push({type:'info', text:`Fixácia ešte ${fixYrs} r. — vyplňte plánovanú sadzbu po refixácii pre analýzu dopadu na splátku.`});
         }
-
-        // 2. Celkové úroky
-        if(totalInt > 0){
-          recs.push({type:'info', text:`Pri sadze ${rate}% zaplatíte za ${term} rokov na úrokoch celkovo <strong style="color:var(--amber2);">${fmt(Math.round(totalInt))}</strong> — teda ${Math.round(totalInt/bal*100)}% z istiny navyše.`});
-        }
-
-        // 3. Sadzba benchmark
-        if(rate > 4.5){
-          recs.push({type:'bad', text:`Sadzba ${rate}% je nad aktuálnym trhom (SK priemer 2025: ~3.5–4.2%). Ak máte fixáciu do 1 roka, aktívne kontaktujte banky — refinancovanie môže ušetriť desiatky € mesačne.`});
-        } else if(rate < 3.0){
-          recs.push({type:'ok', text:`Sadzba ${rate}% je výborne pod trhom. Mimoriadne splácanie je menej prioritné — každé voľné euro investované do ETF pravdepodobne prinesie vyšší výnos.`});
-        }
-
-        // 4. LTV check (ak máme cenu z hypotéky)
+        if(totalInt > 0) recs.push({type:'info', text:`Pri sadzbe ${rate}% zaplatíte za ${term} rokov na úrokoch celkovo <strong style="color:var(--amber2);">${fmt(Math.round(totalInt))}</strong> — teda ${Math.round(totalInt/bal*100)}% z istiny navyše.`});
+        if(rate > 4.5)   recs.push({type:'bad',  text:`Sadzba ${rate}% je nad aktuálnym trhom (SK priemer 2025: ~3.5–4.2%). Ak máte fixáciu do 1 roka, aktívne kontaktujte banky — refinancovanie môže ušetriť desiatky € mesačne.`});
+        else if(rate < 3.0) recs.push({type:'ok', text:`Sadzba ${rate}% je výborne pod trhom. Mimoriadne splácanie je menej prioritné — každé voľné euro investované do ETF pravdepodobne prinesie vyšší výnos.`});
         const propVal = +($el('mr-price')?.value || 0);
-        if(propVal > 0 && bal > 0){
-          const ltv = bal / propVal * 100;
-          if(ltv < 60){
-            recs.push({type:'ok', text:`LTV ~${ltv.toFixed(0)}% — ste pod 60%. Banky ponúkajú najlepšie sadzby pri LTV < 60%, môžete sa pokúsiť o výhodnejšiu refinancovanie.`});
-          }
-        }
+        if(propVal > 0 && bal/propVal < 0.6) recs.push({type:'ok', text:`LTV ~${Math.round(bal/propVal*100)}% — ste pod 60%. Banky ponúkajú najlepšie sadzby pri LTV < 60%, môžete sa pokúsiť o výhodnejšie refinancovanie.`});
 
         const recsHtml = recs.map(r =>
           `<div class="cf2-rec ${r.type}" style="margin-bottom:8px;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);line-height:1.6;">${r.text}</div></div>`
@@ -9473,6 +9676,7 @@ function calcDebt(){
               ${fixYrs > 0 ? `<span class="debt-fix-badge">fixácia ${fixYrs} r.</span>` : ''}
             </div>
             ${recsHtml || `<div style="font-size:14.4px;color:var(--muted);">Vyplňte sadzbu a dobu fixácie pre podrobnú analýzu.</div>`}
+            ${annualHtml}
           </div>`;
       }).join('');
 
@@ -9675,7 +9879,7 @@ function crossSync_CF_to_T1(investAmt){
         fillSlider(s);
         if(typeof sync === 'function') sync();
         hint.style.display = 'none';
-        showToast('Mesačný vklad aktualizovaný z Cashflow', 'var(--gold2)');
+        showToast('Mesačne investovaná suma aktualizovaný z Cashflow', 'var(--gold2)');
       };
     } else {
       hint.style.display = 'none';
@@ -9765,7 +9969,7 @@ function mortIntegrateWithCalc(){
   sync();
   const t1btn = document.querySelector('.tg-invest .tab');
   if(t1btn) showTab('t1', t1btn);
-  showToast('Mesačný vklad nastavený na '+fmt(invest)+'/mes. · Kalkulačka aktualizovaná', 'var(--emerald)');
+  showToast('Mesačne investovaná suma nastavená na '+fmt(invest)+'/mes. · Kalkulačka aktualizovaná', 'var(--emerald)');
 }
 
 
@@ -9840,9 +10044,22 @@ function _syncInfResetBtns(){
 document.getElementById('r-inf').addEventListener('input',_syncInfResetBtns);
 
 /* ── SOURCES MODAL ── */
-function openSources(){
+function openSources(forceTab){
   $el('sources-overlay').classList.add('open');
   document.body.style.overflow='hidden';
+  // Auto-select filter podľa aktívneho tabu
+  const tab = forceTab || window._activeTab || 'all';
+  const btn = document.querySelector(`.src-ftab[data-filter="${tab}"]`);
+  if(btn){
+    srcFilter(tab, btn);
+  } else {
+    // fallback — všetko
+    const allBtn = document.querySelector('.src-ftab[data-filter="all"]');
+    if(allBtn) srcFilter('all', allBtn);
+  }
+  // Scroll na začiatok
+  const body = $el('sources-box-body');
+  if(body) body.scrollTop = 0;
 }
 function closeSources(){
   $el('sources-overlay').classList.remove('open');
@@ -9856,8 +10073,8 @@ function srcFilter(tab, btn){
   });
   btn.classList.add('active');
   // Colour coding per tab
-  const colors = {all:'var(--muted)',t1:'var(--gold2)',t3:'var(--emerald)',t5:'var(--teal)',
-                  t7:'var(--violet2)',t8:'var(--rose2)',t6:'var(--blue2)',t13:'var(--amber2)'};
+  const colors = {all:'var(--muted)',t1:'var(--gold2)',t2:'var(--gold2)',t3:'var(--emerald)',t4:'var(--emerald)',t5:'var(--teal)',
+                  t6:'var(--blue2)',t7:'var(--violet2)',t8:'var(--rose2)',t9:'var(--amber2)',t10:'var(--amber2)',t11:'var(--rose2)',t13:'var(--muted)'};
   const c = colors[tab]||'var(--muted)';
   btn.style.background=c; btn.style.borderColor=c; btn.style.color='var(--bg)';
   // Show/hide blocks
@@ -9867,6 +10084,7 @@ function srcFilter(tab, btn){
   });
 }
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeSources(); });
+window._activeTab = window._activeTab || 't1';
 </script>
 <script>const _cy=new Date().getFullYear(); document.getElementById('footer-year').textContent=_cy; document.querySelectorAll('.ctx-cur-year').forEach(el=>el.textContent=_cy); const _r4y=document.getElementById('r4-cur-year'); if(_r4y)_r4y.textContent=_cy; const _hy=document.getElementById('hdr-year'); if(_hy)_hy.textContent=_cy;</script>
 
@@ -9946,5 +10164,58 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeSources();
   }
 })();
 </script>
+
+/* ── Editovateľné number inputy — sync s range sliderom ── */
+function _syncEI(numId, rangeId, callback){
+  const num = document.getElementById(numId);
+  const rng = document.getElementById(rangeId);
+  if(!num || !rng) return;
+  // number → slider (oninput na number)
+  num.addEventListener('input', ()=>{
+    const v = parseFloat(num.value);
+    if(!isNaN(v)){
+      rng.value = Math.min(parseFloat(rng.max), Math.max(parseFloat(rng.min), v));
+      fillSlider(rng);
+      if(callback) callback();
+    }
+  });
+  num.addEventListener('change', ()=>{
+    const v = parseFloat(num.value);
+    if(!isNaN(v)){
+      // clamp to slider range but allow typing outside
+      const clamped = Math.min(parseFloat(rng.max), Math.max(parseFloat(rng.min), v));
+      num.value = clamped;
+      rng.value = clamped;
+      fillSlider(rng);
+      if(callback) callback();
+    }
+  });
+  // slider → number (oninput na range — already handled by oninput attr, but also keep in sync)
+  rng.addEventListener('input', ()=>{
+    const decimals = num.step && num.step.includes('.') ? num.step.split('.')[1].length : 0;
+    num.value = parseFloat(rng.value).toFixed(decimals);
+  });
+}
+
+function _initEditableInputs(){
+  // [numId, rangeId, callback]
+  const pairs = [
+    ['ei-mon',     'r-mon',     sync],
+    ['ei-fee',     'r-fee',     sync],
+    ['ei-ar-mon',  'ar-mon',    syncCmp],
+    ['ei-ar-fee',  'ar-fee',    syncCmp],
+    ['ei-br-mon',  'br-mon',    syncCmp],
+    ['ei-br-fee',  'br-fee',    syncCmp],
+    ['ei-rvr-fee', 'rvr-fee',   calcReverse],
+    ['ei-firer-mon','firer-mon',calcFIRE],
+    ['ei-firer-fee','firer-fee',calcFIRE],
+    ['ei-bt-mon',  'bt-r-mon',  calcBacktest],
+    ['ei-bt-fee',  'bt-r-fee',  calcBacktest],
+  ];
+  pairs.forEach(([numId, rangeId, cb]) => _syncEI(numId, rangeId, cb));
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{ _initEditableInputs(); });
+
 </body>
 </html>
