@@ -8611,33 +8611,43 @@ const APP_STATE_VERSION = 2; // v2: pridané efBuckets, assetRows, opravené deb
 const STATE_INPUT_IDS = [
   /* Tab 1 – Kalkulačka */
   'r-ini','r-mon','r-inc','r-yr','r-ret','r-inf','r-fee','r-stk','r-div','r-gyr','r-yinv','r-wr',
+  /* Tab 1 – checkboxy */
+  'ck-timetest','ck-zp','ck-allrows',
   /* Tab 2 – Plán A/B */
   'ar-ini','ar-mon','ar-inc','ar-yr','ar-ret','ar-fee',
   'br-ini','br-mon','br-inc','br-yr','br-ret','br-fee',
-  /* Tab 3 – Dôchodok (reverse) */
-  'rv-ini','rv-target','rvr-ini','rvr-ret','rvr-inf','rvr-fee','rvr-yr','rvr-mon','rvr-wgr','rvr-wr','rvr-inc',
-  /* Tab 4 – Cieľový výber */
+  'ck-altcomp',
+  /* Tab 3 – Výber z portfólia */
+  'rv-ini','rv-target','rvr-ret','rvr-inf','rvr-fee','rvr-yr','rvr-wgr','rvr-wr','rvr-inc',
+  'ctx-avg-wage','ctx-state-pension',
+  /* Tab 4 – Koľko investovať */
   'alt-r-re','alt-r-td',
   /* Tab 5 – FIRE */
-  'firer-mon','firer-ret','firer-inc','firer-fee','firer-gyr','firer-wr',
+  'firer-mon','firer-ret','firer-inc','firer-fee','firer-gyr','firer-wr','firer-inf',
   'fire-exp','fire-ini','fire-age',
   /* Tab 6 – Backtest */
   'bt-r-ini','bt-r-mon','bt-r-fee',
   /* Tab 7 – Piliere */
   'p2-r-sal','p2-r-yr','p2-r-ret','p2-r-bal',
   'p3-r-own','p3-r-emp','p3-r-ret','p3-r-bal',
+  'pil-ret-age',
   /* Tab 8 – Hypotéka */
   'mr-inc1','mr-inc2','mr-debt','mr-rate','mr-term','mr-own','mr-ownb','mr-price',
   'mort-age','mort-age2','mort-inc1-num','mort-inc2-num','mort-price-num',
   'refix-new-rate','rent-slider','prop-growth','rent-etf-ret',
-  /* Tab 9 – Cashflow */
-  'cf-wage','cf-wage2','cf-passive','cf-other-in',
-  'cf-rent','cf-energy','cf-insur','cf-loans','cf-subs',
-  'cf-food','cf-transport','cf-dining','cf-fun','cf-clothes','cf-health','cf-misc',
-  'cf-invest-pct','cf-ef-pct','cf-free-pct',
+  'mort-first-buyer','mort-in-fixation',
+  /* Tab 8 – RPMN poplatky */
+  'rpmn-fee-appraisal','rpmn-fee-kataster','rpmn-fee-proc',
+  'rpmn-ins-life','rpmn-ins-property','rpmn-fee-other',
   /* Tab 10 – Núdzový fond */
   'ef-expenses','ef-saved','ef-monthly','ef-rate',
-  /* Iné number inputs */
+  /* Tab 11 – Dlhy */
+  'debt-extra','debt-ret',
+  /* Tab 13 – Diagnostika */
+  'wage-sector','raise-pct',
+  /* Daňové a globálne nastavenia */
+  'setting-zm','setting-zp-rate','setting-euribor','setting-bond-ret',
+  /* Iné */
   'n-port','n-sy','_vei',
 ];
 
@@ -8655,8 +8665,15 @@ function _collectState(){
   STATE_INPUT_IDS.forEach(id => {
     const el = document.getElementById(id);
     if(!el) return;
-    if(el.type === 'checkbox') inputs[id] = el.checked;
-    else inputs[id] = el.value;
+    if(el.type === 'checkbox') { inputs[id] = el.checked; return; }
+    // Read from ni- number input first (source of truth), fallback to slider
+    const ni = document.getElementById('ni-' + id);
+    if(ni && ni.value !== '') {
+      const v = parseFloat(ni.value);
+      inputs[id] = isNaN(v) ? el.value : v;
+    } else {
+      inputs[id] = el.value;
+    }
   });
   // CF2 dynamic data (kategorie cashflow)
   const cf2State = typeof cf2Cats !== 'undefined' ? JSON.parse(JSON.stringify(cf2Cats)) : null;
@@ -8666,18 +8683,29 @@ function _collectState(){
   const savedEfBuckets = typeof efBuckets !== 'undefined' ? JSON.parse(JSON.stringify(efBuckets)) : [];
   // K-2 FIX: assetRows[] — majetok
   const savedAssetRows = typeof assetRows !== 'undefined' ? JSON.parse(JSON.stringify(assetRows)) : [];
-  // Lump sums (jednorazove vklady)
-  const lumps = [];
-  document.querySelectorAll('.lump-row').forEach(row => {
-    const inp2 = row.querySelectorAll('input[type=number]');
-    if(inp2.length >= 2) lumps.push({yr:inp2[0].value, amt:inp2[1].value});
-  });
+  // Lump sums — ulozit priamo z JS pola (source of truth)
+  const savedLumps = typeof lumps !== 'undefined' ? JSON.parse(JSON.stringify(lumps)) : [];
   return {
     v: APP_STATE_VERSION, ts: Date.now(),
-    inputs, cf2State, lumps,
+    inputs, cf2State, lumps: savedLumps,
     debtRows: savedDebtRows,
     efBuckets: savedEfBuckets,
     assetRows: savedAssetRows,
+    // JS state premenné (nie sú v DOM inputoch)
+    jsState: {
+      mortMode:     typeof mortMode     !== 'undefined' ? mortMode     : 'a',
+      mortFix:      typeof mortFix      !== 'undefined' ? mortFix      : 3,
+      mortCoActive: typeof mortCoActive !== 'undefined' ? mortCoActive : false,
+      cf2Adults:    typeof cf2Adults    !== 'undefined' ? cf2Adults    : 2,
+      cf2Children:  typeof cf2Children  !== 'undefined' ? cf2Children  : 0,
+      // Accordion open/closed state
+      accordions: ['pd-t1-adv','pd-t2a-adv','pd-t2b-adv','pd-t3-adv','pd-t5-adv','pd-t6-adv']
+        .reduce((acc, id) => {
+          const el = document.getElementById(id);
+          if(el) acc[id] = el.open;
+          return acc;
+        }, {}),
+    },
   };
 }
 
@@ -8694,7 +8722,7 @@ function exportAppState(){
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    if(typeof toast === 'function') toast('✓ Dáta exportované');
+    showToast('✓ Dáta exportované', 'var(--emerald2)');
   } catch(e) {
     showToast('✗ Export sa nepodaril: ' + e.message, 'var(--red)');
   }
@@ -8718,11 +8746,22 @@ function importAppState(event){
       const FORBIDDEN_KEYS = ['__proto__','constructor','prototype'];
       // Restore inputs
       Object.entries(state.inputs).forEach(([id, val]) => {
-        if(FORBIDDEN_KEYS.includes(id)) return; // SECURITY FIX: skip dangerous keys
+        if(FORBIDDEN_KEYS.includes(id)) return;
         const el = document.getElementById(id);
         if(!el) return;
-        if(el.type === 'checkbox') el.checked = val;
-        else { el.value = val; el.dispatchEvent(new Event('input')); }
+        if(el.type === 'checkbox') {
+          el.checked = !!val;
+          el.dispatchEvent(new Event('change'));
+        } else if(el.tagName === 'SELECT') {
+          el.value = val;
+          el.dispatchEvent(new Event('change'));
+        } else {
+          el.value = val;
+          // Sync paired ni- number input so $v() reads correct value
+          const ni = document.getElementById('ni-' + id);
+          if(ni) { ni.value = val; }
+          el.dispatchEvent(new Event('input'));
+        }
       });
       // Restore CF2
       if(state.cf2State && Array.isArray(state.cf2State) && typeof cf2Cats !== 'undefined'){
@@ -8733,7 +8772,21 @@ function importAppState(event){
           if(c.items && !Array.isArray(c.items)) return;
           cf2Cats.push(c);
         });
-        if(typeof renderCF2 === 'function') renderCF2();
+        if(typeof renderCF2Sections === 'function') renderCF2Sections();
+      }
+      // Restore lump sums
+      if(Array.isArray(state.lumps) && typeof lumps !== 'undefined'){
+        lumps.length = 0;
+        state.lumps.forEach(l => {
+          if(!l || typeof l !== 'object') return;
+          lumps.push({
+            id:  l.id  || Date.now() + Math.random(),
+            yr:  parseFloat(l.yr)  || 5,
+            amt: parseFloat(l.amt) || 0,
+          });
+        });
+        if(typeof renderLumps === 'function') renderLumps();
+        if(lumps.length && typeof pdApplyLumpsState === 'function') pdApplyLumpsState();
       }
       // K-3 FIX: Restore debtRows[] priamo z JS pola (nie cez stary DOM #debt-tbody)
       if(Array.isArray(state.debtRows) && typeof debtRows !== 'undefined'){
@@ -8781,12 +8834,62 @@ function importAppState(event){
         if(typeof renderAssets === 'function') renderAssets();
         if(typeof calcAssets   === 'function') calcAssets();
       }
-      // Recalc all
-      if(typeof sync        === 'function') sync();
-      if(typeof calcAll     === 'function') calcAll();
-      if(typeof calcCF      === 'function') calcCF();
-      if(typeof calcDiag    === 'function') calcDiag();
-      if(typeof toast       === 'function') toast('✓ Dáta importované');
+      // Restore JS state premenné
+      if(state.jsState){
+        const js = state.jsState;
+        if(js.mortMode     !== undefined && typeof mortMode     !== 'undefined') mortMode     = js.mortMode;
+        if(js.mortFix      !== undefined && typeof mortFix      !== 'undefined') mortFix      = parseFloat(js.mortFix) || 3;
+        if(js.mortCoActive !== undefined && typeof mortCoActive !== 'undefined') mortCoActive = Boolean(js.mortCoActive);
+        if(js.cf2Adults    !== undefined && typeof cf2Adults    !== 'undefined') cf2Adults    = parseInt(js.cf2Adults)  || 2;
+        if(js.cf2Children  !== undefined && typeof cf2Children  !== 'undefined') cf2Children  = parseInt(js.cf2Children)|| 0;
+        // Update DOM counters for household
+        if($el('cf2-adults-val'))   $el('cf2-adults-val').textContent   = cf2Adults;
+        if($el('cf2-children-val')) $el('cf2-children-val').textContent = cf2Children;
+        // Restore accordion open/closed state
+        if(js.accordions && typeof js.accordions === 'object'){
+          Object.entries(js.accordions).forEach(([id, open]) => {
+            const el = document.getElementById(id);
+            if(el) el.open = Boolean(open);
+          });
+        }
+        // Update mortgage mode buttons
+        if(typeof mortSetMode === 'function') mortSetMode(mortMode);
+        else {
+          document.querySelectorAll('[onclick*="mortSetMode"]').forEach(b => {
+            b.classList.toggle('active', b.getAttribute('onclick')?.includes(`'${mortMode}'`));
+          });
+        }
+        // Update mortgage fix buttons
+        if(typeof mortSetFix === 'function') mortSetFix(mortFix);
+        // Update co-applicant
+        if(mortCoActive){
+          const coWrap = document.getElementById('mort-co-wrap');
+          if(coWrap) coWrap.style.display = 'block';
+          const coBtn = document.querySelector('[onclick*="toggleMortCo"]');
+          if(coBtn) coBtn.classList.add('active');
+        }
+      }
+      // Recalc all tabs
+      if(typeof applyTaxSettings  === 'function') applyTaxSettings();
+      if(typeof sync              === 'function') sync();
+      if(typeof syncCmp           === 'function') syncCmp();
+      if(typeof syncTab3          === 'function') syncTab3();
+      if(typeof syncReverse       === 'function') syncReverse();
+      if(typeof calcMort          === 'function') calcMort();
+      if(typeof calcFIRE          === 'function') calcFIRE();
+      if(typeof calcPiliere       === 'function') calcPiliere();
+      if(typeof calcBacktest      === 'function') calcBacktest();
+      if(typeof calcDebt          === 'function') calcDebt();
+      if(typeof efCalcBuckets     === 'function') efCalcBuckets();
+      if(typeof calcEF            === 'function') calcEF();
+      if(typeof calcDiag          === 'function') calcDiag();
+      if(typeof renderTable       === 'function') renderTable();
+      if(typeof renderCF2Sections === 'function') renderCF2Sections();
+      // Refresh all slider visuals
+      document.querySelectorAll('input[type=range]').forEach(r => {
+        if(typeof fillSlider === 'function') fillSlider(r);
+      });
+      showToast('✓ Dáta importované', 'var(--emerald2)');
     } catch(err) {
       showToast('✗ Import sa nepodaril: ' + err.message, 'var(--red)');
     }
