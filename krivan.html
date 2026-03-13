@@ -10621,6 +10621,13 @@ document.getElementById('r-inf').addEventListener('input',_syncInfResetBtns);
 function openSources(){
   $el('sources-overlay').classList.add('open');
   document.body.style.overflow='hidden';
+  // Auto-select filter matching the currently active tab
+  const activePanel = document.querySelector('.tab-panel.active');
+  const activeId = activePanel ? activePanel.id : null;
+  const validTabs = ['t1','t2','t3','t4','t5','t6','t7','t8','t13'];
+  const targetTab = validTabs.includes(activeId) ? activeId : 'all';
+  const btn = document.querySelector(`.src-ftab[data-filter="${targetTab}"]`);
+  if(btn) srcFilter(targetTab, btn);
 }
 function closeSources(){
   $el('sources-overlay').classList.remove('open');
