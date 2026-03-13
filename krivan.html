@@ -5108,6 +5108,51 @@ canvas{
       <div class="rbnd"><span>€200</span><span>€20 000</span></div>
     </div>
 
+    <!-- Výber kategórií pre NF -->
+    <div style="margin-bottom:16px;">
+      <div class="sec-hdr" style="margin-bottom:10px;">Zahrnuté do mesačných výdavkov</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+        Označte kategórie ktoré budete platiť aj v núdzi
+      </div>
+      <div id="ef-cat-checkboxes" style="display:flex;flex-direction:column;gap:8px;">
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-housing" checked onchange="efToggleCat('housing',this.checked)" style="width:16px;height:16px;accent-color:#8b5cf6;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Náklady na byt</span>
+          <span id="efc-housing-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#8b5cf6;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-fixed-nec" checked onchange="efToggleCat('fixed-nec',this.checked)" style="width:16px;height:16px;accent-color:#f87171;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Nevyhnutné fixné</span>
+          <span id="efc-fixed-nec-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#f87171;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-fixed" checked onchange="efToggleCat('fixed',this.checked)" style="width:16px;height:16px;accent-color:#fb923c;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Fixné náklady</span>
+          <span id="efc-fixed-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#fb923c;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-voluntary" onchange="efToggleCat('voluntary',this.checked)" style="width:16px;height:16px;accent-color:#4ade80;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Dobrovoľné náklady</span>
+          <span id="efc-voluntary-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#4ade80;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-luxury" onchange="efToggleCat('luxury',this.checked)" style="width:16px;height:16px;accent-color:#22d3ee;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Luxusné náklady</span>
+          <span id="efc-luxury-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#22d3ee;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-invest" onchange="efToggleCat('invest',this.checked)" style="width:16px;height:16px;accent-color:#60a5fa;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Investície</span>
+          <span id="efc-invest-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#60a5fa;">—</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+          <input type="checkbox" id="efc-savings" onchange="efToggleCat('savings',this.checked)" style="width:16px;height:16px;accent-color:#c084fc;cursor:pointer;">
+          <span style="font-size:14px;color:var(--muted2);">Úspory</span>
+          <span id="efc-savings-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#c084fc;">—</span>
+        </label>
+      </div>
+    </div>
+
     <!-- Import from Tab 9 -->
     <button type="button" class="integrate-btn" style="margin-bottom:16px;background:rgba(167,139,250,.06);border-color:rgba(167,139,250,.25);color:var(--violet2);" onclick="efImportFromCF()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
@@ -5117,6 +5162,8 @@ canvas{
     <div class="sec-hdr">Cieľ — koľko mesiacov pokryť?</div>
     <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
       <button type="button" class="ef-months-btn" id="efm-3" onclick="efSetMonths(3)">3 mesiace</button>
+      <button type="button" class="ef-months-btn" id="efm-4" onclick="efSetMonths(4)">4 mesiace</button>
+      <button type="button" class="ef-months-btn" id="efm-5" onclick="efSetMonths(5)">5 mesiacov</button>
       <button type="button" class="ef-months-btn active" id="efm-6" onclick="efSetMonths(6)">6 mesiacov</button>
       <button type="button" class="ef-months-btn" id="efm-9" onclick="efSetMonths(9)">9 mesiacov</button>
       <button type="button" class="ef-months-btn" id="efm-12" onclick="efSetMonths(12)">12 mesiacov</button>
@@ -8700,6 +8747,7 @@ function _collectState(){
       mortCoActive: typeof mortCoActive !== 'undefined' ? mortCoActive : false,
       cf2Adults:    typeof cfData    !== 'undefined' ? cfData.adults   : 2,
       cf2Children:  typeof cfData    !== 'undefined' ? cfData.children : 0,
+      efCatInclude: typeof efCatInclude !== 'undefined' ? JSON.parse(JSON.stringify(efCatInclude)) : null,
       // Accordion open/closed state
       accordions: ['pd-t1-adv','pd-t2a-adv','pd-t2b-adv','pd-t3-adv','pd-t5-adv','pd-t6-adv']
         .reduce((acc, id) => {
@@ -8835,6 +8883,10 @@ function importAppState(event){
         if(js.mortCoActive !== undefined && typeof mortCoActive !== 'undefined') mortCoActive = Boolean(js.mortCoActive);
         if(js.cf2Adults    !== undefined && typeof cfData !== 'undefined') cfData.adults   = parseInt(js.cf2Adults)   || 2;
         if(js.cf2Children  !== undefined && typeof cfData !== 'undefined') cfData.children = parseInt(js.cf2Children)  || 0;
+        if(js.efCatInclude && typeof efCatInclude !== 'undefined'){
+          Object.entries(js.efCatInclude).forEach(([k,v]) => { efCatInclude[k] = Boolean(v); });
+          if(typeof efUpdateCatLabels === 'function') efUpdateCatLabels();
+        }
         // Update DOM counters for household
         if($el('cf2-adults-val'))   $el('cf2-adults-val').textContent   = cfData.adults;
         if($el('cf2-children-val')) $el('cf2-children-val').textContent = cfData.children;
@@ -8990,6 +9042,17 @@ let cfData = {
   cats: JSON.parse(JSON.stringify(CF2_CATS_DEFAULT))
 };
 
+// Kategórie zarátané do celkových výdavkov pre Núdzový fond
+let efCatInclude = {
+  'housing':   true,   // Náklady na byt — vždy zahrnúť
+  'fixed-nec': true,   // Nevyhnutné fixné — vždy zahrnúť
+  'fixed':     true,   // Fixné náklady — zahrnúť
+  'voluntary': false,  // Dobrovoľné — v núdzi šetrí
+  'luxury':    false,  // Luxusné — v núdzi zruší
+  'invest':    false,  // Investície — v núdzi pozastaví
+  'savings':   false,  // Úspory — v núdzi pozastaví
+};
+
 function cfCatTotal(cat){ return cat.items.reduce((s,i)=>s+(+i.val||0),0); }
 
 function cfHH(field, delta){
@@ -9072,7 +9135,15 @@ function calcCF(){
   const luxury    = get('luxury');
   const invest    = get('invest');
   const savings   = get('savings');
-  const totalExp  = housing + fixedNec + fixed + voluntary + luxury;
+  // Celkové výdavky pre NF — len vybrané kategórie (efCatInclude)
+  const efCatAmts = {
+    'housing': housing, 'fixed-nec': fixedNec,
+    'fixed': fixed, 'voluntary': voluntary, 'luxury': luxury,
+    'invest': invest, 'savings': savings
+  };
+  const totalExp = Object.entries(efCatInclude || {})
+    .filter(([,v]) => v)
+    .reduce((s,[k]) => s + (efCatAmts[k] || 0), 0);
   const totalOut  = totalExp + invest + savings;
   const balance   = income - totalOut;
 
@@ -9154,7 +9225,9 @@ function calcCF(){
   if(efv) efv.textContent = fmt(window._cfEFAmt);
 
   // ── AUTO SYNC T9 → T10: výdavky do EF kalkulačky ──
-  crossSync_CF_to_EF(totalExp, savings > 0 ? savings : window._cfEFAmt);
+  // Update EF category labels with current CF values
+  if(typeof efUpdateCatLabels === 'function') efUpdateCatLabels();
+  crossSync_CF_to_EF(totalExp, savings); // savings = 0 is valid — reflects user's CF setting
 
   // ── AUTO SYNC T9 → T1: investície do kalkulačky ──
   crossSync_CF_to_T1(invest);
@@ -9226,7 +9299,9 @@ function cfIntegrateWithCalc(){
   if(invest<=0){ showToast('Pridajte sumy do sekcie Investície.', 'var(--amber2)'); return; }
   const slider = $el('r-mon'); if(!slider) return;
   slider.value = Math.min(invest, +slider.max);
-  fillSlider(slider); sync();
+  fillSlider(slider);
+  const niMon = document.getElementById('ni-r-mon'); if(niMon) niMon.value = slider.value;
+  sync();
   const t1btn = document.querySelector('.tg-invest .tab');
   if(t1btn) showTab('t1', t1btn);
   showToast('Mesačný vklad nastavený na '+fmt(invest)+' · Kalkulačka aktualizovaná', 'var(--violet)');
@@ -9238,6 +9313,7 @@ function cfIntegrateWithEF(){
   const slider = $el('ef-monthly'); if(!slider) return;
   slider.value = Math.min(amt, +slider.max);
   fillSlider(slider);
+  const niEfM = document.getElementById('ni-ef-monthly'); if(niEfM) niEfM.value = slider.value;
   const lbl = $el('ef-l-monthly'); if(lbl) lbl.textContent = '€'+amt.toLocaleString('sk-SK');
   calcEF();
   const t10btn = document.querySelector('.tg-finance .tab:last-child');
@@ -10021,8 +10097,8 @@ function efCalcBuckets(){
   if(tEl) tEl.textContent=fmt(Math.round(total));
   if(rEl) rEl.textContent=(wRate).toFixed(2).replace('.',',')+' %';
   // Sync hidden sliders so calcEF and crossSync work unchanged
-  const sEl=$el('ef-saved'); if(sEl){ sEl.value=Math.min(total,+sEl.max); }
-  const rateEl=$el('ef-rate'); if(rateEl){ rateEl.value=Math.min(wRate,+rateEl.max); }
+  const sEl=$el('ef-saved'); if(sEl){ sEl.value=Math.min(total,+sEl.max); const niSv=document.getElementById('ni-ef-saved'); if(niSv) niSv.value=sEl.value; }
+  const rateEl=$el('ef-rate'); if(rateEl){ rateEl.value=Math.min(wRate,+rateEl.max); const niRt=document.getElementById('ni-ef-rate'); if(niRt) niRt.value=rateEl.value; }
   // Update l-saved label
   const lsEl=$el('ef-l-saved'); if(lsEl) lsEl.textContent='€'+Math.round(total).toLocaleString('sk-SK');
   calcEF();
@@ -10044,11 +10120,13 @@ function efRemoveBucket(i){
 
 function efSetMonths(m){
   efMonths = m;
-  [3,6,9,12].forEach(v=>{
+  [3,4,5,6,9,12].forEach(v=>{
     const b=$el('efm-'+v); if(b) b.classList.toggle('active', v===m);
   });
   const notes = {
     3: 'Minimálna rezerva — vhodná pre stabilné zamestnanie v štátnej sfére alebo s partnerským príjmom.',
+    4: 'Solídna rezerva — pokryje kratšiu pracovnú prestávku alebo väčšiu nečakanú opravu.',
+    5: 'Nadštandardná rezerva — dobrý kompromis medzi istotou a výnosom z investícií.',
     6: 'Zlatý štandard — pokryje väčšinu situácií: výpoveď, choroba, opravy. Odporúčané pre väčšinu ľudí.',
     9: 'Rozšírená rezerva — vhodná pre SZČO, freelancerov alebo pri nestabilnom príjme.',
    12: 'Maximálna istota — pre podnikateľov, ľudí so sezónnym príjmom alebo vysokými záväzkami.'
@@ -10467,6 +10545,8 @@ function efImportFromCF(){
   if(slider){
     slider.value = Math.min(exp, +slider.max);
     fillSlider(slider);
+    const ni = document.getElementById('ni-ef-expenses');
+    if(ni) ni.value = slider.value;
     $el('ef-l-expenses').textContent = '€'+Math.round(exp).toLocaleString('sk-SK');
   }
   efCalcBuckets(); // V-4 FIX: sync buckets first
@@ -10516,6 +10596,9 @@ function crossSync_CF_to_EF(expenses, efContrib){
   if(slider && expenses > 0){
     slider.value = Math.min(expenses, +slider.max);
     fillSlider(slider);
+    // Sync ni- input so $v() reads correct value
+    const ni = document.getElementById('ni-ef-expenses');
+    if(ni) ni.value = Math.min(expenses, +slider.max);
     const lbl = document.getElementById('ef-l-expenses');
     if(lbl) lbl.textContent = '€'+Math.round(expenses).toLocaleString('sk-SK');
     // recalc EF silently only if NOT on T10 (avoid double render lag)
@@ -10523,10 +10606,11 @@ function crossSync_CF_to_EF(expenses, efContrib){
     else { window._efExpenses = expenses; } // defer
   }
   _setSyncBadge('sync-ef-expenses', expenses, '€');
-  // Also sync EF monthly contrib
-  if(efContrib > 0){
+  // Vždy syncnúť ef-monthly — aj 0 je platná hodnota
+  if(efContrib >= 0){
     const ms = document.getElementById('ef-monthly');
     if(ms){ ms.value = Math.min(efContrib, +ms.max); fillSlider(ms);
+      const niEfMo = document.getElementById('ni-ef-monthly'); if(niEfMo) niEfMo.value = ms.value;
       const ml = document.getElementById('ef-l-monthly');
       if(ml) ml.textContent = '€'+Math.round(efContrib).toLocaleString('sk-SK');
     }
@@ -10553,6 +10637,8 @@ function crossSync_CF_to_T1(investAmt){
         const s = $el('r-mon'); if(!s) return;
         s.value = Math.min(investAmt, +s.max);
         fillSlider(s);
+        const ni = document.getElementById('ni-r-mon');
+        if(ni) ni.value = s.value;
         if(typeof sync === 'function') sync();
         hint.style.display = 'none';
         showToast('Mesačný vklad aktualizovaný z Cashflow', 'var(--gold2)');
@@ -10642,6 +10728,7 @@ function mortIntegrateWithCalc(){
   const max = +slider.max;
   slider.value = Math.min(invest, max);
   fillSlider(slider);
+  const niRMon = document.getElementById('ni-r-mon'); if(niRMon) niRMon.value = slider.value;
   sync();
   const t1btn = document.querySelector('.tg-invest .tab');
   if(t1btn) showTab('t1', t1btn);
@@ -10834,6 +10921,25 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeSources();
     };
   }
 })();
+
+/* ══ EF: Category selector functions ══ */
+function efToggleCat(catId, checked){
+  if(typeof efCatInclude !== 'undefined') efCatInclude[catId] = checked;
+  if(typeof calcCF === 'function') calcCF();
+}
+
+function efUpdateCatLabels(){
+  const cats = ['housing','fixed-nec','fixed','voluntary','luxury','invest','savings'];
+  cats.forEach(cid => {
+    const cat = cfData.cats.find(c => c.id === cid);
+    const total = cat ? cat.items.reduce((s,i) => s + (+i.val||0), 0) : 0;
+    const el = document.getElementById('efc-' + cid + '-val');
+    if(el) el.textContent = total > 0 ? '€' + total.toLocaleString('sk-SK') : '—';
+    // Sync checkbox state
+    const cb = document.getElementById('efc-' + cid);
+    if(cb && typeof efCatInclude !== 'undefined') cb.checked = efCatInclude[cid] || false;
+  });
+}
 </script>
 </body>
 </html>
