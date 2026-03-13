@@ -5011,7 +5011,7 @@ function showTab(id,btn){
 /* ══════════════════════════════════════════════
    CORE HELPERS (defined first — used everywhere)
 ═══════════════════════════════════════════════ */
-const $v=id=>+document.getElementById(id).value;
+const $v=id=>{const el=document.getElementById(id);return el?+el.value:0;}; // SECURITY FIX: null-safe
 const $el=id=>document.getElementById(id);
 
 /* ══════════════════════════════════════════════
@@ -6527,17 +6527,19 @@ function loadParamsFromURL(){
   const hash=location.hash.slice(1);
   if(!hash||!hash.includes('ini=')) return;
   const params={};
-  hash.split('&').forEach(p=>{const[k,v]=p.split('=');params[k]=decodeURIComponent(v);});
-  const set=(id,val)=>{const el=document.getElementById(id);if(el&&val!==undefined)el.value=val;};
-  if(params.ini) set('r-ini',params.ini);
-  if(params.mon) set('r-mon',params.mon);
-  if(params.inc) set('r-inc',params.inc);
-  if(params.yr) set('r-yr',params.yr);
-  if(params.ret) set('r-ret',params.ret);
-  if(params.inf) set('r-inf',params.inf);
-  if(params.fee) set('r-fee',params.fee);
-  if(params.sy) set('n-sy',params.sy);
-  if(params.tt) {const el=document.getElementById('ck-timetest');if(el)el.checked=params.tt==='1';}
+  hash.split('&').forEach(p=>{const[k,v]=p.split('=');if(k&&v!==undefined)params[k]=decodeURIComponent(v);});
+  // SECURITY FIX: clamp all numeric URL params to valid ranges before assigning
+  const clamp=(val,min,max)=>{const n=parseFloat(val);return isNaN(n)?null:Math.min(max,Math.max(min,n));};
+  const set=(id,val)=>{const el=document.getElementById(id);if(el&&val!==null&&val!==undefined)el.value=val;};
+  set('r-ini', clamp(params.ini,  0,    300000));
+  set('r-mon', clamp(params.mon,  0,    5000));
+  set('r-inc', clamp(params.inc,  0,    15));
+  set('r-yr',  clamp(params.yr,   5,    50));
+  set('r-ret', clamp(params.ret,  1,    20));
+  set('r-inf', clamp(params.inf,  0,    10));
+  set('r-fee', clamp(params.fee,  0,    2));
+  set('n-sy',  clamp(params.sy,   2000, 2050));
+  if(params.tt){const el=document.getElementById('ck-timetest');if(el)el.checked=params.tt==='1';}
 }
 
 /* ══════════════════════════════════════════════
@@ -7858,8 +7860,7 @@ const STATE_INPUT_IDS = [
    PROFILE BAR + EXPORT/IMPORT
 ═══════════════════════════════════════════════ */
 /* ── PROFILE BAR helpers (kept minimal — no autosave) ── */
-function markDirty(){}
-function markClean(){}
+// markDirty / markClean — removed (dead code, never called)
 
 /* ── collect full state for export ── */
 function _collectState(){
@@ -8699,7 +8700,7 @@ function calcWhatIf(){
     const activeItems = luxury.items.filter(i=>+i.val>0);
     if(luxTotal > 0){
       scenarios.push({ name:`Zrušiť všetky predplatné (${activeItems.length})`, monthly:luxTotal,
-        note:`${activeItems.map(i=>i.name).slice(0,3).join(', ')}${activeItems.length>3?'…':''}` });
+        note:`${activeItems.map(i=>esc(i.name)).slice(0,3).join(', ')}${activeItems.length>3?'…':''}` });
     }
     // Jednotlivé položky nad €10
     activeItems.filter(i=>+i.val>=10).forEach(i=>{
@@ -8738,7 +8739,7 @@ function calcWhatIf(){
     const fv = Math.round(fvPMT(sc.monthly, r, y));
     return `<div class="whatif-row">
       <div>
-        <div class="whatif-name">${sc.name}</div>
+        <div class="whatif-name">${esc(sc.name)}</div><!-- SECURITY FIX: esc() -->
         <div class="whatif-saving">${fmt(sc.monthly)}/mes. ušetrených · ${sc.note}</div>
       </div>
       <div>
@@ -8777,7 +8778,7 @@ function calcThieves(income){
     const luxTotal = luxItems.reduce((s,i)=>s+(+i.val||0),0);
     if(luxItems.length >= 3){
       thieves.push({ sev:'warn',
-        text:`Máte ${luxItems.length} aktívnych predplatných — ${luxItems.map(i=>i.name).slice(0,4).join(', ')}${luxItems.length>4?'…':''}. Pozrite sa, ktoré ste nepoužili tento mesiac a zrušte ich. Malé mesačné sumy sa za rok sčítajú.`,
+        text:`Máte ${luxItems.length} aktívnych predplatných — ${luxItems.map(i=>esc(i.name)).slice(0,4).join(', ')}${luxItems.length>4?'…':''}. Pozrite sa, ktoré ste nepoužili tento mesiac a zrušte ich. Malé mesačné sumy sa za rok sčítajú.`,
         amt:`${fmt(luxTotal)}/mes. = ${fmt(luxTotal*12)}/rok`
       }); totalLoss += luxTotal;
     }
@@ -8789,7 +8790,7 @@ function calcThieves(income){
     const termMon = (+l.term||4)*12;
     const totalCost = +l.monthly * termMon;
     thieves.push({ sev:'bad',
-      text:`Leasing ${l.name}: za ${l.term||4} roky zaplatíte dokopy ${fmt(Math.round(totalCost))}, ale auto nikdy nebude vaše. Po skončení leasingu musíte platiť znovu. Kúpa za hotovosť alebo bežný úver často vyjde lacnejšie.`,
+      text:`Leasing ${esc(l.name)}: za ${l.term||4} roky zaplatíte dokopy ${fmt(Math.round(totalCost))}, ale auto nikdy nebude vaše. Po skončení leasingu musíte platiť znovu. Kúpa za hotovosť alebo bežný úver často vyjde lacnejšie.`,
       amt:`${fmt(+l.monthly)}/mes.`
     }); totalLoss += +l.monthly;
   });
@@ -8801,7 +8802,7 @@ function calcThieves(income){
     if(insur.length >= 2){
       const insurTotal = insur.reduce((s,i)=>s+(+i.val||0),0);
       thieves.push({ sev:'info',
-        text:`Evidujete ${insur.length} poistenia (${insur.map(i=>i.name).join(', ')}). Skontrolujte, či sa krytia neprekrývajú — platiť dvakrát za to isté je zbytočné. Nechajte si od poradcu porovnať, čo každá zmluva kryje.`,
+        text:`Evidujete ${insur.length} poistenia (${insur.map(i=>esc(i.name)).join(', ')}). Skontrolujte, či sa krytia neprekrývajú — platiť dvakrát za to isté je zbytočné. Nechajte si od poradcu porovnať, čo každá zmluva kryje.`,
         amt:`${fmt(insurTotal)}/mes. spolu`
       });
     }
@@ -8825,7 +8826,7 @@ function calcThieves(income){
   kredKarty.forEach(k=>{
     const annualInterest = Math.round(+k.balance * +k.rate/100);
     thieves.push({ sev:'bad',
-      text:`${k.name}: pri sadzbe ${k.rate} % ročne platíte ${fmt(Math.round(annualInterest/12))}/mes. čisto na úrokoch — teda za nič. Ak sa dá, splaťte túto kartu čo najskôr, prípadne zkonsolidujte dlhy do jedného lacnejšieho úveru.`,
+      text:`${esc(k.name)}: pri sadzbe  ${k.rate} % ročne platíte ${fmt(Math.round(annualInterest/12))}/mes. čisto na úrokoch — teda za nič. Ak sa dá, splaťte túto kartu čo najskôr, prípadne zkonsolidujte dlhy do jedného lacnejšieho úveru.`,
       amt:`${fmt(annualInterest)}/rok na úrokoch`
     }); totalLoss += annualInterest/12;
   });
@@ -8989,7 +8990,7 @@ function calcInterestGap(){
 
     sections.push(`<div style="border-top:1px solid var(--border);padding-top:14px;">
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
-        <div style="font-size:15.6px;font-weight:600;color:var(--muted2);">Refinancovanie hypotéky: ${mortDebt.name}</div>
+        <div style="font-size:15.6px;font-weight:600;color:var(--muted2);">Refinancovanie hypotéky: ${esc(mortDebt.name)}</div><!-- SECURITY FIX: esc() -->
         <label style="display:flex;align-items:center;gap:8px;font-size:15.6px;color:var(--muted2);margin-left:auto;">
           Najlepšia dostupná sadzba:
           <input type="number" id="diag-refi-rate" value="${(newRate*100).toFixed(2)}" min="0.5" max="10" step="0.05"
@@ -9028,7 +9029,7 @@ function calcInterestGap(){
   } else if(!mortDebt && debtRows.filter(d=>d.type==='Hypotéka').length===0){
     sections.push(`<div style="font-size:14.4px;color:var(--muted);">Pridajte hypotéku do Prehľadu dlhov (T11) pre analýzu refinancovania.</div>`);
   } else if(mortDebt && +mortDebt.rate <= DIAG.REFI_THRESHOLD*100){
-    sections.push(`<div style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px;"><div class="cf2-rec ok"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">Hypotéka ${mortDebt.name} má sadzbu ${mortDebt.rate}% — pod prahom ${(DIAG.REFI_THRESHOLD*100).toFixed(0)}%. Refinancovanie nie je prioritné.</div></div></div>`);
+    sections.push(`<div style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px;"><div class="cf2-rec ok"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">Hypotéka ${esc(mortDebt.name)} má sadzbu  ${mortDebt.rate}% — pod prahom ${(DIAG.REFI_THRESHOLD*100).toFixed(0)}%. Refinancovanie nie je prioritné.</div></div></div>`);
   }
 
   body.innerHTML = sections.join('') || '<div style="font-size:14.4px;color:var(--muted);">Zadajte dlhy v T11 pre zobrazenie analýzy.</div>';
@@ -9322,7 +9323,7 @@ function calcDebt(){
       </div>
     </div>
     <div style="font-size:14.4px;color:var(--muted2);line-height:1.8;background:rgba(255,255,255,.02);border-radius:10px;padding:10px 12px;">
-      Porovnanie pre <strong style="color:var(--text);">${topDebt.name}</strong> (${topDebt.rate}% p.a.) s extra €${extra}/mes.<br>
+      Porovnanie pre <strong style="color:var(--text);">${esc(topDebt.name)}</strong><!-- SECURITY FIX: esc() --> (${topDebt.rate}% p.a.) s extra €${extra}/mes.<br>
       Break-even: <strong style="color:var(--emerald2);">${breakEvenRate.toFixed(1).replace('.',',')}%</strong> (Acc ETF, §9/1/e ZDP) · <strong style="color:var(--amber2);">${breakEvenRateDist.toFixed(1).replace('.',',')}%</strong> (dist ETF) —
       ${topDebt.rate>breakEvenRate?' dlh nad oboma prahmi — splácajte rýchlejšie':topDebt.rate>breakEvenRateDist?' splácajte ak máte dist ETF':'investovanie do Acc ETF je výhodnejšie'}
     </div>`;
@@ -9334,11 +9335,11 @@ function calcDebt(){
     const lowInterestDebts  = sorted.filter(d=>+d.rate<=breakEvenRate);
     let recType, recText;
     if(highInterestDebts.length>0 && lowInterestDebts.length===0){
-      recType='bad'; recText=`Všetky vaše dlhy majú sadzbu nad ${breakEvenRate.toFixed(1)}% — matematicky sa oplatí splácať rýchlejšie pred investovaním. Použite avalanche metódu: prioritizujte najvyššiu sadzbu (${topDebt.name} @ ${topDebt.rate}%).`;
+      recType='bad'; recText=`Všetky vaše dlhy majú sadzbu nad ${breakEvenRate.toFixed(1)}% — matematicky sa oplatí splácať rýchlejšie pred investovaním. Použite avalanche metódu: prioritizujte najvyššiu sadzbu (${esc(topDebt.name)} @ ${topDebt.rate}%).`;
     } else if(highInterestDebts.length===0){
       recType='ok'; recText=`Vaše dlhy majú nízke sadzby (pod ${breakEvenRate.toFixed(1)}%). Historický výnos MSCI World (~9%) ich prekonáva — má zmysel investovať paralelne so štandardnými splátkami.`;
     } else {
-      recType='info'; recText=`Máte zmixované dlhy. Odporúčanie: najprv splaťte vysoké sadzby (${highInterestDebts.map(d=>d.name+' '+d.rate+'%').join(', ')}), potom investujte voľné prostriedky z nízko-úrokových dlhov (${lowInterestDebts.map(d=>d.name).join(', ')}).`;
+      recType='info'; recText=`Máte zmixované dlhy. Odporúčanie: najprv splaťte vysoké sadzby (${highInterestDebts.map(d=>esc(d.name)+' '+d.rate+'%').join(', ')}), potom investujte voľné prostriedky z nízko-úrokových dlhov (${lowInterestDebts.map(d=>esc(d.name)).join(', ')}).`;
     }
     rb.innerHTML = `<div class="cf2-rec ${recType}" style="margin-top:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">${recText}</div></div>`;
   }
