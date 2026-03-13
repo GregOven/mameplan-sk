@@ -8675,8 +8675,10 @@ function _collectState(){
       inputs[id] = el.value;
     }
   });
-  // CF2 dynamic data (kategorie cashflow)
-  const cf2State = typeof cf2Cats !== 'undefined' ? JSON.parse(JSON.stringify(cf2Cats)) : null;
+  // CF2 dynamic data (kategorie cashflow) — uložené v cfData.cats
+  const cf2State = typeof cfData !== 'undefined' && cfData.cats
+    ? JSON.parse(JSON.stringify(cfData.cats))
+    : null;
   // K-3 FIX: debtRows[] je JS pole — ulozit priamo, nie cez DOM (#debt-tbody uz neexistuje)
   const savedDebtRows = typeof debtRows !== 'undefined' ? JSON.parse(JSON.stringify(debtRows)) : [];
   // K-1 FIX: efBuckets[] — buckety rezervneho fondu
@@ -8696,8 +8698,8 @@ function _collectState(){
       mortMode:     typeof mortMode     !== 'undefined' ? mortMode     : 'a',
       mortFix:      typeof mortFix      !== 'undefined' ? mortFix      : 3,
       mortCoActive: typeof mortCoActive !== 'undefined' ? mortCoActive : false,
-      cf2Adults:    typeof cf2Adults    !== 'undefined' ? cf2Adults    : 2,
-      cf2Children:  typeof cf2Children  !== 'undefined' ? cf2Children  : 0,
+      cf2Adults:    typeof cfData    !== 'undefined' ? cfData.adults   : 2,
+      cf2Children:  typeof cfData    !== 'undefined' ? cfData.children : 0,
       // Accordion open/closed state
       accordions: ['pd-t1-adv','pd-t2a-adv','pd-t2b-adv','pd-t3-adv','pd-t5-adv','pd-t6-adv']
         .reduce((acc, id) => {
@@ -8763,16 +8765,10 @@ function importAppState(event){
           el.dispatchEvent(new Event('input'));
         }
       });
-      // Restore CF2
-      if(state.cf2State && Array.isArray(state.cf2State) && typeof cf2Cats !== 'undefined'){
-        cf2Cats.length = 0;
-        /* SECURITY FIX: validate each cat has expected shape before pushing */
-        state.cf2State.forEach(c => {
-          if(!c || typeof c !== 'object' || FORBIDDEN_KEYS.some(k=>k in c)) return;
-          if(c.items && !Array.isArray(c.items)) return;
-          cf2Cats.push(c);
-        });
-        if(typeof renderCF2Sections === 'function') renderCF2Sections();
+      // Restore CF2 — uložené v cfData.cats
+      if(state.cf2State && Array.isArray(state.cf2State) && typeof cfData !== 'undefined'){
+        cfData.cats = JSON.parse(JSON.stringify(state.cf2State));
+        // renderCF2Sections sa zavolá neskôr v recalc bloku, keď sú cf2Adults/Children správne
       }
       // Restore lump sums
       if(Array.isArray(state.lumps) && typeof lumps !== 'undefined'){
@@ -8840,11 +8836,11 @@ function importAppState(event){
         if(js.mortMode     !== undefined && typeof mortMode     !== 'undefined') mortMode     = js.mortMode;
         if(js.mortFix      !== undefined && typeof mortFix      !== 'undefined') mortFix      = parseFloat(js.mortFix) || 3;
         if(js.mortCoActive !== undefined && typeof mortCoActive !== 'undefined') mortCoActive = Boolean(js.mortCoActive);
-        if(js.cf2Adults    !== undefined && typeof cf2Adults    !== 'undefined') cf2Adults    = parseInt(js.cf2Adults)  || 2;
-        if(js.cf2Children  !== undefined && typeof cf2Children  !== 'undefined') cf2Children  = parseInt(js.cf2Children)|| 0;
+        if(js.cf2Adults    !== undefined && typeof cfData !== 'undefined') cfData.adults   = parseInt(js.cf2Adults)   || 2;
+        if(js.cf2Children  !== undefined && typeof cfData !== 'undefined') cfData.children = parseInt(js.cf2Children)  || 0;
         // Update DOM counters for household
-        if($el('cf2-adults-val'))   $el('cf2-adults-val').textContent   = cf2Adults;
-        if($el('cf2-children-val')) $el('cf2-children-val').textContent = cf2Children;
+        if($el('cf2-adults-val'))   $el('cf2-adults-val').textContent   = cfData.adults;
+        if($el('cf2-children-val')) $el('cf2-children-val').textContent = cfData.children;
         // Restore accordion open/closed state
         if(js.accordions && typeof js.accordions === 'object'){
           Object.entries(js.accordions).forEach(([id, open]) => {
@@ -8885,6 +8881,7 @@ function importAppState(event){
       if(typeof calcDiag          === 'function') calcDiag();
       if(typeof renderTable       === 'function') renderTable();
       if(typeof renderCF2Sections === 'function') renderCF2Sections();
+      if(typeof calcAssets        === 'function') calcAssets();
       // Refresh all slider visuals
       document.querySelectorAll('input[type=range]').forEach(r => {
         if(typeof fillSlider === 'function') fillSlider(r);
