@@ -2640,7 +2640,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <div class="panel">
   <p class="plbl">Porovnanie výsledkov</p>
   <div style="font-size:14.4px;color:var(--muted);margin-bottom:14px;font-family:'Source Code Pro',monospace;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;line-height:1.7;">
-    <span style="color:var(--amber);">i</span>&nbsp; Inflácia: <strong style="color:var(--text);" id="cmp-inf-label">2,5%</strong>/rok (zo záložky 1) · Reálne hodnoty sú v dnešnej kúpnej sile · Dane nie sú zahrnuté
+    <span style="color:var(--amber);">i</span>&nbsp; Inflácia: <strong style="color:var(--text);" id="cmp-inf-label">2,5%</strong>/rok (zo záložky <em>Rast portfólia</em>) · Reálne hodnoty sú v dnešnej kúpnej sile · Dane nie sú zahrnuté
     <span id="cmp-yr-warn" style="display:none;color:var(--amber);margin-left:12px;">Upozornenie: Scenáre majú rôzne časové horizonty — finálne hodnoty nie sú priamo porovnateľné</span>
   </div>
   <div class="cmp-hdr">
@@ -2695,8 +2695,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <!-- Short explainer -->
 <div style="background:rgba(200,168,75,.04);border:1px solid rgba(200,168,75,.18);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   <div>
-    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Čo tu vidíte? Koľko môžete vyberať každý mesiac bez toho, aby vám peniaze niekedy došli.</div>
-    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Vychádza z portfólia zo záložky 1 (automaticky). Zobrazuje výber <em>v budúcich eurách</em> aj v <em>dnešnej kúpnej sile</em> — pretože €5 000 za 32 rokov zodpovedá menej ako dnes kvôli inflácii.</div>
+    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Koľko môžete mesačne vyberať bez toho, aby sa vám peniaze niekedy minuli?</div>
+    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Vychádza z portfólia zo záložky <em>Rast portfólia</em> (automaticky). Zobrazuje výber <em>v budúcich eurách</em> aj v <em>dnešnej kúpnej sile</em> — pretože €5 000 za 32 rokov zodpovedá menej ako dnes kvôli inflácii.</div>
   </div>
 </div>
 
@@ -2709,7 +2709,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div style="margin-bottom:20px;">
       <div class="il" style="margin-bottom:9px;">
         Hodnota portfólia pri odchode
-        <span class="tip" data-tip="<div class='tt-title'>Hodnota portfólia v deň odchodu do dôchodku</div>Táto suma sa <strong>automaticky aktualizuje</strong> podľa výsledku zo záložky 1. Keď tam zmeníte vstupné hodnoty, tu sa to ihneď prejaví.<div class='tt-hr'></div>Môžete číslo aj ručne prepísať — napríklad ak chcete simulovať pesimistický scenár s nižšou hodnotou. Tlačidlo ↺ Reset obnoví hodnotu z Kalkulačky.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Hodnota portfólia v deň odchodu do dôchodku</div>Táto suma sa <strong>automaticky aktualizuje</strong> podľa výsledku zo záložky <em>Rast portfólia</em>. Keď tam zmeníte vstupné hodnoty, tu sa to ihneď prejaví.<div class='tt-hr'></div>Môžete číslo aj ručne prepísať — napríklad ak chcete simulovať pesimistický scenár s nižšou hodnotou. Tlačidlo ↺ Reset obnoví hodnotu z Rast portfólia.">?</span>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="ni-wrap" style="flex:1;">
@@ -2733,7 +2733,7 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <div class="ret-info-box">
       <div class="ret-info-box-left">
         Reálny výnos v dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky z parametrov záložky 1: <strong>Výnos p.a. − Inflácia − TER</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur. Ak je kladný, portfólio porastie aj počas výberu a peniaze vám <strong>nikdy nedôjdu (∞)</strong>.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky z parametrov záložky <em>Rast portfólia</em>: <strong>Výnos p.a. − Inflácia − TER</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur. Ak je kladný, portfólio porastie aj počas výberu a peniaze sa vám <strong>nikdy neminú (∞)</strong>.">?</span>
       </div>
       <div class="ret-info-box-right">
         <div class="ret-info-val" id="l-gr">—</div>
@@ -2748,14 +2748,14 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     <!-- Inflation synced from tab1 -->
     <div class="ig">
       <div class="il">
-        Inflácia (zo záložky 1)
-        <span class="tip" data-tip="<div class='tt-title'>Inflácia — automaticky zo záložky 1</div>Táto hodnota sa <strong>automaticky preberá</strong> z nastavenia inflácie v záložke Kalkulačka. Ak tam nastavíte 5%, tu sa to ihneď prejaví.<div class='tt-hr'></div>Inflácia je kľúčová pre výpočet <em>reálnej kúpnej sily</em> vášho výberu.">?</span>
+        Inflácia (zo záložky Rast portfólia)
+        <span class="tip" data-tip="<div class='tt-title'>Inflácia — automaticky zo záložky Rast portfólia</div>Táto hodnota sa <strong>automaticky preberá</strong> z nastavenia inflácie v záložke Rast portfólia. Ak tam nastavíte 5%, tu sa to ihneď prejaví.<div class='tt-hr'></div>Inflácia je kľúčová pre výpočet <em>reálnej kúpnej sily</em> vášho výberu.">?</span>
         <span id="l-gi-sync" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--amber2);margin-left:auto;">2,5%</span>
       </div>
       <div style="height:4px;background:var(--border2);border-radius:2px;position:relative;margin-bottom:2px;">
         <div id="gi-track-fill" style="height:100%;background:var(--gold);border-radius:2px;width:25%;transition:width .3s;"></div>
       </div>
-      <div style="font-size:13.2px;color:var(--muted);font-family:'Source Code Pro',monospace;margin-top:4px;">← nastavte v záložke 1 / Inflácia ročne</div>
+      <div style="font-size:13.2px;color:var(--muted);font-family:'Source Code Pro',monospace;margin-top:4px;">← nastavte v záložke Rast portfólia / Inflácia ročne</div>
     </div>
 
     <div class="ig">
@@ -2931,8 +2931,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <div style="background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   <div style="font-size:33.6px;flex-shrink:0;">◎</div>
   <div>
-    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Opačná otázka: "Chcem mať na dôchodku €2 000/mes. v dnešných cenách — koľko musím mesačne investovať?"</div>
-    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadáte <em>cieľovú sumu v dnešných eurách</em> a dobu investovania. Kalkulačka vyrátaná požadovaný mesačný vklad — vrátane efektu inflácie, výnosov a daňového oslobodenia.</div>
+    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">Chcem mať na dôchodku ekvivalent dnešných €2 000/mes. — koľko musím od dnes mesačne investovať, aby sa mi to podarilo?</div>
+    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadáte <em>želaný mesačný výber v dnešných eurách</em> a dobu investovania. Kalkulačka vypočíta požadovaný mesačný vklad — vrátane efektu inflácie, výnosov a daňového oslobodenia.</div>
   </div>
 </div>
 
@@ -3169,8 +3169,8 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
 <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   <div style="font-size:26.4px;flex-shrink:0;font-family:'Source Code Pro',monospace;color:var(--amber);font-weight:700;">⚡</div>
   <div>
-    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">FIRE = Financial Independence, Retire Early. Kedy vaše portfólio dosiahne bod, kedy z neho môžete žiť navždy?</div>
-    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadajte mesačné výdavky v dnešných eurách. Kalkulačka simuluje mesiac po mesiaci rast portfólia v <em>reálnych hodnotách</em> a nájde presný mesiac, kedy dosiahnete FIRE číslo — teda moment finančnej nezávislosti.</div>
+    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">FIRE = Financial Independence, Retire Early. Kedy vám portfólio začne vyplácať mesačný „dôchodok" navždy?</div>
+    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadajte, koľko chcete každý mesiac vyberať z portfólia — v dnešných eurách. Kalkulačka simuluje mesiac po mesiaci rast portfólia v <em>reálnych hodnotách</em> a nájde presný mesiac, kedy dosiahnete FIRE číslo — teda moment, od ktorého vám portfólio tento výber udrží navždy bez toho, aby sa minulo.</div>
   </div>
 </div>
 
