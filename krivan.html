@@ -8765,11 +8765,8 @@ function importAppState(event){
           el.dispatchEvent(new Event('input'));
         }
       });
-      // Restore CF2 — uložené v cfData.cats
-      if(state.cf2State && Array.isArray(state.cf2State) && typeof cfData !== 'undefined'){
-        cfData.cats = JSON.parse(JSON.stringify(state.cf2State));
-        // renderCF2Sections sa zavolá neskôr v recalc bloku, keď sú cf2Adults/Children správne
-      }
+      // CF2 restore sa vykoná AŽ PO recalc bloku (pozri nižšie)
+      // dôvod: calcMort() v recalc bloku by inak prepísal hodnotu Hypotéky cez crossSync_Mort_to_CF
       // Restore lump sums
       if(Array.isArray(state.lumps) && typeof lumps !== 'undefined'){
         lumps.length = 0;
@@ -8886,6 +8883,13 @@ function importAppState(event){
       document.querySelectorAll('input[type=range]').forEach(r => {
         if(typeof fillSlider === 'function') fillSlider(r);
       });
+      // CF2 restore — AŽ TU, po všetkých recalcoch
+      // (calcMort crossSync by inak prepísal uložené hodnoty cez crossSync_Mort_to_CF)
+      if(state.cf2State && Array.isArray(state.cf2State) && typeof cfData !== 'undefined'){
+        cfData.cats = JSON.parse(JSON.stringify(state.cf2State));
+        if(typeof renderCF2Sections === 'function') renderCF2Sections();
+        if(typeof calcCF === 'function') calcCF();
+      }
       showToast('✓ Dáta importované', 'var(--emerald2)');
     } catch(err) {
       showToast('✗ Import sa nepodaril: ' + err.message, 'var(--red)');
