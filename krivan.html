@@ -1657,6 +1657,30 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
   background:rgba(200,168,75,.07);
   border-radius:3px 3px 0 0;
 }
+
+/* ── App footer ── */
+#app-footer{border-top:1px solid var(--border);margin-top:32px;padding:20px 0 12px;}
+.app-footer-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;padding:0 4px;}
+.app-footer-brand{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.app-footer-appname{font-family:'Spectral',serif;font-size:15px;font-weight:600;color:var(--muted2);}
+.app-footer-sep{width:1px;height:16px;background:var(--border2);opacity:.5;flex-shrink:0;}
+.app-footer-site{font-size:13px;color:var(--muted);text-decoration:none;opacity:.7;transition:opacity .15s;}
+.app-footer-site:hover{opacity:1;}
+.app-footer-copy{font-size:13px;color:var(--muted);opacity:.6;}
+.app-footer-tag{font-size:11.5px;color:var(--muted);opacity:.45;font-family:'Source Code Pro',monospace;padding:2px 7px;border:1px solid var(--border);border-radius:99px;}
+.app-footer-links{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.app-footer-link{font-size:12px;color:var(--muted);text-decoration:none;opacity:.65;transition:opacity .15s;}
+.app-footer-link:hover{opacity:1;}
+.app-footer-support{font-size:12px;color:var(--muted);text-decoration:none;opacity:.65;transition:all .15s;display:inline-flex;align-items:center;gap:4px;}
+.app-footer-support:hover{opacity:1;color:var(--gold);}
+.app-footer-vibe{background:none;border:1px solid rgba(167,139,250,.2);border-radius:99px;padding:2px 10px;font-size:11.5px;color:var(--violet2);font-family:'Source Code Pro',monospace;cursor:pointer;opacity:.65;transition:all .15s;}
+.app-footer-vibe:hover{opacity:1;border-color:rgba(167,139,250,.5);background:rgba(167,139,250,.06);}
+.app-footer-disclaimer{max-width:760px;margin:12px auto 0;text-align:center;font-size:12px;color:var(--muted);line-height:1.75;opacity:.45;padding:0 4px;}
+.app-footer-disclaimer strong{color:var(--muted2);font-weight:500;}
+@media(max-width:640px){
+  .app-footer-inner{flex-direction:column;align-items:center;text-align:center;}
+  .app-footer-links{justify-content:center;}
+}
 </style>
 </head>
 <body>
@@ -4951,7 +4975,7 @@ Diagnostika čerpá z:<br>
               <option value="1200">Stavebníctvo (€1 200)</option>
               <option value="1150">Výroba / priemysel (€1 150)</option>
               <option value="1100">Školstvo / vzdelávanie (€1 100)</option>
-              <option value="1052">Obchod / maloobchod (€1 050)</option>
+              <option value="1052">Obchod / maloobchod (€ 1 052)</option>
               <option value="1048">Umenie / kultúra (€1 050)</option>
               <option value="1000">Ostatné služby (€1 000)</option>
               <option value="950">Poľnohospodárstvo (€950)</option>
@@ -4963,57 +4987,28 @@ Diagnostika čerpá z:<br>
           <div style="font-size:16.8px;color:var(--muted2);">Vyberte sektor a zadajte mzdu v záložke Príjmy a výdavky (sekcia Príjmy).</div>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border);padding-top:14px;">
-        <div class="ig">
-          <div class="il" style="font-size:16.8px;color:var(--muted2);">Čo by znamenalo zvýšenie platu o <span class="val" id="raise-pct-lbl">10%</span>?</div>
-          <input type="range" id="raise-pct" min="1" max="50" step="1" value="10" oninput="calcRaiseEffect()" aria-label="Percento zvýšenia platu">
-          <div class="rbnd"><span>1%</span><span>50%</span></div>
-        </div>
-        <div id="raise-effect-result" style="margin-top:10px;"></div>
-      </div>
+
+<footer id="app-footer" role="contentinfo">
+  <div class="app-footer-inner">
+    <div class="app-footer-brand">
+      <svg width="22" height="22" viewBox="0 0 512 512" aria-hidden="true" style="border-radius:50%;opacity:.75;flex-shrink:0;"><circle cx="256" cy="256" r="256" fill="#1a1816"/><polyline points="110,374 256,138 402,374" fill="none" stroke="#f5f3ee" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="256" cy="128" r="18" fill="#1a1816"/><circle cx="256" cy="128" r="14" fill="#c27c1a"/></svg>
+      <span class="app-footer-appname">Kriváň</span>
+      <span class="app-footer-sep"></span>
+      <a href="https://mameplan.sk" target="_blank" rel="noopener" class="app-footer-site">Mámeplán.sk</a>
+      <span class="app-footer-copy">© <span id="footer-year"></span></span>
+      <span class="app-footer-tag">bezplatné pre verejnosť</span>
+    </div>
+    <div class="app-footer-links">
+      <a href="https://mameplan.sk/pravne-info.html" target="_blank" rel="noopener" class="app-footer-link">Právne informácie</a>
+      <a href="https://mameplan.sk/pravne-info.html#ochrana-udajov" target="_blank" rel="noopener" class="app-footer-link">Ochrana údajov</a>
+      <a href="https://paypal.me/MamePlan" target="_blank" rel="noopener" class="app-footer-support"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Podporiť</a>
+      <button class="app-footer-vibe" onclick="openSources()" title="O transparentnosti projektu — vibe coding &amp; AI">⚡ vibe coded</button>
     </div>
   </div>
-
-  <!-- ROW 4: Refi — plná šírka -->
-
-  <!-- 7. Refi hypotéka -->
-  <div class="diag-section" style="border-color:rgba(248,113,113,.2);margin-bottom:0;grid-column:1/-1;">
-    <div class="diag-section-hdr" style="background:rgba(248,113,113,.04);">
-      <span class="diag-section-title" style="color:#fca5a5;">Oplatí sa refinancovať hypotéku?<span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none;">Porovnáme vašu sadzbu s trhom a vypočítame, či sa prechod k inej banke oplatí.</span></span>
-    </div>
-    <div class="diag-section-body" id="interest-gap-body">
-      <div style="font-size:16.8px;color:var(--muted2);">Zadajte hypotéku v záložke Moje dlhy (T11) alebo Hypotéka (T8) — potom tu uvidíte analýzu.</div>
-    </div>
+  <div class="app-footer-disclaimer">
+    Táto aplikácia slúži výlučne na <strong>vzdelávacie a informačné účely</strong> a nepredstavuje finančné poradenstvo v zmysle zák.&nbsp;č.&nbsp;186/2009 Z.z. Pred investičnými rozhodnutiami konzultujte licencovaného finančného poradcu. Minulá výnosnosť nezaručuje budúce výsledky. Kalkulačka bola vytvorená metódou <strong>vibe coding</strong> — iteratívnou spoluprácou človeka a&nbsp;AI (Claude,&nbsp;Anthropic).
   </div>
-
-</div><!-- end t13 grid -->
-</div><!-- end tab13 -->
-</div><!-- end tab-panels-wrap -->
-
-<div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);">
-  <!-- Disclaimer -->
-  <div style="max-width:680px;margin:0 auto 14px;text-align:center;font-size:13.2px;color:var(--muted);line-height:1.75;opacity:.55;">
-    Táto aplikácia slúži výlučne na <strong style="color:var(--muted2);">vzdelávacie a informačné účely</strong> a nepredstavuje finančné poradenstvo v zmysle zák. č. 186/2009 Z.z.
-    Pred investičnými rozhodnutiami konzultujte licencovaného finančného poradcu.
-    Minulá výnosnosť nezaručuje budúce výsledky.
-  </div>
-  <!-- Brand row -->
-  <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding-bottom:8px;">
-    <div style="display:flex;align-items:center;gap:9px;">
-      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI1NiIgZmlsbD0iIzFhMTgxNiIvPgogIDxwb2x5bGluZSBwb2ludHM9IjExMCwzNzQgMjU2LDEzOCA0MDIsMzc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNWYzZWUiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxjaXJjbGUgY3g9IjI1NiIgY3k9IjEyOCIgcj0iMTgiIGZpbGw9IiMxYTE4MTYiLz4KICA8Y2lyY2xlIGN4PSIyNTYiIGN5PSIxMjgiIHI9IjE0IiBmaWxsPSIjYzI3YzFhIi8+Cjwvc3ZnPg==" width="26" height="26" alt="Kriváň" style="border-radius:50%;opacity:.75;">
-      <span style="font-family:'Spectral',serif;font-size:18px;font-weight:600;color:var(--muted2);">Kriváň</span>
-    </div>
-    <div style="width:1px;height:16px;background:var(--border2);opacity:.4;"></div>
-    <span style="font-size:14.4px;color:var(--muted);opacity:.6;">
-      <a href="https://mameplan.sk" target="_blank" style="color:inherit;text-decoration:none;">Mámeplán.sk</a>
-      &nbsp;©&nbsp;<span id="footer-year"></span>
-    </span>
-    <div style="width:1px;height:16px;background:var(--border2);opacity:.4;"></div>
-    <span style="font-size:13.2px;color:var(--muted);opacity:.5;font-family:'Source Code Pro',monospace;">bezplatné pre verejnosť</span>
-    <div style="width:1px;height:16px;background:var(--border2);opacity:.4;"></div>
-    <span style="font-size:13.2px;color:var(--muted);opacity:.45;font-family:'Source Code Pro',monospace;cursor:pointer;" onclick="openSources()">⚡ vibe coded</span>
-  </div>
-</div>
+</footer>
 
 </div><!-- end wrap -->
 
@@ -10165,6 +10160,7 @@ window._activeTab = window._activeTab || 't1';
 })();
 </script>
 
+<script>
 /* ── Editovateľné number inputy — sync s range sliderom ── */
 function _syncEI(numId, rangeId, callback){
   const num = document.getElementById(numId);
@@ -10216,6 +10212,7 @@ function _initEditableInputs(){
 }
 
 document.addEventListener('DOMContentLoaded', ()=>{ _initEditableInputs(); });
+</script>
 
 </body>
 </html>
