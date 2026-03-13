@@ -5249,7 +5249,9 @@ function updateChart1(rows,p){
 
   const opts=chartOpts(p.sy,'ch1');
   if(chart1){chart1.data.labels=labels;chart1.data.datasets=ds;chart1.update('active');return;}
-  chart1=new Chart($el('ch1').getContext('2d'),{type:'line',data:{labels,datasets:ds},options:opts});
+  const _ch1=document.getElementById('ch1');
+  if(!_ch1||_ch1.offsetParent===null&&!_ch1.closest('.tab-panel.active')) return;
+  try{ chart1=new Chart(_ch1.getContext('2d'),{type:'line',data:{labels,datasets:ds},options:opts}); }catch(e){}
 }
 
 function setChart(m,btn){
@@ -8108,7 +8110,7 @@ function renderCF2Sections(){
       <div class="cf2-rows" id="cf2-rows-${cat.id}">${rows}</div>
       <div class="cf2-footer">
         <button class="cf2-add-btn" onclick="cfAddItem('${cat.id}')">+ Pridať položku</button>
-        <span class="cf2-section-subtotal" style="color:rgba(${c},.6);">SPOLU ${fmt(total)}</span>
+        <span class="cf2-section-subtotal" id="cf2-subtotal-${cat.id}" style="color:rgba(${c},.6);">SPOLU ${fmt(total)}</span>
       </div>
     </div>`;
   }).join('');
@@ -8129,10 +8131,13 @@ function calcCF(){
   const totalOut  = totalExp + invest + savings;
   const balance   = income - totalOut;
 
-  // Update all section totals
+  // Update all section totals (header + footer)
   cfData.cats.forEach(cat => {
+    const t = cfCatTotal(cat);
     const el = document.getElementById(`cf2-total-${cat.id}`);
-    if(el) el.textContent = fmt(cfCatTotal(cat));
+    if(el) el.textContent = fmt(t);
+    const sub = document.getElementById(`cf2-subtotal-${cat.id}`);
+    if(sub) sub.textContent = 'SPOLU ' + fmt(t);
   });
 
   // Store globals for integrations
@@ -9675,7 +9680,7 @@ showTab=function(id,btn){
   if(id==='t7'){calcPiliere();}
   if(id==='t8'){calcMort();}
   if(id==='t9'){renderCF2Sections(); calcCF();}
-  if(id==='t10'){calcEF();}
+  if(id==='t1'){if(!chart1&&window._lastRows&&window._lastP){try{updateChart1(window._lastRows,window._lastP);}catch(e){}}}
   if(id==='t11'){renderDebtList(); calcDebt();}
   if(id==='t12'){renderAssets(); calcAssets();}
   if(id==='t13'){calcDiag();}
