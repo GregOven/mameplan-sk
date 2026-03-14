@@ -8947,7 +8947,15 @@ function importAppState(event){
       // Finálne vykreslenie bucketov — po všetkých recalcoch
       if(typeof efRenderBuckets === 'function') efRenderBuckets();
       if(typeof efCalcBuckets   === 'function') efCalcBuckets();
-      showToast('✓ Dáta importované', 'var(--emerald2)');
+      // Explicitne nastaviť ef-saved na súčet bucketov (nie z JSON)
+      if(typeof efBuckets !== 'undefined'){
+        const _efTotal = efBuckets.reduce((s,b)=>s+(+b.amount||0),0);
+        const _sEl = document.getElementById('ef-saved');
+        if(_sEl){ _sEl.value = Math.min(_efTotal, +_sEl.max); }
+        const _niSv = document.getElementById('ni-ef-saved');
+        if(_niSv){ _niSv.value = _sEl ? _sEl.value : _efTotal; }
+      }
+      showToast(`✓ Dáta importované · ${efBuckets.length} bucketov NF`, 'var(--emerald2)');
     } catch(err) {
       showToast('✗ Import sa nepodaril: ' + err.message, 'var(--red)');
     }
