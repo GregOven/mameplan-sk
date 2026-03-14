@@ -2334,6 +2334,313 @@ canvas{
     margin-bottom: 20px;
   }
 }
+
+/* ══ LIGHT MODE ══════════════════════════════════════════════════════ */
+body.light {
+  --bg:      #e8edf6;
+  --bg2:     #ffffff;
+  --bg3:     #dde4f0;
+  --bg4:     #d0d9eb;
+  --border:  #a8b4cc;
+  --border2: #8e9fbe;
+  --text:    #1a1d2e;
+  --muted:   #4b5563;
+  --muted2:  #374151;
+  --gold:    #9a6f1a;
+  --gold2:   #b8860b;
+  --gold3:   #c8a84b;
+  --emerald: #059669;
+  --emerald2:#047857;
+  --amber2:  #d97706;
+  --red:     #dc2626;
+  --blue:    #2563eb;
+  --blue2:   #1d4ed8;
+  --a-color: #9a6f1a;
+  --b-color: #2563eb;
+  --sh-md:   0 2px 12px rgba(0,0,0,.08);
+  --sh-lg:   0 4px 24px rgba(0,0,0,.12);
+}
+
+/* Background & body */
+body.light { background: var(--bg); color: var(--text); }
+
+/* Panel overrides */
+body.light .panel {
+  background: #ffffff !important;
+  border: 1.5px solid #a8b4cc !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06) !important;
+}
+body.light .panel::before { display: none; }
+body.light .panel:hover { transform: none !important; box-shadow: 0 4px 20px rgba(0,0,0,.1) !important; }
+body.light .inputs-panel { background: #f8faff !important; border: 1.5px solid #8e9fbe !important; }
+
+/* Profile bar */
+body.light #profile-bar { background: rgba(232,237,246,.97); border-bottom: 1.5px solid #a8b4cc; backdrop-filter: none; }
+body.light .pbar-file { color: var(--text); }
+body.light .pbtn { background: rgba(0,0,0,.05); border: 1.5px solid #a8b4cc; color: var(--text); }
+body.light .pbtn:hover { background: rgba(0,0,0,.08); }
+body.light .pbtn-save { background: rgba(5,150,105,.1); border-color: rgba(5,150,105,.3); color: #047857; }
+body.light .pbtn-load { background: rgba(217,119,6,.1); border-color: rgba(217,119,6,.3); color: #d97706; }
+
+/* Tabs */
+body.light .tabs-wrap { background: transparent; }
+body.light .tabs-wrap::after { background: linear-gradient(to right, transparent, var(--bg)); }
+body.light .tab-group-inner { background: rgba(0,0,0,.05) !important; border: 1.5px solid #8e9fbe !important; }
+body.light .tab { color: #4b5563; }
+body.light .tab:hover { color: var(--text); background: rgba(0,0,0,.05); }
+body.light .tab-group-label { color: #4b5563; font-weight: 600; }
+
+/* Inputs */
+body.light input[type=range] { background: #e0e6f0; }
+body.light input[type=range]::-webkit-slider-thumb { background: #1a1d2e; }
+body.light .ni-wrap { background: #f0f4fc; border: 1.5px solid #8e9fbe; }
+body.light input[type=number] { color: var(--text); }
+body.light input[type=text] { background: #f0f4fc; border-color: #a8b4cc; color: var(--text); }
+body.light select { background: #f0f4fc; border-color: #a8b4cc; color: var(--text); }
+body.light .ef-bucket-name { background: #f0f4fc !important; border: 1.5px solid #8e9fbe !important; color: var(--text) !important; }
+body.light .ef-bucket-fi { background: #f0f4fc !important; border: 1.5px solid #8e9fbe !important; }
+body.light .ef-bucket-fi input { color: var(--text) !important; }
+body.light .debt-inp { background: #f0f4fc !important; border: 1.5px solid #8e9fbe !important; color: var(--text) !important; }
+body.light .debt-sel { background: #f0f4fc !important; border: 1.5px solid #8e9fbe !important; color: var(--text) !important; }
+
+/* Stat cards */
+body.light .sc { background: #f0f4fc !important; border: 1.5px solid #a8b4cc !important; }
+
+/* Sync bar */
+body.light .sync-bar { background: rgba(216,224,240,.6); border: 1px solid #a8b4cc; border-radius: 10px; }
+body.light .sync-badge { color: var(--text); }
+
+/* Wf / waterfall rows */
+body.light .cf2-section { border-color: #a8b4cc; }
+body.light .cf2-name-input { color: var(--text); }
+body.light .cf2-amount-wrap { background: rgba(0,0,0,.04); }
+body.light .cf2-amount-input { color: var(--text); }
+
+/* Buttons */
+body.light .btn-add { background: rgba(154,111,26,.1); border-color: rgba(154,111,26,.3); }
+body.light .btn-del { background: rgba(220,38,38,.08); border-color: rgba(220,38,38,.2); }
+body.light .ef-bucket-add { background: rgba(99,102,241,.05); border-color: rgba(99,102,241,.25); color: #4f46e5; }
+body.light .integrate-btn { background: rgba(99,102,241,.06); border-color: rgba(99,102,241,.2); }
+body.light .ef-months-btn { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+body.light .ef-months-btn.active { background: rgba(99,102,241,.15); border-color: rgba(99,102,241,.4); color: #4338ca; }
+body.light .mort-fix-btn { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+body.light .mort-fix-btn.active { background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.3); color: #b91c1c; }
+body.light .mort-mode-btn { background: rgba(0,0,0,.04); border-color: #a8b4cc; }
+body.light .mort-mode-btn.active { background: rgba(220,38,38,.12); border-color: rgba(220,38,38,.3); }
+body.light .tbtn { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+body.light .tbtn.active { background: rgba(37,99,235,.12); border-color: rgba(37,99,235,.3); color: #1d4ed8; }
+body.light .cf-cat-btn { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+
+/* Hero blocks */
+body.light .hero-block { background: #f8faff; border-color: #a8b4cc; }
+body.light .be-hero { background: rgba(20,184,166,.06); border-color: rgba(20,184,166,.2); }
+body.light .ambox { background: rgba(217,119,6,.06); border-color: rgba(217,119,6,.2); }
+body.light .r4-hero { background: #f8faff; border-color: #8e9fbe; }
+body.light .inf-hero { background: rgba(5,150,105,.05); border-color: rgba(5,150,105,.15); }
+
+/* Table */
+body.light .debt-table-wrap { border-color: #a8b4cc; background: #f8faff; }
+body.light .debt-table-wrap th { background: #f0f4fc; color: var(--muted2); border-color: #a8b4cc; }
+body.light .debt-table-wrap td { border-color: #e4eaf4; }
+
+/* Sources modal */
+body.light #sources-box { background: #ffffff; border-color: #a8b4cc; }
+body.light .src-ftab { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+body.light .src-ftab.active { background: rgba(37,99,235,.1); border-color: rgba(37,99,235,.3); color: #1d4ed8; }
+
+/* Tooltip */
+body.light #tooltip-box { background: #ffffff; border-color: #a8b4cc; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+
+/* Accordion */
+body.light details summary { color: var(--muted2); }
+
+/* Header */
+body.light .hdr { background: transparent; }
+body.light .hdr h1 { color: var(--text); }
+body.light .hdr-sub { color: var(--muted2); }
+
+/* Checboxes */
+body.light input[type=checkbox] { accent-color: #4338ca; }
+
+/* Slider fill override */
+body.light input[type=range] { --fill: var(--text); }
+
+/* Priority items */
+body.light .priority-item { background: #f0f4fc; border-color: #a8b4cc; }
+body.light .priority-num { background: rgba(0,0,0,.08); }
+
+/* Diagnóza */
+body.light .diag-section { background: #f8faff !important; border: 1.5px solid #a8b4cc !important; }
+body.light .refi-card { background: #f0f4fc; border-color: #a8b4cc; }
+
+/* Nav / wrap */
+body.light .wrap { background: var(--bg); }
+
+/* val span */
+body.light .val { color: var(--gold2); }
+
+/* muted overrides for inline rgba(255,255,255,...) elements */
+body.light .sec-hdr { color: #1a1d2e; font-weight: 700; opacity: 1; border-bottom: 1.5px solid #a8b4cc; }
+body.light .sec-hdr::after { background: #a8b4cc; }
+body.light .plbl { color: var(--muted); }
+body.light .rbnd { color: var(--muted2); }
+body.light .il { color: var(--muted2); }
+body.light .du { color: var(--muted2); background: #e8ecf4; }
+body.light .ssub { color: var(--muted2); }
+
+/* Inline rgba(255,255,255,...) backgrounds — flip to rgba(0,0,0,...) */
+body.light [style*="rgba(255,255,255,.03)"],
+body.light [style*="rgba(255,255,255,.04)"],
+body.light [style*="rgba(255,255,255,.05)"],
+body.light [style*="rgba(255,255,255,.06)"] { background: rgba(0,0,0,.03) !important; }
+
+/* inline dark backgrounds */
+body.light [style*="background:var(--bg2)"] { background: #ffffff !important; }
+body.light [style*="background:var(--bg3)"] { background: #f0f4fc !important; }
+body.light [style*="background:#0a0b16"] { background: #ffffff !important; }
+
+/* CF2 sections */
+body.light .cf2-section { background: #f8faff !important; }
+body.light .cf2-topbar { background: #f0f4fc; border-color: #a8b4cc; }
+body.light .cf2-hh-btn { background: #e8ecf4; border-color: #a8b4cc; color: var(--text); }
+body.light .cf2-rec { background: #f8faff; }
+
+/* Slider fill color - light mode */
+body.light input[type=range] {
+  background: linear-gradient(to right, #374151 var(--fill, 0%), #c8d0e0 var(--fill, 0%));
+}
+body.light input[type=range]::-webkit-slider-thumb {
+  background: #1a1d2e;
+  box-shadow: 0 0 8px rgba(0,0,0,.2);
+}
+
+/* Hero numbers & big text */
+body.light .sval { color: var(--text) !important; }
+body.light .hero-nom { color: var(--text); }
+body.light .hero-sub { color: var(--muted2); }
+
+/* Stat card values */
+body.light .sc .sval { color: var(--text) !important; }
+
+/* Chart.js canvas - white background */
+body.light canvas { background: #ffffff; border-radius: 8px; }
+
+/* The main hero number in T10 (NF goal) */
+body.light [style*="font-family:'Spectral'"] { color: var(--text) !important; }
+
+/* Any element with white text inline that's inside panels */
+body.light .panel [style*="color:var(--text)"] { color: var(--text) !important; }
+body.light .panel [style*="color:rgba(255"] { color: rgba(26,29,46,.8) !important; }
+body.light [style*="color:var(--muted)"] { color: var(--muted) !important; }
+body.light [style*="color:var(--muted2)"] { color: var(--muted2) !important; }
+
+/* Hdr + landing */
+body.light .hdr { background: linear-gradient(180deg, #e8ecf4 0%, #f0f2f8 100%); }
+body.light .hdr-tag { border-color: #a8b4cc; color: var(--muted2); }
+body.light .vibe-badge { background: rgba(0,0,0,.04); border-color: #a8b4cc; color: var(--muted2); }
+body.light .hdr h1 span { -webkit-text-fill-color: var(--text); }
+
+/* Amortization table rows */
+body.light .debt-table-wrap tr:nth-child(even) { background: rgba(0,0,0,.02); }
+body.light .debt-table-wrap tr:hover { background: rgba(37,99,235,.05); }
+
+/* CF2 waterfall */
+body.light #cf2-wf { background: #f8faff; border-color: #a8b4cc; }
+
+/* Tip modal */
+body.light .tip-modal-box { background: #ffffff; border-color: #a8b4cc; color: var(--text); }
+
+/* ── DEBT FIX ROW ── */
+.debt-fix-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.debt-fix-label {
+  font-size: 13px;
+  color: var(--muted2);
+  white-space: nowrap;
+  min-width: 110px;
+}
+.debt-fix-inp {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  color: var(--text);
+  font-family: var(--ff-data);
+  font-size: 13px;
+  padding: 5px 8px;
+  outline: none;
+  cursor: pointer;
+}
+.debt-fix-badge {
+  font-size: 12px;
+  font-family: var(--ff-ui);
+  letter-spacing: .5px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.debt-fix-badge.ok   { background: rgba(16,185,129,.1); color: var(--emerald2); border: 1px solid rgba(16,185,129,.25); }
+.debt-fix-badge.warn { background: rgba(245,158,11,.1); color: var(--amber2);   border: 1px solid rgba(245,158,11,.25); }
+.debt-fix-badge.hot  { background: rgba(240,82,82,.1);  color: var(--red);      border: 1px solid rgba(240,82,82,.25); }
+.debt-fix-alert {
+  background: rgba(240,82,82,.07);
+  border: 1px solid rgba(240,82,82,.3);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.debt-fix-alert.warn {
+  background: rgba(245,158,11,.07);
+  border-color: rgba(245,158,11,.3);
+}
+body.light .debt-fix-inp { background: #f0f4fc; border-color: #8e9fbe; color: var(--text); }
+
+/* ── DEBT CALCULATED FIELDS ── */
+.debt-field-calc { flex-shrink: 0; min-width: 110px; }
+.debt-calc-val {
+  font-family: var(--ff-data);
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+  padding: 6px 0;
+  line-height: 1.4;
+}
+.debt-calc-interest { color: var(--red); }
+/* ── REFI SECTION ── */
+.debt-refi-wrap {
+  background: rgba(200,168,75,.04);
+  border: 1px solid rgba(200,168,75,.15);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+.debt-refi-result {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+.debt-refi-card {
+  flex: 1;
+  min-width: 140px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.debt-refi-lbl { font-size: 12px; color: var(--muted); letter-spacing: .5px; margin-bottom: 4px; }
+.debt-refi-val { font-family: var(--ff-data); font-size: 18px; font-weight: 700; color: var(--text); }
+.debt-refi-sub { font-size: 12px; color: var(--muted2); margin-top: 2px; }
+body.light .debt-refi-wrap { background: rgba(154,111,26,.04); border-color: rgba(154,111,26,.2); }
+body.light .debt-refi-card { background: #f0f4fc; border-color: #8e9fbe; }
 </style>
 </head>
 <body>
@@ -2358,6 +2665,9 @@ canvas{
   </div>
   <!-- Pravá strana (grid col 3) -->
   <div class="pbar-right">
+  <button type="button" class="pbtn" id="theme-toggle-btn" onclick="toggleTheme()" title="Prepnúť denný/nočný režim" style="padding:6px 10px;font-size:13px;">
+    <span id="theme-icon">☀️</span>
+  </button>
   <button type="button" class="pbtn pbtn-save" onclick="exportAppState()" title="Stiahne .json súbor so všetkými vašimi dátami — uložte ho na disk">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
     Export dát
@@ -5057,6 +5367,7 @@ canvas{
       <div style="font-size:14.4px;color:var(--muted2);margin-top:6px;" id="cf2-hero-sub">Zadajte príjmy a výdavky</div>
     </div>
     <div style="border-top:1px solid var(--border);padding:12px 22px;" id="cf2-waterfall"></div>
+  <div id="cf-ef-monthly-warn" style="display:none;font-size:13px;color:var(--amber2);background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25);border-radius:8px;padding:8px 12px;margin-top:8px;"></div>
   </div>
 
   <div class="panel" style="">
@@ -5325,7 +5636,7 @@ canvas{
 
   <div class="panel">
     <p class="plbl" style="margin-bottom:12px;">Simulácia: extra €/mesiac</p>
-    <div style="font-size:14.4px;color:var(--muted2);margin-bottom:14px;line-height:1.7;">Koľko mesačne navyše môžete uvoľniť? Kalkulačka porovná úsporu na úrokoch vs. investičný výnos za rovnaké obdobie.</div>
+    <div style="font-size:14.4px;color:var(--muted2);margin-bottom:14px;line-height:1.7;">Koľko eur mesačne navyše môžete uvoľniť na splácanie hypotéky? Kalkulačka porovná možnú úsporu na úrokoch vs. možný investičný výnos za ekvivalentné obdobie pre túto extra sumu. Zistíte, či je pre vás výhodnejšie rýchlejšie splácať dlh alebo radšej investovať. Čím dlhší horizont investovania zvolíte, tým väčší priemerný výnos je možný — v krátkom horizonte je riziko straty oveľa vyššie.</div>
     <div class="ig primary">
       <div class="il">Extra splátka / vklad <span class="val" id="debt-l-extra">€200</span></div>
       <input type="range" id="debt-extra" min="0" max="10000" step="50" value="200" oninput="calcDebt()">
@@ -5363,6 +5674,8 @@ canvas{
     <div style="height:2px;background:linear-gradient(90deg,transparent,rgba(244,63,94,.4),transparent);"></div>
     <div style="padding:16px 18px 14px;">
       <div style="font-family:var(--ff-data);font-size:var(--fs-xs);letter-spacing:2.5px;text-transform:uppercase;color:rgba(244,63,94,.6);margin-bottom:12px;">Zoznam dlhov</div>
+      <!-- Fixation alerts -->
+      <div id="debt-fix-alerts" style="margin-bottom:4px;"></div>
       <!-- Debt list (rendered by JS) -->
       <div id="debt-sections-wrap"></div>
       <button type="button" class="debt-add-btn" onclick="debtAddRow()">+ Pridať dlh</button>
@@ -5371,10 +5684,71 @@ canvas{
 
   <!-- Porovnanie: Splácať vs. Investovať -->
   <div class="panel" style="" id="debt-compare-panel">
-    <p class="plbl" style="margin-bottom:14px;">Investovať alebo splácať rýchlejšie?</p>
+    <p class="plbl" style="margin-bottom:6px;">Investovať alebo splácať rýchlejšie?</p>
+    <p style="font-size:13px;color:var(--muted2);margin-bottom:14px;" id="debt-compare-context">Porovnanie pre dlh s najvyššou sadzbou.</p>
     <div id="debt-compare-content">
       <div style="font-size:14.4px;color:var(--muted);padding:4px 0;">Zadajte dlhy pre zobrazenie porovnania.</div>
     </div>
+  </div>
+
+  <!-- Refinancovanie -->
+  <div class="panel" style="margin-bottom:16px;">
+    <p class="plbl" style="margin-bottom:14px;">Refinancovanie — oplatí sa?</p>
+    <div class="debt-refi-wrap">
+      <div class="g2" style="gap:10px;margin-bottom:10px;">
+        <div>
+          <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh pre výpočet</label>
+          <select id="refi-debt-sel" onchange="calcRefi()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;">
+            <option value="">— vyber dlh —</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba p.a.</label>
+          <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;">
+            <input type="number" id="refi-new-rate" value="3.5" min="0" max="20" step="0.1"
+              oninput="calcRefi()" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
+            <span class="du">%</span>
+          </div>
+        </div>
+      </div>
+      <div id="refi-result" style="font-size:13.5px;color:var(--muted);padding:4px 0;">Vyber dlh pre výpočet.</div>
+    </div>
+  </div>
+
+
+  <!-- Kalkulačka refixácie -->
+  <div class="panel" style="margin-bottom:16px;">
+    <div class="sec-hdr" style="margin-top:0;">Čo ma čaká po refixácii?</div>
+    <p style="font-size:13.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">
+      Koniec fixácie <strong>≠ koniec hypotéky.</strong> Banka ponúkne novú sadzbu — vypočítaj, o koľko sa zmení tvoja mesačná splátka.
+    </p>
+    <div class="g2" style="gap:10px;margin-bottom:10px;">
+      <div>
+        <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh</label>
+        <select id="refix-debt-sel" onchange="calcRefixation()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;">
+          <option value="">— vyber hypotéku —</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba po refixácii</label>
+        <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;">
+          <input type="number" id="refix-new-rate" value="3.5" min="0" max="15" step="0.1"
+            oninput="calcRefixation()" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
+          <span class="du">%</span>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:10px;">
+      <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Zostatok doby splácania po refixácii (roky)</label>
+      <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;width:fit-content;">
+        <input type="number" id="refix-rem-years" value="" min="1" max="40" step="1"
+          oninput="calcRefixation()" placeholder="auto"
+          style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:70px;">
+        <span class="du">r.</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Nechaj prázdne — doplní sa automaticky z dlhu.</div>
+    </div>
+    <div id="refix-result" style="font-size:13.5px;color:var(--muted);padding:4px 0;">Vyber hypotéku pre výpočet.</div>
   </div>
 
   <!-- Odporúčanie -->
@@ -8843,10 +9217,12 @@ function importAppState(event){
             rate:    parseFloat(d.rate)    || 0,
             monthly: parseFloat(d.monthly) || 0,
             term:    parseFloat(d.term)    || 0,
+            fixEnd:  String(d.fixEnd  || ''),
           });
         });
         if(typeof renderDebtList === 'function') renderDebtList();
         if(typeof calcDebt       === 'function') calcDebt();
+        if(typeof renderDebtFixAlerts === 'function') renderDebtFixAlerts();
       }
       // K-1 FIX: Restore efBuckets[]
       if(Array.isArray(state.efBuckets) && typeof efBuckets !== 'undefined'){
@@ -9243,6 +9619,18 @@ function calcCF(){
   // Update EF category labels with current CF values
   if(typeof efUpdateCatLabels === 'function') efUpdateCatLabels();
   crossSync_CF_to_EF(totalExpEF, savings); // savings = 0 is valid — reflects user's CF setting
+  // B1 FIX: Warn if ef-monthly is set but savings=0 in CF (hidden cashflow drain)
+  const _efMonSlider = document.getElementById('ef-monthly');
+  const _efMonVal = _efMonSlider ? (+_efMonSlider.value || 0) : 0;
+  const _warnEl = document.getElementById('cf-ef-monthly-warn');
+  if(_warnEl){
+    if(savings === 0 && _efMonVal > 0){
+      _warnEl.textContent = `⚠️ Do Núdzového fondu sporím €${_efMonVal}/mes. — táto suma sa neodráža v Úsporách cashflow.`;
+      _warnEl.style.display = '';
+    } else {
+      _warnEl.style.display = 'none';
+    }
+  }
 
   // ── AUTO SYNC T9 → T1: investície do kalkulačky ──
   crossSync_CF_to_T1(invest);
@@ -10260,13 +10648,25 @@ const DEBT_TYPES = ['Hypotéka','Spotrebný úver','Leasing','Kreditná karta','
 let debtRows = [];
 
 function debtAddRow(){
-  debtRows.push({name:'Nový dlh', type:'Spotrebný úver', balance:0, rate:5, monthly:0, term:5});
+  const _defType='Spotrebný úver'; debtRows.push({name:'Nový dlh', type:_defType, balance:0, rate:DEBT_DEFAULT_RATES[_defType]||5, monthly:0, term:5, fixEnd:''});
   renderDebtList(); calcDebt();
 }
 function debtRemoveRow(i){ debtRows.splice(i,1); renderDebtList(); calcDebt(); }
+const DEBT_DEFAULT_RATES = {
+  'Hypotéka': 3.2, 'Leasing': 5.5, 'Spotrebný úver': 9.9,
+  'Kreditná karta': 19.9, 'Kontokorent': 14.9,
+  'Pôžička od rodiny': 0, 'Iný dlh': 5.0
+};
 function debtUpdate(i, field, val){
   debtRows[i][field] = field==='name'||field==='type' ? val : (parseFloat(val)||0);
-  calcDebt();
+  // Auto-fill default rate when type changes and rate is still 0 or previous default
+  if(field==='type' && DEBT_DEFAULT_RATES[val] !== undefined){
+    const prevDefaults = Object.values(DEBT_DEFAULT_RATES);
+    if(debtRows[i].rate === 0 || prevDefaults.includes(debtRows[i].rate)){
+      debtRows[i].rate = DEBT_DEFAULT_RATES[val];
+    }
+  }
+  renderDebtList(); calcDebt();
 }
 
 function renderDebtList(){
@@ -10282,7 +10682,7 @@ function renderDebtList(){
     <div class="debt-card">
       <div class="debt-card-r1">
         <input class="debt-name-inp" value="${(d.name||'').replace(/"/g,'&quot;')}"
-          onchange="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu">
+          oninput="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu">
         <select class="debt-type-sel" onchange="debtUpdate(${i},'type',this.value)">${typeOpts(d.type)}</select>
         <button type="button" class="debt-del-btn" onclick="debtRemoveRow(${i})" title="Odstrániť">×</button>
       </div>
@@ -10306,14 +10706,25 @@ function renderDebtList(){
             <input type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)">
           </div>
         </div>
-        <div class="debt-field">
-          <label>Zostatok (r.)</label>
-          <div class="debt-fi">
-            <input type="number" value="${d.term||0}" min="0" max="40" step="0.5" oninput="debtUpdate(${i},'term',this.value)">
-            <span class="du">r.</span>
-          </div>
+        <div class="debt-field debt-field-calc">
+          <label>Splatenie</label>
+          <div class="debt-calc-val" id="debt-payoff-${i}">—</div>
+        </div>
+        <div class="debt-field debt-field-calc">
+          <label>Preplatenie</label>
+          <div class="debt-calc-val debt-calc-interest" id="debt-interest-${i}">—</div>
         </div>
       </div>
+      ${(()=>{ const _mr=(+d.rate||0)/100/12; const _minP=Math.round((+d.balance||0)*_mr); return (+d.monthly>0 && +d.balance>0 && +d.rate>0 && +d.monthly <= (+d.balance||0)*_mr) ? `<div style="background:rgba(240,82,82,.1);border:1px solid rgba(240,82,82,.35);border-radius:8px;padding:8px 12px;margin:6px 0;font-size:13px;color:var(--red);"><strong>⚠️ Splátka je príliš nízka!</strong> Mesačný úrok = €${_minP} — dlh sa nikdy nesplatí. Zvýš splátku aspoň na €${_minP+1}.</div>` : ''; })()}
+      ${(d.type==='Hypotéka'||d.type==='Leasing')?`
+      <div class="debt-fix-row">
+        <label class="debt-fix-label">Koniec fixácie</label>
+        <input type="month" class="debt-fix-inp" value="${d.fixEnd||''}"
+          oninput="debtUpdate(${i},'fixEnd',this.value);renderDebtFixAlerts()"
+          min="${new Date().toISOString().slice(0,7)}"
+          placeholder="rrrr-mm">
+        ${d.fixEnd ? `<span class="debt-fix-badge ${debtFixBadgeClass(d.fixEnd)}">${debtFixLabel(d.fixEnd)}</span>` : ''}
+      </div>`:''} 
     </div>`).join('')+
     `<div class="debt-card-totals">
       <span>Celkový zostatok: <strong>${fmt(total)}</strong></span>
@@ -10342,15 +10753,16 @@ function calcDebt(){
   const dstiVerdict = $el('debt-dsti-verdict');
   if(dstiBench && dstiVerdict && totalBal > 0 && totalMon > 0){
     // Try to get income from CF tab or mortgage tab
-    const cfInc = window._cfTotalIncome || 0;
+    const cfInc = window._cfIncome || 0;
     const mortInc = +($el('mr-inc1')?.value||0) + +($el('mr-inc2')?.value||0);
     const refIncome = cfInc || mortInc;
     if(refIncome > 0){
       const dstiPct = totalMon / refIncome * 100;
       let color, msg;
-      if(dstiPct < 22)      { color='var(--emerald)'; msg=`✅ Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — pod slovenským priemerom (22%). Dobré.`; }
-      else if(dstiPct < 30) { color='var(--amber2)';  msg=`⚠️ Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — mierne nad priemerom (22%).`; }
-      else                  { color='var(--red)';     msg=`🔴 Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — nad odporúčanou hranicou 30%. Zvážte splatenie drahších dlhov.`; }
+      if(dstiPct < 22)      { color='var(--emerald)'; msg=`✅ Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — pod slovenským priemerom (22%). Výborne.`; }
+      else if(dstiPct < 30) { color='var(--amber2)';  msg=`⚠️ Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — mierne nad priemerom (22%), stále v norme.`; }
+      else if(dstiPct < 40) { color='var(--amber2)';  msg=`⚠️ Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — zvýšená záťaž, sledujte cashflow.`; }
+      else                  { color='var(--red)';     msg=`🔴 Vaše splátky: <strong>${dstiPct.toFixed(0).replace('.',',')}%</strong> príjmu — nad limitom NBS DSTI 40%. Prioritne splácajte drahšie dlhy.`; }
       dstiVerdict.innerHTML = `<span style="color:${color};">${msg}</span>`;
       dstiBench.style.display = '';
     } else { dstiBench.style.display = 'none'; }
@@ -10380,6 +10792,8 @@ function calcDebt(){
   if(!topDebt){if($el('debt-compare-content'))$el('debt-compare-content').innerHTML='';return;}
 
   const topRate  = topDebt.rate/100;
+  const ctxEl = document.getElementById('debt-compare-context');
+  if(ctxEl) ctxEl.textContent = `Porovnanie pre „${topDebt.name}" (${topDebt.rate}% p.a.) — extra €${extra}/mes. po dobu ${Math.min(30,Math.max(3,Math.ceil(-Math.log(1-topRate/12*(+topDebt.balance||0)/(+topDebt.monthly||1))/Math.log(1+topRate/12))/12))} r.`;
   const topBal   = +topDebt.balance||0;
   const topMon   = +topDebt.monthly||0;
 
@@ -10394,7 +10808,12 @@ function calcDebt(){
 
   const mStd = _debtMtoP(topBal, topRate, topMon);
   const mFast = _debtMtoP(topBal, topRate, topMon + extra);
-  const horizonYears = Math.min(30, Math.max(3, Math.ceil(mStd/12)));
+  // horizonYears = shortest loan term across all debts (makes most sense as comparison horizon)
+  const _allTerms = debtRows.filter(d=>+d.balance>0 && +d.monthly>0 && +d.rate>0)
+    .map(d => Math.ceil(_debtMtoP(+d.balance, d.rate/100, +d.monthly) / 12));
+  const horizonYears = _allTerms.length > 0
+    ? Math.min(30, Math.max(3, Math.min(..._allTerms)))
+    : Math.min(30, Math.max(3, Math.ceil(mStd/12)));
   const months = horizonYears * 12;
 
   // Interest saved by paying off faster
@@ -10425,7 +10844,7 @@ function calcDebt(){
       <div class="sc" style="border-color:rgba(244,63,94,.2);">
         <div class="slbl">Úspora na úrokoch</div>
         <div style="font-family:'Spectral',serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:#fda4af;line-height:1;">${fmt(Math.round(intSaved))}</div>
-        <div class="ssub">${monthsFaster>0?`splatíte o ${monthsFaster} mes. skôr`:'pri nezmenených splátkach'}</div>
+        <div class="ssub">${(()=>{const yr=Math.floor(monthsFaster/12),mo=monthsFaster%12;return monthsFaster<=0?'pri nezmenených splátkach':yr>0?(mo>0?`splatíte o ${yr} r. ${mo} mes. skôr`:`splatíte o ${yr} r. skôr`):`splatíte o ${mo} mes. skôr`;})()}</div>
       </div>
       <div class="sc" style="border-color:rgba(200,168,75,.2);">
         <div class="slbl">Investičné portfólio</div>
@@ -10434,7 +10853,7 @@ function calcDebt(){
       </div>
     </div>
     <div style="font-size:14.4px;color:var(--muted2);line-height:1.8;background:rgba(255,255,255,.02);border-radius:10px;padding:10px 12px;">
-      Porovnanie pre <strong style="color:var(--text);">${topDebt.name}</strong> (${topDebt.rate}% p.a.) s extra €${extra}/mes.<br>
+      Porovnanie pre <strong style="color:var(--text);">${esc(topDebt.name)}</strong> (${topDebt.rate}% p.a.) s extra €${extra}/mes.<br>
       Break-even: <strong style="color:var(--emerald2);">${breakEvenRate.toFixed(1).replace('.',',')}%</strong> (Acc ETF, §9/1/e ZDP) · <strong style="color:var(--amber2);">${breakEvenRateDist.toFixed(1).replace('.',',')}%</strong> (dist ETF) —
       ${topDebt.rate>breakEvenRate?' dlh nad oboma prahmi — splácajte rýchlejšie':topDebt.rate>breakEvenRateDist?' splácajte ak máte dist ETF':'investovanie do Acc ETF je výhodnejšie'}
     </div>`;
@@ -10445,19 +10864,37 @@ function calcDebt(){
     const highInterestDebts = sorted.filter(d=>+d.rate>breakEvenRate);
     const lowInterestDebts  = sorted.filter(d=>+d.rate<=breakEvenRate);
     let recType, recText;
+    // Build avalanche order HTML (only if 2+ debts)
+    const avalancheHtml = sorted.length >= 2 ? (() => {
+      const rows = sorted.map((d,i) => {
+        const mr = (+d.rate||0)/100/12;
+        const minPayOk = mr > 0 ? (+d.monthly||0) > (+d.balance||0)*mr : true;
+        const rateColor = +d.rate > breakEvenRate ? 'var(--red)' : +d.rate > 4 ? 'var(--amber2)' : 'var(--emerald2)';
+        return `<div style="display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);font-size:13px;">
+          <span style="width:22px;height:22px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;">${i+1}</span>
+          <span style="flex:1;color:var(--text);">${esc(d.name||'Dlh '+(i+1))}</span>
+          <span style="font-family:'Source Code Pro',monospace;color:${rateColor};font-size:12px;">${(+d.rate||0).toFixed(2)}%</span>
+          <span style="font-size:12px;color:var(--muted2);">${fmt(+d.balance||0)}</span>
+          ${!minPayOk ? '<span style="color:var(--red);font-size:11px;">⚠️</span>' : (i===0?'<span style="color:var(--amber2);font-size:11px;">← extra</span>':'')}
+        </div>`;
+      }).join('');
+      return `<div style="margin:10px 0 6px;"><div style="font-size:12px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">AVALANCHE PORADIE SPLÁCANIA</div>${rows}</div>`;
+    })() : '';
+
     if(highInterestDebts.length>0 && lowInterestDebts.length===0){
-      recType='bad'; recText=`Všetky vaše dlhy majú sadzbu nad ${breakEvenRate.toFixed(1).replace('.',',')}% — matematicky sa oplatí splácať rýchlejšie pred investovaním. Použite avalanche metódu: prioritizujte najvyššiu sadzbu (${topDebt.name} @ ${topDebt.rate}%).`;
+      recType='bad'; recText=`Všetky dlhy sú nad ${breakEvenRate.toFixed(1).replace('.',',')}% — splácajte rýchlejšie pred investovaním. Extra €${extra} smeruj na <strong>${esc(topDebt.name)}</strong> (${topDebt.rate}%).`;
     } else if(highInterestDebts.length===0){
-      recType='ok'; recText=`Vaše dlhy majú nízke sadzby (pod ${breakEvenRate.toFixed(1).replace('.',',')}%). Historický výnos MSCI World (~9%) ich prekonáva — má zmysel investovať paralelne so štandardnými splátkami.`;
+      recType='ok'; recText=`Dlhy sú pod ${breakEvenRate.toFixed(1).replace('.',',')}% — historický výnos MSCI World (~9%) ich prekonáva. Má zmysel investovať paralelne so štandardnými splátkami.`;
     } else {
-      recType='info'; recText=`Máte zmixované dlhy. Odporúčanie: najprv splaťte vysoké sadzby (${highInterestDebts.map(d=>d.name+' '+d.rate+'%').join(', ')}), potom investujte voľné prostriedky z nízko-úrokových dlhov (${lowInterestDebts.map(d=>d.name).join(', ')}).`;
+      recType='info'; recText=`Zmixované dlhy: <strong>${highInterestDebts.map(d=>esc(d.name)+' '+d.rate+'%').join(', ')}</strong> splácaj rýchlejšie. <strong>${lowInterestDebts.map(d=>esc(d.name)).join(', ')}</strong> — stačia štandardné splátky, voľné prostriedky investuj.`;
     }
-    rb.innerHTML = `<div class="cf2-rec ${recType}" style="margin-top:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">${recText}</div></div>`;
+    rb.innerHTML = `<div class="cf2-rec ${recType}" style="margin-top:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">${recText}</div></div>${avalancheHtml}`;
   }
 
   // ── AUTO SYNC T11 → T12: dlhy do net worth ──
   crossSync_Debt_to_Assets();
-}
+
+  if(typeof calcDebtPayoffStats === 'function') calcDebtPayoffStats();}
 
 /* ══════════════════════════════════════════════
    TAB 12 – INÝ MAJETOK (Net Worth tracker)
@@ -10954,6 +11391,305 @@ function efUpdateCatLabels(){
     const cb = document.getElementById('efc-' + cid);
     if(cb && typeof efCatInclude !== 'undefined') cb.checked = efCatInclude[cid] || false;
   });
+}
+
+/* ══ THEME TOGGLE ══════════════════════════════════════════════════ */
+function toggleTheme(){
+  const isLight = document.body.classList.toggle('light');
+  const icon = document.getElementById('theme-icon');
+  if(icon) icon.textContent = isLight ? '🌙' : '☀️';
+  try { localStorage.setItem('krivan-theme', isLight ? 'light' : 'dark'); } catch(e){}
+  // Re-render all sliders with correct fill color
+  document.querySelectorAll('input[type=range]').forEach(r => {
+    if(typeof fillSlider === 'function') fillSlider(r);
+  });
+}
+
+// Apply saved theme on load
+(function(){
+  try {
+    const saved = localStorage.getItem('krivan-theme');
+    if(saved === 'light'){
+      document.body.classList.add('light');
+      const icon = document.getElementById('theme-icon');
+      if(icon) icon.textContent = '🌙';
+    }
+  } catch(e){}
+})();
+
+/* ── DEBT FIX ALERTS ── */
+function debtFixMonthsLeft(fixEnd){
+  if(!fixEnd) return null;
+  const now = new Date();
+  const end = new Date(fixEnd + '-01');
+  return Math.round((end - now) / (1000*60*60*24*30.44));
+}
+function debtFixBadgeClass(fixEnd){
+  const m = debtFixMonthsLeft(fixEnd);
+  if(m === null) return '';
+  if(m < 0)  return 'hot';
+  if(m <= 3) return 'hot';
+  if(m <= 6) return 'warn';
+  return 'ok';
+}
+function debtFixLabel(fixEnd){
+  const m = debtFixMonthsLeft(fixEnd);
+  if(m === null) return '';
+  if(m < 0)  return `Fixácia skončila pred ${Math.abs(m)} mes.!`;
+  if(m === 0) return 'Fixácia končí tento mesiac!';
+  if(m <= 3) return `Fixácia o ${m} mes. — KONAJTE!`;
+  if(m <= 6) return `Fixácia o ${m} mes. — začnite riešiť`;
+  const yr = Math.floor(m/12), mo = m%12;
+  return yr > 0 ? `Fixácia o ${yr} r.${mo>0?' '+mo+' mes.':''}` : `Fixácia o ${m} mes.`;
+}
+function renderDebtFixAlerts(){
+  const wrap = document.getElementById('debt-fix-alerts');
+  if(!wrap) return;
+  const alerts = debtRows
+    .filter(d => d.fixEnd && (d.type==='Hypotéka'||d.type==='Leasing'))
+    .map(d => {
+      const m = debtFixMonthsLeft(d.fixEnd);
+      if(m === null || m > 9) return null;
+      const cls = m < 0 ? 'hot' : m <= 3 ? 'hot' : 'warn';
+      const msg = m < 0
+        ? `⚠️ <strong>${d.name}</strong> — fixácia skončila pred ${Math.abs(m)} mes.! Kontaktujte banku ihneď.`
+        : m <= 3
+        ? `🔴 <strong>${d.name}</strong> — fixácia končí o <strong>${m} mes.</strong> Kontaktujte banku a začnite porovnávať ponuky!`
+        : `🟡 <strong>${d.name}</strong> — fixácia končí o <strong>${Math.floor(m/12)>0?Math.floor(m/12)+' r. ':''}</strong>${m%12>0?m%12+' mes.':''} Odporúčame začať sledovať sadzby.`;
+      return `<div class="debt-fix-alert ${cls==='warn'?'warn':''}">${msg}</div>`;
+    }).filter(Boolean);
+  wrap.innerHTML = alerts.join('');
+}
+
+/* ══ DEBT: Payoff dates & total interest per card ══ */
+function calcDebtPayoffStats(){
+  debtRows.forEach((d, i) => {
+    const bal = +d.balance || 0;
+    const rate = +d.rate || 0;
+    const mon = +d.monthly || 0;
+    const pEl = document.getElementById('debt-payoff-' + i);
+    const iEl = document.getElementById('debt-interest-' + i);
+    if(!pEl || !iEl) return;
+
+    if(!bal || !mon || !rate) {
+      pEl.textContent = '—';
+      iEl.textContent = '—';
+      return;
+    }
+
+    // Months to payoff
+    const mr = rate / 100 / 12;
+    const rawM = mr > 0 ? -Math.log(1 - (mr * bal) / mon) / Math.log(1 + mr) : bal / mon;
+    const months = Math.ceil(rawM);
+
+    if(!isFinite(months) || months > 600) {
+      pEl.textContent = 'splátka < úrok!';
+      iEl.textContent = '—';
+      return;
+    }
+
+    // Payoff date
+    const payoffDate = new Date();
+    payoffDate.setMonth(payoffDate.getMonth() + months);
+    const yr = Math.floor(months / 12), mo = months % 12;
+    const dateStr = payoffDate.toLocaleDateString('sk-SK', {month:'short', year:'numeric'});
+    pEl.textContent = (yr > 0 ? yr + ' r.' + (mo > 0 ? ' ' + mo + ' mes.' : '') : mo + ' mes.') + ' · ' + dateStr;
+
+    // Total interest — precise last payment correction
+    let bal2 = bal, totalInt = 0, actualPaid = 0;
+    for(let m = 0; m < months; m++){
+      const interest = bal2 * mr;
+      const payment = (m === months-1) ? (bal2 + interest) : mon; // last payment = exact balance
+      totalInt += interest;
+      actualPaid += payment;
+      bal2 = Math.max(0, bal2 + interest - payment);
+    }
+    iEl.textContent = '+' + Math.round(totalInt).toLocaleString('sk-SK') + ' € (spolu ' + Math.round(actualPaid).toLocaleString('sk-SK') + ' €)';
+  });
+}
+
+/* ══ DEBT: Refi calculator ══ */
+function calcRefi(){
+  const sel = document.getElementById('refi-debt-sel');
+  const newRateEl = document.getElementById('refi-new-rate');
+  const resEl = document.getElementById('refi-result');
+  if(!sel || !newRateEl || !resEl) return;
+
+  // Populate select options
+  const currentVal = sel.value;
+  const opts = debtRows.map((d,i) => `<option value="${i}" ${currentVal==i?'selected':''}>${esc(d.name||'Dlh '+(i+1))} — ${(+d.rate||0).toFixed(2)}%</option>`);
+  sel.innerHTML = '<option value="">— vyber dlh —</option>' + opts.join('');
+  if(currentVal) sel.value = currentVal;
+
+  const idx = parseInt(sel.value);
+  if(isNaN(idx) || !debtRows[idx]) { resEl.innerHTML = '<span style="color:var(--muted)">Vyber dlh pre výpočet.</span>'; return; }
+
+  const d = debtRows[idx];
+  const bal = +d.balance || 0;
+  const oldRate = +d.rate || 0;
+  const mon = +d.monthly || 0;
+  const newRate = parseFloat(newRateEl.value) || 0;
+  if(!bal || !mon) { resEl.innerHTML = '<span style="color:var(--muted)">Zadaj zostatok a splátku.</span>'; return; }
+
+  // Months & total interest at old rate
+  const _mtp = (b, r, p) => {
+    const mr = r/100/12;
+    if(mr <= 0) return b/p;
+    const n = -Math.log(1-(mr*b)/p)/Math.log(1+mr);
+    return isFinite(n) ? Math.ceil(n) : 999;
+  };
+  const _totalInt = (b, r, p) => {
+    const mr = r/100/12, m = _mtp(b, r, p);
+    let bal = b, tot = 0;
+    for(let i=0; i<m; i++){ const int=bal*mr; tot+=int; bal=Math.max(0,bal+int-p); }
+    return tot;
+  };
+
+  const mOld = _mtp(bal, oldRate, mon);
+  const intOld = _totalInt(bal, oldRate, mon);
+
+  // New monthly at same term
+  const mNew = mOld;
+  const mrNew = newRate/100/12;
+  const newMon = mrNew > 0 ? bal * mrNew / (1 - Math.pow(1+mrNew, -mNew)) : bal/mNew;
+  const intNew = _totalInt(bal, newRate, newMon);
+  const intSaved = intOld - intNew;
+  const monSaved = mon - newMon;
+
+  // Break-even: closing costs (~1% of balance) / monthly savings
+  const closingCost = bal * 0.01;
+  // Opportunity-cost adjusted break-even: true cost = closingCost + lost ETF returns on it
+  // Monthly ETF growth on closing cost: closingCost * etfMr per month
+  const _etfMr = Math.pow(1+etfRet, 1/12) - 1;
+  const _netSaved = monSaved - closingCost * _etfMr; // net monthly gain after opportunity cost
+  const breakEvenMon = _netSaved > 0 ? Math.ceil(closingCost / _netSaved) : (monSaved > 0 ? Math.ceil(closingCost / monSaved) : null);
+
+  const color = intSaved > 0 ? 'var(--emerald2)' : 'var(--red)';
+  const sign = intSaved > 0 ? '−' : '+';
+
+  // Scenario B: same payment → shorter term
+  const mShorter = mrNew > 0 ? Math.ceil(-Math.log(1-(mrNew*bal)/mon)/Math.log(1+mrNew)) : Math.ceil(bal/mon);
+  const mShortFinite = isFinite(mShorter) && mShorter > 0 && mShorter < 999;
+  const intNewShort = mShortFinite ? _totalInt(bal, newRate, mon) : 0;
+  const intSavedShort = intOld - intNewShort;
+  const yrShorter = mShortFinite ? Math.floor((mNew-mShorter)/12) : 0;
+  const moShorter = mShortFinite ? (mNew-mShorter)%12 : 0;
+
+  resEl.innerHTML = `
+    <div class="debt-refi-result">
+      <div class="debt-refi-card">
+        <div class="debt-refi-lbl">SCENÁR A: NIŽŠIA SPLÁTKA</div>
+        <div class="debt-refi-val" style="color:${monSaved>0?'var(--emerald2)':'var(--red)'};">${monSaved>0?'−':'+'}<strong>${Math.round(Math.abs(monSaved)).toLocaleString('sk-SK')} €</strong>/mes.</div>
+        <div class="debt-refi-sub">úspora: <strong style="color:${color};">${sign}${Math.round(Math.abs(intSaved)).toLocaleString('sk-SK')} €</strong> na úrokoch</div>
+      </div>
+      ${mShortFinite && monSaved > 0 ? `<div class="debt-refi-card">
+        <div class="debt-refi-lbl">SCENÁR B: TÁ ISTÁ SPLÁTKA</div>
+        <div class="debt-refi-val" style="color:var(--emerald2);">−${yrShorter>0?yrShorter+' r.':''} ${moShorter>0?moShorter+' mes.':''} kratšie</div>
+        <div class="debt-refi-sub">úspora: <strong style="color:var(--emerald2);">−${Math.round(intSavedShort).toLocaleString('sk-SK')} €</strong> na úrokoch</div>
+      </div>` : ''}
+      ${breakEvenMon && monSaved > 0 ? `<div class="debt-refi-card">
+        <div class="debt-refi-lbl">BREAK-EVEN (Scenár A)</div>
+        <div class="debt-refi-val">${breakEvenMon} mes.</div>
+        <div class="debt-refi-sub">náklady refin. ~${Math.round(closingCost).toLocaleString('sk-SK')} € (est. 1%)</div>
+      </div>` : ''}
+    </div>
+    <div style="margin-top:10px;font-size:13px;color:var(--muted2);line-height:1.7;">
+      ${intSaved > 200 && monSaved > 0
+        ? '✅ Refinancovanie sa <strong>oplatí</strong>. Oslovte viacero bánk (VÚB, Tatra, Slovenská).'
+        : intSaved < 0
+        ? '❌ Nová sadzba je <strong>drahšia</strong> — refinancovanie nedáva zmysel.'
+        : '⚠️ Úspora je minimálna — porovnajte s nákladmi.'}
+      <br><span style="font-size:12px;color:var(--muted);"> Náklady refi: mimo fixáciu ~0–1% zostatku; počas fixácie podľa zmluvy (môže byť 0–5%). Vždy si overte.</span>
+    </div>`;
+}
+
+/* ══ DEBT: Refixation calculator ══ */
+function calcRefixation(){
+  const sel = document.getElementById('refix-debt-sel');
+  const newRateEl = document.getElementById('refix-new-rate');
+  const remYearsEl = document.getElementById('refix-rem-years');
+  const resEl = document.getElementById('refix-result');
+  if(!sel || !newRateEl || !resEl) return;
+
+  // Populate options (all debts, not just Hypotéka — user may have Leasing too)
+  const currentVal = sel.value;
+  sel.innerHTML = '<option value="">— vyber dlh —</option>' +
+    debtRows.map((d,i) => `<option value="${i}" ${currentVal==i?'selected':''}>${esc(d.name||'Dlh '+(i+1))} — ${(+d.rate||0).toFixed(2)}%</option>`).join('');
+  if(currentVal) sel.value = currentVal;
+
+  const idx = parseInt(sel.value);
+  if(isNaN(idx) || !debtRows[idx]){
+    resEl.innerHTML = '<span style="color:var(--muted)">Vyber dlh pre výpočet.</span>';
+    return;
+  }
+
+  const d = debtRows[idx];
+  const bal = +d.balance || 0;
+  const oldRate = +d.rate || 0;
+  const oldMon = +d.monthly || 0;
+  const newRate = parseFloat(newRateEl.value) || 0;
+
+  if(!bal){ resEl.innerHTML = '<span style="color:var(--muted)">Zadaj zostatok dlhu.</span>'; return; }
+
+  // Remaining term: from input OR auto-calculated from balance+rate+payment
+  let remMonths;
+  const remYearsInput = parseFloat(remYearsEl.value);
+  if(remYearsInput > 0){
+    remMonths = Math.round(remYearsInput * 12);
+  } else if(oldMon > 0 && oldRate > 0){
+    const mr0 = oldRate/100/12;
+    remMonths = Math.ceil(-Math.log(1-(mr0*bal)/oldMon)/Math.log(1+mr0));
+  } else {
+    resEl.innerHTML = '<span style="color:var(--muted)">Zadaj splátku alebo zostatok doby.</span>';
+    return;
+  }
+  if(!isFinite(remMonths) || remMonths <= 0 || remMonths > 600){
+    resEl.innerHTML = '<span style="color:var(--red)">Splátka je nižšia ako mesačný úrok — dlh sa nesplatí!</span>';
+    return;
+  }
+
+  // New annuity payment at new rate, same remaining term
+  const mrNew = newRate/100/12;
+  const newMon = mrNew > 0
+    ? bal * mrNew / (1 - Math.pow(1+mrNew, -remMonths))
+    : bal / remMonths;
+
+  const diff = newMon - oldMon;
+  const remYrs = Math.floor(remMonths/12);
+  const remMos = remMonths % 12;
+  const diffColor = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--emerald2)' : 'var(--muted2)';
+  const diffSign = diff > 0 ? '+' : '';
+  const diffWord = diff > 50 ? '📈 Splátka VZRASTIE' : diff < -50 ? '📉 Splátka KLESNE' : '≈ Splátka ostane podobná';
+
+  // Annual impact
+  const annualImpact = Math.abs(diff) * 12;
+
+  resEl.innerHTML = `
+    <div class="debt-refi-result" style="margin-bottom:12px;">
+      <div class="debt-refi-card">
+        <div class="debt-refi-lbl">AKTUÁLNA SPLÁTKA</div>
+        <div class="debt-refi-val">${oldMon > 0 ? Math.round(oldMon).toLocaleString('sk-SK')+' €' : '—'}</div>
+        <div class="debt-refi-sub">${oldRate.toFixed(2)}% p.a.</div>
+      </div>
+      <div class="debt-refi-card" style="border-color:${diff>50?'rgba(240,82,82,.3)':diff<-50?'rgba(16,185,129,.3)':'var(--border2)'};">
+        <div class="debt-refi-lbl">NOVÁ SPLÁTKA</div>
+        <div class="debt-refi-val" style="color:${diffColor};">${Math.round(newMon).toLocaleString('sk-SK')} €</div>
+        <div class="debt-refi-sub">${newRate.toFixed(2)}% p.a. · ${remYrs>0?remYrs+'r. ':''} ${remMos>0?remMos+' mes.':''}</div>
+      </div>
+      <div class="debt-refi-card">
+        <div class="debt-refi-lbl">ZMENA SPLÁTKY</div>
+        <div class="debt-refi-val" style="color:${diffColor};">${diffSign}${Math.round(diff).toLocaleString('sk-SK')} €/mes.</div>
+        <div class="debt-refi-sub">ročne: ${diffSign}${Math.round(annualImpact).toLocaleString('sk-SK')} €</div>
+      </div>
+    </div>
+    <div style="font-size:13.5px;color:var(--text);font-weight:500;">${diffWord}</div>
+    ${Math.abs(diff) > 50 ? `<div style="font-size:13px;color:var(--muted2);margin-top:6px;line-height:1.7;">
+      ${diff > 0
+        ? `Splátka vzrastie o <strong style="color:var(--red);">€${Math.round(diff)}/mes.</strong> — ročne o €${Math.round(annualImpact).toLocaleString('sk-SK')} viac. Skontroluj, či cashflow unesie vyššiu záťaž.`
+        : `Splátka klesne o <strong style="color:var(--emerald2);">€${Math.round(Math.abs(diff))}/mes.</strong> — rozdiel môžeš presunúť do investícií alebo ETF.`}
+    </div>` : ''}
+    <div style="font-size:12px;color:var(--muted);margin-top:8px;">⚠️ Skutočná splátka závisí od ponuky banky a presného zostatku pri refixácii.</div>
+  `;
 }
 </script>
 </body>
