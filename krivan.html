@@ -10824,20 +10824,20 @@ function renderDebtList(){
         <div class="debt-field">
           <label>Zostatok</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.balance||0}" min="0" step="100" oninput="debtUpdate(${i},'balance',this.value)" onfocus="this.select()">
+            <input type="number" value="${d.balance||0}" min="0" step="100" oninput="debtUpdate(${i},'balance',this.value)" onfocus="this.select()" onmouseup="return false">
           </div>
         </div>
         <div class="debt-field">
           <label>Úrok % p.a.</label>
           <div class="debt-fi">
-            <input type="number" value="${d.rate||0}" min="0" max="99" step="0.01" oninput="debtUpdate(${i},'rate',this.value)" onfocus="this.select()">
+            <input type="number" value="${d.rate||0}" min="0" max="99" step="0.01" oninput="debtUpdate(${i},'rate',this.value)" onfocus="this.select()" onmouseup="return false">
             <span class="du">%</span>
           </div>
         </div>
         <div class="debt-field">
           <label>Splátka/mes.</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)" onfocus="this.select()">
+            <input type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)" onfocus="this.select()" onmouseup="return false">
           </div>
         </div>
         <div class="debt-field debt-field-calc">
