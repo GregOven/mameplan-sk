@@ -5820,6 +5820,7 @@ function showTab(id,btn){
   if(id==='t3') syncTab3();
   if(id==='t4') syncReverse();
   if(id==='t5') syncFIRE();
+  if(id==='t10'){ if(typeof efRenderBuckets === 'function') efRenderBuckets(); if(typeof calcEF === 'function') calcEF(); }
 }
 
 /* ══════════════════════════════════════════════
@@ -10079,7 +10080,7 @@ function efRenderBuckets(){
   wrap.innerHTML = efBuckets.map((b,i)=>`
     <div class="ef-bucket">
       <input class="ef-bucket-name" value="${(b.name||'').replace(/"/g,'&quot;')}"
-        onchange="efBuckets[${i}].name=this.value" placeholder="Typ (napr. Fio konto)">
+        oninput="efBuckets[${i}].name=this.value" placeholder="Typ (napr. Fio konto)">
       <div class="ef-bucket-fi"><span class="du">€</span>
         <input type="number" value="${b.amount||''}" min="0" step="100" placeholder="0"
           oninput="efBuckets[${i}].amount=Math.max(0,parseFloat(this.value)||0);efCalcBuckets()">
