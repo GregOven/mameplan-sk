@@ -8835,7 +8835,7 @@ function importAppState(event){
       if(Array.isArray(state.debtRows) && typeof debtRows !== 'undefined'){
         debtRows.length = 0;
         state.debtRows.forEach(d => {
-          if(!d || typeof d !== 'object' || FORBIDDEN_KEYS.some(k=>k in d)) return;
+          if(!d || typeof d !== 'object' || FORBIDDEN_KEYS.some(k=>d.hasOwnProperty(k))) return;
           debtRows.push({
             name:    String(d.name    || ''),
             type:    String(d.type    || 'Spotrebný úver'),
@@ -8852,7 +8852,7 @@ function importAppState(event){
       if(Array.isArray(state.efBuckets) && typeof efBuckets !== 'undefined'){
         efBuckets.length = 0;
         state.efBuckets.forEach(b => {
-          if(!b || typeof b !== 'object' || FORBIDDEN_KEYS.some(k=>k in b)) return;
+          if(!b || typeof b !== 'object' || FORBIDDEN_KEYS.some(k=>b.hasOwnProperty(k))) return;
           efBuckets.push({
             name:   String(b.name   || ''),
             amount: parseFloat(b.amount) || 0,
@@ -8866,7 +8866,7 @@ function importAppState(event){
       if(Array.isArray(state.assetRows) && typeof assetRows !== 'undefined'){
         assetRows.length = 0;
         state.assetRows.forEach(a => {
-          if(!a || typeof a !== 'object' || FORBIDDEN_KEYS.some(k=>k in a)) return;
+          if(!a || typeof a !== 'object' || FORBIDDEN_KEYS.some(k=>a.hasOwnProperty(k))) return;
           assetRows.push({
             name:  String(a.name  || ''),
             type:  String(a.type  || 'Iný majetok'),
