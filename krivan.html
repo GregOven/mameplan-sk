@@ -10815,7 +10815,8 @@ function renderDebtList(){
     <div class="debt-card">
       <div class="debt-card-r1">
         <input class="debt-name-inp" value="${(d.name||'').replace(/"/g,'&quot;')}"
-          oninput="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu" onfocus="this.select()">
+          oninput="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu"
+          onfocus="this.select()" onmouseup="return false">
         <select class="debt-type-sel" onchange="debtUpdate(${i},'type',this.value)">${typeOpts(d.type)}</select>
         <button type="button" class="debt-del-btn" onclick="debtRemoveRow(${i})" title="Odstrániť">×</button>
       </div>
