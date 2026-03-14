@@ -5884,35 +5884,25 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="panel" style="margin-bottom:16px;">
     <div class="sec-hdr" style="margin-top:0;">Čo ma čaká po refixácii?</div>
     <p style="font-size:13.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">
-      Koniec fixácie <strong>≠ koniec hypotéky.</strong> Banka ponúkne novú sadzbu — vypočítaj, o koľko sa zmení tvoja mesačná splátka.
+      Koniec fixácie <strong>≠ koniec hypotéky.</strong> Zadaj novú sadzbu — uvidíš o koľko sa zmení splátka pri zachovaní pôvodného konca splatnosti.
     </p>
-    <div class="g2" style="gap:10px;margin-bottom:10px;">
+    <div class="g2" style="gap:10px;margin-bottom:12px;">
       <div>
         <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh</label>
-        <select id="refix-debt-sel" onchange="calcRefixation()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;">
-          <option value="">— vyber hypotéku —</option>
+        <select id="refix-debt-sel" onchange="calcRefixation()" style="width:100%;background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;outline:none;">
+          <option value="">— vyber dlh —</option>
         </select>
       </div>
       <div>
         <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba po refixácii</label>
-        <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;">
-          <input type="number" id="refix-new-rate" value="3.5" min="0" max="15" step="0.1"
+        <div class="debt-fi" style="background:var(--bg3);border:1.5px solid var(--border2);border-radius:8px;padding:5px 10px;">
+          <input type="number" id="refix-new-rate" value="3.5" min="0" max="15" step="0.05"
             oninput="calcRefixation()" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
           <span class="du">%</span>
         </div>
       </div>
     </div>
-    <div style="margin-bottom:10px;">
-      <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Zostatok doby splácania po refixácii (roky)</label>
-      <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;width:fit-content;">
-        <input type="number" id="refix-rem-years" value="" min="1" max="40" step="1"
-          oninput="calcRefixation()" placeholder="auto"
-          style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:70px;">
-        <span class="du">r.</span>
-      </div>
-      <div style="font-size:12px;color:var(--muted);margin-top:4px;">Nechaj prázdne — doplní sa automaticky z dlhu.</div>
-    </div>
-    <div id="refix-result" style="font-size:13.5px;color:var(--muted);padding:4px 0;">Vyber hypotéku pre výpočet.</div>
+    <div id="refix-result" style="font-size:13.5px;color:var(--muted);padding:4px 0;">Vyber dlh pre výpočet.</div>
   </div>
 
   <!-- Odporúčanie -->
@@ -6359,6 +6349,7 @@ function showTab(id,btn){
   if(id==='t4') syncReverse();
   if(id==='t5') syncFIRE();
   if(id==='t10'){ if(typeof efRenderBuckets === 'function') efRenderBuckets(); if(typeof calcEF === 'function') calcEF(); }
+  if(id==='t11'){ if(typeof calcRefi === 'function') calcRefi(); if(typeof calcRefixation === 'function') calcRefixation(); }
 }
 
 /* ══════════════════════════════════════════════
@@ -10959,7 +10950,11 @@ function calcDebt(){
 
   const topRate  = topDebt.rate/100;
   const ctxEl = document.getElementById('debt-compare-context');
-  if(ctxEl) ctxEl.textContent = `Porovnanie pre „${topDebt.name}" (${topDebt.rate}% p.a.) — extra €${extra}/mes. po dobu ${Math.min(30,Math.max(3,Math.ceil(-Math.log(1-topRate/12*(+topDebt.balance||0)/(+topDebt.monthly||1))/Math.log(1+topRate/12))/12))} r.`;
+  if(ctxEl){
+    const _ctxM = Math.ceil(-Math.log(1-topRate/12*(+topDebt.balance||0)/(+topDebt.monthly||1))/Math.log(1+topRate/12));
+    const _ctxYr = Math.floor(_ctxM/12), _ctxMo = _ctxM%12;
+    ctxEl.textContent = `Porovnanie pre „${topDebt.name}" (${topDebt.rate}% p.a.) — extra €${extra}/mes. po dobu ${_ctxYr>0?_ctxYr+'r.'+(_ctxMo>0?' '+_ctxMo+' mes.':''):_ctxM+' mes.'}`;
+  }
   const topBal   = +topDebt.balance||0;
   const topMon   = +topDebt.monthly||0;
 
@@ -11060,7 +11055,10 @@ function calcDebt(){
   // ── AUTO SYNC T11 → T12: dlhy do net worth ──
   crossSync_Debt_to_Assets();
 
-  if(typeof calcDebtPayoffStats === 'function') calcDebtPayoffStats();}
+  if(typeof calcDebtPayoffStats === 'function') calcDebtPayoffStats();
+  if(typeof calcRefi === 'function') calcRefi();
+  if(typeof calcRefixation === 'function') calcRefixation();
+}
 
 /* ══════════════════════════════════════════════
    TAB 12 – INÝ MAJETOK (Net Worth tracker)
@@ -11588,7 +11586,8 @@ function debtFixMonthsLeft(fixEnd){
   if(!fixEnd) return null;
   const now = new Date();
   const end = new Date(fixEnd + '-01');
-  return Math.round((end - now) / (1000*60*60*24*30.44));
+  // Presný rozdiel v mesiacoch — nie delenie ms/30.44
+  return (end.getFullYear() - now.getFullYear()) * 12 + (end.getMonth() - now.getMonth());
 }
 function debtFixBadgeClass(fixEnd){
   const m = debtFixMonthsLeft(fixEnd);
@@ -11773,14 +11772,13 @@ function calcRefi(){
 function calcRefixation(){
   const sel = document.getElementById('refix-debt-sel');
   const newRateEl = document.getElementById('refix-new-rate');
-  const remYearsEl = document.getElementById('refix-rem-years');
   const resEl = document.getElementById('refix-result');
   if(!sel || !newRateEl || !resEl) return;
 
-  // Populate options (all debts, not just Hypotéka — user may have Leasing too)
+  // Populate select — show all debts
   const currentVal = sel.value;
   sel.innerHTML = '<option value="">— vyber dlh —</option>' +
-    debtRows.map((d,i) => `<option value="${i}" ${currentVal==i?'selected':''}>${esc(d.name||'Dlh '+(i+1))} — ${(+d.rate||0).toFixed(2)}%</option>`).join('');
+    debtRows.map((d,i) => `<option value="${i}" ${currentVal==i?'selected':''}>${esc(d.name||'Dlh '+(i+1))} · ${(+d.rate||0).toFixed(2)}%</option>`).join('');
   if(currentVal) sel.value = currentVal;
 
   const idx = parseInt(sel.value);
@@ -11792,29 +11790,24 @@ function calcRefixation(){
   const d = debtRows[idx];
   const bal = +d.balance || 0;
   const oldRate = +d.rate || 0;
-  const oldMon = +d.monthly || 0;
+  const oldMon  = +d.monthly || 0;
   const newRate = parseFloat(newRateEl.value) || 0;
 
   if(!bal){ resEl.innerHTML = '<span style="color:var(--muted)">Zadaj zostatok dlhu.</span>'; return; }
+  if(!oldMon){ resEl.innerHTML = '<span style="color:var(--muted)">Zadaj mesačnú splátku dlhu.</span>'; return; }
+  if(!oldRate){ resEl.innerHTML = '<span style="color:var(--muted)">Zadaj aktuálnu sadzbu dlhu.</span>'; return; }
 
-  // Remaining term: from input OR auto-calculated from balance+rate+payment
-  let remMonths;
-  const remYearsInput = parseFloat(remYearsEl.value);
-  if(remYearsInput > 0){
-    remMonths = Math.round(remYearsInput * 12);
-  } else if(oldMon > 0 && oldRate > 0){
-    const mr0 = oldRate/100/12;
-    remMonths = Math.ceil(-Math.log(1-(mr0*bal)/oldMon)/Math.log(1+mr0));
-  } else {
-    resEl.innerHTML = '<span style="color:var(--muted)">Zadaj splátku alebo zostatok doby.</span>';
-    return;
-  }
+  // Remaining term = auto-calculated from current balance/rate/payment
+  // This is the KEY: we keep the same end date, only rate changes
+  const mr0 = oldRate/100/12;
+  const remMonths = Math.ceil(-Math.log(1-(mr0*bal)/oldMon)/Math.log(1+mr0));
+
   if(!isFinite(remMonths) || remMonths <= 0 || remMonths > 600){
-    resEl.innerHTML = '<span style="color:var(--red)">Splátka je nižšia ako mesačný úrok — dlh sa nesplatí!</span>';
+    resEl.innerHTML = '<span style="color:var(--red)">Splátka je nižšia ako mesačný úrok — skontroluj zadané hodnoty.</span>';
     return;
   }
 
-  // New annuity payment at new rate, same remaining term
+  // New annuity payment at new rate, SAME remaining term (= same end date)
   const mrNew = newRate/100/12;
   const newMon = mrNew > 0
     ? bal * mrNew / (1 - Math.pow(1+mrNew, -remMonths))
@@ -11823,38 +11816,44 @@ function calcRefixation(){
   const diff = newMon - oldMon;
   const remYrs = Math.floor(remMonths/12);
   const remMos = remMonths % 12;
-  const diffColor = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--emerald2)' : 'var(--muted2)';
-  const diffSign = diff > 0 ? '+' : '';
-  const diffWord = diff > 50 ? '📈 Splátka VZRASTIE' : diff < -50 ? '📉 Splátka KLESNE' : '≈ Splátka ostane podobná';
+  const termStr = remYrs > 0 ? `${remYrs} r.${remMos > 0 ? ' '+remMos+' mes.' : ''}` : `${remMos} mes.`;
 
-  // Annual impact
-  const annualImpact = Math.abs(diff) * 12;
+  const diffColor = diff > 20 ? 'var(--red)' : diff < -20 ? 'var(--emerald2)' : 'var(--muted2)';
+  const diffSign  = diff > 0 ? '+' : '';
+  const annualImpact = diff * 12;
 
   resEl.innerHTML = `
     <div class="debt-refi-result" style="margin-bottom:12px;">
       <div class="debt-refi-card">
         <div class="debt-refi-lbl">AKTUÁLNA SPLÁTKA</div>
-        <div class="debt-refi-val">${oldMon > 0 ? Math.round(oldMon).toLocaleString('sk-SK')+' €' : '—'}</div>
-        <div class="debt-refi-sub">${oldRate.toFixed(2)}% p.a.</div>
+        <div class="debt-refi-val">${Math.round(oldMon).toLocaleString('sk-SK')} €<span style="font-size:13px;color:var(--muted);font-weight:400;">/mes.</span></div>
+        <div class="debt-refi-sub">${oldRate.toFixed(2)}% · zostatok ${termStr}</div>
       </div>
-      <div class="debt-refi-card" style="border-color:${diff>50?'rgba(240,82,82,.3)':diff<-50?'rgba(16,185,129,.3)':'var(--border2)'};">
+      <div style="display:flex;align-items:center;font-size:20px;color:var(--muted);padding:0 4px;">→</div>
+      <div class="debt-refi-card" style="border-color:${diff>20?'rgba(193,43,48,.3)':diff<-20?'rgba(6,103,74,.3)':'var(--border2)'};">
         <div class="debt-refi-lbl">NOVÁ SPLÁTKA</div>
-        <div class="debt-refi-val" style="color:${diffColor};">${Math.round(newMon).toLocaleString('sk-SK')} €</div>
-        <div class="debt-refi-sub">${newRate.toFixed(2)}% p.a. · ${remYrs>0?remYrs+'r. ':''} ${remMos>0?remMos+' mes.':''}</div>
+        <div class="debt-refi-val" style="color:${diffColor};">${Math.round(newMon).toLocaleString('sk-SK')} €<span style="font-size:13px;font-weight:400;">/mes.</span></div>
+        <div class="debt-refi-sub">${newRate.toFixed(2)}% · rovnaký koniec splatnosti</div>
       </div>
       <div class="debt-refi-card">
-        <div class="debt-refi-lbl">ZMENA SPLÁTKY</div>
-        <div class="debt-refi-val" style="color:${diffColor};">${diffSign}${Math.round(diff).toLocaleString('sk-SK')} €/mes.</div>
+        <div class="debt-refi-lbl">ZMENA</div>
+        <div class="debt-refi-val" style="color:${diffColor};">${diffSign}${Math.round(diff).toLocaleString('sk-SK')} €<span style="font-size:13px;font-weight:400;">/mes.</span></div>
         <div class="debt-refi-sub">ročne: ${diffSign}${Math.round(annualImpact).toLocaleString('sk-SK')} €</div>
       </div>
     </div>
-    <div style="font-size:13.5px;color:var(--text);font-weight:500;">${diffWord}</div>
-    ${Math.abs(diff) > 50 ? `<div style="font-size:13px;color:var(--muted2);margin-top:6px;line-height:1.7;">
-      ${diff > 0
-        ? `Splátka vzrastie o <strong style="color:var(--red);">€${Math.round(diff)}/mes.</strong> — ročne o €${Math.round(annualImpact).toLocaleString('sk-SK')} viac. Skontroluj, či cashflow unesie vyššiu záťaž.`
-        : `Splátka klesne o <strong style="color:var(--emerald2);">€${Math.round(Math.abs(diff))}/mes.</strong> — rozdiel môžeš presunúť do investícií alebo ETF.`}
+    <div style="font-size:13.5px;color:var(--text);font-weight:500;margin-bottom:6px;">
+      ${Math.abs(diff) < 5 ? '≈ Splátka sa takmer nezmení'
+        : diff > 0 ? `📈 Splátka vzrastie o <strong style="color:var(--red);">+${Math.round(diff)} €/mes.</strong>`
+        : `📉 Splátka klesne o <strong style="color:var(--emerald2);">${Math.round(Math.abs(diff))} €/mes.</strong>`}
+    </div>
+    ${Math.abs(diff) >= 5 ? `<div style="font-size:13px;color:var(--muted2);line-height:1.7;">
+      ${diff > 20
+        ? `Skontroluj, či cashflow unesie vyššiu záťaž. Prebytok ${Math.round(diff)} €/mes. môžeš kompenzovať skrátením doby splácania (ak banka dovolí).`
+        : diff < -20
+        ? `Rozdiel ${Math.round(Math.abs(diff))} €/mes. môžeš presunúť do investícií alebo ETF portfólia.`
+        : ''}
     </div>` : ''}
-    <div style="font-size:12px;color:var(--muted);margin-top:8px;">⚠️ Skutočná splátka závisí od ponuky banky a presného zostatku pri refixácii.</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:8px;">Zachovaný pôvodný koniec splatnosti: zostatok ${termStr} od dnes.</div>
   `;
 }
 </script>
