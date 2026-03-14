@@ -5855,32 +5855,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
   </div>
 
-  <!-- Refinancovanie -->
-  <div class="panel" style="margin-bottom:16px;">
-    <p class="plbl" style="margin-bottom:14px;">Refinancovanie — oplatí sa?</p>
-    <div class="debt-refi-wrap">
-      <div class="g2" style="gap:10px;margin-bottom:10px;">
-        <div>
-          <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh pre výpočet</label>
-          <select id="refi-debt-sel" onchange="calcRefi()" style="width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;">
-            <option value="">— vyber dlh —</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba p.a.</label>
-          <div class="debt-fi" style="background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;">
-            <input type="number" id="refi-new-rate" value="3.5" min="0" max="20" step="0.1"
-              oninput="calcRefi()" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
-            <span class="du">%</span>
-          </div>
-        </div>
-      </div>
-      <div id="refi-result" style="font-size:13.5px;color:var(--muted);padding:4px 0;">Vyber dlh pre výpočet.</div>
-    </div>
-  </div>
 
 
-  <!-- Kalkulačka refixácie -->
+    <!-- Kalkulačka refixácie -->
   <div class="panel" style="margin-bottom:16px;">
     <div class="sec-hdr" style="margin-top:0;">Čo ma čaká po refixácii?</div>
     <p style="font-size:13.5px;color:var(--muted2);margin-bottom:14px;line-height:1.6;">
@@ -5896,7 +5873,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div>
         <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba po refixácii</label>
         <div class="debt-fi" style="background:var(--bg3);border:1.5px solid var(--border2);border-radius:8px;padding:5px 10px;">
-          <input type="number" id="refix-new-rate" value="3.5" min="0" max="15" step="0.05"
+          <input type="number" id="refix-new-rate" value="3.5" onfocus="this.select()" min="0" max="15" step="0.05"
             oninput="calcRefixation()" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
           <span class="du">%</span>
         </div>
@@ -6349,7 +6326,7 @@ function showTab(id,btn){
   if(id==='t4') syncReverse();
   if(id==='t5') syncFIRE();
   if(id==='t10'){ if(typeof efRenderBuckets === 'function') efRenderBuckets(); if(typeof calcEF === 'function') calcEF(); }
-  if(id==='t11'){ if(typeof calcRefi === 'function') calcRefi(); if(typeof calcRefixation === 'function') calcRefixation(); }
+  if(id==='t11'){  if(typeof calcRefixation === 'function') calcRefixation(); }
 }
 
 /* ══════════════════════════════════════════════
@@ -10813,15 +10790,14 @@ const DEBT_DEFAULT_RATES = {
   'Pôžička od rodiny': 0, 'Iný dlh': 5.0
 };
 function debtUpdate(i, field, val){
-  debtRows[i][field] = field==='name'||field==='type' ? val : (parseFloat(val)||0);
-  // Auto-fill default rate when type changes and rate is still 0 or previous default
+  const STRING_FIELDS = new Set(['name','type','fixEnd']);
+  debtRows[i][field] = STRING_FIELDS.has(field) ? val : (parseFloat(val)||0);
   if(field==='type' && DEBT_DEFAULT_RATES[val] !== undefined){
     const prevDefaults = Object.values(DEBT_DEFAULT_RATES);
     if(debtRows[i].rate === 0 || prevDefaults.includes(debtRows[i].rate)){
       debtRows[i].rate = DEBT_DEFAULT_RATES[val];
     }
   }
-  // Re-render only when type changes (shows/hides fixEnd field) — not on name/number changes
   if(field === 'type') { renderDebtList(); }
   calcDebt();
 }
@@ -10839,7 +10815,7 @@ function renderDebtList(){
     <div class="debt-card">
       <div class="debt-card-r1">
         <input class="debt-name-inp" value="${(d.name||'').replace(/"/g,'&quot;')}"
-          oninput="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu">
+          oninput="debtUpdate(${i},'name',this.value)" placeholder="Názov dlhu" onfocus="this.select()">
         <select class="debt-type-sel" onchange="debtUpdate(${i},'type',this.value)">${typeOpts(d.type)}</select>
         <button type="button" class="debt-del-btn" onclick="debtRemoveRow(${i})" title="Odstrániť">×</button>
       </div>
@@ -10847,20 +10823,20 @@ function renderDebtList(){
         <div class="debt-field">
           <label>Zostatok</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.balance||0}" min="0" step="100" oninput="debtUpdate(${i},'balance',this.value)">
+            <input type="number" value="${d.balance||0}" min="0" step="100" oninput="debtUpdate(${i},'balance',this.value)" onfocus="this.select()">
           </div>
         </div>
         <div class="debt-field">
           <label>Úrok % p.a.</label>
           <div class="debt-fi">
-            <input type="number" value="${d.rate||0}" min="0" max="99" step="0.01" oninput="debtUpdate(${i},'rate',this.value)">
+            <input type="number" value="${d.rate||0}" min="0" max="99" step="0.01" oninput="debtUpdate(${i},'rate',this.value)" onfocus="this.select()">
             <span class="du">%</span>
           </div>
         </div>
         <div class="debt-field">
           <label>Splátka/mes.</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)">
+            <input type="number" value="${d.monthly||0}" min="0" step="10" oninput="debtUpdate(${i},'monthly',this.value)" onfocus="this.select()">
           </div>
         </div>
         <div class="debt-field debt-field-calc">
@@ -11056,7 +11032,6 @@ function calcDebt(){
   crossSync_Debt_to_Assets();
 
   if(typeof calcDebtPayoffStats === 'function') calcDebtPayoffStats();
-  if(typeof calcRefi === 'function') calcRefi();
   if(typeof calcRefixation === 'function') calcRefixation();
 }
 
@@ -11671,101 +11646,6 @@ function calcDebtPayoffStats(){
     }
     iEl.textContent = '+' + Math.round(totalInt).toLocaleString('sk-SK') + ' € (spolu ' + Math.round(actualPaid).toLocaleString('sk-SK') + ' €)';
   });
-}
-
-/* ══ DEBT: Refi calculator ══ */
-function calcRefi(){
-  const sel = document.getElementById('refi-debt-sel');
-  const newRateEl = document.getElementById('refi-new-rate');
-  const resEl = document.getElementById('refi-result');
-  if(!sel || !newRateEl || !resEl) return;
-
-  // Populate select options
-  const currentVal = sel.value;
-  const opts = debtRows.map((d,i) => `<option value="${i}" ${currentVal==i?'selected':''}>${esc(d.name||'Dlh '+(i+1))} — ${(+d.rate||0).toFixed(2)}%</option>`);
-  sel.innerHTML = '<option value="">— vyber dlh —</option>' + opts.join('');
-  if(currentVal) sel.value = currentVal;
-
-  const idx = parseInt(sel.value);
-  if(isNaN(idx) || !debtRows[idx]) { resEl.innerHTML = '<span style="color:var(--muted)">Vyber dlh pre výpočet.</span>'; return; }
-
-  const d = debtRows[idx];
-  const bal = +d.balance || 0;
-  const oldRate = +d.rate || 0;
-  const mon = +d.monthly || 0;
-  const newRate = parseFloat(newRateEl.value) || 0;
-  if(!bal || !mon) { resEl.innerHTML = '<span style="color:var(--muted)">Zadaj zostatok a splátku.</span>'; return; }
-
-  // Months & total interest at old rate
-  const _mtp = (b, r, p) => {
-    const mr = r/100/12;
-    if(mr <= 0) return b/p;
-    const n = -Math.log(1-(mr*b)/p)/Math.log(1+mr);
-    return isFinite(n) ? Math.ceil(n) : 999;
-  };
-  const _totalInt = (b, r, p) => {
-    const mr = r/100/12, m = _mtp(b, r, p);
-    let bal = b, tot = 0;
-    for(let i=0; i<m; i++){ const int=bal*mr; tot+=int; bal=Math.max(0,bal+int-p); }
-    return tot;
-  };
-
-  const mOld = _mtp(bal, oldRate, mon);
-  const intOld = _totalInt(bal, oldRate, mon);
-
-  // New monthly at same term
-  const mNew = mOld;
-  const mrNew = newRate/100/12;
-  const newMon = mrNew > 0 ? bal * mrNew / (1 - Math.pow(1+mrNew, -mNew)) : bal/mNew;
-  const intNew = _totalInt(bal, newRate, newMon);
-  const intSaved = intOld - intNew;
-  const monSaved = mon - newMon;
-
-  // Break-even: closing costs (~1% of balance) / monthly savings
-  const closingCost = bal * 0.01;
-  // Opportunity-cost adjusted break-even: true cost = closingCost + lost ETF returns on it
-  // Monthly ETF growth on closing cost: closingCost * etfMr per month
-  const _etfMr = Math.pow(1+etfRet, 1/12) - 1;
-  const _netSaved = monSaved - closingCost * _etfMr; // net monthly gain after opportunity cost
-  const breakEvenMon = _netSaved > 0 ? Math.ceil(closingCost / _netSaved) : (monSaved > 0 ? Math.ceil(closingCost / monSaved) : null);
-
-  const color = intSaved > 0 ? 'var(--emerald2)' : 'var(--red)';
-  const sign = intSaved > 0 ? '−' : '+';
-
-  // Scenario B: same payment → shorter term
-  const mShorter = mrNew > 0 ? Math.ceil(-Math.log(1-(mrNew*bal)/mon)/Math.log(1+mrNew)) : Math.ceil(bal/mon);
-  const mShortFinite = isFinite(mShorter) && mShorter > 0 && mShorter < 999;
-  const intNewShort = mShortFinite ? _totalInt(bal, newRate, mon) : 0;
-  const intSavedShort = intOld - intNewShort;
-  const yrShorter = mShortFinite ? Math.floor((mNew-mShorter)/12) : 0;
-  const moShorter = mShortFinite ? (mNew-mShorter)%12 : 0;
-
-  resEl.innerHTML = `
-    <div class="debt-refi-result">
-      <div class="debt-refi-card">
-        <div class="debt-refi-lbl">SCENÁR A: NIŽŠIA SPLÁTKA</div>
-        <div class="debt-refi-val" style="color:${monSaved>0?'var(--emerald2)':'var(--red)'};">${monSaved>0?'−':'+'}<strong>${Math.round(Math.abs(monSaved)).toLocaleString('sk-SK')} €</strong>/mes.</div>
-        <div class="debt-refi-sub">úspora: <strong style="color:${color};">${sign}${Math.round(Math.abs(intSaved)).toLocaleString('sk-SK')} €</strong> na úrokoch</div>
-      </div>
-      ${mShortFinite && monSaved > 0 ? `<div class="debt-refi-card">
-        <div class="debt-refi-lbl">SCENÁR B: TÁ ISTÁ SPLÁTKA</div>
-        <div class="debt-refi-val" style="color:var(--emerald2);">−${yrShorter>0?yrShorter+' r.':''} ${moShorter>0?moShorter+' mes.':''} kratšie</div>
-        <div class="debt-refi-sub">úspora: <strong style="color:var(--emerald2);">−${Math.round(intSavedShort).toLocaleString('sk-SK')} €</strong> na úrokoch</div>
-      </div>` : ''}
-      ${breakEvenMon && monSaved > 0 ? `<div class="debt-refi-card">
-        <div class="debt-refi-lbl">BREAK-EVEN (Scenár A)</div>
-        <div class="debt-refi-val">${breakEvenMon} mes.</div>
-        <div class="debt-refi-sub">náklady refin. ~${Math.round(closingCost).toLocaleString('sk-SK')} € (est. 1%)</div>
-      </div>` : ''}
-    </div>
-    <div style="margin-top:10px;font-size:13px;color:var(--muted2);line-height:1.7;">
-      ${intSaved > 200 && monSaved > 0
-        ? '✅ Refinancovanie sa <strong>oplatí</strong>. Oslovte viacero bánk (VÚB, Tatra, Slovenská).'
-        : intSaved < 0
-        ? '❌ Nová sadzba je <strong>drahšia</strong> — refinancovanie nedáva zmysel.'
-        : '⚠️ Úspora je minimálna — porovnajte s nákladmi.'}
-      <br><span style="font-size:12px;color:var(--muted);"> Náklady refi: mimo fixáciu ~0–1% zostatku; počas fixácie podľa zmluvy (môže byť 0–5%). Vždy si overte.</span>
-    </div>`;
 }
 
 /* ══ DEBT: Refixation calculator ══ */
