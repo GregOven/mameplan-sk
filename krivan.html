@@ -10621,8 +10621,8 @@ function crossSync_CF_to_EF(expenses, efContrib){
     else { window._efExpenses = expenses; } // defer
   }
   _setSyncBadge('sync-ef-expenses', expenses, '€');
-  // Vždy syncnúť ef-monthly — aj 0 je platná hodnota
-  if(efContrib >= 0){
+  // Vždy syncnúť ef-monthly — ALE len ak savings > 0 (inak prepíše manuálne nastavenie)
+  if(efContrib > 0){
     const ms = document.getElementById('ef-monthly');
     if(ms){ ms.value = Math.min(efContrib, +ms.max); fillSlider(ms);
       const niEfMo = document.getElementById('ni-ef-monthly'); if(niEfMo) niEfMo.value = ms.value;
