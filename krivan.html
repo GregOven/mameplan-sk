@@ -9146,9 +9146,11 @@ function calcCF(){
     'fixed': fixed, 'voluntary': voluntary, 'luxury': luxury,
     'invest': invest, 'savings': savings
   };
-  const totalExp = Object.entries(efCatInclude || {})
+  const totalExpEF = Object.entries(efCatInclude || {})
     .filter(([,v]) => v)
     .reduce((s,[k]) => s + (efCatAmts[k] || 0), 0);
+  // Celkové výdavky pre cashflow balance — VŠETKY kategórie
+  const totalExp  = housing + fixedNec + fixed + voluntary + luxury;
   const totalOut  = totalExp + invest + savings;
   const balance   = income - totalOut;
 
@@ -9164,7 +9166,7 @@ function calcCF(){
   // Store globals for integrations
   window._cfAvail     = balance;
   window._cfIncome    = income;
-  window._cfExpenses  = totalExp;
+  window._cfExpenses  = totalExpEF;
   window._cfInvestAmt = invest;
   window._cfEFAmt     = savings > 0 ? savings : Math.max(0, Math.round(balance * 0.2));
 
@@ -9232,7 +9234,7 @@ function calcCF(){
   // ── AUTO SYNC T9 → T10: výdavky do EF kalkulačky ──
   // Update EF category labels with current CF values
   if(typeof efUpdateCatLabels === 'function') efUpdateCatLabels();
-  crossSync_CF_to_EF(totalExp, savings); // savings = 0 is valid — reflects user's CF setting
+  crossSync_CF_to_EF(totalExpEF, savings); // savings = 0 is valid — reflects user's CF setting
 
   // ── AUTO SYNC T9 → T1: investície do kalkulačky ──
   crossSync_CF_to_T1(invest);
