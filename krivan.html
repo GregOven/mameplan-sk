@@ -5125,10 +5125,11 @@ canvas{
         <span class="tip" data-tip="<div class='tt-title'>Mesačný príspevok</div>Koľko každý mesiac odkladáte na núdzový fond. Núdzový fond by mal byť v <strong>ľahko dostupnom nástroji</strong>: sporiaci účet, termínovaný vklad.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, tlačidlo 'Vložiť do Núdzového fondu' vloží toto číslo automaticky.">?</span>
       </div>
       <input type="range" id="ef-monthly" min="0" max="10000" step="50" value="50" oninput="calcEF()">
-      <div class="rbnd"><span>€0</span><span>€10 0
+      <div class="rbnd"><span>€0</span><span>€10 000</span></div>
+    </div>
 
     <div class="sec-hdr">Mesačné výdavky</div>
-    <div class="ig primary">
+    <div class="ig">
       <div class="il">Celkové mesačné výdavky <span class="val" id="ef-l-expenses">€1 200</span>
         <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky pre núdzový fond</div>Zadajte <strong>skutočné mesačné výdavky</strong> — nie príjem. Núdzový fond má pokryť výdavky (nájom, jedlo, energie, splátky) keby ste prišli o prácu.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, môžete použiť číslo odtiaľ tlačidlom nižšie.">?</span>
       </div>
@@ -5137,48 +5138,46 @@ canvas{
     </div>
 
     <!-- Výber kategórií pre NF -->
-    <div style="margin-bottom:16px;">
-      <div class="sec-hdr" style="margin-bottom:10px;">Zahrnuté do mesačných výdavkov</div>
-      <div style="font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
-        Označte kategórie ktoré budete platiť aj v núdzi
-      </div>
-      <div id="ef-cat-checkboxes" style="display:flex;flex-direction:column;gap:8px;">
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-housing" checked onchange="efToggleCat('housing',this.checked)" style="width:16px;height:16px;accent-color:#8b5cf6;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Náklady na byt</span>
-          <span id="efc-housing-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#8b5cf6;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-fixed-nec" checked onchange="efToggleCat('fixed-nec',this.checked)" style="width:16px;height:16px;accent-color:#f87171;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Nevyhnutné fixné</span>
-          <span id="efc-fixed-nec-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#f87171;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-fixed" checked onchange="efToggleCat('fixed',this.checked)" style="width:16px;height:16px;accent-color:#fb923c;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Fixné náklady</span>
-          <span id="efc-fixed-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#fb923c;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-voluntary" onchange="efToggleCat('voluntary',this.checked)" style="width:16px;height:16px;accent-color:#4ade80;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Dobrovoľné náklady</span>
-          <span id="efc-voluntary-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#4ade80;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-luxury" onchange="efToggleCat('luxury',this.checked)" style="width:16px;height:16px;accent-color:#22d3ee;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Luxusné náklady</span>
-          <span id="efc-luxury-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#22d3ee;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-invest" onchange="efToggleCat('invest',this.checked)" style="width:16px;height:16px;accent-color:#60a5fa;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Investície</span>
-          <span id="efc-invest-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#60a5fa;">—</span>
-        </label>
-        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-          <input type="checkbox" id="efc-savings" onchange="efToggleCat('savings',this.checked)" style="width:16px;height:16px;accent-color:#c084fc;cursor:pointer;">
-          <span style="font-size:14px;color:var(--muted2);">Úspory</span>
-          <span id="efc-savings-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#c084fc;">—</span>
-        </label>
-      </div>
+    <div class="sec-hdr" style="margin-bottom:10px;">Zahrnuté do mesačných výdavkov</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
+      Označte kategórie ktoré budete platiť aj v núdzi
+    </div>
+    <div id="ef-cat-checkboxes" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-housing" checked onchange="efToggleCat('housing',this.checked)" style="width:16px;height:16px;accent-color:#8b5cf6;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Náklady na byt</span>
+        <span id="efc-housing-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#8b5cf6;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-fixed-nec" checked onchange="efToggleCat('fixed-nec',this.checked)" style="width:16px;height:16px;accent-color:#f87171;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Nevyhnutné fixné</span>
+        <span id="efc-fixed-nec-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#f87171;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-fixed" checked onchange="efToggleCat('fixed',this.checked)" style="width:16px;height:16px;accent-color:#fb923c;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Fixné náklady</span>
+        <span id="efc-fixed-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#fb923c;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-voluntary" onchange="efToggleCat('voluntary',this.checked)" style="width:16px;height:16px;accent-color:#4ade80;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Dobrovoľné náklady</span>
+        <span id="efc-voluntary-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#4ade80;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-luxury" onchange="efToggleCat('luxury',this.checked)" style="width:16px;height:16px;accent-color:#22d3ee;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Luxusné náklady</span>
+        <span id="efc-luxury-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#22d3ee;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-invest" onchange="efToggleCat('invest',this.checked)" style="width:16px;height:16px;accent-color:#60a5fa;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Investície</span>
+        <span id="efc-invest-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#60a5fa;">—</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+        <input type="checkbox" id="efc-savings" onchange="efToggleCat('savings',this.checked)" style="width:16px;height:16px;accent-color:#c084fc;cursor:pointer;">
+        <span style="font-size:14px;color:var(--muted2);">Úspory</span>
+        <span id="efc-savings-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#c084fc;">—</span>
+      </label>
     </div>
 
     <!-- Import from Tab 9 -->
@@ -5198,7 +5197,7 @@ canvas{
     </div>
     <div style="font-size:14.4px;color:var(--muted);margin-bottom:16px;line-height:1.7;" id="ef-months-note">—</div>
   </div>
-</div><!-- end left col --></div><!-- end left col -->
+</div><!-- end left col -->
 
 <!-- RIGHT: VÝSLEDKY -->
 <div class="col col-sticky-results">
@@ -8944,6 +8943,9 @@ function importAppState(event){
         if(typeof renderCF2Sections === 'function') renderCF2Sections();
         if(typeof calcCF === 'function') calcCF();
       }
+      // Finálne vykreslenie bucketov — po všetkých recalcoch
+      if(typeof efRenderBuckets === 'function') efRenderBuckets();
+      if(typeof efCalcBuckets   === 'function') efCalcBuckets();
       showToast('✓ Dáta importované', 'var(--emerald2)');
     } catch(err) {
       showToast('✗ Import sa nepodaril: ' + err.message, 'var(--red)');
