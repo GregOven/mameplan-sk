@@ -9452,15 +9452,35 @@ function _collectState(){
   }
 
   /* ── Mapa calc funkcií pre data-calc atribút ── */
+    /* Lazy arrow funkcie — lookup prebehne až pri volaní (nie pri inicializácii IIFE).
+     Toto vyrieši ReferenceError v Safari kde function hoisting cez IIFE scope nefunguje. */
   const CALC_MAP = {
-    calcMort, sync, syncCmp, calcFIRE, calcReverse, calcPiliere,
-    applyTaxSettings, calc4, calcBacktest, calcAlt, syncTab3,
-    calcEF, calcDebt, calcRefixation, calcRaiseEffect,
-    renderTable, toggleAltPanel, calcWageBench, calcDiag,
+    calcMort:         (...a) => calcMort(...a),
+    sync:             (...a) => sync(...a),
+    syncCmp:          (...a) => syncCmp(...a),
+    calcFIRE:         (...a) => calcFIRE(...a),
+    calcReverse:      (...a) => calcReverse(...a),
+    calcPiliere:      (...a) => calcPiliere(...a),
+    applyTaxSettings: (...a) => applyTaxSettings(...a),
+    calc4:            (...a) => calc4(...a),
+    calcBacktest:     (...a) => calcBacktest(...a),
+    calcAlt:          (...a) => calcAlt(...a),
+    syncTab3:         (...a) => syncTab3(...a),
+    calcEF:           (...a) => calcEF(...a),
+    calcDebt:         (...a) => calcDebt(...a),
+    calcRefixation:   (...a) => calcRefixation(...a),
+    calcRaiseEffect:  (...a) => calcRaiseEffect(...a),
+    renderTable:      (...a) => renderTable(...a),
+    toggleAltPanel:   (...a) => toggleAltPanel(...a),
+    calcWageBench:    (...a) => calcWageBench(...a),
+    calcDiag:         (...a) => calcDiag(...a),
     syncAndTaxWarning: () => { sync(); if (typeof checkYearTaxWarning === 'function') checkYearTaxWarning(); },
-    mortSyncPriceNum, mortSyncPriceSlider,
-    mortSyncInc1Num, mortSyncInc1Slider,
-    mortSyncInc2Num, mortSyncInc2Slider,
+    mortSyncPriceNum:    (el) => mortSyncPriceNum(el),
+    mortSyncPriceSlider: (el) => mortSyncPriceSlider(el),
+    mortSyncInc1Num:     (el) => mortSyncInc1Num(el),
+    mortSyncInc1Slider:  (el) => mortSyncInc1Slider(el),
+    mortSyncInc2Num:     (el) => mortSyncInc2Num(el),
+    mortSyncInc2Slider:  (el) => mortSyncInc2Slider(el),
   };
 
   /* ── CLICK dispatcher ── */
@@ -9497,6 +9517,8 @@ function _collectState(){
       /* Dlhy */
       case 'debtAddRow':    debtAddRow(); break;
       case 'debtRemoveRow': debtRemoveRow(+el.dataset.idx); break;
+      /* Lump sums */
+      case 'removeLump':    removeLump(+el.dataset.id); break;
       /* Majetok */
       case 'assetsAddRow':    assetsAddRow(); break;
       case 'assetsRemoveRow': assetsRemoveRow(+el.dataset.idx); break;
