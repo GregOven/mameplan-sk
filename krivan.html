@@ -557,7 +557,10 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .cf2-rec.info .cf2-rec-dot{background:var(--blue2);}
 .cf2-rec.bad{background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.18);}
 .cf2-rec.bad .cf2-rec-dot{background:var(--red);}
-/* ── tg-diag (Diagnostika) — amber/orange ── */
+/* ── tg-diag (Diagnostika) — amber/orange — vizuálne PRVÉ ── */
+.tabs-groups { display: flex; flex-wrap: wrap; }
+.tg-diag  { order: -1; }
+.tg-budget, .tg-debt, .tg-invest, .tg-assets, .tg-withdraw, .tg-tools { order: 0; }
 .tg-diag .tab.active{background:rgba(251,146,60,.15);color:#fdba74;border:1px solid rgba(251,146,60,.4);box-shadow:0 0 16px rgba(251,146,60,.15),inset 0 1px 0 rgba(251,146,60,.2)}
 .tg-diag .tab-group-inner{border-color:rgba(251,146,60,.22)}
 .tg-diag .tab-group-label{color:rgba(251,146,60,.8);opacity:.8}
@@ -666,7 +669,13 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   40% {background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.35);color:var(--amber2);}
   100%{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3);color:var(--emerald);}
 }
-.sync-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;align-items:center;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;}
+.sync-bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0;align-items:center;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:0 0 10px 10px;}
+.sync-wrap{margin-bottom:16px;}
+.sync-wrap summary{display:flex;align-items:center;gap:8px;cursor:pointer;padding:7px 14px;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:10px;font-family:var(--ff-ui);font-size:var(--fs-sm);color:var(--muted);letter-spacing:1px;text-transform:uppercase;list-style:none;user-select:none;}
+.sync-wrap summary::-webkit-details-marker{display:none}
+.sync-wrap[open] summary{border-radius:10px 10px 0 0;border-bottom-color:transparent;}
+.sync-wrap summary::after{content:'▾';margin-left:auto;font-size:11px;opacity:.5;transition:transform .2s;}
+.sync-wrap[open] summary::after{transform:rotate(180deg);}
 .sync-bar-lbl{font-family: var(--ff-ui);font-size:var(--fs-sm);color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-right:4px;}
 .sync-help{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.15);color:var(--muted);font-size:var(--fs-xs);font-family: var(--ff-ui);cursor:pointer;margin-left:2px;vertical-align:middle;flex-shrink:0;line-height:1;}
 .sync-help:hover{border-color:var(--blue2);color:var(--blue2);}
@@ -3315,7 +3324,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <button type="button" class="src-ftab" data-filter="t2"  data-action="srcFilter" data-src="t2">T2 · Porovnanie</button>
       <button type="button" class="src-ftab" data-filter="t3"  data-action="srcFilter" data-src="t3">T3 · Dôchodok</button>
       <button type="button" class="src-ftab" data-filter="t4"  data-action="srcFilter" data-src="t4">T4 · Cieľový výber</button>
-      <button type="button" class="src-ftab" data-filter="t5"  data-action="srcFilter" data-src="t5">T5 · FIRE</button>
+      <button type="button" class="src-ftab" data-filter="t5"  data-action="srcFilter" data-src="t5">T5 · Fin. nezávislosť</button>
       <button type="button" class="src-ftab" data-filter="t6"  data-action="srcFilter" data-src="t6">T6 · Backtest</button>
       <button type="button" class="src-ftab" data-filter="t7"  data-action="srcFilter" data-src="t7">T7 · Piliere</button>
       <button type="button" class="src-ftab" data-filter="t8"  data-action="srcFilter" data-src="t8">T8 · Hypotéka</button>
@@ -3641,13 +3650,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="tab-sep"></div>
 
-    <!-- 3. Investovanie / Dôchodok -->
+    <!-- 3. Investovanie -->
     <div class="tab-group tg-invest">
       <div class="tab-group-label">Investovanie</div>
       <div class="tab-group-inner">
         <button type="button" class="tab" data-action="showTab" data-tab="t1">Rast portfólia</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t4">Koľko investovať?</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t5">⚡ FIRE</button>
+        <button type="button" class="tab" data-action="showTab" data-tab="t5">Finančná nezávislosť</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3662,11 +3670,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="tab-sep"></div>
 
-    <!-- 5. Výber / Dôchodok -->
+    <!-- 5. Dôchodok -->
     <div class="tab-group tg-withdraw">
       <div class="tab-group-label">Dôchodok</div>
       <div class="tab-group-inner">
         <button type="button" class="tab" data-action="showTab" data-tab="t3">Výber z portfólia</button>
+        <button type="button" class="tab" data-action="showTab" data-tab="t4">Koľko potrebujem?</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3675,7 +3684,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-tools">
       <div class="tab-group-label">Nástroje</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab active" data-action="showTab" data-tab="t1" style="display:none" id="t1-hidden-btn"></button>
+        <button type="button" class="tab" data-action="showTab" data-tab="t1" style="display:none" id="t1-hidden-btn"></button>
         <button type="button" class="tab" data-action="showTab" data-tab="t8">Hypotéka</button>
         <button type="button" class="tab" data-action="showTab" data-tab="t2">Scenáre A vs. B</button>
         <button type="button" class="tab" data-action="showTab" data-tab="t6">Historický test</button>
@@ -3683,13 +3692,14 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="tab-sep"></div>
 
-    <!-- 7. Diagnostika -->
+    <!-- 7. Diagnostika — zobrazená ako prvá cez CSS order:-1 -->
     <div class="tab-group tg-diag">
       <div class="tab-group-label">Diagnostika</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t13">Finančná diagnostika</button>
+        <button type="button" class="tab active" data-action="showTab" data-tab="t13">Finančná diagnostika</button>
       </div>
     </div>
+    <div class="tab-sep"></div>
 
   </div>
 </div>
@@ -3698,7 +3708,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 1 – MAIN CALCULATOR
 ═══════════════════════════════════════════════ -->
-<div id="t1" class="tab-panel active">
+<div id="t1" class="tab-panel">
 <div class="layout stretch">
 
 <!-- ── LEFT: INPUTS ── -->
@@ -3735,7 +3745,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <!-- POKROČILÉ NASTAVENIA — collapsible -->
-    <details class="pd-section" id="pd-t1-adv" open>
+    <details class="pd-section" id="pd-t1-adv">
       <summary>
         Pokročilé nastavenia
         
@@ -3819,6 +3829,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
     </div>
 
+      <!-- Acc vs Dist odkaz -->
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+        <button type="button" data-action="toggleAccDist"
+          style="background:none;border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13.2px;color:var(--muted);cursor:pointer;width:100%;text-align:left;">
+          📊 Porovnanie Akumulačné vs Distribučné ETF <span id="acc-dist-toggle-lbl">zobraziť ▾</span>
+        </button>
+      </div>
       </div><!-- end pd-body -->
     </details><!-- end pd-t1-adv -->
 
@@ -3848,8 +3865,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
   </div><!-- end investičné parametre panel -->
 
-  <!-- ACC VS DIST — 2nd panel in left col -->
-  <div class="panel" style="display:flex;flex-direction:column;">
+  <!-- ACC VS DIST — skrytý predvolene, odkrytý cez Pokročilé nastavenia -->
+  <div class="panel" id="acc-dist-panel" style="display:none;flex-direction:column;">
     <p class="plbl" style="margin-bottom:16px;">Akumulačné vs Distribučné ETF</p>
     <div class="g2" style="margin-bottom:16px;">
       <div class="sc hl">
@@ -3967,11 +3984,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
       <p class="plbl" style="margin:0">Vývoj portfólia</p>
       <div class="tab-row">
-        <button type="button" class="tbtn active" data-action="setChart" data-chart="all">Všetko</button>
-        <button type="button" class="tbtn" data-action="setChart" data-chart="nom">Nominálne</button>
-        <button type="button" class="tbtn" data-action="setChart" data-chart="real">Reálne</button>
-        <button type="button" class="tbtn" data-action="setChart" data-chart="scenarios">Scenáre ±3%</button>
-        <button type="button" class="tbtn" data-action="setChart" data-chart="montecarlo">Monte Carlo</button>
+        <button type="button" class="tbtn active" data-action="setChart" data-chart="all">Nominálne + reálne</button>
+        <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="nom" style="display:none;">Len nominálne</button>
+        <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="real" style="display:none;">Len reálne</button>
+        <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="scenarios" style="display:none;">Scenáre ±3%</button>
+        <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="montecarlo" style="display:none;">Monte Carlo</button>
+        <button type="button" class="tbtn" id="chart-more-btn" data-action="toggleChartAdvanced" style="opacity:.55;font-size:12px;">▾ viac pohľadov</button>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="ch1"></canvas></div>
@@ -4130,10 +4148,16 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- LEGISLATÍVNE PARAMETRE — patria do T1 (daňová kalkulačka) -->
 <!-- FIX: PROBLÉM 1 — TAX_THRESHOLD variabilný cez životné minimum -->
 <!-- ══ NASTAVENIA — daňové a legislatívne parametre ══ -->
-<div style="margin-top:24px;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:16px;padding:20px 24px;">
+<details id="leg-params-details" style="margin-top:24px;">
+<summary style="display:flex;align-items:center;gap:10px;padding:12px 18px;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:12px;cursor:pointer;list-style:none;font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);user-select:none;">
+  <span>Legislatívne parametre · SR</span>
+  <span style="opacity:.5;font-size:11px;margin-left:4px;">▾ upravte ak sa zmenila legislatíva</span>
+  <span style="margin-left:auto;opacity:.4;font-size:11px;" id="leg-params-chevron">▾</span>
+</summary>
+<div style="background:rgba(255,255,255,.015);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:20px 24px;">
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:space-between;">
     <div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Legislatívne parametre · SR</span>
+      <span style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Nastavenia</span>
       <span style="font-size:13.2px;color:var(--muted);opacity:.6;">upravte ak sa zmenila legislatíva</span>
     </div>
     <span id="tax-params-year-note" style="font-size:13.2px;color:var(--amber2);font-family:'Source Code Pro',monospace;"></span>
@@ -4224,6 +4248,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     Životné minimum platné od 1.7.2025: <strong style="color:var(--muted2);">€284,13</strong>.
   </div>
 </div>
+</details>
 
 </div><!-- end tab1 -->
 
@@ -4240,7 +4265,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="ig"><div class="il">Mesačný vklad <span class="val" id="al-mon">€575</span></div><input type="range" id="ar-mon" min="0" max="20000" step="50" value="200" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="al-ret">9,0%</span></div><input type="range" id="ar-ret" min="1" max="20" step="0.5" value="9" data-calc="syncCmp"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="al-yr">32</span></div><input type="range" id="ar-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp"><div class="rbnd"><span>5</span><span>50</span></div></div>
-      <details class="pd-section" id="pd-t2a-adv" open>
+      <details class="pd-section" id="pd-t2a-adv">
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="al-inc">5,0%</span></div><input type="range" id="ar-inc" min="0" max="15" step="0.5" value="5" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
@@ -4255,7 +4280,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="ig"><div class="il">Mesačný vklad <span class="val" id="bl-mon">€800</span></div><input type="range" id="br-mon" min="0" max="20000" step="50" value="400" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="bl-ret">7,0%</span></div><input type="range" id="br-ret" min="1" max="20" step="0.5" value="7" data-calc="syncCmp"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="bl-yr">32</span></div><input type="range" id="br-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp"><div class="rbnd"><span>5</span><span>50</span></div></div>
-      <details class="pd-section" id="pd-t2b-adv" open>
+      <details class="pd-section" id="pd-t2b-adv">
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="bl-inc">3,0%</span></div><input type="range" id="br-inc" min="0" max="15" step="0.5" value="3" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
@@ -4312,6 +4337,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t3" class="tab-panel">
 
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
 <div class="sync-bar">
   <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
@@ -4320,6 +4347,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong></span>
   <span id="t3-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
+</details>
 
 <!-- Short explainer -->
 <div style="background:rgba(200,168,75,.04);border:1px solid rgba(200,168,75,.18);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
@@ -4371,7 +4399,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
     </div>
 
-    <details class="pd-section" id="pd-t3-adv" open>
+    <details class="pd-section" id="pd-t3-adv">
       <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
       <div class="pd-body">
 
@@ -4877,7 +4905,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="rbnd"><span>1%</span><span>20%</span></div>
     </div>
 
-    <details class="pd-section" id="pd-t5-adv" open>
+    <details class="pd-section" id="pd-t5-adv">
       <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
       <div class="pd-body">
 
@@ -5054,7 +5082,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <input type="range" id="bt-r-mon" min="0" max="20000" step="50" value="200" data-calc="calcBacktest">
       <div class="rbnd"><span>€0</span><span>€20 000</span></div>
     </div>
-    <details class="pd-section" id="pd-t6-adv" open>
+    <details class="pd-section" id="pd-t6-adv">
       <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
       <div class="pd-body">
         <div class="ig">
@@ -5148,6 +5176,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t7" class="tab-panel">
 
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
 <div class="sync-bar">
   <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká — záložka ešte nebola prepočítaná<br>
@@ -5157,6 +5187,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov pri dôchodku (T3)">Výber / Dôchodok: <strong id="sync-t3-pilier">—</strong>/mes.</span>
   <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong></span>
 </div>
+</details>
 
 <div style="background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -5958,6 +5989,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div id="t9" class="tab-panel">
 
 <!-- Sync status bar -->
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
 <div class="sync-bar" id="t9-syncbar">
   <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet<br>
@@ -5972,6 +6005,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong></span>
   <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
 </div>
+</details>
 
 <!-- Household + CTA bar -->
 <div class="cf2-topbar">
@@ -5996,6 +6030,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     Použiť investície ako vklad v Kalkulačke
   </button>
 </div>
+</details>
 
 <div class="layout stretch" style="align-items:flex-start;">
 <!-- LEFT: budget sections (rendered by JS) -->
@@ -6033,6 +6068,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
      TAB 10 – NÚDZOVÝ FOND
 ═══════════════════════════════════════════════ -->
 <div id="t10" class="tab-panel">
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
 <div class="sync-bar">
   <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = čaká na prepočet z Cashflow (T9)<br>
@@ -6042,6 +6079,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong></span>
   <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong></span>
 </div>
+</details>
 
 <div style="background:rgba(34,211,238,.03);border:1px solid rgba(34,211,238,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -6260,6 +6298,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t11" class="tab-panel">
 
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
 <div class="sync-bar">
   <span class="sync-bar-lbl">Sync</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = Net Worth v T12 ešte nie je prepočítaný<br>
@@ -6268,6 +6308,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong></span>
   <span id="debt-cf-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
+</details>
 
 <div class="layout stretch" style="align-items:flex-start;">
 
@@ -6420,9 +6461,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
      TAB 13 – FINANČNÁ DIAGNOSTIKA
      Zdrojové dáta: ŠÚ SR, NBS, MSCI, CFP standard
 ═══════════════════════════════════════════════ -->
-<div id="t13" class="tab-panel">
+<div id="t13" class="tab-panel active">
 
-<div class="sync-bar" style="margin-bottom:18px;">
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar" style="margin-bottom:0;">
   <span class="sync-bar-lbl">Vypočítané z</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = záložka, z ktorej pochádza hodnota, ešte nebola otvorená<br>
 <strong style='color:#34d399'>● Zelená</strong> = všetky zdroje sú aktuálne prepočítané<div class='tt-hr'></div>
@@ -6437,6 +6480,7 @@ Diagnostika čerpá z:<br>
   <span class="sync-badge fresh dot">Kalkulačka T1</span>
   <span style="margin-left:auto;font-size:14.4px;color:var(--muted);opacity:.5;">ŠÚ SR 2024 · NBS · MSCI World</span>
 </div>
+</details>
 
 <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch;">
 
@@ -6457,7 +6501,7 @@ Diagnostika čerpá z:<br>
           </svg>
           <div class="score-ring-val"><span id="score-num" style="color:var(--text);">—</span><span class="score-ring-lbl">/ 100</span></div>
         </div>
-        <div id="score-headline" style="font-size:16.8px;font-weight:500;color:var(--text);line-height:1.6;flex:1;">Najprv zadajte príjmy a výdavky v záložke Príjmy a výdavky — potom tu uvidíte hodnotenie.</div>
+        <div id="score-headline" style="font-size:16.8px;font-weight:500;color:var(--text);line-height:1.6;flex:1;">Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.</div>
       </div>
       <div id="score-components"></div>
       <div id="diag-pilier-card" style="display:none;"></div>
@@ -6479,7 +6523,7 @@ Diagnostika čerpá z:<br>
         </div>
       </div>
       <div id="whatif-rows">
-        <div style="font-size:16.8px;color:var(--muted2);">Zadajte výdavky v záložke Príjmy a výdavky — potom tu uvidíte konkrétne scenáre z vašich vlastných výdavkov.</div>
+        <div style="font-size:15.6px;color:var(--muted2);">Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--gold2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — potom tu uvidíte, čo by vygenerovali vaše výdavky keby ste ich investovali.</div>
       </div>
     </div>
   </div>
@@ -6492,7 +6536,14 @@ Diagnostika čerpá z:<br>
       <span class="diag-section-title" style="color:var(--violet2);">Čo robiť ako prvé — váš akčný plán<span style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none;">Kroky zoradené od najurgentnejšieho po menej naliehavé. Začnite zhora.</span></span>
     </div>
     <div class="diag-section-body" id="priority-engine-body">
-      <div style="font-size:16.8px;color:var(--muted2);">Zadajte príjmy a výdavky v záložke Príjmy a výdavky — potom tu uvidíte odporúčané kroky.</div>
+      <div style="font-size:15.6px;color:var(--muted2);line-height:1.8;">
+  Odporúčania sa zobrazia keď vyplníte:
+  <ol style="margin:10px 0 0 20px;color:var(--muted2);">
+    <li><button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — základ všetkého</li>
+    <li><button type="button" data-action="showTab" data-tab="t10" style="background:none;border:none;color:var(--cyan2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Rezervný fond</button> — koľko máte odložené</li>
+    <li><button type="button" data-action="showTab" data-tab="t11" style="background:none;border:none;color:var(--rose2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Moje dlhy</button> — ak nejaké máte</li>
+  </ol>
+</div>
     </div>
   </div>
 
@@ -6612,10 +6663,10 @@ Diagnostika čerpá z:<br>
 
 <!-- ONBOARDING BANNER — zobrazí sa len pri prvom otvorení -->
 <div id="onboarding-banner" role="complementary" aria-label="Vitajte v Kriváni">
-  <div class="ob-title">Kriváň ukladá dáta len u vás</div>
+  <div class="ob-title">Vitajte v Kriváni</div>
   <div class="ob-body">
-    Žiadny účet, žiadny cloud. Vaše čísla existujú len v tomto prehliadači.<br>
-    Keď skončíte, kliknite na <strong>Uložiť zálohu</strong> — stiahne sa súbor na váš počítač.
+    Odporúčame začať tu — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé.<br>
+    Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
   </div>
   <div class="ob-actions">
     <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, začínam</button>
@@ -8955,26 +9006,25 @@ function pilSetGender(g){
    5D — SLIDER CONTEXT HINTS
 ═══════════════════════════════════════════════ */
 
-// 5A: generate live sentence above hero result
+// KROK 6: laik-friendly kontextová veta nad výsledkami
 function updateHeroSentence(p){
   const el = $el('hero-sentence');
   if(!el) return;
   const isEmpty = p.ini === 0 && p.mon === 0;
 
-  // 5B: empty state
   const emptyEl = $el('hero-empty-state');
   if(emptyEl) emptyEl.style.display = isEmpty ? 'block' : 'none';
-  if(isEmpty){ el.textContent = ''; return; }
+  if(isEmpty){ el.innerHTML = ''; return; }
 
-  // Build sentence
-  const parts = [];
-  if(p.ini > 0) parts.push('počiatočná investícia ' + fmt(p.ini));
-  if(p.mon > 0) parts.push('vklad ' + fmt(p.mon) + '/mes.');
-  const vstup = parts.join(' + ');
-  const roky = p.yr;
-  const retStr = fmtP(p.stockRet * 100);
-  const rok = p.sy + roky;
-  el.textContent = vstup + ', výnos ' + retStr + '/rok, horizont ' + roky + ' rokov (' + rok + ') →';
+  // Zostroj zrozumiteľnú vetu pre laika
+  const rok = p.sy + p.yr;
+  const casti = [];
+  if(p.mon > 0) casti.push('mesačnom vklade ' + fmt(p.mon));
+  if(p.ini > 0) casti.push('počiatočnej investícii ' + fmt(p.ini));
+  const vstupText = casti.length ? 'Pri ' + casti.join(' a ') : 'S týmito nastaveniami';
+  const rokText = ' po ' + p.yr + ' rokoch (rok ' + rok + ')';
+  el.innerHTML = '<span style="font-size:13.5px;color:var(--muted2);line-height:1.6;">'
+    + vstupText + rokText + ' môžete mať:</span>';
 }
 
 // 5D: slider context hints with 2s auto-fade
@@ -9883,6 +9933,23 @@ function _collectState(){
       /* Navigácia */
       case 'showTab':     showTab(el.dataset.tab, el); break;
       case 'srcFilter':   srcFilter(el.dataset.src, el); break;
+      case 'toggleAccDist': {
+        const p = document.getElementById('acc-dist-panel');
+        const lbl = document.getElementById('acc-dist-toggle-lbl');
+        if(!p) break;
+        const isHidden = p.style.display === 'none';
+        p.style.display = isHidden ? 'flex' : 'none';
+        if(lbl) lbl.textContent = isHidden ? 'skryť ▴' : 'zobraziť ▾';
+        break;
+      }
+      case 'toggleChartAdvanced': {
+        const adv = document.querySelectorAll('.chart-advanced');
+        const btn = document.getElementById('chart-more-btn');
+        const isVisible = adv[0] && adv[0].style.display !== 'none';
+        adv.forEach(b => b.style.display = isVisible ? 'none' : '');
+        if(btn) btn.textContent = isVisible ? '▾ viac pohľadov' : '▴ menej pohľadov';
+        break;
+      }
       case 'setChart':    setChart(el.dataset.chart, el); break;
       /* Hypotéka */
       case 'mortSetFix':  mortSetFix(+el.dataset.val); break;
@@ -11185,13 +11252,13 @@ function resetScore(){
   const ring=$el('score-ring-fill'); if(ring){ring.style.strokeDashoffset='289.03';ring.style.stroke='var(--border2)';}
   const sn=$el('score-num'); if(sn){sn.textContent='—';sn.style.color='var(--muted)';}
   const sc=$el('score-components'); if(sc) sc.innerHTML='';
-  const sh=$el('score-headline'); if(sh) sh.textContent='Najprv zadajte príjmy a výdavky v záložke Príjmy a výdavky — potom tu uvidíte hodnotenie.';
+  const sh=$el('score-headline'); if(sh) sh.innerHTML='Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.';
 }
 
 /* ── 2. PRIORITIZAČNÝ ENGINE ── */
 function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon, debtBal, efCurrent, efTarget){
   const body = $el('priority-engine-body'); if(!body) return;
-  if(income === 0){ body.innerHTML = '<div style="font-size:14.4px;color:var(--muted);">Zadajte príjmy a výdavky v Cashflow.</div>'; return; }
+  if(income === 0){ body.innerHTML = '<div style="font-size:14.4px;color:var(--muted2);line-height:1.8;">Odporúčania sa zobrazia po vyplnení záložky <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button>.</div>'; return; }
 
   const items = [];
   const efGap = Math.max(0, efTarget - efCurrent);
