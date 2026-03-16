@@ -333,7 +333,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--border);
   padding:8px 20px;
-  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
 }
 #profile-bar .pbar-left{display:flex;align-items:center;gap:10px;min-width:0;}
 #profile-bar .pbar-right{display:flex;align-items:center;gap:8px;justify-content:flex-end;}
@@ -352,8 +352,23 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .pbtn-save:hover{background:rgba(16,185,129,.18);}
 .pbtn-load{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:var(--amber2);}
 .pbtn-load:hover{background:rgba(245,158,11,.18);}
+/* Export hint — krátky tooltip po úspešnom exporte */
+.export-hint{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted2);white-space:nowrap;z-index:200;pointer-events:none;opacity:0;transform:translateY(-4px);transition:opacity .2s,transform .2s;line-height:1.5;}
+.export-hint.show{opacity:1;transform:translateY(0);}
+.pbtn-save{position:relative;}
 /* SECURITY: privacy badge */
 .privacy-badge{font-size:11px;color:var(--muted);letter-spacing:.5px;padding:4px 9px;border:1px solid var(--border);border-radius:100px;white-space:nowrap;user-select:none;}
+/* Onboarding banner */
+#onboarding-banner{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:8000;width:min(480px,calc(100vw - 32px));background:var(--bg2);border:1px solid var(--border2);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35);padding:18px 20px 16px;animation:ob-in .35s cubic-bezier(.22,1,.36,1);}
+#onboarding-banner.show{display:block;}
+@keyframes ob-in{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.ob-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.ob-body{font-size:13px;color:var(--muted2);line-height:1.65;margin-bottom:14px;}
+.ob-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.ob-btn-close{flex:1;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:var(--emerald);color:#fff;border:none;}
+.ob-btn-close:hover{opacity:.85;}
+.ob-btn-more{flex:1;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
+.ob-btn-more:hover{background:var(--bg3);}
 /* SECURITY: import confirm overlay */
 /* ── IMPORT MODAL (nový multi-step flow) ── */
 #import-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:9999;align-items:center;justify-content:center;padding:16px;}
@@ -2403,10 +2418,6 @@ input[type=number] { font-size: var(--fs-md); padding: 12px 14px; }
     padding: 6px 12px;
     gap: 8px;
   }
-  /* Skryj text "Všetky dáta sú vaše" na malých telefónoch, nechaj len ikonu */
-  #profile-bar > div:nth-child(2) span{
-    display: none;
-  }
   /* Export/Import tlačidlá — skryj text, nechaj len ikonu */
   .pbtn{
     padding: 6px 8px !important;
@@ -3115,11 +3126,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div style="width:7px;height:7px;border-radius:50%;background:var(--emerald2);box-shadow:0 0 8px var(--emerald2),0 0 16px rgba(16,185,129,.5);flex-shrink:0;animation:pulse-dot 2.5s ease-in-out infinite;"></div>
   </div>
-  <!-- Privacy info — skutočný stred (grid col 2) -->
-  <button type="button" data-action="openPrivacyInfo" style="display:flex;align-items:center;gap:6px;font-size:12.5px;justify-content:center;white-space:nowrap;background:none;border:none;cursor:pointer;padding:4px 8px;border-radius:6px;transition:opacity .15s;" title="Zobraziť informácie o súkromí">
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.2" style="flex-shrink:0;opacity:.8;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    <span style="color:var(--gold);font-weight:600;">Všetky dáta sú vaše</span>
-  </button>
+
   <!-- Pravá strana (grid col 3) -->
   <div class="pbar-right">
   <button type="button" class="pbtn" id="theme-toggle-btn" data-action="toggleTheme" title="Prepnúť denný/nočný režim" style="padding:6px 10px;font-size:13px;">
@@ -3133,7 +3140,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 8 12 13 17 8"/><line x1="12" y1="3" x2="12" y2="13"/></svg>
     Načítať zálohu
   </button>
-  <span class="privacy-badge">🔒 lokálne dáta</span>
   <input type="file" id="import-file-input" accept=".json" onchange="importAppState(event)" style="display:none;">
   </div>
 </div>
@@ -3210,7 +3216,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div id="im-step-warn">
       <div class="im-header">
         <div class="im-title" id="im-title-warn">Nahradiť aktuálne dáta?</div>
-        <div class="im-subtitle" id="im-subtitle-warn">Záloha bude načítaná zo súboru</div>
+        <div class="im-subtitle" id="im-subtitle-warn">Vybrali ste súbor</div>
       </div>
       <div class="im-body">
         <div class="im-warn">
@@ -6604,6 +6610,19 @@ Diagnostika čerpá z:<br>
 
 </div><!-- end wrap -->
 
+<!-- ONBOARDING BANNER — zobrazí sa len pri prvom otvorení -->
+<div id="onboarding-banner" role="complementary" aria-label="Vitajte v Kriváni">
+  <div class="ob-title">Kriváň ukladá dáta len u vás</div>
+  <div class="ob-body">
+    Žiadny účet, žiadny cloud. Vaše čísla existujú len v tomto prehliadači.<br>
+    Keď skončíte, kliknite na <strong>Uložiť zálohu</strong> — stiahne sa súbor na váš počítač.
+  </div>
+  <div class="ob-actions">
+    <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, začínam</button>
+    <button type="button" class="ob-btn-more" data-action="openPrivacyInfo">Viac o súkromí</button>
+  </div>
+</div>
+
 <script>
 /* ══════════════════════════════════════════════
    SECURITY: HTML escape utility
@@ -9929,6 +9948,7 @@ function _collectState(){
       case 'exportPDF':          exportPDF(); break;
       case 'shareURL':           shareURL(); break;
       /* Ostatné */
+      case 'dismissOnboarding': dismissOnboarding(); break;
       case 'openPrivacyInfo':  openPrivacyInfo(); break;
       case 'closePrivacyInfo': closePrivacyInfo(); break;
       case 'closeImportModal': closeImportModal(); break;
@@ -10055,9 +10075,28 @@ function exportAppState(){
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     showToast('Záloha uložená · ' + fname, 'var(--emerald2)');
+    // Follow-up hint pod tlačidlom — kde nájsť súbor
+    _showExportHint('Stiahnuté do priečinka Sťahovania (Downloads)');
   } catch(e) {
     showToast('✗ Export sa nepodaril: ' + e.message, 'var(--red)');
   }
+}
+
+function _showExportHint(text){
+  try {
+    const btn = document.querySelector('[data-action="exportAppState"]');
+    if(!btn) return;
+    let hint = btn.querySelector('.export-hint');
+    if(!hint){
+      hint = document.createElement('div');
+      hint.className = 'export-hint';
+      btn.appendChild(hint);
+    }
+    hint.textContent = text;
+    hint.classList.add('show');
+    clearTimeout(btn._exportHintTimer);
+    btn._exportHintTimer = setTimeout(()=>{ hint.classList.remove('show'); }, 4000);
+  } catch(e){}
 }
 
 /* ── IMPORT MODAL — multi-step flow ── */
@@ -10113,8 +10152,33 @@ function imBackToWarn(){
   _imShowStep('im-step-warn');
 }
 function imSaveFirst(){
-  // Exportuje aktuálne dáta, potom ostane na varovnom kroku
-  exportAppState();
+  // Exportuje aktuálne dáta — modal ostane otvorený, tlačidlo sa zmení
+  try {
+    const state = _collectState();
+    const json = JSON.stringify(state, null, 2);
+    const blob = new Blob([json], {type:'application/json'});
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    const dateStr = new Date().toISOString().slice(0,10);
+    const fname = 'krivan-zaloha-' + dateStr + '.json';
+    a.download = fname;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    // Modal ostane otvorený — zmeníme tlačidlo na potvrdenie
+    const btn = document.querySelector('[data-action="imSaveFirst"]');
+    if(btn){
+      btn.textContent = '✓ Záloha uložená — teraz načítať novú?';
+      btn.classList.remove('im-btn-warn');
+      btn.classList.add('im-btn-ghost');
+      btn.setAttribute('data-action','imShowPreview');
+    }
+    showToast('Záloha uložená · ' + fname, 'var(--emerald2)');
+  } catch(e){
+    showToast('Export sa nepodaril: ' + e.message, 'var(--red)');
+  }
 }
 function imRetry(){
   closeImportModal();
@@ -10140,7 +10204,10 @@ function _imBuildPreview(state, filename){
   if(lumps)   items.push(['Jednorazové vklady', lumps]);
   if(hasMort) items.push(['Hypotéka', 'áno']);
   if(hasFire) items.push(['FIRE plán', 'áno']);
-  if(!items.length) items.push(['Nastavenia', 'načítané']);
+  if(!items.length){
+    items.push(['Kalkulačky', 'nastavenia a sliders']);
+    items.push(['Bez záznamov', 'dlhy, fondy, majetok']);
+  }
 
   const grid = document.getElementById('im-preview-grid');
   if(grid){
@@ -10155,7 +10222,7 @@ function _imBuildPreview(state, filename){
 function imDoImport(){
   if(!_pendingImportState){ closeImportModal(); return; }
   try {
-    _imApplyState(_pendingImportState);
+    const skipped = _imApplyState(_pendingImportState);
     // Zostroj success správu
     const state = _pendingImportState;
     const lines = [];
@@ -10165,12 +10232,17 @@ function imDoImport(){
     if(Array.isArray(state.assetRows)  && state.assetRows.length)  lines.push('✓ '+state.assetRows.length+' položk'+(state.assetRows.length===1?'a':'y/iek')+' majetku');
     if(Array.isArray(state.lumps)      && state.lumps.length)      lines.push('✓ '+state.lumps.length+' jednoraz. vklad'+(state.lumps.length===1?'':'ov'));
     if(state.inputs && (+state.inputs['mort-price']||0)>0) lines.push('✓ Hypotéka');
-    if(!lines.length) lines.push('✓ Nastavenia načítané');
+    if(!lines.length) lines.push('✓ Nastavenia kalkulačiek obnovené');
 
     const ll = document.getElementById('im-loaded-list');
     if(ll) ll.innerHTML = lines.join('<br>');
     const su = document.getElementById('im-success-sub');
     if(su) su.textContent = 'Obnovili sme vaše dáta zo zálohy ' + (_pendingImportFilename ? '„' + _pendingImportFilename + '"' : '') + '.';
+    // Čiastočný import — upozornenie
+    if(skipped && skipped.length){
+      lines.push('');
+      skipped.forEach(s => lines.push('⚠ ' + s));
+    }
     _pendingImportState = null;
     _imShowStep('im-step-success');
   } catch(err) {
@@ -10265,7 +10337,11 @@ function importAppState(event){
       _pendingImportState = state;
       _pendingImportFilename = fname;
       const imSub = document.getElementById('im-subtitle-warn');
-      if(imSub) imSub.textContent = fname + (versionWarn ? ' · ⚠ staršia verzia' : '');
+      if(imSub){
+        // Skráť dlhý filename — max 40 znakov
+        const displayName = fname.length > 40 ? fname.slice(0,37)+'...' : fname;
+        imSub.textContent = displayName + (versionWarn ? ' · ⚠ staršia verzia' : '');
+      }
       _imBuildPreview(state, fname);
       _imShowStep('im-step-warn');
       _imOpenModal();
@@ -10284,7 +10360,9 @@ function importAppState(event){
 }
 
 /* ── _imApplyState: skutočný import — volá sa až po potvrdení používateľom ── */
+/* Vracia pole upozornení o preskočených položkách (čiastočný import) */
 function _imApplyState(state){
+  const skipped = [];
       // Restore inputs — prototype pollution guard
       Object.entries(state.inputs).forEach(([id, val]) => {
         if(FORBIDDEN_KEYS.includes(id)) return;
@@ -10322,6 +10400,8 @@ function _imApplyState(state){
       // Restore debtRows[] — S-5: slice, S-6: whitelist + fixEnd regex + hasOwnProperty.call
       if(Array.isArray(state.debtRows) && typeof debtRows !== 'undefined'){
         debtRows.length = 0;
+        if(state.debtRows.length > LIM.DEBTS)
+          skipped.push('Dlhy: načítaných ' + LIM.DEBTS + ' z ' + state.debtRows.length + ' záznamov (limit)');
         state.debtRows.slice(0, LIM.DEBTS).forEach(d => {
           if(!d || typeof d !== 'object') return;
           if(FORBIDDEN_KEYS.some(k => Object.prototype.hasOwnProperty.call(d, k))) return;
@@ -10347,6 +10427,8 @@ function _imApplyState(state){
       // Restore efBuckets[] — S-5: slice + hasOwnProperty.call
       if(Array.isArray(state.efBuckets) && typeof efBuckets !== 'undefined'){
         efBuckets.length = 0;
+        if(state.efBuckets.length > LIM.BUCKETS)
+          skipped.push('Núdzový fond: načítaných ' + LIM.BUCKETS + ' z ' + state.efBuckets.length + ' bucketov (limit)');
         state.efBuckets.slice(0, LIM.BUCKETS).forEach(b => {
           if(!b || typeof b !== 'object') return;
           if(FORBIDDEN_KEYS.some(k => Object.prototype.hasOwnProperty.call(b, k))) return;
@@ -10363,6 +10445,8 @@ function _imApplyState(state){
       // Restore assetRows[] — S-5: slice, S-6: whitelist + hasOwnProperty.call
       if(Array.isArray(state.assetRows) && typeof assetRows !== 'undefined'){
         assetRows.length = 0;
+        if(state.assetRows.length > LIM.ASSETS)
+          skipped.push('Majetok: načítaných ' + LIM.ASSETS + ' z ' + state.assetRows.length + ' položiek (limit)');
         state.assetRows.slice(0, LIM.ASSETS).forEach(a => {
           if(!a || typeof a !== 'object') return;
           if(FORBIDDEN_KEYS.some(k => Object.prototype.hasOwnProperty.call(a, k))) return;
@@ -10443,6 +10527,8 @@ function _imApplyState(state){
       // K1/K2: CF2 restore — AŽ TU, po všetkých recalcoch
       // Plná sanitácia: safeCatId + sanitizeRgb + CF_TYPES whitelist + trimStr + safeNum
       if(Array.isArray(state.cf2State) && typeof cfData !== 'undefined'){
+        if(state.cf2State.length > LIM.CF_CATS)
+          skipped.push('Cashflow: načítaných ' + LIM.CF_CATS + ' z ' + state.cf2State.length + ' kategórií (limit)');
         const sanitizedCats = state.cf2State.slice(0, LIM.CF_CATS).map(cat => {
           if(!cat || typeof cat !== 'object') return null;
           const cid = safeCatId(cat.id);
@@ -10476,6 +10562,7 @@ function _imApplyState(state){
         if(_niSv){ _niSv.value = _sEl ? _sEl.value : _efTotal; }
       }
       // Finálne vykreslenie — _imApplyState nekončí showToast, to rieši imDoImport()
+  return skipped;
 }
 
 /* ══════════════════════════════════════════════
@@ -12586,6 +12673,23 @@ function closePrivacyInfo(){
   const ov=$el('privacy-info-overlay');
   if(ov){ ov.style.display='none'; document.body.style.overflow=''; }
 }
+
+/* ── ONBOARDING BANNER ── */
+function dismissOnboarding(){
+  const b = document.getElementById('onboarding-banner');
+  if(b){ b.style.opacity='0'; b.style.transform='translateX(-50%) translateY(12px)'; b.style.transition='opacity .25s,transform .25s'; setTimeout(()=>b.classList.remove('show'),260); }
+  try { localStorage.setItem('krivan-welcomed','1'); } catch(e){}
+}
+(function initOnboarding(){
+  try {
+    if(!localStorage.getItem('krivan-welcomed')){
+      setTimeout(()=>{
+        const b = document.getElementById('onboarding-banner');
+        if(b) b.classList.add('show');
+      }, 800);
+    }
+  } catch(e){}
+})();
 
 function toggleTheme(){
   const isLight = document.body.classList.toggle('light');
