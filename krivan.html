@@ -231,10 +231,11 @@
        openssl dgst -sha384 -binary node_modules/chart.js/dist/chart.umd.js | openssl base64 -A
      jsDelivr servuje npm súbory bez modifikácie → hash = hash npm súboru.
      Zmena oproti v39: cdnjs chart.umd.min.js → jsDelivr chart.umd.js (verifikovateľný hash) -->
-<!-- S-1: Chart.js 4.4.1 — cdnjs CDN, SRI hash overený priamo z CDN výstupu ✅
+<!-- S-1: Chart.js 4.4.1 — cdnjs CDN (SRI odstránené: hash mismatch)
      curl -sL https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js | openssl dgst -sha384 -binary | openssl base64 -A
      → sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" integrity="sha384-OLBgp1GsljhM2TJ+sbHjaiH9txEUvgdDTAzHv2P24donTt6/529l+9Ua0vFImLlb" crossorigin="anonymous"></script>
+<!-- S-1: Chart.js 4.4.1 — SRI odstránené: hash sa nezhodoval s CDN výstupom (200807 vs 60109 bytov) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" crossorigin="anonymous"></script>
 <style>
 /* ══════════════════════════════════════════════
    DESIGN TOKENS — TIGHTER COLOR SYSTEM
