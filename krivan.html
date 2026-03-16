@@ -355,16 +355,45 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 /* SECURITY: privacy badge */
 .privacy-badge{font-size:11px;color:var(--muted);letter-spacing:.5px;padding:4px 9px;border:1px solid var(--border);border-radius:100px;white-space:nowrap;user-select:none;}
 /* SECURITY: import confirm overlay */
-#import-confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9999;align-items:center;justify-content:center;}
-#import-confirm-overlay.open{display:flex;}
-#import-confirm-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:28px 32px;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.5);}
-#import-confirm-box h3{margin:0 0 10px;font-size:var(--fs-lg);color:var(--text);}
-#import-confirm-box p{margin:0 0 22px;font-size:var(--fs-base);color:var(--muted2);line-height:1.6;}
-#import-confirm-box .ic-btns{display:flex;gap:10px;justify-content:flex-end;}
-#import-confirm-box .ic-cancel{background:transparent;border:1px solid var(--border2);color:var(--muted);border-radius:9px;padding:9px 18px;cursor:pointer;font-size:var(--fs-base);}
-#import-confirm-box .ic-cancel:hover{background:var(--bg3);}
-#import-confirm-box .ic-ok{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:var(--amber2);border-radius:9px;padding:9px 18px;cursor:pointer;font-size:var(--fs-base);font-weight:600;}
-#import-confirm-box .ic-ok:hover{background:rgba(245,158,11,.22);}
+/* ── IMPORT MODAL (nový multi-step flow) ── */
+#import-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:9999;align-items:center;justify-content:center;padding:16px;}
+#import-modal-overlay.open{display:flex;}
+#import-modal-box{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;max-width:460px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 16px 56px rgba(0,0,0,.45);}
+.im-header{padding:22px 24px 16px;border-bottom:1px solid var(--border);}
+.im-title{font-size:17px;font-weight:700;color:var(--text);margin:0 0 3px;}
+.im-subtitle{font-size:13px;color:var(--muted);margin:0;}
+.im-body{padding:18px 24px;}
+.im-footer{padding:14px 24px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;}
+.im-warn{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--text);line-height:1.65;margin-bottom:14px;}
+.im-note{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:14px;}
+.im-preview-box{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.im-preview-head{background:var(--bg3);padding:8px 14px;font-size:11.5px;font-weight:600;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;}
+.im-preview-grid{display:grid;grid-template-columns:1fr 1fr;}
+.im-preview-item{padding:10px 14px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);}
+.im-preview-item:nth-child(even){border-right:none;}
+.im-preview-item:nth-last-child(-n+2){border-bottom:none;}
+.im-preview-label{font-size:11px;color:var(--muted);margin-bottom:3px;}
+.im-preview-val{font-size:14px;font-weight:600;color:var(--text);}
+.im-error-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);border-radius:10px;padding:14px;margin-bottom:14px;}
+.im-error-title{font-size:14px;font-weight:700;color:#f87171;margin-bottom:5px;}
+.im-error-body{font-size:13px;color:var(--muted2);line-height:1.6;}
+.im-safe-note{font-size:12.5px;color:var(--emerald);margin-bottom:0;}
+.im-success-wrap{padding:28px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.im-success-icon{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--emerald);display:flex;align-items:center;justify-content:center;margin-bottom:4px;}
+.im-success-title{font-size:17px;font-weight:700;color:var(--text);}
+.im-success-sub{font-size:13.5px;color:var(--muted2);line-height:1.65;max-width:300px;}
+.im-loaded-list{background:var(--bg3);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--muted2);width:100%;text-align:left;line-height:2;}
+.im-btn{width:100%;padding:11px;border-radius:10px;font-size:14.4px;font-weight:600;cursor:pointer;border:none;transition:opacity .15s;}
+.im-btn-primary{background:var(--emerald);color:#fff;}
+.im-btn-primary:hover{opacity:.85;}
+.im-btn-warn{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);color:var(--amber2);}
+.im-btn-warn:hover{background:rgba(245,158,11,.2);}
+.im-btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
+.im-btn-ghost:hover{background:var(--bg3);}
+.im-btn-back{background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:6px 0;text-align:center;width:100%;}
+.im-btn-back:hover{color:var(--text);}
+/* Kompatibilita — starý overlay sa viac nepoužíva ale nesmie crashnúť */
+#import-confirm-overlay{display:none!important;}
 .pbtn-auto{background:rgba(96,165,250,.07);border-color:rgba(96,165,250,.25);color:var(--blue2);font-size:var(--fs-sm);padding:5px 10px;}
 .pbtn-auto.on{background:rgba(96,165,250,.15);border-color:rgba(96,165,250,.5);}
 
@@ -3096,13 +3125,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <button type="button" class="pbtn" id="theme-toggle-btn" data-action="toggleTheme" title="Prepnúť denný/nočný režim" style="padding:6px 10px;font-size:13px;">
     <span id="theme-icon">☀️</span>
   </button>
-  <button type="button" class="pbtn pbtn-save" data-action="exportAppState" title="Stiahne .json súbor so všetkými vašimi dátami — uložte ho na disk">
+  <button type="button" class="pbtn pbtn-save" data-action="exportAppState" title="Stiahne záložný súbor na váš počítač. Nič sa neodošle na internet.">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-    Export dát
+    Uložiť zálohu
   </button>
-  <button type="button" class="pbtn pbtn-load" data-action="openImportConfirm" title="Načíta predtým exportovaný .json súbor a obnoví všetky dáta">
+  <button type="button" class="pbtn pbtn-load" data-action="openImportConfirm" title="Obnoví vaše dáta zo záložného súboru, ktorý ste predtým uložili">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 8 12 13 17 8"/><line x1="12" y1="3" x2="12" y2="13"/></svg>
-    Import dát
+    Načítať zálohu
   </button>
   <span class="privacy-badge">🔒 lokálne dáta</span>
   <input type="file" id="import-file-input" accept=".json" onchange="importAppState(event)" style="display:none;">
@@ -3141,8 +3170,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--text2);line-height:1.8;">
         <li><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</li>
         <li>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</li>
-        <li>Záloha cez <strong>Export dát</strong> → súbor <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">.json</code> uložený len u vás na disku</li>
-        <li>Obnovenie cez <strong>Import dát</strong> → súbor sa načíta lokálne, nič sa neodošle</li>
+        <li>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">.json</code> uložený len u vás na disku</li>
+        <li>Obnovenie cez <strong>Načítať zálohu</strong> → súbor sa načíta lokálne, nič sa neodošle</li>
       </ul>
     </div>
 
@@ -3169,14 +3198,88 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 </div>
 
 <!-- SECURITY: Import confirm dialog — zabráni náhodnému prepísaniu dát -->
-<div id="import-confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="ic-title">
-  <div id="import-confirm-box">
-    <h3 id="ic-title">⚠ Prepísať aktuálne dáta?</h3>
-    <p>Import načíta súbor a <strong>nahradí všetky aktuálne dáta</strong> v aplikácii. Uistite sa, že máte zálohu (Export dát).<br><br>Pokračovať?</p>
-    <div class="ic-btns">
-      <button type="button" class="ic-cancel" data-action="closeImportConfirm">Zrušiť</button>
-      <button type="button" class="ic-ok" data-action="confirmImport">Áno, importovať</button>
+<div id="import-confirm-overlay" style="display:none!important"></div>
+
+<!-- IMPORT MODAL — nový multi-step flow -->
+<div id="import-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="im-title-warn">
+
+  <!-- PANEL 1: Varovanie -->
+  <div id="import-modal-box" id="im-panel-warn">
+
+    <!-- Krok 1: Varovanie -->
+    <div id="im-step-warn">
+      <div class="im-header">
+        <div class="im-title" id="im-title-warn">Nahradiť aktuálne dáta?</div>
+        <div class="im-subtitle" id="im-subtitle-warn">Záloha bude načítaná zo súboru</div>
+      </div>
+      <div class="im-body">
+        <div class="im-warn">
+          Načítaním zálohy <strong>vymažete všetko, čo tu teraz máte</strong> — všetky záložky, čísla aj nastavenia.
+        </div>
+        <div class="im-note">Ak chcete aktuálne dáta zachovať, najprv si ich uložte.</div>
+      </div>
+      <div class="im-footer">
+        <button type="button" class="im-btn im-btn-primary" data-action="imShowPreview">Zobraziť, čo sa načíta</button>
+        <button type="button" class="im-btn im-btn-warn" data-action="imSaveFirst">Najprv si uložím aktuálnu zálohu</button>
+        <button type="button" class="im-btn im-btn-ghost" data-action="closeImportModal">Zrušiť</button>
+      </div>
     </div>
+
+    <!-- Krok 2: Náhľad -->
+    <div id="im-step-preview" style="display:none">
+      <div class="im-header">
+        <div class="im-title">Čo sa načíta</div>
+        <div class="im-subtitle" id="im-preview-filename">záloha</div>
+      </div>
+      <div class="im-body">
+        <div class="im-preview-box">
+          <div class="im-preview-head">Obsah zálohy</div>
+          <div class="im-preview-grid" id="im-preview-grid"></div>
+        </div>
+        <div class="im-note" style="background:var(--bg3);border-radius:8px;padding:10px 12px;margin-bottom:0;">
+          Aktuálne dáta v prehliadači budú nahradené. Táto akcia sa nedá vrátiť späť.
+        </div>
+      </div>
+      <div class="im-footer">
+        <button type="button" class="im-btn im-btn-primary" data-action="imDoImport">Načítať túto zálohu</button>
+        <button type="button" class="im-btn-back" data-action="imBackToWarn">← Späť</button>
+      </div>
+    </div>
+
+    <!-- Krok 3: Chyba -->
+    <div id="im-step-error" style="display:none">
+      <div class="im-header">
+        <div class="im-title">Zálohu sa nepodarilo načítať</div>
+        <div class="im-subtitle" id="im-error-filename">súbor</div>
+      </div>
+      <div class="im-body">
+        <div class="im-error-box">
+          <div class="im-error-title" id="im-error-title">Chyba</div>
+          <div class="im-error-body" id="im-error-body">Popis chyby</div>
+        </div>
+        <div class="im-safe-note">✓ Vaše aktuálne dáta neboli zmenené.</div>
+      </div>
+      <div class="im-footer">
+        <button type="button" class="im-btn im-btn-primary" data-action="imRetry">Vybrať iný súbor</button>
+        <button type="button" class="im-btn im-btn-ghost" data-action="closeImportModal">Zavrieť</button>
+      </div>
+    </div>
+
+    <!-- Krok 4: Úspech -->
+    <div id="im-step-success" style="display:none">
+      <div class="im-success-wrap">
+        <div class="im-success-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--emerald)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="im-success-title">Záloha načítaná</div>
+        <div class="im-success-sub" id="im-success-sub">Vaše dáta boli obnovené.</div>
+        <div class="im-loaded-list" id="im-loaded-list"></div>
+      </div>
+      <div class="im-footer">
+        <button type="button" class="im-btn im-btn-primary" data-action="closeImportModal">Pokračovať v práci</button>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -9828,6 +9931,12 @@ function _collectState(){
       /* Ostatné */
       case 'openPrivacyInfo':  openPrivacyInfo(); break;
       case 'closePrivacyInfo': closePrivacyInfo(); break;
+      case 'closeImportModal': closeImportModal(); break;
+      case 'imShowPreview':    imShowPreview(); break;
+      case 'imBackToWarn':     imBackToWarn(); break;
+      case 'imSaveFirst':      imSaveFirst(); break;
+      case 'imRetry':          imRetry(); break;
+      case 'imDoImport':       imDoImport(); break;
       case 'toggleTheme':   toggleTheme(); break;
       case 'pdOpenLump':    pdOpenLump(); break;
       case 'resetToCalc':   resetToCalc(); break;
@@ -9938,70 +10047,198 @@ function exportAppState(){
     const url  = URL.createObjectURL(blob);
     const a    = document.createElement('a');
     a.href     = url;
-    a.download = 'krivan-data-' + new Date().toISOString().slice(0,10) + '.json';
+    const dateStr = new Date().toISOString().slice(0,10);
+    const fname = 'krivan-zaloha-' + dateStr + '.json';
+    a.download = fname;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('✓ Dáta exportované', 'var(--emerald2)');
+    showToast('Záloha uložená · ' + fname, 'var(--emerald2)');
   } catch(e) {
     showToast('✗ Export sa nepodaril: ' + e.message, 'var(--red)');
   }
 }
 
-/* ── SECURITY: Import confirm dialog handlers ── */
+/* ── IMPORT MODAL — multi-step flow ── */
+let _pendingImportState = null;  // drží parsovaný stav čakajúci na potvrdenie
+let _pendingImportFilename = '';
+
 function openImportConfirm(){
-  const ov = document.getElementById('import-confirm-overlay');
-  if(ov){ ov.classList.add('open'); }
+  // Priamo otvorí file picker — varovanie príde po výbere súboru
+  document.getElementById('import-file-input').click();
 }
-// Escape key + click-outside pre privacy info overlay
+
+function _imShowStep(id){
+  ['im-step-warn','im-step-preview','im-step-error','im-step-success'].forEach(s=>{
+    const el=document.getElementById(s); if(el) el.style.display='none';
+  });
+  const target=document.getElementById(id); if(target) target.style.display='';
+}
+
+function _imOpenModal(){
+  const ov=document.getElementById('import-modal-overlay');
+  if(ov){ ov.classList.add('open'); document.body.style.overflow='hidden'; }
+}
+
+function closeImportModal(){
+  const ov=document.getElementById('import-modal-overlay');
+  if(ov){ ov.classList.remove('open'); document.body.style.overflow=''; }
+  _pendingImportState=null;
+  _pendingImportFilename='';
+  const fi=document.getElementById('import-file-input'); if(fi) fi.value='';
+}
+
+// Escape + click-outside pre oba modaly (import + privacy)
 document.addEventListener('keydown', function(e){
   if(e.key==='Escape'){
-    const ov=$el('privacy-info-overlay');
-    if(ov && ov.style.display==='flex') closePrivacyInfo();
+    const pov=$el('privacy-info-overlay');
+    if(pov && pov.style.display==='flex'){ closePrivacyInfo(); return; }
+    const iov=document.getElementById('import-modal-overlay');
+    if(iov && iov.classList.contains('open')) closeImportModal();
   }
 });
 document.addEventListener('click', function(e){
-  const ov=$el('privacy-info-overlay');
-  if(ov && ov.style.display==='flex' && e.target===ov) closePrivacyInfo();
+  const pov=$el('privacy-info-overlay');
+  if(pov && pov.style.display==='flex' && e.target===pov){ closePrivacyInfo(); return; }
+  const iov=document.getElementById('import-modal-overlay');
+  if(iov && iov.classList.contains('open') && e.target===iov) closeImportModal();
 });
 
-function closeImportConfirm(){
-  const ov = document.getElementById('import-confirm-overlay');
-  if(ov){ ov.classList.remove('open'); }
+function imShowPreview(){
+  if(!_pendingImportState) return;
+  _imShowStep('im-step-preview');
 }
-function confirmImport(){
-  closeImportConfirm();
-  document.getElementById('import-file-input').click();
+function imBackToWarn(){
+  _imShowStep('im-step-warn');
 }
-// Zatvoriť cez Escape alebo klik mimo boxu
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeImportConfirm(); });
-document.addEventListener('click', e => {
-  if(e.target && e.target.id==='import-confirm-overlay') closeImportConfirm();
-});
+function imSaveFirst(){
+  // Exportuje aktuálne dáta, potom ostane na varovnom kroku
+  exportAppState();
+}
+function imRetry(){
+  closeImportModal();
+  setTimeout(()=>{ document.getElementById('import-file-input').click(); }, 100);
+}
+
+function _imBuildPreview(state, filename){
+  // Súhrnné štatistiky zálohy
+  const items = [];
+  const debts = Array.isArray(state.debtRows) ? state.debtRows.length : 0;
+  const buckets = Array.isArray(state.efBuckets) ? state.efBuckets.length : 0;
+  const assets = Array.isArray(state.assetRows) ? state.assetRows.length : 0;
+  const lumps = Array.isArray(state.lumps) ? state.lumps.length : 0;
+  const cfCats = Array.isArray(state.cf2State) ? state.cf2State.length : 0;
+  // Hypotéka — ak inputs obsahuje mort-price > 0
+  const hasMort = state.inputs && (+state.inputs['mort-price']||0) > 0;
+  const hasFire = state.inputs && (+state.inputs['fire-target']||0) > 0;
+
+  if(debts)   items.push(['Dlhy', debts + (debts===1?' záznam':debts<5?' záznamy':' záznamov')]);
+  if(cfCats)  items.push(['Cashflow', cfCats + (cfCats===1?' kategória':cfCats<5?' kategórie':' kategórií')]);
+  if(buckets) items.push(['Núdzový fond', buckets + (buckets===1?' bucket':buckets<5?' buckety':' bucketov')]);
+  if(assets)  items.push(['Majetok', assets + (assets===1?' položka':assets<5?' položky':' položiek')]);
+  if(lumps)   items.push(['Jednorazové vklady', lumps]);
+  if(hasMort) items.push(['Hypotéka', 'áno']);
+  if(hasFire) items.push(['FIRE plán', 'áno']);
+  if(!items.length) items.push(['Nastavenia', 'načítané']);
+
+  const grid = document.getElementById('im-preview-grid');
+  if(grid){
+    grid.innerHTML = items.map(([l,v])=>
+      '<div class="im-preview-item"><div class="im-preview-label">'+l+'</div><div class="im-preview-val">'+v+'</div></div>'
+    ).join('');
+  }
+  const sub = document.getElementById('im-preview-filename');
+  if(sub) sub.textContent = filename;
+}
+
+function imDoImport(){
+  if(!_pendingImportState){ closeImportModal(); return; }
+  try {
+    _imApplyState(_pendingImportState);
+    // Zostroj success správu
+    const state = _pendingImportState;
+    const lines = [];
+    if(Array.isArray(state.debtRows)   && state.debtRows.length)   lines.push('✓ '+state.debtRows.length+' dlh'+(state.debtRows.length===1?'':'y/ov'));
+    if(Array.isArray(state.cf2State)   && state.cf2State.length)   lines.push('✓ '+state.cf2State.length+' kategóri'+(state.cf2State.length===1?'a':'e/í')+' cashflow');
+    if(Array.isArray(state.efBuckets)  && state.efBuckets.length)  lines.push('✓ Núdzový fond ('+state.efBuckets.length+' bucket'+(state.efBuckets.length===1?'':'y/ov')+')');
+    if(Array.isArray(state.assetRows)  && state.assetRows.length)  lines.push('✓ '+state.assetRows.length+' položk'+(state.assetRows.length===1?'a':'y/iek')+' majetku');
+    if(Array.isArray(state.lumps)      && state.lumps.length)      lines.push('✓ '+state.lumps.length+' jednoraz. vklad'+(state.lumps.length===1?'':'ov'));
+    if(state.inputs && (+state.inputs['mort-price']||0)>0) lines.push('✓ Hypotéka');
+    if(!lines.length) lines.push('✓ Nastavenia načítané');
+
+    const ll = document.getElementById('im-loaded-list');
+    if(ll) ll.innerHTML = lines.join('<br>');
+    const su = document.getElementById('im-success-sub');
+    if(su) su.textContent = 'Obnovili sme vaše dáta zo zálohy ' + (_pendingImportFilename ? '„' + _pendingImportFilename + '"' : '') + '.';
+    _pendingImportState = null;
+    _imShowStep('im-step-success');
+  } catch(err) {
+    closeImportModal();
+    showToast('Niečo sa pokazilo: ' + err.message, 'var(--red)');
+  }
+}
+
+function _imShowError(filename, title, body){
+  const et = document.getElementById('im-error-title'); if(et) et.textContent = title;
+  const eb = document.getElementById('im-error-body');  if(eb) eb.textContent = body;
+  const ef = document.getElementById('im-error-filename'); if(ef) ef.textContent = filename;
+  _imShowStep('im-step-error');
+  _imOpenModal();
+}
+
+function closeImportConfirm(){ closeImportModal(); }
+function confirmImport(){ closeImportModal(); }
 
 function importAppState(event){
   const file = event.target.files[0];
   if(!file) return;
+  const fname = file.name;
 
   /* S-4: Filename + MIME type check */
-  if(!file.name.toLowerCase().endsWith('.json')){
-    showToast('✗ Súbor musí mať príponu .json', 'var(--red)'); event.target.value=''; return;
+  if(!fname.toLowerCase().endsWith('.json')){
+    _imShowError(fname,
+      'Toto nie je záloha z Kriváňa',
+      'Vyberte súbor s príponou .json, ktorý ste predtým stiahli cez tlačidlo „Uložiť zálohu". Súbory .xlsx, .csv ani iné formáty nefungujú.'
+    );
+    event.target.value=''; return;
   }
   const ALLOWED_MIMES = ['application/json','text/plain','text/json',''];
   if(file.type && !ALLOWED_MIMES.includes(file.type)){
-    showToast('✗ Neplatný typ súboru (očakáva sa JSON).', 'var(--red)'); event.target.value=''; return;
+    _imShowError(fname,
+      'Toto nie je záloha z Kriváňa',
+      'Súbor má nesprávny typ. Vyberte .json súbor, ktorý ste stiahli z Kriváňa.'
+    );
+    event.target.value=''; return;
   }
 
   /* S-4: DoS prevencia — limit 500 KB */
-  if(file.size > 512 * 1024){ showToast('✗ Súbor je príliš veľký (max. 500 KB).', 'var(--red)'); event.target.value=''; return; }
+  if(file.size > 512 * 1024){
+    _imShowError(fname,
+      'Súbor je príliš veľký',
+      'Zálohy z Kriváňa sú väčšinou menšie ako 500 KB. Skontrolujte, či ste vybrali správny súbor.'
+    );
+    event.target.value=''; return;
+  }
 
   const reader = new FileReader();
   reader.onload = function(e){
     try {
       const state = JSON.parse(e.target.result);
-      if(!state || typeof state !== 'object' || Array.isArray(state)) throw new Error('Neplatný formát súboru');
-      if(!state.inputs || typeof state.inputs !== 'object') throw new Error('Chýba sekcia inputs');
+      if(!state || typeof state !== 'object' || Array.isArray(state)){
+        _imShowError(fname,
+          'Toto nie je záloha z Kriváňa',
+          'Súbor neobsahuje dáta z Kriváňa. Vyberte súbor, ktorý ste predtým stiahli cez tlačidlo „Uložiť zálohu".'
+        );
+        event.target.value=''; return;
+      }
+      if(!state.inputs || typeof state.inputs !== 'object'){
+        _imShowError(fname,
+          'Záloha je poškodená',
+          'Súbor sa nepodarilo načítať — možno bol poškodený alebo zmenený. Skúste staršiu zálohu.'
+        );
+        event.target.value=''; return;
+      }
 
       /* S-5: Limity — max počet položiek a dĺžka stringov */
       const LIM = {
@@ -10018,11 +10255,36 @@ function importAppState(event){
       const CF_TYPES = ['income','expense','invest','savings'];
       const FORBIDDEN_KEYS = ['__proto__','constructor','prototype'];
 
-      // S-6: Schema version check
+      // S-6: Schema version check — upozornenie v preview, nie toast
+      let versionWarn = '';
       if(state.v && state.v < APP_STATE_VERSION){
-        showToast(`⚠ Súbor bol uložený v staršej verzii (v${state.v}). Niektoré dáta nemusia byť obnovené.`, 'var(--amber2)');
+        versionWarn = 'Záloha je zo staršej verzie — väčšina dát sa načíta, niektoré polia môžu chýbať.';
       }
 
+      // Ulož stav pre potvrdenie — skutočný import nastane až po kliknutí "Načítať túto zálohu"
+      _pendingImportState = state;
+      _pendingImportFilename = fname;
+      const imSub = document.getElementById('im-subtitle-warn');
+      if(imSub) imSub.textContent = fname + (versionWarn ? ' · ⚠ staršia verzia' : '');
+      _imBuildPreview(state, fname);
+      _imShowStep('im-step-warn');
+      _imOpenModal();
+      event.target.value='';
+      return; // skutočný import nastane v imDoImport()
+
+    } catch(err) {
+      _imShowError(fname||'súbor',
+        'Zálohu sa nepodarilo otvoriť',
+        'Súbor je poškodený alebo má nesprávny formát. Skúste inú zálohu.'
+      );
+      event.target.value=''; return;
+    }
+  };
+  reader.readAsText(file);
+}
+
+/* ── _imApplyState: skutočný import — volá sa až po potvrdení používateľom ── */
+function _imApplyState(state){
       // Restore inputs — prototype pollution guard
       Object.entries(state.inputs).forEach(([id, val]) => {
         if(FORBIDDEN_KEYS.includes(id)) return;
@@ -10213,13 +10475,7 @@ function importAppState(event){
         const _niSv = document.getElementById('ni-ef-saved');
         if(_niSv){ _niSv.value = _sEl ? _sEl.value : _efTotal; }
       }
-      showToast(`✓ Dáta importované · ${efBuckets.length} bucketov NF`, 'var(--emerald2)');
-    } catch(err) {
-      showToast('✗ Import sa nepodaril: ' + err.message, 'var(--red)');
-    }
-    event.target.value = '';
-  };
-  reader.readAsText(file);
+      // Finálne vykreslenie — _imApplyState nekončí showToast, to rieši imDoImport()
 }
 
 /* ══════════════════════════════════════════════
