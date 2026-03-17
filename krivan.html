@@ -4560,7 +4560,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="display:flex;align-items:center;gap:6px;">
         <div class="ni-wrap" style="width:90px;">
           <div class="ni-pfx">%</div>
-          <input type="number" id="setting-bond-ret" value="3.0" min="0.5" max="8" step="0.1"
+          <input type="number" id="setting-bond-ret" value="2.0" min="0.5" max="8" step="0.1"
             data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Výnos dlhopisov v percentách ročne">
         </div>
       </div>
@@ -7054,25 +7054,24 @@ Diagnostika čerpá z:<br>
 
 <!-- ══════════════════════════════════════════════
      TAB 14 – LEGISLATÍVNE PARAMETRE
-     Centrálna správa konštánt určených legislatívou,
-     štatistickými úradmi alebo trhovými referenciami.
-     Hodnoty odtiaľto čítajú všetky kalkulačky.
-═══════════════════════════════════════════════ -->
+     Centrálna správa konštánt určených legislatívou
+     a trhovými referenciami. Výpočty čítajú odtiaľto.
+══════════════════════════════════════════════ -->
 <div id="t14" role="tabpanel" aria-labelledby="tab-t14" tabindex="0" class="tab-panel">
-<div class="wrap" style="max-width:900px;">
+<div class="wrap" style="max-width:860px;">
 
-  <div class="hdr">
-    <h1 class="hdr-title" style="font-size:clamp(24px,4vw,36px);">⚙ Parametre</h1>
-    <p class="hdr-sub">Legislatívne a trhové konštanty používané vo výpočtoch. Meniť len pri zmene zákonov alebo referenčných hodnôt.</p>
-  </div>
-
-  <div style="margin-top:24px;padding:12px 18px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;font-size:14.4px;color:var(--muted2);line-height:1.7;margin-bottom:24px;">
-    ⚠ <strong style="color:var(--amber2);">Tieto hodnoty ovplyvňujú výpočty v celej aplikácii.</strong>
-    Meňte ich len ak sa zmenila legislatíva alebo referenčné hodnoty.
-    Aktuálne hodnoty overte na
-    <a href="https://www.financnasprava.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:3px;">financnasprava.sk</a>,
-    <a href="https://www.mpsvr.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:3px;">mpsvr.sk</a>,
-    <a href="https://www.nbs.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:3px;">nbs.sk</a>.
+  <!-- Hlavička + info box kompaktne -->
+  <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
+    <div style="flex:1;min-width:220px;">
+      <h2 style="font-family:'Spectral',serif;font-size:clamp(20px,3vw,28px);font-weight:700;color:var(--text);margin:0 0 4px 0;line-height:1.2;">Parametre</h2>
+      <p style="font-size:14.4px;color:var(--muted);margin:0;line-height:1.5;">Legislatívne konštanty a trhové referencie pre výpočty.</p>
+    </div>
+    <div style="flex:2;min-width:260px;padding:10px 14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18);border-radius:10px;font-size:13.5px;color:var(--muted2);line-height:1.65;">
+      ⚠ Meniť len pri zmene zákonov alebo referenčných hodnôt. Overujte na
+      <a href="https://www.financnasprava.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:2px;">financnasprava.sk</a>,
+      <a href="https://www.mpsvr.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:2px;">mpsvr.sk</a>,
+      <a href="https://www.nbs.sk" target="_blank" style="color:var(--amber2);text-decoration:underline;text-underline-offset:2px;">nbs.sk</a>.
+    </div>
   </div>
 
   <!-- ── SKUPINA A: Daňové sadzby ── -->
@@ -7083,42 +7082,54 @@ Diagnostika čerpá z:<br>
     </div>
 
     <!-- Životné minimum + daňový prah -->
-    <div style="background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.18);border-radius:12px;padding:16px 18px;margin-bottom:16px;">
-      <div style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Daňový prah · ZDP §15 ods.1</div>
-      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;">
-        <div style="min-width:160px;">
-          <div style="font-size:14.4px;color:var(--muted);margin-bottom:6px;">
+    <div style="background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.18);border-radius:12px;padding:16px 18px;margin-bottom:20px;">
+      <div style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Daňový prah · ZDP §15 ods.1</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <!-- ŽM vstup -->
+        <div>
+          <div style="font-size:14.4px;color:var(--muted);margin-bottom:8px;">
             Životné minimum (€/mes.)
-            <span class="tip" data-tip="<div class='tt-title'>Životné minimum — zákon 601/2003 Z.z.</div>ŠÚ SR vyhlasuje každý rok k <strong>1. júlu</strong>.<div class='tt-hr'></div><strong>História:</strong><br>· 2023/24: €268,88 → prah €41 445<br>· 2024/25: €292,28 → prah €41 445 (ZDP zmena)<br>· 2025/26: €284,13 → prah €50 234<div class='tt-hr'></div><strong>Kde nájsť:</strong><br>→ <a href='https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/' target='_blank' style='color:var(--gold2)'>mpsvr.sk</a><br>→ financnasprava.sk — Daňový kalendár">?</span>
+            <span class="tip" data-tip="<div class='tt-title'>Životné minimum — zákon 601/2003 Z.z.</div>ŠÚ SR vyhlasuje každý rok k <strong>1. júlu</strong>.<div class='tt-hr'></div><strong>História:</strong><br>· 2023/24: €268,88 → prah €41 445<br>· 2024/25: €292,28 → prah €41 445 (ZDP zmena)<br>· 2025/26: €284,13 → prah €50 234<div class='tt-hr'></div><strong>Kde nájsť aktuálnu hodnotu:</strong><br>→ <a href='https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/' target='_blank' style='color:var(--gold2)'>mpsvr.sk — Životné minimum</a><br>→ financnasprava.sk — Daňový kalendár">?</span>
           </div>
-          <div class="ni-wrap" style="width:120px;">
-            <div class="ni-pfx">€</div>
-            <input type="number" id="leg-zm" value="284.13" min="200" max="600" step="0.01"
-              oninput="readLegFromT14UI()"
-              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Životné minimum v eurách mesačne">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+            <div class="ni-wrap" style="flex:1;min-width:110px;max-width:160px;">
+              <div class="ni-pfx">€</div>
+              <input type="number" id="leg-zm" value="284.13" min="200" max="600" step="0.01"
+                oninput="readLegFromT14UI()"
+                style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+                aria-label="Životné minimum v eurách mesačne">
+            </div>
+            <span style="font-size:13px;color:var(--muted);white-space:nowrap;" id="leg-zm-date-label">od 1.7.2025</span>
           </div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px;">platné od 1.7.2025</div>
+          <div style="margin-top:6px;">
+            <a href="https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/" target="_blank"
+              style="font-size:12px;color:var(--muted2);text-decoration:underline;text-underline-offset:3px;">mpsvr.sk → aktuálna hodnota</a>
+          </div>
         </div>
-        <div style="flex:1;min-width:180px;">
-          <div style="font-size:14.4px;color:var(--muted);margin-bottom:6px;">Vypočítaný daňový prah (176,8 × ŽM)</div>
+
+        <!-- Vypočítaný prah -->
+        <div>
+          <div style="font-size:14.4px;color:var(--muted);margin-bottom:8px;">Vypočítaný daňový prah (176,8 × ŽM)</div>
           <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;">
             <div style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--gold2);" id="leg-tax-threshold-display">€50 234</div>
-            <div style="font-size:13.2px;color:var(--muted);margin-top:2px;" id="leg-tax-threshold-formula">176,8 × €284,13 = €50 234</div>
+            <div style="font-size:13px;color:var(--muted);margin-top:3px;" id="leg-tax-threshold-formula">176,8 × €284,13 = €50 234</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Daňové sadzby -->
-    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+    <!-- Daňové sadzby — grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
-          Sadzba pod daňovým prahom
-          <span class="tip" data-tip="<div class='tt-title'>Daňová sadzba pod prahom — ZDP §15 ods.1</div>Platí pre kapitálové zisky (napr. predaj ETF do 1 roka) nepresahujúce daňový prah.<div class='tt-hr'></div>Ak predávate ETF s časovým testom >1 rok → daň je 0% (§9/1/e ZDP), táto sadzba sa nepoužije.">?</span>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Sadzba dane pod prahom
+          <span class="tip" data-tip="<div class='tt-title'>Daňová sadzba pod prahom — ZDP §15 ods.1</div>Platí pre kapitálové zisky (predaj ETF do 1 roka) nepresahujúce daňový prah.<div class='tt-hr'></div>Pri predaji ETF s časovým testom >1 rok je daň 0% — táto sadzba sa nepoužije.">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
             <input type="number" id="leg-tax-rate1" value="19" min="0" max="50" step="0.5"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
@@ -7127,13 +7138,15 @@ Diagnostika čerpá z:<br>
           <span style="font-size:12px;color:var(--muted);">ZDP §15 ods.1</span>
         </div>
       </div>
+
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
-          Sadzba nad daňovým prahom
-          <span class="tip" data-tip="<div class='tt-title'>Daňová sadzba nad prahom — ZDP §15 ods.1</div>Platí pre kapitálové zisky presahujúce daňový prah (176,8 × ŽM).<div class='tt-hr'></div>Časť zisku pod prahom sa zdaňuje nižšou sadzbou, zvyšok touto.">?</span>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Sadzba dane nad prahom
+          <span class="tip" data-tip="<div class='tt-title'>Daňová sadzba nad prahom — ZDP §15 ods.1</div>Platí pre časť kapitálového zisku presahujúcu daňový prah (176,8 × ŽM).<div class='tt-hr'></div>Časť pod prahom sa zdaňuje nižšou sadzbou, zvyšok touto.">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
             <input type="number" id="leg-tax-rate2" value="25" min="0" max="50" step="0.5"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
@@ -7142,69 +7155,77 @@ Diagnostika čerpá z:<br>
           <span style="font-size:12px;color:var(--muted);">ZDP §15 ods.1</span>
         </div>
       </div>
+
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
-          ZP z kapitálového zisku (bez čas. testu)
-          <span class="tip" data-tip="<div class='tt-title'>Zdravotné poistenie z kapitálového majetku — zákon 580/2004</div>Platí ak predávate ETF/akcie <strong>bez časového testu</strong> (do 1 roka od kúpy).<div class='tt-hr'></div>Sadzba 14% z celého zisku. Pre dlhodobého investora s čas. testom >1 rok = €0.<div class='tt-hr'></div>Aktuálny stav: <a href='https://www.financnasprava.sk' target='_blank' style='color:var(--gold2)'>financnasprava.sk</a>">?</span>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          ZP z kap. zisku (bez čas. testu)
+          <span class="tip" data-tip="<div class='tt-title'>Zdravotné poistenie z kapitálového zisku — zákon 580/2004</div>Platí ak predávate ETF/akcie bez časového testu (do 1 roka od kúpy).<div class='tt-hr'></div>Sadzba 14% z celého zisku. Pre investora s čas. testom >1 rok = €0.<div class='tt-hr'></div>Aktuálny stav: <a href='https://www.financnasprava.sk' target='_blank' style='color:var(--gold2)'>financnasprava.sk</a>">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
             <input type="number" id="leg-zp-rate" value="14" min="0" max="20" step="0.5"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Sadzba zdravotného poistenia z kapitálového zisku v percentách">
+              aria-label="Sadzba ZP z kapitálového zisku v percentách">
           </div>
           <span style="font-size:12px;color:var(--muted);">zákon 580/2004</span>
         </div>
       </div>
+
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
           Daň z dividend — Dist ETF
-          <span class="tip" data-tip="<div class='tt-title'>Daň z dividend pre distribučné ETF — ZDP §7 ods.1 písm.e</div>Distribučné ETF vyplácajú dividendy → zdanenie 7% pri vyplatení.<div class='tt-hr'></div>Akumulačné ETF dividendy neposielajú → daň 0% → preto sú pre dlhodobého investora výhodnejšie (žiadna daňová udalosť počas sporenia).<div class='tt-hr'></div>Táto sadzba sa používa v porovnaní Acc vs. Dist ETF v T1.">?</span>
+          <span class="tip" data-tip="<div class='tt-title'>Daň z dividend — ZDP §7 ods.1 písm.e</div>Distribučné ETF vyplácajú dividendy → zdanenie 7% pri vyplatení.<div class='tt-hr'></div>Akumulačné ETF dividendy neposielajú → daň 0% (výhodnejšie pre dlhodobého investora).<div class='tt-hr'></div>Táto sadzba sa používa výlučne v porovnaní Acc vs. Dist ETF v T1.">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
             <input type="number" id="leg-div-tax" value="7" min="0" max="20" step="0.5"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Sadzba dane z dividend pre distribučné ETF v percentách">
+              aria-label="Sadzba dane z dividend pre Dist ETF v percentách">
           </div>
           <span style="font-size:12px;color:var(--muted);">ZDP §7 ods.1</span>
         </div>
       </div>
+
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
-          III. pilier — max. ročný daňový odpočet
-          <span class="tip" data-tip="<div class='tt-title'>III. pilier — daňový odpočet — zákon 650/2004 §19a</div>Príspevky do III. piliera si môžete odpočítať od základu dane — až do tohto limitu ročne.<div class='tt-hr'></div><strong>Príklad:</strong> vkladáte €150/mes. = €1 800/rok → plný odpočet. Pri 19% dani = úspora €342/rok.<div class='tt-hr'></div>Ak zarábate viac a ste v 25% bracket, úspora je €450/rok.<div class='tt-hr'></div>Limit sa menil: do 2020 bol €180/rok, od 2020 je €1 800/rok.">?</span>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          III. pilier — max. ročný odpočet
+          <span class="tip" data-tip="<div class='tt-title'>III. pilier — daňový odpočet — zákon 650/2004 §19a</div>Príspevky do III. piliera si môžete odpočítať od základu dane až do tohto limitu ročne.<div class='tt-hr'></div><strong>Príklad:</strong> vkladáte €150/mes. = €1 800/rok → plný odpočet. Pri 19% dani = úspora €342/rok.<div class='tt-hr'></div><strong>História limitu:</strong> do 2020 bol €180/rok, od 2020 je €1 800/rok.<div class='tt-hr'></div>Táto hodnota sa používa v T7 (výpočet daňovej úspory III. piliera).">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:90px;"><div class="ni-pfx">€</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:100px;max-width:140px;">
+            <div class="ni-pfx">€</div>
             <input type="number" id="leg-p3-max-deduct" value="1800" min="0" max="5000" step="50"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Maximálny ročný daňový odpočet príspevkov do III. piliera v eurách">
+              aria-label="Maximálny ročný daňový odpočet III. piliera v eurách">
           </div>
-          <span style="font-size:12px;color:var(--muted);">€/rok · zákon 650/2004 §19a</span>
+          <span style="font-size:12px;color:var(--muted);">€/rok · §19a</span>
         </div>
       </div>
-    </div>
-  </div>
+
+    </div><!-- end grid -->
+  </div><!-- end panel A -->
 
   <!-- ── SKUPINA B: II. pilier ── -->
   <div class="panel" style="margin-bottom:20px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
       <p class="plbl" style="margin:0;">II. pilier — Starobné dôchodkové sporenie</p>
       <span class="result-badge result-badge-disclaimer" style="font-size:12px;">zákon 43/2004 Z.z.</span>
     </div>
 
-    <div>
-      <div style="font-size:14.4px;color:var(--muted);margin-bottom:6px;">
-        Sadzba príspevku z hrubej mzdy
-        <span class="tip" data-tip="<div class='tt-title'>II. pilier — sadzba príspevku — zákon 43/2004 Z.z. §64</div>Zamestnanec odvedie toto percento zo <strong>hrubej mzdy</strong> na osobný účet v DSS.<div class='tt-hr'></div><strong>História sadzieb:</strong><br>· 2005–2012: 9% (vstup bol dobrovoľný)<br>· 2013–2016: 4% (zmena zákonom)<br>· od 1.1.2017: <strong>4%</strong> (zákon 43/2004 §64 ods.1 v znení z 2016)<div class='tt-hr'></div><strong>⚠ Pozor na zámenu:</strong> sadzba 4,75% bola nesprávna hodnota v predchádzajúcej verzii tejto aplikácie.<div class='tt-hr'></div>Aktuálny text zákona: <a href='https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2004/43/' target='_blank' style='color:var(--gold2)'>slov-lex.sk — zákon 43/2004</a>">?</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:90px;"><div class="ni-pfx">%</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;align-items:start;">
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Sadzba príspevku z hrubej mzdy
+          <span class="tip" data-tip="<div class='tt-title'>II. pilier — sadzba príspevku — zákon 43/2004 Z.z. §64</div>Zamestnanec odvedie toto percento z hrubej mzdy na osobný účet v DSS.<div class='tt-hr'></div><strong>História sadzieb:</strong><br>· 2005–2012: 9%<br>· 2013–2016: 4%<br>· od 1.1.2017: <strong>4%</strong> (platná dnes)<div class='tt-hr'></div>Táto sadzba sa používa v T7 (výpočet mesačného príspevku a projekcie DSS).<div class='tt-hr'></div>Aktuálny text zákona: <a href='https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2004/43/' target='_blank' style='color:var(--gold2)'>slov-lex.sk — zákon 43/2004</a>">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:100px;max-width:150px;">
+            <div class="ni-pfx">%</div>
             <input type="number" id="leg-p2-contrib" value="4.00" min="0" max="15" step="0.25"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
@@ -7212,62 +7233,55 @@ Diagnostika čerpá z:<br>
           </div>
           <span style="font-size:12px;color:var(--muted);">% hrubej mzdy</span>
         </div>
-        <div style="background:rgba(52,211,153,.06);border:1px solid rgba(52,211,153,.2);border-radius:8px;padding:8px 12px;font-size:13.2px;color:var(--muted2);">
-          Platná sadzba: <strong style="color:rgba(52,211,153,1);" id="leg-p2-contrib-pct">4,00%</strong> (od 1.1.2017)
-        </div>
-        <div style="font-size:13.2px;color:var(--amber2);">
-          ⚠ Predchádzajúca verzia mala chybne 4,75% — opravené vo v59
+        <div style="margin-top:8px;font-size:13px;color:var(--muted);">
+          Platná sadzba: <strong style="color:rgba(52,211,153,1);" id="leg-p2-contrib-pct">4,00%</strong>
+          <span style="color:var(--muted);"> (od 1.1.2017)</span>
         </div>
       </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted2);line-height:1.7;">
+        <strong style="color:var(--muted);">Kde sa používa:</strong> T7 → výpočet mesačného príspevku do DSS a projekcia zostatku II. piliera.<br>
+        <span style="font-size:12px;color:var(--muted);">Vzorec: príspevok = hrubá mzda × táto sadzba</span>
+      </div>
     </div>
-  </div>
+  </div><!-- end panel B -->
 
-  <!-- ── SKUPINA C: Trhové referencie ── -->
+  <!-- ── SKUPINA C: Trhová referencia ── -->
   <div class="panel" style="margin-bottom:20px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
-      <p class="plbl" style="margin:0;">Trhové referencie</p>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">Trhová referencia</p>
       <span class="result-badge result-badge-estimate" style="font-size:12px;">aktualizujte priebežne</span>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px;">
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;align-items:start;">
       <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
           Výnos dlhopisovej časti portfólia
-          <span class="tip" data-tip="<div class='tt-title'>Výnos dlhopisov p.a. — referencia</div>Používa sa pri výpočte kombinovaného výnosu v T1 (mix akcií + dlhopisov).<div class='tt-hr'></div><strong>Referenčné hodnoty:</strong><br>· EUR vládne dlhopisy 7–10Y (2025): ~2,5%<br>· EUR korporátne dlhopisy IG: ~3,5%<br>· iShares EUR Govt Bond (IEGE): hist. ~2,1% p.a.<div class='tt-hr'></div>Default 3% je konzervatívny stred.<div class='tt-hr'></div>Zdroj: <a href='https://www.ecb.europa.eu/stats/financial_markets_and_interest_rates' target='_blank' style='color:var(--gold2)'>ECB — úrokové sadzby</a>">?</span>
+          <span class="tip" data-tip="<div class='tt-title'>Výnos dlhopisov p.a. — referencia</div><strong>Kde sa používa: T1</strong> — keď máš nastavený mix akcií a dlhopisov (slider Podiel akcií &lt; 100%).<div class='tt-hr'></div>Vzorec: blended výnos = akcie% × tvoj výnos + dlhopisy% × táto hodnota.<div class='tt-hr'></div>Ak máš 100% akcie, táto hodnota výpočet <em>neovplyvňuje</em>.<div class='tt-hr'></div><strong>Referencia (Rezervný fond):</strong><br>· <strong>Amundi Euro Govt Bond 0–1Y (PRAB)</strong><br>· ISIN: LU2233156582<br>· 119 krátkodobých štátnych dlhopisov eurozóny (0–1 rok)<br>· TER 0,05% p.a. · volatilita 0,33%/rok · výnos ~2–2,5% p.a.<br>· Denná likvidita cez burzu · akumulačný EUR fond<div class='tt-hr'></div>Stabilita blízka sporiacemu účtu, výnos mierne nad infláciou. Dostupný na IBKR.">?</span>
         </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
-            <input type="number" id="leg-bond-ret" value="3.0" min="0" max="10" step="0.1"
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:100px;max-width:150px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-bond-ret" value="2.0" min="0" max="10" step="0.1"
               oninput="readLegFromT14UI()"
               style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Referenčný výnos dlhopisov v percentách ročne">
+              aria-label="Výnos dlhopisov v percentách ročne">
           </div>
-          <span style="font-size:12px;color:var(--muted);">% p.a. · EUR ref.</span>
+          <span style="font-size:12px;color:var(--muted);">% p.a.</span>
         </div>
       </div>
-      <div>
-        <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">
-          Euribor 3M (aktuálny)
-          <span class="tip" data-tip="<div class='tt-title'>Euribor 3M — referenčná medzibankový sadzba</div>Používa sa v T8 Hypotéka pri simulácii refixácie — ako základ pre nové sadzby hypoték.<div class='tt-hr'></div>Euribor 3M je základná sadzba, banky k nej pridávajú maržu (zvyčajne 1–2%).<div class='tt-hr'></div>Aktuálna hodnota: <a href='https://www.euribor-rates.eu' target='_blank' style='color:var(--gold2)'>euribor-rates.eu</a> alebo <a href='https://www.ecb.europa.eu' target='_blank' style='color:var(--gold2)'>ECB</a>">?</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <div class="ni-wrap" style="width:80px;"><div class="ni-pfx">%</div>
-            <input type="number" id="leg-euribor" value="2.70" min="0" max="8" step="0.05"
-              oninput="readLegFromT14UI()"
-              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
-              aria-label="Aktuálna sadzba Euribor 3M v percentách">
-          </div>
-          <span style="font-size:12px;color:var(--muted);">% · ECB / euribor-rates.eu</span>
-        </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted2);line-height:1.7;">
+        <strong style="color:var(--muted);">Kde sa používa:</strong> T1 → blended výnos portfólia pri mix akcií/dlhopisov.<br>
+        <span style="font-size:12px;color:var(--muted);">Nemá efekt ak máš 100% akcie.</span>
       </div>
     </div>
-  </div>
+  </div><!-- end panel C -->
 
   <!-- Reset -->
-  <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:8px;padding-top:16px;border-top:1px solid var(--border);">
+  <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:8px;">
     <button type="button" onclick="resetLegToDefaults()"
       style="padding:10px 20px;background:transparent;border:1px solid var(--border);border-radius:8px;
              color:var(--muted);font-size:14.4px;cursor:pointer;font-family:var(--ff-ui);">
-      ↺ Obnoviť predvolené
+      ↺ Obnoviť predvolené hodnoty
     </button>
   </div>
 
@@ -7359,8 +7373,7 @@ const LEG_DEFAULTS = {
   p2ContribRate:  0.04,    // II. pilier sadzba príspevku z hrubej mzdy — zákon 43/2004
                            // HISTÓRIA: 9% (2005) → 4% (2012) → 4,75%? → 4% (od 1.1.2017, platná)
                            // OPRAVA: predchádzajúca verzia mala chybne 4,75% (0.0475)
-  bondRet:        0.03,    // Výnos dlhopisov p.a. — EUR govt bonds referencia
-  euribor3m:      0.027,   // Euribor 3M — ECB / euribor-rates.eu
+  bondRet:        0.02,    // Výnos dlhopisov p.a. — ref. Amundi PRAB ETF (ISIN LU2233156582) ~2–2,5% p.a.
 };
 let LEG = { ...LEG_DEFAULTS };
 
@@ -7368,7 +7381,7 @@ function getLegTaxThreshold() { return Math.round(LEG.zm * ZM_MULTIPLIER); }
 
 // Globálne aliasy — backward compatibility
 let TAX_THRESHOLD    = getLegTaxThreshold();
-let BOND_RET         = LEG.bondRet;
+let BOND_RET         = LEG.bondRet; // default 2% — Amundi Euro Govt Bond 0-1Y (PRAB)
 let ZP_RATE          = LEG.zpRate;
 // OPRAVA v59: P2_CONTRIB_RATE = 4% (zákon 43/2004), predtým chybne 4,75%
 let P2_CONTRIB_RATE  = LEG.p2ContribRate;
@@ -7420,7 +7433,6 @@ function applyLegToT14UI() {
   s('leg-p3-max-deduct', LEG.p3MaxDeduct);
   s('leg-p2-contrib',    (LEG.p2ContribRate*100).toFixed(2));
   s('leg-bond-ret',      (LEG.bondRet*100).toFixed(1));
-  s('leg-euribor',       (LEG.euribor3m*100).toFixed(2));
   _updateLegDisplays();
 }
 
@@ -7473,7 +7485,6 @@ function readLegFromT14UI() {
   LEG.p3MaxDeduct   = n('leg-p3-max-deduct', LEG_DEFAULTS.p3MaxDeduct);
   LEG.p2ContribRate = n('leg-p2-contrib',    LEG_DEFAULTS.p2ContribRate*100)/100;
   LEG.bondRet       = n('leg-bond-ret',      LEG_DEFAULTS.bondRet*100)/100;
-  LEG.euribor3m     = n('leg-euribor',       LEG_DEFAULTS.euribor3m*100)/100;
   saveLeg();
   _updateLegDisplays();
   _triggerLegRecalc();
@@ -7484,7 +7495,6 @@ function _triggerLegRecalc() {
   const zm = $el('setting-zm'); if(zm) zm.value = LEG.zm.toFixed(2);
   const br = $el('setting-bond-ret'); if(br) br.value = (LEG.bondRet*100).toFixed(1);
   const zp = $el('setting-zp-rate'); if(zp) zp.value = (LEG.zpRate*100).toFixed(1);
-  const eu = $el('setting-euribor'); if(eu) eu.value = (LEG.euribor3m*100).toFixed(2);
   if(typeof sync === 'function') sync();
   if(typeof calcPiliere === 'function') calcPiliere();
   if(typeof calcMort === 'function' && $el('t8')?.classList.contains('active')) calcMort();
@@ -7655,6 +7665,7 @@ function showTab(id,btn){
   if(id==='t11'){
     if(typeof checkDebtHighlight === 'function') checkDebtHighlight();
     if(typeof updateGuideProgress === 'function') updateGuideProgress();  if(typeof calcRefixation === 'function') calcRefixation(); }
+  if(id==='t14'){ applyLegToT14UI(); }
 }
 
 /* ══════════════════════════════════════════════
@@ -7793,7 +7804,6 @@ function sync(){
     updateGuideProgress();  // KROK 1: štart — skontroluj stav
     calcDiag();
   }
-  if(id==='t14'){ applyLegToT14UI(); }
   // KROK 2: highlight prázdneho príjmu pri štarte
   if(typeof checkIncomeHighlight === 'function') checkIncomeHighlight();
 }
@@ -10612,7 +10622,7 @@ const STATE_INPUT_IDS = [
   'setting-zm','setting-zp-rate','setting-euribor','setting-bond-ret',
   /* T14 — Legislatívne parametre */
   'leg-zm','leg-tax-rate1','leg-tax-rate2','leg-zp-rate','leg-div-tax',
-  'leg-p3-max-deduct','leg-p2-contrib','leg-bond-ret','leg-euribor',
+  'leg-p3-max-deduct','leg-p2-contrib','leg-bond-ret',
   /* Iné */
   'n-port','n-sy','_vei',
 ];
@@ -13500,6 +13510,19 @@ initSliderPairs();
 loadParamsFromURL();
 // Inicializuj LEG parametre z localStorage, potom sync staré settings
 initLeg();
+// Nastav dynamický dátum "platné od" pre životné minimum
+(function(){
+  const el = document.getElementById('leg-zm-date-label');
+  if(!el) return;
+  const now = new Date();
+  const year = now.getFullYear();
+  const july1 = new Date(year, 6, 1); // 1.7. tohto roku
+  // ŽM platí od 1.7. bežného roka, ak sme po 1.7.; inak od 1.7. minulého roka
+  const validFrom = now >= july1 ? july1 : new Date(year-1, 6, 1);
+  const d = validFrom.getDate().toString().padStart(2,'0');
+  const m = (validFrom.getMonth()+1).toString().padStart(2,'0');
+  el.textContent = `od ${d}.${m}.${validFrom.getFullYear()}`;
+})();
 applyTaxSettings();
 applyLegToT14UI();
 // FIX: P1 — skontroluj rok začiatku pre daňový prah warning
