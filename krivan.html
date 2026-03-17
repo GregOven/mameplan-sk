@@ -370,6 +370,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .ob-btn-close:hover{opacity:.85;}
 .ob-btn-more{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
 .ob-btn-more:hover{background:var(--bg3);}
+/* EF cat details - šípka animácia */
+#ef-cat-details summary { outline: none; }
+#ef-cat-details summary::-webkit-details-marker { display: none; }
+#ef-cat-details[open] summary .ef-cat-arrow { transform: rotate(90deg); }
+.ef-cat-arrow { display:inline-block; transition: transform .2s; color: var(--cyan2); font-size: 11px; }
+
 /* SECURITY: import confirm overlay */
 /* ── IMPORT MODAL (nový multi-step flow) ── */
 #import-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(3px);z-index:9999;align-items:center;justify-content:center;padding:16px;}
@@ -4523,17 +4529,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t3" class="tab-panel">
 
-<details class="sync-wrap">
-<summary>Prepojenie s inými záložkami</summary>
-<div class="sync-bar">
-  <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
-<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
-<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané — hodnota je čerstvá a aktuálna<div class='tt-hr'></div>
-<strong>Portfólio T1</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
-  <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong></span>
-  <span id="t3-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
-</div>
-</details>
 
 <!-- Short explainer -->
 <div style="background:rgba(200,168,75,.04);border:1px solid rgba(200,168,75,.18);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
@@ -4774,6 +4769,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </table>
   </div>
 </div>
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar">
+  <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
+<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
+<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané — hodnota je čerstvá a aktuálna<div class='tt-hr'></div>
+<strong>Portfólio T1</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
+  <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong></span>
+  <span id="t3-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
+</div>
+</details>
 </div><!-- end tab3 -->
 
 <!-- ══════════════════════════════════════════════
@@ -5028,14 +5034,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div id="t5" class="tab-panel">
 
 <!-- Explainer -->
-<div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
-  <div style="font-size:26.4px;flex-shrink:0;font-family:'Source Code Pro',monospace;color:var(--amber);font-weight:700;">⚡</div>
-  <div>
-    <div style="font-weight:500;color:var(--text);margin-bottom:4px;font-size:16.8px;">FIRE = Financial Independence, Retire Early. Simulácia hľadá moment, kedy by portfólio podľa zadaných parametrov mohlo pokryť vaše výdavky dlhodobo — bez ďalšieho vkladu.</div>
-    <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Zadajte mesačné výdavky v dnešných eurách. Kalkulačka simuluje mesiac po mesiaci rast portfólia v <em>reálnych hodnotách</em> a nájde orientačný mesiac dosiahnutia FIRE cieľa.</div>
-    <div style="margin-top:10px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
-      ⚠ <strong style="color:var(--amber2);">Výsledok je simulačný odhad</strong> pri konštantnom ročnom výnose. Odporúčaná miera výberu 3–4 % vychádza z historických US analýz (Bengen 1994, Trinity Study 1998) — nie je garantovaná pre EUR investora ani pre žiadne budúce obdobie.
-    </div>
+<div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
+  <div style="font-weight:600;color:var(--text);margin-bottom:6px;font-size:16.8px;">Kedy by ste mohli prestať pracovať?</div>
+  <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Zadajte mesačné výdavky a Kriváň odhadne, kedy vaše portfólio dokáže pokryť životné náklady bez ďalšej práce. Kalkulačka simuluje rast mesiace po mesiaci v <em>reálnych hodnotách</em>.</div>
+  <div style="margin-top:10px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
+    <strong style="color:var(--amber2);">Výsledok je simulačný odhad</strong> pri konštantnom ročnom výnose. Odporúčaná miera výberu 3–4 % vychádza z historických analýz (Bengen 1994, Trinity Study 1998) — nie je garantovaná pre EUR investora ani pre žiadne budúce obdobie.
   </div>
 </div>
 
@@ -5362,18 +5365,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t7" class="tab-panel">
 
-<details class="sync-wrap">
-<summary>Prepojenie s inými záložkami</summary>
-<div class="sync-bar">
-  <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
-<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká — záložka ešte nebola prepočítaná<br>
-<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané a odoslané ďalej<div class='tt-hr'></div>
-<strong>Výber / Dôchodok</strong> — mesačná suma, ktorú dostanete z II.+III. piliera (posielaná do T3).<br>
-<strong>Portfólio T1</strong> — hodnota ETF portfólia z Kalkulačky (záložka 1), zobrazená tu pre kontext celkového majetku.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov pri dôchodku (T3)">Výber / Dôchodok: <strong id="sync-t3-pilier">—</strong>/mes.</span>
-  <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong></span>
-</div>
-</details>
 
 <div style="background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -5574,6 +5565,18 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 </div><!-- end right col -->
 </div><!-- end t13 layout -->
 
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar">
+  <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
+<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká — záložka ešte nebola prepočítaná<br>
+<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané a odoslané ďalej<div class='tt-hr'></div>
+<strong>Výber / Dôchodok</strong> — mesačná suma, ktorú dostanete z II.+III. piliera (posielaná do T3).<br>
+<strong>Portfólio T1</strong> — hodnota ETF portfólia z Kalkulačky (záložka 1), zobrazená tu pre kontext celkového majetku.">?</span>
+  <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov pri dôchodku (T3)">Výber / Dôchodok: <strong id="sync-t3-pilier">—</strong>/mes.</span>
+  <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong></span>
+</div>
+</details>
 </div><!-- end tab7 -->
 
 <!-- ══════════════════════════════════════════════
@@ -6175,23 +6178,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div id="t9" class="tab-panel">
 
 <!-- Sync status bar -->
-<details class="sync-wrap">
-<summary>Prepojenie s inými záložkami</summary>
-<div class="sync-bar" id="t9-syncbar">
-  <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
-<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet<br>
-<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané<div class='tt-hr'></div>
-<strong>Rast portfólia</strong> — mesačný vklad, ktorý sa automaticky nastaví v T1 (Kalkulačka investovania) na základe vašej investičnej miery.<br>
-<strong>Rezervný fond</strong> — celkové mesačné výdavky posielané do T10 ako cieľ fondu.<br>
-<strong>EF príspevok</strong> — koľko mesačne odkladáte na núdzový fond.<br>
-<strong>Hypo splátka</strong> — mesačná splátka hypotéky z T8, automaticky zarátaná do výdavkov.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný vklad v Kalkulačke (T1)">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
-  <button type="button" id="t1-cf-sync-hint" style="display:none;font-size:12px;font-family:'Source Code Pro',monospace;padding:3px 9px;border-radius:100px;border:1px solid rgba(200,168,75,.35);background:rgba(200,168,75,.1);color:var(--gold2);cursor:pointer;align-items:center;gap:4px;transition:all .2s;" onmouseover="this.style.background='rgba(200,168,75,.18)'" onmouseout="this.style.background='rgba(200,168,75,.1)'"></button>
-  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Núdzový fond: <strong id="sync-ef-expenses">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong></span>
-  <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
-</div>
-</details>
 
 <!-- Household — schované do collapsible, KROK 2 -->
 <details id="cf2-hh-details" style="margin-bottom:12px;">
@@ -6257,24 +6243,29 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 </div><!-- end right col -->
 </div><!-- end t13 layout -->
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar" id="t9-syncbar">
+  <span class="sync-bar-lbl">Sync →</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
+<strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet<br>
+<strong style='color:#34d399'>● Zelená</strong> = práve prepočítané<div class='tt-hr'></div>
+<strong>Rast portfólia</strong> — mesačný vklad, ktorý sa automaticky nastaví v T1 (Kalkulačka investovania) na základe vašej investičnej miery.<br>
+<strong>Rezervný fond</strong> — celkové mesačné výdavky posielané do T10 ako cieľ fondu.<br>
+<strong>EF príspevok</strong> — koľko mesačne odkladáte na núdzový fond.<br>
+<strong>Hypo splátka</strong> — mesačná splátka hypotéky z T8, automaticky zarátaná do výdavkov.">?</span>
+  <span class="sync-badge fresh dot" title="Mesačný vklad v Kalkulačke (T1)">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
+  <button type="button" id="t1-cf-sync-hint" style="display:none;font-size:12px;font-family:'Source Code Pro',monospace;padding:3px 9px;border-radius:100px;border:1px solid rgba(200,168,75,.35);background:rgba(200,168,75,.1);color:var(--gold2);cursor:pointer;align-items:center;gap:4px;transition:all .2s;" onmouseover="this.style.background='rgba(200,168,75,.18)'" onmouseout="this.style.background='rgba(200,168,75,.1)'"></button>
+  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Núdzový fond: <strong id="sync-ef-expenses">—</strong></span>
+  <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong></span>
+  <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
+</div>
+</details>
 </div><!-- end tab9 -->
 
 <!-- ══════════════════════════════════════════════
      TAB 10 – NÚDZOVÝ FOND
 ═══════════════════════════════════════════════ -->
 <div id="t10" class="tab-panel">
-<details class="sync-wrap">
-<summary>Prepojenie s inými záložkami</summary>
-<div class="sync-bar">
-  <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
-<strong style='color:#fbbf24'>● Žltá</strong> = čaká na prepočet z Cashflow (T9)<br>
-<strong style='color:#34d399'>● Zelená</strong> = hodnoty sú čerstvé<div class='tt-hr'></div>
-<strong>Výdavky z CF</strong> — vaše celkové mesačné výdavky z Cashflow. Cieľ fondu = tieto výdavky × počet mesiacov (štandard: 6).<br>
-<strong>Príspevok</strong> — koľko mesačne dopĺňate fond (z CF → T10).">?</span>
-  <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong></span>
-</div>
-</details>
 
 <div style="background:rgba(34,211,238,.03);border:1px solid rgba(34,211,238,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -6327,11 +6318,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <!-- Výber kategórií pre NF -->
-    <div class="sec-hdr" style="margin-bottom:10px;">Zahrnuté do mesačných výdavkov</div>
+    <details id="ef-cat-details" style="margin-bottom:16px;">
+  <summary style="cursor:pointer;font-size:13.2px;color:var(--muted2);padding:7px 0;list-style:none;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--border);user-select:none;">
+    <span class="ef-cat-arrow">▸</span>
+    <span>Upresniť výpočet cieľa</span>
+    <span style="margin-left:auto;font-size:12px;opacity:.55;" id="ef-cat-summary-text">3 z 7 kategórií</span>
+  </summary>
+  <div style="padding-top:12px;">
     <div style="font-size:13px;color:var(--muted);margin-bottom:10px;line-height:1.5;">
       Označte kategórie ktoré budete platiť aj v núdzi
     </div>
-    <div id="ef-cat-checkboxes" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px;">
+    <div id="ef-cat-checkboxes" style="display:flex;flex-direction:column;gap:8px;margin-bottom:0;">
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
         <input type="checkbox" id="efc-housing" checked data-action="efToggleCat" data-cat="housing" style="width:16px;height:16px;accent-color:#8b5cf6;cursor:pointer;">
         <span style="font-size:14px;color:var(--muted2);">Náklady na byt</span>
@@ -6368,42 +6365,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span id="efc-savings-val" style="margin-left:auto;font-family:'Source Code Pro',monospace;font-size:13px;color:#c084fc;">—</span>
       </label>
     </div>
-
-    <!-- Import from Tab 9 -->
-    <button type="button" class="integrate-btn" style="margin-bottom:16px;background:rgba(167,139,250,.06);border-color:rgba(167,139,250,.25);color:var(--violet2);" data-action="efImportFromCF">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      Importovať výdavky z Cashflow kalkulačky
-    </button>
-
-    <div class="sec-hdr">Koľko mesiacov má pokryť rezervný fond?</div>
-    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
-      <button type="button" class="ef-months-btn" id="efm-3" data-action="efSetMonths" data-val="3">3 mesiace</button>
-      <button type="button" class="ef-months-btn" id="efm-4" data-action="efSetMonths" data-val="4">4 mesiace</button>
-      <button type="button" class="ef-months-btn" id="efm-5" data-action="efSetMonths" data-val="5">5 mesiacov</button>
-      <button type="button" class="ef-months-btn active" id="efm-6" data-action="efSetMonths" data-val="6">6 mesiacov</button>
-      <button type="button" class="ef-months-btn" id="efm-9" data-action="efSetMonths" data-val="9">9 mesiacov</button>
-      <button type="button" class="ef-months-btn" id="efm-12" data-action="efSetMonths" data-val="12">12 mesiacov</button>
-    </div>
-    <div style="font-size:14.4px;color:var(--muted);margin-bottom:16px;line-height:1.7;" id="ef-months-note">—</div>
   </div>
-</div><!-- end left col -->
-
-<!-- RIGHT: VÝSLEDKY -->
-<div class="col col-sticky-results">
-
-  <!-- HERO: cieľ a stav -->
-  <div style="background:var(--bg2);border:1px solid rgba(167,139,250,.3);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;margin-bottom:20px;">
-    <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);"></div>
-    <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:#c4b5fd;opacity:.8;margin-bottom:6px;">Cieľ núdzového fondu</div>
-    <div style="font-family:'Spectral',serif;font-size:clamp(40px,6vw,72px);font-weight:700;font-style:italic;color:#c4b5fd;line-height:1;text-shadow:0 0 40px rgba(167,139,250,.3),0 2px 20px rgba(167,139,250,.15);" id="ef-target">—</div>
-    <div style="font-size:15.6px;color:var(--muted2);margin-top:6px;" id="ef-target-sub">—</div>
-
-    <!-- Progress bar -->
-    <div style="margin-top:20px;">
-      <div style="display:flex;justify-content:space-between;font-size:14.4px;color:var(--muted);margin-bottom:4px;">
-        <span>Nasporené: <strong style="color:var(--text);" id="ef-saved-lbl">€0</strong></span>
-        <span id="ef-pct-lbl">0%</span>
-      </div>
+</details>
       <div class="ef-progress-wrap">
         <div class="ef-progress-fill" id="ef-progress-fill" style="width:0%"></div>
       </div>
@@ -6486,6 +6449,18 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 </div><!-- end right col -->
 </div><!-- end t13 layout -->
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar">
+  <span class="sync-bar-lbl">Sync ←</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
+<strong style='color:#fbbf24'>● Žltá</strong> = čaká na prepočet z Cashflow (T9)<br>
+<strong style='color:#34d399'>● Zelená</strong> = hodnoty sú čerstvé<div class='tt-hr'></div>
+<strong>Výdavky z CF</strong> — vaše celkové mesačné výdavky z Cashflow. Cieľ fondu = tieto výdavky × počet mesiacov (štandard: 6).<br>
+<strong>Príspevok</strong> — koľko mesačne dopĺňate fond (z CF → T10).">?</span>
+  <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong></span>
+  <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong></span>
+</div>
+</details>
 </div><!-- end tab10 -->
 
 <!-- ══════════════════════════════════════════════
@@ -6493,17 +6468,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 ═══════════════════════════════════════════════ -->
 <div id="t11" class="tab-panel">
 
-<details class="sync-wrap">
-<summary>Prepojenie s inými záložkami</summary>
-<div class="sync-bar">
-  <span class="sync-bar-lbl">Sync</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
-<strong style='color:#fbbf24'>● Žltá</strong> = Net Worth v T12 ešte nie je prepočítaný<br>
-<strong style='color:#34d399'>● Zelená</strong> = dlhy sú zohľadnené v celkovom majetku<div class='tt-hr'></div>
-<strong>Net Worth</strong> — váš čistý majetok: celkové aktíva mínus všetky dlhy zadané v tomto zozname. Táto hodnota sa živoukazuje v T12 (Prehľad majetku).">?</span>
-  <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong></span>
-  <span id="debt-cf-hint" class="sync-badge fresh dot" style="display:none;"></span>
-</div>
-</details>
 
 <div class="layout stretch" style="align-items:flex-start;">
 
@@ -6604,6 +6568,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 </div>
 </div>
+<details class="sync-wrap">
+<summary>Prepojenie s inými záložkami</summary>
+<div class="sync-bar">
+  <span class="sync-bar-lbl">Sync</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo znamenajú tieto pilulky?</div>
+<strong style='color:#fbbf24'>● Žltá</strong> = Net Worth v T12 ešte nie je prepočítaný<br>
+<strong style='color:#34d399'>● Zelená</strong> = dlhy sú zohľadnené v celkovom majetku<div class='tt-hr'></div>
+<strong>Net Worth</strong> — váš čistý majetok: celkové aktíva mínus všetky dlhy zadané v tomto zozname. Táto hodnota sa živoukazuje v T12 (Prehľad majetku).">?</span>
+  <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong></span>
+  <span id="debt-cf-hint" class="sync-badge fresh dot" style="display:none;"></span>
+</div>
+</details>
 </div><!-- end tab11 -->
 
 <!-- ══════════════════════════════════════════════
@@ -13079,6 +13054,14 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeSources();
 function efToggleCat(catId, checked){
   if(typeof efCatInclude !== 'undefined') efCatInclude[catId] = checked;
   if(typeof calcCF === 'function') calcCF();
+  updateEfCatSummary();
+}
+
+function updateEfCatSummary(){
+  const cbs = document.querySelectorAll('#ef-cat-checkboxes input');
+  const checkedCount = document.querySelectorAll('#ef-cat-checkboxes input:checked').length;
+  const sumEl = document.getElementById('ef-cat-summary-text');
+  if(sumEl && cbs.length) sumEl.textContent = checkedCount + ' z ' + cbs.length + ' kategórií';
 }
 
 function efUpdateCatLabels(){
@@ -13092,6 +13075,7 @@ function efUpdateCatLabels(){
     const cb = document.getElementById('efc-' + cid);
     if(cb && typeof efCatInclude !== 'undefined') cb.checked = efCatInclude[cid] || false;
   });
+  updateEfCatSummary();
 }
 
 /* ══ THEME TOGGLE ══════════════════════════════════════════════════ */
