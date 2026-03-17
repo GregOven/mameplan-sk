@@ -3926,7 +3926,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <!-- Vibe coded disclosure -->
       <div style="margin-top:24px;padding:14px 16px;background:rgba(167,139,250,.04);border:1px solid rgba(167,139,250,.15);border-radius:12px;">
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:7px;">
-          <span class="vibe-badge">⚡ vibe coded</span>
+          <span class="vibe-badge">⚡ vibe coded · AI-assisted</span>
           <span style="font-size:15.6px;font-weight:500;color:var(--text);">Transparentnosť tvorby</span>
         </div>
         <div style="font-size:14.4px;color:var(--muted2);line-height:1.7;">
@@ -4260,7 +4260,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div style="margin-bottom:6px;">
       <div id="hero-sentence"></div>
       <div id="hero-empty-state">Zadajte počiatočnú investíciu alebo mesačný vklad</div>
-      <div class="slbl">Nominálna hodnota portfólia</div>
+      <div class="slbl">Nominálna hodnota portfólia <span style="font-size:11px;color:var(--muted);opacity:.7;font-family:'Source Code Pro',monospace;">· simulácia</span></div>
       <div class="hero-nom" id="s-nom">—</div>
       <div style="font-size:14.4px;color:var(--muted);margin-top:6px;" id="s-nom-s">—</div>
       <div id="hero-ci-range" style="display:none;font-size:13px;color:var(--muted);margin-top:4px;font-family:'Source Code Pro',monospace;"></div>
@@ -4396,15 +4396,15 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="panel" id="delay-panel">
     <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
       <p class="plbl" style="margin:0">Cena odkladu</p>
-      <div style="font-size:14.4px;color:var(--muted);">čo vás stojí každý rok čakania · v dnešnej kúpnej sile</div>
+      <div style="font-size:14.4px;color:var(--muted);">simulačný odhad rozdielu pri odklade o 1 rok · v dnešnej kúpnej sile</div>
     </div>
     <div style="background:rgba(240,82,82,.05);border:1px solid rgba(240,82,82,.2);border-radius:14px;padding:16px 18px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
       <div style="flex:1;">
-        <div style="font-size:15.6px;color:var(--muted2);margin-bottom:5px;">Ak začnete o 1 rok neskôr, budete mať menej o</div>
+        <div style="font-size:15.6px;color:var(--muted2);margin-bottom:5px;">Simulácia: pri odklade o 1 rok by rozdiel portfólia bol</div>
         <div style="font-family:'Spectral',serif;font-size:38.4px;font-weight:700;color:var(--red);line-height:1;" id="delay-per-year">—</div>
       </div>
       <div style="flex:1;border-left:1px solid var(--border);padding-left:16px;">
-        <div style="font-size:15.6px;color:var(--muted2);margin-bottom:5px;">Na dorovnanie musíte investovať navyše</div>
+        <div style="font-size:15.6px;color:var(--muted2);margin-bottom:5px;">Na dorovnanie by bolo potrebné investovať navyše</div>
         <div style="font-family:'Spectral',serif;font-size:38.4px;font-weight:700;color:var(--amber2);line-height:1;" id="delay-per-month">—</div>
         <div style="font-size:14.4px;color:var(--muted);margin-top:4px;">každý mesiac po zostatok obdobia</div>
       </div>
@@ -4593,7 +4593,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div style="font-weight:500;color:var(--text);margin-bottom:6px;font-size:16.8px;">Koľko by ste mohli vyberať mesačne — podľa simulácie na základe vašich parametrov.</div>
   <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Vychádza z portfólia zo záložky 1 (automaticky). Zobrazuje orientačný výber <em>v budúcich eurách</em> aj v <em>dnešnej kúpnej sile</em> — pretože €5 000 za 32 rokov zodpovedá menej ako dnes kvôli inflácii.</div>
   <div style="margin-top:10px;padding:8px 12px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.18);border-radius:8px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
-    ⚠ <strong style="color:var(--amber2);">Model predpokladá rovnaký výnos každý rok.</strong> Skutočné portfólio kolíše — poradie dobrých a zlých rokov zásadne ovplyvňuje výsledok (sequence of returns risk). Výsledok je orientačný.
+    ⚠ <strong style="color:var(--amber2);">Model predpokladá rovnaký výnos každý rok.</strong> Skutočné portfólio kolíše — poradie dobrých a zlých rokov zásadne mení výsledok: zlý trh na začiatku výberu môže portfólio vyčerpať oveľa skôr, aj keď dlhodobý priemer vyjde rovnako. Výsledok je orientačný.
   </div>
 </div>
 
@@ -4622,7 +4622,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <div class="ig">
-      <div class="il">Orientačná miera výberu<span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>Bengen (1994) / Trinity Study (1998):</strong> pri 50/50 akcií/dlhopisov + inflačne upravovaných výberoch vydržalo portfólio v ~95% historických US scenárov (30-ročný horizont):<div class='tt-hr'></div>· 30 rokov → ~95% historických scenárov<br>· 40 rokov → ~85% historických scenárov<br>· 50+ rokov → ~80% — pre dlhý horizont zvážte 3–3,5%<div class='tt-hr'></div><strong>Príklad:</strong> Portfólio €2 000 000 × 4% = €80 000/rok = €6 667/mes. v roku odchodu, každý rok upravované o infláciu.<div class='tt-hr'></div><strong>Keď simulácia nevyčerpá portfólio za 100 rokov</strong> — zobrazí sa symbol ≈. <strong>Nie je to garancia.</strong> Model počíta s rovnakým výnosom každý rok. V skutočnosti trhy kolíšu a výsledok závisí aj od poradia dobrých a zlých rokov (sequence risk).">?</span> <span class="val" id="l-wr">4,0%</span></div>
+      <div class="il">Orientačná miera výberu<span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>Bengen (1994) / Trinity Study (1998):</strong> pri 50/50 akcií/dlhopisov + inflačne upravovaných výberoch vydržalo portfólio v ~95% historických US scenárov (30-ročný horizont):<div class='tt-hr'></div>· 30 rokov → ~95% historických scenárov<br>· 40 rokov → ~85% historických scenárov<br>· 50+ rokov → ~80% — pre dlhý horizont je vhodná 3–3,5%<div class='tt-hr'></div><strong>Príklad:</strong> Portfólio €2 000 000 × 4% = €80 000/rok = €6 667/mes. v roku odchodu, každý rok upravované o infláciu.<div class='tt-hr'></div><strong>Keď simulácia nevyčerpá portfólio za 100 rokov</strong> — zobrazí sa symbol ≈. <strong>Nie je to garancia.</strong> Model počíta s rovnakým výnosom každý rok. V skutočnosti trhy kolíšu a výsledok závisí aj od poradia dobrých a zlých rokov (sequence risk).">?</span> <span class="val" id="l-wr">4,0%</span></div>
       <input type="range" id="r-wr" min="2" max="8" step="0.1" value="4" data-calc="calc4" aria-label="Ročná miera výberu z portfólia v percentách" aria-describedby="hint-r-wr">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
       <span id="hint-r-wr" class="sr-only">Aké percento portfólia vyberiete každý rok v dôchodku. Odporúčaná bezpečná hodnota je 3 až 4 percentá — podľa historických analýz by portfólio vydržalo 30 rokov.</span>
@@ -4735,7 +4735,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <!-- PATCH-6: Sequence risk disclaimer — vždy viditeľný pod hero blokom -->
     <div style="margin-top:14px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:12px 16px;font-size:14.4px;color:var(--muted2);line-height:1.65;">
-      <strong style="color:var(--amber2);">⚠ Čo model nezohľadňuje:</strong> Tento výpočet predpokladá rovnaký výnos každý rok (<span id="r4-seq-ret">—</span> p.a.). Skutočné portfólio kolíše. Ak prvé roky výberu prídu slabý trh, portfólio sa môže vyčerpať oveľa skôr — aj keď dlhodobý priemer vyjde rovnako. Tomuto sa hovorí <em>sequence of returns risk</em>. Výsledok je orientačný. Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.
+      <strong style="color:var(--amber2);">⚠ Čo model nezohľadňuje:</strong> Tento výpočet predpokladá rovnaký výnos každý rok (<span id="r4-seq-ret">—</span> p.a.). Skutočné portfólio kolíše. Ak prvé roky výberu prídu slabý trh, portfólio sa môže vyčerpať oveľa skôr — aj keď dlhodobý priemer vyjde rovnako. Toto riziko poradia výnosov (angl. <em>sequence of returns risk</em>) model nezohľadňuje. Výsledok je orientačný. Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.
     </div>
 
     <!-- Real value box -->
@@ -4774,7 +4774,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <tbody id="wdraw-tbody"></tbody>
     </table>
     <div style="margin-top:10px;font-size:13.2px;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:8px;">
-      * <strong>Odhad výdrže</strong> je simulačný výsledok pri konštantnom ročnom výnose. <strong>100+ r. ≈</strong> znamená, že simulácia portfólio nevyčerpá v 100-ročnom horizonte — nie je to garancia. Skutočné portfólio je ovplyvnené poradím dobrých a zlých rokov (sequence of returns risk).
+      * <strong>Odhad výdrže</strong> je simulačný výsledok pri konštantnom ročnom výnose. <strong>100+ r. ≈</strong> znamená, že simulácia portfólio nevyčerpá v 100-ročnom horizonte — nie je to garancia. Skutočné portfólio je ovplyvnené poradím dobrých a zlých rokov — zlý trh hneď na začiatku výberu môže zmeniť výsledok.
     </div>
   </div>
 
@@ -4876,7 +4876,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="ni-wrap">
         <div class="ni-pfx">€/mes.</div>
         <input type="number" id="rv-target" value="2000" min="100" step="100" data-calc="calcReverse" aria-label="Cieľová mesačná renta v eurách" aria-describedby="hint-rv-target">
-        <span id="hint-rv-target" class="sr-only">Koľko eur chcete dostávať každý mesiac v dôchodku v dnešných cenách. Kalkulačka zistí, akú sumu musíte nasporiť.</span>
+        <span id="hint-rv-target" class="sr-only">Koľko eur chcete dostávať každý mesiac v dôchodku v dnešných cenách. Kalkulačka odhadne, akú sumu by bolo potrebné nasporiť.</span>
       </div>
     </div>
 
@@ -4928,7 +4928,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="ig">
       <div class="il">
         Miera výberu na dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study): historicky portfólio vydržalo 30+ rokov v ~95% testovaných scenárov (US dáta, 1926–1995). EUR portfólio môže mať iné výsledky.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — historicky nízkorizikové — portfólio by malo mať zostatok. Minulé výnosy budúce nezaručujú.<br><strong>4% = bežný východiskový bod</strong> — orientačný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study, US dáta): historicky portfólio vydržalo 30+ rokov v ~95% testovaných scenárov. Pre EUR investora akademici odporúčajú konzervatívnejšiu mieru 3–3,5%. Zdroj: Bengen 1994, 1926–1995). EUR portfólio môže mať iné výsledky.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — historicky nízkorizikové — portfólio by malo mať zostatok. Minulé výnosy budúce nezaručujú.<br><strong>4% = bežný východiskový bod</strong> — orientačný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
         <span class="val" id="rvl-wr">4,0%</span>
       </div>
       <input type="range" id="rvr-wr" min="2" max="8" step="0.1" value="4" data-calc="calcReverse" aria-label="Ročná miera výberu v percentách" aria-describedby="hint-rvr-wr">
@@ -5128,7 +5128,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div style="margin-bottom:18px;">
       <div class="il" style="margin-bottom:9px;">Aktuálne portfólio / úspory (€)
-        <span class="tip" data-tip="<div class='tt-title'>Váš dnešný štartovací bod</div>Aktuálna hodnota vašich investícií — ETF, akcie, hotovosť v investičnom účte. <em>Nezahŕňajte</em> nehnuteľnosť kde bývate alebo 2. pilier (pokiaľ k nemu nemáte prístup).<div class='tt-hr'></div>Čím väčší štart, tým skôr dosiahnete FIRE. Každé euro navyše dnes = niekoľko eur menej potrebných v budúcnosti vďaka zloženému úročeniu.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Váš dnešný štartovací bod</div>Aktuálna hodnota vašich investícií — ETF, akcie, hotovosť v investičnom účte. <em>Nezahŕňajte</em> nehnuteľnosť kde bývate alebo 2. pilier (pokiaľ k nemu nemáte prístup).<div class='tt-hr'></div>Čím väčší štart, tým skôr simulácia odhaduje dosiahnutie FIRE. Každé euro navyše dnes = niekoľko eur menej potrebných v budúcnosti vďaka zloženému úročeniu.">?</span>
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€</div>
@@ -5138,7 +5138,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div style="margin-bottom:18px;">
       <div class="il" style="margin-bottom:9px;">Aktuálny vek (voliteľné)
-        <span class="tip" data-tip="<div class='tt-title'>Váš vek — pre zobrazenie FIRE veku</div>Nepovinné pole. Ak ho vyplníte, kalkulačka zobrazí <strong>v akom veku dosiahnete FIRE</strong> — nielen za koľko rokov.<div class='tt-hr'></div>Ponechajte prázdne ak chcete vidieť len roky.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Váš vek — pre zobrazenie FIRE veku</div>Nepovinné pole. Ak ho vyplníte, kalkulačka zobrazí <strong>v akom veku by ste podľa simulácie mohli dosiahnuť FIRE</strong> — nielen za koľko rokov.<div class='tt-hr'></div>Ponechajte prázdne ak chcete vidieť len roky.">?</span>
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">rokov</div>
@@ -6813,7 +6813,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <!-- 4. Čo keby menej -->
   <div class="diag-section" style="border-color:rgba(200,168,75,.2);margin-bottom:0;">
     <div class="diag-section-hdr" style="background:rgba(200,168,75,.04);">
-      <span class="diag-section-title" style="color:var(--gold2);">Čo keby som míňal menej?<span id="thief-subtitle" style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none;">Koľko navyše by tieto sumy vygenerovali ak by ste ich investovali do akciového portfólia (9 % ročne).</span></span>
+      <span class="diag-section-title" style="color:var(--gold2);">Čo keby som míňal menej?<span id="thief-subtitle" style="display:block;font-size:12px;font-weight:400;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none;">Koľko navyše by tieto sumy vygenerovali ak by ste ich investovali do akciového portfólia (9 % p.a. — historický priemer, budúce výnosy sa môžu líšiť).</span></span>
     </div>
     <div class="diag-section-body">
       <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap;">
@@ -7668,9 +7668,9 @@ Diagnostika čerpá z:<br>
 <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--border);">
   <!-- Disclaimer -->
   <div style="max-width:680px;margin:0 auto 14px;text-align:center;font-size:13.2px;color:var(--muted);line-height:1.75;opacity:.55;">
-    Táto aplikácia slúži výlučne na <strong style="color:var(--muted2);">vzdelávacie a informačné účely</strong> a nepredstavuje finančné poradenstvo v zmysle zák. č. 186/2009 Z.z.
-    Pred investičnými rozhodnutiami konzultujte licencovaného finančného poradcu.
-    Minulá výnosnosť nezaručuje budúce výsledky.
+    Táto aplikácia slúži výlučne na <strong style="color:var(--muted2);">vzdelávacie a informačné účely</strong> a nepredstavuje investičné ani finančné poradenstvo v zmysle zák. č. 186/2009 Z.z. a smernice MiFID II.
+    Výsledky sú simulačné odhady — nie prognózy. Pred akýmkoľvek finančným rozhodnutím sa poraďte s licencovaným finančným poradcom.
+    Minulá výnosnosť nezaručuje budúce výsledky. Projekt je AI-assisted a vibe coded — nie je auditovaný licencovanou finančnou inštitúciou.
   </div>
   <!-- Brand row -->
   <div style="display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;padding-bottom:8px;">
@@ -7686,7 +7686,7 @@ Diagnostika čerpá z:<br>
     <div style="width:1px;height:16px;background:var(--border2);opacity:.4;"></div>
     <span style="font-size:13.2px;color:var(--muted);opacity:.5;font-family:'Source Code Pro',monospace;">bezplatné pre verejnosť</span>
     <div style="width:1px;height:16px;background:var(--border2);opacity:.4;"></div>
-    <span style="font-size:13.2px;color:var(--muted);opacity:.45;font-family:'Source Code Pro',monospace;cursor:pointer;" data-action="openSources">⚡ vibe coded</span>
+    <span style="font-size:13.2px;color:var(--muted);opacity:.45;font-family:'Source Code Pro',monospace;cursor:pointer;" data-action="openSources">⚡ vibe coded · AI-assisted</span>
   </div>
 </div>
 
@@ -7698,7 +7698,7 @@ Diagnostika čerpá z:<br>
 <div id="onboarding-banner" role="complementary" aria-label="Vitajte v Kriváni">
   <div class="ob-title">Ako na Kriváň?</div>
   <div class="ob-body">
-    Odporúčame začať tu — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé. Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
+    Dobrý štart — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé. Všetky výsledky sú simulačné odhady — nie finančné poradenstvo. Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
   </div>
   <div class="ob-actions">
     <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, poďme na to</button>
@@ -8765,15 +8765,15 @@ function calc4(){
       } else if(bufferYrs >= 5){
         bgCol='rgba(245,158,11,.05)'; bdCol='rgba(245,158,11,.2)'; symCls='inf-finite';
         hdTxt='Odhad: malá rezerva nad plánovaným horizontom.';
-        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — len o '+bufferYrs+' rokov viac ako váš plán. Zvážte zníženie miery výberu.';
+        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — len o '+bufferYrs+' rokov viac ako váš plán. Nižší výber by zvýšil rezervu.';
       } else if(bufferYrs >= 0){
         bgCol='rgba(245,158,11,.08)'; bdCol='rgba(245,158,11,.4)'; symCls='inf-finite';
         hdTxt='Odhad: portfólio sotva pokrýva plánovaný horizont.';
-        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — plánujete vyberať '+gyr+' r. Takmer žiadna rezerva. Zvážte zníženie miery výberu.';
+        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — plánujete vyberať '+gyr+' r. Takmer žiadna rezerva. Nižší výber by predĺžil životnosť portfólia.';
       } else {
         bgCol='rgba(240,82,82,.06)'; bdCol='rgba(240,82,82,.3)'; symCls='inf-finite';
         hdTxt='Odhad: portfólio sa vyčerpá pred koncom plánovaného horizontu.';
-        bodyTxt='Simulácia: vydrží len <strong>'+safeNum+' rokov</strong>, ale plánujete '+gyr+' r. Znížte mieru výberu alebo zvýšte výnos.';
+        bodyTxt='Simulácia: vydrží len <strong>'+safeNum+' rokov</strong>, ale plánujete '+gyr+' r. Nižší výber alebo vyšší výnos by rezervu predĺžili.';
       }
       infBlock.style.background=bgCol;
       infBlock.style.borderColor=bdCol;
@@ -8976,7 +8976,7 @@ function calcReverse(){
   // Update DOM
   $el('rv-monthly').textContent=fmt(monthlyPMT)+'/mes.';
   $el('rv-monthly-sub').textContent=
-    `Prvý mesačný vklad dnes. Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) dosiahnete portfólio ${fmt(reqPortfolio)} `+
+    `Prvý mesačný vklad dnes. Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) by model odhadoval portfólio ${fmt(reqPortfolio)} `+
     (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
   $el('rv-portfolio').textContent=fmt(reqPortfolio);
   $el('rv-portfolio-sub').textContent=`nominálne v roku ${new Date().getFullYear()+yr}`;
@@ -9034,9 +9034,9 @@ function calcReverse(){
     lblEl.style.color=color;
     lblEl.textContent=isGood
       ? 'Odhad: portfólio vydrží '+sustainYrs+' rokov'
-      : 'Odhad: portfólio vydrží '+sustainYrs+' rokov — zvážte zmeny';
+      : 'Odhad: portfólio vydrží '+sustainYrs+' rokov — zmeny vstupov by zlepšili rezervu';
     noteEl.textContent=`Reálny výnos po inflácii: ${fmtP(gr*100)} (${fmtP(ret*100)} − ${fmtP(inf*100)} inf. − ${fmtP(fee*100)} TER)${gr<0?' — reálna kúpna sila klesá':''}. Pri tejto miere výberu (${fmtP(wr*100)}) simulácia ukazuje vyčerpanie po ${sustainYrs} rokoch (${sustainMonths} mes.). Ide o orientačný odhad pri konštantnom výnose. `+
-      (isGood?'Zvážte nižšiu mieru výberu pre väčšiu rezervu.':'Zvážte zníženie miery výberu na 3–4%.');
+      (isGood?'Nižšia miera výberu by ďalej zvýšila rezervu.':'Nižší výber (3–4%) by znížil toto riziko.');
     barEl.style.width=barPct+'%';
     barEl.style.background=color;
   }
@@ -9219,7 +9219,7 @@ function renderDelay(p, rows){
   hdr.innerHTML = `
     <td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">MEŠKANIE</td>
     <td style="color:var(--muted);font-size:13.2px;">PORTFÓLIO · DNEŠNÁ KÚPNA SILA<br><span style="font-size:13.2px;opacity:.7;">po odčítaní znehodnotenia infláciou</span></td>
-    <td style="color:var(--muted);font-size:13.2px;">O TOĽKO MENEJ BUDETE MAŤ<br><span style="font-size:13.2px;opacity:.7;">vs. keby ste začali dnes</span></td>
+    <td style="color:var(--muted);font-size:13.2px;">SIMULOVANÝ ROZDIEL PORTFÓLIA<br><span style="font-size:13.2px;opacity:.7;">vs. keby ste začali dnes</span></td>
     <td style="color:var(--muted);font-size:13.2px;text-align:right;">EXTRA MESAČNÝ VKLAD NA DOROVNANIE<br><span style="font-size:13.2px;opacity:.7;">koľko navyše investovať za zostatok obdobia</span></td>`;
   tbody.appendChild(hdr);
 
@@ -9390,7 +9390,7 @@ function calcFIRE(){
       wrWarnEl.innerHTML = `⚠ <strong style="color:var(--red);">Vysoká miera výberu ${(wr*100).toFixed(1).replace('.',',')}%</strong> — historická bezpečná WR pre EUR investora je <strong>3.25–4%</strong> (ERN séria, Karsten Jeske). Pri ${(wr*100).toFixed(1).replace('.',',')}% hrozí predčasné vyčerpanie portfólia, najmä pri dlhom horizonte.`;
     } else if(wr >= 0.04 && gyr >= 40){
       wrWarnEl.style.cssText = 'display:block;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted2);line-height:1.6;margin-top:8px;';
-      wrWarnEl.innerHTML = `⚠ <strong style="color:var(--amber2);">4% + ${gyr} rokov výberu</strong> — Trinity Study bola kalibr. na 30 rokov (US portfólio, S&amp;P 500). Pre ${gyr}r. horizont a EUR investora (MSCI World) je konzervatívnejšia <strong>3.25–3.5% WR</strong> (ERN séria). Zvážte zníženie.`;
+      wrWarnEl.innerHTML = `⚠ <strong style="color:var(--amber2);">4% + ${gyr} rokov výberu</strong> — Trinity Study bola kalibr. na 30 rokov (US portfólio, S&amp;P 500). Pre ${gyr}r. horizont a EUR investora (MSCI World) je konzervatívnejšia <strong>3.25–3.5% WR</strong> (ERN séria). Nižšia miera výberu by znížila toto riziko.`;
     } else if(wr < 0.035){
       wrWarnEl.style.cssText = 'display:block;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.15);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted2);line-height:1.6;margin-top:8px;';
       wrWarnEl.innerHTML = `✓ <strong style="color:var(--emerald2);">Konzervatívna WR ${(wr*100).toFixed(1).replace('.',',')}%</strong> — historicky vychádza dobre pre dlhé horizonty, no minulé výnosy nezaručujú budúce výsledky.`;
@@ -9450,9 +9450,9 @@ function calcFIRE(){
       : buffer >= 0  ? `odhad výdrže: ${sustain} rokov — len-len na plán`
       : `Pozor: simulácia ukazuje vyčerpanie po ${sustain} rokoch (${-buffer}r. pred koncom vášho plánu)`;
     const wrWarning = wr >= 0.05
-      ? ` · miera výberu ${fmtP(wr*100)} je riziková — pri dlhom horizonte zvážte zníženie`
+      ? ` · miera výberu ${fmtP(wr*100)} je riziková — nižší výber by znížil riziko pri dlhom horizonte`
       : wr >= 0.04 && mid.sim.years < 25
-      ? ` · skorý odchod — zvážte nižší výber 3–3,5% pre dlhší horizont`
+      ? ` · skorý odchod — nižší výber 3–3,5% by znížil riziko pre dlhší horizont`
       : '';
     const nomMonthly = expenses * Math.pow(1+inf, yrs + mos/12);
     $el('fire-result-sub').textContent =
@@ -9462,7 +9462,7 @@ function calcFIRE(){
   } else {
     if (fireResultMain) { fireResultMain.textContent = '50+ rokov'; fireResultMain.style.color = 'var(--red)'; }
     if (fireResultSub)  fireResultSub.textContent =
-      'Pri týchto parametroch FIRE do 50 rokov nedosiahnete. Zvýšte mesačný vklad alebo výnos.';
+      'Pri týchto parametroch Pri týchto parametroch model neodhaduje FIRE do 50 rokov. Vyšší vklad alebo výnos by skrátil horizont.';
   }
 
   // Age badge
@@ -9567,7 +9567,7 @@ function calcFIRE(){
                 const syCtx = sy===null
                   ? 'simulácia: portfólio sa v 100-ročnom horizonte modelu nevyčerpá (konštantný výnos)'
                   : buffer>=20 ? `odhad: výdrž o ${buffer} rokov dlhšia ako váš plán`
-                  : buffer>=5  ? `odhad: rezerva len ${buffer} rokov navyše — zvážte nižší výber`
+                  : buffer>=5  ? `odhad: rezerva len ${buffer} rokov navyše — nižší výber by znížil riziko`
                   : buffer>=0  ? `odhad: portfólio pokryje plán, ale bez rezervy`
                   : `simulácia: portfólio sa vyčerpá ${-buffer} rokov pred plánom`;
                 const nomMonthly = expenses * Math.pow(1+inf, s.years + s.monthsRem/12);
@@ -9586,7 +9586,7 @@ function calcFIRE(){
   // PATCH-12b: disclaimer pod všetkými 3 scenármi
   const scenDisclaimer = document.createElement('div');
   scenDisclaimer.style.cssText = 'margin-top:12px;padding:10px 14px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;font-size:13.2px;color:var(--muted);line-height:1.7;';
-  scenDisclaimer.innerHTML = 'Všetky tri scenáre predpokladajú <strong style="color:var(--muted2);">konštantný výnos</strong> každý rok. Skutočné portfólio kolíše. <strong style="color:var(--amber2);">Sequence of returns risk nie je modelovaný</strong> — zlý trh v prvých rokoch výberu môže výrazne zmeniť výsledok aj pri rovnakom dlhodobom priemere. Výsledky sú orientačné.';
+  scenDisclaimer.innerHTML = 'Všetky tri scenáre predpokladajú <strong style="color:var(--muted2);">konštantný výnos</strong> každý rok. Skutočné portfólio kolíše. <strong style="color:var(--amber2);">Poradie dobrých a zlých rokov nie je modelované</strong> — zlý trh v prvých rokoch výberu môže výrazne zmeniť výsledok aj pri rovnakom dlhodobom priemere. Výsledky sú orientačné.';
   scenBlock.appendChild(scenDisclaimer);
 
   // ── FIRE Chart ──
@@ -10387,7 +10387,7 @@ function updateHeroSentence(p){
   const vstupText = casti.length ? 'Pri ' + casti.join(' a ') : 'S týmito nastaveniami';
   const rokText = ' po ' + p.yr + ' rokoch (rok ' + rok + ')';
   el.innerHTML = '<span style="font-size:13.5px;color:var(--muted2);line-height:1.6;">'
-    + vstupText + rokText + ' môžete mať:</span>';
+    + vstupText + rokText + ' by model odhadoval portfólio:</span>';
 }
 
 // 5D: slider context hints with 2s auto-fade
@@ -10425,7 +10425,7 @@ function evalSliderCtx(sliderId){
     if(v < 0.25)    showSliderCtx('ctx-fee', 'výborné — pasívny ETF', 'ctx-good');
     else if(v <= 0.75) showSliderCtx('ctx-fee', 'priemerné', 'ctx-ok');
     else if(v <= 1) showSliderCtx('ctx-fee', 'vyššie — skontrolujte fond', 'ctx-ok');
-    else             showSliderCtx('ctx-fee', 'vysoké — zvážte lacnejšiu alternatívu', 'ctx-warn');
+    else             showSliderCtx('ctx-fee', 'vysoké — lacnejšia alternatíva by znížila náklady', 'ctx-warn');
   }
 }
 
@@ -10835,7 +10835,7 @@ function calcMort(){
       const verdict = $el('mort-ratio-verdict');
       if(ratio < 1.4)      { verdict.textContent='✅ pod slovenským priemerom'; verdict.style.color='var(--emerald)'; }
       else if(ratio < 1.8) { verdict.textContent='⚠️ v slovenskom priemere (1,4–1,8×)'; verdict.style.color='var(--amber2)'; }
-      else                 { verdict.textContent='🔴 nad priemerom — zvážte kratšiu splatnosť'; verdict.style.color='var(--red)'; }
+      else                 { verdict.textContent='🔴 nad priemerom — kratšia splatnosť by znížila celkové úroky'; verdict.style.color='var(--red)'; }
       benchCtx.style.display = '';
     }
   } else if(benchCtx) { benchCtx.style.display = 'none'; }
@@ -12385,7 +12385,7 @@ function updateCF2Recs(income, housing, fixedNec, fixed, voluntary, luxury, inve
 
   // Bývanie
   const hp = housing/income;
-  if(hp>0.40)      recs.push({t:'bad',  m:`Bývanie pohltí ${(hp*100).toFixed(0).replace('.',',')}% príjmu — kriticky vysoké. Limit je 30–35%. Zvážte refinancovanie.`});
+  if(hp>0.40)      recs.push({t:'bad',  m:`Bývanie pohltí ${(hp*100).toFixed(0).replace('.',',')}% príjmu — kriticky vysoké. Limit je 30–35%. Porovnajte ponuky bánk — refinancovanie môže mať zmysel.`});
   else if(hp>0.33) recs.push({t:'warn', m:`Bývanie tvorí ${(hp*100).toFixed(0).replace('.',',')}% príjmu — mierne nad odporúčanou hranicou 30–33%.`});
   else if(hp>0)    recs.push({t:'ok',   m:`Náklady na byt sú v poriadku — ${(hp*100).toFixed(0).replace('.',',')}% príjmu (pod 30%).`});
 
@@ -12395,11 +12395,11 @@ function updateCF2Recs(income, housing, fixedNec, fixed, voluntary, luxury, inve
   else if(ip>=0.15)recs.push({t:'ok',   m:`Miera investovania ${(ip*100).toFixed(0).replace('.',',')}% — dosahujete orientačný cieľ 15% — dobrý základ.`});
   else if(ip>=0.10)recs.push({t:'info', m:`Miera investovania ${(ip*100).toFixed(0).replace('.',',')}% — dobrý základ. Na dosiahnutie 15% treba ešte ${fmt(Math.round((income*0.15-invest)/25)*25)}/mes.`});
   else if(ip>0)    recs.push({t:'warn', m:`Miera investovania len ${(ip*100).toFixed(0).replace('.',',')}% — cieľ je 15% príjmu (${fmt(Math.round(income*0.15))}/mes.).`});
-  else             recs.push({t:'warn', m:`Žiadne investície. Orientačný cieľ je 10–15% príjmu (${fmt(Math.round(income*0.15))}/mes.) — zvážte možnosti s finančným poradcom.`});
+  else             recs.push({t:'warn', m:`Žiadne investície. Orientačný cieľ je 10–15% príjmu (${fmt(Math.round(income*0.15))}/mes.) — konzultácia s finančným poradcom môže mať zmysel.`});
 
   // Luxus / predplatné
   const lp = luxury/income;
-  if(lp>0.05) recs.push({t:'warn', m:`Predplatné a luxusné výdavky sú ${(lp*100).toFixed(0).replace('.',',')}% príjmu (${fmt(luxury)}/mes.). Prezrite čo reálne využívate.`});
+  if(lp>0.05) recs.push({t:'warn', m:`Predplatné a luxusné výdavky sú ${(lp*100).toFixed(0).replace('.',',')}% príjmu (${fmt(luxury)}/mes.). Môže mať zmysel prehodnotiť čo reálne využívate.`});
   else if(luxury>0) recs.push({t:'ok', m:`Predplatné ${fmt(luxury)}/mes. je v poriadku (${(lp*100).toFixed(0).replace('.',',')}% príjmu).`});
 
   // Potraviny na osobu
@@ -12407,14 +12407,14 @@ function updateCF2Recs(income, housing, fixedNec, fixed, voluntary, luxury, inve
   const food = foodItems.reduce((s,i)=>s+(+i.val||0),0);
   if(food>0 && persons>0){
     const fpp = food/persons;
-    if(fpp>400)      recs.push({t:'info', m:`Potraviny ${fmt(Math.round(fpp))}/os. — nad priemerom SR (~€250). Meal planning môže znížiť o 15–20%.`});
+    if(fpp>400)      recs.push({t:'info', m:`Potraviny ${fmt(Math.round(fpp))}/os. — nad priemerom SR (~€250). Nad priemerom SR (~€250/os.) — detail závisí od konkrétnej situácie.`});
     else if(fpp>300) recs.push({t:'info', m:`Potraviny ${fmt(Math.round(fpp))}/os. — mierne nad priemerom SR (~€250/os.).`});
   }
 
   // Zostatok
-  if(balance<0)          recs.push({t:'bad',  m:`Výdavky presahujú príjmy o ${fmt(Math.abs(Math.round(balance)))} — treba znížiť náklady alebo zvýšiť príjem.`});
-  else if(balance<100)   recs.push({t:'warn', m:`Zostatok iba ${fmt(Math.round(balance))} — prakticky žiadny vankúš. Znížte niektoré kategórie.`});
-  else if(balance>0 && savings===0) recs.push({t:'info', m:`Zostatok ${fmt(Math.round(balance))} nejde do úspor. Zvážte presunúť časť do Núdzového fondu.`});
+  if(balance<0)          recs.push({t:'bad',  m:`Výdavky presahujú príjmy o ${fmt(Math.abs(Math.round(balance)))} — matematika naznačuje zníženie nákladov alebo zvýšenie príjem.`});
+  else if(balance<100)   recs.push({t:'warn', m:`Zostatok iba ${fmt(Math.round(balance))} — prakticky žiadny vankúš. Zníženie niektorých kategórií by zlepšilo zostatok.`});
+  else if(balance>0 && savings===0) recs.push({t:'info', m:`Zostatok ${fmt(Math.round(balance))} nejde do úspor. Presun časti do Núdzového fondu môže mať zmysel.`});
 
   // Celková miera
   const sp = (invest+savings)/income;
@@ -12761,7 +12761,7 @@ function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon,
     const interestPerYear = (top.balance * top.rate/100);
     items.push({ color:'var(--rose2)', icon:'2',
       title:`Splácajte ${esc(top.name)} (${top.rate}%) rýchlejšie`, /* SECURITY FIX: XSS esc() */
-      detail:`Pri sadzbe ${top.rate}% zaplatíte ročne ${fmt(Math.round(interestPerYear))} len na úrokoch. To je viac, než by pravdepodobne zarobilo investičné portfólio. Preto sa oplatí splácať tento dlh rýchlejšie ako investovať — každé extra euro na splátku vám reálne ušetrí peniaze.`,
+      detail:`Pri sadzbe ${top.rate}% zaplatíte ročne ${fmt(Math.round(interestPerYear))} len na úrokoch. To je viac, než by historicky zarobilo investičné portfólio (~9% p.a.). Matematicky: každé extra euro na splátku znižuje úroky viac, ako by pri tejto sadzbe dlhu pravdepodobne zarobilo v portfóliu.`,
       impact:`Každých extra €100/mes. skráti splácanie o ~${Math.round(100/(interestPerYear/12))} mes. a ušetrí ~€${Math.round(100*top.term*0.4)} na úrokoch.`
     });
   }
@@ -13026,7 +13026,7 @@ function calcThieves(income){
     const totalCost = +l.monthly * termMon;
     thieves.push({ sev:'bad',
       // SEC: l.name z debtRows ide do innerHTML — esc()
-      text:`Leasing ${esc(l.name)}: za ${l.term||4} roky zaplatíte dokopy ${fmt(Math.round(totalCost))}, ale auto nikdy nebude vaše. Po skončení leasingu musíte platiť znovu. Kúpa za hotovosť alebo bežný úver často vyjde lacnejšie.`,
+      text:`Leasing ${esc(l.name)}: za ${l.term||4} roky zaplatíte dokopy ${fmt(Math.round(totalCost))}, ale po skončení leasingu nie ste vlastníkom vozidla. Pre porovnanie: kúpa za hotovosť alebo spotrebný úver môže vyjsť lacnejšie — záleží od konkrétnych podmienok a daňovej situácie.`,
       amt:`${fmt(+l.monthly)}/mes.`
     }); totalLoss += +l.monthly;
   });
@@ -13194,14 +13194,14 @@ function calcInterestGap(){
         <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);">
           <div>
             <div style="font-size:15.6px;color:var(--text);">${esc(d.name)} <span style="font-family:'Source Code Pro',monospace;font-size:12px;color:${isAboveBreakEven?'var(--red)':'var(--emerald)'};">${d.rate}% p.a.</span></div><!-- SECURITY FIX: XSS esc() -->
-            <div style="font-size:15.6px;color:var(--muted);margin-top:3px;">${isAboveBreakEven?'úrok vyšší ako výnos ETF → splácajte rýchlejšie':'nízka sadzba → investovanie je výhodnejšie'}</div>
+            <div style="font-size:15.6px;color:var(--muted);margin-top:3px;">${isAboveBreakEven?'sadzba > hist. výnos ETF — splácanie znižuje náklady':'sadzba < hist. výnos ETF — investovanie môže mať zmysel'}</div>
           </div>
           <div style="text-align:right;">
             <div style="font-family:'Source Code Pro',monospace;font-size:14.4px;font-weight:600;color:${isAboveBreakEven?'var(--red)':'var(--emerald)'};">${isAboveBreakEven?'−':''}${fmt(Math.round(annualInterest))}/rok</div>
-            <div style="font-size:14.4px;color:var(--muted);">${isAboveBreakEven?'ročné úroky':'investovanie výhodnejšie'}</div>
+            <div style="font-size:14.4px;color:var(--muted);">${isAboveBreakEven?'ročné úroky':'hist. výnos > sadzba dlhu'}</div>
           </div>
         </div>`).join('')}
-      <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Pravidlo: ak je sadzba dlhu <strong style="color:var(--emerald2);">pod 9 % ročne</strong>, investovanie do akciového portfólia je pravdepodobne výhodnejšie. Ak je sadzba <strong style="color:var(--red);">nad 9 %</strong>, dlh splácajte rýchlejšie — úroky vás stoja viac, ako by zarobili investície.</div>
+      <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Matematika: historický priemer MSCI World (~9% p.a., USD, 1970–2024) naznačuje, že pri dlhu <strong style="color:var(--emerald2);">pod touto sadzbou</strong> môže byť investovanie výhodnejšie. Pri dlhu <strong style="color:var(--red);">nad 9 %</strong> splácanie skôr znižuje celkové úroky. Závisí od vašej celkovej situácie — nie je to individuálne poradenstvo.</div>
     </div>`);
   }
 
@@ -13261,7 +13261,7 @@ function calcInterestGap(){
       </div>
       <div style="margin-top:10px;font-size:13.2px;color:var(--muted2);line-height:1.7;">
         <strong style="color:var(--text);">Poznámky:</strong> ${inFixation ? `Predčasné splatenie max 1% zostatku (§19 ods.4 zák. 90/2016 Z.z.) — ste <em>počas fixácie</em>.` : `<span style="color:var(--emerald2);">Po uplynutí fixácie — predčasné splatenie zadarmo (zákon 90/2016 §19 ods.5).</span>`} Administratívne náklady odhad €${DIAG.REFI_COST_FIXED} (kataster + admin nová banky). Splátka za ${remYears} rokov pri <strong>${(newRate*100).toFixed(2).replace('.',',')}%</strong> (upravte sadzbu priamo vyššie podľa aktuálnych ponúk bánk).
-        ${saving > 0 && breakEvenMonths < 36 ? `<br><strong style="color:var(--emerald);">Odporúčanie: refinancovanie sa oplatí</strong> — návratnosť nákladov za ${breakEvenMonths} mes., celková úspora ${fmt(Math.round(totalSaving30))} za zostatok hypotéky.` : saving > 0 && breakEvenMonths < 60 ? `<br><strong style="color:var(--amber2);">Refi zvážiť</strong> — break-even za ${breakEvenMonths} mes. Závisí od plánovaného zotrvania v banke.` : `<br><span style="color:var(--muted);">Pri týchto parametroch refi nemusí byť výhodné — skontrolujte priamo v banke.</span>`}
+        ${saving > 0 && breakEvenMonths < 36 ? `<br><strong style="color:var(--emerald);">Simulácia naznačuje potenciálnu úsporu</strong> — návratnosť nákladov za ${breakEvenMonths} mes., celková úspora ${fmt(Math.round(totalSaving30))} za zostatok hypotéky.` : saving > 0 && breakEvenMonths < 60 ? `<br><strong style="color:var(--amber2);">Refi: break-even za ${breakEvenMonths} mes.</strong> Závisí od plánovaného zotrvania v banke a konkrétnej ponuky.` : `<br><span style="color:var(--muted);">Pri týchto parametroch refi nemusí byť výhodné — skontrolujte priamo v banke.</span>`}
       </div>
     </div>`);
   } else if(!mortDebt && debtRows.filter(d=>d.type==='Hypotéka').length===0){
@@ -13718,7 +13718,7 @@ function calcDebt(){
     <div style="font-size:14.4px;color:var(--muted2);line-height:1.8;background:rgba(255,255,255,.02);border-radius:10px;padding:10px 12px;">
       Porovnanie pre <strong style="color:var(--text);">${esc(topDebt.name)}</strong> (${topDebt.rate}% p.a.) s extra €${extra}/mes.<br>
       Break-even: <strong style="color:var(--emerald2);">${breakEvenRate.toFixed(1).replace('.',',')}%</strong> (Acc ETF, §9/1/e ZDP) · <strong style="color:var(--amber2);">${breakEvenRateDist.toFixed(1).replace('.',',')}%</strong> (dist ETF) —
-      ${topDebt.rate>breakEvenRate?' dlh nad oboma prahmi — splácajte rýchlejšie':topDebt.rate>breakEvenRateDist?' splácajte ak máte dist ETF':'investovanie do Acc ETF je výhodnejšie'}
+      ${topDebt.rate>breakEvenRate?' sadzba nad oboma prahmi — splácanie znižuje náklady':topDebt.rate>breakEvenRateDist?' pri dist ETF matematika naznačuje prednostné splácanie':'hist. výnos Acc ETF prekonal túto sadzbu'}
     </div>`;
 
   // Recommendation
@@ -13745,11 +13745,11 @@ function calcDebt(){
     })() : '';
 
     if(highInterestDebts.length>0 && lowInterestDebts.length===0){
-      recType='bad'; recText=`Všetky dlhy sú nad ${breakEvenRate.toFixed(1).replace('.',',')}% — splácajte rýchlejšie pred investovaním. Extra €${extra} smeruj na <strong>${esc(topDebt.name)}</strong> (${topDebt.rate}%).`;
+      recType='bad'; recText=`Všetky sadzby dlhov nad ${breakEvenRate.toFixed(1).replace('.',',')}% — splácanie skôr znižuje celkové úroky. Matematicky: extra €${extra} na <strong>${esc(topDebt.name)}</strong> (${topDebt.rate}%).`;
     } else if(highInterestDebts.length===0){
-      recType='ok'; recText=`Dlhy sú pod ${breakEvenRate.toFixed(1).replace('.',',')}% — historický výnos MSCI World (~9%) ich prekonáva. Historický výnos ETF je nad sadzbami dlhov — investovanie paralelne môže dávať zmysel, závisí od vašej situácie.`;
+      recType='ok'; recText=`Dlhy sú pod ${breakEvenRate.toFixed(1).replace('.',',')}% — historický priemer MSCI World (~9% p.a., USD, 1970–2024) ich prekonával — budúce výnosy sa môžu líšiť. Investovanie paralelne môže mať zmysel, závisí od vašej situácie.`;
     } else {
-      recType='info'; recText=`Zmixované dlhy: <strong>${highInterestDebts.map(d=>esc(d.name)+' '+d.rate+'%').join(', ')}</strong> splácaj rýchlejšie. <strong>${lowInterestDebts.map(d=>esc(d.name)).join(', ')}</strong> — stačia štandardné splátky, voľné prostriedky investuj.`;
+      recType='info'; recText=`Zmixované dlhy: <strong>${highInterestDebts.map(d=>esc(d.name)+' '+d.rate+'%').join(', ')}</strong> matematicky nad break-even — splácanie skôr znižuje úroky. <strong>${lowInterestDebts.map(d=>esc(d.name)).join(', ')}</strong> — pod break-even, voľné prostriedky môžu mať zmysel investovať. Závisí od vašej situácie.`;
     }
     rb.innerHTML = `<div class="cf2-rec ${recType}" style="margin-top:0;"><div class="cf2-rec-dot"></div><div style="color:var(--muted2);">${recText}</div></div>${avalancheHtml}`;
   }
@@ -14469,7 +14469,7 @@ function renderDebtFixAlerts(){
         ? `⚠️ <strong>${d.name}</strong> — fixácia skončila pred ${Math.abs(m)} mes.! Kontaktujte banku ihneď.`
         : m <= 3
         ? `🔴 <strong>${d.name}</strong> — fixácia končí o <strong>${m} mes.</strong> Kontaktujte banku a začnite porovnávať ponuky!`
-        : `🟡 <strong>${d.name}</strong> — fixácia končí o <strong>${Math.floor(m/12)>0?Math.floor(m/12)+' r. ':''}</strong>${m%12>0?m%12+' mes.':''} Odporúčame začať sledovať sadzby.`;
+        : `🟡 <strong>${d.name}</strong> — fixácia končí o <strong>${Math.floor(m/12)>0?Math.floor(m/12)+' r. ':''}</strong>${m%12>0?m%12+' mes.':''} Môže mať zmysel sledovať vývoj sadzieb.`;
       return `<div class="debt-fix-alert ${cls==='warn'?'warn':''}">${msg}</div>`;
     }).filter(Boolean);
   wrap.innerHTML = alerts.join('');
