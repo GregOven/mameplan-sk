@@ -12919,13 +12919,14 @@ renderCF2Sections();
 renderDebtList();
 renderAssets();
 efRenderBuckets();
-// Set default active tab to Cashflow (t9)
+// Set default active tab to Diagnostika (t13)
 (function(){
-  const t9btn = document.querySelector('.tg-budget .tab');
-  if(t9btn){ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); t9btn.classList.add('active'); }
+  const t13btn = document.querySelector('.tg-diag .tab');
+  if(t13btn){ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); t13btn.classList.add('active'); }
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  const t9p = document.getElementById('t9'); if(t9p) t9p.classList.add('active');
+  const t13p = document.getElementById('t13'); if(t13p) t13p.classList.add('active');
   renderCF2Sections(); calcCF();
+  updateGuideProgress();
 })();
 // Init backtest year grid
 initBacktest();
