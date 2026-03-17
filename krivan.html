@@ -7418,6 +7418,238 @@ Diagnostika čerpá z:<br>
     </div>
   </div><!-- end panel E -->
 
+  <!-- ── SKUPINA F: Mzdy a demografické referencie ── -->
+  <div class="panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">Mzdy a demografické referencie</p>
+      <span class="result-badge result-badge-disclaimer" style="font-size:12px;">trhové referencie — aktualizujte každý kvartál</span>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 8px 0;line-height:1.5;">
+      Zdroj: <a href="https://slovak.statistics.sk/wps/portal/ext/themes/demography/wages/" target="_blank" style="color:var(--blue2);">ŠÚ SR — štatistika miezd</a>. Aktualizujte pri každom novom Q vydaní.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:14px;">
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Priemerná hrubá mzda (€)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">€</div>
+          <input type="number" id="leg-avg-gross" value="1460" min="500" max="5000" step="10"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Priemerná hrubá mzda SR v eurách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">ŠÚ SR Q3 2024</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Mediánová hrubá mzda (€)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">€</div>
+          <input type="number" id="leg-median-gross" value="1200" min="400" max="4000" step="10"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Mediánová hrubá mzda v eurách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">~82 % priemeru (typický pomer)</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Čistá/hrubá mzda (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-net-factor" value="74.5" min="60" max="90" step="0.5"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Pomer čistej k hrubej mzde v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">73–76 % priemer, použijeme 74,5 %</div>
+      </div>
+
+    </div>
+  </div><!-- end panel F -->
+
+  <!-- ── SKUPINA G: Refinancovanie ── -->
+  <div class="panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">Refinancovanie</p>
+      <span class="result-badge result-badge-disclaimer" style="font-size:12px;">trhové referencie — aktualizujte pri zmene trhu</span>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 14px 0;line-height:1.5;">
+      Parametre používané pri diagnostike refinancovania hypotéky (T11/T13).
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Prah pre zváženie refi (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-refi-threshold" value="4.0" min="1" max="10" step="0.1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Prah úrokovej sadzby pre zváženie refinancovania">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">ak sadzba ≥ X → odporúčanie refi</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Najlepšie sadzby trhu (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-refi-best-now" value="3.4" min="0.5" max="10" step="0.05"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Najlepšie dostupné trhové sadzby v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">5r fix SK — aktualizujte!</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Max. pokuta pred. splatenia (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-refi-penalty" value="1.0" min="0" max="5" step="0.1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Maximálna pokuta za predčasné splatenie v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
+          <a href="https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2016/90/" target="_blank" style="color:var(--blue2);">§19 ods.4 zák. 90/2016 Z.z.</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Fixné náklady refi (€)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">€</div>
+          <input type="number" id="leg-refi-cost" value="200" min="0" max="2000" step="10"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Fixné náklady refinancovania v eurách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">kataster + admin novej banky (odhad)</div>
+      </div>
+
+    </div>
+  </div><!-- end panel G -->
+
+  <!-- ── SKUPINA H: Metodologické konštanty ── -->
+  <div class="panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">Metodologické konštanty</p>
+      <span class="result-badge" style="font-size:12px;background:rgba(107,114,128,.1);color:var(--muted2);border:1px solid rgba(107,114,128,.25);">menia sa zriedkavo — akademický konsenzus</span>
+    </div>
+    <div style="padding:12px 14px;background:rgba(107,114,128,.05);border:1px solid rgba(107,114,128,.15);border-radius:8px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:18px;">
+      ⚠ Tieto hodnoty vychádzajú z akademického konsenzu, historických dát a odborných štandardov — <strong style="color:var(--muted2);">nie zo zákonov</strong>. Meňte ich len pri zmene metodológie alebo dlhodobého konsenzu. Nesprávna zmena môže skresliť diagnostiku.
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;">
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">MC volatilita MSCI World (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-mc-sigma" value="15" min="5" max="35" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Ročná volatilita Monte Carlo simulácie v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
+          historická σ MSCI World 1970–2024 ·
+          <a href="https://www.msci.com/indexes/index/990100" target="_blank" style="color:var(--blue2);">↗ MSCI</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Break-even ACC ETF (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-be-acc" value="9.0" min="1" max="20" step="0.1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Break-even prah pre ACC ETF v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
+          §9/1/e ZDP: časový test >1 rok = 0 % daň ·
+          <a href="https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2003/595/" target="_blank" style="color:var(--blue2);">↗ ZDP</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Break-even Dist ETF (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-be-dist" value="7.7" min="1" max="20" step="0.1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Break-even prah pre Distribučné ETF v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">~14 % efektívna daň → 9 % × 0,86</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Min. miera investovania (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-invest-min" value="15" min="5" max="50" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Minimálna odporúčaná miera investovania v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">Bogle / Vanguard odporúčanie ≥15 %</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Max. podiel bývania (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-housing-max" value="30" min="10" max="60" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Maximálny odporúčaný podiel výdavkov na bývanie v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">
+          <a href="https://www.eba.europa.eu/regulation-and-policy/consumer-protection/guidelines-on-arrears-and-foreclosure" target="_blank" style="color:var(--blue2);">EBA GL 2015/11</a> / NBS ≤30 %
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Cieľ sporenia (%)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">%</div>
+          <input type="number" id="leg-savings-target" value="20" min="5" max="60" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Cieľová miera sporenia v percentách">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">CFP štandard ≥20 % čistého príjmu</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Núdzový fond — minimum (mes.)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">×</div>
+          <input type="number" id="leg-ef-min" value="3" min="1" max="12" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Minimálny počet mesiacov pre núdzový fond">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">× mesačné výdavky (minimum)</div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:4px;">Núdzový fond — štandard (mes.)</div>
+        <div class="ni-wrap" style="max-width:150px;">
+          <div class="ni-pfx">×</div>
+          <input type="number" id="leg-ef-target" value="6" min="1" max="24" step="1"
+            oninput="readLegFromT14UI()"
+            style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+            aria-label="Štandardný počet mesiacov pre núdzový fond">
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:4px;">× mesačné výdavky (cieľ)</div>
+      </div>
+
+    </div>
+  </div><!-- end panel H -->
+
   <!-- Reset -->
   <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:8px;">
     <button type="button" onclick="resetLegToDefaults()"
@@ -7532,6 +7764,26 @@ const LEG_DEFAULTS = {
   debtRateKontokorent:14.9,  // Kontokorent — typická sadzba SK 2025
   debtRatePozicka:     0.0,  // Pôžička od rodiny — bezúročná
   debtRateIny:         5.0,  // Iný dlh — odhadovaná priemerná sadzba
+  // ── Skupina F: Mzdy a demografické referencie (ŠÚ SR) ──
+  avgGrossWage:  1460,   // ŠÚ SR — priemerná hrubá mzda (aktualizuj každý Q)
+  medianGross:   1200,   // ~82 % priemeru — typický pomer SR (ŠÚ SR)
+  netFactor:     0.745,  // čistá/hrubá mzda (73–76 % priemer), použijeme 74,5 %
+  // ── Skupina G: Refinancovanie ──
+  refiThreshold:   0.04,  // prah pre zváženie refi (trhová prax)
+  refiBestNow:     0.034, // najlepšie dostupné sadzby SK — 5r fix (aktualizuj!)
+  refiPenaltyMax:  0.01,  // max. predčasné splatenie: 1 % (§19 ods.4 zák. 90/2016 Z.z.)
+  refiCostFixed:   200,   // typické fixné náklady refi: kataster + admin novej banky
+  // ── Skupina H: Metodologické konštanty ──
+  // POZOR: tieto hodnoty sú metodologické/akademické, nie zákonné limity.
+  // Menia sa zriedkavo — len pri zmene metodológie alebo dlhodobého konsenzu.
+  mcSigma:        0.15,  // ročná volatilita MC — historická MSCI World 1970–2024
+  breakEvenAcc:   0.09,  // ACC ETF + časový test >1 rok = 0 % daň (§9/1/e ZDP)
+  breakEvenDist:  0.077, // Dist ETF / predaj <1 rok: ~14 % efektívna daň → 9 %×0,86
+  investMin:      0.15,  // min. miera investovania (Bogle/Vanguard odporúčanie)
+  housingMax:     0.30,  // max. podiel bývania (EBA GL 2015/11 / NBS ≤30 %)
+  savingsTarget:  0.20,  // cieľ sporenia (CFP štandard ≥20 %)
+  efMinMonths:    3,     // minimum núdzového fondu (mes. výdavkov)
+  efTargetMonths: 6,     // štandard núdzového fondu (6 mesiacov)
 };
 let LEG = { ...LEG_DEFAULTS };
 
@@ -7609,6 +7861,24 @@ function applyLegToT14UI() {
   s('leg-debt-kontokorent',  LEG.debtRateKontokorent.toFixed(1));
   s('leg-debt-pozicka',      LEG.debtRatePozicka.toFixed(1));
   s('leg-debt-iny',          LEG.debtRateIny.toFixed(1));
+  // Skupina F — Mzdy
+  s('leg-avg-gross',     LEG.avgGrossWage);
+  s('leg-median-gross',  LEG.medianGross);
+  s('leg-net-factor',    (LEG.netFactor*100).toFixed(1));
+  // Skupina G — Refinancovanie
+  s('leg-refi-threshold', (LEG.refiThreshold*100).toFixed(1));
+  s('leg-refi-best-now',  (LEG.refiBestNow*100).toFixed(1));
+  s('leg-refi-penalty',   (LEG.refiPenaltyMax*100).toFixed(1));
+  s('leg-refi-cost',      LEG.refiCostFixed);
+  // Skupina H — Metodologické konštanty
+  s('leg-mc-sigma',       (LEG.mcSigma*100).toFixed(0));
+  s('leg-be-acc',         (LEG.breakEvenAcc*100).toFixed(1));
+  s('leg-be-dist',        (LEG.breakEvenDist*100).toFixed(1));
+  s('leg-invest-min',     (LEG.investMin*100).toFixed(0));
+  s('leg-housing-max',    (LEG.housingMax*100).toFixed(0));
+  s('leg-savings-target', (LEG.savingsTarget*100).toFixed(0));
+  s('leg-ef-min',         LEG.efMinMonths);
+  s('leg-ef-target',      LEG.efTargetMonths);
   _updateLegDisplays();
 }
 
@@ -7648,7 +7918,7 @@ function _updateP2ContribDisplay() {
   // Aktualizuj popis pri slajderi (referenčná hodnota pri priemernej mzde)
   const refEl = $el('p2-contrib-ref');
   if(refEl) {
-    const refSal = 1460; // referenčná priemerná mzda ŠÚ SR
+    const refSal = LEG.avgGrossWage; // referenčná priemerná mzda ŠÚ SR (T14 Skupina F)
     refEl.textContent = `~€${Math.round(refSal*LEG.p2ContribRate)} pri €${refSal}`;
   }
 }
@@ -7679,6 +7949,24 @@ function readLegFromT14UI() {
   LEG.debtRateKontokorent = n('leg-debt-kontokorent', LEG_DEFAULTS.debtRateKontokorent);
   LEG.debtRatePozicka     = n('leg-debt-pozicka',     LEG_DEFAULTS.debtRatePozicka);
   LEG.debtRateIny         = n('leg-debt-iny',         LEG_DEFAULTS.debtRateIny);
+  // Skupina F — Mzdy
+  LEG.avgGrossWage  = n('leg-avg-gross',     LEG_DEFAULTS.avgGrossWage);
+  LEG.medianGross   = n('leg-median-gross',  LEG_DEFAULTS.medianGross);
+  LEG.netFactor     = n('leg-net-factor',    LEG_DEFAULTS.netFactor*100)/100;
+  // Skupina G — Refinancovanie
+  LEG.refiThreshold  = n('leg-refi-threshold', LEG_DEFAULTS.refiThreshold*100)/100;
+  LEG.refiBestNow    = n('leg-refi-best-now',  LEG_DEFAULTS.refiBestNow*100)/100;
+  LEG.refiPenaltyMax = n('leg-refi-penalty',   LEG_DEFAULTS.refiPenaltyMax*100)/100;
+  LEG.refiCostFixed  = n('leg-refi-cost',      LEG_DEFAULTS.refiCostFixed);
+  // Skupina H — Metodologické konštanty
+  LEG.mcSigma        = n('leg-mc-sigma',       LEG_DEFAULTS.mcSigma*100)/100;
+  LEG.breakEvenAcc   = n('leg-be-acc',         LEG_DEFAULTS.breakEvenAcc*100)/100;
+  LEG.breakEvenDist  = n('leg-be-dist',        LEG_DEFAULTS.breakEvenDist*100)/100;
+  LEG.investMin      = n('leg-invest-min',     LEG_DEFAULTS.investMin*100)/100;
+  LEG.housingMax     = n('leg-housing-max',    LEG_DEFAULTS.housingMax*100)/100;
+  LEG.savingsTarget  = n('leg-savings-target', LEG_DEFAULTS.savingsTarget*100)/100;
+  LEG.efMinMonths    = n('leg-ef-min',         LEG_DEFAULTS.efMinMonths);
+  LEG.efTargetMonths = n('leg-ef-target',      LEG_DEFAULTS.efTargetMonths);
   saveLeg();
   _updateLegDisplays();
   _triggerLegRecalc();
@@ -9780,7 +10068,7 @@ function randNorm(mu,sigma){
 }
 
 function runMonteCarlo(p,n){
-  const SIGMA=0.15; // historical MSCI World annual std dev ~15%
+  const SIGMA=LEG.mcSigma; // historická ročná volatilita MSCI World (T14 Skupina H)
   const yr=p.yr;
   // Store percentile paths: arrays of length (yr+1)
   // Run n simulations, store final real values and yearly snapshots
@@ -10866,6 +11154,10 @@ const STATE_INPUT_IDS = [
   'leg-stress-add','leg-stress-floor',
   'leg-debt-hypoteka','leg-debt-leasing','leg-debt-spotrebny','leg-debt-kreditka',
   'leg-debt-kontokorent','leg-debt-pozicka','leg-debt-iny',
+  'leg-avg-gross','leg-median-gross','leg-net-factor',
+  'leg-refi-threshold','leg-refi-best-now','leg-refi-penalty','leg-refi-cost',
+  'leg-mc-sigma','leg-be-acc','leg-be-dist','leg-invest-min',
+  'leg-housing-max','leg-savings-target','leg-ef-min','leg-ef-target',
   /* Iné */
   'n-port','n-sy','_vei',
 ];
@@ -12176,22 +12468,22 @@ const DIAG = {
   ETF_RETURN:            0.09,   // MSCI World 1990-2024 konzervatívny predpoklad
   INFLATION:             0.025,  // preberie sa z LEG.inflation pri calcDiag()
   // Prahové sadzby: ACC ETF >1 rok = 0% daň (§9/1/e ZDP) → break-even = čistý ETF výnos
-  BREAK_EVEN_ACC:        0.09,   // Acc ETF + časový test >1 rok: daň 0% → prah = 9% p.a.
-  BREAK_EVEN_DIST:       0.077,  // Dist ETF alebo predaj do 1 roka: ~14% efektívna daň → 9%×0.86=7.74%
-  BREAK_EVEN_RATE:       0.09,   // Primárny prah (ACC ETF, dlhodobý investor)
-  AVG_GROSS_WAGE:        1460,   // ŠÚ SR Q3 2024 priemerná hrubá mzda
-  MEDIAN_GROSS:          1200,   // ~82% priemeru (typický pomer SK)
-  NET_FACTOR:            0.745,  // 73-76% čistá z hrubej (priemer), použijeme 74.5%
-  HOUSING_MAX:           0.30,   // EBA GL 2015/11 / NBS odporúčanie ≤30% čistého
+  BREAK_EVEN_ACC:        0.09,   // → synci sa z LEG.breakEvenAcc
+  BREAK_EVEN_DIST:       0.077,  // → synci sa z LEG.breakEvenDist
+  BREAK_EVEN_RATE:       0.09,   // → synci sa z LEG.breakEvenAcc (primárny prah)
+  AVG_GROSS_WAGE:        1460,   // → synci sa z LEG.avgGrossWage
+  MEDIAN_GROSS:          1200,   // → synci sa z LEG.medianGross
+  NET_FACTOR:            0.745,  // → synci sa z LEG.netFactor pri každom calcDiag()
+  HOUSING_MAX:           0.30,   // → synci sa z LEG.housingMax
   DSTI_MAX:              0.40,   // NBS záväzná hranica DSTI — synci sa z LEG.dstiLimit pri každom calcDiag()
-  SAVINGS_TARGET:        0.20,   // CFP štandard ≥20% čistého
-  INVEST_MIN:       0.15,    // Bogle/Vanguard ≥15% čistého
-  EF_MIN_MONTHS:    3,       // minimum núdzového fondu
-  EF_TARGET_MONTHS: 6,       // štandard pre zamestnancov
-  REFI_THRESHOLD:   0.04,    // refi sa oplatí zvážiť ak sadzba >4%
-  REFI_BEST_NOW:    0.034,   // najlepšie dostupné sadzby SK mar 2025 (5r fix)
-  REFI_PENALTY_MAX: 0.01,    // max 1% predčasné splatenie (§19 ods.4 zák. 90/2016)
-  REFI_COST_FIXED:  200,     // typické fixné náklady refi (kataster + admin)
+  SAVINGS_TARGET:        0.20,   // → synci sa z LEG.savingsTarget
+  INVEST_MIN:       0.15,    // → synci sa z LEG.investMin
+  EF_MIN_MONTHS:    3,       // → synci sa z LEG.efMinMonths
+  EF_TARGET_MONTHS: 6,       // → synci sa z LEG.efTargetMonths
+  REFI_THRESHOLD:   0.04,    // → synci sa z LEG.refiThreshold
+  REFI_BEST_NOW:    0.034,   // → synci sa z LEG.refiBestNow
+  REFI_PENALTY_MAX: 0.01,    // → synci sa z LEG.refiPenaltyMax
+  REFI_COST_FIXED:  200,     // → synci sa z LEG.refiCostFixed
   // Sektory ŠÚ SR OKEČ 2024
   SECTORS: {
     'IT / Telekomunikácie':             2800,
@@ -12304,8 +12596,26 @@ function calcDiag(){
 
   // Dynamicky aktualizuj ETF_RETURN z T1 slidera (r-ret), fallback 9%
   DIAG.ETF_RETURN = (+($el('r-ret')?.value || 9)) / 100;
-  DIAG.INFLATION  = LEG.inflation; // sync z Parametrov
-  DIAG.DSTI_MAX   = LEG.dstiLimit;  // sync z Parametrov (NBS Opatrenie č. 10/2021 §3 ods.1)
+  DIAG.INFLATION  = LEG.inflation;   // sync z Parametrov
+  DIAG.DSTI_MAX   = LEG.dstiLimit;   // sync z Parametrov (NBS Opatrenie č. 10/2021 §3 ods.1)
+  // Skupina F — Mzdy
+  DIAG.AVG_GROSS_WAGE   = LEG.avgGrossWage;
+  DIAG.MEDIAN_GROSS     = LEG.medianGross;
+  DIAG.NET_FACTOR       = LEG.netFactor;
+  // Skupina G — Refinancovanie
+  DIAG.REFI_THRESHOLD   = LEG.refiThreshold;
+  DIAG.REFI_BEST_NOW    = LEG.refiBestNow;
+  DIAG.REFI_PENALTY_MAX = LEG.refiPenaltyMax;
+  DIAG.REFI_COST_FIXED  = LEG.refiCostFixed;
+  // Skupina H — Metodologické konštanty
+  DIAG.BREAK_EVEN_ACC   = LEG.breakEvenAcc;
+  DIAG.BREAK_EVEN_DIST  = LEG.breakEvenDist;
+  DIAG.BREAK_EVEN_RATE  = LEG.breakEvenAcc; // primárny prah (ACC ETF)
+  DIAG.INVEST_MIN       = LEG.investMin;
+  DIAG.HOUSING_MAX      = LEG.housingMax;
+  DIAG.SAVINGS_TARGET   = LEG.savingsTarget;
+  DIAG.EF_MIN_MONTHS    = LEG.efMinMonths;
+  DIAG.EF_TARGET_MONTHS = LEG.efTargetMonths;
   const retPct = (DIAG.ETF_RETURN * 100).toFixed(0).replace('.',',');
   if($el('thief-subtitle')) $el('thief-subtitle').textContent =
     `Koľko navyše by tieto sumy vygenerovali ak by ste ich investovali do akciového portfólia (${retPct} % ročne).`;
@@ -12369,13 +12679,13 @@ function calcFinancialScore(income, expenses, invest, savings, debtMon, efCurren
 
   // Komponenty (max bodov)
   const comp = [
-    { label:'Koľko z príjmu odkladáte', val:savingsRate, target:0.20, max:25,
-      pts: Math.round(Math.min(1, savingsRate / 0.20) * 25),
-      hint:'Orientačný cieľ je 20 % čistého príjmu. Vy: ' + (savingsRate*100).toFixed(0).replace('.',',')+'%',
+    { label:'Koľko z príjmu odkladáte', val:savingsRate, target:DIAG.SAVINGS_TARGET, max:25,
+      pts: Math.round(Math.min(1, savingsRate / DIAG.SAVINGS_TARGET) * 25),
+      hint:'Orientačný cieľ je ' + (DIAG.SAVINGS_TARGET*100).toFixed(0) + ' % čistého príjmu. Vy: ' + (savingsRate*100).toFixed(0).replace('.',',')+'%',
       color:'var(--gold2)' },
-    { label:'Rezerva na nepredvídané výdavky', val:efMonthsCov, target:6, max:20,
-      pts: Math.round(Math.min(1, efMonthsCov / 6) * 20),
-      hint:'Cieľ: aspoň 6 mesiacov výdavkov na účte. Vy: ' + efMonthsCov.toFixed(1).replace('.',',')+' mes.',
+    { label:'Rezerva na nepredvídané výdavky', val:efMonthsCov, target:DIAG.EF_TARGET_MONTHS, max:20,
+      pts: Math.round(Math.min(1, efMonthsCov / DIAG.EF_TARGET_MONTHS) * 20),
+      hint:'Cieľ: aspoň ' + DIAG.EF_TARGET_MONTHS + ' mesiacov výdavkov na účte. Vy: ' + efMonthsCov.toFixed(1).replace('.',',')+' mes.',
       color:'var(--cyan2)' },
     { label:'Záťaž splátkami (koľko % príjmu ide na dlhy)', val:1-Math.min(1,dsti/DIAG.DSTI_MAX), target:1, max:20,
       pts: Math.round(Math.max(0, 1 - dsti / DIAG.DSTI_MAX) * 20),
@@ -12966,7 +13276,7 @@ function calcInterestGap(){
 /* ══════════════════════════════════════════════
    TAB 10 – NÚDZOVÝ FOND
 ═══════════════════════════════════════════════ */
-let efMonths = 6;
+let efMonths = LEG.efTargetMonths; // T14 Skupina H — editovateľné
 
 /* ── EF multi-bucket state ── */
 let efBuckets = [
@@ -13388,8 +13698,8 @@ function calcDebt(){
 
   // Break-even rate: ACC ETF + časový test >1 rok = 0% daň (§9/1/e ZDP) → prah = plný výnos
   // Pre dist ETF alebo krátky horizon: etfRet × 0.86 (14% efektívna daňová záťaž)
-  const breakEvenRate = etfRet * 100; // ACC ETF prah (primárny)
-  const breakEvenRateDist = etfRet * 100 * 0.86; // dist ETF prah (sekundárny)
+  const breakEvenRate = etfRet * 100; // ACC ETF prah (primárny) — z DIAG.BREAK_EVEN_ACC
+  const breakEvenRateDist = etfRet * 100 * (DIAG.BREAK_EVEN_DIST / DIAG.BREAK_EVEN_ACC); // dist ETF prah — z DIAG.BREAK_EVEN_DIST
 
   const cc = $el('debt-compare-content');
   if(cc) cc.innerHTML = `
