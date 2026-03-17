@@ -3721,7 +3721,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="src-item">
           <span class="src-tag src-tag-method">Inflácia</span>
           <div class="src-ref">Reálne hodnoty prevzaté z T1
-            <small>Miera inflácie sa preberie automaticky z Kalkulačky (T1) — oba scenáre používajú rovnakú infláciu pre konzistentné porovnanie.</small>
+            <small>Miera inflácie sa preberie automaticky zo záložky ⚙ Parametre (systémová hodnota) — oba scenáre používajú rovnakú infláciu pre konzistentné porovnanie.</small>
           </div>
         </div>
       </div>
@@ -4114,10 +4114,10 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="rbnd"><span>0%</span><span>5%</span></div>
     </div>
     <div class="ig">
-      <div class="il">Inflácia ročne <span class="val" id="l-inf">2,5%</span></div>
-      <input type="range" id="r-inf" min="0" max="10" step="0.5" value="2.5" data-calc="sync" aria-label="Ročná inflácia v percentách" aria-describedby="hint-r-inf">
+      <div class="il">Inflácia ročne <span class="val" id="l-inf">2,5%</span><button type="button" data-action="resetInfT1" id="t1-inf-reset" title="Resetovať na hodnotu z Parametrov (systémová inflácia)" style="margin-left:auto;background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;padding:2px 7px;border-radius:6px;cursor:pointer;font-family:'Source Code Pro',monospace;line-height:1.4;">↺ sys</button></div>
+      <input type="range" id="r-inf" min="0" max="10" step="0.1" value="2.5" data-calc="sync" aria-label="Ročná inflácia v percentách" aria-describedby="hint-r-inf">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
-      <span id="hint-r-inf" class="sr-only">Priemerný ročný rast cien. ECB cieľ je 2 percentá. Inflácia znižuje reálnu hodnotu úspor — preto kalkulačka zobrazuje aj reálne hodnoty.</span>
+      <span id="hint-r-inf" class="sr-only">Priemerný ročný rast cien. Predvolená hodnota sa nastavuje v záložke Parametre. ECB cieľ je 2 percentá. Tlačidlom ↺ sys ju môžeš resetovať späť na systémovú hodnotu.</span>
       <div class="slider-ctx" id="ctx-inf" aria-live="polite" aria-atomic="true"></div>
     </div>
     <div class="ig">
@@ -4615,7 +4615,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="al-ret">9,0%</span></div><input type="range" id="ar-ret" min="1" max="20" step="0.5" value="9" data-calc="syncCmp" aria-label="Scenár A ročný výnos v percentách"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="al-yr">32</span></div><input type="range" id="ar-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp" aria-label="Scenár A počet rokov investovania"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2a-adv">
-        <summary aria-label="Pokročilé nastavenia scenára A — výnos, poplatky">Pokročilé <span aria-hidden="true" class="pd-chevron">▼</span></summary>
+        <summary aria-label="Pokročilé nastavenia scenára A — výnos, poplatky">Pokročilé nastavenia <span aria-hidden="true" class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="al-inc">5,0%</span></div><input type="range" id="ar-inc" min="0" max="15" step="0.5" value="5" data-calc="syncCmp" aria-label="Scenár A ročný rast vkladu v percentách"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
           <div class="ig"><div class="il">TER <span class="val" id="al-fee">0,20%</span></div><input type="range" id="ar-fee" min="0" max="2" step="0.05" value="0.2" data-calc="syncCmp" aria-label="Scenár A poplatky ETF v percentách"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
@@ -4630,7 +4630,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="ig"><div class="il">Ročný výnos <span class="val" id="bl-ret">7,0%</span></div><input type="range" id="br-ret" min="1" max="20" step="0.5" value="7" data-calc="syncCmp" aria-label="Scenár B ročný výnos v percentách"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
       <div class="ig"><div class="il">Roky <span class="val" id="bl-yr">32</span></div><input type="range" id="br-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp" aria-label="Scenár B počet rokov investovania"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2b-adv">
-        <summary aria-label="Pokročilé nastavenia scenára B — výnos, poplatky">Pokročilé <span aria-hidden="true" class="pd-chevron">▼</span></summary>
+        <summary aria-label="Pokročilé nastavenia scenára B — výnos, poplatky">Pokročilé nastavenia <span aria-hidden="true" class="pd-chevron">▼</span></summary>
         <div class="pd-body">
           <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="bl-inc">3,0%</span></div><input type="range" id="br-inc" min="0" max="15" step="0.5" value="3" data-calc="syncCmp" aria-label="Scenár B ročný rast vkladu v percentách"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
           <div class="ig"><div class="il">TER <span class="val" id="bl-fee">0,50%</span></div><input type="range" id="br-fee" min="0" max="2" step="0.05" value="0.5" data-calc="syncCmp" aria-label="Scenár B poplatky ETF v percentách"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
@@ -4643,7 +4643,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div class="panel">
   <p class="plbl">Porovnanie výsledkov</p>
   <div style="font-size:14.4px;color:var(--muted);margin-bottom:14px;font-family:'Source Code Pro',monospace;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;line-height:1.7;">
-    <span style="color:var(--amber);">i</span>&nbsp; Inflácia: <strong style="color:var(--text);" id="cmp-inf-label">2,5%</strong>/rok (zo záložky 1) · Reálne hodnoty sú v dnešnej kúpnej sile · Dane nie sú zahrnuté
+    <span style="color:var(--amber);">i</span>&nbsp; Inflácia: <strong style="color:var(--text);" id="cmp-inf-label">2,5%</strong>/rok (z Parametrov) · Reálne hodnoty sú v dnešnej kúpnej sile · Dane nie sú zahrnuté
     <span id="cmp-yr-warn" style="display:none;color:var(--amber);margin-left:12px;">Upozornenie: Scenáre majú rôzne časové horizonty — finálne hodnoty nie sú priamo porovnateľné</span>
   </div>
   <div class="cmp-hdr">
@@ -4731,7 +4731,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="ret-info-box">
       <div class="ret-info-box-left">
         Reálny výnos v dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky z parametrov záložky 1: <strong>Výnos p.a. − Inflácia − TER</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur. Ak je kladný, model v simulácii ukazuje rast portfólia počas výberov. <strong>Nie je to garancia</strong> — skutočné portfólio kolíše a poradie dobrých a zlých rokov zásadne ovplyvňuje výsledok.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky: <strong>Výnos p.a. (T1) − Inflácia (Parametre) − TER (T1)</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur. Ak je kladný, model v simulácii ukazuje rast portfólia počas výberov. <strong>Nie je to garancia</strong> — skutočné portfólio kolíše a poradie dobrých a zlých rokov zásadne ovplyvňuje výsledok.">?</span>
       </div>
       <div class="ret-info-box-right">
         <div class="ret-info-val" id="l-gr">—</div>
@@ -4740,14 +4740,14 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <details class="pd-section" id="pd-t3-adv">
-      <summary aria-label="Pokročilé nastavenia výberu z portfólia — výnos, inflácia">Pokročilé <span aria-hidden="true" class="pd-chevron">▼</span></summary>
+      <summary aria-label="Pokročilé nastavenia výberu z portfólia — výnos, inflácia">Pokročilé nastavenia <span aria-hidden="true" class="pd-chevron">▼</span></summary>
       <div class="pd-body">
 
     <!-- Inflation synced from tab1 -->
     <div class="ig">
       <div class="il">
-        Inflácia (zo záložky 1)
-        <span class="tip" data-tip="<div class='tt-title'>Inflácia — automaticky zo záložky 1</div>Táto hodnota sa <strong>automaticky preberá</strong> z nastavenia inflácie v záložke Kalkulačka. Ak tam nastavíte 5%, tu sa to ihneď prejaví.<div class='tt-hr'></div>Inflácia je kľúčová pre výpočet <em>reálnej kúpnej sily</em> vášho výberu.">?</span>
+        Inflácia (z Parametrov)
+        <span class="tip" data-tip="<div class='tt-title'>Inflácia — nastavená v záložke Parametre</div>Táto hodnota sa <strong>automaticky preberá</strong> zo systémovej inflácie nastavenej v záložke ⚙ Parametre.<div class='tt-hr'></div>Inflácia je kľúčová pre výpočet <em>reálnej kúpnej sily</em> vášho výberu — znižuje nominálnu hodnotu výberu na dnešné eurá.">?</span>
         <span id="l-gi-sync" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--amber2);margin-left:auto;">2,5%</span>
       </div>
       <div style="height:4px;background:var(--border2);border-radius:2px;position:relative;margin-bottom:2px;">
@@ -5016,11 +5016,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="ig">
       <div class="il">
         Inflácia ročne
-        <span class="tip" data-tip="<div class='tt-title'>Inflácia ročne</div>Predvolene prevzatá z Kalkulačky (T1). Môžete ju upraviť nezávisle pre tento výpočet. Tlačidlom ↺ ju resetujete späť na hodnotu z T1.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Inflácia ročne</div>Prednastavená zo systémovej hodnoty v záložke ⚙ Parametre. Môžete ju tu upraviť pre nezávislý scenár. Tlačidlom ↺ T1 ju resetujete späť.">?</span>
         <span class="val" id="rvl-inf">2,5%</span>
         <button type="button" data-action="resetInfT4" title="Resetovať na hodnotu z Kalkulačky" style="margin-left:auto;background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;padding:2px 7px;border-radius:6px;cursor:pointer;font-family:'Source Code Pro',monospace;line-height:1.4;" id="rv-inf-reset">↺ T1</button>
       </div>
-      <input type="range" id="rvr-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcReverse" aria-label="Ročná inflácia v percentách">
+      <input type="range" id="rvr-inf" min="0" max="10" step="0.1" value="2.5" data-calc="calcReverse" aria-label="Ročná inflácia v percentách">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
     </div>
 
@@ -5260,7 +5260,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <details class="pd-section" id="pd-t5-adv">
-      <summary aria-label="Pokročilé nastavenia finančnej nezávislosti — výnos, inflácia, SWR">Pokročilé <span aria-hidden="true" class="pd-chevron">▼</span></summary>
+      <summary aria-label="Pokročilé nastavenia finančnej nezávislosti — výnos, inflácia, SWR">Pokročilé nastavenia <span aria-hidden="true" class="pd-chevron">▼</span></summary>
       <div class="pd-body">
 
     <div class="ig">
@@ -5278,11 +5278,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="ig">
       <div class="il">Inflácia ročne
-        <span class="tip" data-tip="<div class='tt-title'>Inflácia ročne</div>Predvolene prevzatá z Kalkulačky (T1). Môžete ju upraviť nezávisle pre FIRE simuláciu. Tlačidlom ↺ ju resetujete späť na hodnotu z T1.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Inflácia ročne</div>Prednastavená zo systémovej hodnoty v záložke ⚙ Parametre. Môžete ju tu upraviť pre nezávislý FIRE scenár. Tlačidlom ↺ T1 ju resetujete späť.">?</span>
         <span class="val" id="firel-inf">2,5%</span>
         <button type="button" data-action="resetInfT5" title="Resetovať na hodnotu z Kalkulačky" style="margin-left:auto;background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;padding:2px 7px;border-radius:6px;cursor:pointer;font-family:'Source Code Pro',monospace;line-height:1.4;" id="fire-inf-reset">↺ T1</button>
       </div>
-      <input type="range" id="firer-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcFIRE" aria-label="Ročná inflácia v percentách">
+      <input type="range" id="firer-inf" min="0" max="10" step="0.1" value="2.5" data-calc="calcFIRE" aria-label="Ročná inflácia v percentách">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
     </div>
 
@@ -5438,7 +5438,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="rbnd"><span>€0</span><span>€20 000</span></div>
     </div>
     <details class="pd-section" id="pd-t6-adv">
-      <summary aria-label="Pokročilé nastavenia historického testu — poplatky">Pokročilé <span aria-hidden="true" class="pd-chevron">▼</span></summary>
+      <summary aria-label="Pokročilé nastavenia historického testu — poplatky">Pokročilé nastavenia <span aria-hidden="true" class="pd-chevron">▼</span></summary>
       <div class="pd-body">
         <div class="ig">
           <div class="il">TER poplatky ETF <span class="val" id="bt-l-fee">0,20%</span></div>
@@ -7058,7 +7058,7 @@ Diagnostika čerpá z:<br>
      a trhovými referenciami. Výpočty čítajú odtiaľto.
 ══════════════════════════════════════════════ -->
 <div id="t14" role="tabpanel" aria-labelledby="tab-t14" tabindex="0" class="tab-panel">
-<div class="wrap" style="max-width:860px;">
+<div class="wrap">
 
   <!-- Hlavička + info box kompaktne -->
   <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:20px;">
@@ -7221,7 +7221,7 @@ Diagnostika čerpá z:<br>
       <div>
         <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
           Sadzba príspevku z hrubej mzdy
-          <span class="tip" data-tip="<div class='tt-title'>II. pilier — sadzba príspevku — zákon 43/2004 Z.z. §64</div>Zamestnanec odvedie toto percento z hrubej mzdy na osobný účet v DSS.<div class='tt-hr'></div><strong>História sadzieb:</strong><br>· 2005–2012: 9%<br>· 2013–2016: 4%<br>· od 1.1.2017: <strong>4%</strong> (platná dnes)<div class='tt-hr'></div>Táto sadzba sa používa v T7 (výpočet mesačného príspevku a projekcie DSS).<div class='tt-hr'></div>Aktuálny text zákona: <a href='https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2004/43/' target='_blank' style='color:var(--gold2)'>slov-lex.sk — zákon 43/2004</a>">?</span>
+          <span class="tip" data-tip="<div class='tt-title'>II. pilier — sadzba príspevku — zákon 43/2004 Z.z. §64</div>Zamestnanec odvedie toto percento z hrubej mzdy na osobný účet v DSS.<div class='tt-hr'></div><strong>História sadzieb:</strong><br>· 2005–2012: 9%<br>· 2013–2016: 4%<br>· od 1.1.2017: <strong>4%</strong> (platná dnes)<div class='tt-hr'></div>Táto sadzba sa používa v T7 (výpočet mesačného príspevku a projekcie DSS).<div class='tt-hr'></div>Aktuálny text zákona: <a href='https://www.slov-lex.sk/pravne-predpisy/SK/ZZ/2004/43/' target='_blank' style='color:var(--gold2)'>slov-lex.sk — zákon 43/2004</a><div class='tt-hr'></div>Potvrdenie aktuálnej sadzby: <a href='https://www.socpoist.sk/news/sadzba-prispevkov-do-ii-dochodkoveho-piliera-sa-v-roku-2025-nemeni-zostava-na-urovni-4' target='_blank' style='color:var(--gold2)'>socpoist.sk — sadzba 2025</a>">?</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
           <div class="ni-wrap" style="flex:1;min-width:100px;max-width:150px;">
@@ -7233,10 +7233,7 @@ Diagnostika čerpá z:<br>
           </div>
           <span style="font-size:12px;color:var(--muted);">% hrubej mzdy</span>
         </div>
-        <div style="margin-top:8px;font-size:13px;color:var(--muted);">
-          Platná sadzba: <strong style="color:rgba(52,211,153,1);" id="leg-p2-contrib-pct">4,00%</strong>
-          <span style="color:var(--muted);"> (od 1.1.2017)</span>
-        </div>
+
       </div>
       <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted2);line-height:1.7;">
         <strong style="color:var(--muted);">Kde sa používa:</strong> T7 → výpočet mesačného príspevku do DSS a projekcia zostatku II. piliera.<br>
@@ -7245,10 +7242,10 @@ Diagnostika čerpá z:<br>
     </div>
   </div><!-- end panel B -->
 
-  <!-- ── SKUPINA C: Trhová referencia ── -->
+  <!-- ── SKUPINA C: Trhové a makro referencie ── -->
   <div class="panel" style="margin-bottom:20px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-      <p class="plbl" style="margin:0;">Trhová referencia</p>
+      <p class="plbl" style="margin:0;">Trhové a makro referencie</p>
       <span class="result-badge result-badge-estimate" style="font-size:12px;">aktualizujte priebežne</span>
     </div>
 
@@ -7272,6 +7269,34 @@ Diagnostika čerpá z:<br>
       <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted2);line-height:1.7;">
         <strong style="color:var(--muted);">Kde sa používa:</strong> T1 → blended výnos portfólia pri mix akcií/dlhopisov.<br>
         <span style="font-size:12px;color:var(--muted);">Nemá efekt ak máš 100% akcie.</span>
+      </div>
+    </div>
+
+    <!-- Inflácia -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);align-items:start;">
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Odhadovaná ročná inflácia
+          <span class="tip" data-tip="<div class='tt-title'>Inflácia — odhadovaná hodnota pre daný rok</div>Používa sa <strong>v celej aplikácii</strong> ako prednastavená hodnota inflačného slidera.<div class='tt-hr'></div><strong>Kde sa prejaví:</strong><br>· T1 — reálna hodnota portfólia po inflácii<br>· T3/T4 — výbery sa ročne upravujú o infláciu<br>· T5 FIRE — cieľové portfólio v reálnych hodnotách<br>· T13 — strata kúpnej sily hotovosti<div class='tt-hr'></div><strong>Aktuálna hodnota:</strong> <a href='https://www.nbs.sk/dohlad-nad-financnym-trhom/makroekonomika-a-statistika/inflacia/' target='_blank' style='color:var(--gold2)'>nbs.sk — inflácia</a> alebo <a href='https://www.statistics.sk/pls/elisw/vbd.Explorer?obj=3&cmd=go&s=1003&sso=3&so=8' target='_blank' style='color:var(--gold2)'>ŠÚ SR — CPI</a><div class='tt-hr'></div>ECB dlhodobý cieľ: 2%. ŠÚ SR priemer 2023–2025: ~3–4%.">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:100px;max-width:150px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-inflation" value="2.5" min="0" max="15" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Odhadovaná ročná inflácia v percentách">
+          </div>
+          <span style="font-size:12px;color:var(--muted);" id="leg-inflation-year">% pre <span id="leg-inflation-year-label">2026</span></span>
+        </div>
+        <div style="margin-top:6px;font-size:12px;color:var(--muted);">
+          <a href="https://www.nbs.sk/dohlad-nad-financnym-trhom/makroekonomika-a-statistika/inflacia/" target="_blank"
+            style="color:var(--muted2);text-decoration:underline;text-underline-offset:2px;">nbs.sk → aktuálna prognóza</a>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted2);line-height:1.7;">
+        <strong style="color:var(--muted);">Kde sa používa:</strong> Prednastavuje slider inflácie v T1, T3, T4, T5. Ovplyvňuje reálne hodnoty portfólia a výber dôchodku.<br>
+        <span style="font-size:12px;color:var(--muted);">Slider v taboch môžeš kedykoľvek zmeniť pre scenáre.</span>
       </div>
     </div>
   </div><!-- end panel C -->
@@ -7374,6 +7399,7 @@ const LEG_DEFAULTS = {
                            // HISTÓRIA: 9% (2005) → 4% (2012) → 4,75%? → 4% (od 1.1.2017, platná)
                            // OPRAVA: predchádzajúca verzia mala chybne 4,75% (0.0475)
   bondRet:        0.02,    // Výnos dlhopisov p.a. — ref. Amundi PRAB ETF (ISIN LU2233156582) ~2–2,5% p.a.
+  inflation:      0.025,   // Odhadovaná ročná inflácia — ŠÚ SR / ECB cieľ 2% (aktualizuj každý rok)
 };
 let LEG = { ...LEG_DEFAULTS };
 
@@ -7382,6 +7408,7 @@ function getLegTaxThreshold() { return Math.round(LEG.zm * ZM_MULTIPLIER); }
 // Globálne aliasy — backward compatibility
 let TAX_THRESHOLD    = getLegTaxThreshold();
 let BOND_RET         = LEG.bondRet; // default 2% — Amundi Euro Govt Bond 0-1Y (PRAB)
+let LEG_INFLATION    = LEG.inflation; // odhadovaná inflácia — syncuje sa do r-inf slidera pri štarte
 let ZP_RATE          = LEG.zpRate;
 // OPRAVA v59: P2_CONTRIB_RATE = 4% (zákon 43/2004), predtým chybne 4,75%
 let P2_CONTRIB_RATE  = LEG.p2ContribRate;
@@ -7391,6 +7418,7 @@ function _syncLegGlobals() {
   BOND_RET        = LEG.bondRet;
   ZP_RATE         = LEG.zpRate;
   P2_CONTRIB_RATE = LEG.p2ContribRate;
+  LEG_INFLATION    = LEG.inflation;
 }
 
 function initLeg() {
@@ -7433,6 +7461,7 @@ function applyLegToT14UI() {
   s('leg-p3-max-deduct', LEG.p3MaxDeduct);
   s('leg-p2-contrib',    (LEG.p2ContribRate*100).toFixed(2));
   s('leg-bond-ret',      (LEG.bondRet*100).toFixed(1));
+  s('leg-inflation',     (LEG.inflation*100).toFixed(1));
   _updateLegDisplays();
 }
 
@@ -7445,6 +7474,10 @@ function _updateLegDisplays() {
   if(f) f.textContent = `176,8 × €${LEG.zm.toFixed(2).replace('.',',')} = €${thresh.toLocaleString('sk-SK')}`;
   const pct = $el('leg-p2-contrib-pct');
   if(pct) pct.textContent = `${(LEG.p2ContribRate*100).toFixed(2)}%`;
+  // Aktualizuj infláciu input (ak existuje)
+  const infInput = $el('leg-inflation');
+  if(infInput && Math.abs(+infInput.value - LEG.inflation*100) > 0.01)
+    infInput.value = (LEG.inflation*100).toFixed(1);
   // T1 backward-compat displays
   const td = $el('setting-tax-display');
   if(td) td.textContent = `€${thresh.toLocaleString('sk-SK')}`;
@@ -7485,6 +7518,7 @@ function readLegFromT14UI() {
   LEG.p3MaxDeduct   = n('leg-p3-max-deduct', LEG_DEFAULTS.p3MaxDeduct);
   LEG.p2ContribRate = n('leg-p2-contrib',    LEG_DEFAULTS.p2ContribRate*100)/100;
   LEG.bondRet       = n('leg-bond-ret',      LEG_DEFAULTS.bondRet*100)/100;
+  LEG.inflation     = n('leg-inflation',    LEG_DEFAULTS.inflation*100)/100;
   saveLeg();
   _updateLegDisplays();
   _triggerLegRecalc();
@@ -7495,6 +7529,22 @@ function _triggerLegRecalc() {
   const zm = $el('setting-zm'); if(zm) zm.value = LEG.zm.toFixed(2);
   const br = $el('setting-bond-ret'); if(br) br.value = (LEG.bondRet*100).toFixed(1);
   const zp = $el('setting-zp-rate'); if(zp) zp.value = (LEG.zpRate*100).toFixed(1);
+  // Sync inflácia z LEG → všetky inf slidery + ich ni- number companions
+  const _legInfPct = (LEG.inflation * 100).toFixed(1);
+  const _setInf = (id) => {
+    const el = $el(id);
+    if(!el) return;
+    el.value = _legInfPct;
+    // Aktualizuj aj ni- number input (ten $v() číta prednostne)
+    const ni = $el('ni-' + id);
+    if(ni) ni.value = parseFloat(_legInfPct);
+    if(typeof fillSlider === 'function') fillSlider(el);
+  };
+  _setInf('r-inf');
+  _setInf('rvr-inf');
+  _setInf('firer-inf');
+  _syncInfResetBtns && _syncInfResetBtns();
+  _syncT1InfResetBtn && _syncT1InfResetBtn();
   if(typeof sync === 'function') sync();
   if(typeof calcPiliere === 'function') calcPiliere();
   if(typeof calcMort === 'function' && $el('t8')?.classList.contains('active')) calcMort();
@@ -8343,9 +8393,11 @@ function calc4(){
 function syncReverse(){
   const t1v=$el('r-inf').value;
   const local=$el('rvr-inf');
-  // Only auto-sync if slider is at default (2.5) - don't override user's local choice
-  if(local && local.value===local.defaultValue) {
-    local.value=t1v; fillSlider(local);
+  // Vždy sync z T1 pri otvorení T4 (user má vlastné tlačidlo ↺ na override)
+  if(local) {
+    local.value=t1v;
+    const niR=$el('ni-rvr-inf'); if(niR) niR.value=parseFloat(t1v);
+    fillSlider(local);
   }
   calcReverse();
 }
@@ -8762,8 +8814,14 @@ function renderDelay(p, rows){
 let chart5 = null;
 
 function syncFIRE(){
-  // Sync inflation from tab1
+  // Sync inflation from tab1 → firer-inf slider
   const inf = $v('r-inf');
+  const fireInfEl = $el('firer-inf');
+  if(fireInfEl) {
+    fireInfEl.value = inf;
+    const niF = $el('ni-firer-inf'); if(niF) niF.value = parseFloat(inf);
+    fillSlider(fireInfEl);
+  }
   if($el('firel-inf')) $el('firel-inf').textContent = fmtP(inf);
   if($el('fire-inf-fill')) $el('fire-inf-fill').style.width = (inf/10*100)+'%';
   calcFIRE();
@@ -10622,7 +10680,7 @@ const STATE_INPUT_IDS = [
   'setting-zm','setting-zp-rate','setting-euribor','setting-bond-ret',
   /* T14 — Legislatívne parametre */
   'leg-zm','leg-tax-rate1','leg-tax-rate2','leg-zp-rate','leg-div-tax',
-  'leg-p3-max-deduct','leg-p2-contrib','leg-bond-ret',
+  'leg-p3-max-deduct','leg-p2-contrib','leg-bond-ret','leg-inflation',
   /* Iné */
   'n-port','n-sy','_vei',
 ];
@@ -10865,6 +10923,7 @@ function _collectState(){
       case 'toggleTheme':   toggleTheme(); break;
       case 'pdOpenLump':    pdOpenLump(); break;
       case 'resetToCalc':   resetToCalc(); break;
+      case 'resetInfT1':    resetInfT1(); break;
       case 'resetInfT4':    resetInfT4(); break;
       case 'resetInfT5':    resetInfT5(); break;
     }
@@ -11930,7 +11989,7 @@ function cfIntegrateWithEF(){
 // ─── Konštanty (overené zdroje) ───────────────
 const DIAG = {
   ETF_RETURN:            0.09,   // MSCI World 1990-2024 konzervatívny predpoklad
-  INFLATION:             0.025,  // ŠÚ SR dlhodobý priemer / ECB cieľ
+  INFLATION:             0.025,  // preberie sa z LEG.inflation pri calcDiag()
   // Prahové sadzby: ACC ETF >1 rok = 0% daň (§9/1/e ZDP) → break-even = čistý ETF výnos
   BREAK_EVEN_ACC:        0.09,   // Acc ETF + časový test >1 rok: daň 0% → prah = 9% p.a.
   BREAK_EVEN_DIST:       0.077,  // Dist ETF alebo predaj do 1 roka: ~14% efektívna daň → 9%×0.86=7.74%
@@ -12060,6 +12119,7 @@ function calcDiag(){
 
   // Dynamicky aktualizuj ETF_RETURN z T1 slidera (r-ret), fallback 9%
   DIAG.ETF_RETURN = (+($el('r-ret')?.value || 9)) / 100;
+  DIAG.INFLATION  = LEG.inflation; // sync z Parametrov
   const retPct = (DIAG.ETF_RETURN * 100).toFixed(0).replace('.',',');
   if($el('thief-subtitle')) $el('thief-subtitle').textContent =
     `Koľko navyše by tieto sumy vygenerovali ak by ste ich investovali do akciového portfólia (${retPct} % ročne).`;
@@ -13519,12 +13579,30 @@ initLeg();
   const july1 = new Date(year, 6, 1); // 1.7. tohto roku
   // ŽM platí od 1.7. bežného roka, ak sme po 1.7.; inak od 1.7. minulého roka
   const validFrom = now >= july1 ? july1 : new Date(year-1, 6, 1);
-  const d = validFrom.getDate().toString().padStart(2,'0');
-  const m = (validFrom.getMonth()+1).toString().padStart(2,'0');
-  el.textContent = `od ${d}.${m}.${validFrom.getFullYear()}`;
+  const taxYearFrom = validFrom.getFullYear();
+  const taxYearTo   = taxYearFrom + 1;
+  el.textContent = `platné pre ${taxYearFrom}/${taxYearTo}`;
+})();
+// Nastav aktuálny rok pre infláciu
+(function(){
+  const el = document.getElementById('leg-inflation-year-label');
+  if(el) el.textContent = new Date().getFullYear();
 })();
 applyTaxSettings();
 applyLegToT14UI();
+// Nastav všetky inf slidery + ni- companions na hodnotu z Parametrov pri štarte
+(function(){
+  if(typeof LEG === 'undefined') return;
+  const v = (LEG.inflation * 100).toFixed(1);
+  ['r-inf','rvr-inf','firer-inf'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.value = v;
+    const ni = document.getElementById('ni-' + id);
+    if(ni) ni.value = parseFloat(v);
+    if(typeof fillSlider === 'function') fillSlider(el);
+  });
+})();
 // FIX: P1 — skontroluj rok začiatku pre daňový prah warning
 checkYearTaxWarning();
 sync();        // runs main calc (needed for _lastAfterTax etc.)
@@ -13570,12 +13648,37 @@ showTab=function(id,btn){
 // no autosave
 
 function resetInfT4(){
+  // Reset rvr-inf na aktuálnu hodnotu r-inf (= systémová inflácia z T1)
   const v=$el('r-inf').value;
-  $el('rvr-inf').value=v; fillSlider($el('rvr-inf')); calcReverse();
+  $el('rvr-inf').value=v;
+  const ni4=$el('ni-rvr-inf'); if(ni4) ni4.value=parseFloat(v);
+  fillSlider($el('rvr-inf')); calcReverse();
+  _syncInfResetBtns();
 }
 function resetInfT5(){
+  // Reset firer-inf na aktuálnu hodnotu r-inf (= systémová inflácia z T1)
   const v=$el('r-inf').value;
-  $el('firer-inf').value=v; fillSlider($el('firer-inf')); calcFIRE();
+  $el('firer-inf').value=v;
+  const ni5=$el('ni-firer-inf'); if(ni5) ni5.value=parseFloat(v);
+  fillSlider($el('firer-inf')); calcFIRE();
+  _syncInfResetBtns();
+}
+function resetInfT1(){
+  // Reset r-inf na systémovú hodnotu z Parametrov (LEG.inflation)
+  const sysVal = (LEG.inflation * 100).toFixed(1);
+  const sysNum = parseFloat(sysVal);
+  const _set = (id) => {
+    const el=$el(id); if(!el) return;
+    el.value = sysVal;
+    const ni=$el('ni-'+id); if(ni) ni.value = sysNum;
+    fillSlider(el);
+  };
+  _set('r-inf');
+  // Cascade na T4 a T5
+  _set('rvr-inf');
+  _set('firer-inf');
+  sync(); calcReverse(); calcFIRE && calcFIRE();
+  _syncInfResetBtns(); _syncT1InfResetBtn();
 }
 function _syncInfResetBtns(){
   const t1v=$el('r-inf').value;
@@ -13583,7 +13686,15 @@ function _syncInfResetBtns(){
   if(rb4) rb4.style.color=+$el('rvr-inf').value===+t1v?'var(--muted)':'var(--amber2)';
   if(rb5) rb5.style.color=+$el('firer-inf').value===+t1v?'var(--muted)':'var(--amber2)';
 }
-document.getElementById('r-inf').addEventListener('input',_syncInfResetBtns);
+function _syncT1InfResetBtn(){
+  // T1 reset button — amber ak r-inf ≠ LEG.inflation
+  const rb1=$el('t1-inf-reset');
+  if(!rb1) return;
+  const sysVal = parseFloat((LEG.inflation*100).toFixed(1));
+  const t1v = parseFloat($el('r-inf')?.value||sysVal);
+  rb1.style.color = Math.abs(t1v-sysVal)>0.05 ? 'var(--amber2)' : 'var(--muted)';
+}
+document.getElementById('r-inf').addEventListener('input',()=>{ _syncInfResetBtns(); _syncT1InfResetBtn(); });
 
 /* ── SOURCES MODAL ── */
 function openSources(){
