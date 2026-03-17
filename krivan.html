@@ -7346,6 +7346,9 @@ function esc(str){
 // LEG — Legislatívne parametre (single source of truth)
 // Hodnoty spravuje T14. Výpočty čítajú len odtiaľto.
 // ════════════════════════════════════════════════════════
+// ZM_MULTIPLIER musí byť pred LEG_DEFAULTS a getLegTaxThreshold (const nie je hoisted)
+const ZM_MULTIPLIER = 176.8; // ZDP §15 ods.1 — konštanta platná od 2013
+
 const LEG_DEFAULTS = {
   zm:             284.13,  // Životné minimum €/mes. — ŠÚ SR k 1.7. (zákon 601/2003)
   taxRate1:       0.19,    // Daňová sadzba pod prahom — ZDP §15 ods.1
@@ -7490,8 +7493,7 @@ function _triggerLegRecalc() {
 // V-3 AUDIT: Od 1.1.2024 sa pravidla ZP z §7 ZDP menili. Overte platnost sadby pred pouzitim.
 // Zdroj: Zakon c.580/2004 Z.z. — aktualizujte pri zmene legislativy (posledna zname zmena: 2024).
 
-/* FIX: P1 — TAX_THRESHOLD cez ŽM vstup, automatický výpočet 176,8 × ŽM (mesačné) */
-const ZM_MULTIPLIER = 176.8; // ZDP §15 ods.1 — konštanta platná od 2013
+/* FIX: P1 — TAX_THRESHOLD cez ŽM vstup — ZM_MULTIPLIER presunutý do LEG bloku */
 
 function applyTaxSettings(){
   // Backward-compat wrapper — číta T1 settings inputs → uloží do LEG → prepočíta
