@@ -370,11 +370,37 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .ob-btn-close:hover{opacity:.85;}
 .ob-btn-more{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;cursor:pointer;background:transparent;border:1px solid #22c55e;color:#22c55e;font-weight:400;}
 .ob-btn-more:hover{background:var(--bg3);}
+/* ── SR-ONLY: viditeľné len pre screen readery ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* EF cat details - šípka animácia */
 #ef-cat-details summary { outline: none; }
 #ef-cat-details summary::-webkit-details-marker { display: none; }
 #ef-cat-details[open] summary .ef-cat-arrow { transform: rotate(90deg); }
 .ef-cat-arrow { display:inline-block; transition: transform .2s; color: var(--cyan2); font-size: 11px; }
+
+/* ── SR-ONLY: viditeľné len pre screen readery ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* EF cat details - šípka animácia */
 #ef-cat-details summary { outline: none; }
@@ -3330,7 +3356,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 </head>
 <body>
 <div id="tooltip-box"></div>
-<div id="toast-container"></div>
+<div id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- ── RESTORE DIALOG ── -->
 <!-- ── PROFILE BAR ── (sticky, vždy viditeľný) -->
@@ -3828,14 +3854,14 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 <!-- TABS -->
 <div class="tabs-wrap">
-  <div class="tabs-groups">
+  <div class="tabs-groups" role="tablist" aria-label="Sekcie aplikácie">
 
     <!-- 1. Domáci rozpočet -->
     <div class="tab-group tg-budget">
       <div class="tab-group-label">Rozpočet</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t9">Príjmy a výdavky</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t10">Rezervný fond</button>
+        <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" class="tab" data-action="showTab" data-tab="t9">Príjmy a výdavky</button>
+        <button id="tab-t10" role="tab" aria-selected="false" aria-controls="t10" type="button" class="tab" data-action="showTab" data-tab="t10">Rezervný fond</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3844,7 +3870,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-debt">
       <div class="tab-group-label">Dlhy</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t11">Moje dlhy</button>
+        <button id="tab-t11" role="tab" aria-selected="false" aria-controls="t11" type="button" class="tab" data-action="showTab" data-tab="t11">Moje dlhy</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3853,8 +3879,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-invest">
       <div class="tab-group-label">Investovanie</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t1">Rast portfólia</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t5">Finančná nezávislosť</button>
+        <button id="tab-t1" role="tab" aria-selected="false" aria-controls="t1" type="button" class="tab" data-action="showTab" data-tab="t1">Rast portfólia</button>
+        <button id="tab-t5" role="tab" aria-selected="false" aria-controls="t5" type="button" class="tab" data-action="showTab" data-tab="t5">Finančná nezávislosť</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3863,8 +3889,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-assets">
       <div class="tab-group-label">Majetok</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t7">Piliere II. / III.</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t12">Ostatný majetok</button>
+        <button id="tab-t7" role="tab" aria-selected="false" aria-controls="t7" type="button" class="tab" data-action="showTab" data-tab="t7">Piliere II. / III.</button>
+        <button id="tab-t12" role="tab" aria-selected="false" aria-controls="t12" type="button" class="tab" data-action="showTab" data-tab="t12">Ostatný majetok</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3873,8 +3899,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-withdraw">
       <div class="tab-group-label">Dôchodok</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t3">Výber z portfólia</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t4">Koľko potrebujem?</button>
+        <button id="tab-t3" role="tab" aria-selected="false" aria-controls="t3" type="button" class="tab" data-action="showTab" data-tab="t3">Výber z portfólia</button>
+        <button id="tab-t4" role="tab" aria-selected="false" aria-controls="t4" type="button" class="tab" data-action="showTab" data-tab="t4">Koľko potrebujem?</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3883,10 +3909,10 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-tools">
       <div class="tab-group-label">Nástroje</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab" data-action="showTab" data-tab="t1" style="display:none" id="t1-hidden-btn"></button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t8">Hypotéka</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t2">Scenáre A vs. B</button>
-        <button type="button" class="tab" data-action="showTab" data-tab="t6">Historický test</button>
+        <button id="tab-t1" role="tab" aria-selected="false" aria-controls="t1" type="button" class="tab" data-action="showTab" data-tab="t1" style="display:none" id="t1-hidden-btn"></button>
+        <button id="tab-t8" role="tab" aria-selected="false" aria-controls="t8" type="button" class="tab" data-action="showTab" data-tab="t8">Hypotéka</button>
+        <button id="tab-t2" role="tab" aria-selected="false" aria-controls="t2" type="button" class="tab" data-action="showTab" data-tab="t2">Scenáre A vs. B</button>
+        <button id="tab-t6" role="tab" aria-selected="false" aria-controls="t6" type="button" class="tab" data-action="showTab" data-tab="t6">Historický test</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3895,7 +3921,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="tab-group tg-diag">
       <div class="tab-group-label">Diagnostika</div>
       <div class="tab-group-inner">
-        <button type="button" class="tab active" data-action="showTab" data-tab="t13">Finančná diagnostika</button>
+        <button id="tab-t13" role="tab" aria-selected="true" aria-controls="t13" type="button" class="tab active" data-action="showTab" data-tab="t13">Finančná diagnostika</button>
       </div>
     </div>
     <div class="tab-sep"></div>
@@ -3907,7 +3933,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 1 – MAIN CALCULATOR
 ═══════════════════════════════════════════════ -->
-<div id="t1" class="tab-panel">
+<div id="t1" role="tabpanel" aria-labelledby="tab-t1" tabindex="0" class="tab-panel">
 <div class="layout stretch">
 
 <!-- ── LEFT: INPUTS ── -->
@@ -3934,15 +3960,16 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Počet rokov <span class="val" id="l-yr">32</span></div>
       <input type="range" id="r-yr" min="5" max="50" step="1" value="30" data-calc="sync" aria-label="Počet rokov investovania">
       <div class="rbnd"><span>5</span><span>50</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">typicky 20–35 rokov pre sporenie na dôchodok</div>
     </div>
     <div class="ig primary">
       <div class="il">
         Celkový výnos p.a.<span class="tip" data-tip="<div class='tt-title'>Celkový ročný výnos (p.a.)</div>Pre <strong>akumulačné ETF</strong> tento výnos zahŕňa <em>všetko</em> — rast cien akcií aj dividendy, ktoré fond automaticky reinvestuje späť do seba.<div class='tt-hr'></div><strong>Prečo default 9%?</strong><br>MSCI World historicky (1987–2024) rástol priemerne ~10% ročne. Po odrátaní TER 0.2% dostaneme orientačných ~9% — historický priemer, budúce výnosy sa môžu líšiť. Pre konzervatívne plánovanie je 9% rozumný stred.<div class='tt-hr'></div><strong>Pravidlo 72:</strong> Pri 9% ročne sa vaše peniaze zdvojnásobia každých ~8 rokov.">?</span>
         <span class="val" id="l-ret">9,0%</span>
       </div>
-      <input type="range" id="r-ret" min="1" max="20" step="0.5" value="9" data-calc="sync">
+      <input type="range" id="r-ret" min="1" max="20" step="0.5" value="9" data-calc="sync" aria-label="Celkový ročný výnos v percentách">
       <div class="rbnd"><span>1%</span><span>20%</span></div>
-      <div class="slider-ctx" id="ctx-ret"></div>
+      <div class="slider-ctx" id="ctx-ret" aria-live="polite" aria-atomic="true"></div>
     </div>
 
     <!-- POKROČILÉ NASTAVENIA — collapsible -->
@@ -3959,7 +3986,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačnú investíciu o toto percento — modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%, štart €575):</strong><br>Rok 1: €575 · Rok 3: €634 · Rok 5: €699 · Rok 10: €892 · Rok 20: €1 526<div class='tt-hr'></div>Aj malý ročný rast výrazne ovplyvní výsledok portfólia v simulácii. Tabulka vkladov nižšie zobrazuje celý plán.">?</span>
         <span class="val" id="l-inc">5,0%</span>
       </div>
-      <input type="range" id="r-inc" min="0" max="15" step="0.5" value="5" data-calc="sync">
+      <input type="range" id="r-inc" min="0" max="15" step="0.5" value="5" data-calc="sync" aria-label="Ročný rast vkladu v percentách">
       <div class="rbnd"><span>0%</span><span>15%</span></div>
     </div>
     <div class="ig">
@@ -3967,23 +3994,23 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         Dividendový výnos (odhad)<span class="tip" data-tip="<div class='tt-title'>Dividendový výnos ETF</div>Akcie v MSCI World indexe vyplácajú dividendy. <strong>Pri akumulačnom ETF</strong> tieto dividendy nevidíte — fond ich automaticky reinvestuje bez akejkoľvek daňovej udalosti.<div class='tt-hr'></div><strong>Prečo je to výhoda?</strong><br>Distribučné ETF vám dividendy vypláca → platíte 7% daň → reinvestujete menej. Za dlhé obdobie môže byť rozdiel v simulácii značný — závisí od skutočných výnosov.<div class='tt-hr'></div>Toto číslo slúži výlučne na výpočet porovnania Acc vs Dist — na váš výsledok inak nemá vplyv.">?</span>
         <span class="val" id="l-div">1,8%</span>
       </div>
-      <input type="range" id="r-div" min="0" max="5" step="0.1" value="1.8" data-calc="sync">
+      <input type="range" id="r-div" min="0" max="5" step="0.1" value="1.8" data-calc="sync" aria-label="Dividendový výnos v percentách">
       <div class="rbnd"><span>0%</span><span>5%</span></div>
     </div>
     <div class="ig">
       <div class="il">Inflácia ročne <span class="val" id="l-inf">2,5%</span></div>
-      <input type="range" id="r-inf" min="0" max="10" step="0.5" value="2.5" data-calc="sync">
+      <input type="range" id="r-inf" min="0" max="10" step="0.5" value="2.5" data-calc="sync" aria-label="Ročná inflácia v percentách">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
-      <div class="slider-ctx" id="ctx-inf"></div>
+      <div class="slider-ctx" id="ctx-inf" aria-live="polite" aria-atomic="true"></div>
     </div>
     <div class="ig">
       <div class="il">
         TER poplatky ETF<span class="tip" data-tip="<div class='tt-title'>TER — Total Expense Ratio</div>Ročný poplatok, ktorý si ETF fond strhne automaticky z vašich aktív. <strong>Neplatíte ho manuálne</strong> — je zahrnutý v cene fondu.<div class='tt-hr'></div><strong>Populárne MSCI World Acc fondy:</strong><br>• iShares Core MSCI World (IWDA) — <strong>0.20%</strong><br>• Vanguard FTSE All-World Acc (VWCE) — <strong>0.22%</strong><br>• Xtrackers MSCI World Swap (XDWD) — <strong>0.19%</strong><div class='tt-hr'></div>Rozdiel 0.1% ročne = za 32 rokov na €2M portfóliu ~€80 000 rozdiel vďaka zloženému úročeniu.">?</span>
         <span class="val" id="l-fee">0,20%</span>
       </div>
-      <input type="range" id="r-fee" min="0" max="2" step="0.05" value="0.2" data-calc="sync">
+      <input type="range" id="r-fee" min="0" max="2" step="0.05" value="0.2" data-calc="sync" aria-label="TER poplatky ETF v percentách">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
-      <div class="slider-ctx" id="ctx-fee"></div>
+      <div class="slider-ctx" id="ctx-fee" aria-live="polite" aria-atomic="true"></div>
     </div>
     <div class="ig">
       <div class="il">
@@ -3991,15 +4018,16 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Multi-asset: Akcie + Dlhopisy</div>Nastavte podiel akcií (MSCI World ETF) a dlhopisov vo vašom portfóliu. <strong>Dlhopisy: fixný výnos ~3% p.a.</strong><div class='tt-hr'></div>Kombinovaný výnos = (podiel akcií × výnos akcií) + (podiel dlhopisov × 3%).<div class='tt-hr'></div>100% akcie = maximálny potenciál, vyššia volatilita. 60/40 = klasické konzervat. portfólio.">?</span>
         <span class="val" id="l-stk">100%</span>
       </div>
-      <input type="range" id="r-stk" min="0" max="100" step="5" value="100" data-calc="sync">
+      <input type="range" id="r-stk" min="0" max="100" step="5" value="100" data-calc="sync" aria-label="Podiel akcií v portfóliu v percentách">
       <div class="rbnd"><span>0% (dlhopisy)</span><span>100% (akcie)</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">100 % akcie = vyšší potenciál aj vyššie výkyvy</div>
     </div>
     <div class="ig">
       <div class="il">Rok začiatku <span class="val" id="l-sy">2026</span></div>
       <div class="ni-wrap">
         <div class="ni-pfx">rok</div>
         <!-- FIX: P1 — rok začiatku triggeruje upozornenie na zmenu daňového prahu -->
-        <input type="number" id="n-sy" value="2026" min="2000" max="2050" data-calc="syncAndTaxWarning">
+        <input type="number" id="n-sy" value="2026" min="2000" max="2050" data-calc="syncAndTaxWarning" aria-label="Rok ukončenia sporenia">
       </div>
     </div>
 
@@ -4108,7 +4136,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div class="col">
 
   <!-- HERO: primary numbers -->
-  <div class="hero-block">
+  <div class="hero-block" role="status" aria-live="polite" aria-atomic="false">
 
     <!-- PRIMARY: Nominálna — full prominence -->
     <div style="margin-bottom:6px;">
@@ -4317,12 +4345,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="g2" style="margin-bottom:20px;">
     <div class="ig" style="margin:0;">
       <div class="il">Termínovaný vklad p.a. <span class="val" id="alt-l-td">3,5%</span></div>
-      <input type="range" id="alt-r-td" min="0.5" max="10" step="0.1" value="3.5" data-calc="calcAlt">
+      <input type="range" id="alt-r-td" min="0.5" max="10" step="0.1" value="3.5" data-calc="calcAlt" aria-label="Termínovaný vklad ročný výnos v percentách">
       <div class="rbnd"><span>0,5%</span><span>10%</span></div>
     </div>
     <div class="ig" style="margin:0;">
       <div class="il">Prenájom nehnuteľnosti p.a. <span class="val" id="alt-l-re">5,0%</span></div>
-      <input type="range" id="alt-r-re" min="1" max="12" step="0.5" value="5" data-calc="calcAlt">
+      <input type="range" id="alt-r-re" min="1" max="12" step="0.5" value="5" data-calc="calcAlt" aria-label="Prenájom nehnuteľnosti ročný výnos v percentách">
       <div class="rbnd"><span>1%</span><span>12%</span></div>
     </div>
   </div>
@@ -4379,7 +4407,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <div class="ni-pfx">€</div>
             <input type="number" id="setting-zm" value="284.13" min="200" max="600" step="0.01"
               data-calc="applyTaxSettings"
-              style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;">
+              style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Životné minimum v eurách mesačne">
           </div>
           <span style="font-size:13.2px;color:var(--muted);">od 1.7.2025</span>
         </div>
@@ -4413,7 +4441,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="ni-wrap" style="width:90px;">
           <div class="ni-pfx">%</div>
           <input type="number" id="setting-bond-ret" value="3.0" min="0.5" max="8" step="0.1"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;">
+            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Výnos dlhopisov v percentách ročne">
         </div>
       </div>
     </div>
@@ -4425,7 +4453,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="ni-wrap" style="width:80px;">
           <div class="ni-pfx">%</div>
           <input type="number" id="setting-zp-rate" value="14" min="0" max="20" step="0.5"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;">
+            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Sadzba zdravotného poistenia v percentách">
         </div>
       </div>
     </div>
@@ -4435,7 +4463,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="ni-wrap" style="width:90px;">
           <div class="ni-pfx">%</div>
           <input type="number" id="setting-euribor" value="2.7" min="0" max="8" step="0.05"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;">
+            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Aktuálna sadzba Euribor 3M v percentách">
         </div>
         <span style="font-size:13.2px;color:var(--muted);">· informačne</span>
       </div>
@@ -4457,35 +4485,35 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 2 – COMPARISON
 ═══════════════════════════════════════════════ -->
-<div id="t2" class="tab-panel">
+<div id="t2" role="tabpanel" aria-labelledby="tab-t2" tabindex="0" class="tab-panel">
 <div class="g2" style="margin-bottom:20px;">
 
   <div class="panel scen-a inputs-panel">
     <div class="scen-label">Scenár A</div>
-      <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="al-ini">€23 000</span></div><input type="range" id="ar-ini" min="0" max="10000000" step="10000" value="5000" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€10M</span></div></div>
-      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="al-mon">€575</span></div><input type="range" id="ar-mon" min="0" max="20000" step="50" value="200" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
-      <div class="ig"><div class="il">Ročný výnos <span class="val" id="al-ret">9,0%</span></div><input type="range" id="ar-ret" min="1" max="20" step="0.5" value="9" data-calc="syncCmp"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
-      <div class="ig"><div class="il">Roky <span class="val" id="al-yr">32</span></div><input type="range" id="ar-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp"><div class="rbnd"><span>5</span><span>50</span></div></div>
+      <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="al-ini">€23 000</span></div><input type="range" id="ar-ini" min="0" max="10000000" step="10000" value="5000" data-calc="syncCmp" aria-label="Scenár A počiatočná investícia v eurách"><div class="rbnd"><span>€0</span><span>€10M</span></div></div>
+      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="al-mon">€575</span></div><input type="range" id="ar-mon" min="0" max="20000" step="50" value="200" data-calc="syncCmp" aria-label="Scenár A mesačný vklad v eurách"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
+      <div class="ig"><div class="il">Ročný výnos <span class="val" id="al-ret">9,0%</span></div><input type="range" id="ar-ret" min="1" max="20" step="0.5" value="9" data-calc="syncCmp" aria-label="Scenár A ročný výnos v percentách"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
+      <div class="ig"><div class="il">Roky <span class="val" id="al-yr">32</span></div><input type="range" id="ar-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp" aria-label="Scenár A počet rokov investovania"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2a-adv">
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
-          <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="al-inc">5,0%</span></div><input type="range" id="ar-inc" min="0" max="15" step="0.5" value="5" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
-          <div class="ig"><div class="il">TER <span class="val" id="al-fee">0,20%</span></div><input type="range" id="ar-fee" min="0" max="2" step="0.05" value="0.2" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
+          <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="al-inc">5,0%</span></div><input type="range" id="ar-inc" min="0" max="15" step="0.5" value="5" data-calc="syncCmp" aria-label="Scenár A ročný rast vkladu v percentách"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
+          <div class="ig"><div class="il">TER <span class="val" id="al-fee">0,20%</span></div><input type="range" id="ar-fee" min="0" max="2" step="0.05" value="0.2" data-calc="syncCmp" aria-label="Scenár A poplatky ETF v percentách"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
         </div>
       </details>
   </div>
 
   <div class="panel scen-b inputs-panel">
     <div class="scen-label">Scenár B</div>
-      <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="bl-ini">€5 000</span></div><input type="range" id="br-ini" min="0" max="10000000" step="10000" value="5000" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€10M</span></div></div>
-      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="bl-mon">€800</span></div><input type="range" id="br-mon" min="0" max="20000" step="50" value="400" data-calc="syncCmp"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
-      <div class="ig"><div class="il">Ročný výnos <span class="val" id="bl-ret">7,0%</span></div><input type="range" id="br-ret" min="1" max="20" step="0.5" value="7" data-calc="syncCmp"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
-      <div class="ig"><div class="il">Roky <span class="val" id="bl-yr">32</span></div><input type="range" id="br-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp"><div class="rbnd"><span>5</span><span>50</span></div></div>
+      <div class="ig"><div class="il">Počiatočná investícia <span class="val" id="bl-ini">€5 000</span></div><input type="range" id="br-ini" min="0" max="10000000" step="10000" value="5000" data-calc="syncCmp" aria-label="Scenár B počiatočná investícia v eurách"><div class="rbnd"><span>€0</span><span>€10M</span></div></div>
+      <div class="ig"><div class="il">Mesačný vklad <span class="val" id="bl-mon">€800</span></div><input type="range" id="br-mon" min="0" max="20000" step="50" value="400" data-calc="syncCmp" aria-label="Scenár B mesačný vklad v eurách"><div class="rbnd"><span>€0</span><span>€20 000</span></div></div>
+      <div class="ig"><div class="il">Ročný výnos <span class="val" id="bl-ret">7,0%</span></div><input type="range" id="br-ret" min="1" max="20" step="0.5" value="7" data-calc="syncCmp" aria-label="Scenár B ročný výnos v percentách"><div class="rbnd"><span>1%</span><span>20%</span></div></div>
+      <div class="ig"><div class="il">Roky <span class="val" id="bl-yr">32</span></div><input type="range" id="br-yr" min="5" max="50" step="1" value="30" data-calc="syncCmp" aria-label="Scenár B počet rokov investovania"><div class="rbnd"><span>5</span><span>50</span></div></div>
       <details class="pd-section" id="pd-t2b-adv">
         <summary>Pokročilé <span class="pd-chevron">▼</span></summary>
         <div class="pd-body">
-          <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="bl-inc">3,0%</span></div><input type="range" id="br-inc" min="0" max="15" step="0.5" value="3" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
-          <div class="ig"><div class="il">TER <span class="val" id="bl-fee">0,50%</span></div><input type="range" id="br-fee" min="0" max="2" step="0.05" value="0.5" data-calc="syncCmp"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
+          <div class="ig"><div class="il">Ročný rast vkladu <span class="val" id="bl-inc">3,0%</span></div><input type="range" id="br-inc" min="0" max="15" step="0.5" value="3" data-calc="syncCmp" aria-label="Scenár B ročný rast vkladu v percentách"><div class="rbnd"><span>0%</span><span>15%</span></div></div>
+          <div class="ig"><div class="il">TER <span class="val" id="bl-fee">0,50%</span></div><input type="range" id="br-fee" min="0" max="2" step="0.05" value="0.5" data-calc="syncCmp" aria-label="Scenár B poplatky ETF v percentách"><div class="rbnd"><span>0%</span><span>2%</span></div></div>
         </div>
       </details>
   </div>
@@ -4536,7 +4564,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 3 – RETIREMENT / 4% RULE
 ═══════════════════════════════════════════════ -->
-<div id="t3" class="tab-panel">
+<div id="t3" role="tabpanel" aria-labelledby="tab-t3" tabindex="0" class="tab-panel">
 
 
 <!-- Short explainer -->
@@ -4562,7 +4590,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="display:flex;gap:8px;align-items:center;">
         <div class="ni-wrap" style="flex:1;">
           <div class="ni-pfx">€</div>
-          <input type="number" id="n-port" value="500000" data-calc="calc4">
+          <input type="number" id="n-port" value="500000" data-calc="calc4" aria-label="Aktuálna hodnota portfólia v eurách">
         </div>
         <button type="button" class="btn-add" style="margin:0;white-space:nowrap;" data-action="resetToCalc">↺ Reset</button>
       </div>
@@ -4574,8 +4602,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig">
       <div class="il">Orientačná miera výberu<span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>Bengen (1994) / Trinity Study (1998):</strong> pri 50/50 akcií/dlhopisov + inflačne upravovaných výberoch vydržalo portfólio v ~95% historických US scenárov (30-ročný horizont):<div class='tt-hr'></div>· 30 rokov → ~95% historických scenárov<br>· 40 rokov → ~85% historických scenárov<br>· 50+ rokov → ~80% — pre dlhý horizont zvážte 3–3,5%<div class='tt-hr'></div><strong>Príklad:</strong> Portfólio €2 000 000 × 4% = €80 000/rok = €6 667/mes. v roku odchodu, každý rok upravované o infláciu.<div class='tt-hr'></div><strong>Keď simulácia nevyčerpá portfólio za 100 rokov</strong> — zobrazí sa symbol ≈. <strong>Nie je to garancia.</strong> Model počíta s rovnakým výnosom každý rok. V skutočnosti trhy kolíšu a výsledok závisí aj od poradia dobrých a zlých rokov (sequence risk).">?</span> <span class="val" id="l-wr">4,0%</span></div>
-      <input type="range" id="r-wr" min="2" max="8" step="0.1" value="4" data-calc="calc4">
+      <input type="range" id="r-wr" min="2" max="8" step="0.1" value="4" data-calc="calc4" aria-label="Ročná miera výberu z portfólia v percentách">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">odporúčané: 3–4 % ročne (tzv. bezpečná miera výberu)</div>
     </div>
     <!-- Výnos v dôchodku — computed: ret − inf − fee from Tab1 -->
     <div class="ret-info-box">
@@ -4608,12 +4637,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig">
       <div class="il">Roky výberu (dĺžka dôchodku)<span class="tip" data-tip="<div class='tt-title'>Koľko rokov plánujete vyberať?</div>Odhadovaná dĺžka fázy výberu — koľko rokov budete žiť z portfólia.<div class='tt-hr'></div>Ak plánujete dôchodok v 55 a dožitie 85 rokov → 30 rokov výberu. Pre istotu berte 35–40 (ľudia žijú dlhšie ako si myslia).<div class='tt-hr'></div>Ak vidíte ≈ — simulácia v 100-ročnom horizonte portfólio nevyčerpá. <strong>Nie je to garancia</strong> — model predpokladá konštantný výnos každý rok.">?</span> <span class="val" id="l-gyr">30</span></div>
-      <input type="range" id="r-gyr" min="10" max="50" step="1" value="30" data-calc="calc4">
+      <input type="range" id="r-gyr" min="10" max="50" step="1" value="30" data-calc="calc4" aria-label="Počet rokov čerpania dôchodku">
       <div class="rbnd"><span>10 r.</span><span>50 r.</span></div>
     </div>
     <div class="ig">
       <div class="il">Roky do dôchodku (pre disk. inflácie)<span class="tip" data-tip="<div class='tt-title'>Prečo potrebujeme počet rokov?</div>€6 000/mes. v roku 2058 nekúpi to isté ako €6 000 dnes. Inflácia znehodnocuje peniaze.<div class='tt-hr'></div><strong>Diskontovanie:</strong> dnešná hodnota = budúca suma ÷ (1 + inflácia)^roky<div class='tt-hr'></div>Príklad (2.5% inflácia, 32 rokov): €6 000 v roku 2058 = ~€2 900 dnes.">?</span> <span class="val" id="l-yinv">32</span></div>
-      <input type="range" id="r-yinv" min="1" max="50" step="1" value="32" data-calc="calc4">
+      <input type="range" id="r-yinv" min="1" max="50" step="1" value="32" data-calc="calc4" aria-label="Počet rokov investovania pred dôchodkom">
       <div class="rbnd"><span>1</span><span>50</span></div>
     </div>
 
@@ -4631,7 +4660,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <span style="font-size:21.6px;opacity:.6;">€</span>
           <input type="number" id="ctx-state-pension" value="640" min="0" max="5000" step="10"
             data-calc="syncTab3"
-            style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--muted2);background:transparent;border:none;outline:none;width:80px;text-align:center;-moz-appearance:textfield;">
+            style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--muted2);background:transparent;border:none;outline:none;width:80px;text-align:center;-moz-appearance:textfield;" aria-label="Predpokladaný štátny dôchodok v eurách mesačne">
         </div>
         
       </div>
@@ -4641,7 +4670,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <span style="font-size:21.6px;opacity:.6;">€</span>
           <input type="number" id="ctx-avg-wage" value="1090" min="0" max="10000" step="10"
             data-calc="syncTab3"
-            style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--muted2);background:transparent;border:none;outline:none;width:80px;text-align:center;-moz-appearance:textfield;">
+            style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--muted2);background:transparent;border:none;outline:none;width:80px;text-align:center;-moz-appearance:textfield;" aria-label="Priemerná mesačná mzda v eurách">
         </div>
         
       </div>
@@ -4664,7 +4693,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div class="col">
 
   <!-- Withdrawal HERO -->
-  <div class="r4-hero">
+  <div class="r4-hero" role="status" aria-live="polite" aria-atomic="false">
     <!-- BADGE: typ výstupu -->
     <div class="result-badge result-badge-estimate">🔵 Simulačný odhad</div>
     <div class="r4-lbl">Odhadovaný mesačný výber (<span id="r4-wr-pct">4%</span> · simulácia)</div>
@@ -4785,7 +4814,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané — hodnota je čerstvá a aktuálna<div class='tt-hr'></div>
 <strong>Portfólio T1</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
-  <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong></span>
+  <span class="sync-badge fresh dot" title="Portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t3-port">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
   <span id="t3-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
 </details>
@@ -4794,7 +4823,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 4 – REVERSE CALCULATOR: HOW MUCH TO INVEST?
 ═══════════════════════════════════════════════ -->
-<div id="t4" class="tab-panel">
+<div id="t4" role="tabpanel" aria-labelledby="tab-t4" tabindex="0" class="tab-panel">
 
 <!-- Explainer -->
 <div style="background:rgba(167,139,250,.05);border:1px solid rgba(167,139,250,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
@@ -4822,13 +4851,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€/mes.</div>
-        <input type="number" id="rv-target" value="2000" min="100" step="100" data-calc="calcReverse">
+        <input type="number" id="rv-target" value="2000" min="100" step="100" data-calc="calcReverse" aria-label="Cieľová mesačná renta v eurách">
       </div>
     </div>
 
     <div class="ig">
       <div class="il">Doba investovania (roky) <span class="val" id="rvl-yr">35</span></div>
-      <input type="range" id="rvr-yr" min="5" max="50" step="1" value="35" data-calc="calcReverse">
+      <input type="range" id="rvr-yr" min="5" max="50" step="1" value="35" data-calc="calcReverse" aria-label="Doba investovania v rokoch">
       <div class="rbnd"><span>5</span><span>50</span></div>
     </div>
 
@@ -4838,7 +4867,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€</div>
-        <input type="number" id="rv-ini" value="0" min="0" step="500" data-calc="calcReverse">
+        <input type="number" id="rv-ini" value="0" min="0" step="500" data-calc="calcReverse" aria-label="Počiatočná investícia v eurách">
       </div>
     </div>
 
@@ -4850,13 +4879,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Ročný výnos počas investovania</div>MSCI World Acc historicky ~10% p.a. Po TER 0.20% zostatok ~9.8%. Pre konzervatívne plánovanie použite 7–8%, pre stred 9%.">?</span>
         <span class="val" id="rvl-ret">9,0%</span>
       </div>
-      <input type="range" id="rvr-ret" min="1" max="20" step="0.5" value="9" data-calc="calcReverse">
+      <input type="range" id="rvr-ret" min="1" max="20" step="0.5" value="9" data-calc="calcReverse" aria-label="Očakávaný ročný výnos v percentách">
       <div class="rbnd"><span>1%</span><span>20%</span></div>
     </div>
 
     <div class="ig">
       <div class="il">TER poplatky ETF <span class="val" id="rvl-fee">0,20%</span></div>
-      <input type="range" id="rvr-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcReverse">
+      <input type="range" id="rvr-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcReverse" aria-label="TER poplatky ETF v percentách">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
     </div>
 
@@ -4867,7 +4896,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="val" id="rvl-inf">2,5%</span>
         <button type="button" data-action="resetInfT4" title="Resetovať na hodnotu z Kalkulačky" style="margin-left:auto;background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;padding:2px 7px;border-radius:6px;cursor:pointer;font-family:'Source Code Pro',monospace;line-height:1.4;" id="rv-inf-reset">↺ T1</button>
       </div>
-      <input type="range" id="rvr-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcReverse">
+      <input type="range" id="rvr-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcReverse" aria-label="Ročná inflácia v percentách">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
     </div>
 
@@ -4877,8 +4906,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study): historicky portfólio vydržalo 30+ rokov v ~95% testovaných scenárov (US dáta, 1926–1995). EUR portfólio môže mať iné výsledky.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — historicky nízkorizikové — portfólio by malo mať zostatok. Minulé výnosy budúce nezaručujú.<br><strong>4% = bežný východiskový bod</strong> — orientačný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
         <span class="val" id="rvl-wr">4,0%</span>
       </div>
-      <input type="range" id="rvr-wr" min="2" max="8" step="0.1" value="4" data-calc="calcReverse">
+      <input type="range" id="rvr-wr" min="2" max="8" step="0.1" value="4" data-calc="calcReverse" aria-label="Ročná miera výberu v percentách">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">odporúčané: 3–4 % ročne (tzv. bezpečná miera výberu)</div>
     </div>
 
     <!-- Výnos v dôchodku — computed dynamically from ret - inf - fee -->
@@ -4898,7 +4928,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Indexácia vkladu podľa inflácie alebo mzdy</div>Každý rok zvýšite mesačný vklad o toto percento — napríklad keď dostanete pridanie. Výsledok: aj váš vklad rastie a portfólio sa akumuluje rýchlejšie.<div class='tt-hr'></div>Pri 0% investujete rovnakú sumu každý rok. Pri 5% po 10 rokoch investujete 1.63× viac ako dnes.">?</span>
         <span class="val" id="rvl-inc">0,0%</span>
       </div>
-      <input type="range" id="rvr-inc" min="0" max="15" step="0.5" value="0" data-calc="calcReverse">
+      <input type="range" id="rvr-inc" min="0" max="15" step="0.5" value="0" data-calc="calcReverse" aria-label="Ročný rast vkladu v percentách">
       <div class="rbnd"><span>0%</span><span>15%</span></div>
     </div>
     <div class="ig">
@@ -4907,7 +4937,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Rast výberov nad infláciu</div>Vaše výbery rastú každý rok o <strong>infláciu + tento parameter</strong>.<div class='tt-hr'></div>Pri 0% váš výber udržiava konštantnú kúpnu silu (klasické 4% pravidlo).<div class='tt-hr'></div>Pri 2%: výbery rastú reálne — každý rok si kúpite o 2% viac ako predchádzajúci rok. Vyžaduje väčšie portfólio. Vhodné pre plánovaný rast životného štandardu v dôchodku.">?</span>
         <span class="val" id="rvl-wgr">0,0%</span>
       </div>
-      <input type="range" id="rvr-wgr" min="0" max="3" step="0.5" value="0" data-calc="calcReverse">
+      <input type="range" id="rvr-wgr" min="0" max="3" step="0.5" value="0" data-calc="calcReverse" aria-label="Ročný rast výberu v percentách">
       <div class="rbnd"><span>0%</span><span>3%</span></div>
     </div>
     <!-- Contribution growth table Tab4 -->
@@ -5040,7 +5070,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 5 – FIRE CALCULATOR: KEDY MÔŽEM DO DÔCHODKU?
 ═══════════════════════════════════════════════ -->
-<div id="t5" class="tab-panel">
+<div id="t5" role="tabpanel" aria-labelledby="tab-t5" tabindex="0" class="tab-panel">
 
 <!-- Explainer -->
 <div style="background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;">
@@ -5066,7 +5096,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€/mes.</div>
-        <input type="number" id="fire-exp" value="1500" min="100" step="100" data-calc="calcFIRE">
+        <input type="number" id="fire-exp" value="1500" min="100" step="100" data-calc="calcFIRE" aria-label="Mesačné výdavky v eurách">
       </div>
     </div>
 
@@ -5076,7 +5106,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€</div>
-        <input type="number" id="fire-ini" value="5000" min="0" step="1000" data-calc="calcFIRE">
+        <input type="number" id="fire-ini" value="5000" min="0" step="1000" data-calc="calcFIRE" aria-label="Aktuálna hodnota portfólia v eurách">
       </div>
     </div>
 
@@ -5086,7 +5116,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">rokov</div>
-        <input type="number" id="fire-age" value="" min="10" max="80" step="1" placeholder="nepovinné" data-calc="calcFIRE" style="color:var(--muted2);">
+        <input type="number" id="fire-age" value="" min="10" max="80" step="1" placeholder="nepovinné" data-calc="calcFIRE" style="color:var(--muted2);" aria-label="Cieľový vek finančnej nezávislosti">
       </div>
     </div>
 
@@ -5094,12 +5124,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig">
       <div class="il">Mesačný vklad <span class="val" id="firel-mon">€575</span></div>
-      <input type="range" id="firer-mon" min="0" max="20000" step="50" value="200" data-calc="calcFIRE">
+      <input type="range" id="firer-mon" min="0" max="20000" step="50" value="200" data-calc="calcFIRE" aria-label="Mesačný vklad v eurách">
       <div class="rbnd"><span>€0</span><span>€20 000</span></div>
     </div>
     <div class="ig">
       <div class="il">Výnos p.a. (váš odhad) <span class="val" id="firel-ret">9,0%</span></div>
-      <input type="range" id="firer-ret" min="1" max="20" step="0.5" value="9" data-calc="calcFIRE">
+      <input type="range" id="firer-ret" min="1" max="20" step="0.5" value="9" data-calc="calcFIRE" aria-label="Ročný výnos v percentách">
       <div class="rbnd"><span>1%</span><span>20%</span></div>
     </div>
 
@@ -5112,12 +5142,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Ročný rast mesačného vkladu</div>Každý rok zvýšite svoju mesačnú investíciu o toto percento. Modeluje rast platu alebo zámerné navyšovanie úspor.<div class='tt-hr'></div><strong>Príklad (5%):</strong><br>Rok 1: €575/mes. → Rok 2: €604 → Rok 5: €699 → Rok 10: €937<div class='tt-hr'></div>Aj malý ročný rast vkladu má obrovský vplyv na finálne portfólio vďaka zloženému úročeniu. Nižšia tabuľka ukazuje presný plán vkladov.">?</span>
         <span class="val" id="firel-inc">5,0%</span>
       </div>
-      <input type="range" id="firer-inc" min="0" max="15" step="0.5" value="5" data-calc="calcFIRE">
+      <input type="range" id="firer-inc" min="0" max="15" step="0.5" value="5" data-calc="calcFIRE" aria-label="Ročný rast vkladu v percentách">
       <div class="rbnd"><span>0%</span><span>15%</span></div>
     </div>
     <div class="ig">
       <div class="il">TER poplatky ETF <span class="val" id="firel-fee">0,20%</span></div>
-      <input type="range" id="firer-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcFIRE">
+      <input type="range" id="firer-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcFIRE" aria-label="TER poplatky ETF v percentách">
       <div class="rbnd"><span>0%</span><span>2%</span></div>
     </div>
     <div class="ig">
@@ -5126,7 +5156,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="val" id="firel-inf">2,5%</span>
         <button type="button" data-action="resetInfT5" title="Resetovať na hodnotu z Kalkulačky" style="margin-left:auto;background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;padding:2px 7px;border-radius:6px;cursor:pointer;font-family:'Source Code Pro',monospace;line-height:1.4;" id="fire-inf-reset">↺ T1</button>
       </div>
-      <input type="range" id="firer-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcFIRE">
+      <input type="range" id="firer-inf" min="0" max="10" step="0.5" value="2.5" data-calc="calcFIRE" aria-label="Ročná inflácia v percentách">
       <div class="rbnd"><span>0%</span><span>10%</span></div>
     </div>
 
@@ -5137,7 +5167,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>4% pravidlo (Bengen 1994 / Trinity Study 1998):</strong> pri 50/50 akcií/dlhopisov vydržalo v ~95% testovaných historických scenárov (US dáta, 1926–1995).<div class='tt-hr'></div>Horizont je kľúčový: <strong>30 rokov → ~95% úspešnosť · 40 rokov → ~85% · 50 rokov → ~80%.</strong> Pre skorý FIRE (odchod pred 50) odborná literatúra (ERN séria) uvádza <strong>3–3,5%</strong> pre dlhý horizont.<div class='tt-hr'></div><strong>Dôležité:</strong> Trinity Study vychádza z US historických dát. Pre EUR investora, iné portfólio alebo dlhší horizont platnosť nie je zaručená. Ide o orientačné historické pomôcky, nie garancie.">?</span>
         <span class="val" id="firel-wr">4,0%</span>
       </div>
-      <input type="range" id="firer-wr" min="2" max="8" step="0.1" value="4" data-calc="calcFIRE">
+      <input type="range" id="firer-wr" min="2" max="8" step="0.1" value="4" data-calc="calcFIRE" aria-label="Ročná miera výberu v percentách">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
       <!-- WR warning — dynamická -->
       <div id="fire-wr-warning" style="display:none;margin-top:8px;padding:8px 12px;border-radius:8px;font-size:14.4px;line-height:1.6;"></div>
@@ -5147,7 +5177,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Koľko rokov budete vyberať?</div>Ak dosiahnete FIRE vo veku 40 a plánujete dožiť 85 → 45 rokov výberu. Pre istotu berte konzervatívnejší odhad.<div class='tt-hr'></div>Slúži na kontextuálne hodnotenie udržateľnosti — portfólio musí vydržať aspoň toľko rokov.">?</span>
         <span class="val" id="firel-gyr">35</span>
       </div>
-      <input type="range" id="firer-gyr" min="10" max="60" step="1" value="30" data-calc="calcFIRE">
+      <input type="range" id="firer-gyr" min="10" max="60" step="1" value="30" data-calc="calcFIRE" aria-label="Počet rokov čerpania dôchodku">
       <div class="rbnd"><span>10 r.</span><span>60 r.</span></div>
     </div>
 
@@ -5252,7 +5282,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 6 – HISTORICAL BACKTEST
 ═══════════════════════════════════════════════ -->
-<div id="t6" class="tab-panel">
+<div id="t6" role="tabpanel" aria-labelledby="tab-t6" tabindex="0" class="tab-panel">
 
 <div style="background:rgba(77,142,240,.04);border:1px solid rgba(77,142,240,.18);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -5272,12 +5302,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <p class="plbl">Parametre backtestu</p>
     <div class="ig primary">
       <div class="il">Počiatočná investícia <span class="val" id="bt-l-ini">€23 000</span></div>
-      <input type="range" id="bt-r-ini" min="0" max="300000" step="500" value="5000" data-calc="calcBacktest">
+      <input type="range" id="bt-r-ini" min="0" max="300000" step="500" value="5000" data-calc="calcBacktest" aria-label="Počiatočná investícia v eurách">
       <div class="rbnd"><span>€0</span><span>€10M</span></div>
     </div>
     <div class="ig primary">
       <div class="il">Mesačný vklad <span class="val" id="bt-l-mon">€575</span></div>
-      <input type="range" id="bt-r-mon" min="0" max="20000" step="50" value="200" data-calc="calcBacktest">
+      <input type="range" id="bt-r-mon" min="0" max="20000" step="50" value="200" data-calc="calcBacktest" aria-label="Mesačný vklad v eurách">
       <div class="rbnd"><span>€0</span><span>€20 000</span></div>
     </div>
     <details class="pd-section" id="pd-t6-adv">
@@ -5285,7 +5315,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="pd-body">
         <div class="ig">
           <div class="il">TER poplatky ETF <span class="val" id="bt-l-fee">0,20%</span></div>
-          <input type="range" id="bt-r-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcBacktest">
+          <input type="range" id="bt-r-fee" min="0" max="2" step="0.05" value="0.2" data-calc="calcBacktest" aria-label="TER poplatky ETF v percentách">
           <div class="rbnd"><span>0%</span><span>2%</span></div>
         </div>
       </div>
@@ -5372,7 +5402,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 7 – 2. + 3. PILIER (SLOVENSKÝ DÔCHODKOVÝ SYSTÉM)
 ═══════════════════════════════════════════════ -->
-<div id="t7" class="tab-panel">
+<div id="t7" role="tabpanel" aria-labelledby="tab-t7" tabindex="0" class="tab-panel">
 
 
 <div style="background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
@@ -5393,12 +5423,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig">
       <div class="il">Aktuálny zostatok v DSS <span class="val" id="p2-l-bal">€0</span></div>
-      <input type="range" id="p2-r-bal" min="0" max="500000" step="1000" value="0" data-calc="calcPiliere">
+      <input type="range" id="p2-r-bal" min="0" max="500000" step="1000" value="0" data-calc="calcPiliere" aria-label="Aktuálny zostatok v II. pilieri v eurách">
       <div class="rbnd"><span>€0</span><span>€500k</span></div>
     </div>
     <div class="ig">
       <div class="il">Hrubá mesačná mzda <span class="val" id="p2-l-sal">€1 460</span></div>
-      <input type="range" id="p2-r-sal" min="500" max="30000" step="100" value="1300" data-calc="calcPiliere">
+      <input type="range" id="p2-r-sal" min="500" max="30000" step="100" value="1300" data-calc="calcPiliere" aria-label="Hrubá mesačná mzda v eurách">
       <div class="rbnd"><span>€500</span><span>€10 000</span></div>
     </div>
     <div class="ig">
@@ -5407,12 +5437,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Historický výnos DSS fondov</div>Slovenské DSS (Dôchodkové správcovské spoločnosti) historicky zarábali:<div class='tt-hr'></div>· Rastový fond: ~3–6% p.a.<br>· Zmiešaný fond: ~2–4% p.a.<br>· Konzervatívny fond: ~1–2% p.a.<div class='tt-hr'></div>Porovnanie: MSCI World historicky ~10% p.a. — pri dlhom horizonte môže byť rozdiel značný. Minulé výnosy nezaručujú budúce výsledky.">?</span>
         <span class="val" id="p2-l-ret">3,5%</span>
       </div>
-      <input type="range" id="p2-r-ret" min="0.5" max="10" step="0.5" value="3.5" data-calc="calcPiliere">
+      <input type="range" id="p2-r-ret" min="0.5" max="10" step="0.5" value="3.5" data-calc="calcPiliere" aria-label="Ročný výnos II. piliera v percentách">
       <div class="rbnd"><span>0,5%</span><span>10%</span></div>
     </div>
     <div class="ig">
       <div class="il">Roky do dôchodku <span class="val" id="p2-l-yr">32</span></div>
-      <input type="range" id="p2-r-yr" min="1" max="45" step="1" value="30" data-calc="calcPiliere">
+      <input type="range" id="p2-r-yr" min="1" max="45" step="1" value="30" data-calc="calcPiliere" aria-label="Roky do dôchodku">
       <div class="rbnd"><span>1</span><span>45</span></div>
     </div>
 
@@ -5432,7 +5462,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig">
       <div class="il">Váš mesačný príspevok do DDS <span class="val" id="p3-l-own">€50</span></div>
-      <input type="range" id="p3-r-own" min="0" max="2000" step="10" value="30" data-calc="calcPiliere">
+      <input type="range" id="p3-r-own" min="0" max="2000" step="10" value="30" data-calc="calcPiliere" aria-label="Váš mesačný príspevok do III. piliera v eurách">
       <div class="rbnd"><span>€0</span><span>€500</span></div>
     </div>
     <div class="ig">
@@ -5441,7 +5471,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Príspevok zamestnávateľa do 3. piliera</div>Mnohí zamestnávatelia prispievajú do 3. piliera — je to pre nich daňovo výhodné.<div class='tt-hr'></div>Príspevok zamestnávateľa do <strong>€500/rok</strong> (€41,67/mes.) je oslobodený od dane a odvodov — <strong>je to čistý bonus navyše</strong>.<div class='tt-hr'></div>Ak váš zamestnávateľ prispieva, nezabudni to tu zahrnúť.">?</span>
         <span class="val" id="p3-l-emp">€0</span>
       </div>
-      <input type="range" id="p3-r-emp" min="0" max="1000" step="10" value="0" data-calc="calcPiliere">
+      <input type="range" id="p3-r-emp" min="0" max="1000" step="10" value="0" data-calc="calcPiliere" aria-label="Príspevok zamestnávateľa do III. piliera v eurách">
       <div class="rbnd"><span>€0</span><span>€200</span></div>
     </div>
     <div class="ig">
@@ -5450,12 +5480,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="tip" data-tip="<div class='tt-title'>Historický výnos DDS fondov</div>DDS fondy na Slovensku historicky zarábali ~2–5% p.a. v závislosti od fondu.<div class='tt-hr'></div>Rastové fondy DDS: ~4–6%<br>Konzervatívne: ~1–3%<div class='tt-hr'></div>Pozor: výnosy po poplatkoch sú nižšie — typický TER ~1–2%/rok.">?</span>
         <span class="val" id="p3-l-ret">4,0%</span>
       </div>
-      <input type="range" id="p3-r-ret" min="0.5" max="10" step="0.5" value="4" data-calc="calcPiliere">
+      <input type="range" id="p3-r-ret" min="0.5" max="10" step="0.5" value="4" data-calc="calcPiliere" aria-label="Ročný výnos III. piliera v percentách">
       <div class="rbnd"><span>0,5%</span><span>10%</span></div>
     </div>
     <div class="ig">
       <div class="il">Aktuálny zostatok v DDS <span class="val" id="p3-l-bal">€0</span></div>
-      <input type="range" id="p3-r-bal" min="0" max="200000" step="500" value="0" data-calc="calcPiliere">
+      <input type="range" id="p3-r-bal" min="0" max="200000" step="500" value="0" data-calc="calcPiliere" aria-label="Aktuálny zostatok v III. pilieri v eurách">
       <div class="rbnd"><span>€0</span><span>€200k</span></div>
     </div>
 
@@ -5484,7 +5514,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Vek pri odchode do dôchodku <span class="val" id="pil-ret-age-lbl">65</span>
         <span class="tip" data-tip="<div class='tt-title'>Vek a výška anuity</div>Čím neskôr odídete, tým vyššia mesačná anuita — poisťovňa vypláca kratší čas.<div class='tt-hr'></div>SK zákonný dôchodkový vek: ~64 rokov (nar. 1965+).<br>Predčasný odchod (60r.) výrazne znižuje mesačnú anuitu.">?</span>
       </div>
-      <input type="range" id="pil-ret-age" min="60" max="70" step="1" value="65" data-calc="calcPiliere">
+      <input type="range" id="pil-ret-age" min="60" max="70" step="1" value="65" data-calc="calcPiliere" aria-label="Vek odchodu do dôchodku">
       <div class="rbnd"><span>60 r.</span><span>70 r.</span></div>
     </div>
   </div>
@@ -5550,7 +5580,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         Poisťovňa vypláca každý mesiac do konca života — nie je možné „vybrať si viac".
         <span style="color:var(--muted);display:block;margin-top:6px;">
           Technická úroková sadzba: 
-          <select id="pil-tech-rate" data-calc="calcPiliere" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:2px 6px;font-size:13px;cursor:pointer;">
+          <select id="pil-tech-rate" data-calc="calcPiliere" style="background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:2px 6px;font-size:13px;cursor:pointer;" aria-label="Technická úroková sadzba II. piliera v percentách ročne">
             <option value="0.00">0% (Solvency II štandard)</option>
             <option value="0.01" selected>1% (SK konzervatívny)</option>
             <option value="0.015">1,5%</option>
@@ -5583,7 +5613,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <strong>Výber / Dôchodok</strong> — mesačná suma, ktorú dostanete z II.+III. piliera (posielaná do T3).<br>
 <strong>Portfólio T1</strong> — hodnota ETF portfólia z Kalkulačky (záložka 1), zobrazená tu pre kontext celkového majetku.">?</span>
   <span class="sync-badge fresh dot" title="Mesačný príjem z piliérov pri dôchodku (T3)">Výber / Dôchodok: <strong id="sync-t3-pilier">—</strong>/mes.</span>
-  <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong></span>
+  <span class="sync-badge fresh dot" title="ETF portfólio z Kalkulačky (T1)">Portfólio T1: <strong id="sync-t7-etf">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
 </div>
 </details>
 </div><!-- end tab7 -->
@@ -5591,7 +5621,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 8 – HYPOTEKÁRNA KALKULAČKA (SR)
 ═══════════════════════════════════════════════ -->
-<div id="t8" class="tab-panel">
+<div id="t8" role="tabpanel" aria-labelledby="tab-t8" tabindex="0" class="tab-panel">
 
 <!-- Explainer -->
 <div style="background:rgba(251,113,133,.04);border:1px solid rgba(251,113,133,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
@@ -5636,10 +5666,10 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <div class="ni-pfx">€</div>
           <input type="number" id="mort-price-num" value="200000" min="10000" max="2000000" step="1000"
                  data-calc="mortSyncPriceNum"
-                 style="color:var(--text);font-size:19.2px;font-weight:600;">
+                 style="color:var(--text);font-size:19.2px;font-weight:600;" aria-label="Cena nehnuteľnosti v eurách">
         </div>
         <input type="range" id="mr-price" min="50000" max="3000000" step="10000" value="180000"
-               data-calc="mortSyncPriceSlider">
+               data-calc="mortSyncPriceSlider" aria-label="Cena nehnuteľnosti v eurách">
         <div class="rbnd"><span>€200k</span><span>€3M</span></div>
       </div>
 
@@ -5647,7 +5677,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="il">Vlastné zdroje (akontácia) <span class="val" id="ml-ownb">€40 000</span>
           <span class="tip" data-tip="<div class='tt-title'>Vlastné zdroje — akontácia</div>Minimálna akontácia je 20% ceny (NBS LTV limit 80%). Pri cene €200 000 potrebujete min. €40 000 vlastných zdrojov.<div class='tt-hr'></div>Zarátajte aj vedľajšie náklady: znalecký posudok (~€200), kataster (~€266), notár (~€500–800), rezervačný poplatok (~1–2% ceny).">?</span>
         </div>
-        <input type="range" id="mr-ownb" min="0" max="2000000" step="5000" value="36000" data-calc="calcMort">
+        <input type="range" id="mr-ownb" min="0" max="2000000" step="5000" value="36000" data-calc="calcMort" aria-label="Výška akontácie v eurách">
         <div class="rbnd"><span>€0</span><span>€10M</span></div>
       </div>
 
@@ -5660,8 +5690,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
       <!-- Prvonadobúdateľ checkbox — ovplyvňuje LTV limit -->
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 14px;background:rgba(251,113,133,.03);border:1px solid rgba(251,113,133,.15);border-radius:10px;margin-bottom:20px;" title="Zákon 90/2016 Z.z. §21: prvonadobúdatelia môžu žiadať LTV do 90% (banka rozhoduje individuálne, max 20% portfólia banky)">
-        <input type="checkbox" id="mort-first-buyer" data-calc="calcMort" style="width:16px;height:16px;accent-color:var(--rose2);flex-shrink:0;">
-        <span style="font-size:14.4px;color:var(--muted2);line-height:1.5;"><strong style="color:var(--text);font-size:14.4px;">Prvonadobúdateľ</strong> — kupujem prvú nehnuteľnosť.<br>Niektoré banky ponúkajú LTV až 90% (zákon 90/2016 Z.z. §21).</span>
+        <label for="mort-first-buyer" style="display:contents;cursor:pointer;">
+        <input type="checkbox" id="mort-first-buyer" data-calc="calcMort" style="width:16px;height:16px;accent-color:var(--rose2);flex-shrink:0;cursor:pointer;">
+        <span style="font-size:14.4px;color:var(--muted2);line-height:1.5;"><strong style="color:var(--text);font-size:14.4px;">Prvonadobúdateľ</strong> — kupujem prvú nehnuteľnosť.<br>Niektoré banky ponúkajú LTV až 90% (zákon 90/2016 Z.z. §21).</span></label>
       </label>
     </div>
 
@@ -5672,7 +5703,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="il" style="font-weight:500;">Vlastné zdroje na kúpu <span class="val" id="ml-own">€30 000</span>
           <span class="tip" data-tip="<div class='tt-title'>LTV — Loan to Value (NBS limit)</div>NBS nariadenie: banka môže financovať max <strong>80% hodnoty nehnuteľnosti</strong> (pri prvej nehnuteľnosti do €400 000 výnimočne 90%).<div class='tt-hr'></div>Vlastné zdroje musia pokryť minimálne 20% + náklady: kataster (~€200), notár (~€500), znalec (~€200), rezervačný poplatok (~€2 000).">?</span>
         </div>
-        <input type="range" id="mr-own" min="0" max="2000000" step="5000" value="36000" data-calc="calcMort">
+        <input type="range" id="mr-own" min="0" max="2000000" step="5000" value="36000" data-calc="calcMort" aria-label="Akontácia v percentách z ceny">
         <div class="rbnd"><span>€0</span><span>€2M</span></div>
       </div>
       <div style="height:12px;"></div>
@@ -5689,7 +5720,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           </div>
           <div class="ni-wrap" style="width:100px;">
             <div class="ni-pfx">r.</div>
-            <input type="number" id="mort-age" value="28" min="18" max="64" step="1" data-calc="calcMort" style="color:var(--text);">
+            <input type="number" id="mort-age" value="28" min="18" max="64" step="1" data-calc="calcMort" style="color:var(--text);" aria-label="Vek prvého žiadateľa o hypotéku">
           </div>
         </div>
         <div style="flex:1;">
@@ -5698,12 +5729,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <div class="ni-pfx">€</div>
             <input type="number" id="mort-inc1-num" value="1200" min="0" max="20000" step="50"
                    data-calc="mortSyncInc1Num"
-                   style="color:var(--text);">
+                   style="color:var(--text);" aria-label="Čistý mesačný príjem prvého žiadateľa v eurách">
           </div>
         </div>
       </div>
       <input type="range" id="mr-inc1" min="400" max="20000" step="100" value="1500"
-             data-calc="mortSyncInc1Slider">
+             data-calc="mortSyncInc1Slider" aria-label="Čistý mesačný príjem prvého žiadateľa v eurách">
       <div class="rbnd"><span>€400</span><span>€20 000</span></div>
       <span id="ml-inc1" style="display:none;">€1 200</span>
     </div>
@@ -5725,7 +5756,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">Vek</div>
             <div class="ni-wrap" style="width:100px;">
               <div class="ni-pfx">r.</div>
-              <input type="number" id="mort-age2" value="30" min="18" max="64" step="1" data-calc="calcMort" style="color:var(--text);">
+              <input type="number" id="mort-age2" value="30" min="18" max="64" step="1" data-calc="calcMort" style="color:var(--text);" aria-label="Vek druhého žiadateľa o hypotéku">
             </div>
           </div>
           <div style="flex:1;">
@@ -5734,12 +5765,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
               <div class="ni-pfx">€</div>
               <input type="number" id="mort-inc2-num" value="900" min="0" max="20000" step="50"
                      data-calc="mortSyncInc2Num"
-                     style="color:var(--text);">
+                     style="color:var(--text);" aria-label="Čistý mesačný príjem druhého žiadateľa v eurách">
             </div>
           </div>
         </div>
         <input type="range" id="mr-inc2" min="0" max="20000" step="100" value="1200"
-               data-calc="mortSyncInc2Slider">
+               data-calc="mortSyncInc2Slider" aria-label="Čistý mesačný príjem druhého žiadateľa v eurách">
         <div class="rbnd"><span>€0</span><span>€20 000</span></div>
         <div style="margin-top:10px;font-size:14.4px;color:var(--muted);line-height:1.6;" id="mort-co-age-note">—</div>
       </div>
@@ -5751,7 +5782,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Splátky iných úverov <span class="val" id="ml-debt">€0</span>
         <span class="tip" data-tip="<div class='tt-title'>Existujúce záväzky</div>Sem patria <strong>všetky pravidelné splátky</strong>: spotrebné úvery, leasing auta, kreditné karty (banka počíta 5% z limitu ako mesačný záväzok).<div class='tt-hr'></div>Tieto splátky sa odpočítajú od DTI kapacity — každé €100 záväzku znižuje maximálnu hypotéku o ~€20 000.">?</span>
       </div>
-      <input type="range" id="mr-debt" min="0" max="5000" step="25" value="0" data-calc="calcMort">
+      <input type="range" id="mr-debt" min="0" max="5000" step="25" value="0" data-calc="calcMort" aria-label="Existujúce mesačné splátky dlhov v eurách">
       <div class="rbnd"><span>€0</span><span>€15 000</span></div>
     </div>
 
@@ -5761,7 +5792,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Úroková sadzba <span class="val" id="ml-rate">3,9%</span>
         <span class="tip" data-tip="<div class='tt-title'>Úroková sadzba v SR (2024–2025)</div>Aktuálne sadzby po znižovaní ECB:<div class='tt-hr'></div>· Fixácia 3 roky: ~3,2–3,8%<br>· Fixácia 5 rokov: ~3,4–4,0%<br>· Fixácia 10 rokov: ~3,6–4,2%<div class='tt-hr'></div>Najlepšie sadzby získate pri LTV pod 70% a kombinácii produktov (poistenie, účet). Individuálne ponuky sa líšia bankou.">?</span>
       </div>
-      <input type="range" id="mr-rate" min="1" max="10" step="0.1" value="4.2" data-calc="calcMort">
+      <input type="range" id="mr-rate" min="1" max="10" step="0.1" value="4.2" data-calc="calcMort" aria-label="Úroková sadzba hypotéky v percentách">
       <div class="rbnd"><span>1%</span><span>10%</span></div>
     </div>
 
@@ -5769,7 +5800,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Splatnosť <span class="val" id="ml-term">30</span> rokov
         <span class="tip" data-tip="<div class='tt-title'>Splatnosť hypotéky</div>Max. splatnosť je obmedzená vekom staršieho žiadateľa (do 65 rokov). Každé predĺženie o 5 rokov znižuje mesačnú splátku, ale zvyšuje celkový preplatok.">?</span>
       </div>
-      <input type="range" id="mr-term" min="5" max="30" step="1" value="30" data-calc="calcMort">
+      <input type="range" id="mr-term" min="5" max="30" step="1" value="30" data-calc="calcMort" aria-label="Splatnosť hypotéky v rokoch">
       <div class="rbnd"><span>5 r.</span><span id="rbnd-term-max">30 r.</span></div>
     </div>
 
@@ -5954,7 +5985,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Poplatok banky za vybavenie hypotéky. Niektoré banky ho uvádzajú ako % z úveru (napr. 0,5%). Iné majú fixný poplatok alebo 0. Overiť v sadzobníku banky.">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-fee-proc" value="0" min="0" max="5000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-fee-proc" value="0" min="0" max="5000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Poplatok za spracovanie hypotéky v eurách">
           </div>
         </div>
         <div>
@@ -5962,7 +5993,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Cena znaleckého posudku nehnuteľnosti. Štandardne €300–€500 podľa lokality a veľkosti. Povinné pre každú hypotéku.">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-fee-appraisal" value="350" min="0" max="2000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-fee-appraisal" value="350" min="0" max="2000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Poplatok za znalecký posudok v eurách">
           </div>
         </div>
         <div>
@@ -5970,7 +6001,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Správny poplatok za vklad záložného práva do katastra. Aktuálna suma: €266 (zákon 145/1995 Z.z., príloha pol. 11 písm. a).">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-fee-kataster" value="266" min="0" max="1000" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-fee-kataster" value="266" min="0" max="1000" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Poplatok katastra v eurách">
           </div>
         </div>
         <div>
@@ -5978,7 +6009,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Iné jednorazové náklady: notár, odhad bytu, správny poplatok za zmenu ťarchy a pod.">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-fee-other" value="0" min="0" max="5000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-fee-other" value="0" min="0" max="5000" step="10" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Ostatné poplatky v eurách">
           </div>
         </div>
       </div>
@@ -5992,7 +6023,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Mesačné poistenie zastavy. Väčšina bánk vyžaduje poistenie ako podmienku hypotéky. Štandardne €10–€25/mes. podľa hodnoty nehnuteľnosti.">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-ins-property" value="15" min="0" max="200" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-ins-property" value="15" min="0" max="200" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Mesačné poistenie nehnuteľnosti v eurách">
           </div>
         </div>
         <div>
@@ -6000,7 +6031,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
             <span class="tip" data-tip="Niektoré banky podmieňujú nižšiu sadzbu uzatvorením životného poistenia. Ak áno, zadajte mesačnú prémiu — zvýši RPMN.">?</span>
           </div>
           <div class="ni-wrap"><div class="ni-pfx">€</div>
-            <input type="number" id="rpmn-ins-life" value="0" min="0" max="300" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);">
+            <input type="number" id="rpmn-ins-life" value="0" min="0" max="300" step="1" data-calc="calcMort" style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);" aria-label="Mesačné životné poistenie v eurách">
           </div>
         </div>
       </div>
@@ -6100,7 +6131,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   </div>
   <!-- Penále fixácia checkbox -->
   <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:9px 14px;background:rgba(251,113,133,.03);border:1px solid rgba(251,113,133,.15);border-radius:10px;margin-bottom:16px;" title="Zákon 90/2016 Z.z. §19 ods.4: penále max 1% platí LEN počas fixačného obdobia. Po uplynutí fixácie je predčasné splatenie zadarmo.">
-    <input type="checkbox" id="mort-in-fixation" checked data-calc="calcMort" style="width:16px;height:16px;accent-color:var(--rose2);flex-shrink:0;">
+    <input type="checkbox" id="mort-in-fixation" checked data-calc="calcMort" style="width:16px;height:16px;accent-color:var(--rose2);flex-shrink:0;" aria-label="Sme počas fixačného obdobia — predčasné splatenie má penále max 1%">
     <span style="font-size:14.4px;color:var(--muted2);line-height:1.5;"><strong style="color:var(--text);font-size:14.4px;">Sme počas fixačného obdobia</strong> — predčasné splatenie má penále max 1% (§19 ods.4 zák. 90/2016).<br><span id="mort-penalty-note" style="color:var(--rose2);">Po uplynutí fixácie: predčasné splatenie zadarmo.</span></span>
   </label>
   <div style="font-size:15.6px;color:var(--muted2);margin-bottom:20px;line-height:1.6;">
@@ -6109,7 +6140,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div style="margin-bottom:20px;">
     <div class="ig" style="margin:0 0 14px 0;">
       <div class="il">Predpokladaná sadzba po refixácii <span class="val" id="refix-new-rate-lbl">4,5%</span></div>
-      <input type="range" id="refix-new-rate" min="1" max="10" step="0.1" value="4.5" data-calc="calcMort">
+      <input type="range" id="refix-new-rate" min="1" max="10" step="0.1" value="4.5" data-calc="calcMort" aria-label="Nová sadzba hypotéky po refixácii v percentách">
       <div class="rbnd"><span>1%</span><span>10%</span></div>
     </div>
     <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
@@ -6143,17 +6174,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="g3" style="margin-bottom:20px;align-items:end;">
     <div class="ig" style="margin:0;">
       <div class="il">Alternatívny mesačný nájom <span class="val" id="rent-lbl">€700</span></div>
-      <input type="range" id="rent-slider" min="200" max="8000" step="50" value="700" data-calc="calcMort">
+      <input type="range" id="rent-slider" min="200" max="8000" step="50" value="700" data-calc="calcMort" aria-label="Alternatívny mesačný nájom v eurách">
       <div class="rbnd"><span>€200</span><span>€8 000</span></div>
     </div>
     <div class="ig" style="margin:0;">
       <div class="il">Ročný rast hodnoty nehnuteľnosti <span class="val" id="prop-growth-lbl">2,0%</span></div>
-      <input type="range" id="prop-growth" min="0" max="8" step="0.5" value="2" data-calc="calcMort">
+      <input type="range" id="prop-growth" min="0" max="8" step="0.5" value="2" data-calc="calcMort" aria-label="Ročný rast hodnoty nehnuteľnosti v percentách">
       <div class="rbnd"><span>0%</span><span>8%</span></div>
     </div>
     <div class="ig" style="margin:0;">
       <div class="il">Výnos ETF (ak by si investoval) <span class="val" id="rent-etf-lbl">7,0%</span></div>
-      <input type="range" id="rent-etf-ret" min="1" max="12" step="0.5" value="7" data-calc="calcMort">
+      <input type="range" id="rent-etf-ret" min="1" max="12" step="0.5" value="7" data-calc="calcMort" aria-label="Ročný výnos ETF v percentách">
       <div class="rbnd"><span>1%</span><span>12%</span></div>
     </div>
   </div>
@@ -6184,7 +6215,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 9 – CASHFLOW KALKULAČKA
 ═══════════════════════════════════════════════ -->
-<div id="t9" class="tab-panel">
+<div id="t9" role="tabpanel" aria-labelledby="tab-t9" tabindex="0" class="tab-panel">
 
 <!-- Sync status bar -->
 
@@ -6225,7 +6256,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div id="cf2-hero-bar" style="height:2px;"></div>
     <div style="padding:22px 22px 14px;">
       <div style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--violet2);opacity:.8;margin-bottom:6px;">Mesačný zostatok</div>
-      <div style="font-family:'Spectral',serif;font-size:clamp(36px,5vw,58px);font-weight:700;font-style:italic;line-height:1;transition:color .3s;" id="cf2-hero-val">€0</div>
+      <div style="font-family:'Spectral',serif;font-size:clamp(36px,5vw,58px);font-weight:700;font-style:italic;line-height:1;transition:color .3s;" id="cf2-hero-val" aria-live="polite">€0</div>
       <div style="font-size:14.4px;color:var(--muted2);margin-top:6px;" id="cf2-hero-sub">Zadajte príjmy a výdavky</div>
     </div>
     <div style="border-top:1px solid var(--border);padding:12px 22px;" id="cf2-waterfall"></div>
@@ -6262,11 +6293,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <strong>Rezervný fond</strong> — celkové mesačné výdavky posielané do T10 ako cieľ fondu.<br>
 <strong>EF príspevok</strong> — koľko mesačne odkladáte na núdzový fond.<br>
 <strong>Hypo splátka</strong> — mesačná splátka hypotéky z T8, automaticky zarátaná do výdavkov.">?</span>
-  <span class="sync-badge fresh dot" title="Mesačný vklad v Kalkulačke (T1)">Kalkulačka: <strong id="sync-t1-invest">—</strong></span>
+  <span class="sync-badge fresh dot" title="Mesačný vklad v Kalkulačke (T1)">Kalkulačka: <strong id="sync-t1-invest">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
   <button type="button" id="t1-cf-sync-hint" style="display:none;font-size:12px;font-family:'Source Code Pro',monospace;padding:3px 9px;border-radius:100px;border:1px solid rgba(200,168,75,.35);background:rgba(200,168,75,.1);color:var(--gold2);cursor:pointer;align-items:center;gap:4px;transition:all .2s;" onmouseover="this.style.background='rgba(200,168,75,.18)'" onmouseout="this.style.background='rgba(200,168,75,.1)'"></button>
-  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Núdzový fond: <strong id="sync-ef-expenses">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong></span>
-  <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong></span>
+  <span class="sync-badge fresh dot" title="Výdavky v Núdzovom fonde (T10)">Núdzový fond: <strong id="sync-ef-expenses">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
+  <span class="sync-badge fresh dot" title="Príspevok do Núdzového fondu">EF príspevok: <strong id="sync-ef-contrib">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
+  <span class="sync-badge fresh dot" title="Splátka hypotéky (z T8)">Hypo splátka: <strong id="sync-cf-mort">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
 </div>
 </details>
 </div><!-- end tab9 -->
@@ -6274,7 +6305,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 10 – NÚDZOVÝ FOND
 ═══════════════════════════════════════════════ -->
-<div id="t10" class="tab-panel">
+<div id="t10" role="tabpanel" aria-labelledby="tab-t10" tabindex="0" class="tab-panel">
 
 <div style="background:rgba(34,211,238,.03);border:1px solid rgba(34,211,238,.2);border-radius:14px;padding:20px 22px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
   
@@ -6303,8 +6334,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <!-- Hidden sliders kept for backwards compat with crossSync etc -->
     <div style="display:none;">
-      <input type="range" id="ef-saved" min="0" max="500000" step="500" value="0">
-      <input type="range" id="ef-rate" min="0" max="8" step="0.01" value="2.5">
+      <input type="range" id="ef-saved" min="0" max="500000" step="500" value="0" aria-label="Nasporená suma v rezervnom fonde v eurách">
+      <input type="range" id="ef-rate" min="0" max="8" step="0.01" value="2.5" aria-label="Ročný výnos rezervného fondu v percentách">
     </div>
 
     
@@ -6313,7 +6344,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Sporím každý mesiac <span class="val" id="ef-l-monthly">€100</span>
         <span class="tip" data-tip="<div class='tt-title'>Mesačný príspevok</div>Koľko každý mesiac odkladáte na núdzový fond. Núdzový fond by mal byť v <strong>ľahko dostupnom nástroji</strong>: sporiaci účet, termínovaný vklad.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, tlačidlo 'Vložiť do Núdzového fondu' vloží toto číslo automaticky.">?</span>
       </div>
-      <input type="range" id="ef-monthly" min="0" max="10000" step="50" value="50" data-calc="calcEF">
+      <input type="range" id="ef-monthly" min="0" max="10000" step="50" value="50" data-calc="calcEF" aria-label="Mesačný príspevok do rezervného fondu v eurách">
       <div class="rbnd"><span>€0</span><span>€10 000</span></div>
     </div>
 
@@ -6322,7 +6353,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Celkové mesačné výdavky <span class="val" id="ef-l-expenses">€1 200</span>
         <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky pre núdzový fond</div>Zadajte <strong>skutočné mesačné výdavky</strong> — nie príjem. Núdzový fond má pokryť výdavky (nájom, jedlo, energie, splátky) keby ste prišli o prácu.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, môžete použiť číslo odtiaľ tlačidlom nižšie.">?</span>
       </div>
-      <input type="range" id="ef-expenses" min="0" max="15000" step="50" value="0" data-calc="calcEF">
+      <input type="range" id="ef-expenses" min="0" max="15000" step="50" value="0" data-calc="calcEF" aria-label="Mesačné výdavky pre výpočet rezervného fondu v eurách">
       <div class="rbnd"><span>€200</span><span>€20 000</span></div>
     </div>
 
@@ -6400,7 +6431,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <div class="col col-sticky-results">
 
   <!-- HERO: cieľ a stav -->
-  <div style="background:var(--bg2);border:1px solid rgba(167,139,250,.3);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;margin-bottom:20px;">
+  <div role="status" aria-live="polite" aria-atomic="false" style="background:var(--bg2);border:1px solid rgba(167,139,250,.3);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden;margin-bottom:20px;">
     <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#a78bfa,transparent);"></div>
     <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2.5px;text-transform:uppercase;color:#c4b5fd;opacity:.8;margin-bottom:6px;">Cieľ núdzového fondu</div>
     <div style="font-family:'Spectral',serif;font-size:clamp(40px,6vw,72px);font-weight:700;font-style:italic;color:#c4b5fd;line-height:1;text-shadow:0 0 40px rgba(167,139,250,.3),0 2px 20px rgba(167,139,250,.15);" id="ef-target">—</div>
@@ -6502,8 +6533,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <strong style='color:#34d399'>● Zelená</strong> = hodnoty sú čerstvé<div class='tt-hr'></div>
 <strong>Výdavky z CF</strong> — vaše celkové mesačné výdavky z Cashflow. Cieľ fondu = tieto výdavky × počet mesiacov (štandard: 6).<br>
 <strong>Príspevok</strong> — koľko mesačne dopĺňate fond (z CF → T10).">?</span>
-  <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong></span>
-  <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong></span>
+  <span class="sync-badge fresh dot" title="Výdavky z Cashflow (T9)">Výdavky z CF: <strong id="sync-ef-expenses-show">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
+  <span class="sync-badge fresh dot" title="Príspevok z Cashflow">Príspevok: <strong id="sync-ef-contrib-show">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
 </div>
 </details>
 </div><!-- end tab10 -->
@@ -6511,7 +6542,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 11 – DLHY (Prehľad + Investovať vs. Splácať)
 ═══════════════════════════════════════════════ -->
-<div id="t11" class="tab-panel">
+<div id="t11" role="tabpanel" aria-labelledby="tab-t11" tabindex="0" class="tab-panel">
 
 
 <div class="layout stretch" style="align-items:flex-start;">
@@ -6529,12 +6560,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div style="font-size:14.4px;color:var(--muted2);margin-bottom:14px;line-height:1.7;">Koľko eur mesačne navyše môžete uvoľniť na splácanie hypotéky? Kalkulačka porovná možnú úsporu na úrokoch vs. možný investičný výnos za ekvivalentné obdobie pre túto extra sumu. Zistíte, či je pre vás výhodnejšie rýchlejšie splácať dlh alebo radšej investovať. Čím dlhší horizont investovania zvolíte, tým väčší priemerný výnos je možný — v krátkom horizonte je riziko straty oveľa vyššie.</div>
     <div class="ig primary">
       <div class="il">Extra splátka / vklad <span class="val" id="debt-l-extra">€200</span></div>
-      <input type="range" id="debt-extra" min="0" max="10000" step="50" value="200" data-calc="calcDebt">
+      <input type="range" id="debt-extra" min="0" max="10000" step="50" value="200" data-calc="calcDebt" aria-label="Extra jednorazová splátka dlhu v eurách">
       <div class="rbnd"><span>€0</span><span>€10 000</span></div>
     </div>
     <div class="ig">
       <div class="il">Očakávaný výnos ETF (p.a.) <span class="val" id="debt-l-ret">9,0%</span></div>
-      <input type="range" id="debt-ret" min="3" max="15" step="0.5" value="9" data-calc="calcDebt">
+      <input type="range" id="debt-ret" min="3" max="15" step="0.5" value="9" data-calc="calcDebt" aria-label="Výnos investície namiesto splatenia dlhu v percentách">
       <div class="rbnd"><span>3%</span><span>15%</span></div>
     </div>
   </div>
@@ -6591,7 +6622,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </p>
     <div class="g2" style="gap:10px;margin-bottom:12px;">
       <div>
-        <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh</label>
+        <label for="refix-debt-sel" style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Dlh</label>
         <select id="refix-debt-sel" data-calc="calcRefixation" style="width:100%;background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);border-radius:8px;padding:7px 10px;font-size:13px;outline:none;">
           <option value="">— vyber dlh —</option>
         </select>
@@ -6599,7 +6630,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div>
         <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba po refixácii</label>
         <div class="debt-fi" style="background:var(--bg3);border:1.5px solid var(--border2);border-radius:8px;padding:5px 10px;">
-          <input type="number" id="refix-new-rate" value="3.5" data-focus-select="true" min="0" max="15" step="0.05"
+          <input type="number" id="refix-new-rate" value="3.5" data-focus-select="true" min="0" max="15" step="0.05" aria-label="Nová sadzba hypotéky po refixácii v percentách"
             data-calc="calcRefixation" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
           <span class="du">%</span>
         </div>
@@ -6620,7 +6651,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <strong style='color:#fbbf24'>● Žltá</strong> = Net Worth v T12 ešte nie je prepočítaný<br>
 <strong style='color:#34d399'>● Zelená</strong> = dlhy sú zohľadnené v celkovom majetku<div class='tt-hr'></div>
 <strong>Net Worth</strong> — váš čistý majetok: celkové aktíva mínus všetky dlhy zadané v tomto zozname. Táto hodnota sa živoukazuje v T12 (Prehľad majetku).">?</span>
-  <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong></span>
+  <span class="sync-badge fresh dot" title="Dlhy → Net Worth (T12)">Net Worth: <strong id="sync-assets-debt">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
   <span id="debt-cf-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
 </details>
@@ -6629,7 +6660,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- ══════════════════════════════════════════════
      TAB 12 – INÝ MAJETOK (Rodinné bohatstvo)
 ═══════════════════════════════════════════════ -->
-<div id="t12" class="tab-panel">
+<div id="t12" role="tabpanel" aria-labelledby="tab-t12" tabindex="0" class="tab-panel">
 
 <div class="layout stretch" style="align-items:flex-start;">
 <!-- LEFT: zoznam majetku -->
@@ -6676,7 +6707,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
      TAB 13 – FINANČNÁ DIAGNOSTIKA
      Zdrojové dáta: ŠÚ SR, NBS, MSCI, CFP standard
 ═══════════════════════════════════════════════ -->
-<div id="t13" class="tab-panel active">
+<div id="t13" role="tabpanel" aria-labelledby="tab-t13" tabindex="0" class="tab-panel active">
 
 <details class="sync-wrap">
 <summary>Prepojenie s inými záložkami</summary>
@@ -6689,10 +6720,10 @@ Diagnostika čerpá z:<br>
 <strong>Dlhy T11</strong> — DSTI, DTI, celková záťaž<br>
 <strong>Núdzový fond T10</strong> — koľko mesiacov výdavkov máte pokrytých<br>
 <strong>Kalkulačka T1</strong> — investičná miera, portfólio">?</span>
-  <span class="sync-badge fresh dot">Cashflow T9</span>
-  <span class="sync-badge fresh dot">Dlhy T11</span>
-  <span class="sync-badge fresh dot">Núdzový fond T10</span>
-  <span class="sync-badge fresh dot">Kalkulačka T1</span>
+  <span class="sync-badge fresh dot">Cashflow T9<span class="sr-only"> — aktuálne</span></span>
+  <span class="sync-badge fresh dot">Dlhy T11<span class="sr-only"> — aktuálne</span></span>
+  <span class="sync-badge fresh dot">Núdzový fond T10<span class="sr-only"> — aktuálne</span></span>
+  <span class="sync-badge fresh dot">Kalkulačka T1<span class="sr-only"> — aktuálne</span></span>
   <span style="margin-left:auto;font-size:14.4px;color:var(--muted);opacity:.5;">ŠÚ SR 2024 · NBS · MSCI World</span>
 </div>
 </details>
@@ -6705,7 +6736,7 @@ Diagnostika čerpá z:<br>
     Stačí vyplniť tri záložky — trvá to 5 minút.
   </div>
   <div class="guide-steps">
-    <button type="button" class="guide-step" id="guide-step-1" data-action="showTab" data-tab="t9">
+    <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" class="guide-step" id="guide-step-1" data-action="showTab" data-tab="t9">
       <div class="guide-step-num" style="background:rgba(167,139,250,.15);color:var(--violet2);">1</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Príjmy a výdavky</div>
@@ -6714,7 +6745,7 @@ Diagnostika čerpá z:<br>
       <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
       <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button type="button" class="guide-step" id="guide-step-2" data-action="showTab" data-tab="t10">
+    <button id="tab-t10" role="tab" aria-selected="false" aria-controls="t10" type="button" class="guide-step" id="guide-step-2" data-action="showTab" data-tab="t10">
       <div class="guide-step-num" style="background:rgba(34,211,238,.12);color:var(--cyan2);">2</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moja finančná rezerva</div>
@@ -6723,7 +6754,7 @@ Diagnostika čerpá z:<br>
       <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
       <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button type="button" class="guide-step" id="guide-step-3" data-action="showTab" data-tab="t11">
+    <button id="tab-t11" role="tab" aria-selected="false" aria-controls="t11" type="button" class="guide-step" id="guide-step-3" data-action="showTab" data-tab="t11">
       <div class="guide-step-num" style="background:rgba(244,63,94,.12);color:var(--rose2);">3</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moje záväzky</div>
@@ -6739,7 +6770,7 @@ Diagnostika čerpá z:<br>
 </div>
 
 <!-- T13 GRID — zobrazí sa po vyplnení dát -->
-<div id="t13-grid" style="display:none;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch;">
+<div id="t13-grid" role="status" aria-live="polite" style="display:none;grid-template-columns:1.1fr 1fr;gap:20px;align-items:stretch;">
 
   <!-- ROW 1: Skóre | Čo keby menej -->
 
@@ -6758,7 +6789,7 @@ Diagnostika čerpá z:<br>
           </svg>
           <div class="score-ring-val"><span id="score-num" style="color:var(--text);">—</span><span class="score-ring-lbl">/ 100</span></div>
         </div>
-        <div id="score-headline" style="font-size:16.8px;font-weight:500;color:var(--text);line-height:1.6;flex:1;">Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.</div>
+        <div id="score-headline" style="font-size:16.8px;font-weight:500;color:var(--text);line-height:1.6;flex:1;">Vyplňte <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.</div>
       </div>
       <div id="score-components"></div>
       <div id="diag-pilier-card" style="display:none;"></div>
@@ -6780,7 +6811,7 @@ Diagnostika čerpá z:<br>
         </div>
       </div>
       <div id="whatif-rows">
-        <div style="font-size:15.6px;color:var(--muted2);">Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--gold2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — potom tu uvidíte, čo by vygenerovali vaše výdavky keby ste ich investovali.</div>
+        <div style="font-size:15.6px;color:var(--muted2);">Vyplňte <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--gold2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — potom tu uvidíte, čo by vygenerovali vaše výdavky keby ste ich investovali.</div>
       </div>
     </div>
   </div>
@@ -6796,9 +6827,9 @@ Diagnostika čerpá z:<br>
       <div style="font-size:15.6px;color:var(--muted2);line-height:1.8;">
   Odporúčania sa zobrazia keď vyplníte:
   <ol style="margin:10px 0 0 20px;color:var(--muted2);">
-    <li><button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — základ všetkého</li>
-    <li><button type="button" data-action="showTab" data-tab="t10" style="background:none;border:none;color:var(--cyan2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Rezervný fond</button> — koľko máte odložené</li>
-    <li><button type="button" data-action="showTab" data-tab="t11" style="background:none;border:none;color:var(--rose2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Moje dlhy</button> — ak nejaké máte</li>
+    <li><button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button> — základ všetkého</li>
+    <li><button id="tab-t10" role="tab" aria-selected="false" aria-controls="t10" type="button" data-action="showTab" data-tab="t10" style="background:none;border:none;color:var(--cyan2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Rezervný fond</button> — koľko máte odložené</li>
+    <li><button id="tab-t11" role="tab" aria-selected="false" aria-controls="t11" type="button" data-action="showTab" data-tab="t11" style="background:none;border:none;color:var(--rose2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Moje dlhy</button> — ak nejaké máte</li>
   </ol>
 </div>
     </div>
@@ -6842,7 +6873,7 @@ Diagnostika čerpá z:<br>
       <div style="margin-bottom:14px;">
         <div class="ig" style="margin-bottom:10px;">
           <div class="il" style="font-size:16.8px;color:var(--muted2);">Váš sektor
-            <select id="wage-sector" data-calc="calcWageBench" style="margin-left:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);font-family:'Source Code Pro',monospace;font-size:14.4px;border-radius:6px;padding:4px 8px;outline:none;">
+            <select id="wage-sector" data-calc="calcWageBench" style="margin-left:8px;background:var(--bg3);border:1px solid var(--border2);color:var(--muted2);font-family:'Source Code Pro',monospace;font-size:14.4px;border-radius:6px;padding:4px 8px;outline:none;" aria-label="Váš pracovný sektor">
               <option value="0">— vybrať sektor —</option>
               <option value="2800">IT / Telekomunikácie (€2 800)</option>
               <option value="2200">Finančníctvo / poisťovníctvo (€2 200)</option>
@@ -6867,7 +6898,7 @@ Diagnostika čerpá z:<br>
       <div style="border-top:1px solid var(--border);padding-top:14px;">
         <div class="ig">
           <div class="il" style="font-size:16.8px;color:var(--muted2);">Čo by znamenalo zvýšenie platu o <span class="val" id="raise-pct-lbl">10%</span>?</div>
-          <input type="range" id="raise-pct" min="1" max="50" step="1" value="10" data-calc="calcRaiseEffect">
+          <input type="range" id="raise-pct" min="1" max="50" step="1" value="10" data-calc="calcRaiseEffect" aria-label="Zvýšenie platu v percentách">
           <div class="rbnd"><span>1%</span><span>50%</span></div>
         </div>
         <div id="raise-effect-result" style="margin-top:10px;"></div>
@@ -7114,13 +7145,20 @@ function showTab(id,btn){
   document.querySelectorAll('.tab-panel').forEach(p=>{
     p.classList.remove('active');
   });
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>{
+    b.classList.remove('active');
+    b.setAttribute('aria-selected','false');
+  });
   const panel=document.getElementById(id);
   panel.classList.add('active');
   btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
   /* Mark all sync badges in the newly opened tab as stale so animation is visible */
   if(panel) panel.querySelectorAll('.sync-badge').forEach(b=>{
     b.classList.remove('fresh','updated'); b.classList.add('stale');
+    // SR: aktualizuj aria-label podľa stavu
+    const baseText = b.textContent.replace(/\s+/g,' ').trim();
+    b.setAttribute('aria-label', baseText + ' — čaká na prepočet');
   });
   if(id==='t2') syncCmp();
   if(id==='t3') syncTab3();
@@ -7200,8 +7238,8 @@ function renderLumps(){
     const d=document.createElement('div');
     d.className='lump-row';
     d.innerHTML=`
-      <div class="ni-wrap"><div class="ni-pfx" style="font-size:13.2px;">rok+</div><input type="number" value="${l.yr}" min="1" max="50" data-action="updateLump" data-id="${l.id}" data-field="yr" data-evt="change"></div>
-      <div class="ni-wrap"><div class="ni-pfx">€</div><input type="number" value="${l.amt}" min="0" step="500" data-action="updateLump" data-id="${l.id}" data-field="amt" data-evt="change"></div>
+      <div class="ni-wrap"><div class="ni-pfx" style="font-size:13.2px;">rok+</div><input type="number" value="${l.yr}" min="1" max="50" aria-label="Mimoriadny vklad — rok" data-action="updateLump" data-id="${l.id}" data-field="yr" data-evt="change"></div>
+      <div class="ni-wrap"><div class="ni-pfx">€</div><input type="number" value="${l.amt}" min="0" step="500" aria-label="Mimoriadny vklad — suma v eurách" data-action="updateLump" data-id="${l.id}" data-field="amt" data-evt="change"></div>
       <button type="button" class="btn-del" aria-label="Odstrániť vklad" data-action="removeLump" data-id="${l.id}">×</button>`;
     w.appendChild(d);
   });
@@ -8655,7 +8693,7 @@ function openValEdit(valSpan,slider){
   overlay.className='val-overlay';
   overlay.innerHTML=`<div class="val-overlay-box">
     <div class="val-overlay-label">${rawText||'Zadaj hodnotu'}</div>
-    <input class="val-overlay-input" id="_vei" type="number" value="${slider.value}" min="${slider.min}" max="${slider.max}" step="${slider.step}">
+    <input class="val-overlay-input" id="_vei" type="number" aria-label="Manuálne zadanie hodnoty slidera" value="${slider.value}" min="${slider.min}" max="${slider.max}" step="${slider.step}">
     <div class="val-overlay-hint">Rozsah: ${(+slider.min).toLocaleString('sk-SK')} – ${(+slider.max).toLocaleString('sk-SK')} &nbsp;·&nbsp; Enter = potvrdiť &nbsp;·&nbsp; Esc = zrušiť</div>
   </div>`;
   document.body.appendChild(overlay);
@@ -10448,12 +10486,12 @@ function _imShowStep(id){
 
 function _imOpenModal(){
   const ov=document.getElementById('import-modal-overlay');
-  if(ov){ ov.classList.add('open'); document.body.style.overflow='hidden'; }
+  if(ov){ ov.classList.add('open'); document.body.style.overflow='hidden'; trapFocus(ov, document.activeElement); }
 }
 
 function closeImportModal(){
   const ov=document.getElementById('import-modal-overlay');
-  if(ov){ ov.classList.remove('open'); document.body.style.overflow=''; }
+  if(ov){ releaseFocus(ov); ov.classList.remove('open'); document.body.style.overflow=''; }
   _pendingImportState=null;
   _pendingImportFilename='';
   const fi=document.getElementById('import-file-input'); if(fi) fi.value='';
@@ -11083,7 +11121,7 @@ function renderCF2Sections(){
           data-action="cfUpdateName" data-cat="${cid}" data-idx="${i}" data-evt="change" data-focus-select="true">
         <div class="cf2-amount-wrap">
           <span class="cf2-currency">€</span>
-          <input class="cf2-amount-input" type="number" value="${item.val||''}" min="0" step="0.5" placeholder="0"
+          <input class="cf2-amount-input" type="number" value="${item.val||''}" min="0" step="0.5" placeholder="0" aria-label="${item.label||'Suma'} v eurách"
             data-action="cfUpdateVal" data-cat="${cid}" data-idx="${i}" data-evt="input">
         </div>
         <button type="button" class="cf2-del-btn" aria-label="Odstrániť položku" data-action="cfRemoveItem" data-cat="${cid}" data-idx="${i}">×</button>
@@ -11603,13 +11641,13 @@ function resetScore(){
   const ring=$el('score-ring-fill'); if(ring){ring.style.strokeDashoffset='289.03';ring.style.stroke='var(--border2)';}
   const sn=$el('score-num'); if(sn){sn.textContent='—';sn.style.color='var(--muted)';}
   const sc=$el('score-components'); if(sc) sc.innerHTML='';
-  const sh=$el('score-headline'); if(sh) sh.innerHTML='Vyplňte <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.';
+  const sh=$el('score-headline'); if(sh) sh.innerHTML='Vyplňte <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:600;">Príjmy a výdavky</button> — potom tu uvidíte vaše finančné skóre.';
 }
 
 /* ── 2. PRIORITIZAČNÝ ENGINE ── */
 function calcPriorityEngine(income, expenses, invest, savings, balance, debtMon, debtBal, efCurrent, efTarget){
   const body = $el('priority-engine-body'); if(!body) return;
-  if(income === 0){ body.innerHTML = '<div style="font-size:14.4px;color:var(--muted2);line-height:1.8;">Odporúčania sa zobrazia po vyplnení záložky <button type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button>.</div>'; return; }
+  if(income === 0){ body.innerHTML = '<div style="font-size:14.4px;color:var(--muted2);line-height:1.8;">Odporúčania sa zobrazia po vyplnení záložky <button id="tab-t9" role="tab" aria-selected="false" aria-controls="t9" type="button" data-action="showTab" data-tab="t9" style="background:none;border:none;color:var(--violet2);text-decoration:underline;cursor:pointer;font-size:inherit;padding:0;font-weight:500;">Príjmy a výdavky</button>.</div>'; return; }
 
   const items = [];
   const efGap = Math.max(0, efTarget - efCurrent);
@@ -12103,7 +12141,7 @@ function calcInterestGap(){
           Najlepšia dostupná sadzba:
           <input type="number" id="diag-refi-rate" value="${(newRate*100).toFixed(2).replace('.',',')}" min="0.5" max="10" step="0.05"
             style="width:60px;background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:3px 7px;color:var(--text);font-family:'Source Code Pro',monospace;font-size:14.4px;text-align:right;"
-            data-calc="calcDiag" title="Upravte podľa aktuálnych ponúk bánk (zdroj: finančné portály, banky SR)">
+            data-calc="calcDiag" title="Upravte podľa aktuálnych ponúk bánk (zdroj: finančné portály, banky SR)" aria-label="Najlepšia dostupná sadzba refinancovania v percentách">
           <span style="color:var(--muted);">% p.a.</span>
         </label>
       </div>
@@ -12160,11 +12198,11 @@ function efRenderBuckets(){
       <input class="ef-bucket-name" value="${esc(b.name||'')}"
         data-action="efBucketName" data-idx="${i}" data-evt="input" placeholder="Typ (napr. Fio konto)">
       <div class="ef-bucket-fi"><span class="du">€</span>
-        <input type="number" value="${b.amount||''}" min="0" step="100" placeholder="0"
+        <input type="number" value="${b.amount||''}" min="0" step="100" placeholder="0" aria-label="${b.name||'Bucket'} — nasporená suma v eurách"
           data-action="efBucketAmount" data-idx="${i}" data-evt="input">
       </div>
       <div class="ef-bucket-fi">
-        <input type="number" value="${b.rate}" min="0" max="20" step="0.01" placeholder="0.00"
+        <input type="number" value="${b.rate}" min="0" max="20" step="0.01" placeholder="0.00" aria-label="${b.name||'Bucket'} — ročný výnos v percentách"
           data-action="efBucketRate" data-idx="${i}" data-evt="input">
         <span class="du">%</span>
       </div>
@@ -12398,31 +12436,32 @@ function renderDebtList(){
     <div class="debt-card">
       <div class="debt-card-r1">
         <input class="debt-name-inp" value="${esc(d.name||'')}"
+          aria-label="Názov dlhu ${i+1}"
           data-action="debtUpdate" data-idx="${i}" data-field="name" data-evt="input"
           data-focus-clear="true" data-blur-fallback="Nový dlh" placeholder="Názov dlhu">
-        <select class="debt-type-sel" data-action="debtUpdate" data-idx="${i}" data-field="type" data-evt="change">${typeOpts(d.type)}</select>
-        <button type="button" class="debt-del-btn" data-action="debtRemoveRow" data-idx="${i}" title="Odstrániť">×</button>
+        <select class="debt-type-sel" aria-label="Typ dlhu" data-action="debtUpdate" data-idx="${i}" data-field="type" data-evt="change">${typeOpts(d.type)}</select>
+        <button type="button" class="debt-del-btn" data-action="debtRemoveRow" data-idx="${i}" title="Odstrániť" aria-label="Odstrániť dlh ${i+1}">×</button>
       </div>
       <div class="debt-card-r2">
         <div class="debt-field">
-          <label>Zostatok</label>
+          <label for="debt-bal-${i}" style="font-family:var(--ff-data);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Zostatok</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.balance||0}" min="0" step="100"
+            <input type="number" id="debt-bal-${i}" value="${d.balance||0}" min="0" step="100" aria-label="${d.name||'Dlh'} — zostatok v eurách"
               data-action="debtUpdate" data-idx="${i}" data-field="balance" data-evt="input" data-focus-clear="true" data-blur-zero="true">
           </div>
         </div>
         <div class="debt-field">
-          <label>Úrok % p.a.</label>
+          <label for="debt-rate-${i}" style="font-family:var(--ff-data);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Úrok % p.a.</label>
           <div class="debt-fi">
-            <input type="number" value="${d.rate||0}" min="0" max="99" step="0.01"
+            <input type="number" id="debt-rate-${i}" value="${d.rate||0}" min="0" max="99" step="0.01" aria-label="${d.name||'Dlh'} — úroková sadzba v percentách"
               data-action="debtUpdate" data-idx="${i}" data-field="rate" data-evt="input" data-focus-clear="true" data-blur-zero="true">
             <span class="du">%</span>
           </div>
         </div>
         <div class="debt-field">
-          <label>Splátka/mes.</label>
+          <label for="debt-mon-${i}" style="font-family:var(--ff-data);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Splátka/mes.</label>
           <div class="debt-fi"><span class="du">€</span>
-            <input type="number" value="${d.monthly||0}" min="0" step="10"
+            <input type="number" id="debt-mon-${i}" value="${d.monthly||0}" min="0" step="10" aria-label="${d.name||'Dlh'} — mesačná splátka v eurách"
               data-action="debtUpdate" data-idx="${i}" data-field="monthly" data-evt="input" data-focus-clear="true" data-blur-zero="true">
           </div>
         </div>
@@ -12649,7 +12688,7 @@ function renderAssets(){
     <div style="display:grid;grid-template-columns:1.4fr 1.2fr 100px 1fr 24px;gap:4px;align-items:center;padding:5px 10px;border-bottom:1px solid var(--border);" class="cf2-row">
       <input class="cf2-name-input" value="${esc(a.name||'')}" data-action="assetsUpdate" data-idx="${i}" data-field="name" data-evt="change">
       <select style="background:var(--bg3);border:1px solid transparent;border-radius:6px;color:var(--muted2);font-size:13.2px;font-family:'Source Code Pro',monospace;padding:3px 4px;outline:none;" data-action="assetsUpdate" data-idx="${i}" data-field="type" data-evt="change">${typeOpts(a.type)}</select>
-      <div class="cf2-amount-wrap"><span class="cf2-currency">€</span><input class="cf2-amount-input" type="number" value="${a.value||''}" placeholder="0" data-action="assetsUpdate" data-idx="${i}" data-field="value" data-evt="input"></div>
+      <div class="cf2-amount-wrap"><span class="cf2-currency">€</span><input class="cf2-amount-input" type="number" value="${a.value||''}" placeholder="0" aria-label="${a.name||'Majetok'} — hodnota v eurách" data-action="assetsUpdate" data-idx="${i}" data-field="value" data-evt="input"></div>
       <input class="cf2-name-input" value="${esc(a.note||'')}" placeholder="poznámka…" data-action="assetsUpdate" data-idx="${i}" data-field="note" data-evt="change">
       <button type="button" class="cf2-del-btn" data-action="assetsRemoveRow" data-idx="${i}">×</button>
     </div>`).join('');
@@ -12753,6 +12792,9 @@ function _setSyncBadge(id, val, unit){
   /* Step 1: show stale (amber) immediately */
   badge.classList.remove('fresh','updated');
   badge.classList.add('stale');
+  /* Update aria-label so SR reads value + status */
+  const labelBase = badge.textContent.trim().replace(/\s+/g,' ');
+  badge.setAttribute('aria-label', labelBase + ' — aktualizované');
   /* Step 2: after one frame, animate amber→green */
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -12943,7 +12985,7 @@ efRenderBuckets();
 // Set default active tab to Diagnostika (t13)
 (function(){
   const t13btn = document.querySelector('.tg-diag .tab');
-  if(t13btn){ document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active')); t13btn.classList.add('active'); }
+  if(t13btn){ document.querySelectorAll('.tab').forEach(b=>{ b.classList.remove('active'); b.setAttribute('aria-selected','false'); }); t13btn.classList.add('active'); t13btn.setAttribute('aria-selected','true'); }
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   const t13p = document.getElementById('t13'); if(t13p) t13p.classList.add('active');
   renderCF2Sections(); calcCF();
@@ -12992,8 +13034,10 @@ document.getElementById('r-inf').addEventListener('input',_syncInfResetBtns);
 
 /* ── SOURCES MODAL ── */
 function openSources(){
-  $el('sources-overlay').classList.add('open');
+  const ov = $el('sources-overlay');
+  ov.classList.add('open');
   document.body.style.overflow='hidden';
+  trapFocus(ov, document.activeElement);
   // Auto-select filter matching the currently active tab
   const activePanel = document.querySelector('.tab-panel.active');
   const activeId = activePanel ? activePanel.id : null;
@@ -13003,7 +13047,9 @@ function openSources(){
   if(btn) srcFilter(targetTab, btn);
 }
 function closeSources(){
-  $el('sources-overlay').classList.remove('open');
+  const ov = $el('sources-overlay');
+  releaseFocus(ov);
+  ov.classList.remove('open');
   document.body.style.overflow='';
 }
 function srcFilter(tab, btn){
@@ -13024,7 +13070,13 @@ function srcFilter(tab, btn){
     else bl.classList.remove('visible');
   });
 }
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeSources(); });
+document.addEventListener('keydown', e => {
+  if(e.key==='Escape'){
+    closeSources();
+    closePrivacyInfo();
+    closeImportModal();
+  }
+});
 </script>
 <script>const _cy=new Date().getFullYear(); document.getElementById('footer-year').textContent=_cy; document.querySelectorAll('.ctx-cur-year').forEach(el=>el.textContent=_cy); const _r4y=document.getElementById('r4-cur-year'); if(_r4y)_r4y.textContent=_cy; const _hy=document.getElementById('hdr-year'); if(_hy)_hy.textContent=_cy;</script>
 
@@ -13133,13 +13185,43 @@ function efUpdateCatLabels(){
 }
 
 /* ══ THEME TOGGLE ══════════════════════════════════════════════════ */
+function trapFocus(modalEl, returnEl) {
+  const focusable = modalEl.querySelectorAll(
+    'a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])'
+  );
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  function handler(e) {
+    if (e.key !== 'Tab') return;
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  modalEl._trapHandler = handler;
+  modalEl._returnEl = returnEl;
+  modalEl.addEventListener('keydown', handler);
+  setTimeout(() => first.focus(), 50);
+}
+
+function releaseFocus(modalEl) {
+  if (modalEl._trapHandler) modalEl.removeEventListener('keydown', modalEl._trapHandler);
+  if (modalEl._returnEl) { try { modalEl._returnEl.focus(); } catch(e){} }
+}
+
 function openPrivacyInfo(){
   const ov=$el('privacy-info-overlay');
-  if(ov){ ov.style.display='flex'; document.body.style.overflow='hidden'; }
+  if(ov){
+    ov.style.display='flex';
+    document.body.style.overflow='hidden';
+    trapFocus(ov, document.activeElement);
+  }
 }
 function closePrivacyInfo(){
   const ov=$el('privacy-info-overlay');
-  if(ov){ ov.style.display='none'; document.body.style.overflow=''; }
+  if(ov){ releaseFocus(ov); ov.style.display='none'; document.body.style.overflow=''; }
 }
 
 /* ── ONBOARDING BANNER ── */
@@ -13357,6 +13439,22 @@ function calcRefixation(){
     <div style="font-size:12px;color:var(--muted);margin-top:8px;">Zachovaný pôvodný koniec splatnosti: zostatok ${termStr} od dnes.</div>
   `;
 }
+
+/* ── ACCESSIBILITY: aria-valuetext pre slidery ── */
+(function initSliderValueText(){
+  const UNITS = {"r-ret": "%", "r-inc": "%", "r-div": "%", "r-inf": "%", "r-fee": "%", "r-stk": "%", "alt-r-td": "%", "alt-r-re": "%", "ar-ret": "%", "ar-inc": "%", "ar-fee": "%", "br-ret": "%", "br-inc": "%", "br-fee": "%", "r-wr": "%", "rvr-ret": "%", "rvr-fee": "%", "rvr-inf": "%", "rvr-wr": "%", "rvr-inc": "%", "rvr-wgr": "%", "firer-ret": "%", "firer-inc": "%", "firer-fee": "%", "firer-inf": "%", "firer-wr": "%", "bt-r-fee": "%", "p2-r-ret": "%", "p3-r-ret": "%", "mr-own": "%", "mr-rate": "%", "refix-new-rate": "%", "prop-growth": "%", "rent-etf-ret": "%", "ef-rate": "%", "debt-ret": "%", "raise-pct": "%", "r-ini": " €", "r-mon": " €/mes.", "ar-ini": " €", "ar-mon": " €/mes.", "br-ini": " €", "br-mon": " €/mes.", "bt-r-ini": " €", "bt-r-mon": " €/mes.", "p2-r-bal": " €", "p2-r-sal": " €/mes.", "p3-r-own": " €/mes.", "p3-r-emp": " €/mes.", "p3-r-bal": " €", "mr-price": " €", "mr-ownb": " €", "mr-inc1": " €/mes.", "mr-inc2": " €/mes.", "mr-debt": " €/mes.", "rent-slider": " €/mes.", "ef-saved": " €", "ef-monthly": " €/mes.", "ef-expenses": " €/mes.", "debt-extra": " €", "r-yr": " rokov", "ar-yr": " rokov", "br-yr": " rokov", "r-gyr": " rokov", "r-yinv": " rokov", "rvr-yr": " rokov", "firer-gyr": " rokov", "p2-r-yr": " rokov", "mr-term": " rokov", "pil-ret-age": " rokov"};
+  function setValueText(el){
+    const unit = UNITS[el.id] || '';
+    const val = parseFloat(el.value);
+    const formatted = val.toLocaleString('sk-SK', {maximumFractionDigits:2});
+    el.setAttribute('aria-valuetext', formatted + unit);
+  }
+  document.querySelectorAll('input[type=range]').forEach(el => {
+    setValueText(el);
+    el.addEventListener('input', () => setValueText(el));
+  });
+})();
+
 </script>
 </body>
 </html>
