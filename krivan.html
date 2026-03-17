@@ -747,6 +747,28 @@ summary::marker { display: none; }
   0%, 100% { box-shadow: 0 0 0 2px rgba(34,211,238,.18), 0 0 14px rgba(34,211,238,.14); }
   50%       { box-shadow: 0 0 0 3px rgba(34,211,238,.30), 0 0 22px rgba(34,211,238,.24); }
 }
+/* ── fire empty state (T6 Finančná nezávislosť) ── */
+.ni-wrap.fire-field-empty {
+  border-color: rgba(16,185,129,.7) !important;
+  box-shadow: 0 0 0 2px rgba(16,185,129,.18), 0 0 14px rgba(16,185,129,.15) !important;
+  background: rgba(16,185,129,.06) !important;
+  animation: income-pulse 2.5s ease-in-out infinite;
+}
+.ni-wrap.fire-field-empty .ni-pfx,
+.ni-wrap.fire-field-empty input {
+  color: var(--emerald2) !important;
+}
+/* ── rv-target empty state (T10 Koľko potrebujem?) ── */
+.ni-wrap.rv-target-empty {
+  border-color: rgba(16,185,129,.7) !important;
+  box-shadow: 0 0 0 2px rgba(16,185,129,.18), 0 0 14px rgba(16,185,129,.15) !important;
+  background: rgba(16,185,129,.06) !important;
+  animation: income-pulse 2.5s ease-in-out infinite;
+}
+.ni-wrap.rv-target-empty .ni-pfx,
+.ni-wrap.rv-target-empty input {
+  color: var(--emerald2) !important;
+}
 .cf2-amount-wrap.income-empty {
   border-color: rgba(16,185,129,.7) !important;
   box-shadow: 0 0 0 2px rgba(16,185,129,.18), 0 0 14px rgba(16,185,129,.15) !important;
@@ -4884,7 +4906,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 <div class="layout stretch">
 <div class="col">
-  <div class="panel inputs-panel">
+  <div id="rv-result-panel" class="panel inputs-panel">
     <p class="plbl">Čo chcete dosiahnuť</p>
 
     <div class="ig">
@@ -4894,7 +4916,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ni-wrap">
         <div class="ni-pfx">€/mes.</div>
-        <input type="number" id="rv-target" value="2000" min="100" step="100" data-calc="calcReverse" aria-label="Cieľová mesačná renta v eurách" aria-describedby="hint-rv-target">
+        <input type="number" id="rv-target" value="0" min="0" step="100" data-calc="calcReverse" aria-label="Cieľová mesačná renta v eurách" aria-describedby="hint-rv-target" placeholder="0">
         <span id="hint-rv-target" class="sr-only">Koľko eur chcete dostávať každý mesiac v dôchodku v dnešných cenách. Kalkulačka odhadne, akú sumu by bolo potrebné nasporiť.</span>
       </div>
     </div>
@@ -5130,7 +5152,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 <!-- LEFT: všetky parametre -->
 <div class="col">
-  <div class="panel inputs-panel">
+  <div id="fire-result-panel" class="panel inputs-panel">
     <p class="plbl">Parametre</p>
 
     <div class="sec-hdr">Základné vstupy</div>
@@ -5139,9 +5161,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il" style="margin-bottom:9px;">Mesačné výdavky v dôchodku (dnes €)
         <span class="tip" data-tip="<div class='tt-title'>Cieľové portfólio — orientačný výpočet</div>Koľko potrebujete mesačne na život v <strong>dnešných cenách</strong>. Kalkulačka toto číslo automaticky inflačne nafúkne na nominálne hodnoty budúcnosti.<div class='tt-hr'></div><strong>Cieľ portfólia</strong> = mesačné výdavky × 12 ÷ miera výberu<br>Príklad: €2 000/mes. × 12 ÷ 4% = <strong>€600 000 (v dnešných €)</strong><div class='tt-hr'></div>Od tohto bodu simulácia predpokladá, že portfólio pokryje výdavky bez ďalšieho vkladu. <strong>Ide o orientačný výpočet</strong> — skutočný výsledok závisí od trhových podmienok.">?</span>
       </div>
-      <div class="ni-wrap">
+      <div class="ni-wrap" id="fire-exp-wrap">
         <div class="ni-pfx">€/mes.</div>
-        <input type="number" id="fire-exp" value="0" min="100" step="100" data-calc="calcFIRE" aria-label="Mesačné výdavky v eurách" aria-describedby="hint-fire-exp">
+        <input type="number" id="fire-exp" value="" min="0" step="100" placeholder="0" data-calc="calcFIRE" aria-label="Mesačné výdavky v eurách" aria-describedby="hint-fire-exp">
       </div>
     </div>
 
@@ -5149,9 +5171,19 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il" style="margin-bottom:9px;">Aktuálne portfólio / úspory (€)
         <span class="tip" data-tip="<div class='tt-title'>Váš dnešný štartovací bod</div>Aktuálna hodnota vašich investícií — ETF, akcie, hotovosť v investičnom účte. <em>Nezahŕňajte</em> nehnuteľnosť kde bývate alebo 2. pilier (pokiaľ k nemu nemáte prístup).<div class='tt-hr'></div>Čím väčší štart, tým skôr simulácia odhaduje dosiahnutie FIRE. Každé euro navyše dnes = niekoľko eur menej potrebných v budúcnosti vďaka zloženému úročeniu.">?</span>
       </div>
-      <div class="ni-wrap">
+      <div class="ni-wrap" id="fire-ini-wrap">
         <div class="ni-pfx">€</div>
-        <input type="number" id="fire-ini" value="0" min="0" step="1000" data-calc="calcFIRE" aria-label="Aktuálna hodnota portfólia v eurách">
+        <input type="number" id="fire-ini" value="" min="0" step="1000" placeholder="0" data-calc="calcFIRE" aria-label="Aktuálna hodnota portfólia v eurách">
+      </div>
+    </div>
+
+    <div id="fire-mon-ig" style="margin-bottom:18px;">
+      <div class="il" style="margin-bottom:9px;">Mesačne investujem sumu
+        <span class="tip" data-tip="<div class='tt-title'>Mesačne investujem sumu</div>Koľko plánujete každý mesiac investovať počas akumulačnej fázy. Pri hodnote €0 kalkulačka počíta len s rastom existujúceho portfólia.">?</span>
+      </div>
+      <div class="ni-wrap" id="fire-mon-wrap">
+        <div class="ni-pfx">€/mes.</div>
+        <input type="number" id="firer-mon" value="" min="0" step="50" placeholder="0" data-calc="calcFIRE" aria-label="Mesačne investujem sumu v eurách">
       </div>
     </div>
 
@@ -5167,11 +5199,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="sec-hdr">Trhové parametre</div>
 
-    <div class="ig">
-      <div class="il">Mesačný vklad <span class="val" id="firel-mon">€0</span></div>
-      <input type="range" id="firer-mon" min="0" max="20000" step="50" value="0" data-calc="calcFIRE" aria-label="Mesačný vklad v eurách">
-      <div class="rbnd"><span>€0</span><span>€20 000</span></div>
-    </div>
     <div class="ig">
       <div class="il">Výnos p.a. (váš odhad) <span class="val" id="firel-ret">9,0%</span></div>
       <input type="range" id="firer-ret" min="1" max="20" step="0.5" value="9" data-calc="calcFIRE" aria-label="Ročný výnos v percentách" aria-describedby="hint-firer-ret">
@@ -8969,6 +8996,10 @@ function calcReverse(){
   $el('rvl-gr').style.color=grColor;
   $el('rvl-gr-formula').textContent=`= ${fmtP(ret*100)} − ${fmtP(inf*100)} − ${fmtP(fee*100)}`;
 
+  // ── Empty state: zvýrazni pole keď je rv-target = 0 ──
+  const rvTargetWrap = document.getElementById('rv-target')?.closest('.ni-wrap');
+  if(rvTargetWrap) rvTargetWrap.classList.toggle('rv-target-empty', targetReal === 0);
+
   // 1. Inflate target to future nominal
   const inflFactor=Math.pow(1+inf,yr);
   const futureMonthly=targetReal*inflFactor;
@@ -9393,9 +9424,18 @@ function calcFIRE(){
 
   const expenses = +$el('fire-exp').value || 0;
   const ini      = +$el('fire-ini').value || 0;
+  const mon      = +$el('firer-mon').value || 0;
+
+  // ── Empty state highlight: zvýrazni polia keď sú 0 ──
+  const expWrap = $el('fire-exp-wrap');
+  const iniWrap = $el('fire-ini-wrap');
+  const monWrap = $el('fire-mon-wrap');
+  if(expWrap) expWrap.classList.toggle('fire-field-empty', expenses === 0);
+  if(iniWrap) iniWrap.classList.toggle('fire-field-empty', ini === 0);
+  if(monWrap) monWrap.classList.toggle('fire-field-empty', mon === 0);
+
   const ageRaw   = $el('fire-age').value.trim();
   const currentAge = ageRaw !== '' ? +ageRaw : null;
-  const mon      = $v('firer-mon');
   const inc      = $v('firer-inc')/100;
   const ret      = $v('firer-ret')/100;
   const fee      = $v('firer-fee')/100;
@@ -9405,7 +9445,7 @@ function calcFIRE(){
   const effRet   = ret - fee;
 
   // Update labels
-  $el('firel-mon').textContent = '€'+mon.toLocaleString('sk-SK');
+  // firel-mon label bol pre slider — nahradený priamym number inputom
   $el('firel-inc').textContent = fmtP(inc*100);
   $el('firel-ret').textContent = fmtP(ret*100);
   $el('firel-fee').textContent = fmtP(fee*100);
