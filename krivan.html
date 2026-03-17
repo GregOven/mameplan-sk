@@ -4493,111 +4493,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="chart-wrap"><canvas id="ch-alt"></canvas></div>
 </div>
 
-<!-- LEGISLATÍVNE PARAMETRE — patria do T1 (daňová kalkulačka) -->
-<!-- FIX: PROBLÉM 1 — TAX_THRESHOLD variabilný cez životné minimum -->
-<!-- ══ NASTAVENIA — daňové a legislatívne parametre ══ -->
-<details id="leg-params-details" style="margin-top:24px;">
-<summary style="display:flex;align-items:center;gap:10px;padding:12px 18px;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:12px;cursor:pointer;list-style:none;font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);user-select:none;" aria-label="Legislatívne parametre SR — životné minimum, daňový prah, Euribor">
-  <span>Legislatívne parametre · SR</span>
-  <span style="opacity:.7;font-size:11px;margin-left:4px;">▾ upravte ak sa zmenila legislatíva</span>
-  <span style="margin-left:8px;font-size:11px;color:var(--muted2);opacity:.7;">→ <a onclick="event.stopPropagation();showTab('t14',document.getElementById('tab-t14'));" href="#" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px;">všetky parametre v T14</a></span>
-  <span style="margin-left:auto;opacity:.4;font-size:11px;" id="leg-params-chevron">▾</span>
-</summary>
-<div style="background:rgba(255,255,255,.015);border:1px solid var(--border);border-top:none;border-radius:0 0 12px 12px;padding:20px 24px;">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;justify-content:space-between;">
-    <div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);">Nastavenia</span>
-      <span style="font-size:13.2px;color:var(--muted);opacity:.6;">upravte ak sa zmenila legislatíva</span>
-    </div>
-    <span id="tax-params-year-note" style="font-size:13.2px;color:var(--amber2);font-family:'Source Code Pro',monospace;"></span>
-  </div>
-
-  <!-- FIX: ŽM vstupné pole s automatickým výpočtom TAX_THRESHOLD -->
-  <div style="background:rgba(200,168,75,.04);border:1px solid rgba(200,168,75,.18);border-radius:12px;padding:16px 18px;margin-bottom:16px;">
-    <div style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Daňový prah · ZDP §15 ods.1 — automatický výpočet</div>
-    <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start;">
-      <!-- Životné minimum vstup -->
-      <div>
-        <div style="font-size:14.4px;color:var(--muted);margin-bottom:6px;">
-          Životné minimum (€/mes.)
-          <span class="tip" data-tip="<div class='tt-title'>Životné minimum — základ daňového prahu</div>Životné minimum vyhlasuje ŠÚ SR každý rok k <strong>1. júlu</strong> (zákon č. 601/2003 Z.z.).<div class='tt-hr'></div><strong>História:</strong><br>· 2023/2024: €268,88 → prah €41 445<br>· 2024/2025: €292,28 → prah €41 445 (ZDP zmena)<br>· 2025/2026: €284,13 → prah €50 234<div class='tt-hr'></div><strong>Kde nájsť aktuálnu hodnotu:</strong><br>→ <a href='https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/' target='_blank' style='color:var(--gold2)'>mpsvr.sk — Životné minimum</a><br>→ financnasprava.sk — Daňový kalendár">?</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div class="ni-wrap" style="width:110px;">
-            <div class="ni-pfx">€</div>
-            <input type="number" id="setting-zm" value="284.13" min="200" max="600" step="0.01"
-              data-calc="applyTaxSettings"
-              style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Životné minimum v eurách mesačne">
-          </div>
-          <span style="font-size:13.2px;color:var(--muted);">od 1.7.2025</span>
-        </div>
-        <div style="font-size:13.2px;color:var(--muted);margin-top:5px;">
-          <a href="https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/" target="_blank"
-            style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px;font-size:12px;">mpsvr.sk → aktuálna hodnota</a>
-        </div>
-      </div>
-      <!-- Vypočítaný prah — read-only -->
-      <div style="flex:1;min-width:200px;">
-        <div style="font-size:14.4px;color:var(--muted);margin-bottom:6px;">Daňový prah (176,8 × ŽM)</div>
-        <div style="background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;">
-          <div style="font-family:'Spectral',serif;font-size:26.4px;font-weight:700;color:var(--gold2);" id="setting-tax-display">€50 234</div>
-          <div style="font-size:13.2px;color:var(--muted);margin-top:3px;" id="setting-tax-formula">176,8 × €284,13 = <strong style="color:var(--text);">€50 234</strong></div>
-        </div>
-      </div>
-      <!-- Upozornenie na zmenu roka -->
-      <div id="setting-tax-year-warn" style="display:none;flex:1;min-width:200px;padding:10px 14px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
-        ⚠ <strong style="color:var(--amber2);">Zmena roka začiatku</strong> — daňový prah sa každý rok mení k 1. júlu. Skontroluj aktuálnu hodnotu životného minima pred predajom ETF.
-      </div>
-    </div>
-  </div>
-
-  <!-- Ostatné parametre -->
-  <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;">
-    <div>
-      <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">Výnos dlhopisov p.a.
-        <span class="tip" data-tip="<div class='tt-title'>Výnos dlhopisovej časti portfólia</div>Používa sa pri nastavení podielu akcií/dlhopisov v T1.<div class='tt-hr'></div><strong>Referenčné hodnoty:</strong><br>· EUR vládne dlhopisy 7-10Y (2025): ~2.5%<br>· EUR korporátne dlhopisy IG: ~3.5%<br>· iShares EUR Govt Bond (IEGE): hist. ~2.1% p.a.<div class='tt-hr'></div>Default 3% je stred medzi govt a corporate IG.">?</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <div class="ni-wrap" style="width:90px;">
-          <div class="ni-pfx">%</div>
-          <input type="number" id="setting-bond-ret" value="2.0" min="0.5" max="8" step="0.1"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Výnos dlhopisov v percentách ročne">
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">ZP z invest. zisku (§580/2004)
-        <span class="tip" data-tip="<div class='tt-title'>Zdravotné poistenie z kapitálového majetku</div>Pri predaji ETF do 1 roka (bez časového testu): zisk podlieha ZP.<div class='tt-hr'></div>Sadzba 14% z celého zisku (overovať aktuálny stav na financnasprava.sk).<div class='tt-hr'></div>Pri dlhodobom ETF s časovým testom >1 rok: ZP = €0.">?</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <div class="ni-wrap" style="width:80px;">
-          <div class="ni-pfx">%</div>
-          <input type="number" id="setting-zp-rate" value="14" min="0" max="20" step="0.5"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Sadzba zdravotného poistenia v percentách">
-        </div>
-      </div>
-    </div>
-    <div style="margin-left:auto;text-align:right;">
-      <div style="font-size:13.2px;color:var(--muted);margin-bottom:5px;">Aktuálna sadzba Euribor 3M</div>
-      <div style="display:flex;align-items:center;gap:6px;">
-        <div class="ni-wrap" style="width:90px;">
-          <div class="ni-pfx">%</div>
-          <input type="number" id="setting-euribor" value="2.7" min="0" max="8" step="0.05"
-            data-calc="applyTaxSettings" style="color:var(--text);font-family:'Source Code Pro',monospace;font-size:15.6px;" aria-label="Aktuálna sadzba Euribor 3M v percentách">
-        </div>
-        <span style="font-size:13.2px;color:var(--muted);">· informačne</span>
-      </div>
-    </div>
-  </div>
-  <div style="margin-top:12px;font-size:13.2px;color:var(--muted);opacity:.7;line-height:1.6;">
-    Parametre ovplyvňujú výpočty v celej aplikácii. Overujte aktuálne hodnoty na
-    <a href="https://www.financnasprava.sk" target="_blank" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px;">financnasprava.sk</a>,
-    <a href="https://www.mpsvr.sk" target="_blank" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px;">mpsvr.sk</a> a
-    <a href="https://www.nbs.sk" target="_blank" style="color:var(--muted2);text-decoration:underline;text-underline-offset:3px;">nbs.sk</a>.
-    Životné minimum platné od 1.7.2025: <strong style="color:var(--muted2);">€284,13</strong>.
-  </div>
+<div style="margin-top:16px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">
+  <span style="font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);">Legislatívne parametre</span>
+  <span style="font-family:'Source Code Pro',monospace;font-size:13px;color:var(--muted2);" id="t1-leg-summary">— načítava sa —</span>
+  <button onclick="showTab('t14',document.getElementById('tab-t14'))" style="font-size:13px;color:var(--gold2);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;">⚙ upraviť v Parametroch →</button>
 </div>
-</details>
 
 </div><!-- end tab1 -->
 
@@ -7301,6 +7201,222 @@ Diagnostika čerpá z:<br>
     </div>
   </div><!-- end panel C -->
 
+  <!-- ── SKUPINA D: NBS hypotekárne limity ── -->
+  <div class="panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">NBS hypotekárne limity</p>
+      <span class="result-badge result-badge-disclaimer" style="font-size:12px;">NBS Opatrenie č. 10/2021 + zákon 90/2016</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          DSTI limit
+          <span class="tip" data-tip="<div class='tt-title'>DSTI limit — NBS Opatrenie č. 10/2021 §3 ods.1</div>Maximálny podiel mesačných splátok všetkých úverov na čistom mesačnom príjme.<div class='tt-hr'></div><strong>DSTI</strong> = Σ mesačné splátky ÷ Čistý príjem ≤ limit<div class='tt-hr'></div>Aktuálna hodnota: 40% (platná od 2021). Overujte na <a href='https://www.nbs.sk' target='_blank' style='color:var(--gold2)'>nbs.sk</a>">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-dsti-limit" value="40" min="10" max="60" step="1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="DSTI limit v percentách">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">NBS §3 ods.1</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          DTI limit (× ročný príjem)
+          <span class="tip" data-tip="<div class='tt-title'>DTI limit — NBS Opatrenie č. 10/2021 §3 ods.2</div>Celková suma všetkých úverov nesmie presiahnuť tento násobok čistého ročného príjmu.<div class='tt-hr'></div><strong>Príklad:</strong> príjem €2 000/mes. = €24 000/rok → max dlh = 8 × €24 000 = €192 000.<div class='tt-hr'></div>Aktuálna hodnota: 8× (platná od 2021).">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">×</div>
+            <input type="number" id="leg-dti-max" value="8" min="3" max="15" step="1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="DTI multiplikátor ročného príjmu">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">NBS §3 ods.2</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          LTV — štandard
+          <span class="tip" data-tip="<div class='tt-title'>LTV štandard — zákon 90/2016 Z.z. §21</div>Banka môže financovať maximálne toto percento z hodnoty nehnuteľnosti.<div class='tt-hr'></div>Vlastné zdroje musia pokryť zvyšok + náklady (kataster, notár, znalec).<div class='tt-hr'></div>Aktuálna hodnota: 80%.">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-ltv-standard" value="80" min="50" max="100" step="1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="LTV štandard v percentách">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">zákon 90/2016 §21</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          LTV — prvonadobúdateľ
+          <span class="tip" data-tip="<div class='tt-title'>LTV výnimka pre prvonadobúdateľov — zákon 90/2016 Z.z. §21</div>Banka môže pri prvom bývaní poskytnúť výnimku až do tohto percenta LTV, no platí len pre max. 20% portfólia banky.<div class='tt-hr'></div>Aktuálna hodnota: 90% (závisí od ochoty konkrétnej banky).">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-ltv-first" value="90" min="50" max="100" step="1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="LTV prvonadobúdateľ v percentách">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">zákon 90/2016 §21</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Stresový nárast sadzby
+          <span class="tip" data-tip="<div class='tt-title'>Stresový nárast — NBS Opatrenie č. 10/2021 §4</div>Banka musí overiť, či klient zvládne splácať aj pri sadzbe zvýšenej o tento počet percentuálnych bodov.<div class='tt-hr'></div><strong>Stresová sadzba</strong> = max(aktuálna sadzba + nárast, floor)<div class='tt-hr'></div>Aktuálna hodnota: +2 pp.">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">pp</div>
+            <input type="number" id="leg-stress-add" value="2" min="0" max="5" step="0.5"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Stresový nárast sadzby v percentuálnych bodoch">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">NBS §4</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">
+          Stresová minimálna sadzba
+          <span class="tip" data-tip="<div class='tt-title'>Stresový floor — NBS Opatrenie č. 10/2021 §4</div>Stresová sadzba nesmie klesnúť pod toto minimum bez ohľadu na aktuálnu sadzbu.<div class='tt-hr'></div><strong>Stresová sadzba</strong> = max(aktuálna + nárast, floor)<div class='tt-hr'></div>Aktuálna hodnota: 5%.">?</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-stress-floor" value="5" min="1" max="10" step="0.5"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Stresová minimálna sadzba v percentách">
+          </div>
+          <span style="font-size:12px;color:var(--muted);">NBS §4</span>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end panel D -->
+
+  <!-- ── SKUPINA E: Default sadzby dlhov ── -->
+  <div class="panel" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
+      <p class="plbl" style="margin:0;">Default sadzby dlhov</p>
+      <span class="result-badge result-badge-disclaimer" style="font-size:12px;">trhové referencie — nie zákonné limity</span>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin:0 0 16px 0;line-height:1.5;">Tieto sadzby sa automaticky predvyplnia pri pridaní nového dlhu v T11. Aktualizujte podľa aktuálnych trhových podmienok.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;">
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Hypotéka</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-hypoteka" value="3.2" min="0" max="20" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba hypotéky v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Leasing</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-leasing" value="5.5" min="0" max="30" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba leasingu v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Spotrebný úver</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-spotrebny" value="9.9" min="0" max="50" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba spotrebného úveru v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Kreditná karta</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-kreditka" value="19.9" min="0" max="60" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba kreditnej karty v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Kontokorent</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-kontokorent" value="14.9" min="0" max="50" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba kontokorentu v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Pôžička od rodiny</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-pozicka" value="0" min="0" max="20" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba pôžičky od rodiny v percentách">
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:6px;">Iný dlh</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <div class="ni-wrap" style="flex:1;min-width:90px;max-width:130px;">
+            <div class="ni-pfx">%</div>
+            <input type="number" id="leg-debt-iny" value="5.0" min="0" max="50" step="0.1"
+              oninput="readLegFromT14UI()"
+              style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--text);"
+              aria-label="Default sadzba iného dlhu v percentách">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end panel E -->
+
   <!-- Reset -->
   <div style="display:flex;justify-content:flex-end;gap:12px;padding-top:8px;">
     <button type="button" onclick="resetLegToDefaults()"
@@ -7400,6 +7516,21 @@ const LEG_DEFAULTS = {
                            // OPRAVA: predchádzajúca verzia mala chybne 4,75% (0.0475)
   bondRet:        0.02,    // Výnos dlhopisov p.a. — ref. Amundi PRAB ETF (ISIN LU2233156582) ~2–2,5% p.a.
   inflation:      0.025,   // Odhadovaná ročná inflácia — ŠÚ SR / ECB cieľ 2% (aktualizuj každý rok)
+  // ── Skupina D: NBS hypotekárne limity ──
+  dstiLimit:      0.40,    // DSTI max. — NBS Opatrenie č. 10/2021 §3 ods.1
+  dtiMax:         8,       // DTI multiplikátor ročného príjmu — NBS Opatrenie č. 10/2021 §3 ods.2
+  ltvStandard:    0.80,    // LTV štandard — zákon 90/2016 Z.z. §21
+  ltvFirstBuyer:  0.90,    // LTV prvonadobúdateľ — zákon 90/2016 Z.z. §21
+  stressAdd:      0.02,    // Stresový nárast sadzby (+pp) — NBS Opatrenie č. 10/2021 §4
+  stressFloor:    0.05,    // Stresová minimálna sadzba (floor) — NBS Opatrenie č. 10/2021 §4
+  // ── Skupina E: Default sadzby dlhov (trhové referencie) ──
+  debtRateHypoteka:    3.2,  // Hypotéka — priemerná fixácia SR 2025 (NBS/FINSTAT)
+  debtRateLeasing:     5.5,  // Leasing — trhová referencia 2025
+  debtRateSpotrebny:   9.9,  // Spotrebný úver — trhová referencia SK banky 2025
+  debtRateKreditka:   19.9,  // Kreditná karta — typická sadzba SK 2025
+  debtRateKontokorent:14.9,  // Kontokorent — typická sadzba SK 2025
+  debtRatePozicka:     0.0,  // Pôžička od rodiny — bezúročná
+  debtRateIny:         5.0,  // Iný dlh — odhadovaná priemerná sadzba
 };
 let LEG = { ...LEG_DEFAULTS };
 
@@ -7462,6 +7593,21 @@ function applyLegToT14UI() {
   s('leg-p2-contrib',    (LEG.p2ContribRate*100).toFixed(2));
   s('leg-bond-ret',      (LEG.bondRet*100).toFixed(1));
   s('leg-inflation',     (LEG.inflation*100).toFixed(1));
+  // Skupina D — NBS
+  s('leg-dsti-limit',    (LEG.dstiLimit*100).toFixed(0));
+  s('leg-dti-max',       LEG.dtiMax);
+  s('leg-ltv-standard',  (LEG.ltvStandard*100).toFixed(0));
+  s('leg-ltv-first',     (LEG.ltvFirstBuyer*100).toFixed(0));
+  s('leg-stress-add',    (LEG.stressAdd*100).toFixed(0));
+  s('leg-stress-floor',  (LEG.stressFloor*100).toFixed(0));
+  // Skupina E — default sadzby dlhov
+  s('leg-debt-hypoteka',     LEG.debtRateHypoteka.toFixed(1));
+  s('leg-debt-leasing',      LEG.debtRateLeasing.toFixed(1));
+  s('leg-debt-spotrebny',    LEG.debtRateSpotrebny.toFixed(1));
+  s('leg-debt-kreditka',     LEG.debtRateKreditka.toFixed(1));
+  s('leg-debt-kontokorent',  LEG.debtRateKontokorent.toFixed(1));
+  s('leg-debt-pozicka',      LEG.debtRatePozicka.toFixed(1));
+  s('leg-debt-iny',          LEG.debtRateIny.toFixed(1));
   _updateLegDisplays();
 }
 
@@ -7478,13 +7624,11 @@ function _updateLegDisplays() {
   const infInput = $el('leg-inflation');
   if(infInput && Math.abs(+infInput.value - LEG.inflation*100) > 0.01)
     infInput.value = (LEG.inflation*100).toFixed(1);
-  // T1 backward-compat displays
-  const td = $el('setting-tax-display');
-  if(td) td.textContent = `€${thresh.toLocaleString('sk-SK')}`;
-  const tf = $el('setting-tax-formula');
-  if(tf) tf.innerHTML = `176,8 × €${LEG.zm.toFixed(2).replace('.',',')} = <strong style="color:var(--text);">€${thresh.toLocaleString('sk-SK')}</strong>`;
-  const tn = $el('tax-params-year-note');
-  if(tn) tn.textContent = `prah €${thresh.toLocaleString('sk-SK')} · dlhopisy ${(LEG.bondRet*100).toFixed(1).replace('.',',')}% · ZP ${(LEG.zpRate*100).toFixed(1).replace('.',',')}%`;
+  // T1 backward-compat: tieto elementy boli v details paneli (odstránenom v P1a).
+  // Null-guardy zaručujú bezpečnosť — kód ostáva pre prípad externého embedu.
+  // T1 read-only summary bar
+  const s1 = $el('t1-leg-summary');
+  if(s1) s1.textContent = `ŽM €${LEG.zm.toFixed(2).replace('.',',')} · prah €${thresh.toLocaleString('sk-SK')} · dlhopisy ${(LEG.bondRet*100).toFixed(1).replace('.',',')}% · infl. ${(LEG.inflation*100).toFixed(1).replace('.',',')}%`;
   // T7 — aktualizuj živý popis príspevku
   _updateP2ContribDisplay();
 }
@@ -7519,6 +7663,21 @@ function readLegFromT14UI() {
   LEG.p2ContribRate = n('leg-p2-contrib',    LEG_DEFAULTS.p2ContribRate*100)/100;
   LEG.bondRet       = n('leg-bond-ret',      LEG_DEFAULTS.bondRet*100)/100;
   LEG.inflation     = n('leg-inflation',    LEG_DEFAULTS.inflation*100)/100;
+  // Skupina D — NBS
+  LEG.dstiLimit     = n('leg-dsti-limit',   LEG_DEFAULTS.dstiLimit*100)/100;
+  LEG.dtiMax        = n('leg-dti-max',      LEG_DEFAULTS.dtiMax);
+  LEG.ltvStandard   = n('leg-ltv-standard', LEG_DEFAULTS.ltvStandard*100)/100;
+  LEG.ltvFirstBuyer = n('leg-ltv-first',    LEG_DEFAULTS.ltvFirstBuyer*100)/100;
+  LEG.stressAdd     = n('leg-stress-add',   LEG_DEFAULTS.stressAdd*100)/100;
+  LEG.stressFloor   = n('leg-stress-floor', LEG_DEFAULTS.stressFloor*100)/100;
+  // Skupina E — default sadzby dlhov
+  LEG.debtRateHypoteka    = n('leg-debt-hypoteka',    LEG_DEFAULTS.debtRateHypoteka);
+  LEG.debtRateLeasing     = n('leg-debt-leasing',     LEG_DEFAULTS.debtRateLeasing);
+  LEG.debtRateSpotrebny   = n('leg-debt-spotrebny',   LEG_DEFAULTS.debtRateSpotrebny);
+  LEG.debtRateKreditka    = n('leg-debt-kreditka',    LEG_DEFAULTS.debtRateKreditka);
+  LEG.debtRateKontokorent = n('leg-debt-kontokorent', LEG_DEFAULTS.debtRateKontokorent);
+  LEG.debtRatePozicka     = n('leg-debt-pozicka',     LEG_DEFAULTS.debtRatePozicka);
+  LEG.debtRateIny         = n('leg-debt-iny',         LEG_DEFAULTS.debtRateIny);
   saveLeg();
   _updateLegDisplays();
   _triggerLegRecalc();
@@ -10241,8 +10400,8 @@ function calcMort(){
   });
 
   const totalIncome = inc1 + inc2;
-  /* NBS DSTI: max 40% of net income for ALL debt payments */
-  const maxPayment   = totalIncome * 0.40 - debt;
+  /* NBS DSTI: max dstiLimit% of net income for ALL debt payments */
+  const maxPayment   = totalIncome * LEG.dstiLimit - debt;
   const mr           = rate / 12;
   const n            = term * 12;
 
@@ -10251,8 +10410,8 @@ function calcMort(){
   if(mr > 0 && maxPayment > 0){
     maxLoan = Math.round(maxPayment * (Math.pow(1+mr,n)-1) / (mr * Math.pow(1+mr,n)));
   }
-  // DTI cap: celkový dlh nesmie presiahnuť 8× čistý ročný príjem (NBS Opatrenie č.10/2021)
-  const dtiMaxLoan = Math.max(0, totalIncome * 12 * 8 - debtRows.reduce((s,d)=>s+(+d.balance||0),0));
+  // DTI cap: celkový dlh nesmie presiahnuť dtiMax× čistý ročný príjem (NBS Opatrenie č.10/2021)
+  const dtiMaxLoan = Math.max(0, totalIncome * 12 * LEG.dtiMax - debtRows.reduce((s,d)=>s+(+d.balance||0),0));
   maxLoan = Math.max(0, Math.min(maxLoan, dtiMaxLoan));
 
   /* ── Working loan amount ── */
@@ -10260,8 +10419,8 @@ function calcMort(){
   if(mortMode === 'a'){
     loan = maxLoan;
     propValue = loan + own;
-    if(propValue > 0 && loan / propValue > 0.80){
-      loan = Math.round(propValue * 0.80);
+    if(propValue > 0 && loan / propValue > LEG.ltvStandard){
+      loan = Math.round(propValue * LEG.ltvStandard);
     }
     propValue = loan + own;
   } else {
@@ -10276,7 +10435,7 @@ function calcMort(){
   /* ── Stress test — NBS Opatrenie č.10/2021 §3 ods.3:
      stresovaná sadzba = max(aktuálna + 2pp, 5%) ── */
   // N-2: Stresova sadzba podla NBS Opatrenie c.4/2023 — overit pri zmene regulacie (nbs.sk)
-  const stressRate    = Math.max(rate + 0.02, 0.05);
+  const stressRate    = Math.max(rate + LEG.stressAdd, LEG.stressFloor);
   const stressPayment = annuity(loan, stressRate, term);
   const stressDsti    = totalIncome > 0 ? (stressPayment + debt) / totalIncome : 0;
 
@@ -10310,8 +10469,8 @@ function calcMort(){
     const isFirstBuyer = $el('mort-first-buyer')?.checked || false;
     // LTV limit: 80% štandard, 90% pre prvonadobúdateľov (zákon 90/2016 Z.z. §21)
     // Banka môže poskytnúť 90% max u 20% portfólia — kalkulačka zobrazuje maximálny možný
-    const maxLtv = isFirstBuyer ? 0.90 : 0.80;
-    const feasible = dsti <= 0.40 && ltv <= maxLtv && loan > 0 && loan <= maxLoan;
+    const maxLtv = isFirstBuyer ? LEG.ltvFirstBuyer : LEG.ltvStandard;
+    const feasible = dsti <= LEG.dstiLimit && ltv <= maxLtv && loan > 0 && loan <= maxLoan;
     const feas = $el('mort-feasibility');
     if(loan <= 0){
       feas.style.cssText='background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:12px;padding:14px 16px;';
@@ -10321,7 +10480,7 @@ function calcMort(){
       feas.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 6px var(--emerald);"></div><span style="color:var(--emerald);font-weight:500;font-size:16.8px;">Na hypotéku dosiahnete ✓</span></div><div style="font-size:14.4px;color:var(--muted2);">DSTI ${(dsti*100).toFixed(1).replace('.',',')}% ≤ 40% · LTV ${(ltv*100).toFixed(1).replace('.',',')}% ≤ ${(maxLtv*100).toFixed(0).replace('.',',')}%${isFirstBuyer?' (prvonadobúdateľ)':''} · Vek ${age1} r. → splatnosť ${term} r. ✓</div>`;
     } else {
       const reasons = [];
-      if(dsti > 0.40)    reasons.push(`DSTI ${(dsti*100).toFixed(1).replace('.',',')}% > 40% — mesačná splátka ${fmt(Math.round(payment))} je príliš vysoká (potrebujete o ${fmt(Math.ceil(totalIncome*0.40-debt-payment+1))} viac v príjme)`);
+      if(dsti > LEG.dstiLimit) reasons.push(`DSTI ${(dsti*100).toFixed(1).replace('.',',')}% > ${(LEG.dstiLimit*100).toFixed(0)}% — mesačná splátka ${fmt(Math.round(payment))} je príliš vysoká (potrebujete o ${fmt(Math.ceil(totalIncome*LEG.dstiLimit-debt-payment+1))} viac v príjme)`);
       if(ltv > maxLtv)   reasons.push(`LTV ${(ltv*100).toFixed(1).replace('.',',')}% > ${(maxLtv*100).toFixed(0).replace('.',',')}% — chýba ${fmt(Math.ceil(loan-propValue*maxLtv))} vlastných zdrojov`);
       if(loan > maxLoan && maxLoan > 0) reasons.push(`Požadovaný úver ${fmt(loan)} > max. dosiahnuteľný ${fmt(maxLoan)} pri vašom príjme`);
       feas.style.cssText='background:rgba(240,82,82,.05);border:1px solid rgba(240,82,82,.2);border-radius:12px;padding:14px 16px;';
@@ -10373,7 +10532,7 @@ function calcMort(){
   $el('stress-current').textContent = loan > 0 ? fmt(Math.round(payment))+'/mes.' : '—';
   $el('stress-plus2').textContent   = loan > 0 ? fmt(Math.round(stressPayment))+'/mes.' : '—';
   $el('stress-note').textContent    = loan > 0
-    ? `Stres. sadzba ${(stressRate*100).toFixed(1).replace('.',',')}% (NBS floor 5%): splátka stúpne o ${fmt(Math.round(stressPayment-payment))}/mes. · DSTI by bolo ${(stressDsti*100).toFixed(1).replace('.',',')}%`
+    ? `Stres. sadzba ${(stressRate*100).toFixed(1).replace('.',',')}% (NBS floor ${(LEG.stressFloor*100).toFixed(0)}%): splátka stúpne o ${fmt(Math.round(stressPayment-payment))}/mes. · DSTI by bolo ${(stressDsti*100).toFixed(1).replace('.',',')}%`
     : '—';
 
   /* NBS gauges */
@@ -10383,45 +10542,45 @@ function calcMort(){
   const ltvBar  = $el('nbs-ltv-bar');
   dstiBar.style.width = dstiPct+'%';
   ltvBar.style.width  = ltvPct+'%';
-  dstiBar.style.background = dsti<=0.30?'var(--emerald)':dsti<=0.40?'var(--amber)':'var(--red)';
-  ltvBar.style.background  = ltv<=0.70?'var(--emerald)':ltv<=0.80?'var(--amber)':'var(--red)';
+  dstiBar.style.background = dsti<=LEG.dstiLimit*0.75?'var(--emerald)':dsti<=LEG.dstiLimit?'var(--amber)':'var(--red)';
+  ltvBar.style.background  = ltv<=LEG.ltvStandard*0.875?'var(--emerald)':ltv<=LEG.ltvStandard?'var(--amber)':'var(--red)';
   function nbsPill(id, val, limit, pctText){
     const el=$el(id); if(!el) return;
     el.textContent = pctText;
     el.className = 'mort-nbs-pill '+(val<=limit*0.75?'mort-nbs-ok':val<=limit?'mort-nbs-warn':'mort-nbs-err');
   }
-  nbsPill('nbs-dsti-pill', dsti, 0.40, (dsti*100).toFixed(1).replace('.',',')+' %');
-  nbsPill('nbs-ltv-pill',  ltv,  0.80, (ltv*100).toFixed(1).replace('.',',')+' %');
-  $el('nbs-dsti-note').textContent = `Mesačná splátka ${fmt(Math.round(payment))} + záväzky ${fmt(debt)} = ${fmt(Math.round(payment+debt))} z príjmu ${fmt(totalIncome)} (limit: ${fmt(Math.round(totalIncome*0.40))})`;
+  nbsPill('nbs-dsti-pill', dsti, LEG.dstiLimit, (dsti*100).toFixed(1).replace('.',',')+' %');
+  nbsPill('nbs-ltv-pill',  ltv,  LEG.ltvStandard, (ltv*100).toFixed(1).replace('.',',')+' %');
+  $el('nbs-dsti-note').textContent = `Mesačná splátka ${fmt(Math.round(payment))} + záväzky ${fmt(debt)} = ${fmt(Math.round(payment+debt))} z príjmu ${fmt(totalIncome)} (limit: ${fmt(Math.round(totalIncome*LEG.dstiLimit))})`;
   $el('nbs-ltv-note').textContent  = propValue>0 ? `Úver ${fmt(loan)} z hodnoty nehnuteľnosti ${fmt(Math.round(propValue))}` : '—';
 
   /* ── DTI 8× — NBS Opatrenie č.10/2021 §3 ods.2 ── */
   const annualNetIncome = totalIncome * 12;
   const totalDebtForDTI = loan + (debt > 0 ? debt * 12 * 5 : 0); // existujúce splátky → kapitalizácia 5r.
   const dti = annualNetIncome > 0 ? loan / annualNetIncome : 0;
-  const DTI_MAX = 8;
+  const DTI_MAX = LEG.dtiMax;
   const dtiBar = $el('nbs-dti-bar');
   const dtiPill = $el('nbs-dti-pill');
   if(dtiBar && loan > 0){
     dtiBar.style.width = Math.min(100, dti/12*100)+'%';
-    dtiBar.style.background = dti<=6?'var(--emerald)':dti<=8?'var(--amber)':'var(--red)';
+    dtiBar.style.background = dti<=LEG.dtiMax*0.75?'var(--emerald)':dti<=LEG.dtiMax?'var(--amber)':'var(--red)';
     if(dtiPill){
       dtiPill.textContent = dti.toFixed(1).replace('.',',')+'×';
-      dtiPill.className = 'mort-nbs-pill '+(dti<=6?'mort-nbs-ok':dti<=8?'mort-nbs-warn':'mort-nbs-err');
+      dtiPill.className = 'mort-nbs-pill '+(dti<=LEG.dtiMax*0.75?'mort-nbs-ok':dti<=LEG.dtiMax?'mort-nbs-warn':'mort-nbs-err');
     }
     const dtiNote = $el('nbs-dti-note');
     if(dtiNote){
       const maxDTILoan = annualNetIncome * DTI_MAX;
       dtiNote.textContent = dti > DTI_MAX
-        ? `⚠ Úver ${fmt(loan)} = ${dti.toFixed(1).replace('.',',')}× ročného príjmu — nad limitom NBS 8×. Max. úver: ${fmt(Math.round(maxDTILoan))}.`
-        : `Úver ${fmt(loan)} = ${dti.toFixed(1).replace('.',',')}× ročného príjmu ${fmt(Math.round(annualNetIncome))} (limit NBS: 8×, max. ${fmt(Math.round(maxDTILoan))})`;
+        ? `⚠ Úver ${fmt(loan)} = ${dti.toFixed(1).replace('.',',')}× ročného príjmu — nad limitom NBS ${LEG.dtiMax}×. Max. úver: ${fmt(Math.round(maxDTILoan))}.`
+        : `Úver ${fmt(loan)} = ${dti.toFixed(1).replace('.',',')}× ročného príjmu ${fmt(Math.round(annualNetIncome))} (limit NBS: ${LEG.dtiMax}×, max. ${fmt(Math.round(maxDTILoan))})`;
       dtiNote.style.color = dti > DTI_MAX ? 'var(--red)' : 'var(--muted)';
     }
     // Pridáme DTI kontrolu do feasibility
     if(dti > DTI_MAX && loan > 0){
       const feasEl = $el('mort-feasibility');
       if(feasEl && !feasEl.innerHTML.includes('DTI')){
-        feasEl.innerHTML += `<div style="margin-top:8px;font-size:14.4px;color:var(--red);">⚠ DTI ${dti.toFixed(1).replace('.',',')}× > limit NBS 8× — banka môže zamietnuť napriek nízkemu DSTI. Max. úver pri vašom príjme: ${fmt(Math.round(annualNetIncome*8))}.</div>`;
+        feasEl.innerHTML += `<div style="margin-top:8px;font-size:14.4px;color:var(--red);">⚠ DTI ${dti.toFixed(1).replace('.',',')}× > limit NBS ${LEG.dtiMax}× — banka môže zamietnuť napriek nízkemu DSTI. Max. úver pri vašom príjme: ${fmt(Math.round(annualNetIncome*LEG.dtiMax))}.</div>`;
       }
     }
   } else if(dtiBar){
@@ -10509,7 +10668,7 @@ function calcMort(){
     const tr = document.createElement('tr');
     tr.style.cssText = sc.highlight ? 'background:rgba(251,113,133,.05)' : '';
     const dColor = d2>0?'color:var(--red)':d2<0?'color:var(--emerald)':'color:var(--muted)';
-    const dPill  = dsti2>0.40?'mort-nbs-err':dsti2>0.30?'mort-nbs-warn':'mort-nbs-ok';
+    const dPill  = dsti2>LEG.dstiLimit?'mort-nbs-err':dsti2>LEG.dstiLimit*0.75?'mort-nbs-warn':'mort-nbs-ok';
     tr.innerHTML = `
       <td style="font-family:'Source Code Pro',monospace;font-size:14.4px;padding:9px 12px 9px 0;color:${sc.highlight?'var(--rose2)':'var(--muted2)'};">${sc.label}</td>
       <td style="font-family:'Source Code Pro',monospace;font-size:14.4px;padding:9px 12px;text-align:right;color:var(--text);">${(sc.rate*100).toFixed(1).replace('.',',')}%</td>
@@ -10676,11 +10835,13 @@ const STATE_INPUT_IDS = [
   'debt-extra','debt-ret',
   /* Tab 13 – Diagnostika */
   'wage-sector','raise-pct',
-  /* Daňové a globálne nastavenia (T1 backward-compat inputy) */
-  'setting-zm','setting-zp-rate','setting-euribor','setting-bond-ret',
   /* T14 — Legislatívne parametre */
   'leg-zm','leg-tax-rate1','leg-tax-rate2','leg-zp-rate','leg-div-tax',
   'leg-p3-max-deduct','leg-p2-contrib','leg-bond-ret','leg-inflation',
+  'leg-dsti-limit','leg-dti-max','leg-ltv-standard','leg-ltv-first',
+  'leg-stress-add','leg-stress-floor',
+  'leg-debt-hypoteka','leg-debt-leasing','leg-debt-spotrebny','leg-debt-kreditka',
+  'leg-debt-kontokorent','leg-debt-pozicka','leg-debt-iny',
   /* Iné */
   'n-port','n-sy','_vei',
 ];
@@ -11998,7 +12159,7 @@ const DIAG = {
   MEDIAN_GROSS:          1200,   // ~82% priemeru (typický pomer SK)
   NET_FACTOR:            0.745,  // 73-76% čistá z hrubej (priemer), použijeme 74.5%
   HOUSING_MAX:           0.30,   // EBA GL 2015/11 / NBS odporúčanie ≤30% čistého
-  DSTI_MAX:              0.40,   // NBS záväzná hranica DSTI
+  DSTI_MAX:              0.40,   // NBS záväzná hranica DSTI — synci sa z LEG.dstiLimit pri každom calcDiag()
   SAVINGS_TARGET:        0.20,   // CFP štandard ≥20% čistého
   INVEST_MIN:       0.15,    // Bogle/Vanguard ≥15% čistého
   EF_MIN_MONTHS:    3,       // minimum núdzového fondu
@@ -12120,6 +12281,7 @@ function calcDiag(){
   // Dynamicky aktualizuj ETF_RETURN z T1 slidera (r-ret), fallback 9%
   DIAG.ETF_RETURN = (+($el('r-ret')?.value || 9)) / 100;
   DIAG.INFLATION  = LEG.inflation; // sync z Parametrov
+  DIAG.DSTI_MAX   = LEG.dstiLimit;  // sync z Parametrov (NBS Opatrenie č. 10/2021 §3 ods.1)
   const retPct = (DIAG.ETF_RETURN * 100).toFixed(0).replace('.',',');
   if($el('thief-subtitle')) $el('thief-subtitle').textContent =
     `Koľko navyše by tieto sumy vygenerovali ak by ste ich investovali do akciového portfólia (${retPct} % ročne).`;
@@ -12191,9 +12353,9 @@ function calcFinancialScore(income, expenses, invest, savings, debtMon, efCurren
       pts: Math.round(Math.min(1, efMonthsCov / 6) * 20),
       hint:'Cieľ: aspoň 6 mesiacov výdavkov na účte. Vy: ' + efMonthsCov.toFixed(1).replace('.',',')+' mes.',
       color:'var(--cyan2)' },
-    { label:'Záťaž splátkami (koľko % príjmu ide na dlhy)', val:1-Math.min(1,dsti/0.40), target:1, max:20,
+    { label:'Záťaž splátkami (koľko % príjmu ide na dlhy)', val:1-Math.min(1,dsti/DIAG.DSTI_MAX), target:1, max:20,
       pts: Math.round(Math.max(0, 1 - dsti / DIAG.DSTI_MAX) * 20),
-      hint:'Splátky by nemali presiahnuť 40 % príjmu (limit NBS). Vy: ' + (dsti*100).toFixed(0).replace('.',',')+'%',
+      hint:'Splátky by nemali presiahnuť ' + (DIAG.DSTI_MAX*100).toFixed(0) + ' % príjmu (limit NBS). Vy: ' + (dsti*100).toFixed(0).replace('.',',')+'%',
       color:'#fca5a5' },
     { label:'Počet zdrojov príjmov', val:incSources, target:3, max:15,
       pts: Math.min(15, Math.round(incSources / 3 * 15)),
@@ -12995,23 +13157,34 @@ function checkDebtHighlight(){
 }
 
 function debtAddRow(){
-  const _defType='Spotrebný úver'; debtRows.push({name:'Nový dlh', type:_defType, balance:0, rate:DEBT_DEFAULT_RATES[_defType]||5, monthly:0, term:5, fixEnd:''});
+  const _defType='Spotrebný úver'; debtRows.push({name:'Nový dlh', type:_defType, balance:0, rate:DEBT_DEFAULT_RATES()[_defType]||5, monthly:0, term:5, fixEnd:''});
   renderDebtList(); calcDebt();
   if(typeof checkDebtHighlight === 'function') checkDebtHighlight();
 }
 function debtRemoveRow(i){ debtRows.splice(i,1); renderDebtList(); calcDebt(); if(typeof checkDebtHighlight === 'function') checkDebtHighlight(); }
-const DEBT_DEFAULT_RATES = {
-  'Hypotéka': 3.2, 'Leasing': 5.5, 'Spotrebný úver': 9.9,
-  'Kreditná karta': 19.9, 'Kontokorent': 14.9,
-  'Pôžička od rodiny': 0, 'Iný dlh': 5.0
-};
+// DEBT_DEFAULT_RATES — getter z LEG (Skupina E v T14)
+// Sadzby sú trhové referencie, nie zákonné limity — meniť podľa aktuálneho trhu
+function DEBT_DEFAULT_RATES() {
+  return {
+    'Hypotéka':        LEG.debtRateHypoteka,
+    'Leasing':         LEG.debtRateLeasing,
+    'Spotrebný úver':  LEG.debtRateSpotrebny,
+    'Kreditná karta':  LEG.debtRateKreditka,
+    'Kontokorent':     LEG.debtRateKontokorent,
+    'Pôžička od rodiny': LEG.debtRatePozicka,
+    'Iný dlh':         LEG.debtRateIny,
+  };
+}
 function debtUpdate(i, field, val){
   const STRING_FIELDS = new Set(['name','type','fixEnd']);
   debtRows[i][field] = STRING_FIELDS.has(field) ? val : (parseFloat(val)||0);
-  if(field==='type' && DEBT_DEFAULT_RATES[val] !== undefined){
-    const prevDefaults = Object.values(DEBT_DEFAULT_RATES);
-    if(debtRows[i].rate === 0 || prevDefaults.includes(debtRows[i].rate)){
-      debtRows[i].rate = DEBT_DEFAULT_RATES[val];
+  if(field==='type'){
+    const _rates = DEBT_DEFAULT_RATES();
+    if(_rates[val] !== undefined){
+      const prevDefaults = Object.values(_rates);
+      if(debtRows[i].rate === 0 || prevDefaults.includes(debtRows[i].rate)){
+        debtRows[i].rate = _rates[val];
+      }
     }
   }
   if(field === 'type') { renderDebtList(); }
