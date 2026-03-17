@@ -8449,6 +8449,9 @@ function fireSim(ini, mon, inc, effRet, inf, wr, expenses, maxMonths){
 }
 
 function calcFIRE(){
+  // DOM refs — deklarujeme hneď, aby neboli v TDZ pri žiadnom použití
+  const fireResultMain = $el('fire-result-main');
+  const fireResultSub  = $el('fire-result-sub');
   // Sync inflation label
   const infRaw = $v('firer-inf');
   if($el('firel-inf')) $el('firel-inf').textContent = fmtP(+infRaw);
@@ -8591,10 +8594,6 @@ function calcFIRE(){
     ? mid.sim.nomAtFIRE
     : fireNum * Math.pow(1+inf, mid.sim.years);  // approx nominal
   // ── Empty state ──
-  const fireResultMain = $el('fire-result-main');
-  const fireResultSub  = $el('fire-result-sub');
-  const fireNumBox     = $el('fire-num-real')?.closest('[style*="border-radius:14px"]')?.parentElement;
-
   if (!hasExpenses && !hasAnyInvestment) {
     // Úplne prázdny stav — žiadne vstupy
     $el('fire-num-real').textContent = '—';
