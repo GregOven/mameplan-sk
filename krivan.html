@@ -558,6 +558,52 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 .cf2-rec.info .cf2-rec-dot{background:var(--blue2);}
 .cf2-rec.bad{background:rgba(240,82,82,.06);border:1px solid rgba(240,82,82,.18);}
 .cf2-rec.bad .cf2-rec-dot{background:var(--red);}
+/* ── Income input highlight (prázdna hodnota) ── */
+
+/* ── Debt add button highlight ── */
+.debt-add-btn.debt-empty {
+  border-color: rgba(244,63,94,.8) !important;
+  border-style: dashed !important;
+  background: rgba(244,63,94,.1) !important;
+  color: rgba(244,63,94,1) !important;
+  box-shadow: 0 0 0 2px rgba(244,63,94,.18), 0 0 14px rgba(244,63,94,.15) !important;
+  animation: debt-pulse 2.5s ease-in-out infinite;
+}
+@keyframes debt-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(244,63,94,.18), 0 0 14px rgba(244,63,94,.15); }
+  50%       { box-shadow: 0 0 0 3px rgba(244,63,94,.30), 0 0 22px rgba(244,63,94,.25); }
+}
+
+/* ── EF bucket amount highlight ── */
+.ef-bucket-fi.ef-empty {
+  border-color: rgba(34,211,238,.75) !important;
+  background: rgba(34,211,238,.07) !important;
+  box-shadow: 0 0 0 2px rgba(34,211,238,.18), 0 0 14px rgba(34,211,238,.14) !important;
+  animation: ef-pulse 2.5s ease-in-out infinite;
+}
+.ef-bucket-fi.ef-empty .du,
+.ef-bucket-fi.ef-empty input {
+  color: var(--cyan2) !important;
+}
+@keyframes ef-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(34,211,238,.18), 0 0 14px rgba(34,211,238,.14); }
+  50%       { box-shadow: 0 0 0 3px rgba(34,211,238,.30), 0 0 22px rgba(34,211,238,.24); }
+}
+.cf2-amount-wrap.income-empty {
+  border-color: rgba(16,185,129,.7) !important;
+  box-shadow: 0 0 0 2px rgba(16,185,129,.18), 0 0 14px rgba(16,185,129,.15) !important;
+  background: rgba(16,185,129,.06) !important;
+  animation: income-pulse 2.5s ease-in-out infinite;
+}
+.cf2-amount-wrap.income-empty .cf2-currency,
+.cf2-amount-wrap.income-empty .cf2-amount-input {
+  color: var(--emerald2) !important;
+}
+@keyframes income-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(16,185,129,.18), 0 0 14px rgba(16,185,129,.15); }
+  50%       { box-shadow: 0 0 0 3px rgba(16,185,129,.32), 0 0 22px rgba(16,185,129,.25); }
+}
+
 /* ── T13 sprievodca (prázdny stav) ── */
 #t13-guide {
   display: flex;
@@ -636,6 +682,45 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
   font-weight: 600;
   color: var(--text);
   margin-bottom: 2px;
+}
+#t13-guide .guide-step.done {
+  opacity: .55;
+  cursor: default;
+  pointer-events: none;
+  background: rgba(255,255,255,.015);
+}
+#t13-guide .guide-step.done .guide-step-num {
+  background: rgba(16,185,129,.18) !important;
+  color: var(--emerald2) !important;
+}
+#t13-guide .guide-step.done .guide-step-label {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+#t13-guide .guide-step.done .guide-step-desc {
+  color: var(--muted);
+  opacity: .6;
+}
+#t13-guide .guide-step.done .guide-step-arrow {
+  display: none;
+}
+#t13-guide .guide-step.done .guide-step-check {
+  display: flex !important;
+}
+#t13-guide .guide-steps-progress {
+  width: 100%;
+  max-width: 400px;
+  height: 3px;
+  background: var(--border);
+  border-radius: 100px;
+  margin: -4px 0 20px;
+  overflow: hidden;
+}
+#t13-guide .guide-steps-progress-fill {
+  height: 100%;
+  background: var(--emerald);
+  border-radius: 100px;
+  transition: width .4s ease;
 }
 #t13-guide .guide-step-desc {
   font-size: 13.2px;
@@ -6114,10 +6199,15 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 </div>
 </details>
 
-<!-- Household + CTA bar -->
-<div class="cf2-topbar">
-  <div class="cf2-topbar-left">
-    <span style="font-size:13.2px;color:var(--muted);font-family:'Source Code Pro',monospace;letter-spacing:1.5px;text-transform:uppercase;">Domácnosť</span>
+<!-- Household — schované do collapsible, KROK 2 -->
+<details id="cf2-hh-details" style="margin-bottom:12px;">
+  <summary style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:7px 12px;background:rgba(255,255,255,.015);border:1px solid var(--border);border-radius:8px;font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);list-style:none;user-select:none;">
+    <span>Domácnosť</span>
+    <span id="cf2-hh-summary-inline" style="font-size:12px;opacity:.6;font-weight:400;text-transform:none;letter-spacing:0;"></span>
+    <span style="margin-left:auto;opacity:.4;font-size:11px;">▾</span>
+  </summary>
+  <div style="padding:10px 12px;">
+<div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px;">
     <div class="cf2-hh-control">
       <button type="button" class="cf2-hh-btn" data-action="cfHH" data-type="adults" data-dir="-1">−</button>
       <span class="cf2-hh-val" id="cf2-adults-val">2</span>
@@ -6131,12 +6221,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <span style="font-size:13.2px;color:var(--muted);font-family:'Source Code Pro',monospace;">deti</span>
     </div>
     <span id="cf2-hh-summary" style="font-size:13.2px;color:var(--muted);font-family:'Source Code Pro',monospace;opacity:.55;"></span>
-  </div>
-  <button type="button" class="integrate-btn" data-action="cfIntegrateWithCalc" style="padding:8px 14px;font-size:13.2px;">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    Použiť investície ako vklad v Kalkulačke
-  </button>
 </div>
+  </div>
 </details>
 
 <div class="layout stretch" style="align-items:flex-start;">
@@ -6165,6 +6251,14 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <button type="button" class="integrate-btn" data-action="cfIntegrateWithEF" id="cf-to-ef-btn" style="width:100%;justify-content:center;background:rgba(34,211,238,.06);border-color:rgba(34,211,238,.25);color:var(--cyan2);">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
     Vložiť <strong id="cf-to-ef-val">—</strong> /mes. do Núdzového fondu
+  </button>
+
+  <!-- KROK 2: integrate-btn presunutý z topbaru sem -->
+  <button type="button" class="integrate-btn" data-action="cfIntegrateWithCalc"
+    id="cf-to-calc-btn"
+    style="width:100%;justify-content:center;margin-top:8px;background:rgba(200,168,75,.06);border-color:rgba(200,168,75,.25);color:var(--gold2);display:none;">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Preniesť investičnú sumu do Kalkulačky sporenia
   </button>
 
 </div><!-- end right col -->
@@ -6234,7 +6328,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="il">Celkové mesačné výdavky <span class="val" id="ef-l-expenses">€1 200</span>
         <span class="tip" data-tip="<div class='tt-title'>Mesačné výdavky pre núdzový fond</div>Zadajte <strong>skutočné mesačné výdavky</strong> — nie príjem. Núdzový fond má pokryť výdavky (nájom, jedlo, energie, splátky) keby ste prišli o prácu.<div class='tt-hr'></div>Ak ste vyplnili Cashflow, môžete použiť číslo odtiaľ tlačidlom nižšie.">?</span>
       </div>
-      <input type="range" id="ef-expenses" min="200" max="15000" step="50" value="1200" data-calc="calcEF">
+      <input type="range" id="ef-expenses" min="0" max="15000" step="50" value="0" data-calc="calcEF">
       <div class="rbnd"><span>€200</span><span>€20 000</span></div>
     </div>
 
@@ -6591,41 +6685,43 @@ Diagnostika čerpá z:<br>
 
 <!-- T13 SPRIEVODCA — zobrazí sa keď nie sú dáta -->
 <div id="t13-guide" style="display:none;">
-  <div class="guide-icon">📊</div>
   <div class="guide-title">Váš finančný prehľad</div>
   <div class="guide-subtitle">
     Kriváň vypočíta vaše finančné skóre a ukáže čo riešiť ako prvé.<br>
     Stačí vyplniť tri záložky — trvá to 5 minút.
   </div>
   <div class="guide-steps">
-    <button type="button" class="guide-step" data-action="showTab" data-tab="t9">
+    <button type="button" class="guide-step" id="guide-step-1" data-action="showTab" data-tab="t9">
       <div class="guide-step-num" style="background:rgba(167,139,250,.15);color:var(--violet2);">1</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Príjmy a výdavky</div>
         <div class="guide-step-desc">Koľko zarábam a kam idú peniaze</div>
       </div>
-      <span style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button type="button" class="guide-step" data-action="showTab" data-tab="t10">
+    <button type="button" class="guide-step" id="guide-step-2" data-action="showTab" data-tab="t10">
       <div class="guide-step-num" style="background:rgba(34,211,238,.12);color:var(--cyan2);">2</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moja finančná rezerva</div>
         <div class="guide-step-desc">Koľko mám odložené na neočakávané situácie</div>
       </div>
-      <span style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button type="button" class="guide-step" data-action="showTab" data-tab="t11">
+    <button type="button" class="guide-step" id="guide-step-3" data-action="showTab" data-tab="t11">
       <div class="guide-step-num" style="background:rgba(244,63,94,.12);color:var(--rose2);">3</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moje záväzky</div>
         <div class="guide-step-desc">Hypotéka, pôžičky a iné dlhy — ak nejaké mám</div>
       </div>
-      <span style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
+      <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
   </div>
-  <button type="button" class="guide-cta" data-action="showTab" data-tab="t9">
-    Začať — Príjmy a výdavky →
-  </button>
+  <div class="guide-steps-progress" style="display:none;" id="guide-progress-bar">
+    <div class="guide-steps-progress-fill" id="guide-progress-fill" style="width:0%"></div>
+  </div>
 </div>
 
 <!-- T13 GRID — zobrazí sa po vyplnení dát -->
@@ -7017,8 +7113,10 @@ function showTab(id,btn){
   if(id==='t3') syncTab3();
   if(id==='t4') syncReverse();
   if(id==='t5') syncFIRE();
-  if(id==='t10'){ if(typeof efRenderBuckets === 'function') efRenderBuckets(); if(typeof calcEF === 'function') calcEF(); }
-  if(id==='t11'){  if(typeof calcRefixation === 'function') calcRefixation(); }
+  if(id==='t10'){ if(typeof efRenderBuckets === 'function') efRenderBuckets(); if(typeof calcEF === 'function') calcEF(); if(typeof checkEFHighlight === 'function') checkEFHighlight(); }
+  if(id==='t11'){
+    if(typeof checkDebtHighlight === 'function') checkDebtHighlight();
+    if(typeof updateGuideProgress === 'function') updateGuideProgress();  if(typeof calcRefixation === 'function') calcRefixation(); }
 }
 
 /* ══════════════════════════════════════════════
@@ -7154,9 +7252,11 @@ function sync(){
   if($el('t7')?.classList.contains('active')) calcMort();
   if($el('t10')?.classList.contains('active')) efCalcBuckets();
   if($el('t13')?.classList.contains('active')) {
-    toggleT13State(false);  // KROK 1: štart so sprievodcom
+    updateGuideProgress();  // KROK 1: štart — skontroluj stav
     calcDiag();
   }
+  // KROK 2: highlight prázdneho príjmu pri štarte
+  if(typeof checkIncomeHighlight === 'function') checkIncomeHighlight();
 }
 
 function mainCalc(p){
@@ -10766,6 +10866,7 @@ function _imApplyState(state){
         cfData.cats = sanitizedCats;
         if(typeof renderCF2Sections === 'function') renderCF2Sections();
         if(typeof calcCF === 'function') calcCF();
+        if(typeof checkIncomeHighlight === 'function') checkIncomeHighlight(); // KROK 2
       }
 
       // Finálne vykreslenie bucketov
@@ -10788,7 +10889,7 @@ function _imApplyState(state){
 const CF2_CATS_DEFAULT = [
   {id:'income',   label:'Príjmy',                  rgb:'16,185,129',  type:'income',
    items:[
-     {name:'Výplata (Partner 1)',    val:1500},
+     {name:'Výplata (Partner 1)',    val:0},
      {name:'Výplata (Partner 2)',    val:0},
      {name:'Materská / Rodičovská',  val:0},
      {name:'Príspevok na dieťa',     val:0},
@@ -10895,6 +10996,9 @@ function cfHH(field, delta){
   const persons = cfData.adults + cfData.children * 0.6;
   const s = document.getElementById('cf2-hh-summary');
   if(s) s.textContent = `= ${persons.toFixed(1).replace('.',',')} ekviv. os.`;
+  // KROK 2: aktualizuj inline summary v collapsible
+  const si = document.getElementById('cf2-hh-summary-inline');
+  if(si) si.textContent = `· ${cfData.adults} dosp.${cfData.children ? ' · ' + cfData.children + ' deti' : ''}`;
   calcCF();
 }
 
@@ -10904,6 +11008,7 @@ function cfAddItem(catId){
   const cat = cfData.cats.find(c=>c.id===catId); if(!cat) return;
   cat.items.push({name:'Nová položka', val:0});
   renderCF2Sections(); calcCF();
+  checkIncomeHighlight(); // KROK 2
   const rows = document.querySelectorAll(`#cf2-rows-${catId} .cf2-name-input`);
   if(rows.length){ const l=rows[rows.length-1]; l.focus(); l.select(); }
 }
@@ -10985,10 +11090,33 @@ function renderCF2Sections(){
   }).join('');
 }
 
+// KROK 2: highlight prázdnych income polí
+function checkIncomeHighlight(){
+  const incCat = cfData.cats.find(c => c.id === 'income');
+  if(!incCat) return;
+  const incomeTotal = cfCatTotal(incCat);
+  const wrap = document.getElementById('cf2-rows-income');
+  if(!wrap) return;
+  // Cielime na .cf2-amount-wrap (kontajner s border-radius), nie na input
+  wrap.querySelectorAll('.cf2-amount-wrap').forEach((wrapEl, i) => {
+    const val = incCat.items[i] ? (+incCat.items[i].val || 0) : 0;
+    // Highlight iba prvý riadok ak je celkový príjem 0
+    if(incomeTotal === 0 && val === 0 && i === 0){
+      wrapEl.classList.add('income-empty');
+    } else {
+      wrapEl.classList.remove('income-empty');
+    }
+  });
+}
+
 function calcCF(){
   _setSyncStale("sync-t1-invest"); _setSyncStale("sync-ef-expenses"); _setSyncStale("sync-ef-contrib"); _setSyncStale("sync-cf-mort");
   const get = id => cfCatTotal(cfData.cats.find(c=>c.id===id));
   const income    = get('income');
+  // KROK 2: aktualizuj highlight po každom prepočte
+  if(typeof checkIncomeHighlight === 'function') checkIncomeHighlight();
+  // Aktualizuj stav sprievodcu (krok 1 = príjem)
+  if(typeof updateGuideProgress === 'function') updateGuideProgress();
   const housing   = get('housing');
   const fixedNec  = get('fixed-nec');
   const fixed     = get('fixed');
@@ -11088,6 +11216,12 @@ function calcCF(){
   // EF button label
   const efv = document.getElementById('cf-to-ef-val');
   if(efv) efv.textContent = fmt(window._cfEFAmt);
+  // KROK 2: zobraziť calc-btn len keď sú investície > 0
+  const calcBtn = document.getElementById('cf-to-calc-btn');
+  if(calcBtn){
+    const investAmt = window._cfInvestAmt || 0;
+    calcBtn.style.display = investAmt > 0 ? 'flex' : 'none';
+  }
 
   // ── AUTO SYNC T9 → T10: výdavky do EF kalkulačky ──
   // Update EF category labels with current CF values
@@ -11292,6 +11426,45 @@ function toggleT13State(hasData){
   grid.style.display  = hasData ? 'grid'  : 'none';
 }
 
+// Aktualizuje stav sprievodcu — checkmarky, progress, prechod na grid
+function updateGuideProgress(){
+  // Podmienky dokončenia každého kroku
+  const step1done = (window._cfIncome || 0) > 0;
+  const step2done = (typeof efBuckets !== 'undefined')
+    ? efBuckets.reduce((s,b) => s + (+b.amount||0), 0) > 0
+    : false;
+  const step3done = (typeof debtRows !== 'undefined') && debtRows.some(d => (+d.balance||0) > 0 && (+d.monthly||0) > 0);
+
+  const states = [step1done, step2done, step3done];
+  const doneCount = states.filter(Boolean).length;
+
+  // Aktualizuj každý krok
+  states.forEach((done, i) => {
+    const btn = document.getElementById('guide-step-' + (i+1));
+    if(!btn) return;
+    if(done){
+      btn.classList.add('done');
+    } else {
+      btn.classList.remove('done');
+    }
+  });
+
+  // Progress bar
+  const bar = document.getElementById('guide-progress-bar');
+  const fill = document.getElementById('guide-progress-fill');
+  if(bar && fill){
+    bar.style.display = doneCount > 0 ? '' : 'none';
+    fill.style.width = Math.round((doneCount / 3) * 100) + '%';
+  }
+
+  // Ak sú všetky 3 hotové → prejdi na grid
+  if(step1done && step2done && step3done){
+    toggleT13State(true);
+  } else {
+    toggleT13State(false);
+  }
+}
+
 function calcDiag(){
   if(!document.getElementById('t13')?.classList.contains('active')) return;
 
@@ -11303,8 +11476,8 @@ function calcDiag(){
 
   const income    = window._cfIncome    || 0;
   const expenses  = window._cfExpenses  || 0;
-  // KROK 1: zobraziť sprievodcu alebo grid
-  toggleT13State(income > 0);
+  // KROK 1: aktualizovať sprievodcu podľa stavu všetkých krokov
+  updateGuideProgress();
   const invest    = window._cfInvestAmt || 0;
   const savings   = (window._cfEFAmt    || 0);
   const balance   = window._cfAvail     || 0;
@@ -11410,7 +11583,7 @@ function calcFinancialScore(income, expenses, invest, savings, debtMon, efCurren
 }
 
 function resetScore(){
-  toggleT13State(false);  // KROK 1: zobraziť sprievodcu
+  updateGuideProgress();  // KROK 1: aktualizovať stav sprievodcu
   const ring=$el('score-ring-fill'); if(ring){ring.style.strokeDashoffset='289.03';ring.style.stroke='var(--border2)';}
   const sn=$el('score-num'); if(sn){sn.textContent='—';sn.style.color='var(--muted)';}
   const sc=$el('score-components'); if(sc) sc.innerHTML='';
@@ -11961,8 +12134,7 @@ let efMonths = 6;
 
 /* ── EF multi-bucket state ── */
 let efBuckets = [
-  {name:'Hotovosť doma', amount:0, rate:0},
-  {name:'Sporiaci účet / Fio', amount:0, rate:1.85}
+  {name:'Hotovosť', amount:0, rate:0}
 ];
 
 function efRenderBuckets(){
@@ -11983,6 +12155,26 @@ function efRenderBuckets(){
       ${efBuckets.length>1?`<button type="button" class="ef-bucket-del" aria-label="Odstrániť bucket" data-action="efRemoveBucket" data-idx="${i}" title="Odstrániť">×</button>`:'<div style="width:26px;flex-shrink:0;"></div>'}
     </div>`).join('');
   efCalcBuckets();
+  if(typeof checkEFHighlight === 'function') checkEFHighlight();
+}
+
+// Highlight prázdnych bucket amount polí
+function checkEFHighlight(){
+  const wrap = document.getElementById('ef-buckets-wrap');
+  if(!wrap) return;
+  const totalAmount = typeof efBuckets !== 'undefined'
+    ? efBuckets.reduce((s,b) => s + (+b.amount||0), 0) : 0;
+  // Zvýrazni iba prvý bucket-fi (amount) ak je celkový zostatok 0
+  wrap.querySelectorAll('.ef-bucket-fi').forEach((fi, i) => {
+    // Prvý .ef-bucket-fi v každom .ef-bucket je amount pole
+    const bucketEl = fi.closest('.ef-bucket');
+    const isFirst = bucketEl && bucketEl.querySelector('.ef-bucket-fi') === fi;
+    if(totalAmount === 0 && isFirst && i === 0){
+      fi.classList.add('ef-empty');
+    } else {
+      fi.classList.remove('ef-empty');
+    }
+  });
 }
 
 function efCalcBuckets(){
@@ -11997,6 +12189,8 @@ function efCalcBuckets(){
   // Update l-saved label
   const lsEl=$el('ef-l-saved'); if(lsEl) lsEl.textContent='€'+Math.round(total).toLocaleString('sk-SK');
   calcEF();
+  if(typeof checkEFHighlight === 'function') checkEFHighlight();
+  if(typeof updateGuideProgress === 'function') updateGuideProgress();
 }
 
 function efAddBucket(){
@@ -12139,11 +12333,23 @@ const DEBT_TYPES = ['Hypotéka','Spotrebný úver','Leasing','Kreditná karta','
 
 let debtRows = [];
 
+// Highlight + Pridať dlh keď nie sú žiadne dlhy
+function checkDebtHighlight(){
+  const btn = document.querySelector('.debt-add-btn');
+  if(!btn) return;
+  if(typeof debtRows !== 'undefined' && debtRows.length === 0){
+    btn.classList.add('debt-empty');
+  } else {
+    btn.classList.remove('debt-empty');
+  }
+}
+
 function debtAddRow(){
   const _defType='Spotrebný úver'; debtRows.push({name:'Nový dlh', type:_defType, balance:0, rate:DEBT_DEFAULT_RATES[_defType]||5, monthly:0, term:5, fixEnd:''});
   renderDebtList(); calcDebt();
+  if(typeof checkDebtHighlight === 'function') checkDebtHighlight();
 }
-function debtRemoveRow(i){ debtRows.splice(i,1); renderDebtList(); calcDebt(); }
+function debtRemoveRow(i){ debtRows.splice(i,1); renderDebtList(); calcDebt(); if(typeof checkDebtHighlight === 'function') checkDebtHighlight(); }
 const DEBT_DEFAULT_RATES = {
   'Hypotéka': 3.2, 'Leasing': 5.5, 'Spotrebný úver': 9.9,
   'Kreditná karta': 19.9, 'Kontokorent': 14.9,
@@ -12160,6 +12366,7 @@ function debtUpdate(i, field, val){
   }
   if(field === 'type') { renderDebtList(); }
   calcDebt();
+  if(typeof updateGuideProgress === 'function') updateGuideProgress();
 }
 
 function renderDebtList(){
@@ -12545,17 +12752,17 @@ function _setSyncBadge(id, val, unit){
 function crossSync_CF_to_EF(expenses, efContrib){
   window._cfExpenses = expenses;
   const slider = document.getElementById('ef-expenses');
-  if(slider && expenses > 0){
-    slider.value = Math.min(expenses, +slider.max);
+  if(slider){
+    // Vždy syncnúť — aj keď expenses === 0 (príjem nevyplnený -> reset na 0)
+    const val = expenses > 0 ? Math.min(expenses, +slider.max) : 0;
+    slider.value = val;
     fillSlider(slider);
-    // Sync ni- input so $v() reads correct value
     const ni = document.getElementById('ni-ef-expenses');
-    if(ni) ni.value = Math.min(expenses, +slider.max);
+    if(ni) ni.value = val;
     const lbl = document.getElementById('ef-l-expenses');
-    if(lbl) lbl.textContent = '€'+Math.round(expenses).toLocaleString('sk-SK');
-    // recalc EF silently only if NOT on T10 (avoid double render lag)
-    if(document.getElementById('t10')?.classList.contains('active')) efCalcBuckets(); // V-4 FIX: sync buckets first
-    else { window._efExpenses = expenses; } // defer
+    if(lbl) lbl.textContent = '€'+Math.round(val).toLocaleString('sk-SK');
+    if(document.getElementById('t10')?.classList.contains('active')) efCalcBuckets();
+    else { window._efExpenses = expenses; }
   }
   _setSyncBadge('sync-ef-expenses', expenses, '€');
   // Vždy syncnúť ef-monthly — ALE len ak savings > 0 (inak prepíše manuálne nastavenie)
