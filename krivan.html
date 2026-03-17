@@ -363,12 +363,12 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 #onboarding-banner{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:8000;width:min(480px,calc(100vw - 32px));background:var(--bg2);border:1px solid var(--border2);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35);padding:18px 20px 16px;animation:ob-in .35s cubic-bezier(.22,1,.36,1);}
 #onboarding-banner.show{display:block;}
 @keyframes ob-in{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
-.ob-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
-.ob-body{font-size:13px;color:var(--muted2);line-height:1.65;margin-bottom:14px;}
+.ob-title{font-size:17px;font-weight:700;color:var(--text);margin-bottom:8px;}
+.ob-body{font-size:15px;color:var(--muted2);line-height:1.7;margin-bottom:16px;}
 .ob-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.ob-btn-close{flex:1;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;background:var(--emerald);color:#fff;border:none;}
+.ob-btn-close{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;background:var(--emerald);color:#fff;border:none;}
 .ob-btn-close:hover{opacity:.85;}
-.ob-btn-more{flex:1;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
+.ob-btn-more{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
 .ob-btn-more:hover{background:var(--bg3);}
 /* SECURITY: import confirm overlay */
 /* ── IMPORT MODAL (nový multi-step flow) ── */
@@ -3351,30 +3351,30 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:9100;align-items:center;justify-content:center;padding:16px;">
   <div id="privacy-info-box" style="background:var(--card);border:1px solid var(--border2);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.35);">
     <button type="button" data-action="closePrivacyInfo" aria-label="Zavrieť"
-      style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;padding:4px 8px;">✕</button>
+      style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);line-height:1;padding:4px 8px;font-family:system-ui;">&times;</button>
 
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      <h3 id="pi-title" style="margin:0;font-size:18px;font-weight:700;color:var(--text);">Súkromie &amp; bezpečnosť</h3>
+      <h3 id="pi-title" style="margin:0;font-size:20px;font-weight:700;color:var(--text);">Súkromie &amp; bezpečnosť</h3>
     </div>
 
     <!-- Čo app NEUKLADÁ / neposiela -->
     <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:16px;margin-bottom:16px;">
-      <div style="font-size:13px;font-weight:700;color:var(--emerald);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">✅ Čo táto app nerobí</div>
-      <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--text2);line-height:1.8;">
+      <div style="font-size:14px;font-weight:700;color:var(--emerald);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Čo táto app nerobí</div>
+      <ul style="margin:0;padding-left:18px;font-size:15px;color:var(--text2);line-height:1.9;">
         <li>Neposiela vaše dáta na žiaden server</li>
         <li>Nesleduje vás (žiadna analytika, žiadne cookies)</li>
         <li>Nevyžaduje prihlásenie ani registráciu</li>
         <li>Neukladá dáta do cloudu</li>
         <li>Neobsahuje reklamy</li>
-        <li>Nekontaktuje Google — fonty sú <strong>offline</strong> ✅</li>
+        <li>Nekontaktuje Google — fonty sú <strong>offline</strong></li>
       </ul>
     </div>
 
     <!-- Kde sú dáta -->
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;">
-      <div style="font-size:13px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">💾 Kde sú vaše dáta</div>
-      <ul style="margin:0;padding-left:18px;font-size:14px;color:var(--text2);line-height:1.8;">
+      <div style="font-size:14px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Kde sú vaše dáta</div>
+      <ul style="margin:0;padding-left:18px;font-size:15px;color:var(--text2);line-height:1.9;">
         <li><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</li>
         <li>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</li>
         <li>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">.json</code> uložený len u vás na disku</li>
@@ -3384,21 +3384,21 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <!-- Externé zdroje -->
     <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px;">
-      <div style="font-size:13px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">🌐 Externé zdroje (čo app načítava)</div>
-      <div style="font-size:14px;color:var(--text2);line-height:1.8;">
+      <div style="font-size:14px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Externé zdroje (čo app načítava)</div>
+      <div style="font-size:15px;color:var(--text2);line-height:1.9;">
         <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;">
-          <span style="color:var(--emerald);flex-shrink:0;">✅</span>
+          <span style="color:var(--emerald);flex-shrink:0;">·</span>
           <span><strong>Chart.js</strong> — grafická knižnica z <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">cdnjs.cloudflare.com</code>. Chránené SRI hashom — prehliadač overí integritu súboru.</span>
         </div>
         <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="color:var(--emerald);flex-shrink:0;">✅</span>
+          <span style="color:var(--emerald);flex-shrink:0;">·</span>
           <span><strong>Fonty</strong> (Jost, Spectral, Source Code Pro) — <strong>self-hosted</strong>, vložené priamo do súboru. Žiadny kontakt s Google.</span>
         </div>
       </div>
     </div>
 
     <button type="button" data-action="closePrivacyInfo"
-      style="width:100%;padding:11px;background:var(--emerald);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;">
+      style="width:100%;padding:12px;background:var(--emerald);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">
       Rozumiem
     </button>
   </div>
@@ -6908,8 +6908,7 @@ Diagnostika čerpá z:<br>
 <div id="onboarding-banner" role="complementary" aria-label="Vitajte v Kriváni">
   <div class="ob-title">Vitajte v Kriváni</div>
   <div class="ob-body">
-    Odporúčame začať tu — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé.<br>
-    Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
+    Odporúčame začať tu — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé. Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
   </div>
   <div class="ob-actions">
     <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, začínam</button>
@@ -13120,7 +13119,7 @@ function dismissOnboarding(){
   setTimeout(()=>{
     const b = document.getElementById('onboarding-banner');
     if(b) b.classList.add('show');
-  }, 2000);
+  }, 300);
 })();
 
 function toggleTheme(){
