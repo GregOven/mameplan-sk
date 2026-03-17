@@ -1279,7 +1279,7 @@ input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-
 /* ── HERO RESULT BLOCK ── */
 .hero-block{background:var(--bg2);border:1px solid var(--border);border-radius:18px;padding:28px 26px;position:relative;overflow:hidden}
 .hero-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.hero-nom{font-weight:700;font-style:italic;color:var(--gold2);line-height:1;transition:color .3s;text-shadow:0 0 40px rgba(200,168,75,.3),0 2px 20px rgba(200,168,75,.15)}
+.hero-nom{font-weight:700;font-style:italic;color:var(--gold2);line-height:1;transition:color .3s}
 .hero-real-box{margin-top:14px;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);border-radius:14px;padding:16px;position:relative;overflow:hidden}
 .hero-real-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(16,185,129,.4),transparent)}
 .hero-real-lbl{letter-spacing:2px;text-transform:uppercase;color:var(--emerald);opacity:.8;margin-bottom:8px}
@@ -2111,8 +2111,7 @@ body {
   font-style: italic;
   color: var(--gold2);
   line-height: 1;
-  text-shadow: 0 0 80px rgba(200,168,75,.5), 0 4px 40px rgba(200,168,75,.25);
-  transition: color .3s, text-shadow .3s;
+  transition: color .3s;
 }
 .hero-real-box {
   margin-top: 16px;
@@ -4264,6 +4263,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="slbl">Nominálna hodnota portfólia</div>
       <div class="hero-nom" id="s-nom">—</div>
       <div style="font-size:14.4px;color:var(--muted);margin-top:6px;" id="s-nom-s">—</div>
+      <div id="hero-ci-range" style="display:none;font-size:13px;color:var(--muted);margin-top:4px;font-family:'Source Code Pro',monospace;"></div>
     </div>
 
     <!-- SECONDARY: Po dani — smaller, muted, inline with nominálna -->
@@ -4332,16 +4332,16 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:8px;">
       <p class="plbl" style="margin:0">Vývoj portfólia</p>
       <div class="tab-row">
-        <button type="button" class="tbtn active" data-action="setChart" data-chart="all">Nominálne + reálne</button>
+        <button type="button" class="tbtn" data-action="setChart" data-chart="all">Nominálne + reálne</button>
         <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="nom" style="display:none;">Len nominálne</button>
         <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="real" style="display:none;">Len reálne</button>
-        <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="scenarios" style="display:none;">Scenáre ±3%</button>
+        <button type="button" class="tbtn active" data-action="setChart" data-chart="scenarios">Scenáre ±3%</button>
         <button type="button" class="tbtn chart-advanced" data-action="setChart" data-chart="montecarlo" style="display:none;">Monte Carlo</button>
         <button type="button" class="tbtn" id="chart-more-btn" data-action="toggleChartAdvanced" style="opacity:.55;font-size:12px;">▾ viac pohľadov</button>
       </div>
     </div>
     <div class="chart-wrap"><canvas id="ch1"></canvas></div>
-    <div id="scenarios-summary" style="display:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+    <div id="scenarios-summary" style="display:block;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
       <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Reálna hodnota po <span id="sc-yr-lbl">—</span> rokoch (v dnešných €) — simulačné odhady</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
         <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:12px;text-align:center;">
@@ -4350,12 +4350,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <div style="font-family:'Spectral',serif;font-size:clamp(22px,2vw,26px);font-weight:700;color:var(--amber2);" id="sc-pes-val">—</div>
         </div>
         <div style="background:rgba(200,168,75,.06);border:1px solid rgba(200,168,75,.25);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">STREDNÝ SCENÁR</div>
+          <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;">VÁŠ ODHAD</div>
           <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--muted2);margin-bottom:4px;" id="sc-mid-ret">—</div>
           <div style="font-family:'Spectral',serif;font-size:clamp(22px,2vw,26px);font-weight:700;color:var(--gold2);" id="sc-mid-val">—</div>
         </div>
         <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:12px;text-align:center;">
-          <div style="font-family:'Source Code Pro',monospace;font-size:14.4px;color:var(--emerald);letter-spacing:1px;margin-bottom:6px;">SILNEJŠÍ SCENÁR</div>
+          <div style="font-family:'Source Code Pro',monospace;font-size:14.4px;color:var(--emerald);letter-spacing:1px;margin-bottom:6px;">OPTIMISTICKÝ</div>
           <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--muted2);margin-bottom:4px;" id="sc-opt-ret">—</div>
           <div style="font-family:'Spectral',serif;font-size:clamp(22px,2vw,26px);font-weight:700;color:var(--emerald2);" id="sc-opt-val">—</div>
         </div>
@@ -7956,7 +7956,7 @@ renderLumps();
 /* ══════════════════════════════════════════════
    MAIN CALC (TAB 1)
 ═══════════════════════════════════════════════ */
-let chart1,chartMode='all';
+let chart1,chartMode='scenarios';
 
 
 function getP(){
@@ -8103,6 +8103,8 @@ function updateChart1(rows,p){
     $el('mc-p25').textContent=fmt(mcResult.p25[p.yr]);
     $el('mc-p50').textContent=fmt(mcResult.p50[p.yr]);
     $el('mc-p90').textContent=fmt(mcResult.p90[p.yr]);
+    const _ciMC=document.getElementById('hero-ci-range');
+    if(_ciMC){_ciMC.style.display='';_ciMC.textContent=`Monte Carlo P25–P75: ${fmt(mcResult.p25[p.yr])} – ${fmt(mcResult.p75[p.yr])} · 1 000 simulácií`;}
     $el('mc-prob500').textContent=(pct(500000)>=99.5?'>99':'~'+Math.round(pct(500000)))+'%... wait';
     const prob500=Math.round(finals.filter(v=>v>500000).length/finals.length*100);
     const prob1m=Math.round(finals.filter(v=>v>1000000).length/finals.length*100);
@@ -8112,8 +8114,8 @@ function updateChart1(rows,p){
     const pRows=calcRows({...p,ret:Math.max(0.01,p.ret-0.03)});
     const oRows=calcRows({...p,ret:p.ret+0.03});
     ds.push({label:'Slabší scenár ('+fmtP((p.ret-0.03)*100)+')',data:pRows.map(r=>r.real),borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.05)',fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5});
-    ds.push({label:'Stredný scenár ('+fmtP(p.ret*100)+')',data:rows.map(r=>r.real),borderColor:'#c8a84b',backgroundColor:'rgba(200,168,75,.06)',fill:false,tension:.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:5});
-    ds.push({label:'Silnejší scenár ('+fmtP((p.ret+0.03)*100)+')',data:oRows.map(r=>r.real),borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.05)',fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5});
+    ds.push({label:'Váš odhad ('+fmtP(p.ret*100)+')',data:rows.map(r=>r.real),borderColor:'#c8a84b',backgroundColor:'rgba(200,168,75,.06)',fill:false,tension:.4,borderWidth:2.5,pointRadius:0,pointHoverRadius:5});
+    ds.push({label:'Optimistický scenár ('+fmtP((p.ret+0.03)*100)+')',data:oRows.map(r=>r.real),borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.05)',fill:false,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5});
     ds.push({label:'Vklady',data:rows.map(r=>r.tc),borderColor:'rgba(77,142,240,.5)',fill:false,tension:.4,borderWidth:1.5,pointRadius:0,borderDash:[5,5]});
     $el('sc-yr-lbl').textContent=p.yr;
     $el('sc-pes-ret').textContent=fmtP((p.ret-0.03)*100);
@@ -8126,8 +8128,11 @@ function updateChart1(rows,p){
     $el('sc-range-high').textContent=fmt(oRows[p.yr].real);
     $el('sc-diff').textContent=fmt(rows[p.yr].real-pRows[p.yr].real);
     $el('scenarios-summary').style.display='block';
+    const _ci=document.getElementById('hero-ci-range');
+    if(_ci){_ci.style.display='';_ci.textContent=`Rozsah scenárov: ${fmt(pRows[p.yr].real)} – ${fmt(oRows[p.yr].real)} · výnos ±3 %`;}
   } else {
     $el('scenarios-summary').style.display='none';
+    const _ciHide=document.getElementById('hero-ci-range'); if(_ciHide) _ciHide.style.display='none';
     if(chartMode==='all'||chartMode==='nom'){
       ds.push({label:'Nominálna',data:rows.map(r=>r.bal),borderColor:'#c8a84b',backgroundColor:'rgba(200,168,75,.08)',fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5});
       ds.push({label:'Vklady',data:rows.map(r=>r.tc),borderColor:'rgba(77,142,240,.7)',backgroundColor:'rgba(77,142,240,.04)',fill:true,tension:.4,borderWidth:1.5,pointRadius:0,borderDash:[5,5]});
@@ -8521,13 +8526,30 @@ function calc4(){
     tbody.appendChild(tr);
   });
 
-  // chart
-  const ds=[{
-    label:'Hodnota portfólia počas výberu',
-    data:simRows.map(r=>r.bal),
-    borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.07)',
-    fill:true,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5
-  }];
+  // chart — stresový scenár: výnos -2 pp
+  const stressRetNet = Math.max(0, retNet - 0.02);
+  let stressBal = port;
+  const stressRows = [{y:0,bal:Math.round(stressBal)}];
+  for(let y=1;y<=gyr;y++){
+    const w = annualWithdraw * Math.pow(1+gi, y-1);
+    stressBal = stressBal*(1+stressRetNet) - w;
+    stressRows.push({y, bal:Math.max(0,Math.round(stressBal))});
+  }
+  const ds=[
+    {
+      label:'Hodnota portfólia (váš výnos)',
+      data:simRows.map(r=>r.bal),
+      borderColor:'#6b7280',backgroundColor:'transparent',
+      fill:false,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5
+    },
+    {
+      label:'Stresový scenár (výnos −2 %)',
+      data:stressRows.map(r=>r.bal),
+      borderColor:'rgba(240,82,82,.7)',backgroundColor:'rgba(240,82,82,.05)',
+      fill:false,tension:.4,borderWidth:1.5,pointRadius:0,pointHoverRadius:4,
+      borderDash:[4,3]
+    }
+  ];
   if(chart3){chart3.data.labels=simRows.map(r=>r.y);chart3.data.datasets=ds;chart3.update('active');return;}
   if(chart3){chart3.destroy();chart3=null;}
   $el("ch3")?.parentElement?.classList.add("chart-ready");
@@ -8538,7 +8560,7 @@ function calc4(){
       tooltip:{backgroundColor:'#0a0b16',borderColor:'#1c1d2e',borderWidth:1,titleColor:'#6b7280',bodyColor:'#dde1f0',padding:12,
         callbacks:{title:i=>`Rok dôchodku ${i[0].label}`,label:i=>` ${i.dataset.label}: ${fmt(i.raw)}`}}},
     scales:{x:{grid:{color:'rgba(28,29,46,.8)'},ticks:{color:'#6b7280',font:{family:'Source Code Pro',size:9},maxTicksLimit:11,callback:(v,i)=>{const y=simRows[i]?.y;return y%5===0?y+'r':''}}},
-            y:{grid:{color:'rgba(28,29,46,.8)'},ticks:{color:'#6b7280',font:{family:'Source Code Pro',size:9},callback:v=>fmt(v)}}}
+            y:{grid:{color:'rgba(28,29,46,.8)'},ticks:{color:'#6b7280',font:{family:'Source Code Pro',size:9},callback:v=>fmt(v)},suggestedMin:0}}
   }});
 }
 
