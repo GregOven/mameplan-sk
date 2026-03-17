@@ -3348,53 +3348,47 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
 <!-- PRIVACY INFO MODAL -->
 <div id="privacy-info-overlay" role="dialog" aria-modal="true" aria-labelledby="pi-title"
-  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9100;align-items:center;justify-content:center;padding:16px;">
-  <div id="privacy-info-box" style="background:var(--card);border:1px solid var(--border2);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.35);">
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9100;align-items:center;justify-content:center;padding:16px;">
+  <div id="privacy-info-box" style="background:var(--card);border:1px solid var(--border2);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.5);">
     <button type="button" data-action="closePrivacyInfo" aria-label="Zavrieť"
       style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);line-height:1;padding:4px 8px;font-family:system-ui;">&times;</button>
 
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <h3 id="pi-title" style="margin:0;font-size:20px;font-weight:700;color:var(--text);">Súkromie &amp; bezpečnosť</h3>
     </div>
 
-    <!-- Čo app NEUKLADÁ / neposiela -->
-    <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:10px;padding:16px;margin-bottom:16px;">
-      <div style="font-size:14px;font-weight:700;color:var(--emerald);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Čo aplikácia Kriváň nerobí</div>
-      <ul style="margin:0;padding-left:18px;font-size:15px;color:var(--text2);line-height:1.9;">
-        <li>Neposiela vaše dáta na žiaden server</li>
-        <li>Nesleduje vás (žiadna analytika, žiadne cookies)</li>
-        <li>Nevyžaduje prihlásenie ani registráciu</li>
-        <li>Neukladá dáta do cloudu</li>
-        <li>Neobsahuje reklamy</li>
-        <li>Nekontaktuje Google — fonty sú <strong>offline</strong></li>
+    <!-- Sekcia 1 -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Čo aplikácia Kriváň nerobí</div>
+      <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neposiela vaše dáta na žiaden server</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nesleduje vás — žiadna analytika, žiadne cookies</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nevyžaduje prihlásenie ani registráciu</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neukladá dáta do cloudu</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neobsahuje reklamy</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nekontaktuje Google — fonty sú vložené priamo do súboru</span></li>
       </ul>
     </div>
 
-    <!-- Kde sú dáta -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;">
-      <div style="font-size:14px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Ako aplikácia pracuje s dátami</div>
-      <ul style="margin:0;padding-left:18px;font-size:15px;color:var(--text2);line-height:1.9;">
-        <li><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</li>
-        <li>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</li>
-        <li>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">.json</code> uložený len u vás na disku</li>
-        <li>Obnovenie cez <strong>Načítať zálohu</strong> → súbor sa načíta lokálne, nič sa neodošle</li>
+    <!-- Sekcia 2 -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Ako aplikácia pracuje s dátami</div>
+      <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">.json</code> uložený len u vás na disku</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Obnovenie cez <strong>Načítať zálohu</strong> → súbor sa načíta lokálne, nič sa neodošle</span></li>
       </ul>
     </div>
 
-    <!-- Externé zdroje -->
-    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:20px;">
-      <div style="font-size:14px;font-weight:700;color:var(--muted2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;">Externé zdroje (čo aplikácia načítava)</div>
-      <div style="font-size:15px;color:var(--text2);line-height:1.9;">
-        <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;">
-          <span style="color:var(--emerald);flex-shrink:0;">·</span>
-          <span><strong>Chart.js</strong> — grafická knižnica z <code style="font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;">cdnjs.cloudflare.com</code>. Chránené SRI hashom — prehliadač overí integritu súboru.</span>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;">
-          <span style="color:var(--emerald);flex-shrink:0;">·</span>
-          <span><strong>Fonty</strong> (Jost, Spectral, Source Code Pro) — <strong>self-hosted</strong>, vložené priamo do súboru. Žiadny kontakt s Google.</span>
-        </div>
-      </div>
+    <!-- Sekcia 3 -->
+    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:24px;">
+      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Externé zdroje (čo aplikácia načítava)</div>
+      <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Chart.js</strong> — grafická knižnica z <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">cdnjs.cloudflare.com</code></span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Fonty</strong> (Spectral, Source Code Pro) — vložené priamo do súboru, žiadny kontakt s Google</span></li>
+      </ul>
     </div>
 
     <button type="button" data-action="closePrivacyInfo"
