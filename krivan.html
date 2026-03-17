@@ -360,15 +360,15 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
 /* SECURITY: privacy badge */
 .privacy-badge{font-size:11px;color:var(--muted);letter-spacing:.5px;padding:4px 9px;border:1px solid var(--border);border-radius:100px;white-space:nowrap;user-select:none;}
 /* Onboarding banner */
-#onboarding-banner{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:8000;width:min(480px,calc(100vw - 32px));background:var(--bg2);border:1px solid var(--border2);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35);padding:18px 20px 16px;animation:ob-in .35s cubic-bezier(.22,1,.36,1);}
+#onboarding-banner{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:8000;width:min(480px,calc(100vw - 32px));background:var(--bg2);border:1px solid #22c55e;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35),0 0 0 1px rgba(34,197,94,.2),0 0 24px rgba(34,197,94,.15);padding:18px 20px 16px;animation:ob-in .35s cubic-bezier(.22,1,.36,1);}
 #onboarding-banner.show{display:block;}
 @keyframes ob-in{from{opacity:0;transform:translateX(-50%) translateY(16px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
 .ob-title{font-size:17px;font-weight:700;color:var(--text);margin-bottom:8px;}
 .ob-body{font-size:15px;color:var(--muted2);line-height:1.7;margin-bottom:16px;}
 .ob-actions{display:flex;gap:8px;flex-wrap:wrap;}
-.ob-btn-close{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;background:var(--emerald);color:#fff;border:none;}
+.ob-btn-close{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;background:#22c55e;color:#fff;border:1px solid #22c55e;box-shadow:0 0 14px rgba(34,197,94,.35);}
 .ob-btn-close:hover{opacity:.85;}
-.ob-btn-more{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;cursor:pointer;background:transparent;border:1px solid var(--border2);color:var(--muted);font-weight:400;}
+.ob-btn-more{flex:1;padding:10px 16px;border-radius:8px;font-size:15px;cursor:pointer;background:transparent;border:1px solid #22c55e;color:#22c55e;font-weight:400;}
 .ob-btn-more:hover{background:var(--bg3);}
 /* EF cat details - šípka animácia */
 #ef-cat-details summary { outline: none; }
@@ -3119,6 +3119,7 @@ body.light .sync-bar {
   border: 1px solid var(--border);
   border-radius: 10px;
 }
+
 body.light .sync-badge { color: var(--text); }
 
 /* ── 14. REZERVNÝ FOND — BUCKETY ── */
@@ -3345,9 +3346,6 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
   <!-- Pravá strana (grid col 3) -->
   <div class="pbar-right">
-  <button type="button" class="pbtn" id="theme-toggle-btn" data-action="toggleTheme" title="Prepnúť denný/nočný režim" style="padding:6px 10px;font-size:13px;">
-    <span id="theme-icon">☀️</span>
-  </button>
   <button type="button" class="pbtn pbtn-save" data-action="exportAppState" title="Stiahne záložný súbor na váš počítač. Nič sa neodošle na internet.">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
     Uložiť zálohu
@@ -3364,50 +3362,50 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 <!-- PRIVACY INFO MODAL -->
 <div id="privacy-info-overlay" role="dialog" aria-modal="true" aria-labelledby="pi-title"
   style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:9100;align-items:center;justify-content:center;padding:16px;">
-  <div id="privacy-info-box" style="background:var(--card);border:1px solid var(--border2);border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.5);">
+  <div id="privacy-info-box" style="background:var(--card);border:1px solid #22c55e;border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:32px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,.5),0 0 0 1px rgba(34,197,94,.15),0 0 28px rgba(34,197,94,.12);">
     <button type="button" data-action="closePrivacyInfo" aria-label="Zavrieť"
       style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:16px;cursor:pointer;color:var(--muted);line-height:1;padding:4px 8px;font-family:system-ui;">&times;</button>
 
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       <h3 id="pi-title" style="margin:0;font-size:20px;font-weight:700;color:var(--text);">Súkromie &amp; bezpečnosť</h3>
     </div>
 
     <!-- Sekcia 1 -->
-    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Čo aplikácia Kriváň nerobí</div>
+    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,.18);border-radius:10px;padding:16px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:700;color:#22c55e;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Čo aplikácia Kriváň nerobí</div>
       <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neposiela vaše dáta na žiaden server</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nesleduje vás — žiadna analytika, žiadne cookies</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nevyžaduje prihlásenie ani registráciu</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neukladá dáta do cloudu</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Neobsahuje reklamy</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Nekontaktuje Google — fonty sú vložené priamo do súboru</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Neposiela vaše dáta na žiaden server</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Nesleduje vás — žiadna analytika, žiadne cookies</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Nevyžaduje prihlásenie ani registráciu</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Neukladá dáta do cloudu</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Neobsahuje reklamy</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Nekontaktuje Google — fonty sú vložené priamo do súboru</span></li>
       </ul>
     </div>
 
     <!-- Sekcia 2 -->
-    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Ako aplikácia pracuje s dátami</div>
+    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,.18);border-radius:10px;padding:16px;margin-bottom:12px;">
+      <div style="font-size:12px;font-weight:700;color:#22c55e;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Ako aplikácia pracuje s dátami</div>
       <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">.json</code> uložený len u vás na disku</span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span>Obnovenie cez <strong>Načítať zálohu</strong> → súbor sa načíta lokálne, nič sa neodošle</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span><strong>Len vo vašom prehliadači</strong> — dáta existujú iba kým je stránka otvorená</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Po zatvorení okna sú <strong>vymazané</strong> (ak ste nevyexportovali)</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Záloha cez <strong>Uložiť zálohu</strong> → súbor <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">.json</code> uložený len u vás na disku</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span>Obnovenie cez <strong>Načítať zálohu</strong> → súbor sa načíta lokálne, nič sa neodošle</span></li>
       </ul>
     </div>
 
     <!-- Sekcia 3 -->
-    <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:16px;margin-bottom:24px;">
-      <div style="font-size:12px;font-weight:700;color:var(--gold2);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Externé zdroje (čo aplikácia načítava)</div>
+    <div style="background:var(--bg2);border:1px solid rgba(34,197,94,.18);border-radius:10px;padding:16px;margin-bottom:24px;">
+      <div style="font-size:12px;font-weight:700;color:#22c55e;letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px;">Externé zdroje (čo aplikácia načítava)</div>
       <ul style="margin:0;padding:0;list-style:none;font-size:15px;color:var(--text2);line-height:1.0;">
-        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Chart.js</strong> — grafická knižnica z <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">cdnjs.cloudflare.com</code></span></li>
-        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:var(--gold2);flex-shrink:0;font-weight:600;">—</span><span><strong>Fonty</strong> (Spectral, Source Code Pro) — vložené priamo do súboru, žiadny kontakt s Google</span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--border);"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span><strong>Chart.js</strong> — grafická knižnica z <code style="font-size:13px;background:var(--bg);padding:1px 6px;border-radius:4px;">cdnjs.cloudflare.com</code></span></li>
+        <li style="display:flex;gap:10px;padding:5px 0;"><span style="color:#22c55e;flex-shrink:0;font-weight:600;">›</span><span><strong>Fonty</strong> (Spectral, Source Code Pro) — vložené priamo do súboru, žiadny kontakt s Google</span></li>
       </ul>
     </div>
 
     <button type="button" data-action="closePrivacyInfo"
-      style="width:100%;padding:12px;background:var(--emerald);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">
+      style="width:100%;padding:12px;background:#22c55e;color:#fff;border:1px solid #22c55e;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;box-shadow:0 0 14px rgba(34,197,94,.35);transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
       Rozumiem
     </button>
   </div>
@@ -3922,13 +3920,15 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
 
     <div class="ig primary">
       <div class="il">Počiatočná investícia <span class="val" id="l-ini">€23 000</span></div>
-      <input type="range" id="r-ini" min="0" max="10000000" step="5000" value="5000" data-calc="sync" aria-label="Počiatočná investícia">
-      <div class="rbnd"><span style="font-size:14.4px;">€0</span><span>€10M</span></div>
+      <input type="range" id="r-ini" min="0" max="200000" step="1000" value="5000" data-calc="sync" aria-label="Počiatočná investícia">
+      <div class="rbnd"><span style="font-size:14.4px;">€0</span><span>€200 000</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">väčšina ľudí začína s €0 – €30 000</div>
     </div>
     <div class="ig primary">
       <div class="il">Mesačný vklad <span class="val" id="l-mon">€575</span></div>
-      <input type="range" id="r-mon" min="0" max="20000" step="50" value="200" data-calc="sync" aria-label="Mesačný príspevok">
-      <div class="rbnd"><span>€0</span><span>€20 000</span></div>
+      <input type="range" id="r-mon" min="0" max="2000" step="25" value="200" data-calc="sync" aria-label="Mesačný príspevok">
+      <div class="rbnd"><span>€0</span><span>€2 000</span></div>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">väčšina ľudí začína s €50 – €300 / mesiac</div>
     </div>
     <div class="ig primary">
       <div class="il">Počet rokov <span class="val" id="l-yr">32</span></div>
@@ -6920,12 +6920,12 @@ Diagnostika čerpá z:<br>
 
 <!-- ONBOARDING BANNER — zobrazí sa len pri prvom otvorení -->
 <div id="onboarding-banner" role="complementary" aria-label="Vitajte v Kriváni">
-  <div class="ob-title">Vitajte v Kriváni</div>
+  <div class="ob-title">Ako na Kriváň?</div>
   <div class="ob-body">
     Odporúčame začať tu — <strong>Finančná diagnostika</strong> vám ukáže stav vašich financií a čo riešiť ako prvé. Vaše čísla zostávajú len u vás — žiadny účet, žiadny cloud.
   </div>
   <div class="ob-actions">
-    <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, začínam</button>
+    <button type="button" class="ob-btn-close" data-action="dismissOnboarding">Rozumiem, poďme na to</button>
     <button type="button" class="ob-btn-more" data-action="openPrivacyInfo">Viac o súkromí</button>
   </div>
 </div>
@@ -10279,6 +10279,7 @@ function _collectState(){
       case 'shareURL':           shareURL(); break;
       /* Ostatné */
       case 'dismissOnboarding': dismissOnboarding(); break;
+
       case 'openPrivacyInfo':  openPrivacyInfo(); break;
       case 'closePrivacyInfo': closePrivacyInfo(); break;
       case 'closeImportModal': closeImportModal(); break;
@@ -11328,7 +11329,8 @@ function cfIntegrateWithCalc(){
   sync();
   const t1btn = document.querySelector('.tg-invest .tab');
   if(t1btn) showTab('t1', t1btn);
-  showToast('Mesačný vklad nastavený na '+fmt(invest)+' · Kalkulačka aktualizovaná', 'var(--violet)');
+  const appliedInvest = Math.min(invest, +($el('r-mon')?.max || invest));
+  showToast('Mesačný vklad nastavený na '+fmt(appliedInvest)+' · Kalkulačka aktualizovaná', 'var(--violet)');
 }
 
 function cfIntegrateWithEF(){
@@ -11476,6 +11478,7 @@ function updateGuideProgress(){
   } else {
     toggleT13State(false);
   }
+
 }
 
 function calcDiag(){
@@ -12803,8 +12806,13 @@ function crossSync_CF_to_T1(investAmt){
     const cur = +($el('r-mon')?.value || 0);
     if(Math.abs(cur - investAmt) > 10){
       hint.style.display = 'inline-flex';
-      hint.title = `Cashflow navrhuje ${fmt(investAmt)}/mes. Kliknúť pre aplikovanie.`;
-      hint.textContent = `CF navrhuje ${fmt(investAmt)}/mes.`;
+      const clampedAmt = Math.min(investAmt, +($el('r-mon')?.max || investAmt));
+      hint.title = clampedAmt < investAmt
+        ? `Cashflow navrhuje ${fmt(investAmt)}/mes. — nastaví sa max ${fmt(clampedAmt)}/mes.`
+        : `Cashflow navrhuje ${fmt(investAmt)}/mes. Kliknúť pre aplikovanie.`;
+      hint.textContent = clampedAmt < investAmt
+        ? `CF navrhuje ${fmt(clampedAmt)}/mes.`
+        : `CF navrhuje ${fmt(investAmt)}/mes.`;
       hint.onclick = () => {
         const s = $el('r-mon'); if(!s) return;
         s.value = Math.min(investAmt, +s.max);
@@ -12947,6 +12955,7 @@ initBacktest();
 const _origShowTab=showTab;
 showTab=function(id,btn){
   _origShowTab(id,btn);
+
   /* Mark all sync badges in the newly opened panel stale before recalc fires */
   const p=document.getElementById(id);
   if(p) p.querySelectorAll('.sync-badge').forEach(b=>{
