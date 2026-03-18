@@ -3812,7 +3812,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="src-item">
           <span class="src-tag src-tag-study">ERN / Jeske</span>
           <div class="src-ref">Karsten Jeske — <em>Safe Withdrawal Rate Series</em> (Early Retirement Now, 2016–)
-            <div class="src-formula">WR &gt; 5% → varovanie: bezpečná WR pre EUR investora = <strong>3,25–4%</strong><br>40+ rokov výberu + WR ≥ 4% → odporúčanie: <strong>3,25–3,5%</strong><br><em>(Trinity Study kalibrovaná na 30r. US portfólio — pre dlhý horizont nedostatočná)</em></div>
+            <div class="src-formula">WR &gt; 5% → varovanie: orientačné rozpätie z US štúdií pre EUR investora = <strong>3,25–4 %</strong><br>40+ rokov výberu + WR ≥ 4% → literatúra uvádza: <strong>3,25–3,5 %</strong><br><em>(Trinity Study kalibrovaná na 30r. US portfólio — pre dlhý horizont a EUR investora neprenositeľná)</em></div>
             <small>Aplikované priamo v kóde: pri WR &gt;5% červené varovanie, pri WR ≥4% a horizonte ≥40r. žlté varovanie s citáciou ERN série.</small>
           </div>
         </div>
@@ -4663,11 +4663,11 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <div class="ig">
-      <div class="il">Orientačná miera výberu<span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>Bengen (1994) / Trinity Study (1998):</strong> pri 50/50 akcií/dlhopisov + inflačne upravovaných výberoch vydržalo portfólio v ~95% historických US scenárov (30-ročný horizont):<div class='tt-hr'></div>· 30 rokov → ~95% historických scenárov<br>· 40 rokov → ~85% historických scenárov<br>· 50+ rokov → ~80% — pre dlhý horizont je vhodná 3–3,5%<div class='tt-hr'></div><strong>Príklad:</strong> Portfólio €2 000 000 × 4% = €80 000/rok = €6 667/mes. v roku odchodu, každý rok upravované o infláciu.<div class='tt-hr'></div><strong>Keď simulácia nevyčerpá portfólio za 100 rokov</strong> — zobrazí sa symbol ≈. <strong>Nie je to garancia.</strong> Model počíta s rovnakým výnosom každý rok. V skutočnosti trhy kolíšu a výsledok závisí aj od poradia dobrých a zlých rokov (sequence risk).">?</span> <span class="val" id="l-wr">4,0%</span></div>
+      <div class="il">Orientačná miera výberu<span class="tip" data-tip="<div class='tt-title'>Orientačná miera výberu — Trinity Study</div><strong>Bengen (1994) / Trinity Study (1998):</strong> pri 50/50 akcií/dlhopisov + inflačne upravovaných výberoch vydržalo portfólio v ~95% historických US scenárov (30-ročný horizont):<div class='tt-hr'></div>· 30 rokov → ~95% historických scenárov<br>· 40 rokov → ~85% historických scenárov<br>· 50+ rokov → ~80% — pre dlhý horizont historické US scenáre ukazujú nižšiu mieru 3–3,5 %<div class='tt-hr'></div><strong>Príklad:</strong> Portfólio €2 000 000 × 4% = €80 000/rok = €6 667/mes. v roku odchodu, každý rok upravované o infláciu.<div class='tt-hr'></div><strong>Keď simulácia nevyčerpá portfólio za 100 rokov</strong> — zobrazí sa symbol ≈. <strong>Nie je to garancia.</strong> Model počíta s rovnakým výnosom každý rok. V skutočnosti trhy kolíšu a výsledok závisí aj od poradia dobrých a zlých rokov (sequence risk).">?</span> <span class="val" id="l-wr">4,0%</span></div>
       <input type="range" id="r-wr" min="2" max="8" step="0.1" value="4" data-calc="calc4" aria-label="Ročná miera výberu z portfólia v percentách" aria-describedby="hint-r-wr">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
-      <span id="hint-r-wr" class="sr-only">Aké percento portfólia vyberiete každý rok v dôchodku. Odporúčaná bezpečná hodnota je 3 až 4 percentá — podľa historických analýz by portfólio vydržalo 30 rokov.</span>
-      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">odporúčané: 3–4 % ročne (tzv. bezpečná miera výberu)</div>
+      <span id="hint-r-wr" class="sr-only">Aké percento portfólia vyberiete každý rok v dôchodku. Historicky testované orientačné rozpätie je 3 až 4 percentá (US dáta, 30-ročný horizont) — pre EUR investora ani pre iné horizonty to nie je garantované.</span>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">historicky testované orientačné rozpätie: 3–4 % ročne (US trh, 30-ročný horizont)</div>
     </div>
     <!-- Výnos v dôchodku — computed: ret − inf − fee from Tab1 -->
     <div class="ret-info-box">
@@ -4878,7 +4878,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <span class="sync-bar-lbl">Sync</span><span class="sync-help tip" data-tip="<div class='tt-title'>Čo je Sync?</div>Táto záložka <strong>odosiela hodnoty</strong> do iných záložiek — napríklad príjem alebo výdavky sa automaticky prenesú tam, kde ich kalkulačka potrebuje.<div class='tt-hr'></div><div class='tt-title'>Stav piluliek</div>
 <strong style='color:#fbbf24'>● Žltá</strong> = hodnota čaká na prepočet — záložka, z ktorej pochádza, ešte nebola navštívená v tejto relácii<br>
 <strong style='color:#34d399'>● Zelená</strong> = práve prepočítané — hodnota je čerstvá a aktuálna<div class='tt-hr'></div>
-<strong>Portfólio T5</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa 4% pravidla.">?</span>
+<strong>Portfólio T5</strong> — celková hodnota portfólia z Kalkulačky investovania (záložka 1) pri zvolenom horizonte. Tento výsledok sa tu používa ako základ pre výpočet mesačného výberu podľa orientačnej 4% miery výberu (Bengen 1994 / Trinity Study 1998).">?</span>
   <span class="sync-badge fresh dot" title="Portfólio z Rast portfólia (T5)">Portfólio T1: <strong id="sync-t9-port">—</strong><span class="sr-only"> — hodnota prenesená</span></span>
   <span id="t9-pilier-hint" class="sync-badge fresh dot" style="display:none;"></span>
 </div>
@@ -4969,13 +4969,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="ig">
       <div class="il">
         Miera výberu na dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study, US dáta): historicky portfólio vydržalo 30+ rokov v ~95% testovaných scenárov. Pre EUR investora akademici odporúčajú konzervatívnejšiu mieru 3–3,5%. Zdroj: Bengen 1994, 1926–1995). EUR portfólio môže mať iné výsledky.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — historicky nízkorizikové — portfólio by malo mať zostatok. Minulé výnosy budúce nezaručujú.<br><strong>4% = bežný východiskový bod</strong> — orientačný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
+        <span class="tip" data-tip="<div class='tt-title'>Aká časť portfólia sa ročne vyberie?</div>4% pravidlo (Trinity Study, US dáta): historicky portfólio vydržalo 30+ rokov v ~95% testovaných scenárov. Pre EUR investora akademická literatúra (US štúdie) uvádza ako orientačné nižšie rozpätie 3–3,5 % (zdroj: Bengen 1994, 1926–1995). EUR portfólio môže mať odlišné výsledky.<div class='tt-hr'></div><strong>3% = veľmi konzervatívne</strong> — historicky nízkorizikové — v historických scenároch portfólio zostatok malo. Minulé výnosy budúce nezaručujú.<br><strong>4% = bežný východiskový bod</strong> — orientačný pre 30-ročný dôchodok<br><strong>5% = agresívnejšie</strong> — riziko vyčerpania pri dlhom dôchodku<div class='tt-hr'></div>Nižšia miera výberu = potrebujete väčšie portfólio = vyšší mesačný vklad dnes.">?</span>
         <span class="val" id="rvl-wr">4,0%</span>
       </div>
       <input type="range" id="rvr-wr" min="2" max="8" step="0.1" value="4" data-calc="calcReverse" aria-label="Ročná miera výberu v percentách" aria-describedby="hint-rvr-wr">
       <div class="rbnd"><span>2%</span><span>8%</span></div>
-      <span id="hint-rvr-wr" class="sr-only">Aké percento portfólia vyberiete každý rok v dôchodku. Odporúčaná bezpečná hodnota je 3 až 4 percentá — podľa historických analýz by portfólio vydržalo 30 rokov.</span>
-      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">odporúčané: 3–4 % ročne (tzv. bezpečná miera výberu)</div>
+      <span id="hint-rvr-wr" class="sr-only">Aké percento portfólia vyberiete každý rok v dôchodku. Historicky testované orientačné rozpätie je 3 až 4 percentá (US dáta, 30-ročný horizont) — pre EUR investora ani pre iné horizonty to nie je garantované.</span>
+      <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">historicky testované orientačné rozpätie: 3–4 % ročne (US trh, 30-ročný horizont)</div>
     </div>
 
     <!-- Výnos v dôchodku — computed dynamically from ret - inf - fee -->
@@ -5144,7 +5144,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div style="font-weight:600;color:var(--text);margin-bottom:6px;font-size:16.8px;">Kedy by ste mohli prestať pracovať?</div>
   <div style="font-size:15.6px;color:var(--muted2);line-height:1.65;">Zadajte mesačné výdavky a Kriváň odhadne, kedy vaše portfólio dokáže pokryť životné náklady bez ďalšej práce. Kalkulačka simuluje rast mesiace po mesiaci v <em>reálnych hodnotách</em>.</div>
   <div style="margin-top:10px;padding:8px 12px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
-    <strong style="color:var(--amber2);">Výsledok je simulačný odhad</strong> pri konštantnom ročnom výnose. Odporúčaná miera výberu 3–4 % vychádza z historických analýz (Bengen 1994, Trinity Study 1998) — nie je garantovaná pre EUR investora ani pre žiadne budúce obdobie.
+    <strong style="color:var(--amber2);">Výsledok je simulačný odhad</strong> pri konštantnom ročnom výnose. Orientačné rozpätie 3–4 % pochádza z historických analýz US trhu (Bengen 1994, Trinity Study 1998). Nie je garantované pre EUR investora ani pre žiadne budúce obdobie — výsledok závisí od skutočného vývoja trhov.
   </div>
 </div>
 
@@ -5241,7 +5241,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <span class="val" id="firel-wr">4,0%</span>
       </div>
       <input type="range" id="firer-wr" min="2" max="8" step="0.1" value="4" data-calc="calcFIRE" aria-label="Ročná miera výberu v percentách" aria-describedby="hint-firer-wr">
-      <span id="hint-firer-wr" class="sr-only">Aké percento portfólia vyberiete každý rok. Odporúčaná bezpečná hodnota je 3 až 4 percentá — portfólio by malo vydržať 30 a viac rokov.</span>
+      <span id="hint-firer-wr" class="sr-only">Aké percento portfólia vyberiete každý rok. Historicky testované orientačné rozpätie je 3 až 4 percentá (US dáta, 30-ročný horizont) — pre EUR investora ani pre dlhší horizont to nie je garantované.</span>
       <div class="rbnd"><span>2%</span><span>8%</span></div>
       <!-- WR warning — dynamická -->
       <div id="fire-wr-warning" style="display:none;margin-top:8px;padding:8px 12px;border-radius:8px;font-size:14.4px;line-height:1.6;"></div>
@@ -5634,7 +5634,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">Odhadovaný mesačný príjem v dôchodku</div>
       <div class="g3" style="gap:12px;">
         <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 14px;text-align:center;">
-          <div style="font-size:13.2px;color:var(--muted);margin-bottom:4px;">ETF výber (4% pravidlo)</div>
+          <div style="font-size:13.2px;color:var(--muted);margin-bottom:4px;">ETF výber (4% orientačná miera)</div>
           <div style="font-family:'Source Code Pro',monospace;font-size:18px;font-weight:500;color:var(--gold2);" id="pil-etf-month">—</div>
           <div style="font-size:12px;color:var(--muted);margin-top:3px;">slobodný výber</div>
         </div>
@@ -5644,7 +5644,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <div style="font-size:12px;color:var(--muted);margin-top:3px;" id="pil-p2-annuity-note">orientačný výpočet</div>
         </div>
         <div style="background:var(--bg3);border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:12px 14px;text-align:center;">
-          <div style="font-size:13.2px;color:#a78bfa;margin-bottom:4px;">3. pilier výber (4% pravidlo)</div>
+          <div style="font-size:13.2px;color:#a78bfa;margin-bottom:4px;">3. pilier výber (4% orientačná miera)</div>
           <div style="font-family:'Source Code Pro',monospace;font-size:18px;font-weight:500;color:#c4b5fd;" id="pil-p3-month">—</div>
           <div style="font-size:12px;color:var(--muted);margin-top:3px;">program výberu alebo jednorazovo</div>
         </div>
@@ -8817,7 +8817,7 @@ function calc4(){
       let bgCol, bdCol, symCls, hdTxt, bodyTxt;
       if(bufferYrs >= 20){
         bgCol='rgba(77,142,240,.04)'; bdCol='rgba(77,142,240,.2)'; symCls='inf-symbol';
-        hdTxt='Odhad: portfólio by malo vydržať nad plánovaným horizontom.';
+        hdTxt='Simulácia ukazuje, že portfólio vydrží nad plánovaným horizontom.';
         bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — o '+bufferYrs+' rokov viac ako váš plán ('+gyr+'r.). Orientačná rezerva je dostatočná.';
       } else if(bufferYrs >= 5){
         bgCol='rgba(245,158,11,.05)'; bdCol='rgba(245,158,11,.2)'; symCls='inf-finite';
@@ -9457,7 +9457,7 @@ function calcFIRE(){
   if(wrWarnEl){
     if(wr > 0.05){
       wrWarnEl.style.cssText = 'display:block;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.25);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted2);line-height:1.6;margin-top:8px;';
-      wrWarnEl.innerHTML = `⚠ <strong style="color:var(--red);">Vysoká miera výberu ${(wr*100).toFixed(1).replace('.',',')}%</strong> — historická bezpečná WR pre EUR investora je <strong>3.25–4%</strong> (ERN séria, Karsten Jeske). Pri ${(wr*100).toFixed(1).replace('.',',')}% hrozí predčasné vyčerpanie portfólia, najmä pri dlhom horizonte.`;
+      wrWarnEl.innerHTML = `⚠ <strong style="color:var(--red);">Vysoká miera výberu ${(wr*100).toFixed(1).replace('.',',')}%</strong> — v historických US štúdiách sa ako orientačné rozpätie uvádza 3,25–4 % (ERN séria, Karsten Jeske). Pre EUR investora ani pre budúce obdobie to nie je zárukou. Pri ${(wr*100).toFixed(1).replace('.',',')}% simulácia ukazuje riziko predčasného vyčerpania portfólia, najmä pri dlhom horizonte.`;
     } else if(wr >= 0.04 && gyr >= 40){
       wrWarnEl.style.cssText = 'display:block;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--muted2);line-height:1.6;margin-top:8px;';
       wrWarnEl.innerHTML = `⚠ <strong style="color:var(--amber2);">4% + ${gyr} rokov výberu</strong> — Trinity Study bola kalibr. na 30 rokov (US portfólio, S&amp;P 500). Pre ${gyr}r. horizont a EUR investora (MSCI World) je konzervatívnejšia <strong>3.25–3.5% WR</strong> (ERN séria). Nižšia miera výberu by znížila toto riziko.`;
@@ -9545,7 +9545,7 @@ function calcFIRE(){
     const ageColor = fireAge < 45 ? '#34d399' : fireAge < 55 ? '#a78bfa' : fireAge < 65 ? '#fbbf24' : '#9ca3af';
     ageEl.style.color = ageColor;
     // PATCH-11: neutrálne opisné štítky — bez "výnimočný", "nad priemerom"
-    const ageLabel = fireAge < 45 ? 'Skorý odchod (pred 45) — dlhý horizont výberu, odporúčaná nižšia WR (3–3,5%)'
+    const ageLabel = fireAge < 45 ? 'Skorý odchod (pred 45) — dlhý horizont výberu; historické US štúdie uvádzajú pre takýto horizont nižšie orientačné rozpätie (3–3,5 %)'
                    : fireAge < 55 ? 'Odchod v strednom veku (45–55)'
                    : fireAge < 65 ? 'Klasický dôchodkový vek (55–65)'
                    : 'Neskorší odchod (65+)';
@@ -10463,7 +10463,7 @@ function calcPiliere(){
       <div><span style="color:var(--muted2);margin-right:8px;">ℹ</span>
         Celkový odhadovaný mesačný príjem: ETF ${fmt(etfMonth)} + II. pilier anuita ${fmt(p2Annuity)} + III. pilier ${fmt(p3Month)}
         = <strong style="color:var(--text);">${fmt(totalMonthly)}/mes.</strong>
-        <span style="font-size:13.2px;color:var(--muted);display:block;margin-top:4px;">II. pilier = doživotná anuita cez poisťovňu (zákon 43/2004 §32–47) · ETF + III. pilier = 4% pravidlo (slobodný výber)</span>
+        <span style="font-size:13.2px;color:var(--muted);display:block;margin-top:4px;">II. pilier = doživotná anuita cez poisťovňu (zákon 43/2004 §32–47) · ETF + III. pilier = orientačná 4% miera výberu (slobodný výber)</span>
       </div>`;
   }
 
