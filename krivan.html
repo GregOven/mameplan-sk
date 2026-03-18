@@ -14500,11 +14500,11 @@ function assetsUpdate(i, field, val){
 function renderAssets(){
   const wrap = $el('assets-list-wrap'); if(!wrap) return;
   const typeOpts = type => ASSET_TYPES.map(t=>`<option value="${t}" ${type===t?'selected':''}>${t}</option>`).join('');
-  const colHdr = `<div style="display:grid;grid-template-columns:1.4fr 1.2fr 100px 1fr 24px;gap:4px;padding:4px 10px 8px;font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.55;">
+  const colHdr = `<div style="display:grid;grid-template-columns:3fr 1.2fr 100px 1fr 24px;gap:4px;padding:4px 10px 8px;font-family:'Source Code Pro',monospace;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);opacity:.55;">
     <span>Názov</span><span>Typ</span><span>Hodnota</span><span>Poznámka</span><span></span>
   </div>`;
   const rows = assetRows.map((a,i) => `
-    <div style="display:grid;grid-template-columns:1.4fr 1.2fr 100px 1fr 24px;gap:4px;align-items:center;padding:5px 10px;border-bottom:1px solid var(--border);" class="cf2-row">
+    <div style="display:grid;grid-template-columns:3fr 1.2fr 100px 1fr 24px;gap:4px;align-items:center;padding:5px 10px;border-bottom:1px solid var(--border);" class="cf2-row">
       <input class="cf2-name-input" value="${esc(a.name||'')}" data-action="assetsUpdate" data-idx="${i}" data-field="name" data-evt="change">
       <select style="background:var(--bg3);border:1px solid transparent;border-radius:6px;color:var(--muted2);font-size:13.2px;font-family:'Source Code Pro',monospace;padding:3px 4px;outline:none;" data-action="assetsUpdate" data-idx="${i}" data-field="type" data-evt="change">${typeOpts(a.type)}</select>
       <div class="cf2-amount-wrap"><span class="cf2-currency">€</span><input class="cf2-amount-input" type="number" value="${a.value||''}" placeholder="0" aria-label="${a.name||'Majetok'} — hodnota v eurách" data-action="assetsUpdate" data-idx="${i}" data-field="value" data-evt="input"></div>
@@ -14522,60 +14522,33 @@ function calcAssets(){
   const byType = {};
   assetRows.forEach(a=>{ byType[a.type]=(byType[a.type]||0)+(+a.value||0); });
 
-  // Aktuálne hodnoty (dnešný stav)
-  const efCurrent   = window._efCurrent || +($el('ef-saved')?.value||0);
-  const etfCurrent  = +($el('r-ini')?.value||0); // počiatočná investícia = aktuálne ETF
-
-  // Projekcie (budúce možné hodnoty)
-  const etfFinal    = window._lastAfterTax    || 0;
-  const pilierFinal = window._pilierTotalFinal || 0;
-
+  const efCurrent  = window._efCurrent || +($el('ef-saved')?.value||0);
+  const etfCurrent = +($el('r-ini')?.value||0);
   const currentTotal = total + (efCurrent||0) + (etfCurrent||0);
-  const grandTotal   = currentTotal + etfFinal + pilierFinal;
 
-  if($el('assets-total-val')) $el('assets-total-val').textContent = fmt(Math.round(grandTotal));
-  const itemCount = assetRows.filter(a=>+a.value>0).length
-    + (efCurrent>0?1:0) + (etfCurrent>0?1:0)
-    + (etfFinal>0?1:0) + (pilierFinal>0?1:0);
+  if($el('assets-total-val')) $el('assets-total-val').textContent = fmt(Math.round(currentTotal));
+  const itemCount = assetRows.filter(a=>+a.value>0).length + (efCurrent>0?1:0) + (etfCurrent>0?1:0);
   if($el('assets-total-sub')) $el('assets-total-sub').textContent =
     itemCount > 0 ? `${itemCount} položiek` : 'Pridajte položky';
 
   const ab = $el('assets-breakdown');
   if(ab){
-    // Sekcia: Aktuálny majetok
-    const currentRows = [
-      efCurrent > 0    ? `<div class="cf2-wf-row"><span style="color:var(--cyan2);font-size:13.2px;">💰 Núdzový fond <span style="opacity:.6;font-size:12px;">(T3)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--cyan2);">${fmt(Math.round(efCurrent))}</span></div>` : '',
-      etfCurrent > 0   ? `<div class="cf2-wf-row"><span style="color:var(--gold2);font-size:13.2px;">📈 ETF portfólio – aktuálne <span style="opacity:.6;font-size:12px;">(T5 → Počiatočná investícia)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--gold);">${fmt(Math.round(etfCurrent))}</span></div>` : '',
+    const autoRows = [
+      efCurrent > 0  ? `<div class="cf2-wf-row"><span style="color:var(--cyan2);font-size:13.2px;">💰 Núdzový fond <span style="opacity:.6;font-size:12px;">(T3)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--cyan2);">${fmt(Math.round(efCurrent))}</span></div>` : '',
+      etfCurrent > 0 ? `<div class="cf2-wf-row"><span style="color:var(--gold2);font-size:13.2px;">📈 ETF portfólio – aktuálne <span style="opacity:.6;font-size:12px;">(T5)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--gold);">${fmt(Math.round(etfCurrent))}</span></div>` : '',
     ].filter(Boolean).join('');
-
     const manualRows = Object.entries(byType).filter(([,v])=>v>0).sort((a,b)=>b[1]-a[1]).map(([t,v])=>`
-      <div class="cf2-wf-row">
-        <span style="color:var(--muted2);">${t}</span>
-        <span style="font-family:'Source Code Pro',monospace;color:rgba(20,184,166,.85);">${fmt(Math.round(v))}</span>
-      </div>`).join('');
-
-    // Sekcia: Projekcie
-    const projRows = [
-      etfFinal > 0    ? `<div class="cf2-wf-row"><span style="color:var(--gold2);font-size:13.2px;opacity:.8;">↗ ETF projekcia <span style="opacity:.6;font-size:12px;">(T5, po ${Math.round(($el('r-yr')?.value||30))} r.)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--gold);opacity:.8;">${fmt(Math.round(etfFinal))}</span></div>` : '',
-      pilierFinal > 0 ? `<div class="cf2-wf-row"><span style="color:rgba(20,184,166,.7);font-size:13.2px;">↗ 2.+3. pilier projekcia <span style="opacity:.6;font-size:12px;">(T7)</span></span><span style="font-family:'Source Code Pro',monospace;color:rgba(20,184,166,.7);">${fmt(Math.round(pilierFinal))}</span></div>` : '',
-    ].filter(Boolean).join('');
-
-    const currentBlock = (currentRows || manualRows)
-      ? `<div style="font-family:'Source Code Pro',monospace;font-size:11px;letter-spacing:1.5px;color:var(--muted);opacity:.55;margin-bottom:6px;text-transform:uppercase;">Aktuálny majetok</div>${currentRows}${manualRows}` : '';
-
-    const projBlock = projRows
-      ? `<div style="border-top:1px solid var(--border);margin:10px 0 6px;"></div><div style="font-family:'Source Code Pro',monospace;font-size:11px;letter-spacing:1.5px;color:var(--muted);opacity:.55;margin-bottom:6px;text-transform:uppercase;">Projekcie (budúce možné hodnoty)</div>${projRows}` : '';
-
-    ab.innerHTML = (currentBlock + projBlock)
-      || '<div style="font-size:14.4px;color:var(--muted);padding:4px 0;">Pridajte majetok alebo vyplňte T3 / T5 / T7.</div>';
+      <div class="cf2-wf-row"><span style="color:var(--muted2);">${t}</span><span style="font-family:'Source Code Pro',monospace;color:rgba(20,184,166,.85);">${fmt(Math.round(v))}</span></div>`).join('');
+    const sep = autoRows && manualRows ? `<div style="border-top:1px solid var(--border);margin:6px 0;opacity:.4;"></div>` : '';
+    ab.innerHTML = autoRows + sep + manualRows
+      || '<div style="font-size:14.4px;color:var(--muted);padding:4px 0;">Pridajte majetok alebo vyplňte T3 / T5.</div>';
   }
 
-  // Net worth panel — používa len aktuálne hodnoty (nie projekcie)
   const totalDebts = (window._debtTotal||0);
   const netWorth   = currentTotal - totalDebts;
   const nw = $el('assets-networth');
   if(nw) nw.innerHTML = `
-    ${efCurrent > 0 ? `<div class="cf2-wf-row"><span style="color:var(--cyan2);font-size:14.4px;">Núdzový fond <span style="opacity:.7;font-size:12px;">(T3)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--cyan2);">${fmt(Math.round(efCurrent))}</span></div>` : ''}
+    ${efCurrent > 0  ? `<div class="cf2-wf-row"><span style="color:var(--cyan2);font-size:14.4px;">Núdzový fond <span style="opacity:.7;font-size:12px;">(T3)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--cyan2);">${fmt(Math.round(efCurrent))}</span></div>` : ''}
     ${etfCurrent > 0 ? `<div class="cf2-wf-row"><span style="color:var(--gold2);font-size:14.4px;">ETF portfólio – aktuálne <span style="opacity:.7;font-size:12px;">(T5)</span></span><span style="font-family:'Source Code Pro',monospace;color:var(--gold);">${fmt(Math.round(etfCurrent))}</span></div>` : ''}
     ${(efCurrent > 0 || etfCurrent > 0) && total > 0 ? `<div style="border-top:1px solid var(--border);margin:6px 0;opacity:.4;"></div>` : ''}
     ${total > 0 ? `<div class="cf2-wf-row"><span style="color:var(--muted2);font-size:14.4px;">Ostatný majetok</span><span style="font-family:'Source Code Pro',monospace;color:rgba(20,184,166,.85);">${fmt(Math.round(total))}</span></div>` : ''}
@@ -14583,12 +14556,8 @@ function calcAssets(){
     <div style="border-top:1px solid var(--border);margin:8px 0 6px;"></div>
     <div class="cf2-wf-row total"><span style="color:var(--text);font-weight:600;">Čisté bohatstvo</span>
       <span style="font-family:'Source Code Pro',monospace;font-weight:700;font-size:18px;color:${netWorth>=0?'var(--emerald)':'var(--red)'};">${netWorth>=0?'+':''}${fmt(Math.round(netWorth))}</span></div>
-    ${etfFinal > 0 || pilierFinal > 0 ? `
-    <div style="border-top:1px solid var(--border);margin:10px 0 6px;opacity:.4;"></div>
-    <div style="font-size:12px;color:var(--muted);opacity:.6;margin-bottom:6px;font-family:'Source Code Pro',monospace;letter-spacing:1px;text-transform:uppercase;">+ Projekcie (nie v Net Worth)</div>
-    ${etfFinal > 0 ? `<div class="cf2-wf-row"><span style="color:var(--gold2);font-size:13.2px;opacity:.7;">↗ ETF po ${Math.round(($el('r-yr')?.value||30))} r.</span><span style="font-family:'Source Code Pro',monospace;color:var(--gold);opacity:.7;">${fmt(Math.round(etfFinal))}</span></div>` : ''}
-    ${pilierFinal > 0 ? `<div class="cf2-wf-row"><span style="color:rgba(20,184,166,.7);font-size:13.2px;">↗ Piliere po dôchodku</span><span style="font-family:'Source Code Pro',monospace;color:rgba(20,184,166,.7);">${fmt(Math.round(pilierFinal))}</span></div>` : ''}` : ''}
-    <div style="margin-top:10px;font-size:13.2px;color:var(--muted);line-height:1.7;opacity:.6;">Net worth = aktuálny majetok − dlhy. Projekcie sú orientačné odhady budúcich hodnôt.</div>`;
+    <div style="margin-top:10px;font-size:13.2px;color:var(--muted);line-height:1.7;opacity:.6;">Net worth = aktuálny majetok − dlhy. Sledujte jeho rast mesačne.</div>`;
+}
 }
 
 
