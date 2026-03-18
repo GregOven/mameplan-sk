@@ -3715,8 +3715,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
           <div class="src-ref">Zložené úrokovanie + pravidelný vklad (anuita)
-            <div class="src-formula"><strong>FV</strong> = P × (1+r)ⁿ  +  PMT × [(1+r)ⁿ − 1] / r<br><em>P = počiatočný vklad  ·  r = mesačný výnos (ročný÷12)  ·  n = mesiace  ·  PMT = mesačný vklad</em></div>
-            <small>Štandardná finančná matematika. Jednorazové vklady (lump-sum) sa pridávajú v príslušnom mesiaci a ďalej úrokujú rovnakou sadzbou.</small>
+            <div class="src-formula"><strong>FV</strong> = P × (1+r)ⁿ  +  PMT × [(1+r)ⁿ − 1] / r<br><em>P = počiatočný vklad  ·  r = mesačný výnos = ((1+ročný_výnos×(1−TER))^(1/12))−1  ·  n = mesiace  ·  PMT = mesačný vklad</em></div>
+            <small>Simulácia beží <strong>po rokoch</strong> (vonkajšia slučka) s 12 mesačnými krokmi vnútri každého roka. Slider "ročný výnos" sa prepočíta na mesačnú sadzbu pomocou geometrického priemeru: r_mes = (1+ročný)^(1/12)−1. <strong>Ročný rast vkladu</strong> sa aplikuje vždy na začiatku nového roka (nie každý mesiac). Jednorazové vklady (lump-sum) sa pridávajú v príslušnom roku.</small>
           </div>
         </div>
         <div class="src-item">
@@ -4796,8 +4796,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
       <div class="ctx-card" style="border-color:rgba(16,185,129,.25);background:rgba(16,185,129,.03);">
         <div style="flex-shrink:0;width:130px;">
-          <div class="ctx-lbl">Výber z portfólia v roku <span id="ctx-future-year">—</span></div>
-          <div style="font-size:12px;color:var(--teal);opacity:.75;margin-top:3px;">znížené o infláciu (<span id="ctx-inf-pct">—</span>&thinsp;%/rok)</div>
+          <div class="ctx-lbl">Kúpna sila výberu v dnešných €</div>
+          <div style="font-size:12px;color:var(--teal);opacity:.75;margin-top:3px;">nominálne v r. <span id="ctx-future-year">—</span> → prepočítané na dnešné € (inflácia <span id="ctx-inf-pct">—</span>&thinsp;%/rok)</div>
         </div>
         <div class="ctx-val" style="color:var(--emerald2);font-size:21.6px;word-break:break-word;" id="ctx-your-monthly">—</div>
       </div>
@@ -4816,7 +4816,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="r4-hero" role="status" aria-live="polite" aria-atomic="false">
     <!-- BADGE: typ výstupu -->
     <div class="result-badge result-badge-estimate">🔵 Simulačný odhad</div>
-    <div class="r4-lbl">Odhadovaný mesačný výber (<span id="r4-wr-pct">4%</span> · simulácia)</div>
+    <div class="r4-lbl">Odhadovaný mesačný výber (<span id="r4-wr-pct">4%</span> · simulácia) <span style="font-size:11px;opacity:.6;letter-spacing:0;text-transform:none;">· nominálne € v roku odchodu</span></div>
     <div class="r4-big" id="r4-mon">—</div>
     <div class="r4-sub" id="r4-mon-s">—</div>
 
@@ -4861,8 +4861,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;text-align:left;">
-      <div><div class="slbl">Ročný výber</div><div class="sval g" id="r4-ann">—</div></div>
-      <div><div class="slbl">Nominálne portfólio po <span id="r4-gyr-lbl">30</span>r.</div><div class="sval b" id="r4-rem">—</div></div>
+      <div><div class="slbl">Ročný výber <span style="font-weight:400;font-size:11px;opacity:.6;">(nominálne €)</span></div><div class="sval g" id="r4-ann">—</div></div>
+      <div><div class="slbl">Portfólio po <span id="r4-gyr-lbl">30</span>r. výberu <span style="font-weight:400;font-size:11px;opacity:.6;">(nominálne €, r. <span id="r4-end-year">—</span>)</span></div><div class="sval b" id="r4-rem">—</div></div>
       <div>
         <div class="slbl">Odhad výdrže (simulácia)</div>
         <div class="sval" id="r4-safe">—</div>
@@ -5100,7 +5100,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <!-- Key numbers grid -->
     <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;">
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;">
-        <div class="slbl">Cieľové portfólio</div>
+        <div class="slbl">Cieľové portfólio <span style="font-weight:400;font-size:11px;opacity:.6;">(nominálne €)</span></div>
         <div style="font-family:'Spectral',serif;font-size:31.2px;font-weight:700;color:var(--gold2);line-height:1;" id="rv-portfolio">—</div>
         <div style="font-size:14.4px;color:var(--muted);margin-top:5px;line-height:1.5;" id="rv-portfolio-sub">nominálne v rok odchodu</div>
       </div>
@@ -5110,6 +5110,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div style="font-size:14.4px;color:var(--muted);margin-top:5px;">reálna hodnota portfólia</div>
       </div>
     </div>
+
+    <!-- PATCH-D: Caution/unstable zone notification -->
+    <div id="rv-caution-note" style="display:none;margin-top:10px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--muted2);line-height:1.6;"></div>
 
     <!-- Monthly breakdown -->
     <div style="margin-top:16px;background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:left;">
@@ -5131,14 +5134,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;">
         <div class="slbl">Spolu vložíte</div>
         <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--blue2);" id="rv-total-in">—</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;">súčet vkladov v nominálnych €<br>(nie diskontovaných na dnešok)</div>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;">
         <div class="slbl">Trh pridá</div>
         <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--emerald);" id="rv-market-gains">—</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;">cieľ mínus vklady<br>(nominálne €)</div>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;">
         <div class="slbl">Multiplikátor</div>
         <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--gold2);" id="rv-multiplier">—</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;">cieľ ÷ vklady<br>(nominálne)</div>
       </div>
     </div>
 
@@ -5421,7 +5427,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <!-- Tri scenáre — pod hero, vypĺňajú zvyšok pravého stĺpca -->
   <div class="panel" style="flex:1;display:flex;flex-direction:column;">
     <p class="plbl" style="margin-bottom:4px;">Tri scenáre (simulácia)</p>
-    <div style="font-size:14.4px;color:var(--muted);margin-bottom:16px;">Slabší (−25%) · váš odhad · optimistický (+25%) — konštantný výnos, orientačné odhady</div>
+    <div style="font-size:14.4px;color:var(--muted);margin-bottom:16px;">Konzervatívny (5%) · váš odhad · hist. priemer (8%) — konštantný výnos, orientačné odhady · portfólio v reálnych hodnotách (dnešné €)</div>
     <div style="display:flex;flex-direction:column;gap:16px;flex:1;" id="fire-scenarios-block">
       <!-- filled by JS -->
     </div>
@@ -5455,6 +5461,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div style="font-size:16.8px;color:var(--muted2);line-height:1.65;">Simuluje váš investičný plán s <em>reálnymi historickými ročnými výnosmi</em> MSCI World. Vyber rok začiatku a uvidíš, ako by sa darilo tvojmu portfóliu v rôznych trhových obdobiach.</div>
     <div style="margin-top:8px;padding:8px 12px;background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.2);border-radius:8px;font-size:14.4px;color:var(--muted2);line-height:1.6;">
       ⚠ <strong style="color:var(--amber2);">Kurzové riziko:</strong> MSCI World je denominovaný v USD. Ako EUR investor znášate kurzové riziko EUR/USD (~±10 % ročne). Historické výnosy v USD sa od EUR výnosov môžu líšiť o jednotky percent ročne. Výsledky backtestu nezohľadňujú vývoj kurzu.
+    </div>
+    <div style="margin-top:8px;padding:8px 12px;background:rgba(77,142,240,.04);border:1px solid rgba(77,142,240,.2);border-radius:8px;font-size:13.2px;color:var(--muted);line-height:1.6;">
+      ℹ <strong style="color:var(--muted2);">Ročný model:</strong> backtest používa <em>ročné výnosy</em> MSCI World (1970–2024). Mesačný vklad je konštantný každý rok — ročný rast vkladu sa tu neuplatňuje (na rozdiel od záložky 1). Každý ročný výnos je rozložený na 12 mesačných krokov.
     </div>
   </div>
 </div>
@@ -8841,6 +8850,7 @@ function calc4(){
   // Nominálny výnos po poplatkoch (správna báza pre simuláciu)
   const ret1=$v('r-ret')/100, fee1=$v('r-fee')/100;
   const netNominal1 = (1 + ret1) * (1 - fee1) - 1;
+  const retNet = netNominal1;  // FIX-1: alias aby calc4 nebral retNet z vonkajšieho scope (undefined → NaN)
   const gr = (1 + netNominal1) / (1 + gi) - 1;   // presný reálny výnos — záporný = portfólio reálne klesá
   const gyr=$v('r-gyr'),yinv=$v('r-yinv');
   $el('l-wr').textContent=fmtP(wr*100);
@@ -8883,6 +8893,19 @@ function calc4(){
   }
   if(isForever) safeNote='Simulácia: v 100-ročnom horizonte modelu sa portfólio nevyčerpá. Model predpokladá konštantný výnos — skutočný výsledok závisí od trhových podmienok.';
 
+  // #6: zobraz rozsah namiesto presného čísla — konštantný výnos má ±5r neistotu
+  let safeDisplay, safeColor;
+  if(isForever){
+    safeDisplay = '≈ 100+ r.';
+    safeColor   = 'var(--blue2)';
+  } else {
+    const safeNum = parseInt(safeYrs);
+    const lo = Math.max(1, safeNum - 5);
+    const hi = safeNum + 5;
+    safeDisplay = `~${lo}–${hi} r. ±`;
+    safeColor   = 'var(--amber2)';
+  }
+
   $el('r4-mon').textContent=fmt(monthlyWithdraw);
   $el('r4-mon').className='r4-big'+(isForever?'':' finite');
   $el('r4-mon-s').textContent=`orientačný mesačný výber pri ${fmtP(wr*100)} z ${fmt(port)} v roku ${futureYear} — simulácia, konštantný výnos`;
@@ -8900,9 +8923,9 @@ function calc4(){
   $el('r4-ann').textContent=fmt(annualWithdraw);
   $el('r4-gyr-lbl').textContent=gyr;
   $el('r4-rem').textContent=fmt(simRows[Math.min(gyr,simRows.length-1)].bal);
-  $el('r4-safe').textContent=safeYrs;
-  // PATCH-6: modrá (neutrálna) pre "100+ r. ≈" — nie zelená ako garancia
-  $el('r4-safe').style.color=isForever?'var(--blue2)':'var(--amber2)';
+  if($el('r4-end-year')) $el('r4-end-year').textContent=futureYear+gyr;
+  $el('r4-safe').textContent=safeDisplay;
+  $el('r4-safe').style.color=safeColor;
   $el('r4-safe-note').textContent=safeNote;
   $el('r4-safe-note').style.color=isForever?'var(--muted2)':'var(--amber2)';
 
@@ -8931,32 +8954,33 @@ function calc4(){
         ' <em style="color:var(--muted2);">Model počíta s konštantným výnosom každý rok — skutočný trh kolíše. Výsledok nie je garantovaný.</em>';
     } else {
       // Kontextuálne: je safeYrs dostatočne nad plánovaným horizontom?
+      // safeNum a safeDisplay sú definované vyššie (po #6 patch)
       const safeNum = parseInt(safeYrs);
       const bufferYrs = safeNum - gyr;
       let bgCol, bdCol, symCls, hdTxt, bodyTxt;
       if(bufferYrs >= 20){
         bgCol='rgba(77,142,240,.04)'; bdCol='rgba(77,142,240,.2)'; symCls='inf-symbol';
         hdTxt='Simulácia ukazuje, že portfólio vydrží nad plánovaným horizontom.';
-        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — o '+bufferYrs+' rokov viac ako váš plán ('+gyr+'r.). Orientačná rezerva je dostatočná.';
+        bodyTxt='Orientačný odhad výdrže: <strong>'+safeDisplay+'</strong> — o ~'+bufferYrs+' rokov viac ako váš plán ('+gyr+'r.). Rozsah odráža neistotu modelu ±5 rokov.';
       } else if(bufferYrs >= 5){
         bgCol='rgba(245,158,11,.05)'; bdCol='rgba(245,158,11,.2)'; symCls='inf-finite';
         hdTxt='Odhad: malá rezerva nad plánovaným horizontom.';
-        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — len o '+bufferYrs+' rokov viac ako váš plán. Nižší výber by zvýšil rezervu.';
+        bodyTxt='Orientačný odhad výdrže: <strong>'+safeDisplay+'</strong> — len o ~'+bufferYrs+' rokov viac ako váš plán. Nižší výber by zvýšil rezervu.';
       } else if(bufferYrs >= 0){
         bgCol='rgba(245,158,11,.08)'; bdCol='rgba(245,158,11,.4)'; symCls='inf-finite';
         hdTxt='Odhad: portfólio sotva pokrýva plánovaný horizont.';
-        bodyTxt='Simulácia: vydrží <strong>'+safeNum+' rokov</strong> — plánujete vyberať '+gyr+' r. Takmer žiadna rezerva. Nižší výber by predĺžil životnosť portfólia.';
+        bodyTxt='Orientačný odhad výdrže: <strong>'+safeDisplay+'</strong> — plánujete vyberať '+gyr+' r. Takmer žiadna rezerva. Nižší výber by predĺžil životnosť portfólia.';
       } else {
         bgCol='rgba(240,82,82,.06)'; bdCol='rgba(240,82,82,.3)'; symCls='inf-finite';
         hdTxt='Odhad: portfólio sa vyčerpá pred koncom plánovaného horizontu.';
-        bodyTxt='Simulácia: vydrží len <strong>'+safeNum+' rokov</strong>, ale plánujete '+gyr+' r. Nižší výber alebo vyšší výnos by rezervu predĺžili.';
+        bodyTxt='Orientačný odhad výdrže: <strong>'+safeDisplay+'</strong>, ale plánujete '+gyr+' r. Nižší výber alebo vyšší výnos by rezervu predĺžili.';
       }
       infBlock.style.background=bgCol;
       infBlock.style.borderColor=bdCol;
       infSym.className=symCls;
       infSym.style.fontSize='';
       infSym.style.color='';
-      infSym.textContent=safeYrs;
+      infSym.textContent=safeDisplay;
       infTxt.innerHTML='<strong style="color:inherit">'+hdTxt+'</strong><br>'+bodyTxt;
     }
   }
@@ -8966,7 +8990,7 @@ function calc4(){
   const tbody=$el('wdraw-tbody');tbody.innerHTML='';
   const hdr=document.createElement('tr');
   // PATCH-4: "VYDRŽIA" → "ODHAD VÝDRŽE*", ∞ → "100+ r. ≈"
-  hdr.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">MIERA</td><td style="color:var(--muted);font-size:13.2px;">NOM./MES.</td><td style="color:var(--muted);font-size:13.2px;">REÁLNE/MES.</td><td style="color:var(--muted);font-size:13.2px;text-align:right;" title="Simulačný odhad pri konštantnom výnose — nie je to garancia">ODHAD VÝDRŽE*</td><td class="wdraw-bar-cell"></td>`;
+  hdr.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">MIERA</td><td style="color:var(--muted);font-size:13.2px;">VÝBER/MES.<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">€ v roku odchodu</span></td><td style="color:var(--muted);font-size:13.2px;">DNES BY TO BOLO<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">kúpna sila v dnešných €</span></td><td style="color:var(--muted);font-size:13.2px;text-align:right;" title="Simulačný odhad pri konštantnom výnose — nie je to garancia">ODHAD VÝDRŽE*</td><td class="wdraw-bar-cell"></td>`;
   tbody.appendChild(hdr);
   const maxMw=port*(rates[rates.length-1]/100)/12;
   rates.forEach(rate=>{
@@ -9000,6 +9024,25 @@ function calc4(){
     stressBal = stressBal*(1+stressRetNet) - w;
     stressRows.push({y, bal:Math.max(0,Math.round(stressBal))});
   }
+
+  // #5: Sequence of returns risk — "zlý štart"
+  // Rovnaký geometrický priemer ako retNet, ale prvých 5 rokov výnos = 0.
+  // Zvyšné roky dostanú vyšší výnos tak, aby geometrický priemer vyšiel rovnako:
+  //   (1+0)^badYrs × (1+highRet)^(gyr-badYrs) = (1+retNet)^gyr
+  //   → highRet = (1+retNet)^(gyr/(gyr-badYrs)) - 1
+  const badYrs = Math.min(5, Math.max(1, Math.floor(gyr * 0.15)));
+  const highRet = gyr > badYrs
+    ? Math.pow(1 + retNet, gyr / (gyr - badYrs)) - 1
+    : retNet;
+  let badBal = port;
+  const badRows = [{y:0,bal:Math.round(badBal)}];
+  for(let y=1;y<=gyr;y++){
+    const w = annualWithdraw * Math.pow(1+gi, y-1);
+    const yr_ret = y <= badYrs ? 0 : Math.min(highRet, 0.30); // cap pri extrémnych vstupoch
+    badBal = badBal*(1+yr_ret) - w;
+    badRows.push({y, bal:Math.max(0,Math.round(badBal))});
+  }
+
   const ds=[
     {
       label:'Hodnota portfólia (váš výnos)',
@@ -9013,6 +9056,13 @@ function calc4(){
       borderColor:'rgba(240,82,82,.7)',backgroundColor:'rgba(240,82,82,.05)',
       fill:false,tension:.4,borderWidth:1.5,pointRadius:0,pointHoverRadius:4,
       borderDash:[4,3]
+    },
+    {
+      label:`Sequence risk — zlý štart (0 % prvých ${badYrs} r., rovnaký priemer)`,
+      data:badRows.map(r=>r.bal),
+      borderColor:'rgba(245,158,11,.8)',backgroundColor:'rgba(245,158,11,.03)',
+      fill:false,tension:.3,borderWidth:1.5,pointRadius:0,pointHoverRadius:4,
+      borderDash:[2,4]
     }
   ];
   if(chart3){chart3.data.labels=simRows.map(r=>r.y);chart3.data.datasets=ds;chart3.update('active');return;}
@@ -9054,7 +9104,9 @@ function syncReverse(){
 /**
  * Core formula:
  * 1. Inflate target: futureMonthly = targetReal × (1+inf)^yr
- * 2. Required portfolio at retirement: P = futureMonthly × 12 / wr
+ * 2. Required portfolio at retirement: PVA growing annuity
+ *      P = C × (1 − ((1+g)/(1+r))^n) / (r − g)
+ *      kde C = ročný výber, r = effRet, g = nomWithdrawGrowth = (1+inf)(1+wgr)−1, n = gyrRet
  * 3. FV of lump sum: fvLump = ini × (1+effRet)^yr
  * 4. Remaining FV needed from monthly DCA: fvNeeded = P - fvLump
  * 5. If inc>0 (growing contributions):
@@ -9124,11 +9176,80 @@ function calcReverse(){
   const inflFactor=Math.pow(1+inf,yr);
   const futureMonthly=targetReal*inflFactor;
 
-  // 2. Required portfolio (nominal at retirement)
-  // When wgr>0, withdrawals grow above inflation — need larger portfolio
-  // Adjustment: P = annual_withdrawal / (wr - wgr) when wr > wgr (Gordon Growth)
-  const effWR = wgr > 0 ? Math.max(0.001, wr - wgr) : wr;
-  const reqPortfolio=futureMonthly*12/effWR;
+  // 2. Required portfolio (nominal at retirement) — FIX-3: PVA annuita pre konečný horizont
+  // Gordon Growth (perpetuita P=CF/(r-g)) platí len pre nekonečný horizont.
+  // Pre 25–35-ročný dôchodok používame Present Value Annuity.
+  // Roky výberu: použijeme hodnotu z posuvníka r-gyr (Tab 3) alebo default 30
+  const gyrRet = +($el('r-gyr')?.value || 30);
+
+  // Guard: ak wgr >= wr alebo effRet <= nomWithdrawGrowth_early, výpočet je nezmyselný
+  // PATCH-C: pri skorom návrate resetovať VŠETKY výsledkové elementy (nie len časť)
+  const nomWithdrawGrowthEarly = (1+inf)*(1+wgr)-1;
+  const blockedByWgr = wgr >= wr;
+  const blockedByReturn = effRet <= nomWithdrawGrowthEarly;
+  if (blockedByWgr || blockedByReturn) {
+    const msg = blockedByWgr
+      ? `⚠ Rast výberov (${fmtP(wgr*100)}) sa rovná alebo prevyšuje mieru výberu (${fmtP(wr*100)}). Portfólio by muselo byť nekonečne veľké. Znížte rast výberov alebo zvýšte mieru výberu.`
+      : `⚠ Váš výnos po poplatkoch (${fmtP(effRet*100)}) je nižší ako kombinovaný rast výberov (${fmtP(nomWithdrawGrowthEarly*100)} = inflácia + rast výberov). Výpočet nemôže poskytnúť zmysluplný výsledok. Znížte rast výberov alebo zvýšte predpokladaný výnos.`;
+    $el('rv-monthly').textContent = '—';
+    $el('rv-monthly').style.color = '';
+    $el('rv-monthly-sub').textContent = msg;
+    $el('rv-portfolio').textContent = '—';
+    $el('rv-portfolio').style.color = '';
+    $el('rv-portfolio-real').textContent = '—';
+    $el('rv-portfolio-sub') && ($el('rv-portfolio-sub').textContent = '');
+    $el('rv-withdraw-nom').textContent = '—';
+    $el('rv-withdraw-real').textContent = '—';
+    $el('rv-total-in') && ($el('rv-total-in').textContent = '—');
+    $el('rv-market-gains') && ($el('rv-market-gains').textContent = '—');
+    $el('rv-multiplier') && ($el('rv-multiplier').textContent = '—');
+    const cautionElB = $el('rv-caution-note');
+    if (cautionElB) cautionElB.style.display = 'none';
+    // Reset sustain block — vrátane farieb a veľkosti textu
+    const sb=$el('rv-sustain-block');
+    if(sb){ sb.style.background='rgba(77,142,240,.04)'; sb.style.borderColor='rgba(77,142,240,.25)'; }
+    const svEl=$el('rv-sustain-val');
+    if(svEl){ svEl.textContent='—'; svEl.style.color='var(--muted)'; svEl.style.fontSize=''; }
+    $el('rv-sustain-unit') && ($el('rv-sustain-unit').textContent = '');
+    const slEl=$el('rv-sustain-lbl');
+    if(slEl){ slEl.textContent='Zadajte platné vstupy pre výpočet'; slEl.style.color='var(--muted)'; }
+    $el('rv-sustain-note') && ($el('rv-sustain-note').textContent = '');
+    $el('rv-sustain-bar') && ($el('rv-sustain-bar').style.width = '0%');
+    // Vymaž citlivostné tabuľky — inak ostanú stale riadky z predchádzajúceho výpočtu
+    const tb1=$el('rv-sensitivity-tbody'); if(tb1) tb1.innerHTML='';
+    const tb2=$el('rv-duration-tbody');    if(tb2) tb2.innerHTML='';
+    const tb3=$el('t10-inc-tbody');        if(tb3) tb3.innerHTML='';
+    return;
+  }
+
+  // PVA: growing annuity present value (správna formula)
+  // PV = C * (1 - ((1+g)/(1+r))^n) / (r - g)
+  // kde C = ročný výber v roku odchodu, r = nominálny výnos portfólia, g = nominálny rast výberov
+  const nomWithdrawGrowth = (1+inf)*(1+wgr)-1;  // kombinovaný nominálny rast výberov
+
+  // PATCH-D: Klasifikácia zóny stability
+  // gap = effRet − nomWithdrawGrowth → čím menší, tým nestabilnejší výsledok
+  const gap = effRet - nomWithdrawGrowth;
+  const ZONE_UNSTABLE = 0.005;  // < 0,5 %p → nestabilné, zobraziť rozsah
+  const ZONE_CAUTION  = 0.020;  // 0,5–2 %p → citlivé, zobraziť varovanie
+  const stabilityZone = gap < ZONE_UNSTABLE ? 'unstable' : gap < ZONE_CAUTION ? 'caution' : 'stable';
+
+  let reqPortfolio, reqPortfolioLow = null, reqPortfolioHigh = null;
+  if (Math.abs(gap) < 1e-9 || effRet < nomWithdrawGrowth) {
+    reqPortfolio = futureMonthly * 12 * gyrRet;
+  } else {
+    const xGrowAnn = (1+nomWithdrawGrowth)/(1+effRet);
+    reqPortfolio = futureMonthly * 12 * (1 - Math.pow(xGrowAnn, gyrRet)) / (effRet - nomWithdrawGrowth);
+    // Pre nestabilnú zónu: vypočítaj rozsah ±0,5 %p výnosu
+    if (stabilityZone === 'unstable') {
+      const effRetUp   = effRet + 0.005;
+      const effRetDown = Math.max(nomWithdrawGrowth + 0.001, effRet - 0.005);
+      const xUp   = (1+nomWithdrawGrowth)/(1+effRetUp);
+      const xDown = (1+nomWithdrawGrowth)/(1+effRetDown);
+      reqPortfolioLow  = futureMonthly * 12 * (1 - Math.pow(xUp,   gyrRet)) / (effRetUp   - nomWithdrawGrowth);
+      reqPortfolioHigh = futureMonthly * 12 * (1 - Math.pow(xDown, gyrRet)) / (effRetDown - nomWithdrawGrowth);
+    }
+  }
   const reqPortfolioReal=reqPortfolio/inflFactor; // in today's €
 
   // 3. FV of lump sum
@@ -9154,25 +9275,78 @@ function calcReverse(){
   const marketGains=reqPortfolio-totalIn;
   const multiplier=reqPortfolio/Math.max(1,totalIn);
 
-  // Update DOM
-  $el('rv-monthly').textContent=fmt(monthlyPMT)+'/mes.';
-  $el('rv-monthly-sub').textContent=
-    `Prvý mesačný vklad dnes. Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) by model odhadoval portfólio ${fmt(reqPortfolio)} `+
-    (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
-  $el('rv-portfolio').textContent=fmt(reqPortfolio);
-  $el('rv-portfolio-sub').textContent=`nominálne v roku ${new Date().getFullYear()+yr}`;
-  $el('rv-portfolio-real').textContent=fmt(reqPortfolioReal);
+  // #10: zaokrúhliť nahor na €10 — deklarované tu, použité v DOM aj renderIncTable
+  const monthlyPMTRounded = monthlyPMT > 0 ? Math.ceil(monthlyPMT / 10) * 10 : 0;
+
+  // Update DOM — zóna-vedomé zobrazenie
+  // PATCH-D2: v unstable zóne zobraziť rozsah, nie presné číslo
+  if (stabilityZone === 'unstable' && reqPortfolioLow !== null) {
+    const loK = Math.round(reqPortfolioLow / 1000) * 1000;
+    const hiK = Math.round(reqPortfolioHigh / 1000) * 1000;
+    $el('rv-monthly').textContent = '⚠ Nestabilný odhad';
+    $el('rv-monthly').style.color = 'var(--amber2)';
+    $el('rv-monthly-sub').textContent =
+      `Váš výnos (${fmtP(effRet*100)}) je len o ${fmtP(gap*100)} vyšší ako rast výberov (${fmtP(nomWithdrawGrowth*100)}). ` +
+      (()=>{
+        const _pva=(r,g,n,C12)=>Math.abs(r-g)<1e-9||r<g?C12*n:C12*(1-Math.pow((1+g)/(1+r),n))/(r-g);
+        const C12=futureMonthly*12;
+        const pctUp  =Math.round(Math.abs(_pva(effRet+0.005,nomWithdrawGrowth,gyrRet,C12)/reqPortfolio-1)*100);
+        const pctDown=Math.round(Math.abs(_pva(Math.max(nomWithdrawGrowth+0.001,effRet-0.005),nomWithdrawGrowth,gyrRet,C12)/reqPortfolio-1)*100);
+        return `Výsledok je nestabilný — zmena výnosu o ±0,5 % mení potrebné portfólio o ${Math.min(pctUp,pctDown)}–${Math.max(pctUp,pctDown)} %. Toto číslo NIE JE pevný cieľ.`;
+      })();
+    $el('rv-portfolio').textContent = `~${fmt(loK)} – ${fmt(hiK)}`;
+    $el('rv-portfolio').style.color = 'var(--amber2)';
+    $el('rv-portfolio-sub').textContent = `orientačný rozsah pri výnose ±0,5 % (nie presná hodnota)`;
+  } else {
+    $el('rv-monthly').style.color = '';
+    $el('rv-portfolio').style.color = '';
+    $el('rv-monthly').textContent = fmt(monthlyPMTRounded)+'/mes.';
+    $el('rv-monthly-sub').textContent =
+      `Orientačný mesačný vklad dnes (zaokrúhlené nahor na €10). Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) by model odhadoval portfólio ${fmt(reqPortfolio)} (nominálne €) `+
+      (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
+    $el('rv-portfolio').textContent = fmt(reqPortfolio);
+    $el('rv-portfolio-sub').textContent = `nominálne v roku ${new Date().getFullYear()+yr}`;
+  }
+
+  // Caution-zone notification (pod portfóliom)
+  const cautionEl = $el('rv-caution-note');
+  if (cautionEl) {
+    if (stabilityZone === 'caution') {
+      const pvaShifted = futureMonthly * 12 * (1 - Math.pow((1+nomWithdrawGrowth)/(1+effRet+0.01), gyrRet)) / (effRet+0.01 - nomWithdrawGrowth);
+      const changePerPp = reqPortfolio > 0
+        ? Math.abs((pvaShifted - reqPortfolio) / reqPortfolio * 100).toFixed(0)
+        : '—';
+      cautionEl.style.display = 'block';
+      cautionEl.textContent = `ℹ Výsledok je citlivý: zmena výnosu o 1 % p. zmení potrebné portfólio o ~${changePerPp} %. Berte ho ako hrubý odhad, nie presný cieľ.`;
+    } else if (stabilityZone === 'unstable') {
+      cautionEl.style.display = 'block';
+      cautionEl.textContent = `⚠ Model je v nestabilnej zóne (rozdiel výnos − rast výberov = ${fmtP(gap*100)}). Znížte rast výberov alebo zvýšte predpokladaný výnos pre spoľahlivejší výsledok.`;
+    } else {
+      cautionEl.style.display = 'none';
+    }
+  }
+  $el('rv-portfolio-real').textContent = stabilityZone === 'unstable' ? '—' : fmt(reqPortfolioReal);
   $el('rv-withdraw-nom').textContent=fmt(futureMonthly)+'/mes.';
   $el('rv-withdraw-real').textContent=fmt(targetReal)+'/mes.';
-  $el('rv-total-in').textContent=fmt(totalIn);
-  $el('rv-market-gains').textContent=fmt(marketGains);
-  $el('rv-multiplier').textContent=multiplier.toFixed(2).replace('.',',')+'×';
+  $el('rv-total-in').textContent = stabilityZone === 'unstable' ? '—' : fmt(totalIn);
+  $el('rv-market-gains').textContent = stabilityZone === 'unstable' ? '—' : fmt(marketGains);
+  $el('rv-multiplier').textContent = stabilityZone === 'unstable' ? '—' : multiplier.toFixed(2).replace('.',',')+'×';
 
   // ── SUSTAINABILITY: how long will the portfolio last? ──
   // Simulácia výberu — SPRÁVNA NOMINÁLNA METÓDA
   // portfólio rastie nominálne (retNet), výbery rastú s infláciou+wgr
-  const totalWithdrawGrowth=inf+wgr;
-  const annualWithdraw=reqPortfolio*effWR; // Správne: wr-wgr (portfólio bolo dimenzované na effWR)
+  // V UNSTABLE zóne: reqPortfolio je nestabilné → sustain číslo nie je spoľahlivé → skryť
+  if (stabilityZone === 'unstable') {
+    const block=$el('rv-sustain-block');
+    if(block){ block.style.background='rgba(245,158,11,.05)'; block.style.borderColor='rgba(245,158,11,.25)'; }
+    const svEl=$el('rv-sustain-val'); if(svEl){ svEl.textContent='—'; svEl.style.color='var(--amber2)'; svEl.style.fontSize=''; }
+    $el('rv-sustain-unit') && ($el('rv-sustain-unit').textContent='');
+    const slEl=$el('rv-sustain-lbl'); if(slEl){ slEl.textContent='Výdrž portfólia nie je možné odhadnúť v nestabilnej zóne'; slEl.style.color='var(--amber2)'; }
+    $el('rv-sustain-note') && ($el('rv-sustain-note').textContent='Portfólio je dimenzované na nestabilnom základe — zmena výnosu o 0,5 % by zmenila výsledok o desiatky percent.');
+    $el('rv-sustain-bar') && ($el('rv-sustain-bar').style.width='0%');
+  } else {
+  const totalWithdrawGrowth=(1+inf)*(1+wgr)-1; // FIX-2: zlúčené (multiplikatívne), nie aditivné
+  const annualWithdraw=futureMonthly*12; // FIX-3b: ročný výber v nominálnej hodnote v roku odchodu
   let sustainYrs=0, isForever=false, bal2=reqPortfolio;
   for(let y=1;y<=150;y++){
     const w=annualWithdraw*Math.pow(1+totalWithdrawGrowth,y-1);
@@ -9221,6 +9395,7 @@ function calcReverse(){
     barEl.style.width=barPct+'%';
     barEl.style.background=color;
   }
+  } // end else (not unstable)
 
   // Update sensitivity table labels
   $el('rv-tbl-target').textContent=Math.round(targetReal).toLocaleString('sk-SK');
@@ -9228,13 +9403,20 @@ function calcReverse(){
   $el('rv-tbl-ret').textContent=fmtP(ret*100);
 
   // Sensitivity table 1: different return assumptions
+  // V UNSTABLE zóne: reqPortfolio je volatile → tabuľka by zavádzala
   const returnScenarios=[4,5,6,7,8,9,10,11,12];
   const tbody1=$el('rv-sensitivity-tbody');tbody1.innerHTML='';
+  if (stabilityZone === 'unstable') {
+    const warnRow=document.createElement('tr');
+    warnRow.innerHTML=`<td colspan="4" style="color:var(--amber2);font-size:12.5px;padding:8px 0;line-height:1.5;">⚠ Tabuľka citlivosti nie je k dispozícii — model je v nestabilnej zóne. Znížte rast výberov pre spoľahlivejší výsledok.</td>`;
+    tbody1.appendChild(warnRow);
+  } else {
   const hdr1=document.createElement('tr');
-  hdr1.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">VÝNOS P.A.</td><td style="color:var(--muted);font-size:13.2px;">MES. VKLAD</td><td style="color:var(--muted);font-size:13.2px;">SPOLU VLOŽÍTE</td><td style="color:var(--muted);font-size:13.2px;text-align:right;">MULTIPLIKÁTOR</td>`;
+  hdr1.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">VÝNOS P.A.</td><td style="color:var(--muted);font-size:13.2px;">MES. VKLAD<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">dnes (1. platba)</span></td><td style="color:var(--muted);font-size:13.2px;">SPOLU VLOŽÍTE<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">súčet nom. vkladov</span></td><td style="color:var(--muted);font-size:13.2px;text-align:right;">MULTIPLIKÁTOR</td>`;
   tbody1.appendChild(hdr1);
   returnScenarios.forEach(sc=>{
-    const eR=(sc/100)-fee;
+    // PATCH-T10-SENS: multiplikatívna TER metóda — konzistentná s calcRows a requiredPMT
+    const eR=(1+sc/100)*(1-fee)-1;
     const fvL=ini*Math.pow(1+eR,yr);
     const fvN=Math.max(0,reqPortfolio-fvL);
     const pmt=requiredPMT(fvN,eR,inc,yr);
@@ -9252,17 +9434,27 @@ function calcReverse(){
       <td style="text-align:right;color:var(--emerald)">${mult.toFixed(2).replace('.',',')}×</td>`;
     tbody1.appendChild(tr);
   });
+  } // end else (not unstable) for sensitivity table 1
 
   // Sensitivity table 2: different durations
   const durScenarios=[10,15,20,25,30,35,40,45,50];
   const tbody2=$el('rv-duration-tbody');tbody2.innerHTML='';
   const hdr2=document.createElement('tr');
-  hdr2.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">ROKY INV.</td><td style="color:var(--muted);font-size:13.2px;">MES. VKLAD</td><td style="color:var(--muted);font-size:13.2px;">CIEĽ. PORTFÓLIO</td><td style="color:var(--muted);font-size:13.2px;text-align:right;">TREBA NASPORIŤ</td>`;
+  hdr2.innerHTML=`<td style="color:var(--muted);font-size:13.2px;letter-spacing:1.5px;padding-bottom:8px;">ROKY INV.</td><td style="color:var(--muted);font-size:13.2px;">MES. VKLAD<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">dnes (1. platba)</span></td><td style="color:var(--muted);font-size:13.2px;">CIEĽ. PORTFÓLIO<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">nominálne € v roku odchodu</span></td><td style="color:var(--muted);font-size:13.2px;text-align:right;">TREBA NASPORIŤ<br><span style="font-size:11px;letter-spacing:0;text-transform:none;opacity:.7;">súčet nom. vkladov</span></td>`;
   tbody2.appendChild(hdr2);
   durScenarios.forEach(dy=>{
     const iF=Math.pow(1+inf,dy);
     const fM=targetReal*iF;
-    const rP=fM*12/wr;
+    // PATCH-B: PVA growing annuity — withdrawal horizon = gyrRet (nie dy!)
+    // dy = roky investovania, gyrRet = roky čerpania v dôchodku (sú to RÔZNE veci)
+    const nomWGd = (1+inf)*(1+wgr)-1;
+    let rP;
+    if (Math.abs(effRet - nomWGd) < 1e-9 || effRet < nomWGd) {
+      rP = fM * 12 * gyrRet;
+    } else {
+      const xd = (1+nomWGd)/(1+effRet);
+      rP = fM * 12 * (1 - Math.pow(xd, gyrRet)) / (effRet - nomWGd);
+    }
     const fL=ini*Math.pow(1+effRet,dy);
     const fN=Math.max(0,rP-fL);
     const nd=dy*12;
@@ -9281,7 +9473,7 @@ function calcReverse(){
       <td style="text-align:right;color:var(--blue2)">${fmt(tIn)}</td>`;
     tbody2.appendChild(tr);
   });
-  renderIncTable('t10-inc-tbody', monthlyPMT, inc, yr, null);
+  renderIncTable('t10-inc-tbody', stabilityZone === 'unstable' ? 0 : monthlyPMTRounded, inc, yr, null);
 }
 
 /* ══════════════════════════════════════════════
@@ -9563,6 +9755,7 @@ function calcFIRE(){
   const wr       = $v('firer-wr')/100;
   const gyr      = $v('firer-gyr');
   const effRet   = (1+ret)*(1-fee)-1;   // multiplikatívna TER metóda
+  const retStredny = ret;  // FIX-4: alias pre scenáre
 
   // Update labels
   // firel-mon label bol pre slider — nahradený priamym number inputom
@@ -9595,14 +9788,16 @@ function calcFIRE(){
   const fireNum = hasExpenses ? (expenses * 12 / wr) : 0;  // today's € target
   const MAX_M = 600;  // 50 years max
 
-  // PATCH-12a: neutrálne názvy scenárov s číselným ukotvením — bez "Realistický" (sugeruje pravdepodobnosť)
-  const retOpatrny = Math.max(0.01, ret * 0.75);   // -25% relatívne
-  const retStredny = ret;
-  const retNapnaty = Math.min(0.15, ret * 1.25);   // +25% relatívne
+  // FIX-4: Historicky ukotvené scenáre — nezávislé od používateľovho odhadu
+  // Relatívne deriváty (×0.75 / ×1.25) boli zavádzajúce: ak user zadal 10%,
+  // "Slabší scenár" = 7,5% — stále nad historickým priemerom EUR portfólia.
+  // Teraz: Konzervatívny (5%), Váš odhad, Historický priemer MSCI World EUR (~8%)
+  const retKonzervativny = 0.05;    // historický dolný kvantiL EUR diverzifikovaného portfólia
+  const retHistoricky   = 0.08;    // dlhodobý priemer MSCI World v EUR (~1990–2024)
   const scenarios = [
-    { name:'Slabší scenár',  subtitle:`výnos: ${fmtP(retOpatrny*100)} (−25% od odhadu)`,  ret: retOpatrny, color:'#f59e0b', bgColor:'rgba(245,158,11,.06)',  borderColor:'rgba(245,158,11,.25)' },
-    { name:'Váš odhad',      subtitle:`výnos: ${fmtP(retStredny*100)} (váš odhad)`,        ret: retStredny, color:'#c8a84b', bgColor:'rgba(200,168,75,.06)',  borderColor:'rgba(200,168,75,.3)'  },
-    { name:'Optimistický',   subtitle:`výnos: ${fmtP(retNapnaty*100)} (+25% od odhadu)`,   ret: retNapnaty, color:'#10b981', bgColor:'rgba(16,185,129,.06)',  borderColor:'rgba(16,185,129,.2)'  }
+    { name:'Konzervatívny',     subtitle:`výnos: ${fmtP(retKonzervativny*100)} (hist. dolný kvantiL EUR)`, ret: retKonzervativny, color:'#f59e0b', bgColor:'rgba(245,158,11,.06)',  borderColor:'rgba(245,158,11,.25)' },
+    { name:'Váš odhad',         subtitle:`výnos: ${fmtP(retStredny*100)} (váš vstup)`,                     ret: retStredny,        color:'#c8a84b', bgColor:'rgba(200,168,75,.06)',  borderColor:'rgba(200,168,75,.3)'  },
+    { name:'Hist. priemer',     subtitle:`výnos: ${fmtP(retHistoricky*100)} (MSCI World EUR ~1990–2024)`,  ret: retHistoricky,     color:'#10b981', bgColor:'rgba(16,185,129,.06)',  borderColor:'rgba(16,185,129,.2)'  }
   ];
 
   const results = scenarios.map(sc => {
@@ -9628,8 +9823,8 @@ function calcFIRE(){
   } else if(mid.sim.reached){
     const yrs = mid.sim.years, mos = mid.sim.monthsRem;
     $el('fire-result-main').textContent =
-      yrs + (yrs===1?' rok':yrs<5?' roky':' rokov') +
-      (mos>0 ? ' a '+mos+(mos===1?' mesiac':mos<5?' mesiace':' mesiacov') : '');
+      yrs + (yrs===1?' rok':yrs<5?' roky':' rokov');
+    // #6: mesiace odstránené — falošná precíznosť pri modeli s ±20% neistotou výnosu
     const sustain = sustainYears(mid.sim.nomAtFIRE, expenses, inf, effRet);
     const sustainNum = sustain === null ? Infinity : sustain;
     const buffer = sustainNum - gyr;
@@ -9652,7 +9847,7 @@ function calcFIRE(){
   } else {
     if (fireResultMain) { fireResultMain.textContent = '50+ rokov'; fireResultMain.style.color = 'var(--red)'; }
     if (fireResultSub)  fireResultSub.textContent =
-      'Pri týchto parametroch Pri týchto parametroch model neodhaduje FIRE do 50 rokov. Vyšší vklad alebo výnos by skrátil horizont.';
+      'Pri týchto parametroch model neodhaduje FIRE do 50 rokov. Vyšší vklad alebo výnos by skrátil horizont.';
   }
 
   // Age badge
@@ -9743,7 +9938,7 @@ function calcFIRE(){
       <div style="font-family:'Source Code Pro',monospace;font-size:14.4px;letter-spacing:2px;color:${r.color};text-transform:uppercase;margin-bottom:4px;">${r.name}</div>
       <div style="font-family:'Source Code Pro',monospace;font-size:13.2px;color:var(--muted);margin-bottom:14px;">${r.subtitle}</div>
       <div style="font-family:'Spectral',serif;font-size:clamp(44px,5vw,64px);font-weight:700;color:${r.color};line-height:1;margin-bottom:10px;">${timeStr}</div>
-      ${s.reached ? `<div style="font-size:15.6px;color:var(--muted2);margin-bottom:16px;">rok (odhad): ${2026+s.years}${currentAge!==null ? ' &nbsp;·&nbsp; <strong style="color:'+r.color+'">vek '+(currentAge+s.years)+'</strong>' : ''}</div>` : '<div style="margin-bottom:16px;"></div>'}
+      ${s.reached ? `<div style="font-size:15.6px;color:var(--muted2);margin-bottom:16px;">rok (odhad): ${new Date().getFullYear()+s.years}${currentAge!==null ? ' &nbsp;·&nbsp; <strong style="color:'+r.color+'">vek '+(currentAge+s.years)+'</strong>' : ''}</div>` : '<div style="margin-bottom:16px;"></div>'}
       <div style="flex:1;border-top:1px solid var(--border);padding-top:14px;">
         <div style="font-size:15.6px;color:var(--muted2);line-height:2;">
           ${s.reached
@@ -9761,8 +9956,8 @@ function calcFIRE(){
                   : buffer>=0  ? `odhad: portfólio pokryje plán, ale bez rezervy`
                   : `simulácia: portfólio sa vyčerpá ${-buffer} rokov pred plánom`;
                 const nomMonthly = expenses * Math.pow(1+inf, s.years + s.monthsRem/12);
-                return `<div>Orientačný mesačný výber: <strong style="color:var(--text);">${fmt(nomMonthly)}/mes.</strong></div>
-               <div style="color:var(--muted);font-size:14.4px;">= ${fmt(expenses)}/mes. v dnešných cenách</div>
+                return `<div>Mesačný výber v roku odchodu: <strong style="color:var(--text);">${fmt(nomMonthly)}/mes.</strong> <span style="font-size:13px;color:var(--muted);">(nominálne €)</span></div>
+               <div style="color:var(--muted);font-size:14.4px;">= ${fmt(expenses)}/mes. v dnešných cenách (kúpna sila)</div>
                <div style="margin-top:6px;">Odhad výdrže: <strong style="color:${syColor};">${syStr}</strong></div>
                <div style="color:var(--muted);font-size:14.4px;">${syCtx}</div>`;
               })()
@@ -9794,7 +9989,7 @@ function calcFIRE(){
 
   const ds = [
     {
-      label: 'Slabší scenár ('+fmtP(retOpatrny*100)+')',
+      label: 'Konzervatívny ('+fmtP(retKonzervativny*100)+', hist. dolný kvantiL EUR)',
       data: sampleYearly(results[0].sim.data),
       borderColor:'#f59e0b', backgroundColor:'rgba(245,158,11,.05)',
       fill:false, tension:.4, borderWidth:2, pointRadius:0, pointHoverRadius:4,
@@ -9808,7 +10003,7 @@ function calcFIRE(){
       spanGaps:false
     },
     {
-      label: 'Optimistický scenár ('+fmtP(retNapnaty*100)+')',
+      label: 'Hist. priemer ('+fmtP(retHistoricky*100)+', MSCI World EUR)',
       data: sampleYearly(results[2].sim.data),
       borderColor:'#10b981', backgroundColor:'rgba(16,185,129,.05)',
       fill:false, tension:.4, borderWidth:2, pointRadius:0, pointHoverRadius:4,
@@ -10194,7 +10389,7 @@ function calcBacktest(){
   dataYears.forEach((yr,i)=>{
     const annualRet=(1+MSCI_WORLD_ANNUAL[yr]/100)*(1-fee/100)-1; // multiplikatívna TER metóda
     const mr=Math.pow(1+annualRet,1/12)-1;
-    const mNow=mon; // flat monthly contribution for simplicity
+    const mNow=mon; // ZJEDNODUŠENIE: konštantný mesačný vklad — backtest nepodporuje ročný rast vkladu
     for(let m=0;m<12;m++){balReal=balReal*(1+mr)+mNow;ctb+=mNow;}
     realData.push(Math.round(balReal));
     labelsData.push(yr+1);
@@ -10268,7 +10463,8 @@ function runMonteCarlo(p,n){
     const path=[bal];
     for(let y=1;y<=yr;y++){
       const annRet=randNorm(p.ret,SIGMA);
-      const effAnn=annRet-p.fee;
+      // PATCH-MC: multiplikatívna TER metóda — konzistentná so zvyškom aplikácie
+      const effAnn=(1+annRet)*(1-p.fee)-1;
       const mr=Math.pow(1+effAnn,1/12)-1;
       const mNow=p.mon*Math.pow(1+p.inc,y-1);
       // lump sums
