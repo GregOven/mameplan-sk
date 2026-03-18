@@ -8377,7 +8377,7 @@ function initSliderPairs(){
       ni.value=v;
       range.value=Math.min(v,mx); // slider clamps visually
       fillSlider(range);
-      range.dispatchEvent(new Event('input',{bubbles:false}));
+      range.dispatchEvent(new Event('input',{bubbles:true}));
       if(range.oninput) range.oninput.call(range,new Event('input'));
     });
     ni.addEventListener('input',()=>{
@@ -10362,7 +10362,8 @@ function openValEdit(valSpan,slider){
     if(isNaN(v)) return close();
     v=Math.min(+slider.max,Math.max(+slider.min,v));
     slider.value=v;
-    slider.dispatchEvent(new Event('input'));
+    fillSlider(slider);
+    slider.dispatchEvent(new Event('input',{bubbles:true}));
     close();
   };
   const close=()=>overlay.remove();
@@ -12503,7 +12504,7 @@ function _imApplyState(state){
           el.value = val;
           const ni = document.getElementById('ni-' + id);
           if(ni) { ni.value = val; }
-          el.dispatchEvent(new Event('input'));
+          el.dispatchEvent(new Event('input',{bubbles:true}));
         }
       });
 
