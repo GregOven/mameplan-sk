@@ -5114,6 +5114,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <!-- PATCH-D: Caution/unstable zone notification -->
     <div id="rv-caution-note" style="display:none;margin-top:10px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--muted2);line-height:1.6;"></div>
 
+    <!-- G8: cross-tab gyrRet default warning -->
+    <div id="rv-gyr-hint" style="display:none;margin-top:8px;background:rgba(77,142,240,.05);border:1px solid rgba(77,142,240,.2);border-radius:8px;padding:9px 13px;font-size:12.5px;color:var(--muted2);line-height:1.6;"></div>
+
     <!-- Monthly breakdown -->
     <div style="margin-top:16px;background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:16px;text-align:left;">
       <div class="slbl" style="margin-bottom:10px;">Rozklad mesačného výberu v rok odchodu</div>
@@ -8908,7 +8911,12 @@ function calc4(){
 
   $el('r4-mon').textContent=fmt(monthlyWithdraw);
   $el('r4-mon').className='r4-big'+(isForever?'':' finite');
-  $el('r4-mon-s').textContent=`orientačný mesačný výber pri ${fmtP(wr*100)} z ${fmt(port)} v roku ${futureYear} — simulácia, konštantný výnos`;
+  // BUG-C fix: warn when retNet<0 — declared here, also used later for stressLabel
+  const baseNegative = retNet < 0;
+  const negRetNote = baseNegative
+    ? ` ⚠ Výnos po poplatkoch (${fmtP(retNet*100)}) je záporný — portfólio reálne klesá každý rok aj bez výberov.`
+    : '';
+  $el('r4-mon-s').textContent=`orientačný mesačný výber pri ${fmtP(wr*100)} z ${fmt(port)} v roku ${futureYear} — simulácia, konštantný výnos${negRetNote}`;
   $el('r4-futureyear').textContent=futureYear;
   $el('r4-mon-nom-small').textContent=fmt(monthlyWithdraw);
   $el('r4-mon-real').textContent=fmt(monthlyReal);
@@ -9016,7 +9024,12 @@ function calc4(){
   });
 
   // chart — stresový scenár: výnos -2 pp
-  const stressRetNet = Math.max(0, retNet - 0.02);
+  // G1 FIX: Math.max(0,...) by pri zápornom retNet dávalo stress=0 > base → zavádzajúce.
+  // Stres musí byť vždy HORŠÍ ako základ. Ak je základ záporný, stres = základ - 2pp (nie 0).
+  const stressRetNet = retNet - 0.02;  // môže byť záporné — to je správne
+  const stressLabel = retNet < 0
+    ? `Stresový scenár (výnos ${fmtP((stressRetNet)*100)}, záporný)`
+    : `Stresový scenár (výnos −2 %)`;
   let stressBal = port;
   const stressRows = [{y:0,bal:Math.round(stressBal)}];
   for(let y=1;y<=gyr;y++){
@@ -9051,7 +9064,7 @@ function calc4(){
       fill:false,tension:.4,borderWidth:2,pointRadius:0,pointHoverRadius:5
     },
     {
-      label:'Stresový scenár (výnos −2 %)',
+      label:stressLabel,
       data:stressRows.map(r=>r.bal),
       borderColor:'rgba(240,82,82,.7)',backgroundColor:'rgba(240,82,82,.05)',
       fill:false,tension:.4,borderWidth:1.5,pointRadius:0,pointHoverRadius:4,
@@ -9172,6 +9185,25 @@ function calcReverse(){
   const rvTargetWrap = document.getElementById('rv-target')?.closest('.ni-wrap');
   if(rvTargetWrap) rvTargetWrap.classList.toggle('rv-target-empty', targetReal === 0);
 
+  // Guard: prázdny cieľ → zobraziť výzvu namiesto zavádzajúceho "✓ €0 / mes."
+  if (targetReal === 0) {
+    $el('rv-monthly').textContent = '—';
+    $el('rv-monthly').style.color = '';
+    $el('rv-monthly-sub').textContent = 'Zadajte požadovaný mesačný výber v dnešných € (pole vyššie).';
+    $el('rv-portfolio').textContent = '—';
+    $el('rv-portfolio').style.color = '';
+    $el('rv-portfolio-real').textContent = '—';
+    $el('rv-portfolio-sub') && ($el('rv-portfolio-sub').textContent = '');
+    $el('rv-withdraw-nom').textContent = '—';
+    $el('rv-withdraw-real').textContent = '—';
+    $el('rv-total-in') && ($el('rv-total-in').textContent = '—');
+    $el('rv-market-gains') && ($el('rv-market-gains').textContent = '—');
+    $el('rv-multiplier') && ($el('rv-multiplier').textContent = '—');
+    const cautionElZ = $el('rv-caution-note'); if(cautionElZ) cautionElZ.style.display='none';
+    const gyrHintZ = $el('rv-gyr-hint'); if(gyrHintZ) gyrHintZ.style.display='none';
+    return;
+  }
+
   // 1. Inflate target to future nominal
   const inflFactor=Math.pow(1+inf,yr);
   const futureMonthly=targetReal*inflFactor;
@@ -9180,7 +9212,20 @@ function calcReverse(){
   // Gordon Growth (perpetuita P=CF/(r-g)) platí len pre nekonečný horizont.
   // Pre 25–35-ročný dôchodok používame Present Value Annuity.
   // Roky výberu: použijeme hodnotu z posuvníka r-gyr (Tab 3) alebo default 30
+  // G8 FIX: ak r-gyr nie je dostupný (Tab3 nikdy neotvorená), použijeme 30 a upozorníme
   const gyrRet = +($el('r-gyr')?.value || 30);
+  const gyrRetIsDefault = !$el('r-gyr')?.value;
+  if (gyrRetIsDefault) {
+    // Tiché varovanie do konzoly + vizuálny hint ak element existuje
+    const gyrHint = $el('rv-gyr-hint');
+    if (gyrHint) {
+      gyrHint.style.display = 'block';
+      gyrHint.textContent = `ℹ Výpočet predpokladá ${gyrRet} rokov čerpania (default). Pre presnejší výsledok nastavte počet rokov v záložke "Výber z portfólia" (Tab 3).`;
+    }
+  } else {
+    const gyrHint = $el('rv-gyr-hint');
+    if (gyrHint) gyrHint.style.display = 'none';
+  }
 
   // Guard: ak wgr >= wr alebo effRet <= nomWithdrawGrowth_early, výpočet je nezmyselný
   // PATCH-C: pri skorom návrate resetovať VŠETKY výsledkové elementy (nie len časť)
@@ -9219,6 +9264,8 @@ function calcReverse(){
     const tb1=$el('rv-sensitivity-tbody'); if(tb1) tb1.innerHTML='';
     const tb2=$el('rv-duration-tbody');    if(tb2) tb2.innerHTML='';
     const tb3=$el('t10-inc-tbody');        if(tb3) tb3.innerHTML='';
+    // BUG-B fix: clear gyr-hint in BLOCKED state
+    const _gyrHintB=$el('rv-gyr-hint'); if(_gyrHintB) _gyrHintB.style.display='none';
     return;
   }
 
@@ -9256,10 +9303,20 @@ function calcReverse(){
   const fvLump=ini*Math.pow(1+effRet,yr);
 
   // 4. FV needed from monthly contributions
+  // G4 FIX: detect when existing savings already exceed target
+  const alreadyOnTrack = fvLump >= reqPortfolio && ini > 0;
   const fvNeeded=Math.max(0,reqPortfolio-fvLump);
 
   // 5. Required monthly PMT (today's first payment)
   const monthlyPMT=requiredPMT(fvNeeded,effRet,inc,yr);
+  // G3 FIX: detect why PMT=0 to explain it in UI
+  const pmtZeroReason = monthlyPMT === 0
+    ? alreadyOnTrack
+      ? 'on-track'        // existing savings cover target
+      : fvNeeded === 0
+        ? 'on-track'
+        : 'inc-sufficient' // growing contributions cover target without initial PMT
+    : null;
 
   // 6. Total invested (approx: sum of growing payments over n months)
   const n=yr*12;
@@ -9273,7 +9330,11 @@ function calcReverse(){
     totalIn=monthlyPMT*(Math.pow(1+g,n)-1)/g+ini;
   }
   const marketGains=reqPortfolio-totalIn;
-  const multiplier=reqPortfolio/Math.max(1,totalIn);
+  // G5 FIX: multiplier is meaningless when totalIn≈ini (PMT=0, no contributions)
+  // G5: multiplier is only meaningful when user is actually contributing something
+  // BUG-A fix: ini===0 alone is NOT sufficient — if PMT=0 too, there's nothing to show
+  const multiplierValid = monthlyPMT > 0 || (ini > 0 && totalIn > ini * 1.01);
+  const multiplier = multiplierValid ? reqPortfolio/Math.max(1,totalIn) : null;
 
   // #10: zaokrúhliť nahor na €10 — deklarované tu, použité v DOM aj renderIncTable
   const monthlyPMTRounded = monthlyPMT > 0 ? Math.ceil(monthlyPMT / 10) * 10 : 0;
@@ -9300,10 +9361,23 @@ function calcReverse(){
   } else {
     $el('rv-monthly').style.color = '';
     $el('rv-portfolio').style.color = '';
-    $el('rv-monthly').textContent = fmt(monthlyPMTRounded)+'/mes.';
-    $el('rv-monthly-sub').textContent =
-      `Orientačný mesačný vklad dnes (zaokrúhlené nahor na €10). Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) by model odhadoval portfólio ${fmt(reqPortfolio)} (nominálne €) `+
-      (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
+    // G3/G4: explain PMT=0 instead of showing blank €0/mes.
+    if (pmtZeroReason === 'on-track') {
+      $el('rv-monthly').textContent = '€0 / mes.';
+      $el('rv-monthly').style.color = 'var(--emerald2)';
+      $el('rv-monthly-sub').textContent =
+        `✓ Vaše súčasné úspory (${fmt(ini)}) pri výnose ${fmtP(effRet*100)} za ${yr} rokov dosiahnu cieľ bez ďalšieho mesačného vkladu. Nie je potrebný nový vklad.`;
+    } else if (pmtZeroReason === 'inc-sufficient') {
+      $el('rv-monthly').textContent = '€0 / mes.';
+      $el('rv-monthly').style.color = 'var(--emerald2)';
+      $el('rv-monthly-sub').textContent =
+        `✓ Váš plán rastúcich vkladov (rast ${fmtP(inc*100)}/rok) pokrýva cieľ aj bez nového počiatočného vkladu.`;
+    } else {
+      $el('rv-monthly').textContent = fmt(monthlyPMTRounded)+'/mes.';
+      $el('rv-monthly-sub').textContent =
+        `Orientačný mesačný vklad dnes (zaokrúhlené nahor na €10). Za ${yr} rokov (rok ${new Date().getFullYear()+yr}) by model odhadoval portfólio ${fmt(reqPortfolio)} (nominálne €) `+
+        (inc>0?`(vklad každý rok rastie o ${fmtP(inc*100)}).`:'(konštantný vklad každý rok).');
+    }
     $el('rv-portfolio').textContent = fmt(reqPortfolio);
     $el('rv-portfolio-sub').textContent = `nominálne v roku ${new Date().getFullYear()+yr}`;
   }
@@ -9330,7 +9404,10 @@ function calcReverse(){
   $el('rv-withdraw-real').textContent=fmt(targetReal)+'/mes.';
   $el('rv-total-in').textContent = stabilityZone === 'unstable' ? '—' : fmt(totalIn);
   $el('rv-market-gains').textContent = stabilityZone === 'unstable' ? '—' : fmt(marketGains);
-  $el('rv-multiplier').textContent = stabilityZone === 'unstable' ? '—' : multiplier.toFixed(2).replace('.',',')+'×';
+  // G5: multiplierValid=false when PMT=0 (totalIn≈ini) — ratio would be meaningless
+  $el('rv-multiplier').textContent = stabilityZone === 'unstable' ? '—'
+    : !multiplierValid ? '—'
+    : multiplier.toFixed(2).replace('.',',')+'×';
 
   // ── SUSTAINABILITY: how long will the portfolio last? ──
   // Simulácia výberu — SPRÁVNA NOMINÁLNA METÓDA
