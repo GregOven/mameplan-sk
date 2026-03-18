@@ -12229,6 +12229,16 @@ function openImportConfirm(){
 
 /* ── Import module constants — module-level scope ── */
 const FORBIDDEN_KEYS = ['__proto__','constructor','prototype'];
+const CF_TYPES = ['income','expense','invest','savings'];
+const LIM = {
+  STR: 200, NOTE: 500, DEBTS: 100, BUCKETS: 50,
+  ASSETS: 100, LUMPS: 20, CF_CATS: 20, CF_ITEMS: 50
+};
+const trimStr = (v, max) => String(v || '').slice(0, max);
+const safeNum = (v, min, max) => {
+  const n = parseFloat(v);
+  return isFinite(n) ? Math.min(Math.max(n, min), max) : 0;
+};
 
 function _imShowStep(id){
   ['im-step-warn','im-step-preview','im-step-error','im-step-success'].forEach(s=>{
@@ -12434,19 +12444,7 @@ function importAppState(event){
         event.target.value=''; return;
       }
 
-      /* S-5: Limity — max počet položiek a dĺžka stringov */
-      const LIM = {
-        STR: 200, NOTE: 500, DEBTS: 100, BUCKETS: 50,
-        ASSETS: 100, LUMPS: 20, CF_CATS: 20, CF_ITEMS: 50
-      };
-      const trimStr = (v, max) => String(v || '').slice(0, max);
-      const safeNum = (v, min, max) => {
-        const n = parseFloat(v);
-        return isFinite(n) ? Math.min(Math.max(n, min), max) : 0;
-      };
-
-      /* S-6: Whitelists */
-      const CF_TYPES = ['income','expense','invest','savings'];
+      /* S-5: Limity a helpery — definované na úrovni modulu */
 
       // S-6: Schema version check — upozornenie v preview, nie toast
       let versionWarn = '';
