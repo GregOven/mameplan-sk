@@ -6894,6 +6894,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <!-- Porovnanie: Splácať vs. Investovať -->
   <div class="panel" style="" id="debt-compare-panel">
     <p class="plbl" style="margin-bottom:6px;">Investovať alebo splácať rýchlejšie?</p>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+      <label style="font-size:13px;color:var(--muted2);white-space:nowrap;">Dlh:</label>
+      <select id="debt-compare-sel" style="flex:1;min-width:140px;background:var(--bg3);border:1.5px solid var(--border2);color:var(--text);border-radius:8px;padding:5px 10px;font-size:13px;outline:none;" data-calc="calcDebt">
+        <option value="">— automaticky (najvyššia sadzba) —</option>
+      </select>
+    </div>
     <p style="font-size:13px;color:var(--muted2);margin-bottom:14px;" id="debt-compare-context">Porovnanie pre dlh s najvyššou sadzbou.</p>
     <div id="debt-compare-content">
       <div style="font-size:14.4px;color:var(--muted);padding:4px 0;">Zadajte dlhy pre zobrazenie porovnania.</div>
@@ -6918,7 +6924,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div>
         <label style="font-size:13px;color:var(--muted2);display:block;margin-bottom:6px;">Nová sadzba po refixácii</label>
         <div class="debt-fi" style="background:var(--bg3);border:1.5px solid var(--border2);border-radius:8px;padding:5px 10px;">
-          <input type="number" id="refix-new-rate" value="3.5" data-focus-select="true" min="0" max="15" step="0.05" aria-label="Nová sadzba hypotéky po refixácii v percentách"
+          <input type="number" id="t4-refix-new-rate" value="3.5" data-focus-select="true" min="0" max="15" step="0.05" aria-label="Nová sadzba hypotéky po refixácii v percentách"
             data-calc="calcRefixation" style="background:transparent;border:none;outline:none;color:var(--text);font-size:14px;width:60px;">
           <span class="du">%</span>
         </div>
@@ -11813,7 +11819,7 @@ const STATE_INPUT_IDS = [
   /* Tab 8 – Hypotéka */
   'mr-inc1','mr-inc2','mr-debt','mr-rate','mr-term','mr-own','mr-ownb','mr-price',
   'mort-age','mort-age2','mort-inc1-num','mort-inc2-num','mort-price-num',
-  'refix-new-rate','rent-slider','prop-growth','rent-etf-ret','rent-growth',
+  'refix-new-rate','t4-refix-new-rate','rent-slider','prop-growth','rent-etf-ret','rent-growth',
   'mort-first-buyer','mort-in-fixation',
   /* Tab 8 – RPMN poplatky */
   'rpmn-fee-appraisal','rpmn-fee-kataster','rpmn-fee-proc',
@@ -14332,9 +14338,21 @@ function calcDebt(){
     return;
   }
 
-  // Find highest-rate debt (avalanche method)
-  const sorted = [...debtRows].filter(d=>+d.balance>0 && +d.rate>0).sort((a,b)=>b.rate-a.rate);
-  const topDebt = sorted[0];
+  // Populate debt-compare-sel with all valid debts
+  const compareSel = $el('debt-compare-sel');
+  if(compareSel){
+    const prevVal = compareSel.value;
+    compareSel.innerHTML = '<option value="">— automaticky (najvyššia sadzba) —</option>' +
+      sorted.map((d,i)=>`<option value="${debtRows.indexOf(d)}">${esc(d.name||'Dlh '+(i+1))} · ${(+d.rate||0).toFixed(2)}%</option>`).join('');
+    if(prevVal) compareSel.value = prevVal;
+  }
+
+  // Pick selected debt or fall back to highest rate
+  let topDebt = sorted[0];
+  if(compareSel && compareSel.value !== ''){
+    const selIdx = parseInt(compareSel.value);
+    if(!isNaN(selIdx) && debtRows[selIdx] && +debtRows[selIdx].balance > 0) topDebt = debtRows[selIdx];
+  }
   if(!topDebt){if($el('debt-compare-content'))$el('debt-compare-content').innerHTML='';return;}
 
   const topRate  = topDebt.rate/100;
@@ -14358,27 +14376,36 @@ function calcDebt(){
 
   const mStd = _debtMtoP(topBal, topRate, topMon);
   const mFast = _debtMtoP(topBal, topRate, topMon + extra);
-  // horizonYears = shortest loan term across all debts (makes most sense as comparison horizon)
-  // Horizont = doba splatenia TOP dlhu (kam ide extra splátka) — nie minimum všetkých dlhov
-  const horizonYears = Math.min(30, Math.max(3, Math.ceil(mStd/12)));
-  const months = horizonYears * 12;
+  const monthsFaster = Math.max(0, mStd - mFast);
 
-  // Interest saved by paying off faster
+  // Investment horizon = time saved by paying faster (not full loan term)
+  // If no time saved (extra=0 or debt already paid), fall back to full standard term capped at 30yr
+  const investMonths = monthsFaster > 0 ? monthsFaster : Math.min(360, Math.max(36, mStd));
+  const investYears  = investMonths / 12;
+  const horizonYears = Math.min(30, Math.max(1, Math.ceil(mStd/12))); // kept for context display only
+  const months = Math.min(360, Math.max(1, mStd)); // for interest simulation
+
+  // Interest simulation over full standard term
   let balStd = topBal, balFast = topBal;
   let intStd = 0, intFast = 0;
   const mr = topRate/12;
   for(let m=1; m<=months; m++){
     const iStd = balStd*mr; intStd+=iStd; balStd = Math.max(0, balStd+iStd-topMon);
     const iFast = balFast*mr; intFast+=iFast; balFast = Math.max(0, balFast+iFast-(topMon+extra));
-    if(balFast<=0&&balStd>0){} // fast paid off
   }
   const intSaved = Math.max(0, intStd - intFast);
-  const monthsFaster = Math.max(0, mStd - mFast);
+  const totalInterest = Math.round(intStd); // total interest without extra payment
 
-  // Investment scenario: invest extra for same horizon
-  // Geometrická konverzia — konzistentná s fvPMT() a calcRows() (nie aritmetická etfRet/12)
+  // Investment scenario: invest extra for the time saved (= same duration as the benefit)
   const _mrDebt = Math.pow(1 + etfRet, 1/12) - 1;
-  const investFV = _mrDebt > 0 ? extra * ((Math.pow(1+_mrDebt, months)-1)/_mrDebt) : extra * months;
+  const investFV = _mrDebt > 0 ? extra * ((Math.pow(1+_mrDebt, investMonths)-1)/_mrDebt) : extra * investMonths;
+
+  // Formatted invest horizon label
+  const investYrFull = Math.floor(investYears);
+  const investMoRem  = Math.round((investYears - investYrFull) * 12);
+  const investHorizonLabel = investYrFull > 0
+    ? (investMoRem > 0 ? `${investYrFull} r. ${investMoRem} mes.` : `${investYrFull} r.`)
+    : `${Math.round(investMonths)} mes.`;
 
   // Break-even rate: ACC ETF + časový test >1 rok = 0% daň (§9/1/e ZDP) → prah = plný výnos
   // Pre dist ETF alebo krátky horizon: etfRet × 0.86 (14% efektívna daňová záťaž)
@@ -14392,11 +14419,13 @@ function calcDebt(){
         <div class="slbl">Úspora na úrokoch</div>
         <div style="font-family:'Spectral',serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:#fda4af;line-height:1;">${fmt(Math.round(intSaved))}</div>
         <div class="ssub">${(()=>{const yr=Math.floor(monthsFaster/12),mo=monthsFaster%12;return monthsFaster<=0?'pri nezmenených splátkach':yr>0?(mo>0?`splatíte o ${yr} r. ${mo} mes. skôr`:`splatíte o ${yr} r. skôr`):`splatíte o ${mo} mes. skôr`;})()}</div>
+        ${totalInterest>0?`<div style="font-size:12px;color:var(--muted);margin-top:5px;">z celkových úrokov ${fmt(totalInterest)}</div>`:''}
       </div>
       <div class="sc" style="border-color:rgba(200,168,75,.2);">
         <div class="slbl">Investičné portfólio</div>
         <div style="font-family:'Spectral',serif;font-size:clamp(22px,2.5vw,32px);font-weight:700;color:var(--gold2);line-height:1;">${fmt(Math.round(investFV))}</div>
-        <div class="ssub">po ${horizonYears} rokoch pri ${(etfRet*100).toFixed(1).replace('.',',')}% p.a.</div>
+        <div class="ssub">po ${investHorizonLabel} pri ${(etfRet*100).toFixed(1).replace('.',',')}% p.a.</div>
+        ${monthsFaster>0?`<div style="font-size:12px;color:var(--muted);margin-top:5px;">rovnaký horizont ako ušetrený čas</div>`:''}
       </div>
     </div>
     <div style="font-size:14.4px;color:var(--muted2);line-height:1.8;background:rgba(255,255,255,.02);border-radius:10px;padding:10px 12px;">
@@ -15225,7 +15254,7 @@ function calcDebtPayoffStats(){
 /* ══ DEBT: Refixation calculator ══ */
 function calcRefixation(){
   const sel = document.getElementById('refix-debt-sel');
-  const newRateEl = document.getElementById('refix-new-rate');
+  const newRateEl = document.getElementById('t4-refix-new-rate');
   const resEl = document.getElementById('refix-result');
   if(!sel || !newRateEl || !resEl) return;
 
@@ -15313,7 +15342,7 @@ function calcRefixation(){
 
 /* ── ACCESSIBILITY: aria-valuetext pre slidery ── */
 (function initSliderValueText(){
-  const UNITS = {"r-ret": "%", "r-inc": "%", "r-div": "%", "r-inf": "%", "r-fee": "%", "r-stk": "%", "alt-r-td": "%", "alt-r-re": "%", "ar-ret": "%", "ar-inc": "%", "ar-fee": "%", "br-ret": "%", "br-inc": "%", "br-fee": "%", "r-wr": "%", "rvr-ret": "%", "rvr-fee": "%", "rvr-inf": "%", "rvr-wr": "%", "rvr-inc": "%", "rvr-wgr": "%", "firer-ret": "%", "firer-inc": "%", "firer-fee": "%", "firer-inf": "%", "firer-wr": "%", "bt-r-fee": "%", "p2-r-ret": "%", "p3-r-ret": "%", "mr-own": "%", "mr-rate": "%", "refix-new-rate": "%", "prop-growth": "%", "rent-etf-ret": "%", "rent-growth": "%", "ef-rate": "%", "debt-ret": "%", "raise-pct": "%", "r-ini": " €", "r-mon": " €/mes.", "ar-ini": " €", "ar-mon": " €/mes.", "br-ini": " €", "br-mon": " €/mes.", "bt-r-ini": " €", "bt-r-mon": " €/mes.", "p2-r-bal": " €", "p2-r-sal": " €/mes.", "p3-r-own": " €/mes.", "p3-r-emp": " €/mes.", "p3-r-bal": " €", "mr-price": " €", "mr-ownb": " €", "mr-inc1": " €/mes.", "mr-inc2": " €/mes.", "mr-debt": " €/mes.", "rent-slider": " €/mes.", "ef-saved": " €", "ef-monthly": " €/mes.", "ef-expenses": " €/mes.", "debt-extra": " €", "r-yr": " rokov", "ar-yr": " rokov", "br-yr": " rokov", "r-gyr": " rokov", "r-yinv": " rokov", "rvr-yr": " rokov", "firer-gyr": " rokov", "p2-r-yr": " rokov", "mr-term": " rokov", "pil-ret-age": " rokov"};
+  const UNITS = {"r-ret": "%", "r-inc": "%", "r-div": "%", "r-inf": "%", "r-fee": "%", "r-stk": "%", "alt-r-td": "%", "alt-r-re": "%", "ar-ret": "%", "ar-inc": "%", "ar-fee": "%", "br-ret": "%", "br-inc": "%", "br-fee": "%", "r-wr": "%", "rvr-ret": "%", "rvr-fee": "%", "rvr-inf": "%", "rvr-wr": "%", "rvr-inc": "%", "rvr-wgr": "%", "firer-ret": "%", "firer-inc": "%", "firer-fee": "%", "firer-inf": "%", "firer-wr": "%", "bt-r-fee": "%", "p2-r-ret": "%", "p3-r-ret": "%", "mr-own": "%", "mr-rate": "%", "refix-new-rate": "%", "t4-refix-new-rate": "%", "prop-growth": "%", "rent-etf-ret": "%", "rent-growth": "%", "ef-rate": "%", "debt-ret": "%", "raise-pct": "%", "r-ini": " €", "r-mon": " €/mes.", "ar-ini": " €", "ar-mon": " €/mes.", "br-ini": " €", "br-mon": " €/mes.", "bt-r-ini": " €", "bt-r-mon": " €/mes.", "p2-r-bal": " €", "p2-r-sal": " €/mes.", "p3-r-own": " €/mes.", "p3-r-emp": " €/mes.", "p3-r-bal": " €", "mr-price": " €", "mr-ownb": " €", "mr-inc1": " €/mes.", "mr-inc2": " €/mes.", "mr-debt": " €/mes.", "rent-slider": " €/mes.", "ef-saved": " €", "ef-monthly": " €/mes.", "ef-expenses": " €/mes.", "debt-extra": " €", "r-yr": " rokov", "ar-yr": " rokov", "br-yr": " rokov", "r-gyr": " rokov", "r-yinv": " rokov", "rvr-yr": " rokov", "firer-gyr": " rokov", "p2-r-yr": " rokov", "mr-term": " rokov", "pil-ret-age": " rokov"};
   function setValueText(el){
     const unit = UNITS[el.id] || '';
     const val = parseFloat(el.value);
