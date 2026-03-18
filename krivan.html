@@ -4568,6 +4568,19 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <button onclick="showTab('t14',document.getElementById('tab-t14'))" style="font-size:13px;color:var(--gold2);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;">⚙ upraviť v Parametroch →</button>
 </div>
 
+<!-- Čo model nezohľadňuje — vždy viditeľný blok -->
+<div class="sim-disclaimer">
+  <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+  <div>Výsledok je simulácia pri zadaných číslach — nie prognóza ani záruka. Model počíta s rovnakým výnosom každý rok. V skutočnosti trh kolíše.</div>
+  <ul>
+    <li><strong>Sequence risk</strong> — zlé roky <em>na začiatku</em> výberu môžu portfólio vyčerpať oveľa skôr, aj keď dlhodobý priemer vyjde rovnako</li>
+    <li>Vaša miera sporenia a správanie sa časom menia (príjmy, výdavky, životné udalosti)</li>
+    <li>Dane a zákony sa môžu zmeniť</li>
+    <li>Neočakávané výdavky (opravy, kríza, choroba) model neobsahuje</li>
+  </ul>
+  <div class="sim-disclaimer-footer">Pred investičnými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
+</div>
+
 </div><!-- end tab1 -->
 
 
@@ -4649,6 +4662,20 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="chart-wrap"><canvas id="ch2"></canvas></div>
   <div style="margin-top:12px;padding:10px 14px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.15);border-radius:8px;font-size:13.2px;color:var(--muted);line-height:1.55;">⚠ Graf zobrazuje <strong style="color:var(--muted2);">deterministickú projekciu</strong> pri konštantnom ročnom výnose — skutočné portfólio kolíše a poradie dobrých/slabých rokov zásadne mení výsledok. Výsledky nie sú finančným poradenstvom.</div>
 </div>
+
+<!-- Čo model nezohľadňuje — vždy viditeľný blok -->
+<div class="sim-disclaimer">
+  <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+  <div>Porovnanie scenárov je simulácia pri zadaných číslach — nie prognóza ani záruka. Oba scenáre počítajú s rovnakým výnosom každý rok. V skutočnosti trh kolíše.</div>
+  <ul>
+    <li><strong>Sequence risk</strong> — poradie dobrých a zlých rokov zásadne mení výsledok, aj keď dlhodobý priemer vyjde rovnako</li>
+    <li>Vaše správanie a platobná schopnosť sa časom menia (príjmy, výdavky, životné udalosti)</li>
+    <li>Dane a zákony sa môžu zmeniť — čo platí dnes, nemusí platiť o 20 rokov</li>
+    <li>Neočakávané výdavky (opravy, kríza, choroba) model neobsahuje</li>
+  </ul>
+  <div class="sim-disclaimer-footer">Pred investičnými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
+</div>
+
 </div><!-- end tab2 -->
 
 <!-- ══════════════════════════════════════════════
@@ -5530,6 +5557,20 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="chart-wrap" style="height:340px;"><canvas id="ch6"></canvas></div>
   </div>
+
+
+<!-- Čo model nezohľadňuje — vždy viditeľný blok -->
+<div class="sim-disclaimer">
+  <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+  <div>Historický test ukazuje, čo by sa stalo <em>v minulosti</em> — nie čo sa stane v budúcnosti. Minulé výnosy nezaručujú budúce výsledky.</div>
+  <ul>
+    <li>Dáta siahajú do roku 1970 — budúce trhy sa môžu správať inak ako v minulosti</li>
+    <li><strong>Sequence risk</strong> — poradie dobrých a zlých rokov zásadne mení výsledok, aj keď priemer vyjde rovnako</li>
+    <li>Model neobsahuje dane z výnosov, poplatky fondov ani zmeny legislatívy</li>
+    <li>Vaše správanie počas poklesov (napr. predaj v panike) model neodráža</li>
+  </ul>
+  <div class="sim-disclaimer-footer">Historický test je vzdelávacia pomôcka — nie záruka budúcich výsledkov.</div>
+</div>
 
 </div><!-- end right col -->
 </div><!-- end t1 layout -->
