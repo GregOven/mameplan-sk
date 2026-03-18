@@ -3734,7 +3734,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="src-item">
           <span class="src-tag src-tag-method">Monte Carlo</span>
           <div class="src-ref">Simulácia 1 000 náhodných scenárov
-            <div class="src-formula"><strong>r_t</strong> = μ + σ × N(0,1)<br><em>μ = nastavený výnos  ·  σ = 15% (historická volatilita MSCI World 1970–2024)</em></div>
+            <div class="src-formula"><strong>r_t</strong> = μ + σ × N(0,1)<br><em>μ = nastavený výnos  ·  σ = 15% predvolene (historická volatilita MSCI World 1970–2024, editovateľné v ⚙ Parametre)</em></div>
             <small>Zobrazuje distribúciu možných výsledkov — nie len jeden centrálny odhad. Farebné pásma = percentilové rozmedzie.</small>
           </div>
         </div>
@@ -3759,7 +3759,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         </div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Inflácia</span>
-          <div class="src-ref">Reálne hodnoty prevzaté z T1
+          <div class="src-ref">Reálne hodnoty prevzaté z T5 (Rast portfólia)
             <small>Miera inflácie sa preberie automaticky zo záložky ⚙ Parametre (systémová hodnota) — oba scenáre používajú rovnakú infláciu pre konzistentné porovnanie.</small>
           </div>
         </div>
@@ -3866,7 +3866,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <!-- ══ T11 · HYPOTÉKA ══ -->
       <div class="src-calc-block" data-tab="t11">
         <div class="src-calc-title">T11 · Hypotéka</div>
-        <div class="src-calc-desc">Mesačná splátka, amortizačný plán, NBS regulačné limity (DSTI, DTI, LTV), stresový test, predčasné splatenie, refixácia, RPMN a porovnanie kúpa vs. nájom.</div>
+        <div class="src-calc-desc">Mesačná splátka, amortizačný plán, NBS regulačné limity (DSTI, DTI, LTV), stresový test, predčasné splatenie, refixácia, RPMN a porovnanie kúpa vs. nájom (vrátane editovateľného ročného rastu nájomného).</div>
         <div class="src-item">
           <span class="src-tag src-tag-method">Vzorec</span>
           <div class="src-ref">Anuita — mesačná splátka hypotéky
@@ -3928,7 +3928,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <!-- ══ T1 · FINANČNÁ DIAGNOSTIKA ══ -->
       <div class="src-calc-block" data-tab="t1">
         <div class="src-calc-title">T1 · Finančná diagnostika</div>
-        <div class="src-calc-desc">Celkový prehľad finančného zdravia — 8 ukazovateľov s hodnotením zelená/žltá/červená. Čerpá živé dáta z T2 (Príjmy a výdavky), T4 (Moje dlhy), T3 (Rezervný fond) a T5 (Rast portfólia).</div>
+        <div class="src-calc-desc">Celkový prehľad finančného zdravia — 5 ukazovateľov skóre (miera úspor, rezervný fond, záťaž dlhmi, počet príjmov, miera investovania) plus 5 analytických sekcií. Čerpá živé dáta z T2 (Príjmy a výdavky), T4 (Moje dlhy), T3 (Rezervný fond) a T5 (Rast portfólia).</div>
         <div class="src-item">
           <span class="src-tag src-tag-nbs">NBS / EBA</span>
           <div class="src-ref">DSTI — mesačná záťaž dlhov
@@ -3956,8 +3956,8 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           </div>
         </div>
         <div class="src-item">
-          <span class="src-tag src-tag-stat">ŠÚ SR Q3/2024</span>
-          <div class="src-ref">Referenčná priemerná hrubá mzda: <strong>€1 460/mes.</strong>
+          <span class="src-tag src-tag-stat">ŠÚ SR — mzdy</span>
+          <div class="src-ref">Referenčná priemerná hrubá mzda (ŠÚ SR — aktualizujte pri novom Q vydaní).
             <small>Používaná pre relatívne porovnanie záťaže dlhov a investičnej miery voči priemeru.</small>
           </div>
         </div>
