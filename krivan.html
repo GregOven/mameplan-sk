@@ -1426,6 +1426,13 @@ input[type=checkbox]{width:15px;height:15px;accent-color:var(--gold);cursor:poin
 .inf-text strong{color:var(--blue2);font-weight:500}
 
 /* Withdrawal table with bars */
+/* ── Simulačné upozornenie — vždy viditeľný blok pri dôchodkových výsledkoch ── */
+.sim-disclaimer{margin-top:18px;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.22);border-radius:12px;padding:14px 18px;font-size:14.4px;line-height:1.7;color:var(--muted2);}
+.sim-disclaimer-title{font-weight:600;color:var(--amber2);margin-bottom:8px;font-size:15px;display:flex;align-items:center;gap:6px;}
+.sim-disclaimer ul{margin:6px 0 8px 0;padding-left:18px;display:flex;flex-direction:column;gap:3px;}
+.sim-disclaimer li{color:var(--muted2);}
+.sim-disclaimer-footer{margin-top:8px;padding-top:8px;border-top:1px solid rgba(245,158,11,.15);font-size:13.2px;color:var(--muted);}
+body.light .sim-disclaimer{background:rgba(245,158,11,.04);border-color:rgba(180,115,0,.2);}
 .wdraw-table{width:100%;border-collapse:collapse}
 .wdraw-table td{padding:8px 12px;font-family: var(--ff-data);font-size:var(--fs-base);border-bottom:1px solid var(--border);vertical-align:middle}
 .wdraw-table tr:last-child td{border-bottom:none}
@@ -4795,9 +4802,17 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       </div>
     </div>
 
-    <!-- PATCH-6: Sequence risk disclaimer — vždy viditeľný pod hero blokom -->
-    <div style="margin-top:14px;background:rgba(245,158,11,.04);border:1px solid rgba(245,158,11,.18);border-radius:10px;padding:12px 16px;font-size:14.4px;color:var(--muted2);line-height:1.65;">
-      <strong style="color:var(--amber2);">⚠ Čo model nezohľadňuje:</strong> Tento výpočet predpokladá rovnaký výnos každý rok (<span id="r4-seq-ret">—</span> p.a.). Skutočné portfólio kolíše. Ak prvé roky výberu prídu slabý trh, portfólio sa môže vyčerpať oveľa skôr — aj keď dlhodobý priemer vyjde rovnako. Toto riziko poradia výnosov (angl. <em>sequence of returns risk</em>) model nezohľadňuje. Výsledok je orientačný. Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.
+    <!-- Čo model nezohľadňuje — vždy viditeľný blok -->
+    <div class="sim-disclaimer">
+      <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+      <div>Výsledok je simulácia pri zadaných číslach — nie prognóza ani záruka. Model počíta s rovnakým výnosom každý rok. V skutočnosti trh kolíše.</div>
+      <ul>
+        <li><strong>Sequence risk</strong> — zlé roky <em>na začiatku</em> výberu môžu portfólio vyčerpať oveľa skôr, aj keď dlhodobý priemer vyjde rovnako</li>
+        <li>Vaše výdavky a správanie sa časom menia (zdravie, rodina, životný štýl)</li>
+        <li>Dane a zákony sa môžu zmeniť</li>
+        <li>Neočakávané výdavky (opravy, kríza, choroba) model neobsahuje</li>
+      </ul>
+      <div class="sim-disclaimer-footer">Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
     </div>
 
     <!-- Real value box -->
@@ -5128,6 +5143,19 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
   </div>
 
+  <!-- Čo tento model nezohľadňuje — vždy viditeľný blok -->
+  <div class="sim-disclaimer">
+    <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+    <div>Výsledok je simulácia pri zadaných číslach — nie prognóza ani záruka. Model počíta s rovnakým výnosom každý rok. V skutočnosti trh kolíše.</div>
+    <ul>
+      <li><strong>Sequence risk</strong> — zlé roky <em>na začiatku</em> výberu môžu portfólio vyčerpať oveľa skôr, aj keď dlhodobý priemer vyjde rovnako</li>
+      <li>Vaše výdavky a správanie sa časom menia (zdravie, rodina, životný štýl)</li>
+      <li>Dane a zákony sa môžu zmeniť</li>
+      <li>Neočakávané výdavky (opravy, kríza, choroba) model neobsahuje</li>
+    </ul>
+    <div class="sim-disclaimer-footer">Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
+  </div>
+
   <!-- Sensitivity table: different return scenarios -->
   <div class="panel">
     <p class="plbl">Citlivostná analýza — vplyv výnosu na mesačný vklad</p>
@@ -5348,6 +5376,19 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Čo tento model nezohľadňuje — vždy viditeľný blok -->
+  <div class="sim-disclaimer">
+    <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+    <div>Výsledok je simulácia pri zadaných číslach — nie prognóza ani záruka. Model počíta s rovnakým výnosom každý rok. V skutočnosti trh kolíše.</div>
+    <ul>
+      <li><strong>Sequence risk</strong> — zlé roky <em>na začiatku</em> výberu môžu portfólio vyčerpať oveľa skôr, aj keď dlhodobý priemer vyjde rovnako</li>
+      <li>Vaše výdavky a správanie sa časom menia (zdravie, rodina, životný štýl)</li>
+      <li>Dane a zákony sa môžu zmeniť</li>
+      <li>Neočakávané výdavky (opravy, kríza, choroba) model neobsahuje</li>
+    </ul>
+    <div class="sim-disclaimer-footer">Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
   </div>
 
   <!-- Tri scenáre — pod hero, vypĺňajú zvyšok pravého stĺpca -->
@@ -5696,6 +5737,19 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
   <div class="panel">
     <p class="plbl" style="margin-bottom:14px;">Analýza výhod a nevýhod</p>
     <div id="pil-insights" style="font-size:16.8px;color:var(--muted2);line-height:1.85;"></div>
+  </div>
+
+  <!-- Čo tento model nezohľadňuje — vždy viditeľný blok -->
+  <div class="sim-disclaimer">
+    <div class="sim-disclaimer-title">&#9432; Čo tento model nezohľadňuje</div>
+    <div>Výsledok je simulácia pri zadaných číslach — nie prognóza ani záruka. Výnosy pilierov závisia od budúcich rozhodnutí správcov fondov, Sociálnej poisťovne a legislatívy.</div>
+    <ul>
+      <li>Výška dôchodku zo <strong>2. piliera</strong> závisí od technickej úrokovej sadzby a podmienok anuity v čase odchodu — tie sa menia</li>
+      <li>Legislatíva (zdanenie, príspevky, podmienky výberu) sa môže zmeniť</li>
+      <li>Skutočný výnos ETF portfólia kolíše rok od roku (sequence risk)</li>
+      <li>Vaše výdavky v dôchodku sa budú líšiť od dnešných odhadov</li>
+    </ul>
+    <div class="sim-disclaimer-footer">Pred dôchodkovými rozhodnutiami sa poraďte s licencovaným finančným poradcom.</div>
   </div>
 
 </div><!-- end right col -->
