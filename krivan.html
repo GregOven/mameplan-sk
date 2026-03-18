@@ -3719,6 +3719,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           </div>
         </div>
         <div class="src-item">
+          <span class="src-tag src-tag-method">Reálny výnos (odhad)</span>
+          <div class="src-ref">Orientačný reálny výnos po poplatkoch a inflácii — info-box v T5
+            <div class="src-formula"><strong>r_net</strong> = (1 + hrubý_výnos) × (1 − TER) − 1<br><strong>r_reálny</strong> = (1 + r_net) ÷ (1 + inflácia) − 1<br><em>Fisherov multiplikatívny vzorec — presnejší ako lineárne odčítanie r − TER − i</em></div>
+            <small>Príklad: výnos 7 %, TER 0,20 %, inflácia 2,5 % → r_reálny ≈ 4,18 % (lineárne odčítanie by dávalo 4,30 %). Záporné hodnoty sa zobrazujú bez skrytia — signalizujú, že inflácia + poplatky prekonávajú hrubý výnos.</small>
+          </div>
+        </div>
+        <div class="src-item">
           <span class="src-tag src-tag-law">ZDP §9/§15</span>
           <div class="src-ref">Zákon č. 595/2003 Z.z. o dani z príjmov
             <div class="src-formula"><strong>Daň = 0%</strong>  ak doba držania &gt; 1 rok  (časový test §9 ods.1 písm.e)<br><strong>Daň = 19%</strong>  ak zisk ≤ 176,8 × ŽM  (daňový prah §15 ods.1)<br><strong>Daň = 25%</strong>  ak zisk &gt; daňový prah<br><em>2025: prah = 176,8 × €284,13 = €50 234</em></div>
@@ -3754,7 +3761,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <span class="src-tag src-tag-method">Vzorec</span>
           <div class="src-ref">Anuita s rastúcim vkladom (growing annuity)
             <div class="src-formula"><strong>FV</strong> = P×(1+r)ⁿ + PMT×[(1+r)ⁿ−(1+g)ⁿ]/(r−g)<br><em>g = ročný rast vkladu  ·  ak g=r: FV = P×(1+r)ⁿ + PMT×n×(1+r)ⁿ⁻¹</em></div>
-            <small>TER sa odpočítava ročne od hrubého výnosu: čistý výnos = (1+hrubý)×(1−TER)−1.</small>
+            <small>TER sa odpočítava ročne od hrubého výnosu (multiplikatívne): r_net = (1+hrubý)×(1−TER)−1. Reálny výnos: r_reálny = (1+r_net)÷(1+inflácia)−1.</small>
           </div>
         </div>
         <div class="src-item">
@@ -3769,6 +3776,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div class="src-calc-block" data-tab="t9">
         <div class="src-calc-title">T9 · Výber z portfólia</div>
         <div class="src-calc-desc">Vypočíta mesačný výber z portfólia tak, aby peniaze vydržali po celú dobu dôchodku. Implementuje FIFO metódu pre daňovo optimálny predaj ETF pozícií.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Orientačný reálny výnos</span>
+          <div class="src-ref">Výnos po poplatkoch a inflácii — info-box T9
+            <div class="src-formula"><strong>r_net</strong> = (1 + výnos) × (1 − TER) − 1<br><strong>r_reálny</strong> = (1 + r_net) ÷ (1 + inflácia) − 1<br><em>Fisherov multiplikatívny vzorec — rovnaký ako v T5</em></div>
+            <small>Zobrazuje sa ako orientačná hodnota. Záporný reálny výnos sa nezakrýva — upozorňuje, že nastavenie výnos/TER/inflácia reálne nezhodnocuje portfólio.</small>
+          </div>
+        </div>
         <div class="src-item">
           <span class="src-tag src-tag-study">Bengen 1994</span>
           <div class="src-ref">Bengen, W.P. — <em>Determining Withdrawal Rates Using Historical Data</em>, Journal of Financial Planning 7(4)
@@ -3794,6 +3808,13 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <div class="src-ref">Požadovaný mesačný vklad (inverzná anuita)
             <div class="src-formula"><strong>Cieľové portfólio</strong> = (Výber/mes. × 12) ÷ SWR × (1+i)ⁿ<br><strong>PMT</strong> = Cieľové portfólio × r ÷ [(1+r)ⁿ − 1]<br><em>i = inflácia  ·  n = roky  ·  r = mesačný výnos  ·  SWR = 4%</em></div>
             <small>Cieľové portfólio sa prepočíta do budúcich nominálnych eur (×inflácia). Potom sa inverznou anuitou nájde potrebný mesačný vklad.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Orientačný reálny výnos</span>
+          <div class="src-ref">Výnos po poplatkoch a inflácii — info-box T10
+            <div class="src-formula"><strong>r_net</strong> = (1 + výnos) × (1 − TER) − 1<br><strong>r_reálny</strong> = (1 + r_net) ÷ (1 + inflácia) − 1<br><em>Fisherov multiplikatívny vzorec — rovnaký ako v T5 a T9</em></div>
+            <small>Hodnota je orientačná a slúži len na informatívne účely v info-boxe. Samotný výpočet potrebného vkladu (PMT) pracuje s nominálnym výnosom po TER, nie s reálnym výnosom.</small>
           </div>
         </div>
       </div>
@@ -4337,9 +4358,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
           <div class="ssub">vy ste vložili</div>
         </div>
         <div class="sc">
-          <div class="slbl">Reálny výnos p.a.</div>
+          <div class="slbl">Reálny výnos p.a. (odhad)</div>
           <div class="sval g2" id="s-rret">—</div>
-          <div class="ssub">po inflácii a TER</div>
+          <div class="ssub">po poplatkoch a inflácii · orientačne</div>
         </div>
       </div>
       <div class="g2">
@@ -4672,12 +4693,12 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <!-- Výnos v dôchodku — computed: ret − inf − fee from Tab1 -->
     <div class="ret-info-box">
       <div class="ret-info-box-left">
-        Reálny výnos v dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky: <strong>Výnos p.a. (T5) − Inflácia (Parametre) − TER (T5)</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur. Ak je kladný, model v simulácii ukazuje rast portfólia počas výberov. <strong>Nie je to garancia</strong> — skutočné portfólio kolíše a poradie dobrých a zlých rokov zásadne ovplyvňuje výsledok.">?</span>
+        Orientačný reálny výnos v dôchodku
+        <span class="tip" data-tip="<div class='tt-title'>Orientačný reálny výnos v dôchodku</div>Výpočet: <strong>(1 + výnos) × (1 − TER) ÷ (1 + inflácia) − 1</strong>.<div class='tt-hr'></div>Najprv sa odráta poplatok z nominálneho výnosu, potom sa výsledok defluje infláciou. Kladná hodnota znamená, že model ukazuje rast portfólia počas výberov. <strong>Nie je to garancia</strong> — skutočné portfólio kolíše a poradie dobrých a zlých rokov zásadne ovplyvňuje výsledok. Ide o orientačný odhad pri konštantnom výnose.">?</span>
       </div>
       <div class="ret-info-box-right">
         <div class="ret-info-val" id="l-gr">—</div>
-        <div class="ret-info-formula" id="l-gr-formula">= výnos − inflácia − TER</div>
+        <div class="ret-info-formula" id="l-gr-formula">≈ (1+výnos)×(1−TER)÷(1+inf.)−1</div>
       </div>
     </div>
 
@@ -4978,15 +4999,15 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="font-size:12.6px;color:var(--muted);margin-top:4px;text-align:center;opacity:.7;">historicky testované orientačné rozpätie: 3–4 % ročne (US trh, 30-ročný horizont)</div>
     </div>
 
-    <!-- Výnos v dôchodku — computed dynamically from ret - inf - fee -->
+    <!-- Orientačný reálny výnos v dôchodku — computed: (1+ret)*(1-fee)/(1+inf)-1 -->
     <div class="ret-info-box">
       <div class="ret-info-box-left">
-        Reálny výnos v dôchodku
-        <span class="tip" data-tip="<div class='tt-title'>Reálny výnos v dôchodku — automatický výpočet</div>Vypočítava sa automaticky: <strong>Výnos p.a. − Inflácia − TER</strong>.<div class='tt-hr'></div>Toto je skutočný výnos v kúpnej sile dnešných eur — ak je kladný, model ukazuje rast portfólia počas výberov — nie je to garancia.">?</span>
+        Orientačný reálny výnos v dôchodku
+        <span class="tip" data-tip="<div class='tt-title'>Orientačný reálny výnos v dôchodku</div>Výpočet: <strong>(1 + výnos) × (1 − TER) ÷ (1 + inflácia) − 1</strong>.<div class='tt-hr'></div>Najprv sa odráta poplatok z nominálneho výnosu, potom sa výsledok defluje infláciou. Kladná hodnota znamená, že model ukazuje rast portfólia počas výberov — nie je to garancia, skutočné portfólio kolíše.">?</span>
       </div>
       <div class="ret-info-box-right">
         <div class="ret-info-val" id="rvl-gr">—</div>
-        <div class="ret-info-formula" id="rvl-gr-formula">= výnos − inflácia − TER</div>
+        <div class="ret-info-formula" id="rvl-gr-formula">≈ (1+výnos)×(1−TER)÷(1+inf.)−1</div>
       </div>
     </div>
 
@@ -8372,7 +8393,9 @@ function mainCalc(p){
   const afterTaxReal=afterTax/Math.pow(1+p.inf,p.yr);
   const pp=Math.round(f.real/f.bal*100);
   const fMon=p.mon*Math.pow(1+p.inc,p.yr-1);
-  const realRet=(p.ret-p.fee-p.inf)*100; // reálny výnos — môže byť záporný
+  const netNominal0 = (1 + p.ret) * (1 - p.fee) - 1;
+  const realNet0    = (1 + netNominal0) / (1 + p.inf) - 1;
+  const realRet     = realNet0 * 100; // presný reálny výnos po poplatkoch a inflácii
 
   // Break-even: when market gains > total contributions
   let beStr='—';
@@ -8721,8 +8744,8 @@ function calc4(){
   const gi=$v('r-inf')/100;
   // Nominálny výnos po poplatkoch (správna báza pre simuláciu)
   const ret1=$v('r-ret')/100, fee1=$v('r-fee')/100;
-  const retNet = ret1 - fee1;                  // nominálny výnos po TER
-  const gr=Math.max(0, retNet - gi);           // reálny výnos — iba pre info-box
+  const netNominal1 = (1 + ret1) * (1 - fee1) - 1;
+  const gr = (1 + netNominal1) / (1 + gi) - 1;   // presný reálny výnos — záporný = portfólio reálne klesá
   const gyr=$v('r-gyr'),yinv=$v('r-yinv');
   $el('l-wr').textContent=fmtP(wr*100);
   // Update the ret-info-box
@@ -8730,7 +8753,7 @@ function calc4(){
   const grEl = $el('l-gr');
   if(grEl){ grEl.textContent=fmtP(gr*100); grEl.style.color=grColor; }
   const grFmEl = $el('l-gr-formula');
-  if(grFmEl) grFmEl.textContent=`= ${fmtP(ret1*100)} − ${fmtP(gi*100)} − ${fmtP(fee1*100)}`;
+  if(grFmEl) grFmEl.textContent=`≈ (1+${fmtP(ret1*100)})×(1−${fmtP(fee1*100)})÷(1+${fmtP(gi*100)})−1`;
   $el('l-gi-sync').textContent=fmtP(gi*100);
   $el('gi-track-fill').style.width=(gi*10*100)+'%';
   $el('l-gyr').textContent=gyr;
@@ -8808,7 +8831,7 @@ function calc4(){
       infSym.textContent='≈';
       infTxt.innerHTML=
         '<strong>Simulácia: portfólio sa v 100-ročnom horizonte modelu nevyčerpá.</strong><br>'+
-        'Reálna výnosnosť ('+fmtP(gr*100)+') prevyšuje mieru výberu ('+fmtP(wr*100)+') aj po zohľadnení inflácie ('+fmtP(gi*100)+').'+
+        'Orientačný reálny výnos ('+fmtP(gr*100)+') prevyšuje mieru výberu ('+fmtP(wr*100)+') — model ukazuje rast portfólia aj pri výberoch. Ide o odhad pri konštantnom výnose.'+
         ' <em style="color:var(--muted2);">Model počíta s konštantným výnosom každý rok — skutočný trh kolíše. Výsledok nie je garantovaný.</em>';
     } else {
       // Kontextuálne: je safeYrs dostatočne nad plánovaným horizontom?
@@ -8979,8 +9002,9 @@ function calcReverse(){
   const fee=$v('rvr-fee')/100;
   const wr=$v('rvr-wr')/100;
   // Nominálny výnos po poplatkoch — správna báza pre simulácie
-  const gr = ret - inf - fee;   // reálny výnos — iba pre info-box label (môže byť záporný)
-  const retNet = ret - fee;                // nominálny výnos po TER — pre simulácie
+  const netNominal = (1 + ret) * (1 - fee) - 1;
+  const gr = (1 + netNominal) / (1 + inf) - 1;  // presný reálny výnos po poplatkoch a inflácii
+  const retNet = ret - fee;                // nominálna báza pre simuláciu — ponecháme (portfólio rastie nominálne)
   const inc=$v('rvr-inc')/100;
   const effRet=ret-fee;
 
@@ -8994,7 +9018,7 @@ function calcReverse(){
   const grColor = gr > 0.02 ? 'var(--emerald2)' : gr > 0 ? 'var(--amber2)' : 'var(--red)'; // záporný = portfólio dlhodobo klesá v reálnej hodnote
   $el('rvl-gr').textContent=fmtP(gr*100);
   $el('rvl-gr').style.color=grColor;
-  $el('rvl-gr-formula').textContent=`= ${fmtP(ret*100)} − ${fmtP(inf*100)} − ${fmtP(fee*100)}`;
+  $el('rvl-gr-formula').textContent=`≈ (1+${fmtP(ret*100)})×(1−${fmtP(fee*100)})÷(1+${fmtP(inf*100)})−1`;
 
   // ── Empty state: zvýrazni pole keď je rv-target = 0 ──
   const rvTargetWrap = document.getElementById('rv-target')?.closest('.ni-wrap');
@@ -9078,7 +9102,7 @@ function calcReverse(){
     unitEl.textContent='r. ≈';
     lblEl.style.color='var(--blue2)';
     lblEl.textContent='Simulácia: portfólio sa v 100-ročnom modeli nevyčerpá';
-    noteEl.textContent=`Reálny výnos po inflácii: ${fmtP(gr*100)} (${fmtP(ret*100)} − ${fmtP(inf*100)} inf. − ${fmtP(fee*100)} TER)${gr<0?' — portfólio v reálnej hodnote klesá!':''}. Model predpokladá konštantný výnos ${fmtP(ret*100)} každý rok — skutočné portfólio kolíše. Výsledok je orientačný.`;
+    noteEl.textContent=`Orientačný reálny výnos: ${fmtP(gr*100)} · výpočet: (1+${fmtP(ret*100)})×(1−${fmtP(fee*100)})÷(1+${fmtP(inf*100)})−1${gr<0?' → portfólio v reálnej hodnote klesá':''}. Model predpokladá konštantný výnos každý rok — skutočné portfólio kolíše. Výsledok je orientačný odhad.`;
     barEl.style.width='100%';
     barEl.style.background='var(--blue)';
   } else {
@@ -9096,7 +9120,7 @@ function calcReverse(){
     lblEl.textContent=isGood
       ? 'Odhad: portfólio vydrží '+sustainYrs+' rokov'
       : 'Odhad: portfólio vydrží '+sustainYrs+' rokov — zmeny vstupov by zlepšili rezervu';
-    noteEl.textContent=`Reálny výnos po inflácii: ${fmtP(gr*100)} (${fmtP(ret*100)} − ${fmtP(inf*100)} inf. − ${fmtP(fee*100)} TER)${gr<0?' — reálna kúpna sila klesá':''}. Pri tejto miere výberu (${fmtP(wr*100)}) simulácia ukazuje vyčerpanie po ${sustainYrs} rokoch (${sustainMonths} mes.). Ide o orientačný odhad pri konštantnom výnose. `+
+    noteEl.textContent=`Orientačný reálny výnos: ${fmtP(gr*100)} · výpočet: (1+${fmtP(ret*100)})×(1−${fmtP(fee*100)})÷(1+${fmtP(inf*100)})−1${gr<0?' → reálna kúpna sila klesá':''}. Pri tejto miere výberu (${fmtP(wr*100)}) simulácia ukazuje vyčerpanie po ${sustainYrs} rokoch (${sustainMonths} mes.). Ide o orientačný odhad pri konštantnom výnose. `+
       (isGood?'Nižšia miera výberu by ďalej zvýšila rezervu.':'Nižší výber (3–4%) by znížil toto riziko.');
     barEl.style.width=barPct+'%';
     barEl.style.background=color;
