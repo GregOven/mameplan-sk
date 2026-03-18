@@ -12227,6 +12227,9 @@ function openImportConfirm(){
   document.getElementById('import-file-input').click();
 }
 
+/* ── Import module constants — module-level scope ── */
+const FORBIDDEN_KEYS = ['__proto__','constructor','prototype'];
+
 function _imShowStep(id){
   ['im-step-warn','im-step-preview','im-step-error','im-step-success'].forEach(s=>{
     const el=document.getElementById(s); if(el) el.style.display='none';
@@ -12444,7 +12447,6 @@ function importAppState(event){
 
       /* S-6: Whitelists */
       const CF_TYPES = ['income','expense','invest','savings'];
-      const FORBIDDEN_KEYS = ['__proto__','constructor','prototype'];
 
       // S-6: Schema version check — upozornenie v preview, nie toast
       let versionWarn = '';
