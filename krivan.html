@@ -3696,6 +3696,9 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     <div class="src-filter-bar" id="src-filter-bar">
       <button type="button" class="src-ftab src-ftab-all active" data-filter="all" data-action="srcFilter" data-src="all">Všetko</button>
       <button type="button" class="src-ftab" data-filter="t1"  data-action="srcFilter" data-src="t1">T1 · Finančná diagnostika</button>
+      <button type="button" class="src-ftab" data-filter="t2"  data-action="srcFilter" data-src="t2">T2 · Príjmy a výdavky</button>
+      <button type="button" class="src-ftab" data-filter="t3"  data-action="srcFilter" data-src="t3">T3 · Rezervný fond</button>
+      <button type="button" class="src-ftab" data-filter="t4"  data-action="srcFilter" data-src="t4">T4 · Moje dlhy</button>
       <button type="button" class="src-ftab" data-filter="t5"  data-action="srcFilter" data-src="t5">T5 · Rast portfólia</button>
       <button type="button" class="src-ftab" data-filter="t6"  data-action="srcFilter" data-src="t6">T6 · Finančná nezávislosť</button>
       <button type="button" class="src-ftab" data-filter="t7"  data-action="srcFilter" data-src="t7">T7 · Piliere II. / III.</button>
@@ -3707,6 +3710,77 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
 
     <div id="sources-box-body">
+
+      <!-- ══ T2 · PRÍJMY A VÝDAVKY ══ -->
+      <div class="src-calc-block" data-tab="t2">
+        <div class="src-calc-title">T2 · Príjmy a výdavky</div>
+        <div class="src-calc-desc">Sleduje mesačné príjmy a výdavky domácnosti. Vypočítava mieru úspor, rozdiel príjmov a výdavkov a poskytuje dáta pre T1 (Finančná diagnostika) a T3 (Rezervný fond).</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Miera úspor</span>
+          <div class="src-ref">Savings rate — podiel zostatku po výdavkoch na príjmoch
+            <div class="src-formula"><strong>Miera úspor</strong> = (Príjmy − Výdavky) ÷ Príjmy × 100<br><em>Výsledok sa posiela do T1 ako vstup pre skorovanie</em></div>
+            <small>Benchmark: pravidlo 50/30/20 (Needs/Wants/Savings) — cieľ ≥20% úspor. Pod 10% = varovanie v T1.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Bilancia</span>
+          <div class="src-ref">Mesačná bilancia domácnosti
+            <div class="src-formula"><strong>Bilancia</strong> = Σ príjmov − Σ výdavkov<br><em>Kladná bilancia = priestor na sporenie/investovanie; záporná = deficit</em></div>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Dátové prepojenia</span>
+          <div class="src-ref">T2 exportuje dáta do iných záložiek
+            <small>· <strong>T1</strong>: príjmy, výdavky, miera úspor (skorovanie)<br>· <strong>T3</strong>: mesačné výdavky (výpočet cieľa rezervného fondu)<br>· <strong>T4</strong>: príjmy (výpočet DSTI a DTI záťaže)<br>· <strong>T11</strong>: príjmy (výpočet bonity hypotéky)</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ T3 · REZERVNÝ FOND ══ -->
+      <div class="src-calc-block" data-tab="t3">
+        <div class="src-calc-title">T3 · Rezervný fond</div>
+        <div class="src-calc-desc">Sleduje stav núdzového rezervného fondu (emergency fund). Vypočítava pokrytie výdavkov v mesiacoch a hodnotí pripravenosť domácnosti na neočakávané situácie.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">CFP Board</span>
+          <div class="src-ref">Pokrytie výdavkov — odporúčaný počet mesiacov
+            <div class="src-formula"><strong>Pokrytie (mes.)</strong> = Nasporené ÷ Mesačné výdavky<br><em>🟢 ≥ 6 mes. · 🟡 3–6 mes. · 🔴 &lt; 3 mes.</em></div>
+            <small>Štandard CFP Board (Certified Financial Planner): núdzový fond má pokryť 3–6 mesačných výdavkov. NBS vo vzdelávacích materiáloch odporúča 6 mesiacov.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Cieľová suma</span>
+          <div class="src-ref">Odporúčaná výška rezervného fondu
+            <div class="src-formula"><strong>Cieľ (konzervatívny)</strong> = Mesačné výdavky × 6<br><strong>Cieľ (minimálny)</strong> = Mesačné výdavky × 3</div>
+            <small>Výdavky sa preberajú z T2 (Príjmy a výdavky) alebo sa zadávajú manuálne.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ T4 · MOJE DLHY ══ -->
+      <div class="src-calc-block" data-tab="t4">
+        <div class="src-calc-title">T4 · Moje dlhy</div>
+        <div class="src-calc-desc">Prehľad všetkých dlhov domácnosti — úvery, leasing, kreditné karty. Počíta celkovú mesačnú záťaž (DSTI), amortizačný plán a odporúčania pre splatenie vs. investovanie.</div>
+        <div class="src-item">
+          <span class="src-tag src-tag-nbs">NBS / ŠÚ SR</span>
+          <div class="src-ref">DSTI — mesačná záťaž dlhov (Debt Service to Income)
+            <div class="src-formula"><strong>DSTI</strong> = Σ mesačných splátok ÷ Čistý mesačný príjem<br><em>🟢 &lt;22% (pod SK priemerom)  ·  🟡 22–30% (mierne nad)  ·  🟠 30–40% (zvýšená záťaž)  ·  🔴 &gt;40% (nad limitom NBS)</em></div>
+            <small>Referenčná hodnota 22% = SK priemer splátok domácností (ŠÚ SR). Limit NBS pre nové hypotéky: max 40% (Opatrenie č. 10/2021). Príjem sa preberá z T2 (window._cfIncome) — ak T2 nie je vyplnená, benchmark sa nezobrazí.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Avalanche</span>
+          <div class="src-ref">Stratégia splatenia dlhov — zoradenie podľa úrokovej sadzby
+            <div class="src-formula"><strong>Poradie splatenia</strong> = zostupne podľa úrokovej sadzby (najdrahší dlh = priorita č.1)<br><em>Ak sadzba dlhu &gt; očakávaný výnos ETF → splácaj prednostne; inak → investuj</em></div>
+            <small>Matematicky optimálna metóda (Avalanche). Snowball metóda (podľa výšky zostatku) nie je implementovaná.</small>
+          </div>
+        </div>
+        <div class="src-item">
+          <span class="src-tag src-tag-method">Amortizácia</span>
+          <div class="src-ref">Anuitný splátkový plán pre každý dlh
+            <div class="src-formula"><strong>PMT</strong> = P × [r(1+r)ⁿ] ÷ [(1+r)ⁿ − 1]<br><em>P = zostatok · r = mesačná sadzba = ročná÷12 · n = zostatok splátok</em></div>
+          </div>
+        </div>
+      </div>
 
       <!-- ══ T5 · RAST PORTFÓLIA ══ -->
       <div class="src-calc-block" data-tab="t5">
@@ -3855,7 +3929,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <!-- ══ T13 · HISTORICKÝ TEST ══ -->
       <div class="src-calc-block" data-tab="t13">
         <div class="src-calc-title">T13 · Historický test</div>
-        <div class="src-calc-desc">Simuluje výsledok portfólia ak by ste začali investovať v konkrétnom historickom roku. Používa reálne ročné výnosy MSCI World vrátane kríz (2000–02, 2008–09, 2020).</div>
+        <div class="src-calc-desc">Simuluje výsledok portfólia ak by ste začali investovať v konkrétnom historickom roku. Používa reálne ročné výnosy MSCI World vrátane kríz (2000–02, 2008–09) a volatilných rokov (2020: Q1 pokles −34 %, rok celkovo +15,9 %).</div>
         <div class="src-item">
           <span class="src-tag src-tag-stat">MSCI World</span>
           <div class="src-ref">MSCI World Index — ročné výnosy 1970–2024 (historické dáta)
@@ -3936,7 +4010,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
         <div class="src-item">
           <span class="src-tag src-tag-law">Smer. 2008/48</span>
           <div class="src-ref">Smernica 2008/48/ES — RPMN (Príloha I), impl. zákonom č. 129/2010 Z.z.
-            <div class="src-formula"><strong>RPMN</strong> = IRR_mesačná × 12<br>IRR: Σ [Cₜ ÷ (1+IRR)ᵗ] = 0  ·  riešené bisekcou (200 iter., presnosť €0,01)</div>
+            <div class="src-formula"><strong>RPMN</strong> = (1 + IRR_mesačná)¹² − 1<br>IRR: Σ [Cₜ ÷ (1+IRR)ᵗ] = 0  ·  riešené bisekcou (200 iter., presnosť €0,01)<br><small><em>Efektívna anualizácia (nie nominálna IRR×12) — implementovaná ako <code>Math.pow(1+IRR,12)−1</code>, zhoduje sa s prílohou I smernice 2008/48/ES</em></small></div>
           </div>
         </div>
         <div class="src-item">
@@ -4147,7 +4221,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     </div>
     <div class="ig primary">
       <div class="il">
-        Celkový výnos p.a.<span class="tip" data-tip="<div class='tt-title'>Celkový ročný výnos (p.a.)</div>Pre <strong>akumulačné ETF</strong> tento výnos zahŕňa <em>všetko</em> — rast cien akcií aj dividendy, ktoré fond automaticky reinvestuje späť do seba.<div class='tt-hr'></div><strong>Prečo default 9%?</strong><br>MSCI World historicky (1987–2024) rástol priemerne ~10% ročne v USD. <strong>EUR investor</strong> dosiahol o 0,5–1% menej ročne kvôli kurzovým rozdielom (USD/EUR) — orientačne 8,5–9%. Po odrátaní TER 0.2% je 9% rozumný konzervatívny stred, ale realistická hodnota pre EUR investora je skôr 8–8,5%.<div class='tt-hr'></div><strong>Pravidlo 72:</strong> Pri 9% ročne by sa peniaze zdvojnásobili každých ~8 rokov — historický priemer, budúce výnosy sa môžu výrazne líšiť.">?</span>
+        Celkový výnos p.a.<span class="tip" data-tip="<div class='tt-title'>Celkový ročný výnos (p.a.)</div>Pre <strong>akumulačné ETF</strong> tento výnos zahŕňa <em>všetko</em> — rast cien akcií aj dividendy, ktoré fond automaticky reinvestuje späť do seba.<div class='tt-hr'></div><strong>Prečo default 9%?</strong><br>MSCI World historicky (1970–2024) rástol priemerne ~10% ročne v USD. <strong>EUR investor</strong> dosiahol o 0,5–1% menej ročne kvôli kurzovým rozdielom (USD/EUR) — orientačne 8,5–9%. Po odrátaní TER 0.2% je 9% rozumný konzervatívny stred, ale realistická hodnota pre EUR investora je skôr 8–8,5%.<div class='tt-hr'></div><strong>Pravidlo 72:</strong> Pri 9% ročne by sa peniaze zdvojnásobili každých ~8 rokov — historický priemer, budúce výnosy sa môžu výrazne líšiť.">?</span>
         <span class="val" id="l-ret">9,0%</span>
       </div>
       <input type="range" id="r-ret" min="1" max="20" step="0.5" value="9" data-calc="sync" aria-label="Celkový ročný výnos v percentách" aria-describedby="hint-r-ret">
@@ -5142,7 +5216,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;">
         <div class="slbl">Trh pridá</div>
         <div style="font-family:'Source Code Pro',monospace;font-size:15.6px;color:var(--emerald);" id="rv-market-gains">—</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;">cieľ mínus vklady<br>(nominálne €)</div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;" id="rv-market-gains-sub">cieľ mínus vklady<br>(nominálne €)</div>
       </div>
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;">
         <div class="slbl">Multiplikátor</div>
@@ -7172,7 +7246,7 @@ Diagnostika čerpá z:<br>
         <div>
           <div style="font-size:14.4px;color:var(--muted);margin-bottom:8px;">
             Životné minimum (€/mes.)
-            <span class="tip" data-tip="<div class='tt-title'>Životné minimum — zákon 601/2003 Z.z.</div>ŠÚ SR vyhlasuje každý rok k <strong>1. júlu</strong>.<div class='tt-hr'></div><strong>História:</strong><br>· 2023/24: €268,88 → prah €41 445<br>· 2024/25: €292,28 → prah €41 445 (ZDP zmena)<br>· 2025/26: €284,13 → prah €50 234<div class='tt-hr'></div><strong>Kde nájsť aktuálnu hodnotu:</strong><br>→ <a href='https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/' target='_blank' style='color:var(--gold2)'>mpsvr.sk — Životné minimum</a><br>→ financnasprava.sk — Daňový kalendár">?</span>
+            <span class="tip" data-tip="<div class='tt-title'>Životné minimum — zákon 601/2003 Z.z.</div>ŠÚ SR vyhlasuje každý rok k <strong>1. júlu</strong>.<div class='tt-hr'></div><strong>História:</strong><br>· 2023/24: €268,88 → prah €41 445<br>· 2024/25: €292,28 → prah €41 445 <em>(ZDP novela 2025: prah bol dočasne zmrazený na €41 445, hoci 176,8 × €292,28 = €51 675 — výpočtový vzorec sa vtedy nemenil, len legislatívne fixovaný strop)</em><br>· 2025/26: €284,13 → prah €50 234 (vzorec 176,8 × ŽM plne obnovený)<div class='tt-hr'></div><strong>Kde nájsť aktuálnu hodnotu:</strong><br>→ <a href='https://www.mpsvr.sk/sk/praca-socialne-veci-rodina/socialna-pomoc-podpora/zivotne-minimum/' target='_blank' style='color:var(--gold2)'>mpsvr.sk — Životné minimum</a><br>→ financnasprava.sk — Daňový kalendár">?</span>
           </div>
           <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
             <div class="ni-wrap" style="flex:1;min-width:110px;max-width:160px;">
@@ -7926,8 +8000,8 @@ const LEG_DEFAULTS = {
   divTaxRate:     0.07,    // Daň z dividend (Dist ETF) — ZDP §7 ods.1 písm.e
   p3MaxDeduct:    1800,    // III. pilier max. ročný odpočet € — zákon 650/2004 §19a
   p2ContribRate:  0.04,    // II. pilier sadzba príspevku z hrubej mzdy — zákon 43/2004
-                           // HISTÓRIA: 9% (2005) → 4% (2012) → 4,75%? → 4% (od 1.1.2017, platná)
-                           // OPRAVA: predchádzajúca verzia mala chybne 4,75% (0.0475)
+                           // HISTÓRIA: 9% (2005–2012) → 4% (2013–2016) → 4% (od 1.1.2017, platná, potvrdená socpoist.sk 2025)
+                           // OPRAVA v59: predchádzajúca verzia mala chybne 0.0475 — správna hodnota je 0.04
   bondRet:        0.02,    // Výnos dlhopisov p.a. — ref. Amundi PRAB ETF (ISIN LU2233156582) ~2–2,5% p.a.
   inflation:      0.025,   // Odhadovaná ročná inflácia — ŠÚ SR / ECB cieľ 2% (aktualizuj každý rok)
   // ── Skupina D: NBS hypotekárne limity ──
@@ -9198,9 +9272,24 @@ function calcReverse(){
     $el('rv-withdraw-real').textContent = '—';
     $el('rv-total-in') && ($el('rv-total-in').textContent = '—');
     $el('rv-market-gains') && ($el('rv-market-gains').textContent = '—');
+    $el('rv-market-gains-sub') && ($el('rv-market-gains-sub').innerHTML = 'cieľ mínus vklady<br>(nominálne €)');
     $el('rv-multiplier') && ($el('rv-multiplier').textContent = '—');
     const cautionElZ = $el('rv-caution-note'); if(cautionElZ) cautionElZ.style.display='none';
     const gyrHintZ = $el('rv-gyr-hint'); if(gyrHintZ) gyrHintZ.style.display='none';
+    // Reset sustain block — rovnaká sada ako v BLOCKED stave
+    const sbZ=$el('rv-sustain-block');
+    if(sbZ){ sbZ.style.background='rgba(77,142,240,.04)'; sbZ.style.borderColor='rgba(77,142,240,.25)'; }
+    const svElZ=$el('rv-sustain-val');
+    if(svElZ){ svElZ.textContent='—'; svElZ.style.color='var(--muted)'; svElZ.style.fontSize=''; }
+    $el('rv-sustain-unit') && ($el('rv-sustain-unit').textContent = '');
+    const slElZ=$el('rv-sustain-lbl');
+    if(slElZ){ slElZ.textContent='Zadajte požadovaný mesačný výber pre výpočet'; slElZ.style.color='var(--muted)'; }
+    $el('rv-sustain-note') && ($el('rv-sustain-note').textContent = '');
+    $el('rv-sustain-bar') && ($el('rv-sustain-bar').style.width = '0%');
+    // Vymaž citlivostné tabuľky — inak ostanú stale riadky z predchádzajúceho výpočtu
+    const tb1Z=$el('rv-sensitivity-tbody'); if(tb1Z) tb1Z.innerHTML='';
+    const tb2Z=$el('rv-duration-tbody');    if(tb2Z) tb2Z.innerHTML='';
+    const tb3Z=$el('t10-inc-tbody');        if(tb3Z) tb3Z.innerHTML='';
     return;
   }
 
@@ -9247,6 +9336,7 @@ function calcReverse(){
     $el('rv-withdraw-real').textContent = '—';
     $el('rv-total-in') && ($el('rv-total-in').textContent = '—');
     $el('rv-market-gains') && ($el('rv-market-gains').textContent = '—');
+    $el('rv-market-gains-sub') && ($el('rv-market-gains-sub').innerHTML = 'cieľ mínus vklady<br>(nominálne €)');
     $el('rv-multiplier') && ($el('rv-multiplier').textContent = '—');
     const cautionElB = $el('rv-caution-note');
     if (cautionElB) cautionElB.style.display = 'none';
@@ -9319,7 +9409,12 @@ function calcReverse(){
     : null;
 
   // #10 + rounding-fix: zaokrúhliť nahor na €10 — deklarované TU, pred totalIn
-  // aby monthlyPMTForTotal mohol použiť zaokrúhlenú hodnotu konzistentne
+  // aby monthlyPMTForTotal mohol použiť zaokrúhlenú hodnotu konzistentne.
+  // ZÁMER (F-03): zaokrúhlenie nahor na €10 je zámerné — zobrazená hodnota (€490/mes.)
+  // sa musí zhodovať s tým čo vstupuje do súčtu vkladov (totalIn). Inak by "Trh pridá"
+  // ukazovalo číslo nekonzistentné s hodnotou v hero políčku.
+  // Dôsledok: totalIn je o (rounded−exact)×n€ vyšší ako pri presnom PMT,
+  // teda "Trh pridá" je o rovnakú sumu nižší (max. ~€3 600 pri 30 r. a rozdiele €10).
   const monthlyPMTRounded = monthlyPMT > 0 ? Math.ceil(monthlyPMT / 10) * 10 : 0;
 
   // 6. Total invested — use rounded PMT for consistency with displayed hero value
@@ -9385,14 +9480,20 @@ function calcReverse(){
     $el('rv-portfolio-sub').textContent = `nominálne v roku ${new Date().getFullYear()+yr}`;
   }
 
+  // F-09: changePerPp hoisted TU — použité v caution-note (pod portfóliom)
+  // aj v sustain bloku (výdrž rokov), aby upozornenie na citlivosť bolo viditeľné
+  // aj pri scrolle dolu bez potreby čítať text nad portfóliom.
+  let changePerPp = '—';
+  if (stabilityZone === 'caution' && reqPortfolio > 0) {
+    const _pvaShifted = futureMonthly * 12 * (1 - Math.pow((1+nomWithdrawGrowth)/(1+effRet+0.01), gyrRet)) / (effRet+0.01 - nomWithdrawGrowth);
+    changePerPp = Math.abs((_pvaShifted - reqPortfolio) / reqPortfolio * 100).toFixed(0);
+  }
+
   // Caution-zone notification (pod portfóliom)
   const cautionEl = $el('rv-caution-note');
   if (cautionEl) {
     if (stabilityZone === 'caution') {
-      const pvaShifted = futureMonthly * 12 * (1 - Math.pow((1+nomWithdrawGrowth)/(1+effRet+0.01), gyrRet)) / (effRet+0.01 - nomWithdrawGrowth);
-      const changePerPp = reqPortfolio > 0
-        ? Math.abs((pvaShifted - reqPortfolio) / reqPortfolio * 100).toFixed(0)
-        : '—';
+      // changePerPp vypočítaný vyššie
       cautionEl.style.display = 'block';
       cautionEl.textContent = `ℹ Výsledok je citlivý: zmena výnosu o 1 % p. zmení potrebné portfólio o ~${changePerPp} %. Berte ho ako hrubý odhad, nie presný cieľ.`;
     } else if (stabilityZone === 'unstable') {
@@ -9407,6 +9508,21 @@ function calcReverse(){
   $el('rv-withdraw-real').textContent=fmt(targetReal)+'/mes.';
   $el('rv-total-in').textContent = stabilityZone === 'unstable' ? '—' : fmt(totalIn);
   $el('rv-market-gains').textContent = stabilityZone === 'unstable' ? '—' : fmt(marketGains);
+  // F-03: ak PMT bolo zaokrúhlené nahor, upozorniť že "Trh pridá" vychádza zo rounded PMT
+  const mgSub = $el('rv-market-gains-sub');
+  if (mgSub) {
+    if (stabilityZone === 'unstable' || monthlyPMT === 0) {
+      mgSub.textContent = 'cieľ mínus vklady (nominálne €)';
+    } else {
+      const pmtDiff = monthlyPMTRounded - monthlyPMT;
+      if (pmtDiff > 0.01) {
+        const roundingImpact = Math.round(pmtDiff * yr * 12);
+        mgSub.innerHTML = `cieľ mínus vklady<br>(nominálne €)<br><span style="color:var(--muted);font-size:11px;">vrátane +${fmt(roundingImpact)} z navýšenia PMT na €10</span>`;
+      } else {
+        mgSub.innerHTML = 'cieľ mínus vklady<br>(nominálne €)';
+      }
+    }
+  }
   // G5: multiplierValid=false when PMT=0 (totalIn≈ini) — ratio would be meaningless
   $el('rv-multiplier').textContent = stabilityZone === 'unstable' ? '—'
     : !multiplierValid ? '—'
@@ -9474,6 +9590,16 @@ function calcReverse(){
       (isGood?'Nižšia miera výberu by ďalej zvýšila rezervu.':'Nižší výber (3–4%) by znížil toto riziko.');
     barEl.style.width=barPct+'%';
     barEl.style.background=color;
+  }
+
+  // F-09: v caution zóne pridať upozornenie na citlivosť aj priamo do sustain bloku.
+  // Používateľ nemusí scrollovať nahor k rv-caution-note — warning je viditeľný tam,
+  // kde číta výsledok výdrže portfólia.
+  if (stabilityZone === 'caution' && !isForever) {
+    const sustainNoteEl = $el('rv-sustain-note');
+    if (sustainNoteEl) {
+      sustainNoteEl.textContent += ` ℹ Citlivý odhad: portfólio sa nachádza v citlivej zóne — zmena výnosu o 1 % zmení potrebné portfólio o ~${changePerPp} % a výrazne ovplyvní aj počet rokov výdrže. Berte ako hrubý odhad.`;
+    }
   }
   } // end else (not unstable)
 
@@ -10661,8 +10787,12 @@ function calcFIFO(){
   let totalSaved         = 0;
 
   for(let y = 1; y <= Math.min(10, 30); y++){
-    const w         = Math.round(annualW * Math.pow(1 + inf, y - 1));
-    const fromBal   = Math.min(w, bal);
+    // F-02 fix: wRaw zostáva float pre presný výpočet soldBasis a cost basis.
+    // Math.round(w) sa používa LEN pre zobrazenie v bunke tabuľky.
+    // Pred opravou: Math.round(w) vstupoval do fromBal → kumulatívna chyba cost basis.
+    const wRaw      = annualW * Math.pow(1 + inf, y - 1);  // float — základ pre výpočty
+    const w         = Math.round(wRaw);                      // len pre zobrazenie v TD
+    const fromBal   = Math.min(wRaw, bal);                   // presný výpočet z float
 
     // Podiel cost basis zodpovedajúci predávanej časti — kľúčová oprava
     const soldBasis  = bal > 0 ? fromBal * (remainingCostBasis / bal) : 0;
@@ -11365,7 +11495,7 @@ function calcMort(){
   const trueTotalCost = totalPaid + own;  // akontácia + všetky splátky banke
   $el('mort-total-paid').textContent     = loan > 0 ? fmt(Math.round(trueTotalCost)) : '—';
   $el('mort-total-interest').textContent = loan > 0 ? fmt(Math.round(totalInterest)) : '—';
-  $el('mort-overpay-pct').textContent    = loan > 0 ? (overpayPct).toFixed(0).replace('.',',')+'%' : '—';
+  $el('mort-overpay-pct').textContent    = loan > 0 ? (overpayPct).toFixed(1).replace('.',',')+'%' : '—';
 
   /* SK benchmark: ratio trueTotalCost / property price */
   const benchCtx = $el('mort-benchmark-ctx');
