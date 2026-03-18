@@ -7005,7 +7005,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
     Stačí vyplniť tri záložky — trvá to 5 minút.
   </div>
   <div class="guide-steps">
-    <button id="tab-t2" role="tab" aria-selected="false" aria-controls="t2" type="button" class="guide-step" id="guide-step-1" data-action="showTab" data-tab="t2">
+    <button role="tab" aria-selected="false" aria-controls="t2" type="button" class="guide-step" id="guide-step-1" data-action="showTab" data-tab="t2">
       <div class="guide-step-num" style="background:rgba(167,139,250,.15);color:var(--violet2);">1</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Príjmy a výdavky</div>
@@ -7014,7 +7014,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
       <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button id="tab-t3" role="tab" aria-selected="false" aria-controls="t3" type="button" class="guide-step" id="guide-step-2" data-action="showTab" data-tab="t3">
+    <button role="tab" aria-selected="false" aria-controls="t3" type="button" class="guide-step" id="guide-step-2" data-action="showTab" data-tab="t3">
       <div class="guide-step-num" style="background:rgba(34,211,238,.12);color:var(--cyan2);">2</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moja finančná rezerva</div>
@@ -7023,7 +7023,7 @@ body.light [style*="background:#10111e"] { background: var(--bg2) !important; }
       <span class="guide-step-arrow" style="color:var(--muted);font-size:16px;">→</span>
       <span class="guide-step-check" style="display:none;color:var(--emerald2);font-size:16px;font-weight:700;">✓</span>
     </button>
-    <button id="tab-t4" role="tab" aria-selected="false" aria-controls="t4" type="button" class="guide-step" id="guide-step-3" data-action="showTab" data-tab="t4">
+    <button role="tab" aria-selected="false" aria-controls="t4" type="button" class="guide-step" id="guide-step-3" data-action="showTab" data-tab="t4">
       <div class="guide-step-num" style="background:rgba(244,63,94,.12);color:var(--rose2);">3</div>
       <div class="guide-step-text">
         <div class="guide-step-label">Moje záväzky</div>
@@ -12104,6 +12104,7 @@ function _collectState(){
         debtUpdate(+el.dataset.idx, el.dataset.field, el.value); break;
       case 'debtUpdateFixEnd':
         debtUpdate(+el.dataset.idx, 'fixEnd', el.value);
+        renderDebtList();
         renderDebtFixAlerts(); break;
       case 'assetsUpdate':
         assetsUpdate(+el.dataset.idx, el.dataset.field, el.value); break;
@@ -14265,7 +14266,7 @@ function renderDebtList(){
         ${d.fixEnd ? `<span class="debt-fix-badge ${debtFixBadgeClass(d.fixEnd)}">${debtFixLabel(d.fixEnd)}</span>` : ''}
       </div>`:''} 
     </div>`).join('')+
-    `<div class="debt-card-totals">
+    `<div class="debt-card-totals" id="debt-card-totals-row">
       <span>Celkový zostatok: <strong>${fmt(total)}</strong></span>
       <span>Spolu splátky: <strong>${fmt(totalMon)}/mes.</strong></span>
     </div>`;
@@ -14281,6 +14282,12 @@ function calcDebt(){
   const wAvgRate = totalBal>0 ? debtRows.reduce((s,d)=>s+(+d.rate||0)*(+d.balance||0),0)/totalBal : 0;
 
   window._debtTotal = totalBal;
+
+  // Footer totals inside card list — keep in sync without re-rendering full list
+  const cardTotals = $el('debt-card-totals-row');
+  if(cardTotals){
+    cardTotals.innerHTML = `<span>Celkový zostatok: <strong>${fmt(Math.round(totalBal))}</strong></span><span>Spolu splátky: <strong>${fmt(Math.round(totalMon))}/mes.</strong></span>`;
+  }
 
   // Hero
   if($el('debt-total-val')) $el('debt-total-val').textContent = fmt(Math.round(totalBal));
