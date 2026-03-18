@@ -9318,16 +9318,22 @@ function calcReverse(){
         : 'inc-sufficient' // growing contributions cover target without initial PMT
     : null;
 
-  // 6. Total invested (approx: sum of growing payments over n months)
+  // #10 + rounding-fix: zaokrúhliť nahor na €10 — deklarované TU, pred totalIn
+  // aby monthlyPMTForTotal mohol použiť zaokrúhlenú hodnotu konzistentne
+  const monthlyPMTRounded = monthlyPMT > 0 ? Math.ceil(monthlyPMT / 10) * 10 : 0;
+
+  // 6. Total invested — use rounded PMT for consistency with displayed hero value
+  // Rounding fix: totalIn must match what user sees (monthlyPMTRounded), not exact PMT
+  // Otherwise "Spolu vložíte" and "Trh pridá" would be inconsistent with displayed "€490/mes."
+  const monthlyPMTForTotal = monthlyPMTRounded > 0 ? monthlyPMTRounded : monthlyPMT;
   const n=yr*12;
   const r=Math.pow(1+effRet,1/12)-1;
   const g=Math.pow(1+inc,1/12)-1;
-  // total nominal contributions = PMT × ((1+g)^n - 1) / g  if g>0, else PMT×n
   let totalIn;
   if(Math.abs(inc)<1e-9){
-    totalIn=monthlyPMT*n+ini;
+    totalIn=monthlyPMTForTotal*n+ini;
   } else {
-    totalIn=monthlyPMT*(Math.pow(1+g,n)-1)/g+ini;
+    totalIn=monthlyPMTForTotal*(Math.pow(1+g,n)-1)/g+ini;
   }
   const marketGains=reqPortfolio-totalIn;
   // G5 FIX: multiplier is meaningless when totalIn≈ini (PMT=0, no contributions)
@@ -9335,9 +9341,6 @@ function calcReverse(){
   // BUG-A fix: ini===0 alone is NOT sufficient — if PMT=0 too, there's nothing to show
   const multiplierValid = monthlyPMT > 0 || (ini > 0 && totalIn > ini * 1.01);
   const multiplier = multiplierValid ? reqPortfolio/Math.max(1,totalIn) : null;
-
-  // #10: zaokrúhliť nahor na €10 — deklarované tu, použité v DOM aj renderIncTable
-  const monthlyPMTRounded = monthlyPMT > 0 ? Math.ceil(monthlyPMT / 10) * 10 : 0;
 
   // Update DOM — zóna-vedomé zobrazenie
   // PATCH-D2: v unstable zóne zobraziť rozsah, nie presné číslo
@@ -9407,7 +9410,7 @@ function calcReverse(){
   // G5: multiplierValid=false when PMT=0 (totalIn≈ini) — ratio would be meaningless
   $el('rv-multiplier').textContent = stabilityZone === 'unstable' ? '—'
     : !multiplierValid ? '—'
-    : multiplier.toFixed(2).replace('.',',')+'×';
+    : multiplier.toFixed(1).replace('.',',')+'×';
 
   // ── SUSTAINABILITY: how long will the portfolio last? ──
   // Simulácia výberu — SPRÁVNA NOMINÁLNA METÓDA
@@ -9508,7 +9511,7 @@ function calcReverse(){
       <td style="color:${isCur?'#c4b5fd':'var(--text)'};font-weight:${isCur?500:400}">${fmtP(sc)}${isCur?' ◀':''}</td>
       <td style="color:${isCur?'#c4b5fd':'var(--muted2)'};font-weight:${isCur?500:400}">${fmt(pmt)}/mes.</td>
       <td style="color:var(--muted2)">${fmt(tIn)}</td>
-      <td style="text-align:right;color:var(--emerald)">${mult.toFixed(2).replace('.',',')}×</td>`;
+      <td style="text-align:right;color:var(--emerald)">${mult.toFixed(1).replace('.',',')}×</td>`;
     tbody1.appendChild(tr);
   });
   } // end else (not unstable) for sensitivity table 1
