@@ -14338,6 +14338,9 @@ function calcDebt(){
     return;
   }
 
+  // Find highest-rate debt (avalanche method)
+  const sorted = [...debtRows].filter(d=>+d.balance>0 && +d.rate>0).sort((a,b)=>b.rate-a.rate);
+
   // Populate debt-compare-sel with all valid debts
   const compareSel = $el('debt-compare-sel');
   if(compareSel){
