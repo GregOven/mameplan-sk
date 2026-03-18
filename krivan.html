@@ -8222,7 +8222,8 @@ function skTax(gains, includeZP, cfg) {
 
 function calcRows(p){
   const{ini,mon,inc,yr,ret,fee,inf,sy,lumps}=p;
-  const effRet=ret-fee,mr=Math.pow(1+effRet,1/12)-1;
+  // Presná multiplikatívna metóda: (1+hrubý)×(1−TER)−1 (Fisherov vzorec pre TER)
+  const effRet=(1+ret)*(1-fee)-1, mr=Math.pow(1+effRet,1/12)-1;
   let bal=ini,tc=ini;
   const rows=[{y:0,cal:sy,bal:Math.round(bal),tc:Math.round(tc),gains:0,real:Math.round(bal),mon:mon,lump:0}];
   for(let y=1;y<=yr;y++){
@@ -9099,9 +9100,9 @@ function calcReverse(){
   // Nominálny výnos po poplatkoch — správna báza pre simulácie
   const netNominal = (1 + ret) * (1 - fee) - 1;
   const gr = (1 + netNominal) / (1 + inf) - 1;  // presný reálny výnos po poplatkoch a inflácii
-  const retNet = ret - fee;                // nominálna báza pre simuláciu — ponecháme (portfólio rastie nominálne)
+  const retNet = (1+ret)*(1-fee)-1;              // presná nominálna báza po TER — multiplikatívna
   const inc=$v('rvr-inc')/100;
-  const effRet=ret-fee;
+  const effRet=(1+ret)*(1-fee)-1;               // zhodné s retNet — multiplikatívna metóda
 
   // Update labels
   $el('rvl-yr').textContent=yr;
@@ -9409,8 +9410,8 @@ function renderDelay(p, rows){
     return 'rokov';
   }
 
-  const effRet = p.ret - p.fee;
-  const mr = Math.pow(1+effRet, 1/12) - 1; // monthly real return (nominal; real FV already discounted)
+  const effRet = (1+p.ret)*(1-p.fee)-1;  // presná multiplikatívna TER metóda
+  const mr = Math.pow(1+effRet, 1/12) - 1; // monthly rate (nominal; real FV already discounted)
 
   // PMT needed to generate FV over n months at monthly rate r
   function catchUpPMT(fv, n){
@@ -9561,7 +9562,7 @@ function calcFIRE(){
   const inf      = +infRaw/100;
   const wr       = $v('firer-wr')/100;
   const gyr      = $v('firer-gyr');
-  const effRet   = ret - fee;
+  const effRet   = (1+ret)*(1-fee)-1;   // multiplikatívna TER metóda
 
   // Update labels
   // firel-mon label bol pre slider — nahradený priamym number inputom
@@ -9606,7 +9607,7 @@ function calcFIRE(){
 
   const results = scenarios.map(sc => {
     // Bez umelého floor — záporný effRet = portfólio klesá v reálnej hodnote
-    const effR = sc.ret - fee;
+    const effR = (1+sc.ret)*(1-fee)-1;  // multiplikatívna TER metóda
     return { ...sc, sim: fireSim(ini, mon, inc, effR, inf, wr, expenses, MAX_M) };
   });
 
@@ -9747,7 +9748,7 @@ function calcFIRE(){
         <div style="font-size:15.6px;color:var(--muted2);line-height:2;">
           ${s.reached
             ? (() => {
-                const effR = Math.max(0.001, r.ret - fee);
+                const effR = Math.max(0.001, (1+r.ret)*(1-fee)-1);  // multiplikatívna TER metóda
                 const sy = sustainYears(s.nomAtFIRE, expenses, inf, effR);
                 const syNum = sy === null ? Infinity : sy;
                 const buffer = syNum - gyr;
@@ -10145,7 +10146,7 @@ function initBacktest(){
   tbody.innerHTML='';
   Object.entries(MSCI_WORLD_ANNUAL).reverse().forEach(([yr,ret])=>{
     const fee=_btStartYear?+document.getElementById('bt-r-fee').value:0.2;
-    const netRet=ret-fee;
+    const netRet=((1+ret/100)*(1-fee/100)-1)*100;  // multiplikatívna TER metóda
     const tr=document.createElement('tr');
     tr.innerHTML=`<td>${yr}</td>
       <td style="color:${ret>=0?'var(--emerald)':'var(--red)'};">${ret>=0?'+':''}${ret.toFixed(1).replace('.',',')}%</td>
@@ -10171,7 +10172,7 @@ function calcBacktest(){
     [...tbody.children].forEach((tr,i)=>{
       const yr=Object.keys(MSCI_WORLD_ANNUAL).reverse()[i];
       const ret=MSCI_WORLD_ANNUAL[yr];
-      const netRet=ret-fee;
+      const netRet=((1+ret/100)*(1-fee/100)-1)*100;  // multiplikatívna TER metóda
       tr.children[2].textContent=`${netRet>=0?'+':''}${netRet.toFixed(2).replace('.',',')}%`;
       tr.children[2].style.color=netRet>=0?'var(--emerald2)':'var(--red)';
     });
@@ -10191,7 +10192,7 @@ function calcBacktest(){
   const labelsData=[_btStartYear];
 
   dataYears.forEach((yr,i)=>{
-    const annualRet=(MSCI_WORLD_ANNUAL[yr]-fee)/100;
+    const annualRet=(1+MSCI_WORLD_ANNUAL[yr]/100)*(1-fee/100)-1; // multiplikatívna TER metóda
     const mr=Math.pow(1+annualRet,1/12)-1;
     const mNow=mon; // flat monthly contribution for simplicity
     for(let m=0;m<12;m++){balReal=balReal*(1+mr)+mNow;ctb+=mNow;}
@@ -10311,7 +10312,7 @@ function calcFIFO(){
   const wr      = $v('r-wr') / 100;
   const inf     = p.inf;
   const yr      = p.yr;
-  const effRet  = p.ret - p.fee;   // nominálny výnos po TER
+  const effRet  = (1+p.ret)*(1-p.fee)-1;   // presná nominálna báza po TER — multiplikatívna
   const retYear = (p.sy || new Date().getFullYear()) + yr;
 
   /* ── 1. Celkové vklady (geometrická suma ak inc > 0) ──────────────────
